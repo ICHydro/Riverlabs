@@ -56,7 +56,7 @@ LESS IMPORTANT NOTE: There is about a 10 second delay between the moment that th
 
 `RtcDateTime compiled = RtcDateTime(__DATE__, __TIME__) + 10;`
 
-You can also adjust this line if you want to programme in a different time zone:
+You can also adjust this line if you want to program in a different time zone:
 
 `RtcDateTime compiled = RtcDateTime(__DATE__, __TIME__) - TZ * 3600 + 10;`
 
@@ -71,7 +71,7 @@ Do not forget to reconnect the sensor to the board after finishing the upload.
 
 ## Debugging
 
-For simple debugging, you can use the debug serial pinouts on the board and the FTDI cable. Disconnect the FTDI cable from the FTDI and connect the "GND" pin to the black wire of the FTDI cable, and the other pin to the yellow (serial in) wire of the FTDI cable using breadboard jumper wires. Open the Serial Monitor in the Arduino app, set the baud rate to 115200 and reset the board by hitting the reset button. You should now see the debugging information appearing on the monitor.
+For simple debugging, you can use the debug serial pinouts on the board and the FTDI cable. Connect the "GND" pin of the DBG pins on the Wari board to the black wire of the FTDI cable, and the other pin to the yellow (serial in) wire of the FTDI cable using breadboard jumper wires. Open the Serial Monitor in the Arduino app, set the baud rate to 115200 and reset the board by hitting the reset button. You should now see the debugging information appearing on the monitor.
 
 ## Troubleshooting
 
