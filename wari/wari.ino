@@ -456,6 +456,7 @@ void setup()
     } else {
         #ifdef DEBUG
             DebugSerial.println(F("Failed to flush EEPROM. SD card missing? Continuing anyway."));
+            error(3, ErrorLED);
         #endif     
     }
 

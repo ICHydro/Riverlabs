@@ -1,6 +1,6 @@
-# Wari Water Level Sensor
+# WMOnode Lidar-based Water Level Sensor
 
-This is the Arduino code for the Riverlabs Wari water level sensor.
+This is the Arduino code for the Riverlabs WMOnode water level sensor.
 
 To upload the code, use the procedure outlined below.
 
@@ -8,7 +8,7 @@ To upload the code, use the procedure outlined below.
 
 ### 1. Get an FTDI cable
 
-To minimize component cost, the Wari logger does not have a USB connection. Instead it uses a serial interface that can be programmed with a USB to Serial (TTL level) converter. The most common tools are based on the FTDI chip and consist of either a small breakout board (such as the [Sparkfun board](https://www.sparkfun.com/products/9873)), which can be connected to your computer with a micro-USB cable, or an [FTDI cable](https://www.sparkfun.com/products/9717) that can be connected directly to your computer. FTDI boards and cables come in either 3.3V and 5V versions. The Wari is compatible with both, but we recommend the 3.3V version.
+To minimize component cost, the WMOnode logger does not have a USB connection. Instead it uses a serial interface that can be programmed with a USB to Serial (TTL level) converter. The most common tools are based on the FTDI chip and consist of either a small breakout board (such as the [Sparkfun board](https://www.sparkfun.com/products/9873)), which can be connected to your computer with a micro-USB cable, or an [FTDI cable](https://www.sparkfun.com/products/9717) that can be connected directly to your computer. FTDI boards and cables come in either 3.3V and 5V versions. WMOnode is compatible with both, but we recommend the 3.3V version.
 
 Follow [these instructions](https://learn.sparkfun.com/tutorials/how-to-install-ftdi-drivers) to install the drivers of the FTDI chip on your computer.
 
@@ -21,22 +21,25 @@ You can use either the desktop application or the web editor. Instructions to in
 The code uses the following external libraries that need to be installed separately:
 
 * RTC by Makuna
-* SdFat (we use the original version by Bill Greiman)
 * Rocketscream LowPower
 
-The first two libraries can be installed via the Arduino app, following the [instructions](https://www.arduino.cc/en/Guide/Libraries) on the Arduino website.
+The first library can be installed via the Arduino app, following the [instructions](https://www.arduino.cc/en/Guide/Libraries) on the Arduino website.
 
 The Rocketscream LowPower library is not available via the Arduino app. You will need to download the code from the [Github page](https://github.com/rocketscream/Low-Power) and put it manually in your Arduino libraries folder (see Manual Installation on the [Arduino instructions page](https://www.arduino.cc/en/Guide/Libraries))
 
-### 4. Connect the Wari to your computer with the FTDI cable or breakout board
+### 4. Power considerations
 
-Set the power switch to "Off" or remove the battery from the board. The FTDI cable (and most breakout boards) supply power directly from the USB port to the Wari, which will interfere with the battery.
+The logger has a power switch, which is labelled "ON (Batt) / OFF (ftdi)". This means that the logger is supplied with power from the battery when on (as you would expect). In the off state, the logger will receive power from the ftdi cable, if one is connected, and otherwise will not have any power.
 
-Disconnect the sensor from the Wari by unplugging the white connector. The serial communication of the FTDI cable uses the same port, which causes interference.
+This makes it possible to program the logger without a battery (as the logger will get power from the ftdi cable), which is convenient. But you can also program the logger when a battery is inserted, either in the OFF position (when the battery is disconnected, and the logger gets power from the ftdi cable) and in the ON position (when the logger will get power from the battery).
 
-Plug the FTDI cable or breakout board onto the FTDI pins of the Wari board. Mind the direction: the board has indications "GRN" and "BLK" to show which side the green and black wires should go.
+This design also makes it impossible to connect the ftdi power and the battery power at the same time, which may damage the battery (as it may be forced with 5V power from the USB port via the ftdi cable).
 
-### 5. Set the board in the Arduino interface
+### 5. Connect the WMOnode to your computer with the FTDI cable or breakout board
+
+Plug the FTDI cable or breakout board onto the FTDI pins of the WMOnode board. The black pin (GND) is on the side of the SD card slot.
+
+### 6. Set the board in the Arduino interface
 
 Choose the following board settings in the Arduino IDE (under the "tools" menu):
 * Board: Arduino Pro or Pro Mini
@@ -67,19 +70,14 @@ in which you replace 'TZ' by the time offset (in hours) between your computer's 
 
 ### 7. Upload the logger code
 
-Download and open the "wari.ino" script, and hit the "upload" button. If the upload finishes successfully, the LED light will light up for about a second, and the logger is good to go.
-
-Do not forget to reconnect the sensor to the logger after finishing the upload.
+Download and open the "WMOnode.ino" script, and hit the "upload" button. 
 
 ## Debugging
 
-For simple debugging, you can use the debug serial pinouts on the board and the FTDI cable. Connect the "GND" pin of the DBG pins on the Wari board to the black wire of the FTDI cable, and the other pin to the yellow (serial in) wire of the FTDI cable using breadboard jumper wires. Open the Serial Monitor in the Arduino app, set the baud rate to 115200 and reset the board by hitting the reset button. You should now see the debugging information appearing on the monitor.
+For simple debugging, you can use the debug serial pinouts on the board and the FTDI cable. Connect the "GND" pin of the DBG pins on the WMOnode to the black wire of the FTDI cable, and the other pin to the yellow (serial in) wire of the FTDI cable using breadboard jumper wires. Open the Serial Monitor in the Arduino app, set the baud rate to 115200 and reset the board by hitting the reset button. You should now see the debugging information appearing on the monitor.
 
 ## Troubleshooting
 
-> when compiling the code, I get the error: "SdFat.h: No such file or directory"
-
-The SdFat library is not properly installed. This may also happen for other libraries such as LowPower.h (Rocketscream library) or RtcDS3231.h (Rtc library).
 
 > when compiling, I get the error "This LowPower library only works on AVR processors"
 
@@ -88,9 +86,8 @@ Make sure that you select the right board, i.e. "Arduino Pro or Pro Mini"
 > When uploading the code, I get the error "programmer is not responding"
 
 Make sure that:
-* the Maxbotix sensor is disconnected. The sensor and the FTDI cable use the same serial port, and the sensor will interfere with the serial communication between the computer and the Wari if it is connected;
 * you have selected the right board in the Arduino IDE;
-* the FTDI cable is properly connected to the board. Mind the pin layout: the green wire should be on the side that says "GRN", and the black wire should be on the side that says "BLK".
+* the FTDI cable is properly connected to the board. Mind the pin layout: the green wire should be on the outside and the black wire should be on the side of the SD card slot.
 
 
 
