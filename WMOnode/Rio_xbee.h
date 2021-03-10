@@ -3,8 +3,8 @@
 
 //#include "Rio.h"
 #include <Arduino.h>
-#include <XBee_dev.h>
-#include <Rio_COAP.h>
+#include "XBee_dev.h"
+#include "Rio_COAP.h"
 #if defined(__AVR_ATmega328P__)
     #include <SoftwareSerial.h>
 #endif
