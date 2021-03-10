@@ -21,9 +21,12 @@ You can use either the desktop application or the web editor. Instructions to in
 The code uses the following external libraries that need to be installed separately:
 
 * RTC by Makuna
+* SoftwareSerial
+* SDFat
+* AltSoftSerial
 * Rocketscream LowPower
 
-The first library can be installed via the Arduino app, following the [instructions](https://www.arduino.cc/en/Guide/Libraries) on the Arduino website.
+The first 4 libraries can be installed via the Arduino app, following the [instructions](https://www.arduino.cc/en/Guide/Libraries) on the Arduino website.
 
 The Rocketscream LowPower library is not available via the Arduino app. You will need to download the code from the [Github page](https://github.com/rocketscream/Low-Power) and put it manually in your Arduino libraries folder (see Manual Installation on the [Arduino instructions page](https://www.arduino.cc/en/Guide/Libraries))
 
