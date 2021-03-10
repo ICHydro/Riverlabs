@@ -2,7 +2,6 @@
 #include <Arduino.h>
 #include <Wire.h>
 #include <RtcDS3231.h>
-#include "Rio_EEPROM.h"
 #include "Rio.h"
 
 #define countof(a) (sizeof(a) / sizeof(a[0]))
@@ -132,7 +131,7 @@ uint8_t CreateEepromSendBuffer(uint16_t start, byte *mask) {
     for(i = 0; i < (2 + MAXFIT / 8); i++) {
         mask[i] = i2c_eeprom_read_byte(EEPROM_ADDR, OFFSET3GMASK + start/8 + i);
     }
-    DebugSerial.println("");
+    Serial.println("");
     
     // count how may records we'll copy. Note: this can probably be done faster, but works for now.
     // as avr boards do not support the C++ bitset, one potential alternative is to use a uint64_t as bit array and do byteshifting.
@@ -170,7 +169,7 @@ uint8_t CreateEepromSendBuffer(uint16_t start, byte *mask) {
     // write the data
     bool first = 1;
 
-    DebugSerial.print(F("Reading pages "));
+    Serial.print(F("Reading pages "));
 
     for(i = 0; i < MAXFIT; i++) {
         index = (i + start % 8) / 8;                    // index of the mask byte
@@ -205,7 +204,7 @@ uint8_t CreateEepromSendBuffer(uint16_t start, byte *mask) {
         }
     }
 
-    DebugSerial.println("");
+    Serial.println("");
 
     return(count);                                      // number of pages that has been copied into the EEPROM send buffer
 

@@ -9,7 +9,7 @@
     #include <SoftwareSerial.h>
 #endif
 
-#define DEBUGSERIAL DebugSerial
+#define DEBUGSERIAL Serial
 
 #ifndef Rio_xbee_h
 #define Rio_xbee_h
@@ -77,12 +77,6 @@ extern CellularStatus seqStatus;
 extern uint32_t IP;
 extern const uint16_t Port;
 extern uint8_t protocol;
-
-
-#if defined(__AVR_ATmega328P__)
-    extern SoftwareSerial DebugSerial; 
-#endif
-
 
 extern XBeeWithCallbacks xbc;
 extern uint32_t IPaddr;

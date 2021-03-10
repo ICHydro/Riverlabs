@@ -1086,16 +1086,16 @@ uint8_t PayloadRequest::getPayload(uint16_t index) {
 			t = _payloadPtr[index];
 		}
 	    //char t = pgm_read_byte_near(myLogger.PayloadHeader1 + index);
-		DEBUGSERIAL.print(t);
-//		DEBUGSERIAL.print(" ");
+		Serial.print(t);
+//		Serial.print(" ");
 		return(t);
 //	} else if(index < (myLogger.PayloadHeader1Length + myLogger.PayloadHeader2Length)){
 //		return(myLogger.PayloadHeader2[index - myLogger.PayloadHeader1Length]);
 //	} else {
 		// from here onwards, we read from the EEPROM. Note that we skip the EEPromHeader 
 		//	return(_payloadPtr[index - myLogger.PayloadHeader1Length - myLogger.PayloadHeader2Length]);
-//    	DebugSerial.print(i2c_eeprom_read_byte(EEPROM_ADDR, index - myLogger.PayloadHeader1Length - myLogger.PayloadHeader2Length + EEPromHeaderSize * EEPromPageSize), HEX);
-//		DebugSerial.print(" ");
+//    	Serial.print(i2c_eeprom_read_byte(EEPROM_ADDR, index - myLogger.PayloadHeader1Length - myLogger.PayloadHeader2Length + EEPromHeaderSize * EEPromPageSize), HEX);
+//		Serial.print(" ");
 //		return(i2c_eeprom_read_byte(EEPROM_ADDR, index - myLogger.PayloadHeader1Length - myLogger.PayloadHeader2Length + EEPromHeaderSize * EEPromPageSize));
 //	}
 	//return _payloadPtr[index];
@@ -2055,5 +2055,3 @@ uint16_t IPRxResponse::getDataLength() {
 uint8_t IPRxResponse::getDataOffset() {
 	return 10;
 }
-
-

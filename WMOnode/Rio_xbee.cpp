@@ -19,10 +19,10 @@ void checkForRegistrationMessage() {
       // a modem status message was received, check to see whether it contains value 2, 
       xbc.getResponse().getModemStatusResponse(modemStatusResponse);
       int modemStatus = modemStatusResponse.getStatus();
-      DEBUGSERIAL.print(F("Modem Status Response = "));
-      DEBUGSERIAL.println(modemStatus, HEX);
+      Serial.print(F("Modem Status Response = "));
+      Serial.println(modemStatus, HEX);
       if (modemStatus == 2) {
-        DEBUGSERIAL.println(F("Registered with the cellular network"));
+        Serial.println(F("Registered with the cellular network"));
         seqStatus.isRegistered = true;
       }
     } else {
@@ -30,8 +30,8 @@ void checkForRegistrationMessage() {
       printUnexpectedMessage();
     }
   } else if (xbc.getResponse().isError()) {
-    DEBUGSERIAL.print(F("XBee error. error code is "));
-    DEBUGSERIAL.println(xbc.getResponse().getErrorCode(), DEC);
+    Serial.print(F("XBee error. error code is "));
+    Serial.println(xbc.getResponse().getErrorCode(), DEC);
     seqStatus.xbcErrorOccurred = true;
   }
 }
@@ -46,10 +46,10 @@ void getAIResponse() {
       xbc.getResponse().getAtCommandResponse(atResponse);
       
       if (atResponse.isOk()) {
-        DEBUGSERIAL.println(atResponse.getValue()[0]);
+        Serial.println(atResponse.getValue()[0]);
         if (atResponse.getValueLength() == 1) {
           if (atResponse.getValue()[0] == 0) {
-            DEBUGSERIAL.println(F("Internet connection established"));
+            Serial.println(F("Internet connection established"));
             seqStatus.isConnected = true;
           } else {
             // Force another AI command
@@ -57,24 +57,24 @@ void getAIResponse() {
           }
         } else {
           // This should never happen
-          DEBUGSERIAL.println(F("Failed to get AI value from AI command"));
+          Serial.println(F("Failed to get AI value from AI command"));
           seqStatus.xbcErrorOccurred = true;
         }
       } 
       else {
-        DEBUGSERIAL.print(F("Command returned error code: "));
-        DEBUGSERIAL.println(atResponse.getStatus(), HEX);
+        Serial.print(F("Command returned error code: "));
+        Serial.println(atResponse.getStatus(), HEX);
        seqStatus.xbcErrorOccurred = true;
       }
     } else {
       printUnexpectedMessage();
     }   
   } else if (xbc.getResponse().isError()) {
-      DEBUGSERIAL.print(F("Error reading packet.  Error code: "));  
-      DEBUGSERIAL.println(xbc.getResponse().getErrorCode());
+      Serial.print(F("Error reading packet.  Error code: "));  
+      Serial.println(xbc.getResponse().getErrorCode());
       seqStatus.xbcErrorOccurred = true;
   } else {
-    DEBUGSERIAL.println(F("No response."));
+    Serial.println(F("No response."));
   }
 }
 
@@ -104,14 +104,14 @@ void getLAResponse() {
 
         if (atResponse.getValueLength() == 4) {
           // The IP address should be 4 bytes
-          DEBUGSERIAL.print(F("IP Address: "));
+          Serial.print(F("IP Address: "));
           
           for (int i = 0; i < atResponse.getValueLength(); i++) {
-            DEBUGSERIAL.print(atResponse.getValue()[i], HEX);
-            DEBUGSERIAL.print(" ");
+            Serial.print(atResponse.getValue()[i], HEX);
+            Serial.print(" ");
           }
 
-          DEBUGSERIAL.println("");
+          Serial.println("");
 
           IPaddr = (((uint32_t)atResponse.getValue()[0]) << 24) + 
                    (((uint32_t)atResponse.getValue()[1]) << 16) +   //WB changed. Bug in Isabella's original version?
@@ -122,8 +122,8 @@ void getLAResponse() {
         }
       } 
       else {
-        DEBUGSERIAL.print(F("Command return error code: "));
-        DEBUGSERIAL.println(atResponse.getStatus(), HEX);
+        Serial.print(F("Command return error code: "));
+        Serial.println(atResponse.getStatus(), HEX);
         seqStatus.xbcErrorOccurred = true;
       }
     } else {
@@ -132,11 +132,11 @@ void getLAResponse() {
   } else {
     // AT command failed
     if (xbc.getResponse().isError()) {
-      DEBUGSERIAL.print(F("Error reading packet.  Error code: "));  
-      DEBUGSERIAL.println(xbc.getResponse().getErrorCode());
+      Serial.print(F("Error reading packet.  Error code: "));  
+      Serial.println(xbc.getResponse().getErrorCode());
       seqStatus.xbcErrorOccurred = true;
     } else {
-      DEBUGSERIAL.println(F("No response from XBee"));
+      Serial.println(F("No response from XBee"));
     }
   }
 }
@@ -179,15 +179,15 @@ void readIPResponse() {
     if (xbc.getResponse().getApiId() == RX_IP4_RESPONSE) {
       // a message was received from the internet, so copy to ipResponse object for convenience
       ipResponse.init(xbc.getResponse());
-      printIPRX(ipResponse, DEBUGSERIAL);
+      printIPRX(ipResponse, Serial);
       seqStatus.ipResponseReceived = true;
     } else {
       printUnexpectedMessage();
       seqStatus.gotStatusResponse = true;
     }
   } else if (xbc.getResponse().isError()) {
-    DEBUGSERIAL.print(F("XBee error. error code is "));
-    DEBUGSERIAL.println(xbc.getResponse().getErrorCode(), DEC);
+    Serial.print(F("XBee error. error code is "));
+    Serial.println(xbc.getResponse().getErrorCode(), DEC);
     seqStatus.xbcErrorOccurred = true;
   }
 }
@@ -198,22 +198,22 @@ void printUnexpectedMessage() {
   if (xbc.getResponse().getApiId() == MODEM_STATUS_RESPONSE) {
     // a modem status message was received
     xbc.getResponse().getModemStatusResponse(modemStatusResponse);
-    DEBUGSERIAL.print(F("Modem Status Response = "));
-    DEBUGSERIAL.println(modemStatusResponse.getStatus(), HEX);
+    Serial.print(F("Modem Status Response = "));
+    Serial.println(modemStatusResponse.getStatus(), HEX);
     seqStatus.gotStatusResponse = true;
   } else {
     // Generic print of other packets
-    DEBUGSERIAL.print(F("API="));
-    DEBUGSERIAL.print(xbc.getResponse().getApiId(), HEX);
-    DEBUGSERIAL.print(F(",frame="));
+    Serial.print(F("API="));
+    Serial.print(xbc.getResponse().getApiId(), HEX);
+    Serial.print(F(",frame="));
 
     // print frame data
     for (int i = 0; i < xbc.getResponse().getFrameDataLength(); i++) {
-      DEBUGSERIAL.print(xbc.getResponse().getFrameData()[i], HEX);
-      DEBUGSERIAL.print(" ");
+      Serial.print(xbc.getResponse().getFrameData()[i], HEX);
+      Serial.print(" ");
     }
 
-    DEBUGSERIAL.println("");
+    Serial.println("");
   }
 }
 
@@ -306,8 +306,8 @@ void zbIPResponseCb(IPRxResponse& ipResponse, uintptr_t) {
   // Note that any incoming IP message is considered a success, even if it does not 
   // contain the complete transmission from the web server.
   // This is not reaslistic as a TCP message can be fragmented across multiple packets.
-  DEBUGSERIAL.println(F("Callback - IP4 message received"));
-  printIPRX(ipResponse, DEBUGSERIAL);
+  Serial.println(F("Callback - IP4 message received"));
+  printIPRX(ipResponse, Serial);
   seqStatus.ipResponseReceived = true;
 }
 
@@ -319,20 +319,20 @@ void zbIPResponseCb_COAP(IPRxResponse& ipResponse, uintptr_t) {
   // Note that any incoming IP message is considered a success, even if it does not 
   // contain the complete transmission from the web server.
   // This is not realistic as a TCP message can be fragmented across multiple packets.
-  DEBUGSERIAL.println(F("Callback - IP4 message received"));
-  printIPRX(ipResponse, DEBUGSERIAL);
+  Serial.println(F("Callback - IP4 message received"));
+  printIPRX(ipResponse, Serial);
   CoapPacket cp;
   cp.parseMessage(ipResponse.getData(), ipResponse.getDataLength());
-  cp.print(DEBUGSERIAL);
+  cp.print(Serial);
 
  // TODO: process coap response fully
   if(cp.type == 2) {
-    DEBUGSERIAL.println(F("COAP acknowledgement received (2)"));
+    Serial.println(F("COAP acknowledgement received (2)"));
     seqStatus.CoapSentAcknowledged = true;
     seqStatus.ipResponseReceived = 1;
   }
   if(cp.type == 0) {
-    DEBUGSERIAL.println(F("COAP acknowledgeable message received (type = 0)"));
+    Serial.println(F("COAP acknowledgeable message received (type = 0)"));
     seqStatus.CoapSent203Received = true;
     // send acknowledgement:
     uint8_t buffer[5];    // can be small becuase it is only an acknowledgement.
@@ -346,12 +346,12 @@ void zbIPResponseCb_COAP(IPRxResponse& ipResponse, uintptr_t) {
     packet.messageid = cp.messageid;
     packetSize = packet.createMessage(buffer);
     
-    DEBUGSERIAL.print(F("Sending acknowledgement: "));
+    Serial.print(F("Sending acknowledgement: "));
     for(int i = 0; i < packetSize; i++) {
-        DEBUGSERIAL.print(buffer[i], HEX);
-        DEBUGSERIAL.print(" ");
+        Serial.print(buffer[i], HEX);
+        Serial.print(" ");
     }
-    DEBUGSERIAL.println("");
+    Serial.println("");
 
     seqStatus.ipRequestSentOk = false;     // reset this
 
@@ -363,9 +363,9 @@ void zbIPResponseCb_COAP(IPRxResponse& ipResponse, uintptr_t) {
     }
 
     if(seqStatus.ipRequestSentOk) {
-      DEBUGSERIAL.println(F("COAP 2.03 acknowledgement successfully sent. Transaction finished."));
+      Serial.println(F("COAP 2.03 acknowledgement successfully sent. Transaction finished."));
     } else {
-      DEBUGSERIAL.println(F("Xbee did not (yet) confirm. Acknowledgement assumed to be sent."));
+      Serial.println(F("Xbee did not (yet) confirm. Acknowledgement assumed to be sent."));
     }
   }
 }
@@ -382,21 +382,21 @@ void zbIPResponseCb_COAP(IPRxResponse& ipResponse, uintptr_t) {
 
 void zbModemStatusCb(ModemStatusResponse& mx, uintptr_t) {
   int modemStatus = mx.getStatus();
-  DEBUGSERIAL.print(F("Callback - Modem Status Response= "));
-  DEBUGSERIAL.println(modemStatus, HEX);
+  Serial.print(F("Callback - Modem Status Response= "));
+  Serial.println(modemStatus, HEX);
   if (modemStatus == 2) {
-    DEBUGSERIAL.println(F("Registered with the cellular network"));
+    Serial.println(F("Registered with the cellular network"));
     seqStatus.isRegistered = true;
   } else if (modemStatus == 3) {
-    DEBUGSERIAL.println(F("Unregistered with the cellular network"));
+    Serial.println(F("Unregistered with the cellular network"));
     seqStatus.isRegistered = false;
   } else if (modemStatus == 0) {
-    DEBUGSERIAL.println(F("Hardware reset or power up"));
+    Serial.println(F("Hardware reset or power up"));
     seqStatus.isRegistered = false;
   } else if (modemStatus == 0x0E) {
-    DEBUGSERIAL.println(F("Remote Manager connected"));
+    Serial.println(F("Remote Manager connected"));
   } else if (modemStatus == 0x0F) {
-    DEBUGSERIAL.println(F("Remote Manager disconnected"));
+    Serial.println(F("Remote Manager disconnected"));
   }
 }
 
@@ -404,9 +404,9 @@ void zbModemStatusCb(ModemStatusResponse& mx, uintptr_t) {
 void zbLAResponseCb(AtCommandResponse& atr, uintptr_t) {
   // We expect the callback to be from the DNS Lookup Command LA
   if (atr.getCommand()[0] != 'L' || atr.getCommand()[1] != 'A') {
-    DEBUGSERIAL.print(F("Callback - expected a response to LA command, but received response to "));
-    DEBUGSERIAL.print(atr.getCommand()[0]);
-    DEBUGSERIAL.println(atr.getCommand()[0]);
+    Serial.print(F("Callback - expected a response to LA command, but received response to "));
+    Serial.print(atr.getCommand()[0]);
+    Serial.println(atr.getCommand()[0]);
     seqStatus.xbcErrorOccurred = true;
     return;
   }
@@ -414,36 +414,36 @@ void zbLAResponseCb(AtCommandResponse& atr, uintptr_t) {
   if (atr.isOk()) {
     if (atr.getValueLength() == 4) {
       // The IP address should be 4 bytes
-      DEBUGSERIAL.print(F("Callback - IP Address: "));
+      Serial.print(F("Callback - IP Address: "));
           
       for (int i = 0; i < atr.getValueLength(); i++) {
-        DEBUGSERIAL.print(atr.getValue()[i], HEX);
-        DEBUGSERIAL.print(' ');
+        Serial.print(atr.getValue()[i], HEX);
+        Serial.print(' ');
       }
 
-      DEBUGSERIAL.println();
+      Serial.println();
 
       IP = (((uint32_t)atr.getValue()[0]) << 24) + 
            (((uint32_t)atr.getValue()[1]) << 16) + 
            (((uint32_t)atr.getValue()[2]) << 8) + 
            atr.getValue()[3], 
-      //DEBUGSERIAL.println(IP, HEX);
+      //Serial.println(IP, HEX);
       seqStatus.hostIPResolved = true;
     }
   } else {
-    DEBUGSERIAL.print(F("Command return error code: "));
-    DEBUGSERIAL.println(atr.getStatus(), HEX);
+    Serial.print(F("Command return error code: "));
+    Serial.println(atr.getStatus(), HEX);
     seqStatus.xbcErrorOccurred = true;
   }
 }
 
 void zbTcpSendResponseCb(TxStatusResponse& txr, uintptr_t) {
   if (txr.isSuccess()) {
-    DEBUGSERIAL.println(F("Callback - Transmission was successful!"));
+    Serial.println(F("Callback - Transmission was successful!"));
     seqStatus.ipRequestSentOk = true;
   } else {
-    DEBUGSERIAL.print(F("Transmission returned error code: "));
-    DEBUGSERIAL.println(txr.getStatus(), HEX);
+    Serial.print(F("Transmission returned error code: "));
+    Serial.println(txr.getStatus(), HEX);
     seqStatus.xbcErrorOccurred = true;
   }
 }
@@ -478,22 +478,22 @@ void sendXbeeMessage(uint8_t* buffer, uint16_t bufferSize, char *host, uint8_t h
     } else if(!seqStatus.isConnected) {
       // Send an AT command to get the Association Indicator
       // This is zero when an internet connection has been established
-      getAIStatus(DEBUGSERIAL, &AIstatus);
+      getAIStatus(Serial, &AIstatus);
     } else if (!seqStatus.hostIPResolved) {
       // This is the DNS lookup section
       // A request is made to lookup an IP address and response handled in callback function zbLAResponseCb
       if (!seqStatus.dnsLookupRequested) {
         // Send a lookup request command
-        DEBUGSERIAL.println(F("Sending DNS Lookup")); 
+        Serial.println(F("Sending DNS Lookup")); 
         sendDNSLookupCommand(host, hostlength); // note: -t is needed because C string has "\0" at the end!
       }
     } else if (!seqStatus.ipRequestSent) {
       // Send the request
       // The response is handled in callback function zbTcpSendResponseCb
-      DEBUGSERIAL.print(F("Sending TCP request to "));
-      DEBUGSERIAL.print(IP, HEX);
-      DEBUGSERIAL.print(F(", port "));
-      DEBUGSERIAL.println(Port, HEX);
+      Serial.print(F("Sending TCP request to "));
+      Serial.print(IP, HEX);
+      Serial.print(F(", port "));
+      Serial.println(Port, HEX);
       //tcpSend(IP, Port, protocol, buffer, bufferSize);
       tcpSend(IP, Port, protocol, EEPROM, bufferSize);
     } else if (!seqStatus.ipResponseReceived) {
@@ -504,8 +504,8 @@ void sendXbeeMessage(uint8_t* buffer, uint16_t bufferSize, char *host, uint8_t h
     // Check the number of successful TCP send/receive cycles.
     if (!seqStatus.xbcErrorOccurred && seqStatus.ipResponseReceived) {
       msgCount++;
-      DEBUGSERIAL.print(F("Success! Messages sent & received: "));
-      DEBUGSERIAL.println(msgCount);
+      Serial.print(F("Success! Messages sent & received: "));
+      Serial.println(msgCount);
       if (msgCount < maxMessages) {
         seqStatus.ipRequestSent = false;
         seqStatus.ipRequestSentOk = false;
@@ -516,7 +516,7 @@ void sendXbeeMessage(uint8_t* buffer, uint16_t bufferSize, char *host, uint8_t h
     // do anything else here while waiting..
     // In this case, print a "Waiting" message occasionally
     if (waitingMessageTime > waitingMessageTimeout) {
-      DEBUGSERIAL.println(F("Waiting..."));
+      Serial.println(F("Waiting..."));
       waitingMessageTime = 0;
     } else {
       waitingMessageTime += timeInMillis - lastTimeInMillis;
@@ -526,7 +526,7 @@ void sendXbeeMessage(uint8_t* buffer, uint16_t bufferSize, char *host, uint8_t h
     lastTimeInMillis = timeInMillis;
     timeInMillis = millis() - startTime;
     if (timeInMillis >= timeout) {
-      DEBUGSERIAL.println(F("Timeout error"));
+      Serial.println(F("Timeout error"));
       seqStatus.xbcErrorOccurred = true;
     }
   }

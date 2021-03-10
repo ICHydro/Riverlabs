@@ -51,7 +51,6 @@
 #include <Wire.h>
 #include <SdFat.h>
 #include <AltSoftSerial.h>
-#include <SoftwareSerial.h>
 #include <LowPower.h>
 #include <avr/power.h>
 
@@ -80,10 +79,6 @@ class RioLogger
 #include "Rio_Sensors.h"
 
 /* declaration of global variables */
-
-#if DEBUG > 0
-    extern SoftwareSerial DebugSerial;
-#endif
 
 extern RtcDS3231<TwoWire> Rtc;
 extern SdFat SD;

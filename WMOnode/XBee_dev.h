@@ -29,14 +29,6 @@
 #include <inttypes.h>
 #include <EEPROM.h>
 
-// WB:
-#if defined(__AVR_ATmega328P__)
-    #include <SoftwareSerial.h>
-    extern SoftwareSerial DebugSerial;
-	#define DEBUGSERIAL DebugSerial
-#endif
-// end WB
-
 #define SERIES_1
 #define SERIES_2
 

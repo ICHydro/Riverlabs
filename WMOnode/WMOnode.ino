@@ -91,7 +91,6 @@ uint8_t MaxContentLength;
 // use a softserial for debugging
 
 #if DEBUG > 0
-    SoftwareSerial DebugSerial(5,4);                // RX, TX
     AltSoftSerial XBeeSerial;
 #endif
 
@@ -129,7 +128,7 @@ void setup ()
 {
     
     #if DEBUG == 1
-        DebugSerial.begin(115200);
+        Serial.begin(115200);
     #endif
 
     /* set the pins */
@@ -191,21 +190,21 @@ void setup ()
     day = now.Day();
 
     #ifdef DEBUG
-        DebugSerial.println("");
-        DebugSerial.print(F("This is Rio node_v1, compiled on "));
-        DebugSerial.println(__DATE__);
-        DebugSerial.print(F("Logger ID: "));
-        DebugSerial.println(LoggerID);
-        DebugSerial.print(F("Current time is "));
+        Serial.println("");
+        Serial.print(F("This is Rio node_v1, compiled on "));
+        Serial.println(__DATE__);
+        Serial.print(F("Logger ID: "));
+        Serial.println(LoggerID);
+        Serial.print(F("Current time is "));
         formatDateTime(now);
-        DebugSerial.print(datestring);
-        DebugSerial.println(F(" GMT"));
-        DebugSerial.println(F("Measuring the following variables:"));
+        Serial.print(datestring);
+        Serial.println(F(" GMT"));
+        Serial.println(F("Measuring the following variables:"));
         #ifdef LIDARLITE
-            DebugSerial.println(F("- Distance (Lidarlite sensor)"));
+            Serial.println(F("- Distance (Lidarlite sensor)"));
         #endif
-        DebugSerial.print(F("Measurement interval (minutes): "));
-        DebugSerial.println(READ_INTERVAL);
+        Serial.print(F("Measurement interval (minutes): "));
+        Serial.println(READ_INTERVAL);
     #endif
 
     /* set interrupts */
@@ -237,16 +236,16 @@ void setup ()
         delay(1000);
         
         // check whether we can connect to the XBee:
-        if(!getAIStatus(DebugSerial, &AIstatus)) {
+        if(!getAIStatus(Serial, &AIstatus)) {
           
-            DebugSerial.println(F("Error communicating with Xbee. Resetting"));
+            Serial.println(F("Error communicating with Xbee. Resetting"));
             digitalWrite(XBEE_RESETPIN, LOW);
             delay(500);
             digitalWrite(XBEE_RESETPIN, HIGH);
             delay(1000);
-            if(!getAIStatus(DebugSerial, &AIstatus)){
+            if(!getAIStatus(Serial, &AIstatus)){
                 error(3, ErrorLED);
-                DebugSerial.println(F("Unable to reset XBee"));
+                Serial.println(F("Unable to reset XBee"));
             }
         }
         // sleeping XBee
@@ -264,7 +263,7 @@ void setup ()
         
     #endif
 
-    DebugSerial.flush();
+    Serial.flush();
 
 }
 
@@ -288,8 +287,8 @@ void loop ()
         flag = Rtc.LatchAlarmsTriggeredFlags();       // returns zero if no alarm
         
         #ifdef DEBUG
-            DebugSerial.println(F("Alarm went off during code execution..."));
-            DebugSerial.flush();
+            Serial.println(F("Alarm went off during code execution..."));
+            Serial.flush();
         #endif
 
         now = Rtc.GetDateTime();
@@ -304,8 +303,8 @@ void loop ()
             while(!interruptFlag) {}              // wait for interrupt if not sleeping
         #else 
             #ifdef DEBUG
-                DebugSerial.print(F("S"));
-                DebugSerial.flush();
+                Serial.print(F("S"));
+                Serial.flush();
             #endif
             #if defined(__MKL26Z64__)
                 Snooze.hibernate( config_digital );
@@ -318,8 +317,8 @@ void loop ()
         // when woken up...
 
         #ifdef DEBUG
-            DebugSerial.print(F("W"));
-            DebugSerial.flush();
+            Serial.print(F("W"));
+            Serial.flush();
         #endif
 
         flag = Rtc.LatchAlarmsTriggeredFlags();   // switch off the alarm
@@ -354,7 +353,7 @@ void loop ()
 
         #ifdef DEBUG
             formatDateTime(now);
-            DebugSerial.println(datestring);
+            Serial.println(datestring);
         #endif
 
         // Voltage
@@ -362,8 +361,8 @@ void loop ()
         measuredvbat = analogRead(VBATPIN) * 2 * 3.3 / 1.024;
 
         #ifdef DEBUG
-            DebugSerial.print(F("VBatt = "));
-            DebugSerial.println(measuredvbat);
+            Serial.print(F("VBatt = "));
+            Serial.println(measuredvbat);
         #endif
 
         // Temperature from clock
@@ -371,19 +370,19 @@ void loop ()
         temp = Rtc.GetTemperature().AsCentiDegC();
 
         #ifdef DEBUG
-            DebugSerial.print(F("T = "));
-            DebugSerial.println(temp);
+            Serial.print(F("T = "));
+            Serial.println(temp);
         #endif
         
         // measure Lidar
 
         #ifdef LIDARLITE
-            readLidarLite(readings, NREADINGS, 1, DebugSerial);
+            readLidarLite(readings, NREADINGS, 1, Serial);
             distance = median(readings, NREADINGS);
         
             #ifdef DEBUG
-                DebugSerial.print(F("Distance (lidar) = "));
-                DebugSerial.println(distance);
+                Serial.print(F("Distance (lidar) = "));
+                Serial.println(distance);
             #endif
         #endif
 
@@ -452,8 +451,8 @@ void loop ()
             if(!EepromBufferCreated) {
                 // TODO: read buffer and obtain starting position. Perhaps also calculate the pagecount here.
                 startposition = getBufferStartPosition();
-                DebugSerial.print("Startposition: ");
-                DebugSerial.println(startposition);
+                Serial.print("Startposition: ");
+                Serial.println(startposition);
                 packet.messageid = rand();
                 bufferSize = packet.createMessageHeader(EEPROM);
                 pagecount = CreateEepromSendBuffer(startposition, Eeprom3Gmask);
@@ -475,7 +474,7 @@ void loop ()
                     // because the callback function will set this automatically.
                     
                     if (waitingMessageTime > 5000) {
-                        getAIStatus(DEBUGSERIAL, &AIstatus);
+                        getAIStatus(Serial, &AIstatus);
                         waitingMessageTime = 0;
                     } else {
                         waitingMessageTime += timeInMillis - lastTimeInMillis;
@@ -502,7 +501,7 @@ void loop ()
             
             if (pagecount == 0) {
               
-                DebugSerial.println(F("All data sent. Sleeping."));
+                Serial.println(F("All data sent. Sleeping."));
                 digitalWrite(XBEE_SLEEPPIN, HIGH);
                 seqStatus.tryagain = 0;
                 seqStatus.reset();
@@ -519,10 +518,10 @@ void loop ()
                 seqStatus.tryagain--;
                 seqStatus.reset();                 // TODO: this will reset seqStatus.isconnected, even though the Xbee will still be connected
                 if(seqStatus.tryagain > 0) {
-                    DebugSerial.println(F("Error. Trying again next wakeup."));
+                    Serial.println(F("Error. Trying again next wakeup."));
                 } else {
                     digitalWrite(XBEE_SLEEPPIN, HIGH);
-                    DebugSerial.println(F("All attempts failed. Sleeping xbee modem."));
+                    Serial.println(F("All attempts failed. Sleeping xbee modem."));
                 }
             }
         }
