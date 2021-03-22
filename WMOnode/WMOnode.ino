@@ -58,7 +58,7 @@ CellularStatus seqStatus;
     AltSoftSerial XBeeSerial;
     uint8_t resb[100];                            // XBee's responsebuffer
     XBeeWithCallbacks xbc = XBeeWithCallbacks(resb, sizeof(resb));  // needs to be done this way, so we can delete the object, see https://forum.arduino.cc/index.php?topic=376860.0
-    const char host[] = "riverflow.io";           // set to your COAP server
+    const char host[] = "demo.thingsboard.io";           // set to your COAP server
     uint32_t IP = 0;
     const uint16_t Port = 0x1633;                 // 0x50 = 80; 0x1BB = 443, 0x1633 = 5683 (COAP)
     uint8_t protocol = 0;                         // 0 for UDP, 1 for TCP, 4 for SSL over TCP
@@ -74,7 +74,7 @@ CellularStatus seqStatus;
     char MsgLength = 0;
     char Option0[] = "api";
     char Option1[] = "v1";
-    char Option2[] = "qWPuisAVwozd89xXktRB";
+    char Option2[] = "A1_TEST_TOKEN";
     char Option3[] = "telemetry";
     CoapPacket packet; 
     bool EepromBufferCreated = 0;
