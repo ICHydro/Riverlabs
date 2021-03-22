@@ -239,4 +239,3 @@ void CoapPacket::print(Stream &stream) {
         stream.println();
     }
 }
-

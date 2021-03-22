@@ -23,7 +23,6 @@
 #define DS18S20PIN A3
 #define MBSERIALPIN 0
 #define DEBUGTX 4
-#define FLASH_SPI_PIN 6
 #define XBEE_SLEEPPIN A1
 #define XBEE_RESETPIN 6
 
@@ -59,17 +58,8 @@ class RioLogger
   public:
     RioLogger();
     void write2EEPROM(byte *, uint8_t length);
-    //uint16_t PayloadHeader1Length;
-    //uint16_t PayloadHeader2Length;
-    //uint16_t PayloadTotalLength;
-    //uint16_t PayloadTotalHeaderLength;
-    //char *PayloadHeader1;
-    //char *PayloadHeader2;
     uint8_t EEPROMaddress;
     uint16_t eePageAddress;
-    //bool HasLidar;
-    //bool HasUltrasound;
-    //bool HasDS18S20;
   private:
     // int _pin;
 };

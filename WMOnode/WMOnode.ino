@@ -57,8 +57,8 @@ CellularStatus seqStatus;
     
     AltSoftSerial XBeeSerial;
     uint8_t resb[100];                            // XBee's responsebuffer
-    XBeeWithCallbacks xbc(resb, sizeof(resb)); 
-    const char host[] = "demo.thingsboard.io";         // set to your COAP server
+    XBeeWithCallbacks xbc = XBeeWithCallbacks(resb, sizeof(resb));  // needs to be done this way, so we can delete the object, see https://forum.arduino.cc/index.php?topic=376860.0
+    const char host[] = "riverflow.io";           // set to your COAP server
     uint32_t IP = 0;
     const uint16_t Port = 0x1633;                 // 0x50 = 80; 0x1BB = 443, 0x1633 = 5683 (COAP)
     uint8_t protocol = 0;                         // 0 for UDP, 1 for TCP, 4 for SSL over TCP
@@ -70,11 +70,11 @@ CellularStatus seqStatus;
     uint32_t startposition = 0;
     uint8_t AIstatus;
     uint8_t pagecount;
-    char token[] = "test";                         // to be replaced by loggerID
+    char token[] = "tk";                           // to be randomised
     char MsgLength = 0;
     char Option0[] = "api";
     char Option1[] = "v1";
-    char Option2[] = "A1_TEST_TOKEN";
+    char Option2[] = "qWPuisAVwozd89xXktRB";
     char Option3[] = "telemetry";
     CoapPacket packet; 
     bool EepromBufferCreated = 0;
@@ -137,24 +137,14 @@ void setup ()
     pinMode(VBATPIN, INPUT);
 
     #ifdef Boost5V_on
-        pinMode(Boost5V_on, OUTPUT);    // do them outside the ifdef in case ultrasound logger has the hardware
+        pinMode(Boost5V_on, OUTPUT);
         pinMode(SWITCH5V, OUTPUT);
         digitalWrite(Boost5V_on, LOW);
         digitalWrite(SWITCH5V, LOW);
-    #endif  
-
-    #ifdef FLASH_SPI_PIN
-        pinMode(FLASH_SPI_PIN, OUTPUT);
-        digitalWrite(FLASH_SPI_PIN, LOW);
     #endif
 
     #ifdef XBEE_SLEEPPIN
-        pinMode(XBEE_SLEEPPIN, OUTPUT);
-        digitalWrite(XBEE_SLEEPPIN, HIGH);
-    #endif
-    
-    #if defined(__MKL26Z64__)
-        pinMode(17, OUTPUT);   // needed? May reduce power consumption during hibernate for TeensyLC
+        pinMode(XBEE_SLEEPPIN, INPUT);   // do not set high but keep floating
     #endif
 
     #ifdef LIDARLITE
@@ -187,7 +177,7 @@ void setup ()
 
     #ifdef DEBUG
         Serial.println("");
-        Serial.print(F("This is Rio node_v1, compiled on "));
+        Serial.print(F("This is Riverlabs WMOnode, compiled on "));
         Serial.println(__DATE__);
         Serial.print(F("Logger ID: "));
         Serial.println(LoggerID);
@@ -246,8 +236,8 @@ void setup ()
             }
         }
         // sleeping XBee
-        
-        digitalWrite(XBEE_SLEEPPIN, HIGH);
+
+        pinMode(XBEE_SLEEPPIN, INPUT);                        // do not set high - see above
 
         packet.type = COAP_CON;                               // 0 = confirmable
         packet.code = 2;                                      // 0.02 = post method
@@ -290,7 +280,7 @@ void loop ()
 
         now = Rtc.GetDateTime();
 
-        if(now.Minute() % READ_INTERVAL != 0) {    // only measure every READ_INTERVAL minutes
+        if((now.Minute() % READ_INTERVAL) != 0) {    // only measure every READ_INTERVAL minutes
             interruptFlag = false;
         }
         
@@ -334,6 +324,7 @@ void loop ()
             if (((now.Hour() % SEND_INTERVAL) == 0) && (now.Minute() == 0)) {   // only on the hour itself!
                 seqStatus.tryagain = 5;                                         // maximum number of tries
                 // awake the xbee already so that it can start connecting while we do other stuff.
+                pinMode(XBEE_SLEEPPIN, OUTPUT);
                 digitalWrite(XBEE_SLEEPPIN, LOW);
                 XbeeWakeUpTime = millis();                                                 // used for timeout
             }
@@ -450,7 +441,7 @@ void loop ()
                 startposition = getBufferStartPosition();
                 Serial.print("Startposition: ");
                 Serial.println(startposition);
-                packet.messageid = rand();
+                packet.messageid = rand();                   // rand() returns int16_t, random() returns int_32
                 bufferSize = packet.createMessageHeader(EEPROM);
                 pagecount = CreateEepromSendBuffer(startposition, Eeprom3Gmask);
                 if(pagecount > 0) {                          // if pagecount is zero then there is nothing to send
@@ -472,6 +463,7 @@ void loop ()
                     
                     if (waitingMessageTime > 5000) {
                         getAIStatus(Serial, &AIstatus);
+                        if(AIstatus == 0) { seqStatus.isRegistered = 1;}           // in case we somehow missed the callback 
                         waitingMessageTime = 0;
                     } else {
                         waitingMessageTime += timeInMillis - lastTimeInMillis;
@@ -499,7 +491,7 @@ void loop ()
             if (pagecount == 0) {
               
                 Serial.println(F("All data sent. Sleeping."));
-                digitalWrite(XBEE_SLEEPPIN, HIGH);
+                pinMode(XBEE_SLEEPPIN, INPUT);                   // do not set high. Deassert instead
                 seqStatus.tryagain = 0;
                 seqStatus.reset();
                 
@@ -513,7 +505,8 @@ void loop ()
             } else if(timeInMillis > 120000) {
               
                 seqStatus.tryagain--;
-                seqStatus.reset();                 // TODO: this will reset seqStatus.isconnected, even though the Xbee will still be connected
+                seqStatus.reset();                
+                seqStatus.isRegistered = true;
                 if(seqStatus.tryagain > 0) {
                     Serial.println(F("Error. Trying again next wakeup."));
                 } else {
