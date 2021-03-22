@@ -54,6 +54,8 @@ DS3231AlarmFlag flag;
 CellularStatus seqStatus;
 
 #ifdef TRANSMIT_3G
+    
+    AltSoftSerial XBeeSerial;
     uint8_t resb[100];                            // XBee's responsebuffer
     XBeeWithCallbacks xbc(resb, sizeof(resb)); 
     const char host[] = "demo.thingsboard.io";         // set to your COAP server
@@ -87,12 +89,6 @@ uint16_t DeltaT;
 uint16_t measuredvbat;
 int16_t temp;
 uint8_t MaxContentLength;
-
-// use a softserial for debugging
-
-#if DEBUG > 0
-    AltSoftSerial XBeeSerial;
-#endif
 
 RioLogger myLogger = RioLogger();
 
@@ -222,7 +218,7 @@ void setup ()
         XBeeSerial.begin(9600);
         pinMode(XBEE_SLEEPPIN, OUTPUT);
         digitalWrite(XBEE_SLEEPPIN, LOW);                     // allow starting up
-        pinMode(XBEE_RESETPIN, INPUT);
+        pinMode(XBEE_RESETPIN, INPUT);                        // set by default on input. We should never set this high to avoid a potential short circuit in case xbee sets it low.
         //
 
         xbc.setSerial(XBeeSerial);
@@ -239,9 +235,10 @@ void setup ()
         if(!getAIStatus(Serial, &AIstatus)) {
           
             Serial.println(F("Error communicating with Xbee. Resetting"));
+            pinMode(XBEE_RESETPIN, OUTPUT); 
             digitalWrite(XBEE_RESETPIN, LOW);
             delay(500);
-            digitalWrite(XBEE_RESETPIN, HIGH);
+            digitalWrite(XBEE_RESETPIN, INPUT);               // do not set high - if xbee pulls low for some reason we have a short circuit, and deasserting is sufficient.
             delay(1000);
             if(!getAIStatus(Serial, &AIstatus)){
                 error(3, ErrorLED);
