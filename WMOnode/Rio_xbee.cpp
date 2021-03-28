@@ -122,7 +122,7 @@ void getLAResponse() {
         }
       } 
       else {
-        Serial.print(F("Command return error code: "));
+        Serial.print(F("LA command return error code: "));
         Serial.println(atResponse.getStatus(), HEX);
         seqStatus.xbcErrorOccurred = true;
       }
@@ -270,13 +270,13 @@ bool getAIStatus(Stream &stream, uint8_t *returnvalue) {
     if (atResponse.isOk()) {
       if (atResponse.getValueLength() == 1) {
         if (atResponse.getValue()[0] == 0) {
-          stream.println(F("Internet connection established"));
+          // stream.println(F("Internet connection established"));
           seqStatus.isConnected = true;
           return(1);
         } else {
-          stream.print(F("AI status = "));
+          // stream.print(F("AI status = "));
           *returnvalue = atResponse.getValue()[0];
-          stream.println(*returnvalue);
+          // stream.println(*returnvalue);
           return(1);
         }
       } else {
@@ -297,6 +297,41 @@ bool getAIStatus(Stream &stream, uint8_t *returnvalue) {
     return(0);
     // TOD); move this out of this function
     seqStatus.xbcErrorOccurred = true;        
+  }
+}
+
+bool getDBStatus(Stream &stream, uint8_t *returnvalue) {
+  // Get the DB status from the modem.
+  // A callback could be used, so as not to block, but in this case a quick response is expected
+  // as no internet messages need be sent/received, so sendAndWait() is used instead.
+
+  // association status command
+  uint8_t assocCmd[] = {'D','B'};
+  AtCommandRequest atRequest(assocCmd, 0, 1);
+  // XBee AT Command response object
+  // This object is used to receive an AT command response frame
+  AtCommandResponse atResponse;
+  
+  uint8_t status = xbc.sendAndWait(atRequest, 150);
+  
+  if (status == 0) {
+    xbc.getResponse().getAtCommandResponse(atResponse);
+    if (atResponse.isOk()) {
+        stream.print(F("Cellular signal strength = "));
+        *returnvalue = atResponse.getValue()[0];
+        stream.println(*returnvalue, HEX);
+        return(1);
+    } else {
+        stream.print(F("DB Command returned error code: "));
+        *returnvalue = atResponse.getStatus();
+        stream.println(*returnvalue, HEX);
+        seqStatus.xbcErrorOccurred = true;
+        return(0);
+    }
+  } else {
+    stream.print(F("sendAndWait() returned error code when attempting to get AI indicator: "));
+    stream.println(status);
+    return(0);        
   }
 }
 
@@ -431,7 +466,7 @@ void zbLAResponseCb(AtCommandResponse& atr, uintptr_t) {
       seqStatus.hostIPResolved = true;
     }
   } else {
-    Serial.print(F("Command return error code: "));
+    Serial.print(F("LA Command return error code: "));
     Serial.println(atr.getStatus(), HEX);
     seqStatus.xbcErrorOccurred = true;
   }
@@ -449,87 +484,45 @@ void zbTcpSendResponseCb(TxStatusResponse& txr, uintptr_t) {
 }
 
 void sendXbeeMessage(uint8_t* buffer, uint16_t bufferSize, char *host, uint8_t hostlength) {
-  
-  // Reset the sequence statuses
-  // seqStatus.reset();  // WB: now done outside of this function
-  // TESTING - SKIP DNS LOOKUP BY UNCOMMENTING THIS LINE
-  //seqStatus.hostIPResolved = true;
 
-  // The maximum time in ms to for the whole sequence to complete. The sequence is aborted if it
-  // takes longer than this.
-  unsigned long timeout = 120000;
-  // timeInMillis contains the number of milliseconds since the start of the sequence
-  unsigned long timeInMillis = 0, lastTimeInMillis = 0, startTime = millis();
-  // Variables used to control how frequently the "Waiting..." message is output
-  unsigned long waitingMessageTime = 0, waitingMessageTimeout = 5000;
-  // The number of times to send TCP messages and current count
-  uint16_t maxMessages = 1, msgCount = 0;  
-  uint8_t AIstatus;
+    // Skip DNS by uncommenting this line:
+    //seqStatus.hostIPResolved = true;
 
-  // Loop until successful or an error occurs
-  // WB: should we wait here for ipResponseReceived? Should be OK to just wait for the XBee confirmation and do the rest later.
+    // Do not wait for ipResponseReceived, which is handled by the callback.
+    // Just wait for the XBee confirmation.
 
-  while (!seqStatus.xbcErrorOccurred && !seqStatus.ipResponseReceived && msgCount < maxMessages) {
-    xbc.loop();
-
-    if (!seqStatus.isRegistered) {
-      // Not yet registered on the network, so do nothing
-      // The check for registration is done in callback function zbModemStatusCb
-    } else if(!seqStatus.isConnected) {
-      // Send an AT command to get the Association Indicator
-      // This is zero when an internet connection has been established
-      getAIStatus(Serial, &AIstatus);
-    } else if (!seqStatus.hostIPResolved) {
-      // This is the DNS lookup section
-      // A request is made to lookup an IP address and response handled in callback function zbLAResponseCb
-      if (!seqStatus.dnsLookupRequested) {
-        // Send a lookup request command
-        Serial.println(F("Sending DNS Lookup")); 
-        sendDNSLookupCommand(host, hostlength); // note: -t is needed because C string has "\0" at the end!
-      }
-    } else if (!seqStatus.ipRequestSent) {
-      // Send the request
-      // The response is handled in callback function zbTcpSendResponseCb
-      Serial.print(F("Sending TCP request to "));
-      Serial.print(IP, HEX);
-      Serial.print(F(", port "));
-      Serial.println(Port, HEX);
-      //tcpSend(IP, Port, protocol, buffer, bufferSize);
-      tcpSend(IP, Port, protocol, EEPROM, bufferSize);
-    } else if (!seqStatus.ipResponseReceived) {
-      // process incoming IP messages until complete, or host closes the connection.
-      // There is nothing to do here as the processing is handled in callback function zbIPResponseCb
-    }
-
-    // Check the number of successful TCP send/receive cycles.
-    if (!seqStatus.xbcErrorOccurred && seqStatus.ipResponseReceived) {
-      msgCount++;
-      Serial.print(F("Success! Messages sent & received: "));
-      Serial.println(msgCount);
-      if (msgCount < maxMessages) {
-        seqStatus.ipRequestSent = false;
-        seqStatus.ipRequestSentOk = false;
-        seqStatus.ipResponseReceived = false;
-      }
-    }
+    if (!seqStatus.xbcErrorOccurred && !seqStatus.ipResponseReceived) {
+        xbc.loop();
     
-    // do anything else here while waiting..
-    // In this case, print a "Waiting" message occasionally
-    if (waitingMessageTime > waitingMessageTimeout) {
-      Serial.println(F("Waiting..."));
-      waitingMessageTime = 0;
-    } else {
-      waitingMessageTime += timeInMillis - lastTimeInMillis;
+        if (!seqStatus.hostIPResolved) {
+            // This is the DNS lookup section
+            // A request is made to lookup an IP address and response handled in callback function zbLAResponseCb
+            if (!seqStatus.dnsLookupRequested) {
+              // Send a lookup request command
+              Serial.println(F("Sending DNS Lookup")); 
+              sendDNSLookupCommand(host, hostlength);
+            }
+        } else if (!seqStatus.ipRequestSent) {
+            // Send the request
+            // The response is handled in callback function zbTcpSendResponseCb
+            Serial.print(F("Sending TCP request to "));
+            Serial.print(IP, HEX);
+            Serial.print(F(", port "));
+            Serial.println(Port, HEX);
+            //tcpSend(IP, Port, protocol, buffer, bufferSize);
+            tcpSend(IP, Port, protocol, EEPROM, bufferSize);
+        } else if (!seqStatus.ipResponseReceived) {
+          // process incoming IP messages until complete, or host closes the connection.
+          // There is nothing to do here as the processing is handled in callback function zbIPResponseCb
+        }
+    
+        // Reset status if successful
+        if (!seqStatus.xbcErrorOccurred && seqStatus.ipResponseReceived) {
+            seqStatus.ipRequestSent = false;
+            seqStatus.ipRequestSentOk = false;
+            seqStatus.ipResponseReceived = false;
+        }
     }
-
-    // Check for timeout
-    lastTimeInMillis = timeInMillis;
-    timeInMillis = millis() - startTime;
-    if (timeInMillis >= timeout) {
-      Serial.println(F("Timeout error"));
-      seqStatus.xbcErrorOccurred = true;
-    }
-  }
 }
 
 /* Quick hack to enable EEPROM version: */

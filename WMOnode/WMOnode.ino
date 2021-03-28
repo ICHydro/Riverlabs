@@ -69,6 +69,7 @@ CellularStatus seqStatus;
     uint32_t waitingMessageTime = 0;
     uint32_t startposition = 0;
     uint8_t AIstatus;
+    uint8_t DB;
     uint8_t pagecount;
     char token[] = "tk";                           // to be randomised
     char MsgLength = 0;
@@ -89,6 +90,7 @@ uint16_t DeltaT;
 uint16_t measuredvbat;
 int16_t temp;
 uint8_t MaxContentLength;
+bool timeout;
 
 RioLogger myLogger = RioLogger();
 
@@ -96,17 +98,6 @@ RioLogger myLogger = RioLogger();
     OneWire oneWire(DS18S20PIN);
     DallasTemperature sensors(&oneWire);
     DeviceAddress tempDeviceAddress; 
-#endif
-
-//sd card related stuff:
-#if defined(WRITE_SD_DIRECT) || defined(WRITE_EEPROM_TO_SD)
-    SdFat SD;
-    SdFile dataFile;
-    char filename[] = "00000000.CSV";
-    boolean SDcardOn;
-    byte keep_SPCR;
-    uint8_t status;
-    boolean fileopen = false;
 #endif
 
 //EEPROM stuff
@@ -218,25 +209,29 @@ void setup ()
         xbc.onTxStatusResponse(zbTcpSendResponseCb);
         xbc.onIPRxResponse(zbIPResponseCb_COAP);
     
-        // wait a bit for power to settle...
-        delay(1000);
+        // wait a bit for power to settle and XBee to start up.
+        delay(2000);
         
         // check whether we can connect to the XBee:
+
         if(!getAIStatus(Serial, &AIstatus)) {
           
             Serial.println(F("Error communicating with Xbee. Resetting"));
             pinMode(XBEE_RESETPIN, OUTPUT); 
             digitalWrite(XBEE_RESETPIN, LOW);
             delay(500);
-            digitalWrite(XBEE_RESETPIN, INPUT);               // do not set high - if xbee pulls low for some reason we have a short circuit, and deasserting is sufficient.
-            delay(1000);
+            pinMode(XBEE_RESETPIN, INPUT);
+            delay(2000);                                      // XBee needs 2s to restart
             if(!getAIStatus(Serial, &AIstatus)){
                 error(3, ErrorLED);
                 Serial.println(F("Unable to reset XBee"));
             }
+        } else {
+          Serial.print(F("AI status = "));
+          Serial.println(AIstatus);
         }
+        
         // sleeping XBee
-
         pinMode(XBEE_SLEEPPIN, INPUT);                        // do not set high - see above
 
         packet.type = COAP_CON;                               // 0 = confirmable
@@ -261,8 +256,8 @@ void loop ()
 
     /* At the start of the loop, the logger can be in the following states:
      *  
-     *  - Alarm has gone off while doing something else -> check first what to do
-     *  - Logger was waken up by clock -> check if it is time for measurement or telemetry
+     *  - Alarm has gone off while doing something else -> check what action to take
+     *  - Logger was waken up by clock                  -> check what action to take
      *  - Logger is waiting for modem (seqStatus.tryagain > 0) -> continue telemetry operation until finished or timed out.
      *  - If none of the above conditions applies, the modem can safely go to sleep.
      *  
@@ -284,7 +279,7 @@ void loop ()
             interruptFlag = false;
         }
         
-    } else if(seqStatus.tryagain == 0) {               // sleep until the next alarm
+    } else if((seqStatus.tryagain == 0) || timeout) {               // sleep until the next alarm
 
         #ifdef NOSLEEP                            // still useful?
             while(!interruptFlag) {}              // wait for interrupt if not sleeping
@@ -310,6 +305,7 @@ void loop ()
 
         flag = Rtc.LatchAlarmsTriggeredFlags();   // switch off the alarm
         interruptFlag = true;                     // should always be the case after being woken up?
+        timeout = false;                          // reset xbee timeout
 
         // determine what we need to do: taking a reading, transmit.
         
@@ -326,8 +322,13 @@ void loop ()
                 // awake the xbee already so that it can start connecting while we do other stuff.
                 pinMode(XBEE_SLEEPPIN, OUTPUT);
                 digitalWrite(XBEE_SLEEPPIN, LOW);
-                XbeeWakeUpTime = millis();                                                 // used for timeout
             }
+            // the XBee may actually still be awake from a previous telemetry attempt,
+            // but we still reset to all another full attempt
+            XbeeWakeUpTime = millis();                                          // used for timeout
+            timeInMillis = 0;
+            lastTimeInMillis = 0;
+            waitingMessageTime = 0;
         
         #endif
         
@@ -439,7 +440,7 @@ void loop ()
             if(!EepromBufferCreated) {
                 // TODO: read buffer and obtain starting position. Perhaps also calculate the pagecount here.
                 startposition = getBufferStartPosition();
-                Serial.print("Startposition: ");
+                Serial.print(F("Startposition: "));
                 Serial.println(startposition);
                 packet.messageid = rand();                   // rand() returns int16_t, random() returns int_32
                 bufferSize = packet.createMessageHeader(EEPROM);
@@ -454,23 +455,32 @@ void loop ()
 
             if(EepromBufferCreated && !seqStatus.ipRequestSent) {
 
-                if(seqStatus.isRegistered) {
-                   // Send COAP message. Wait for direct confirmation from COAP server, but not for 2.03 response.
-                   sendXbeeMessage(EEPROM, bufferSize, host, sizeof(host) - 1); // do not include "\0"
-                } else {
-                    // query and print the AI status every now and then, although this is not strictly necessary
-                    // because the callback function will set this automatically.
-                    
-                    if (waitingMessageTime > 5000) {
-                        getAIStatus(Serial, &AIstatus);
-                        if(AIstatus == 0) { seqStatus.isRegistered = 1;}           // in case we somehow missed the callback 
-                        waitingMessageTime = 0;
+                if(seqStatus.isRegistered) {                      // isRegistered is set by unsolicited status message
+                    if(!seqStatus.isConnected) { 
+                        getAIStatus(Serial, &AIstatus);           // will set is.Connected
                     } else {
-                        waitingMessageTime += timeInMillis - lastTimeInMillis;
+                      // Send COAP message. Wait for direct confirmation from COAP server, but not for 2.03 response.
+                      sendXbeeMessage(EEPROM, bufferSize, host, sizeof(host) - 1); // do not include "\0"
                     }
-                    lastTimeInMillis = timeInMillis;
-                    timeInMillis = millis() - XbeeWakeUpTime;
-                }  
+                }
+                
+                // check AI regularly so we can reset if the connection is lost at any point      
+                if (waitingMessageTime > 5000) {
+                    getAIStatus(Serial, &AIstatus);
+                    Serial.print(F("AI status = "));
+                    Serial.println(AIstatus);
+                    getDBStatus(Serial, &DB);
+                    if(AIstatus == 0) {
+                        seqStatus.isRegistered = 1;  // in case we somehow missed the callback
+                    } else {
+                        seqStatus.isRegistered = 0;  // It may be that we lost internet and need to start again
+                    }
+                    waitingMessageTime = 0;
+                } else {
+                    waitingMessageTime += timeInMillis - lastTimeInMillis;
+                }
+                lastTimeInMillis = timeInMillis;
+                timeInMillis = millis() - XbeeWakeUpTime;
             }
 
             // if we receive an acknowledgement, then EepromBufferCreated can be reset, and the 3G mask erased.
@@ -493,7 +503,7 @@ void loop ()
                 Serial.println(F("All data sent. Sleeping."));
                 pinMode(XBEE_SLEEPPIN, INPUT);                   // do not set high. Deassert instead
                 seqStatus.tryagain = 0;
-                seqStatus.reset();
+                seqStatus.reset();                               // maybe don't send 
                 
                 // Reset the logger's writing position when we get to the end of the EEPROM              
                 // Note that this is a stopgap until proper cycling is implemented.
@@ -503,14 +513,13 @@ void loop ()
                 }
                 
             } else if(timeInMillis > 120000) {
-              
                 seqStatus.tryagain--;
-                seqStatus.reset();                
-                seqStatus.isRegistered = true;
+                seqStatus.reset();
                 if(seqStatus.tryagain > 0) {
                     Serial.println(F("Error. Trying again next wakeup."));
+                    timeout = true;
                 } else {
-                    digitalWrite(XBEE_SLEEPPIN, HIGH);
+                    pinMode(XBEE_SLEEPPIN, INPUT);
                     Serial.println(F("All attempts failed. Sleeping xbee modem."));
                 }
             }

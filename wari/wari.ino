@@ -4,9 +4,9 @@
  * 2020/08/02
  * 
  * Upload by selecting the board "Arduino Pro or Pro Mini"
- * and processor "Atmega 328 P (3.3V, 8 MHz). 
+ * and processor "Atmega 328 P (3.3V, 8 MHz)". 
  * 
- * By default, the logger takes 10 repeated distance measurements 
+ * By default, the logger takes 10 -repeated distance measurements 
  * at an interval of 5 minutes (starting at the hour).
  * These are written to the internal EEPROM chip,
  * which is flushed to the SD card every 24 hours. 

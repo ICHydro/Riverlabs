@@ -84,6 +84,7 @@ extern uint32_t IPaddr;
 void checkForRegistrationMessage();
 void getAIResponse();
 bool getAIStatus(Stream &stream, uint8_t*);
+bool getDBStatus(Stream &stream, uint8_t*);
 void sendDNSLookupCommand(char*, int);
 void getLAResponse();
 void tcpSend(uint32_t, uint16_t, uint8_t, uint8_t*, uint16_t);
