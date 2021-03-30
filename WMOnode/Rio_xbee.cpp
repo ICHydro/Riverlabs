@@ -36,47 +36,47 @@ void checkForRegistrationMessage() {
   }
 }
 
-void getAIResponse() {
-  xbc.readPacket(2000);
-  if (xbc.getResponse().isAvailable()) {
-    // got a response!
-
-    // should be an AT command respons
-    if (xbc.getResponse().getApiId() == AT_COMMAND_RESPONSE) {
-      xbc.getResponse().getAtCommandResponse(atResponse);
-      
-      if (atResponse.isOk()) {
-        Serial.println(atResponse.getValue()[0]);
-        if (atResponse.getValueLength() == 1) {
-          if (atResponse.getValue()[0] == 0) {
-            Serial.println(F("Internet connection established"));
-            seqStatus.isConnected = true;
-          } else {
-            // Force another AI command
-            seqStatus.aiRequested = false;
-          }
-        } else {
-          // This should never happen
-          Serial.println(F("Failed to get AI value from AI command"));
-          seqStatus.xbcErrorOccurred = true;
-        }
-      } 
-      else {
-        Serial.print(F("Command returned error code: "));
-        Serial.println(atResponse.getStatus(), HEX);
-       seqStatus.xbcErrorOccurred = true;
-      }
-    } else {
-      printUnexpectedMessage();
-    }   
-  } else if (xbc.getResponse().isError()) {
-      Serial.print(F("Error reading packet.  Error code: "));  
-      Serial.println(xbc.getResponse().getErrorCode());
-      seqStatus.xbcErrorOccurred = true;
-  } else {
-    Serial.println(F("No response."));
-  }
-}
+//void getAIResponse() {
+//  xbc.readPacket(2000);
+//  if (xbc.getResponse().isAvailable()) {
+//    // got a response!
+//
+//    // should be an AT command respons
+//    if (xbc.getResponse().getApiId() == AT_COMMAND_RESPONSE) {
+//      xbc.getResponse().getAtCommandResponse(atResponse);
+//      
+//      if (atResponse.isOk()) {
+//        Serial.println(atResponse.getValue()[0]);
+//        if (atResponse.getValueLength() == 1) {
+//          if (atResponse.getValue()[0] == 0) {
+//            Serial.println(F("Internet connection established"));
+//            seqStatus.isConnected = true;
+//          } else {
+//            // Force another AI command
+//            seqStatus.aiRequested = false;
+//          }
+//        } else {
+//          // This should never happen
+//          Serial.println(F("Failed to get AI value from AI command"));
+//          seqStatus.xbcErrorOccurred = true;
+//        }
+//      } 
+//      else {
+//        Serial.print(F("Command returned error code: "));
+//        Serial.println(atResponse.getStatus(), HEX);
+//       seqStatus.xbcErrorOccurred = true;
+//      }
+//    } else {
+//      printUnexpectedMessage();
+//    }   
+//  } else if (xbc.getResponse().isError()) {
+//      Serial.print(F("Error reading packet.  Error code: "));  
+//      Serial.println(xbc.getResponse().getErrorCode());
+//      seqStatus.xbcErrorOccurred = true;
+//  } else {
+//    Serial.println(F("No response."));
+//  }
+//}
 
 
 void sendDNSLookupCommand(char address[], int len) {
@@ -122,7 +122,7 @@ void getLAResponse() {
         }
       } 
       else {
-        Serial.print(F("LA command return error code: "));
+        Serial.print(F("LA command returned error code: "));
         Serial.println(atResponse.getStatus(), HEX);
         seqStatus.xbcErrorOccurred = true;
       }
@@ -270,7 +270,8 @@ bool getAIStatus(Stream &stream, uint8_t *returnvalue) {
     if (atResponse.isOk()) {
       if (atResponse.getValueLength() == 1) {
         if (atResponse.getValue()[0] == 0) {
-          // stream.println(F("Internet connection established"));
+          *returnvalue = atResponse.getValue()[0];
+          //stream.println(F("Internet connection established"));
           seqStatus.isConnected = true;
           return(1);
         } else {
@@ -305,11 +306,8 @@ bool getDBStatus(Stream &stream, uint8_t *returnvalue) {
   // A callback could be used, so as not to block, but in this case a quick response is expected
   // as no internet messages need be sent/received, so sendAndWait() is used instead.
 
-  // association status command
   uint8_t assocCmd[] = {'D','B'};
   AtCommandRequest atRequest(assocCmd, 0, 1);
-  // XBee AT Command response object
-  // This object is used to receive an AT command response frame
   AtCommandResponse atResponse;
   
   uint8_t status = xbc.sendAndWait(atRequest, 150);
@@ -325,11 +323,10 @@ bool getDBStatus(Stream &stream, uint8_t *returnvalue) {
         stream.print(F("DB Command returned error code: "));
         *returnvalue = atResponse.getStatus();
         stream.println(*returnvalue, HEX);
-        seqStatus.xbcErrorOccurred = true;
         return(0);
     }
   } else {
-    stream.print(F("sendAndWait() returned error code when attempting to get AI indicator: "));
+    stream.print(F("sendAndWait() returned error code when attempting to get DB indicator: "));
     stream.println(status);
     return(0);        
   }
@@ -441,8 +438,9 @@ void zbLAResponseCb(AtCommandResponse& atr, uintptr_t) {
   if (atr.getCommand()[0] != 'L' || atr.getCommand()[1] != 'A') {
     Serial.print(F("Callback - expected a response to LA command, but received response to "));
     Serial.print(atr.getCommand()[0]);
-    Serial.println(atr.getCommand()[0]);
-    seqStatus.xbcErrorOccurred = true;
+    Serial.println(atr.getCommand()[1]);
+    // For now, just ignore. This is probably an AI or DB response coming in. The LA should still come.
+    //seqStatus.xbcErrorOccurred = true;
     return;
   }
   

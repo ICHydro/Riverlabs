@@ -17,10 +17,16 @@
 #define TRANSMIT_3G
 #define COAP
 
-#define READ_INTERVAL 5                           // read interval, in minutes
+
+/************* User settings **************/
+
+#define READ_INTERVAL 5                           // Interval for sensor readings, in minutes
 #define SEND_INTERVAL 1                           // telemetry interval, in hours
 #define NREADINGS 10                              // number of readings taken per measurement
-
+#define HOST "demo.thingsboard.io"                       // internet address of the IoT server
+#define ACCESSTOKEN "A1_TEST_TOKEN"        // COAP access token
+#define LOGGERID "MyLogger1"                      // Logger ID
+#define TIMEOUT 210                              // cellular timeout in seconds
 
 /* INCLUDES */
 
@@ -28,7 +34,7 @@
 
 /********** variable declarations **********/
 
-const char LoggerID[] = "MyLogger1";              // unique logger ID, to be used for data transmission and writing files.
+const char LoggerID[] = LOGGERID;              // unique logger ID, to be used for data transmission and writing files.
 
 uint32_t readstart = 0;
 int16_t readings[NREADINGS];
@@ -58,7 +64,7 @@ CellularStatus seqStatus;
     AltSoftSerial XBeeSerial;
     uint8_t resb[100];                            // XBee's responsebuffer
     XBeeWithCallbacks xbc = XBeeWithCallbacks(resb, sizeof(resb));  // needs to be done this way, so we can delete the object, see https://forum.arduino.cc/index.php?topic=376860.0
-    const char host[] = "demo.thingsboard.io";           // set to your COAP server
+    const char host[] = HOST;           // set to your COAP server
     uint32_t IP = 0;
     const uint16_t Port = 0x1633;                 // 0x50 = 80; 0x1BB = 443, 0x1633 = 5683 (COAP)
     uint8_t protocol = 0;                         // 0 for UDP, 1 for TCP, 4 for SSL over TCP
@@ -75,7 +81,7 @@ CellularStatus seqStatus;
     char MsgLength = 0;
     char Option0[] = "api";
     char Option1[] = "v1";
-    char Option2[] = "A1_TEST_TOKEN";
+    char Option2[] = ACCESSTOKEN;
     char Option3[] = "telemetry";
     CoapPacket packet; 
     bool EepromBufferCreated = 0;
@@ -316,7 +322,6 @@ void loop ()
         }
    
         #ifdef TRANSMIT_3G
-    
             if (((now.Hour() % SEND_INTERVAL) == 0) && (now.Minute() == 0)) {   // only on the hour itself!
                 seqStatus.tryagain = 5;                                         // maximum number of tries
                 // awake the xbee already so that it can start connecting while we do other stuff.
@@ -455,26 +460,32 @@ void loop ()
 
             if(EepromBufferCreated && !seqStatus.ipRequestSent) {
 
-                if(seqStatus.isRegistered) {                      // isRegistered is set by unsolicited status message
-                    if(!seqStatus.isConnected) { 
-                        getAIStatus(Serial, &AIstatus);           // will set is.Connected
-                    } else {
+                // let's ignore the unsolicited status message for now. This sets isRegistered, but
+                // this may not necessarily mean that the modem is connected to the internet, so we better
+                // wait until we explicitly have an AI status of zero.
+                // At worst we lose 5 seconds with this.
+
+                if(seqStatus.isConnected) {
+                    //if(!seqStatus.isConnected) { 
+                    //    getAIStatus(Serial, &AIstatus);           // will set is.Connected
+                    // } else {
                       // Send COAP message. Wait for direct confirmation from COAP server, but not for 2.03 response.
                       sendXbeeMessage(EEPROM, bufferSize, host, sizeof(host) - 1); // do not include "\0"
-                    }
+                    //}
                 }
                 
-                // check AI regularly so we can reset if the connection is lost at any point      
+                // check AI regularly     
                 if (waitingMessageTime > 5000) {
                     getAIStatus(Serial, &AIstatus);
                     Serial.print(F("AI status = "));
                     Serial.println(AIstatus);
                     getDBStatus(Serial, &DB);
-                    if(AIstatus == 0) {
-                        seqStatus.isRegistered = 1;  // in case we somehow missed the callback
-                    } else {
-                        seqStatus.isRegistered = 0;  // It may be that we lost internet and need to start again
-                    }
+                    //if(AIstatus == 0) {
+                    //    seqStatus.isRegistered = 1;  // in case we somehow missed the callback
+                    //}
+                    //if(AIstatus == 255) {
+                    //    seqStatus.isRegistered = 0;
+                    //}
                     waitingMessageTime = 0;
                 } else {
                     waitingMessageTime += timeInMillis - lastTimeInMillis;
@@ -503,7 +514,7 @@ void loop ()
                 Serial.println(F("All data sent. Sleeping."));
                 pinMode(XBEE_SLEEPPIN, INPUT);                   // do not set high. Deassert instead
                 seqStatus.tryagain = 0;
-                seqStatus.reset();                               // maybe don't send 
+                seqStatus.reset();
                 
                 // Reset the logger's writing position when we get to the end of the EEPROM              
                 // Note that this is a stopgap until proper cycling is implemented.
@@ -512,11 +523,11 @@ void loop ()
                     myLogger.eePageAddress = 0;
                 }
                 
-            } else if(timeInMillis > 120000) {
+            } else if(((timeInMillis/1000) > TIMEOUT) || seqStatus.xbcErrorOccurred) {
                 seqStatus.tryagain--;
                 seqStatus.reset();
                 if(seqStatus.tryagain > 0) {
-                    Serial.println(F("Error. Trying again next wakeup."));
+                    Serial.println(F("Timeout or error. Trying again next wakeup."));
                     timeout = true;
                 } else {
                     pinMode(XBEE_SLEEPPIN, INPUT);
