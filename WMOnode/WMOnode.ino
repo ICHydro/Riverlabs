@@ -10,7 +10,7 @@
 /********** includes and defines **********/
 
 
-#define DEBUG 1                                    // needs to be defined in Rio.h as well.
+//#define DEBUG 1                                    // needs to be defined in Rio.h as well.
 #define LIDARLITE
 
 #define USE_EEPROM_BUFFER
@@ -21,11 +21,11 @@
 /************* User settings **************/
 
 #define READ_INTERVAL 5                           // Interval for sensor readings, in minutes
-#define SEND_INTERVAL 1                           // telemetry interval, in hours
+#define SEND_INTERVAL 3                           // telemetry interval, in hours
 #define NREADINGS 10                              // number of readings taken per measurement
-#define HOST "demo.thingsboard.io"                       // internet address of the IoT server
-#define ACCESSTOKEN "A1_TEST_TOKEN"        // COAP access token
-#define LOGGERID "MyLogger1"                      // Logger ID
+#define HOST "riverflow.io"                       // internet address of the IoT server
+#define ACCESSTOKEN "qWPuisAVwozd89xXktRB"        // COAP access token
+#define LOGGERID "RLMB0184"                      // Logger ID
 #define TIMEOUT 210                              // cellular timeout in seconds
 
 /* INCLUDES */
@@ -47,6 +47,7 @@ int16_t distance = -9999;
 volatile bool interruptFlag = false;              // variables needed in interrupt should be of type volatile.
 
 //Clock stuff
+
 RtcDS3231<TwoWire> Rtc(Wire);
 RtcDateTime now;
 uint32_t SecondsSince2000;
@@ -60,11 +61,10 @@ DS3231AlarmFlag flag;
 CellularStatus seqStatus;
 
 #ifdef TRANSMIT_3G
-    
     AltSoftSerial XBeeSerial;
     uint8_t resb[100];                            // XBee's responsebuffer
     XBeeWithCallbacks xbc = XBeeWithCallbacks(resb, sizeof(resb));  // needs to be done this way, so we can delete the object, see https://forum.arduino.cc/index.php?topic=376860.0
-    const char host[] = HOST;           // set to your COAP server
+    const char host[] = HOST;
     uint32_t IP = 0;
     const uint16_t Port = 0x1633;                 // 0x50 = 80; 0x1BB = 443, 0x1633 = 5683 (COAP)
     uint8_t protocol = 0;                         // 0 for UDP, 1 for TCP, 4 for SSL over TCP
@@ -99,12 +99,6 @@ uint8_t MaxContentLength;
 bool timeout;
 
 RioLogger myLogger = RioLogger();
-
-#ifdef DS18S20
-    OneWire oneWire(DS18S20PIN);
-    DallasTemperature sensors(&oneWire);
-    DeviceAddress tempDeviceAddress; 
-#endif
 
 //EEPROM stuff
 #ifdef USE_EEPROM_BUFFER
@@ -172,7 +166,7 @@ void setup ()
     now = Rtc.GetDateTime();
     day = now.Day();
 
-    #ifdef DEBUG
+    #ifdef DEBUG == 1
         Serial.println("");
         Serial.print(F("This is Riverlabs WMOnode, compiled on "));
         Serial.println(__DATE__);
@@ -354,7 +348,7 @@ void loop ()
 
         measuredvbat = analogRead(VBATPIN) * 2 * 3.3 / 1.024;
 
-        #ifdef DEBUG
+        #ifdef DEBUG == 1
             Serial.print(F("VBatt = "));
             Serial.println(measuredvbat);
         #endif
@@ -363,7 +357,7 @@ void loop ()
 
         temp = Rtc.GetTemperature().AsCentiDegC();
 
-        #ifdef DEBUG
+        #ifdef DEBUG == 1
             Serial.print(F("T = "));
             Serial.println(temp);
         #endif
@@ -374,7 +368,7 @@ void loop ()
             readLidarLite(readings, NREADINGS, 1, Serial);
             distance = median(readings, NREADINGS);
         
-            #ifdef DEBUG
+            #ifdef DEBUG == 1
                 Serial.print(F("Distance (lidar) = "));
                 Serial.println(distance);
             #endif
@@ -477,15 +471,11 @@ void loop ()
                 // check AI regularly     
                 if (waitingMessageTime > 5000) {
                     getAIStatus(Serial, &AIstatus);
-                    Serial.print(F("AI status = "));
-                    Serial.println(AIstatus);
+                    #ifdef DEBUG == 1
+                        Serial.print(F("AI status = "));
+                        Serial.println(AIstatus);
+                    #endif
                     getDBStatus(Serial, &DB);
-                    //if(AIstatus == 0) {
-                    //    seqStatus.isRegistered = 1;  // in case we somehow missed the callback
-                    //}
-                    //if(AIstatus == 255) {
-                    //    seqStatus.isRegistered = 0;
-                    //}
                     waitingMessageTime = 0;
                 } else {
                     waitingMessageTime += timeInMillis - lastTimeInMillis;
@@ -510,8 +500,10 @@ void loop ()
             // Close things off, and handle potential errors
             
             if (pagecount == 0) {
-              
-                Serial.println(F("All data sent. Sleeping."));
+
+                #ifdef DEBUG == 1
+                    Serial.println(F("All data sent. Sleeping."));
+                #endif
                 pinMode(XBEE_SLEEPPIN, INPUT);                   // do not set high. Deassert instead
                 seqStatus.tryagain = 0;
                 seqStatus.reset();
@@ -527,11 +519,15 @@ void loop ()
                 seqStatus.tryagain--;
                 seqStatus.reset();
                 if(seqStatus.tryagain > 0) {
-                    Serial.println(F("Timeout or error. Trying again next wakeup."));
+                    #ifdef DEBUG == 1
+                        Serial.println(F("Timeout or error. Trying again next wakeup."));
+                    #endif
                     timeout = true;
                 } else {
                     pinMode(XBEE_SLEEPPIN, INPUT);
-                    Serial.println(F("All attempts failed. Sleeping xbee modem."));
+                    #ifdef DEBUG == 1
+                        Serial.println(F("All attempts failed. Sleeping xbee modem."));
+                    #endif
                 }
             }
         }
