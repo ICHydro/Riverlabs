@@ -6,7 +6,7 @@
 #ifndef Rio_h
 #define Rio_h
 
-#define DEBUG 1
+#define DEBUG 2
 
 #define ErrorLED A2               
 #define WriteLED A2
@@ -94,6 +94,7 @@ void resetEEPROMSDMask(int);
 uint8_t CreateEepromSendBuffer(uint16_t, byte*);
 void Reset3GBuffer(uint16_t, byte*);
 uint32_t getBufferStartPosition();
+uint32_t getBufferEndPosition();
 
 /* from https://playground.arduino.cc/Main/QuickStats */
 int16_t median(int16_t samples[],int m);

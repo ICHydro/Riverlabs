@@ -271,3 +271,22 @@ uint32_t getBufferStartPosition() {
     }
     return(0);
 }
+
+// find the last bit in the 3G mask that is not zero
+
+uint32_t getBufferEndPosition() {
+    byte maskbyte; 
+    for(uint32_t i = (EEProm3GMaskSize * EEPromPageSize); i-- > 0; ) {
+        Serial.print(i); Serial.print(" ");
+        maskbyte = i2c_eeprom_read_byte(EEPROM_ADDR, OFFSET3GMASK + i - 1);
+        Serial.print(maskbyte); Serial.println();
+        if(maskbyte != 0) {
+            for(uint8_t j = 7; j >= 0; j--) {
+                if((maskbyte >> j) & 0x1) {
+                    return(i * 8 + j + 1);
+                }
+            }
+        }
+    }
+    return(0);
+}
