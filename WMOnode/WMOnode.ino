@@ -187,7 +187,7 @@ void setup ()
     /* Set up cellular xbee */
     /* XBee needs to be in mode: API with escapes */
 
-    myLogger.eePageAddress = 0; //getBufferEndPosition();      // do not overwrite any previous measurements that have not yet been transmitted
+    myLogger.eePageAddress = getBufferEndPosition();      // do not overwrite any previous measurements that have not yet been transmitted
     Serial.print(F("Buffer starts at position: "));
     Serial.println(myLogger.eePageAddress);
 
@@ -209,8 +209,9 @@ void setup ()
     // check whether we can connect to the XBee:
 
     if(!getAIStatus(Serial, &AIstatus)) {
-      
-        Serial.println(F("Error communicating with Xbee. Resetting"));
+        #ifdef DEBUG > 0
+            Serial.println(F("Error communicating with Xbee. Resetting"));
+        #endif
         pinMode(XBEE_RESETPIN, OUTPUT); 
         digitalWrite(XBEE_RESETPIN, LOW);
         delay(500);
@@ -218,16 +219,18 @@ void setup ()
         delay(2000);                                      // XBee needs 2s to restart
         if(!getAIStatus(Serial, &AIstatus)){
             error(3, ErrorLED);
-            Serial.println(F("Unable to reset XBee"));
+            #ifdef DEBUG > 0
+                Serial.println(F("Unable to reset XBee"));
+            #endif
         }
     } else {
-      Serial.print(F("AI status = "));
-      Serial.println(AIstatus);
+      #ifdef DEBUG > 0
+          Serial.print(F("AI status = "));
+          Serial.println(AIstatus);
+      #endif
     }
     
-    // sleeping XBee. Deassert instead of setting high - see above
-    
-    pinMode(XBEE_SLEEPPIN, INPUT);
+    pinMode(XBEE_SLEEPPIN, INPUT);                        // sleeping XBee. Deassert instead of setting high - see above
 
     packet.type = COAP_CON;                               // 0 = confirmable
     packet.code = 2;                                      // 0.02 = post method
@@ -240,6 +243,10 @@ void setup ()
 
     Serial.flush();
 
+    // Start wire for i2c communication (EEPROM) (note: this does not seem necessary for atmel, but it is for SAMD21)
+
+    Wire.begin();
+
 }
 
 /*************** Main routine ***************/
@@ -251,13 +258,13 @@ void loop ()
      *  
      *  - Alarm has gone off while doing something else -> check what action to take
      *  - Logger was waken up by clock                  -> check what action to take
-     *  - Telelemetry event ongoing                     -> continue telemetry operation until finished or timed out.
-     *  - If none of the above conditions applies, the modem can safely go to sleep.
+     *  - Telemetry event ongoing. or timeout           -> continue telemetry operation.
+     *  If none of the above applies, the logger goes to sleep
      */
 
-    if(interruptFlag) {                                  // Can be the result of waking up, or alarm going off while doing something else
+    if(interruptFlag) {
 
-        cli();                                          // See https://www.pjrc.com/teensy/interrupts.html
+        cli();                                                              // See https://www.pjrc.com/teensy/interrupts.html
         interruptFlag = false;
         sei();
 
@@ -266,12 +273,7 @@ void loop ()
         // the interrupflag is set to false, in which case the alarm is never switched off and
         // the logger never wakes up again.
         
-        flag = Rtc.LatchAlarmsTriggeredFlags();         // Switches off alarm flags. 
-
-        if(flag == 0) {
-            Serial.println(F("Interrupt while not sleeping"));
-        }
-
+        flag = Rtc.LatchAlarmsTriggeredFlags();                             // Switches off alarm
         now = Rtc.GetDateTime();
 
         // Check whether it is time for a measurement
@@ -280,14 +282,14 @@ void loop ()
             TakeMeasurement = true;
         }
 
-        // Check whether it is time for a telemetry event
+        // Check whether it is time for a telemetry event. Wake up xbee already
+        // so it can start connecting while doing other things
         
         if (((now.Hour() % SEND_INTERVAL) == 0) && (now.Minute() == 0)) {   // only on the hour itself!
             seqStatus.tryagain = 5;                                         // maximum number of tries
-            // Wake up the xbee already so that it can start connecting while we do other stuff.
             pinMode(XBEE_SLEEPPIN, OUTPUT);
             digitalWrite(XBEE_SLEEPPIN, LOW);
-            XbeeWakeUpTime = millis();                                          // used for timeout
+            XbeeWakeUpTime = millis();                                      // used for timeout
             timeInMillis = 0;
             lastTimeInMillis = 0;
             waitingMessageTime = 0;
@@ -302,7 +304,7 @@ void loop ()
     if((!TakeMeasurement) && (seqStatus.tryagain == 0 || timeout)) {
 
         #ifdef NOSLEEP
-            while(!interruptFlag) {}                   // wait for alarm if not sleeping
+            while(!interruptFlag) {}                                        // wait for alarm if not sleeping
         #else 
             #ifdef DEBUG > 0
                 Serial.print(F("S"));
@@ -312,8 +314,8 @@ void loop ()
                 Snooze.hibernate( config_digital );
             #endif
             #if defined(__AVR_ATmega328P__)
-                if(!interruptFlag) {                   // check again, just in case alarm went off right before sleeping
-                    LowPower.powerDown(SLEEP_FOREVER, ADC_OFF, BOD_OFF); // SLEEP_FOREVER
+                if(!interruptFlag) {                                        // check again, just in case alarm went off right before sleeping
+                    LowPower.powerDown(SLEEP_FOREVER, ADC_OFF, BOD_OFF);    // SLEEP_FOREVER
                 }
             #endif
         #endif
@@ -356,7 +358,6 @@ void loop ()
             Serial.print(F("Distance (lidar) = "));
             Serial.println(distance);
         #endif
-
 
         /*********** store values in EEPROM ***********/
         
@@ -453,8 +454,9 @@ void loop ()
                 waitingMessageTime += timeInMillis - lastTimeInMillis;
             }
             lastTimeInMillis = timeInMillis;
-            timeInMillis = millis() - XbeeWakeUpTime;
         }
+
+        timeInMillis = millis() - XbeeWakeUpTime;
 
         // If we receive an acknowledgement, then EepromBufferCreated can be reset, and the 3G mask erased.
         // A new EepromBuffer will be created in the next round. Once pagecount = 0,
