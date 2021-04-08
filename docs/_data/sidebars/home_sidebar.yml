@@ -5,18 +5,31 @@ entries:
   levels: one
   folders:
 
-  - title: Products
+  - title: Overview
+    output: web
+    folderitems:
+    - title: Overview
+      url: /news.html
+      output: web
+  - title: Programming the logger
+    output: web
+    folderitems:
+    - title: the Arduino ecosystem
+      url: /news.html
+      output: web
+    - title: Uploading code
+      url: /news.html
+      output: web
+  - title: Telemetry
     output: web
     folderitems:
     - title: News
       url: /news.html
       output: web
-    - title: Theme instructions
-      url: /mydoc_introduction.html
+  - title: Installation
+    output: web
+    folderitems:
+    - title: News
+      url: /news.html
       output: web
-    - title: Product 1
-      url: /p1_landing_page.html
-      output: web
-    - title: Product 2
-      url: /p2_landing_page.html
-      output: web
+
