@@ -222,6 +222,60 @@ uint8_t CoapPacket::createMessageHeader(EEPROMClass EEPROM) {
     return s;
 }
 
+uint8_t CoapPacket::createMessageHeader(uint8_t *buffer) {
+
+    uint16_t running_delta = 0;
+    uint16_t packetSize = 0;
+    uint16_t s = 0;
+
+    // make coap packet base header
+    buffer[s++] = ((0x01 << 6) | ((type & 0x03) << 4) | (tokenlen & 0x0F));
+    buffer[s++] = code;
+    buffer[s++] = (messageid >> 8);
+    buffer[s++] = (messageid & 0xFF);
+    s = COAP_HEADER_SIZE;   // should be 4 anyway?
+
+    // make token
+    if (token != NULL && tokenlen <= 0x0F) {
+        for(uint8_t i = 0; i < tokenlen; i++) {
+            buffer[s++] = token[i];
+        }
+    }
+
+    // make option header
+    for (int i = 0; i < optionnum; i++)  {
+        uint32_t optdelta;
+        uint8_t len, delta;
+
+        if (s + 5 + options[i].length >= COAP_BUF_MAX_SIZE) {
+            return 0;
+        }
+        optdelta = options[i].number - running_delta;
+        COAP_OPTION_DELTA(optdelta, &delta);
+        COAP_OPTION_DELTA((uint32_t)options[i].length, &len);
+
+        buffer[s++] = (0xFF & (delta << 4 | len));
+        if (delta == 13) {
+            buffer[s++] = (optdelta - 13);
+        } else if (delta == 14) {
+            buffer[s++] = ((optdelta - 269) >> 8);
+            buffer[s++] = (0xFF & (optdelta - 269));
+        } if (len == 13) {
+            buffer[s++] = (options[i].length - 13);
+        } else if (len == 14) {
+            buffer[s++] = (options[i].length >> 8);
+            buffer[s++] = (0xFF & (options[i].length - 269));
+        }
+
+        for(uint8_t j = 0; j < options[i].length; j++) {
+            buffer[s++] = (options[i].buffer[j]);
+        }
+        running_delta = options[i].number;
+    }
+    return s;
+}
+
+
 void CoapPacket::print(Stream &stream) {
     stream.print(F("Type = "));
     stream.println(type);

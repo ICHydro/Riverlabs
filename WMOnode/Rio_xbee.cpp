@@ -88,58 +88,58 @@ void sendDNSLookupCommand(char address[], int len) {
   seqStatus.dnsLookupRequested = true;
 }
 
-void getLAResponse() {
-
-  xbc.readPacket(2000);
-
-  if (xbc.getResponse().isAvailable()) {
-    // got a response!
- 
-    // should be an AT command response
-    if (xbc.getResponse().getApiId() == AT_COMMAND_RESPONSE) {
-      printUnexpectedMessage();
-      xbc.getResponse().getAtCommandResponse(atResponse);
-
-      if (atResponse.isOk()) {
-
-        if (atResponse.getValueLength() == 4) {
-          // The IP address should be 4 bytes
-          Serial.print(F("IP Address: "));
-          
-          for (int i = 0; i < atResponse.getValueLength(); i++) {
-            Serial.print(atResponse.getValue()[i], HEX);
-            Serial.print(" ");
-          }
-
-          Serial.println("");
-
-          IPaddr = (((uint32_t)atResponse.getValue()[0]) << 24) + 
-                   (((uint32_t)atResponse.getValue()[1]) << 16) +   //WB changed. Bug in Isabella's original version?
-                   (atResponse.getValue()[2] << 8) + 
-                   atResponse.getValue()[3];
-
-          seqStatus.hostIPResolved = true;
-        }
-      } 
-      else {
-        Serial.print(F("LA command returned error code: "));
-        Serial.println(atResponse.getStatus(), HEX);
-        seqStatus.xbcErrorOccurred = true;
-      }
-    } else {
-      printUnexpectedMessage();
-    }   
-  } else {
-    // AT command failed
-    if (xbc.getResponse().isError()) {
-      Serial.print(F("Error reading packet.  Error code: "));  
-      Serial.println(xbc.getResponse().getErrorCode());
-      seqStatus.xbcErrorOccurred = true;
-    } else {
-      Serial.println(F("No response from XBee"));
-    }
-  }
-}
+//void getLAResponse() {
+//
+//  xbc.readPacket(2000);
+//
+//  if (xbc.getResponse().isAvailable()) {
+//    // got a response!
+// 
+//    // should be an AT command response
+//    if (xbc.getResponse().getApiId() == AT_COMMAND_RESPONSE) {
+//      printUnexpectedMessage();
+//      xbc.getResponse().getAtCommandResponse(atResponse);
+//
+//      if (atResponse.isOk()) {
+//
+//        if (atResponse.getValueLength() == 4) {
+//          // The IP address should be 4 bytes
+//          Serial.print(F("IP Address: "));
+//          
+//          for (int i = 0; i < atResponse.getValueLength(); i++) {
+//            Serial.print(atResponse.getValue()[i], HEX);
+//            Serial.print(" ");
+//          }
+//
+//          Serial.println("");
+//
+//          IPaddr = (((uint32_t)atResponse.getValue()[0]) << 24) + 
+//                   (((uint32_t)atResponse.getValue()[1]) << 16) +   //WB changed. Bug in Isabella's original version?
+//                   (atResponse.getValue()[2] << 8) + 
+//                   atResponse.getValue()[3];
+//
+//          seqStatus.hostIPResolved = true;
+//        }
+//      } 
+//      else {
+//        Serial.print(F("LA command returned error code: "));
+//        Serial.println(atResponse.getStatus(), HEX);
+//        seqStatus.xbcErrorOccurred = true;
+//      }
+//    } else {
+//      printUnexpectedMessage();
+//    }   
+//  } else {
+//    // AT command failed
+//    if (xbc.getResponse().isError()) {
+//      Serial.print(F("Error reading packet.  Error code: "));  
+//      Serial.println(xbc.getResponse().getErrorCode());
+//      seqStatus.xbcErrorOccurred = true;
+//    } else {
+//      Serial.println(F("No response from XBee"));
+//    }
+//  }
+//}
 
 // send a TCP message to an address/port on the internet
 // Do not wait for the TX response packet
@@ -335,12 +335,14 @@ bool getDBStatus(Stream &stream, uint8_t *returnvalue) {
 // Callback function for incoming TCP/IP message
 
 void zbIPResponseCb(IPRxResponse& ipResponse, uintptr_t) {
-  // Note that any incoming IP message is considered a success, even if it does not 
-  // contain the complete transmission from the web server.
-  // This is not reaslistic as a TCP message can be fragmented across multiple packets.
-  Serial.println(F("Callback - IP4 message received"));
-  printIPRX(ipResponse, Serial);
-  seqStatus.ipResponseReceived = true;
+    // Note that any incoming IP message is considered a success, even if it does not 
+    // contain the complete transmission from the web server.
+    // This is not reaslistic as a TCP message can be fragmented across multiple packets.
+    Serial.println(F("Callback - IP4 message received"));
+    #if DEBUG > 1
+        printIPRX(ipResponse, Serial);
+    #endif
+    seqStatus.ipResponseReceived = true;
 }
 
 
@@ -352,10 +354,14 @@ void zbIPResponseCb_COAP(IPRxResponse& ipResponse, uintptr_t) {
   // contain the complete transmission from the web server.
   // This is not realistic as a TCP message can be fragmented across multiple packets.
   Serial.println(F("Callback - IP4 message received"));
-  printIPRX(ipResponse, Serial);
+  #if DEBUG > 1
+      printIPRX(ipResponse, Serial);
+  #endif
   CoapPacket cp;
   cp.parseMessage(ipResponse.getData(), ipResponse.getDataLength());
-  cp.print(Serial);
+  #if DEBUG > 1
+      cp.print(Serial);
+  #endif
 
  // TODO: process coap response fully
   if(cp.type == 2) {
@@ -433,41 +439,67 @@ void zbModemStatusCb(ModemStatusResponse& mx, uintptr_t) {
 }
 
 
-void zbLAResponseCb(AtCommandResponse& atr, uintptr_t) {
-  // We expect the callback to be from the DNS Lookup Command LA
-  if (atr.getCommand()[0] != 'L' || atr.getCommand()[1] != 'A') {
-    Serial.print(F("Callback - expected a response to LA command, but received response to "));
-    Serial.print(atr.getCommand()[0]);
-    Serial.println(atr.getCommand()[1]);
-    // For now, just ignore. This is probably an AI or DB response coming in. The LA should still come.
-    //seqStatus.xbcErrorOccurred = true;
-    return;
-  }
-  
-  if (atr.isOk()) {
-    if (atr.getValueLength() == 4) {
-      // The IP address should be 4 bytes
-      Serial.print(F("Callback - IP Address: "));
-          
-      for (int i = 0; i < atr.getValueLength(); i++) {
-        Serial.print(atr.getValue()[i], HEX);
-        Serial.print(' ');
-      }
+void zbAtResponseCb(AtCommandResponse& atr, uintptr_t) {
 
-      Serial.println();
-
-      IP = (((uint32_t)atr.getValue()[0]) << 24) + 
-           (((uint32_t)atr.getValue()[1]) << 16) + 
-           (((uint32_t)atr.getValue()[2]) << 8) + 
-           atr.getValue()[3], 
-      //Serial.println(IP, HEX);
-      seqStatus.hostIPResolved = true;
+    // An At response has to be able to deal with different At commands.
+    // Currently only LA, AI, and DB are implemented.
+    
+    if (atr.getCommand()[0] == 'L' || atr.getCommand()[1] == 'A') {
+        if (atr.isOk()) {
+            if (atr.getValueLength() == 4) {
+                // The IP address should be 4 bytes
+                Serial.print(F("Callback - IP Address: "));
+              
+                for (int i = 0; i < atr.getValueLength(); i++) {
+                    Serial.print(atr.getValue()[i], HEX);
+                    Serial.print(' ');
+                }
+                Serial.println();
+    
+                IP = (((uint32_t)atr.getValue()[0]) << 24) + 
+                     (((uint32_t)atr.getValue()[1]) << 16) + 
+                     (((uint32_t)atr.getValue()[2]) << 8) + 
+                     atr.getValue()[3];
+                Serial.println(IP);
+                seqStatus.hostIPResolved = true;
+            }
+        } else {
+            Serial.print(F("LA Command return error code: "));
+            Serial.println(atr.getStatus(), HEX);
+            seqStatus.xbcErrorOccurred = true;
+        }
+    } else if(atr.getCommand()[0] == 'A' || atr.getCommand()[1] == 'I') {    
+        if (atr.isOk()) {
+            if (atr.getValueLength() == 1) {
+                Serial.print(F("AI status = "));
+                Serial.println(atr.getValue()[0]);
+                if (atr.getValue()[0] == 0) {
+                    seqStatus.isConnected = true;
+                }
+            } else {
+                // This should never happen
+                Serial.println(F("Failed to get AI value from AI command"));
+                seqStatus.xbcErrorOccurred = true;
+            }
+        } else {
+            Serial.print(F("AI Command returned error code: "));
+            Serial.println(atr.getStatus(), HEX);
+        } 
+    } else if(atr.getCommand()[0] == 'D' || atr.getCommand()[1] == 'B') {
+        if (atr.isOk()) {
+            Serial.print(F("Cellular signal strength = "));
+            Serial.println(atr.getValue()[0]);
+        } else {
+            Serial.print(F("DB Command returned error code: "));
+            Serial.println(atr.getStatus());
+        }
+    // capture any unrecognized At commands:
+    } else {
+        Serial.print(F("Callback - At command not recognized:"));
+        Serial.print((char)atr.getCommand()[0]);
+        Serial.println((char)atr.getCommand()[1]);
     }
-  } else {
-    Serial.print(F("LA Command return error code: "));
-    Serial.println(atr.getStatus(), HEX);
-    seqStatus.xbcErrorOccurred = true;
-  }
+    return;
 }
 
 void zbTcpSendResponseCb(TxStatusResponse& txr, uintptr_t) {
@@ -507,8 +539,7 @@ void sendXbeeMessage(uint8_t* buffer, uint16_t bufferSize, char *host, uint8_t h
             Serial.print(IP, HEX);
             Serial.print(F(", port "));
             Serial.println(Port, HEX);
-            //tcpSend(IP, Port, protocol, buffer, bufferSize);
-            tcpSend(IP, Port, protocol, EEPROM, bufferSize);
+            tcpSend(IP, Port, protocol, buffer, bufferSize);
         } else if (!seqStatus.ipResponseReceived) {
           // process incoming IP messages until complete, or host closes the connection.
           // There is nothing to do here as the processing is handled in callback function zbIPResponseCb
@@ -523,9 +554,45 @@ void sendXbeeMessage(uint8_t* buffer, uint16_t bufferSize, char *host, uint8_t h
     }
 }
 
-/* Quick hack to enable EEPROM version: */
+/* if no buffer given, we use eeprom: */
 
-void sendXbeeMessage(EEPROMClass, uint16_t bufferSize, char *host, uint8_t hostlength) {
-  uint8_t *buffer = 0;
-  sendXbeeMessage(buffer, bufferSize, host, hostlength);
+void sendXbeeMessage(uint16_t bufferSize, char *host, uint8_t hostlength) {
+
+    // Skip DNS by uncommenting this line:
+    //seqStatus.hostIPResolved = true;
+
+    // Do not wait for ipResponseReceived, which is handled by the callback.
+    // Just wait for the XBee confirmation.
+
+    if (!seqStatus.xbcErrorOccurred && !seqStatus.ipResponseReceived) {
+        xbc.loop();
+    
+        if (!seqStatus.hostIPResolved) {
+            // This is the DNS lookup section
+            // A request is made to lookup an IP address and response handled in callback function zbLAResponseCb
+            if (!seqStatus.dnsLookupRequested) {
+              // Send a lookup request command
+              Serial.println(F("Sending DNS Lookup")); 
+              sendDNSLookupCommand(host, hostlength);
+            }
+        } else if (!seqStatus.ipRequestSent) {
+            // Send the request
+            // The response is handled in callback function zbTcpSendResponseCb
+            Serial.print(F("Sending TCP request to "));
+            Serial.print(IP, HEX);
+            Serial.print(F(", port "));
+            Serial.println(Port, HEX);
+            tcpSend(IP, Port, protocol, EEPROM, bufferSize);
+        } else if (!seqStatus.ipResponseReceived) {
+          // process incoming IP messages until complete, or host closes the connection.
+          // There is nothing to do here as the processing is handled in callback function zbIPResponseCb
+        }
+    
+        // Reset status if successful
+        if (!seqStatus.xbcErrorOccurred && seqStatus.ipResponseReceived) {
+            seqStatus.ipRequestSent = false;
+            seqStatus.ipRequestSentOk = false;
+            seqStatus.ipResponseReceived = false;
+        }
+    }
 }

@@ -80,6 +80,7 @@ extern uint32_t day;
 extern boolean fileopen;
 extern RtcDateTime now;
 extern uint16_t bufferSize;
+extern uint16_t bufferSize2;
 extern volatile bool interruptFlag;
 
 /* function declarations */
@@ -92,7 +93,9 @@ void formatDateTime(const RtcDateTime&);
 void resetEEPromHeader(int);
 void resetEEPROMSDMask(int);
 uint8_t CreateEepromSendBuffer(uint16_t, byte*);
+uint8_t CreateSendBuffer(uint16_t, byte*, uint8_t*);
 void Reset3GBuffer(uint16_t, byte*);
+void Reset3GBuffer(uint16_t);
 uint32_t getBufferStartPosition();
 uint32_t getBufferEndPosition();
 

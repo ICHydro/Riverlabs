@@ -99,9 +99,9 @@ void zbModemStatusCb(ModemStatusResponse& mx, uintptr_t);
 void zbIPResponseCb(IPRxResponse& ipResponse, uintptr_t);        // generic callback
 void zbIPResponseCb_COAP(IPRxResponse& ipResponse, uintptr_t);        // specific for COAP
 void zbTcpSendResponseCb(TxStatusResponse& txr, uintptr_t);
-void zbLAResponseCb(AtCommandResponse& atr, uintptr_t);
+void zbAtResponseCb(AtCommandResponse& atr, uintptr_t);
 
 void sendXbeeMessage(uint8_t*, uint16_t, char *host, uint8_t);
-void sendXbeeMessage(EEPROMClass, uint16_t, char *host, uint8_t);
+void sendXbeeMessage(uint16_t, char *host, uint8_t);
 
 #endif

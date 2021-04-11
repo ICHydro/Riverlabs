@@ -109,8 +109,8 @@ class CoapPacket {
         uint8_t createMessage(uint8_t *p);
         uint8_t createMessage(EEPROMClass);
         uint8_t createMessageHeader(EEPROMClass);
+        uint8_t createMessageHeader(uint8_t *);
         void print(Stream &stream);
 };
 
 #endif
-

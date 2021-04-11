@@ -22,11 +22,11 @@
 #define READ_INTERVAL 5                           // Interval for sensor readings, in minutes
 #define SEND_INTERVAL 1                           // telemetry interval, in hours
 #define NREADINGS 10                              // number of readings taken per measurement
-#define HOST "riverflow.io"                       // internet address of the IoT server to report to
-#define ACCESSTOKEN "qWPuisAVwozd89xXktRB"        // COAP access token
-#define LOGGERID "RLMB0184"                       // Logger ID. Set to whatever you like
+#define HOST "demo.thingsboard.io"                       // internet address of the IoT server to report to
+#define ACCESSTOKEN "myaccesstoken"        // COAP access token
+#define LOGGERID "mylogger"                       // Logger ID. Set to whatever you like
 #define TIMEOUT 120                               // cellular timeout in seconds, per attempt
-
+//#define DONOTUSEEEPROMSENDBUFFER
 
 /* INCLUDES */
 
@@ -60,6 +60,7 @@ CellularStatus seqStatus;
 
 AltSoftSerial XBeeSerial;
 uint8_t resb[100];                            // XBee's responsebuffer
+uint8_t buffer[150];
 XBeeWithCallbacks xbc = XBeeWithCallbacks(resb, sizeof(resb));  // needs to be done this way, so we can delete the object, see https://forum.arduino.cc/index.php?topic=376860.0
 const char host[] = HOST;
 uint32_t IP = 0;
@@ -81,8 +82,10 @@ char Option1[] = "v1";
 char Option2[] = ACCESSTOKEN;
 char Option3[] = "telemetry";
 CoapPacket packet; 
-bool EepromBufferCreated = 0;
-byte Eeprom3Gmask[2 + MAXFIT / 8];             
+bool SendBufferCreated = 0;
+byte Eeprom3Gmask[2 + MAXFIT / 8];  
+uint8_t assocCmd[] = {'A','I'};
+AtCommandRequest AIRequest(assocCmd);           
 
 
 
@@ -199,7 +202,7 @@ void setup ()
     xbc.setSerial(XBeeSerial);
     seqStatus.reset();   
     xbc.onModemStatusResponse(zbModemStatusCb);
-    xbc.onAtCommandResponse(zbLAResponseCb);
+    xbc.onAtCommandResponse(zbAtResponseCb);
     xbc.onTxStatusResponse(zbTcpSendResponseCb);
     xbc.onIPRxResponse(zbIPResponseCb_COAP);
 
@@ -408,24 +411,30 @@ void loop ()
         // to keep track of what records have been sent, because new records may be created
         // between creating the buffer and sending it.
 
-        if(!EepromBufferCreated) {
+        if(!SendBufferCreated) {
             startposition = getBufferStartPosition();     // will return 0 if the buffer is empty
             #ifdef DEBUG > 0
                 Serial.print(F("Startposition: "));
                 Serial.println(startposition);
             #endif
             packet.messageid = rand();                    // rand() returns int16_t, random() returns int_32
-            bufferSize = packet.createMessageHeader(EEPROM);
-            pagecount = CreateEepromSendBuffer(startposition, Eeprom3Gmask);
+            #ifdef DONOTUSEEEPROMSENDBUFFER
+                bufferSize = packet.createMessageHeader(buffer);
+                pagecount = CreateSendBuffer(startposition, Eeprom3Gmask, buffer);
+            #else
+                bufferSize = packet.createMessageHeader(EEPROM);
+                pagecount = CreateEepromSendBuffer(startposition, Eeprom3Gmask);
+            #endif
+     
             if(pagecount > 0) {                           // if pagecount is zero then there is nothing to send
-                EepromBufferCreated = true;
+                SendBufferCreated = true;
             }           
         }
 
         // If pagecount is zero then that means that there is nothing to send. Otherwise we may either
         // be waiting for the buffer to be sent, or for the COAP server to respond.
 
-        if(EepromBufferCreated && !seqStatus.ipRequestSent) {
+        if(SendBufferCreated && !seqStatus.ipRequestSent) {
 
             // let's ignore the unsolicited status message for now. This sets isRegistered, but
             // this may not necessarily mean that the modem is connected to the internet, so we better
@@ -437,18 +446,23 @@ void loop ()
                 //    getAIStatus(Serial, &AIstatus);           // will set is.Connected
                 // } else {
                   // Send COAP message. Wait for direct confirmation from COAP server, but not for 2.03 response.
-                  sendXbeeMessage(EEPROM, bufferSize, host, sizeof(host) - 1); // do not include "\0"
+                  // sendXbeeMessage(bufferSize, host, sizeof(host) - 1); // do not include "\0"
+                  sendXbeeMessage(buffer, bufferSize, host, sizeof(host) - 1);
                 //}
-            }
-            
-            // check AI regularly     
-            if (waitingMessageTime > 5000) {
-                getAIStatus(Serial, &AIstatus);
-                #ifdef DEBUG > 0
-                    Serial.print(F("AI status = "));
-                    Serial.println(AIstatus);
-                #endif
-                getDBStatus(Serial, &DB);
+            } else if (waitingMessageTime > 5000) {             // don't check once connection established to avoid interference between xbee replies.
+                xbc.send(AIRequest);
+                // wait for reply before sending another request:
+                waitingMessageTime = millis();                // reuse waitingMessageTime for memory efficiency
+                while((millis() - waitingMessageTime) < 150) {
+                  xbc.loop();
+                }
+                //xbc.send(DBRequest);
+                //getAIStatus(Serial, &AIstatus);
+                //#ifdef DEBUG > 0
+                //    Serial.print(F("AI status = "));
+                //    Serial.println(AIstatus);
+                //#endif
+                //getDBStatus(Serial, &DB);
                 waitingMessageTime = 0;
             } else {
                 waitingMessageTime += timeInMillis - lastTimeInMillis;
@@ -458,17 +472,21 @@ void loop ()
 
         timeInMillis = millis() - XbeeWakeUpTime;
 
-        // If we receive an acknowledgement, then EepromBufferCreated can be reset, and the 3G mask erased.
-        // A new EepromBuffer will be created in the next round. Once pagecount = 0,
+        // If we receive an acknowledgement, then SendBufferCreated can be reset, and the 3G mask erased.
+        // A new SendBuffer will be created in the next round. Once pagecount = 0,
         // the mask is empty and we can finish the telemetry process.
 
         if(seqStatus.CoapSent203Received) {
-            EepromBufferCreated = false;
+            SendBufferCreated = false;
             seqStatus.ipRequestSent = false;
             seqStatus.ipRequestSentOk = false;
             seqStatus.ipResponseReceived = false;
             seqStatus.CoapSent203Received = false;
-            Reset3GBuffer(startposition, Eeprom3Gmask);
+            #ifdef DONOTUSEEEPROMSENDBUFFER
+                Reset3GBuffer(startposition);                // in case only one page is written
+            #else
+                Reset3GBuffer(startposition, Eeprom3Gmask);
+            #endif
         }
 
         // Close things off, and handle potential errors
