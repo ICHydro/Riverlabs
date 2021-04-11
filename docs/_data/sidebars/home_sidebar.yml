@@ -9,27 +9,30 @@ entries:
     output: web
     folderitems:
     - title: Overview
-      url: /news.html
+      url: /overview.html
       output: web
   - title: Programming the logger
     output: web
     folderitems:
-    - title: the Arduino ecosystem
-      url: /news.html
+    - title: The Arduino ecosystem
+      url: /arduino.html
       output: web
     - title: Uploading code
-      url: /news.html
+      url: /upload.html
       output: web
   - title: Telemetry
     output: web
     folderitems:
-    - title: News
-      url: /news.html
+    - title: Xbee 3G Modem
+      url: /xbee3G.html
       output: web
+    - title: Thingsboard
+      url: /thingsboard.html
+      output: web     
   - title: Installation
     output: web
     folderitems:
-    - title: News
-      url: /news.html
+    - title: Installation
+      url: /installation.html
       output: web
 

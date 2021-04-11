@@ -22,9 +22,9 @@
 #define READ_INTERVAL 5                           // Interval for sensor readings, in minutes
 #define SEND_INTERVAL 1                           // telemetry interval, in hours
 #define NREADINGS 10                              // number of readings taken per measurement
-#define HOST "demo.thingsboard.io"                       // internet address of the IoT server to report to
-#define ACCESSTOKEN "myaccesstoken"        // COAP access token
-#define LOGGERID "mylogger"                       // Logger ID. Set to whatever you like
+#define HOST "demo.thingsboard.io"                // internet address of the IoT server to report to
+#define ACCESSTOKEN "A1_TEST_TOKEN"               // COAP access token
+#define LOGGERID "MyLogger1"                      // Logger ID. Set to whatever you like
 #define TIMEOUT 120                               // cellular timeout in seconds, per attempt
 //#define DONOTUSEEEPROMSENDBUFFER
 
@@ -288,7 +288,7 @@ void loop ()
         // Check whether it is time for a telemetry event. Wake up xbee already
         // so it can start connecting while doing other things
         
-        if (((now.Hour() % SEND_INTERVAL) == 0) && (now.Minute() == 0)) {   // only on the hour itself!
+        if (((now.Hour() % SEND_INTERVAL) == 0) && (now.Minute() == 10)) {   // only on the hour itself!
             seqStatus.tryagain = 5;                                         // maximum number of tries
             pinMode(XBEE_SLEEPPIN, OUTPUT);
             digitalWrite(XBEE_SLEEPPIN, LOW);
@@ -447,7 +447,11 @@ void loop ()
                 // } else {
                   // Send COAP message. Wait for direct confirmation from COAP server, but not for 2.03 response.
                   // sendXbeeMessage(bufferSize, host, sizeof(host) - 1); // do not include "\0"
-                  sendXbeeMessage(buffer, bufferSize, host, sizeof(host) - 1);
+                  #ifdef DONOTUSEEEPROMSENDBUFFER
+                      sendXbeeMessage(buffer, bufferSize, host, sizeof(host) - 1);
+                  #else
+                      sendXbeeMessage(bufferSize, host, sizeof(host) - 1);
+                  #endif
                 //}
             } else if (waitingMessageTime > 5000) {             // don't check once connection established to avoid interference between xbee replies.
                 xbc.send(AIRequest);
