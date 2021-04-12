@@ -26,7 +26,7 @@
 #define ACCESSTOKEN "A1_TEST_TOKEN"               // COAP access token
 #define LOGGERID "MyLogger1"                      // Logger ID. Set to whatever you like
 #define TIMEOUT 120                               // cellular timeout in seconds, per attempt
-//#define DONOTUSEEEPROMSENDBUFFER
+#define DONOTUSEEEPROMSENDBUFFER
 
 /* INCLUDES */
 
@@ -288,7 +288,7 @@ void loop ()
         // Check whether it is time for a telemetry event. Wake up xbee already
         // so it can start connecting while doing other things
         
-        if (((now.Hour() % SEND_INTERVAL) == 0) && (now.Minute() == 10)) {   // only on the hour itself!
+        if (((now.Hour() % SEND_INTERVAL) == 0) && (now.Minute() == 0)) {   // only on the hour itself!
             seqStatus.tryagain = 5;                                         // maximum number of tries
             pinMode(XBEE_SLEEPPIN, OUTPUT);
             digitalWrite(XBEE_SLEEPPIN, LOW);

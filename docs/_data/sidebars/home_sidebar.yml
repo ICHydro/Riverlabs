@@ -5,12 +5,15 @@ entries:
   levels: one
   folders:
 
-  - title: Overview
+  - title: Getting started
     output: web
     folderitems:
-    - title: Overview
-      url: /overview.html
+    - title: Setting up
+      url: /start.html
       output: web
+    - title: Technical specifications
+      url: /techspec.html
+      output: web    
   - title: Programming the logger
     output: web
     folderitems:
