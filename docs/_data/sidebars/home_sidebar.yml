@@ -4,16 +4,18 @@ entries:
 - title: Sidebar
   levels: one
   folders:
-
   - title: Getting started
     output: web
     folderitems:
-    - title: Setting up
-      url: /start.html
+    - title: Overview
+      url: /index.html
       output: web
     - title: Technical specifications
       url: /techspec.html
       output: web    
+    - title: Setting up
+      url: /start.html
+      output: web
   - title: Programming the logger
     output: web
     folderitems:
@@ -23,9 +25,12 @@ entries:
     - title: Uploading code
       url: /upload.html
       output: web
-  - title: Telemetry
+  - title: Data storage and telemetry
     output: web
     folderitems:
+    - title: SD card storage
+      url: /SDcard.html
+      output: web
     - title: Xbee 3G Modem
       url: /xbee3G.html
       output: web
