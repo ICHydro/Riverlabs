@@ -10,17 +10,7 @@ permalink: upload.html
 
 ## Uploading the code
 
-### 1. Get an FTDI cable
-
-To minimize component cost, the WMOnode logger does not have a USB connection. Instead it uses a serial interface that can be programmed with a USB to Serial (TTL level) converter. The most common tools are based on the FTDI chip and consist of either a small breakout board (such as the [Sparkfun board](https://www.sparkfun.com/products/9873)), which can be connected to your computer with a micro-USB cable, or an [FTDI cable](https://www.sparkfun.com/products/9717) that can be connected directly to your computer. FTDI boards and cables come in either 3.3V and 5V versions. WMOnode is compatible with both, but we recommend the 3.3V version.
-
-Follow [these instructions](https://learn.sparkfun.com/tutorials/how-to-install-ftdi-drivers) to install the drivers of the FTDI chip on your computer.
-
-### 2. Get the Arduino IDE 
-
-You can use either the desktop application or the web editor. Instructions to install the desktop app for various operation systems can be found on the [Arduino website](https://www.arduino.cc/en/Guide/HomePage).
-
-### 3. Get the required libraries
+### Get the required libraries
 
 The code uses the following external libraries that need to be installed separately:
 
@@ -34,7 +24,7 @@ The first 4 libraries can be installed via the Arduino app, following the [instr
 
 The Rocketscream LowPower library is not available via the Arduino app. You will need to download the code from the [Github page](https://github.com/rocketscream/Low-Power) and put it manually in your Arduino libraries folder (see Manual Installation on the [Arduino instructions page](https://www.arduino.cc/en/Guide/Libraries))
 
-### 4. Power considerations
+### Power considerations
 
 The logger has a power switch, which is labelled "ON (Batt) / OFF (ftdi)". This means that the logger is supplied with power from the battery when on (as you would expect). In the off state, the logger will receive power from the ftdi cable, if one is connected, and otherwise will not have any power.
 
@@ -42,11 +32,11 @@ This makes it possible to program the logger without a battery (as the logger wi
 
 This design also makes it impossible to connect the ftdi power and the battery power at the same time, which may damage the battery (as it may be forced with 5V power from the USB port via the ftdi cable).
 
-### 5. Connect the WMOnode to your computer with the FTDI cable or breakout board
+### Connect the logger to your computer with the FTDI cable or breakout board
 
 Plug the FTDI cable or breakout board onto the FTDI pins of the WMOnode board. The black pin (GND) is on the side of the SD card slot.
 
-### 6. Set the board in the Arduino interface
+### Set the correct board in the Arduino interface
 
 Choose the following board settings in the Arduino IDE (under the "tools" menu):
 * Board: Arduino Pro or Pro Mini
@@ -54,7 +44,7 @@ Choose the following board settings in the Arduino IDE (under the "tools" menu):
 
 Select the right port. If the FTDI cable or breakout board is properly connected and the driver is installed, it should show up in the "ports" menu. The name depends on the operating system, for instance "/dev/ttyUSB0" under linux. For a more detailed guide and troubleshooting, see the [Sparkfun guide](https://learn.sparkfun.com/tutorials/how-to-install-ftdi-drivers).
 
-### 6. Set the clock
+### Set the clock
 
 This step is only needed when a new CR1220 coin battery is placed or the battery has been removed. The clock will retain the time as long as the coin battery is in place, even if new code is uploaded.
 
@@ -75,7 +65,7 @@ You can also adjust this line if you want to program in a different time zone:
 in which you replace 'TZ' by the time offset (in hours) between your computer's time and the desired time.
 
 
-### 7. Upload the logger code
+### Upload the logger code
 
 Download and open the "WMOnode.ino" script, and hit the "upload" button. 
 

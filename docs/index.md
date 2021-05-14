@@ -41,19 +41,19 @@ The Riverlabs loggers are a series of low-cost environmental loggers based on th
 
 ## Power considerations
 
-The logger requires two batteries. It uses a 3.7V 18650 lithium battery as main power source. This is a commonly available battery that can be found in may electronic stores. They are typically rechargeable batteries, with a capacity of around 2000 mAh. Meake sure that you purchase an appropriate charger. They cannot be charged with Ni-MH chargers!
+The logger requires two batteries. The main power source is a 3.7V 18650 lithium battery, which is a commonly available battery that can be found in may electronic stores. These are rechargeable batteries with a capacity of around 2000 mAh. Make sure that you purchase an appropriate charger. They cannot be charged with Ni-MH chargers!
 
-Also mind the polarity when inserting the battery. The logger versions without solar charging circuit are protected for wrong insertion of the battery, but those with solar charging circuit are not. Inserting the battery wrongly will cause permanent damage those loggers and may cause fire.
+Also mind the polarity when inserting the battery. The logger versions without solar charging circuit are protected for reverse polarity, but those with a solar charging circuit are not. Inserting the battery wrongly will cause permanent damage to those loggers and may cause fire.
 
 In addition to the main battery, the circuit board also has a slot for a small CR1220 coin battery, which serves as backup for the real-time clock. You can run the logger without this battery; however in that case the logger will lose the time when the main battery is removed.
 
 ## Programming the loggers
 
-The loggers can be programmed with any Arduino compatible IDE, but the instructions here use the official Arduino IDE. For the Atmel-based loggers, you will need an FTDI cable or adapter, as they do not come with an USB port for cost-saving reasons.
+The loggers can be programmed with any Arduino compatible IDE. The instructions here use the official Arduino IDE but you can also use other systems such as Platform.io. The loggers based on an Atmega CPU do not come with an USB port (to save cost) so you will need an FTDI cable or adapter.
 
 On first use of the logger, you will need to set the clock with the set_clock.ino script. This only has to be done once, except if both batteries are removed or have run out. When using telemetry, the clock needs to be set to the UTC time zone.
 
-The main script of the logger is wari.ino. The main settings, such as logging and telemetry frequency, can be found at the start of the script. Set them as you like, but be aware that the frequency of logging and telemetry may affect battery life.
+The main script of the logger is wari.ino. The main settings, such as logging and telemetry frequency, can be found at the start of the script. Set them as you like, but be aware that a higher frequency of logging and telemetry will lead to a shorter battery life.
 
 ## Telemetry
 

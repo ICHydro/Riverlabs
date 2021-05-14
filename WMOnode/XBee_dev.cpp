@@ -863,7 +863,6 @@ bool XBee::available() {
 uint8_t XBee::read() {
 	return _serial->read();
 }
-
 void XBee::flush() {
 	_serial->flush();
 }

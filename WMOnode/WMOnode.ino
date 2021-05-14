@@ -22,9 +22,9 @@
 #define READ_INTERVAL 5                           // Interval for sensor readings, in minutes
 #define SEND_INTERVAL 1                           // telemetry interval, in hours
 #define NREADINGS 10                              // number of readings taken per measurement
-#define HOST "demo.thingsboard.io"                // internet address of the IoT server to report to
+#define HOST "thingsboard.io"                     // internet address of the IoT server to report to
 #define ACCESSTOKEN "A1_TEST_TOKEN"               // COAP access token
-#define LOGGERID "MyLogger1"                      // Logger ID. Set to whatever you like
+#define LOGGERID "RLMB0194"                      // Logger ID. Set to whatever you like
 #define TIMEOUT 120                               // cellular timeout in seconds, per attempt
 #define DONOTUSEEEPROMSENDBUFFER
 

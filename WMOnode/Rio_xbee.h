@@ -1,10 +1,11 @@
 
 //* functions developed by Isabela Mapstone to control the XBee 3G */
 
-//#include "Rio.h"
 #include <Arduino.h>
+#include <Wire.h>
 #include "XBee_dev.h"
 #include "Rio_COAP.h"
+#include <RtcDS3231.h>
 #if defined(__AVR_ATmega328P__)
     #include <SoftwareSerial.h>
 #endif
@@ -77,6 +78,7 @@ extern CellularStatus seqStatus;
 extern uint32_t IP;
 extern const uint16_t Port;
 extern uint8_t protocol;
+extern RtcDS3231<TwoWire> MyRtc;
 
 extern XBeeWithCallbacks xbc;
 extern uint32_t IPaddr;
@@ -98,6 +100,7 @@ void sendAtCommand(AtCommandRequest);
 void zbModemStatusCb(ModemStatusResponse& mx, uintptr_t);
 void zbIPResponseCb(IPRxResponse& ipResponse, uintptr_t);        // generic callback
 void zbIPResponseCb_COAP(IPRxResponse& ipResponse, uintptr_t);        // specific for COAP
+void zbIPResponseCb_NTP(IPRxResponse& ipResponse, uintptr_t);        // specific for NTP
 void zbTcpSendResponseCb(TxStatusResponse& txr, uintptr_t);
 void zbAtResponseCb(AtCommandResponse& atr, uintptr_t);
 

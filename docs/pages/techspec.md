@@ -26,6 +26,14 @@ The Wari has the following characteristics:
 | Power supply               | 1 x 3.6 V Li-ion battery (18650) |
 | Water resistance           | IP67             |
 
+### PCB layout
+
+![PCB layout of the Wari](images/wari_layout.jpg "Wari PCB layout")
+
+### Power considerations
+
+
+
 
 ## WMOnode
 
@@ -43,5 +51,11 @@ The WMOnode was developed as part of the WMO funded Innovation Hub project. It i
 | Power supply               | 1 x 3.6 V Li-ion battery (18650) |
 | Water resistance           | IP67             |
 
+### PCB layout
+
+
+
+
+### Power considerations
 
 

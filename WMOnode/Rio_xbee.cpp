@@ -88,59 +88,6 @@ void sendDNSLookupCommand(char address[], int len) {
   seqStatus.dnsLookupRequested = true;
 }
 
-//void getLAResponse() {
-//
-//  xbc.readPacket(2000);
-//
-//  if (xbc.getResponse().isAvailable()) {
-//    // got a response!
-// 
-//    // should be an AT command response
-//    if (xbc.getResponse().getApiId() == AT_COMMAND_RESPONSE) {
-//      printUnexpectedMessage();
-//      xbc.getResponse().getAtCommandResponse(atResponse);
-//
-//      if (atResponse.isOk()) {
-//
-//        if (atResponse.getValueLength() == 4) {
-//          // The IP address should be 4 bytes
-//          Serial.print(F("IP Address: "));
-//          
-//          for (int i = 0; i < atResponse.getValueLength(); i++) {
-//            Serial.print(atResponse.getValue()[i], HEX);
-//            Serial.print(" ");
-//          }
-//
-//          Serial.println("");
-//
-//          IPaddr = (((uint32_t)atResponse.getValue()[0]) << 24) + 
-//                   (((uint32_t)atResponse.getValue()[1]) << 16) +   //WB changed. Bug in Isabella's original version?
-//                   (atResponse.getValue()[2] << 8) + 
-//                   atResponse.getValue()[3];
-//
-//          seqStatus.hostIPResolved = true;
-//        }
-//      } 
-//      else {
-//        Serial.print(F("LA command returned error code: "));
-//        Serial.println(atResponse.getStatus(), HEX);
-//        seqStatus.xbcErrorOccurred = true;
-//      }
-//    } else {
-//      printUnexpectedMessage();
-//    }   
-//  } else {
-//    // AT command failed
-//    if (xbc.getResponse().isError()) {
-//      Serial.print(F("Error reading packet.  Error code: "));  
-//      Serial.println(xbc.getResponse().getErrorCode());
-//      seqStatus.xbcErrorOccurred = true;
-//    } else {
-//      Serial.println(F("No response from XBee"));
-//    }
-//  }
-//}
-
 // send a TCP message to an address/port on the internet
 // Do not wait for the TX response packet
 
@@ -332,7 +279,7 @@ bool getDBStatus(Stream &stream, uint8_t *returnvalue) {
   }
 }
 
-// Callback function for incoming TCP/IP message
+// Generic callback function for incoming TCP/IP message
 
 void zbIPResponseCb(IPRxResponse& ipResponse, uintptr_t) {
     // Note that any incoming IP message is considered a success, even if it does not 
@@ -344,6 +291,31 @@ void zbIPResponseCb(IPRxResponse& ipResponse, uintptr_t) {
     #endif
     seqStatus.ipResponseReceived = true;
 }
+
+// Callback function for incoming NTP message
+// Based on code of the Arduino NTPClient library
+ 
+void zbIPResponseCb_NTP(IPRxResponse& ipResponse, uintptr_t) {
+
+  unsigned long highWord = word(ipResponse.getData()[40], ipResponse.getData()[41]);
+  unsigned long lowWord = word(ipResponse.getData()[42], ipResponse.getData()[43]);
+  
+  // combine the four bytes (two words) into a long integer
+  // this is NTP time (seconds since Jan 1 1900):
+  unsigned long secsSince1900 = highWord << 16 | lowWord;
+  uint32_t secsSince2000 = secsSince1900 - 2208988800UL - 946684800;
+
+  MyRtc.SetDateTime((RtcDateTime) secsSince2000);
+  
+  #if DEBUG > 1
+    DebugSerial->print(F("Callback - NTP message received: "));
+    formatDateTime(secsSince2000);
+    Serial.println(datestring);
+  #endif
+
+  seqStatus.ipResponseReceived = true;
+}
+
 
 
 // Callback function for incoming TCP/IP message
