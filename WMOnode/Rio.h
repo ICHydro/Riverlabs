@@ -89,6 +89,7 @@ void InterruptServiceRoutine();
 void error(uint8_t, uint8_t);
 void getFilename(const RtcDateTime&);
 void formatDateTime(const RtcDateTime&);
+void printDateTime(const RtcDateTime&);
 
 void resetEEPromHeader(int);
 void resetEEPROMSDMask(int);

@@ -78,7 +78,7 @@ extern CellularStatus seqStatus;
 extern uint32_t IP;
 extern const uint16_t Port;
 extern uint8_t protocol;
-extern RtcDS3231<TwoWire> MyRtc;
+extern RtcDS3231<TwoWire> Rtc;
 
 extern XBeeWithCallbacks xbc;
 extern uint32_t IPaddr;
@@ -106,5 +106,7 @@ void zbAtResponseCb(AtCommandResponse& atr, uintptr_t);
 
 void sendXbeeMessage(uint8_t*, uint16_t, char *host, uint8_t);
 void sendXbeeMessage(uint16_t, char *host, uint8_t);
+
+bool setclock_ntc();
 
 #endif

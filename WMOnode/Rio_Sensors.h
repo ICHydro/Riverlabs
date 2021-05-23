@@ -13,6 +13,6 @@
     extern SoftwareSerial DebugSerial;
 #endif
 
-uint8_t readLidarLite(int16_t*, uint8_t, bool, Stream &stream);
+uint8_t readLidarLite(int16_t*, uint8_t, uint8_t, Stream &stream);
 
 #endif

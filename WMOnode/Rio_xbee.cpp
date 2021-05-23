@@ -6,6 +6,7 @@
 
 
 #include "Rio_xbee.h"
+#include "Rio.h"
 
 // Wait for cellular registration, signalled by modem status message containing status 2
 // Set isRegistered to true when registered on the network
@@ -305,18 +306,9 @@ void zbIPResponseCb_NTP(IPRxResponse& ipResponse, uintptr_t) {
   unsigned long secsSince1900 = highWord << 16 | lowWord;
   uint32_t secsSince2000 = secsSince1900 - 2208988800UL - 946684800;
 
-  MyRtc.SetDateTime((RtcDateTime) secsSince2000);
-  
-  #if DEBUG > 1
-    DebugSerial->print(F("Callback - NTP message received: "));
-    formatDateTime(secsSince2000);
-    Serial.println(datestring);
-  #endif
-
+  Rtc.SetDateTime((RtcDateTime) secsSince2000);
   seqStatus.ipResponseReceived = true;
 }
-
-
 
 // Callback function for incoming TCP/IP message
 // This one specifically for COAP
@@ -566,5 +558,67 @@ void sendXbeeMessage(uint16_t bufferSize, char *host, uint8_t hostlength) {
             seqStatus.ipRequestSentOk = false;
             seqStatus.ipResponseReceived = false;
         }
+    }
+}
+
+bool setclock_ntc() {
+
+    const char host[] = "pool.ntp.org";
+    uint16_t Port = 123;                 // 0x50 = 80; 0x1BB = 443, 0x1633 = 5683 (COAP), 0x75B = 1883 (MQTT), 1337 = NTP
+    uint8_t protocol = 0;                         // 0 for UDP, 1 for TCP, 4 for SSL over TCP
+    
+    uint8_t AIstatus = 255;
+    uint32_t timeInMillis = 0;
+    uint8_t i = 0;
+
+    // wait up to 2 min to connect
+
+    while((i++ < 40) && (AIstatus != 0)) {
+        timeInMillis = millis();
+        while((millis() - timeInMillis) < 3000) {
+            xbc.loop();
+        }
+        getAIStatus(Serial, &AIstatus);
+        #ifdef DEBUG > 0
+            Serial.print(F("AI status = "));
+            Serial.println(AIstatus);
+        #endif
+        digitalWrite(WriteLED, HIGH);
+        delay(50);
+        digitalWrite(WriteLED, LOW);
+    }
+
+    // wait up to 10 seconds for reply. Make 3 attempts.
+    i = 0;
+    while(!seqStatus.hostIPResolved && (i++ < 3)) {
+        sendDNSLookupCommand(host, sizeof(host) - 1);
+        timeInMillis = millis();
+        while((!seqStatus.hostIPResolved) && ((millis() - timeInMillis) < 10000)) {
+            xbc.loop();
+        }
+    }
+
+    byte packetBuffer[48];
+    memset(packetBuffer, 0, 48);
+
+    packetBuffer[0] = 0b11100011;   // LI, Version, Mode
+    packetBuffer[1] = 0;     // Stratum, or type of clock
+    packetBuffer[2] = 6;     // Polling Interval
+    packetBuffer[3] = 0xEC;  // Peer Clock Precision
+    // 8 bytes of zero for Root Delay & Root Dispersion
+    packetBuffer[12]  = 49;
+    packetBuffer[13]  = 0x4E;
+    packetBuffer[14]  = 49;
+    packetBuffer[15]  = 52;
+
+    tcpSend(IP, Port, protocol, packetBuffer, 48);
+    timeInMillis = millis();
+    while((!seqStatus.ipResponseReceived) && (millis() - timeInMillis) < 15000) {
+        xbc.loop();
+    }
+    if(seqStatus.ipResponseReceived) {
+        return(1);
+    } else {
+        return(0);
     }
 }

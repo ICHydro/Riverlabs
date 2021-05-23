@@ -7,7 +7,7 @@
  * (c) Riverlabs UK except where indicated
  * 
  * Notes:
- * - By default, debug messages are output to the Serial terminal.
+ * - By default, debug messages are printed to the Serial terminal.
  *   To change the level of debug output, change the following line in line Rio.h:
  *   # define DEBUG 2
  *   The following levels can be used:
@@ -20,13 +20,14 @@
 
 #define COAP                                      // Do not change
 #define READ_INTERVAL 5                           // Interval for sensor readings, in minutes
-#define SEND_INTERVAL 1                           // telemetry interval, in hours
-#define NREADINGS 10                              // number of readings taken per measurement
-#define HOST "thingsboard.io"                     // internet address of the IoT server to report to
+#define SEND_INTERVAL 3                           // telemetry interval, in hours
+#define NREADINGS 9                               // number of readings taken per measurement (excluding 0 values)
+#define HOST "demo.thingsboard.io"                     // internet address of the IoT server to report to
 #define ACCESSTOKEN "A1_TEST_TOKEN"               // COAP access token
-#define LOGGERID "RLMB0194"                      // Logger ID. Set to whatever you like
-#define TIMEOUT 120                               // cellular timeout in seconds, per attempt
+#define LOGGERID "RL000199"                       // Logger ID. Set to whatever you like
+#define TIMEOUT 180                               // cellular timeout in seconds, per attempt
 #define DONOTUSEEEPROMSENDBUFFER
+#define NTC                                       // set the clock at startup by querying an ntc server
 
 /* INCLUDES */
 
@@ -204,7 +205,7 @@ void setup ()
     xbc.onModemStatusResponse(zbModemStatusCb);
     xbc.onAtCommandResponse(zbAtResponseCb);
     xbc.onTxStatusResponse(zbTcpSendResponseCb);
-    xbc.onIPRxResponse(zbIPResponseCb_COAP);
+    xbc.onIPRxResponse(zbIPResponseCb_NTP);
 
     // wait a bit for power to settle and XBee to start up.
     delay(2000);
@@ -232,6 +233,22 @@ void setup ()
           Serial.println(AIstatus);
       #endif
     }
+
+    #ifdef NTC
+        if(setclock_ntc()) {
+            Serial.print(F("NTP received. Clock is set to: "));
+            RtcDateTime now = Rtc.GetDateTime();
+            printDateTime(now);
+            Serial.println();
+            digitalWrite(WriteLED, HIGH);
+            delay(1000);
+            digitalWrite(WriteLED, LOW);
+        } else {
+            error(2, ErrorLED);
+        }
+    #endif
+
+    xbc.onIPRxResponse(zbIPResponseCb_COAP);
     
     pinMode(XBEE_SLEEPPIN, INPUT);                        // sleeping XBee. Deassert instead of setting high - see above
 
@@ -348,7 +365,7 @@ void loop ()
 
         measuredvbat = analogRead(VBATPIN) * 2 * 3.3 / 1.024;     // Battery voltage
         temp = Rtc.GetTemperature().AsCentiDegC();                // Clock temperature
-        readLidarLite(readings, NREADINGS, 1, Serial);            // Lidar
+        readLidarLite(readings, NREADINGS, DEBUG, Serial);            // Lidar
         distance = median(readings, NREADINGS);
 
         #ifdef DEBUG > 0
