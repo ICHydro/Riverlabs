@@ -28,7 +28,7 @@ The Riverlabs loggers are a series of low-cost environmental loggers based on th
     <div class="col-md-6">
         <center>
         <h3>Lidar</h3>
-        <img src="images/Wari_v1.jpg" alt=" logger">
+        <img src="images/WMOnode.jpg" alt=" logger">
         </center>
         <ul>
         <li>Garmin Lidarlite v3HP sensor</li>

@@ -22,9 +22,9 @@
 #define READ_INTERVAL 5                           // Interval for sensor readings, in minutes
 #define SEND_INTERVAL 3                           // telemetry interval, in hours
 #define NREADINGS 9                               // number of readings taken per measurement (excluding 0 values)
-#define HOST "demo.thingsboard.io"                     // internet address of the IoT server to report to
-#define ACCESSTOKEN "A1_TEST_TOKEN"               // COAP access token
-#define LOGGERID "RL000199"                       // Logger ID. Set to whatever you like
+#define HOST "riverflow.io"                     // internet address of the IoT server to report to
+#define ACCESSTOKEN "qcoGouZ9Blq8rZwtTRVz"               // COAP access token
+#define LOGGERID "RL000200"                       // Logger ID. Set to whatever you like
 #define TIMEOUT 180                               // cellular timeout in seconds, per attempt
 #define DONOTUSEEEPROMSENDBUFFER
 #define NTC                                       // set the clock at startup by querying an ntc server
