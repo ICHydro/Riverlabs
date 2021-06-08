@@ -1,8 +1,7 @@
 ---
 title: Arduino
 tags:
-keywords: 
-last_updated: 11 April 2021
+keywords:
 summary: "This page gives a short overview of the Arduino environment"
 sidebar: home_sidebar
 permalink: arduino.html
@@ -29,7 +28,7 @@ Programming an Arduino board consists of the following steps:
 
 Many boards can be connected to the computer via a USB cable. The Riverlabs boards are slightly different, as they do not have a USB port, but a serial (UART) port instead. So you will need a serial-to-usb converter instead. See the section on [uploading code with Arduino](upload.html) for more details. Once this is done, the remaining steps can be executed via the graphical interface of the Arduino IDE.
 
-## The graphical user interface
+## The Arduino IDE
 
 The user interface of the Arduino IDE consists of two main windows. At the top is the editor, in which you can write and edit the code before uploading. Arduino uses a computer language that is very similar to C++. The screenshot below shows one of the many examples that comes with the installation, Blink.ino, which is a short script to control an LED on an Arduino board. This will not work out of the box on the Riverlabs boards because the LED on the board is connected to a different pin. So you will need to replace "LED_BUILTIN" to "8" for the Wari, and "A2" for the WMOnode.
 

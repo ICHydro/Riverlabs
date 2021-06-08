@@ -30,11 +30,11 @@ SM: pin sleep [1]
 
 ## XBee radios
 
-The Riverlabs loggers have a socket for the DIGI XBee radios. 
+The WMOnode loggers come with an xbee socket, which can be used for DIGI XBee compatible radios. 
 
 The Digi XBees are a series of popular radio devices for embedded applications. The XBee range covers many different radio technologies and protocols such as Zigbee. This makes it gives a large flexibility when designing network solutions for particular applications, both wide and local networks, and to upgrade devices. In addition to being extremely solid and reliable pieces of kit, they integrate nicely with Arduino thanks to the xbee-arduino library. We have extended the [original library](https://github.com/andrewrapp/xbee-arduino) with the functionality required to interact with the newer cellular modems, which use a slightly extended version of the original API. Our version is available on our [github page](https://github.com/ICHydro/xbee-arduino) but is also already included in the WMOnode package on this github page, so you do not need to install it separately.
 
-For telemetry via the cellular network, we use the use the [DIGI XBee Cellular 3G](https://www.digi.com/products/embedded-systems/digi-xbee/cellular-modems/digi-xbee-cellular-3g). Digi also has solutions for 4G, but these rely on the LTE-M or NB-IoT protocols, both of which are not very common yet. It should be straightforward to upgrade, however this guide focuses on the 3G modem.
+For telemetry via the cellular network, we use the [DIGI XBee Cellular 3G](https://www.digi.com/products/embedded-systems/digi-xbee/cellular-modems/digi-xbee-cellular-3g). Digi also has solutions for 4G, but these rely on the LTE-M or NB-IoT protocols, both of which are not very common yet. It should be straightforward to upgrade, however this guide focuses on the 3G modem.
 
 Most of the configuration of the Cellular XBee is done directly in the Arduino code. However you need to set some parameters manually to ensure that the logger is able to communicate with the XBee. This can be done most easily with DIGI's free [XCTU software](https://www.digi.com/products/embedded-systems/digi-xbee/digi-xbee-tools/xctu). We provide a short overview here, but to explore the full functionality of the XCTU software, we refer to the [original manual](https://www.digi.com/products/embedded-systems/digi-xbee/digi-xbee-tools/xctu).
 

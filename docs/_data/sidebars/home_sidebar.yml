@@ -22,7 +22,7 @@ entries:
     - title: The Arduino ecosystem
       url: /arduino.html
       output: web
-    - title: Uploading code with Arduino
+    - title: Uploading code with the Arduino IDE
       url: /upload.html
       output: web
   - title: Data storage and telemetry
