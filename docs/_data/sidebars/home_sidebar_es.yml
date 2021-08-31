@@ -1,0 +1,46 @@
+# This is your sidebar TOC. The sidebar code loops through sections here and provides the appropriate formatting.
+
+entries:
+- title: Sidebar
+  levels: one
+  folders:
+  - title: Inicio
+    output: web
+    folderitems:
+    - title: Resumen
+      url: index_es.html
+      output: web
+    - title: Especificaciones t&eacute;cnicas
+      url: techspec_es.html
+      output: web    
+    - title: Setting up
+      url: start_es.html
+      output: web
+  - title: Programaci&oacute;n del logger
+    output: web
+    folderitems:
+    - title: El ecosistema Arduino
+      url: arduino_es.html
+      output: web
+    - title: Subir codigo con arduino
+      url: upload_es.html
+      output: web
+  - title: Almacenamiento de datos y telemetr&iacute;a
+    output: web
+    folderitems:
+    - title: Almacenamiento en tarjeta SD
+      url: SDcard_es.html
+      output: web
+    - title: El modem XBee 3G
+      url: xbee3G_es.html
+      output: web
+    - title: Thingsboard
+      url: thingsboard_es.html
+      output: web     
+  - title: Instalaci&oacute;n
+    output: web
+    folderitems:
+    - title: Instalaci&oacute;n
+      url: installation_es.html
+      output: web
+

@@ -5,3 +5,5 @@ gem 'github-pages'
 
 # to publich without github page
 #gem "jekyll"
+
+gem 'jekyll-multiple-languages-plugin'

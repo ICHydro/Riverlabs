@@ -5,9 +5,10 @@ output: web
 # this property is useful for conditional filtering of content that is separate from the PDF.
 
 topnav_title: Riverlabs documentation
+topnav_title_es: Documentación Riverlabs
 # this appears on the top navigation bar next to the home button
 
-site_title: Riverlabs docs
+site_title: Riverlabs documentation
 # this appears in the html browser tab for the site title (seen mostly by search engines, not users)
 
 company_name: Riverlabs Ltd
@@ -32,6 +33,11 @@ exclude:
   - .idea/
   - .gitignore
   - vendor
+  - Gemfile
+  - Gemfile.lock
+  - createtag
+  - search.json
+  - tooltips.json
 # these are the files and directories that jekyll will exclude from the build
 
 feedback_subject_line: Riverlabs docs
@@ -115,4 +121,16 @@ description: "Documentation of the Riverlabs suite of sensors"
 # baseurl: /documentation-theme-jekyll
 
 
+
+
 github: [metadata]
+
+# internationalisation
+
+# Plugins
+#plugins:
+#  - jekyll-multiple-languages-plugin
+
+#languages: ["en", "es"]
+#exclude_from_localizations: ["javascript", "images", "css"]
+
