@@ -1,42 +1,41 @@
 ---
-title: Setting up
-tags:
-keywords: 
-layout: default_es
-summary: "What do you need to get going with the Riverlabs loggers? This page gives an overview of the hardware and software required to program the loggers."
+title: Herramientas de hardware y software
+layout: page_es
+topnav: topnav_es
+summary: "Esta pagina revisa los herramientas de hardware y software que se necesita para programar y operar los registradores Riverlabs"
 sidebar: home_sidebar_es
-permalink: es/start.html
+permalink: start_es.html
 ---
 
-## Introduction
+## Introducción
+
+Los registradores Riveralbs estan basados en el *bootloader* Arduino. El bootloader ya esta programado en el procesador del registrador, y permite la programación del registrador a traves de la puerta USB de una computadora, sin la necesidad de usar un programador profesional. Tambien significa que un gran rango de herramientas y software esta disponible como parte del *ecosistema* de hardware abierto Arduino. 
 
 The Riverlabs loggers are based on the Arduino bootloader. This means that they can be programmed easily using the USB port of a PC. It also means that a very large range of tools and documentation is available as part of the Arduino open hardware ecosystem. 
 
-## Hardware
+## Cable FTDI
 
-### FTDI cable
-
-The loggers that are based on the Atmel328 processor (Wari and WMOnode) do not have a USB port. Instead they are programmed via the serial port using a serial-to-USB converter. The most common converters are based on the FTDI chip, and come either as a cable or an adapter. Here are some examples:
+Los registradores Wari y WMOnode estan basados en un procesador Atmel328. Es un procesador de bajo costo y muy robusto, pero tiene como desventaja que no tiene interfaz USB, entonces se require un convertor del interfaz Serial del procesarod a USB. Los convertidores mas comunes están basados en el chip FTDI, y vienen como adaptador o cable. Aqui hay algunos ejemploe:
 
 - [FTDI cable (3.3V)](https://ftdichip.com/products/ttl-232r-3v3/)
 - [Sparkfun FTDI basic breakout board](https://www.sparkfun.com/products/9873)
 - [Seeed UARTSBee](https://wiki.seeedstudio.com/UartSBee_V4/)
 
-If you use a Windows operating system, then you may need to follow [these instructions](https://learn.sparkfun.com/tutorials/how-to-install-ftdi-drivers) to install the drivers of the FTDI chip on your computer.
+Si usa el sistema operativa Windows, habrá que instalar el driver del chip, disponible en (sitio web de FTDI)[https://ftdichip.com/drivers/vcp-drivers/].
+
+## Software Arduino
+
+El sistema Arduino simplifica considerablemente la programación del registrador, usando solo un cable FTDI. El ambiente de programación (IDE) Arduino es software de codigo abierto y se puede bajar sin costo del [sitio web Arduino](https://www.arduino.cc/en/software). El sitio web Arduino tambien tiene un rango muy aplio de [documentacion] (https://www.arduino.cc/en/Guide) por si quiere aprender mas sobre Arduino y el ecosistema de manuales, bibliotecas de software, y otros recursos comunicatarios.
+
+## Herramientas opcionales
 
 ### XBee development board
 
-If you intend to use the XBee module for telemetry, then you may consider buying an [XBee Development board] (https://www.digi.com/products/models/xbib-c-smt) from DIGI, which is needed to adjust the settings of the XBee. If you have purchased the logger with XBee modem from Riverlabs, then this is not strictly necessary because in that case the XBee will have been configured already. However, if you purchase the XBee separately, or want to change any of the Riverlabs configurations, then a development board will be necessary.
-
-## Software
-
-### Arduino IDE
-
-The Arduino system makes it very convenient to program the logger by simply connecting it to a PC via the FTDI cable, without the need for an expensive programmer. The arduino IDE can be downloaded for free from the [Arduino website](https://www.arduino.cc/en/software). The Arduino website has also fantastic [documentation](https://www.arduino.cc/en/Guide) in case that you want to learn more about Arduino and its vast ecosystem of manuals, libraries and other community resources.
+Si usa un modulo XBee para la funcionalidad de telemetría, se puede considerar la compra de un [XBee Development board] (https://www.digi.com/products/models/xbib-c-smt) de DIGI, lo cual es necesario para cambiar las opciones en el XBee. Si ha comprado su registrador de Riverlabs, las opciones ya estarán programadas de manera correcta; sin embargo se se compra los modulos directamente de DIGI, el development board es necesario para grabar los valores correctos en el XBee. Sino, el registrador no reconocera el modulo.
 
 ### XCTU
 
-To program the XBee modules, you will need DIGI's free [XCTU software](https://www.digi.com/products/embedded-systems/digi-xbee/digi-xbee-tools/xctu).
+Para usar el XBee development board, es necesario bajar y usar el softare XCTU, disponible sin costo del [sitio web de DIGI](https://www.digi.com/products/embedded-systems/digi-xbee/digi-xbee-tools/xctu).
 
 
 

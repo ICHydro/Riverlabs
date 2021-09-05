@@ -7,5 +7,5 @@ topnav:
       external_url: https://github.com/ICHydro/Riverlabs
     - title: Riverlabs UK
       external_url: https://riverlabs.uk
-    - title: Versión en Español
-      url: index_es.html
+    - title: English version
+      url: index.html

@@ -1,11 +1,10 @@
 ---
 title: Thingsboard
-tags:
-keywords: 
-layout: default_es
+layout: page_es
+topnav: topnav_es
 summary: "A short overview of the Thingsboard IoT server and its functionality"
 sidebar: home_sidebar_es
-permalink: es/thingsboard.html
+permalink: thingsboard_es.html
 ---
 
 The WMOnode logger uses COAP as transfer protocol (MQTT is under development). This is a widely used protocol that is implemented by several IoT software stacks. One option is [Thingsboard](https://thingsboard.io/), which is an open source project with a free community version and a more powerful commercial version. It also includes an online [demo version](https://thingsboard.cloud) which you can use to test your telemetry without the need to install any software.

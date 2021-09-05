@@ -1,11 +1,10 @@
 ---
 title: Xbee 3G Global modem configuration
-tags:
-keywords: 
-layout: default_es
+layout: page_es
+topnav: topnav_es
 summary: "Configuration of the DIGI Xbee 3G Global modem for use with the Riverlabs loggers"
 sidebar: home_sidebar_es
-permalink: es/xbee3G.html
+permalink: xbee3G_es.html
 ---
 
 ## Key settings
@@ -57,9 +56,9 @@ It is most convenient to use Digi’s XCTU software to program an XBee via a PC.
 
 XCTU is also well documented in the user manual, so here we focus only on the steps that are relevant for operating the Riverlabs loggers. The main steps to connect to the Xbee are outlined in Figures 2 and 3.
 
-![XCTU screenshot 1](../images/XCTU1.jpg "XCTU screenshot 1")
+![XCTU screenshot 1](images/XCTU1.jpg "XCTU screenshot 1")
 
-![XCTU screenshot 2](../images/XCTU2.jpg "XCTU screenshot 2")
+![XCTU screenshot 2](images/XCTU2.jpg "XCTU screenshot 2")
 
 
 

@@ -1,21 +1,19 @@
 ---
 title: Especificaciones técnicas
-tags:
-keywords: 
-layout: default_es
+layout: page_es
+topnav: topnav_es
 summary: "Especificaciones técnicas de los registradores Riverlabs"
 sidebar: home_sidebar_es
-permalink: es/techspec.html
+permalink: techspec_es.html
 ---
 
 ## Registrador Wari
 
 ### Resumen
 
-The Wari logger is based around the Maxbotix MB7389 Ultrasound distance sensor. Due to the short range of ultrasound sensors (5&nbsp;m in the case of the MB7389) ultrasound loggers are mostly suitable for water level sensing in small rivers and reservoirs. The Wari does not have telemetry functionality, and is therefore only suited for offline data collection with local storage onto an SD card. It is engineered for ultra low power consumption, with a battery life of over 5 years under typical use.
+El modelo *Wari* esta basado en un sensor de distancia ultrasonico, el Maxboxis MB7389. Sensores ultrasónicos tiene un rango limitado (5m en el caso del MB7389), y por eso son aptos solo para ríos pequeños y reservorios. El modelo Wari no dispone de funcionalidad de telemetría, pero graba las mediciones un una tarjeta SB. El diseño tecnico esta optimizado para consumo de energía ultra bajo, y tiene una vida de batería de mas de 5 años durante uso típico.
 
-
-The Wari has the following characteristics:
+El modelo *Wari* tiene la siguientes características:
 
 ### Especificaciones técnicas
 
@@ -41,21 +39,20 @@ LED rojo: este LED se ilumina brevemente cuando el sensor toma una medición. El
 
 Numero de serie: reporte el número de serie cuando nos contacte por cualquier problema.
 
-
 ## WMOnode
 
-### Overview
+### Resumen
 
-The WMOnode was developed as part of the WMO funded Innovation Hub project. It is based around a Lidarlite v3HP lidar distance sensor with a range of up to 35 m, and has a slot for a telemetry module (XBee form factor). We typically combine it with a DIGI 3G Cellular modem for telemetry.
+El *WMOnode* ha sido desarrollado con apoy de un proyecto *Innovation Hub* del OMM. Usa un sensor Lidar tipo Lidarlite v3HP con un rango de 35m, y tiene espacio para un modulo de telemetria (forma XBee). Tipicamente se combina con un DIGI 3G Cellular modem para transmitir datos de manera inalambrica, pero tambien se puede usar otros modulos (ej. Zigbee)
 
-### Technical specifications
+### Especificaciones técnicas
 
-| Range                      | 0.05 m - 35 m     |
-| Resolution (water level)   | 1 cm             |
-| Resolution (temperature)   | 0.25°C           |
-| Resolution (voltage)       | 0.01 V           |
-| Accuracy (water level)     | ~ 5 - 10 cm      |
-| Power supply               | 1 x 3.6 V Li-ion battery (18650) |
-| Water resistance           | IP67             |
+| Rango                      | 0.05 m - 35 m     |
+| Resolución (nivel de agua) | 1 cm             |
+| Resolución (temperatura)   | 0.25°C           |
+| Resolución (voltaje)       | 0.01 V           |
+| Precisión (nivel de agua)  | ~ 5 - 10 cm      |
+| Fuente de energía          | 1 x 3.6 V Batería Li-ion (18650) |
+| Resistencia al agua        | IP67             |
 
 

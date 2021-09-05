@@ -1,48 +1,54 @@
 ---
-title: Storing data on an SD card
-tags:
-keywords: 
-layout: default_es
-summary: "Storing data locally using the SD card slot"
+title: Almacenamiento de datos en tarjeta SD
+layout: page_es
+topnav: topnav_es
+summary: "Almacenamiento local de datos en la tarjeta SD"
 sidebar: home_sidebar_es
-permalink: es/SDcard.html
+permalink: SDcard_es.html
 ---
 
-## Functionality of the SD card slot
+## Como funciona la tarjeta SD
 
-The Riverlabs loggers come with an SD card slot for local data storage. This is needed when the logger is deployed without telemetry.
+Los registradores Riverlabs vienen con una entrada para una tarjeta SD, lo cual es conveniente para para el almacenamiento de datos, especialmente en el caso que el registrador esta usado sin telemetría. La tarjeta SD permite guardar los datos localmente para varios años.
 
-The SD card functionality is activated by default in the Wari logger. Although the WMOnode logger comes with a physical slot, the SD card code is not yet included in the current version. This is foreseen for a future revision of the code.
+El codigo estandar que esta disponible en el repositorio Github ya tiene activado esta funcionalidad en los siguientes scripts:
+- wari.ino
+- WMOnode_SD.ino
 
-The logger contains an EEPROM chip of 512 kbit, which it uses as internal buffer to store readings to reduce the number of writings to the SD card and to optimise power consumption. The frequency with which the data are flushed from the EEPROM to the SD card can be set in the code by editing the following line:
+El script WMOnode_ino, que incluye funcionalidad de telemetría, aun no tiene incluido la funcionalidad SD. Estamos trabajando en eso.
+
+Cabe destacar que el registrador no graba los datos a la tarjeta cada vez que toma una medición. Por razones de eficiencia energética, graba las mediciones en una memoria interna tipo EEPROM de 512 kbit, y copia periodicamente los datos del EEPROM a la tarjeta SD. La frecuencia de copiar esta determinada en la siguiente linea en el codigo:
 
 `#define FLUSHAFTER 288`
 
-The default option is equivalent to once a day at a measurement interval of 5 minutes. EEPROM is non-volatile memory so the written data are retained even when the battery is removed.
+El valor predeterminado en el codigo es 288 grabaciones, lo cual equivale a una frecuencia de una vez al dia, en el caso de una frecuencia de medicion de 5 minutos.
 
-The logger will also flush the EEPROM when it is reset. Pushing the reset button before taking out the SD card will therefore ensure that all the latest data are written to the SD card. The LED will light up during the flushing process. This can take several seconds, depending on the amount of data to be transferred. **Do not take out the SD card while the LED light is on, as this may damage the card and make it unreadable.**
+Para forzar el copio de los ultimos datos del EEPROM a la tarjeta SD, por ejemplo si uno quiere sacar las ultimas mediciones, es suficiente resetear el registrador con el boton *reset*. Cada vez que el registrador se resetea, chequeará si hay mediciones en la memoria interna que aun no han sido grabado a la tarjeta SD, y los copiará. Durante el périodo de copiar, la luz LED estará iluminada. **Es importante nunca sacar la tarjeta SD durante el proceso de copia, porque dañara a la tarjeta SD y puede corromper todos los datos grabados en la tarjeta**. Ese proceso puede durar varios segundos, dependiendo de la cantidad de datos a copiar.
 
+La memoria interna es no-volatil, entonces guardará los datos tambien cuando no hay batería insertada.
 
-## Inserting and removing the SD card
+## Tipo de tarjeta
 
-To insert an SD card, push the card gently in the slot until it is fully inserted. Make sure that it is correctly inserted, with the contacts facing outside (away from the battery). To remove the SD card, simply pull it out.
+Cualquier tarjeta micro SD o micro SDHC puede ser utilizada, pero se recomienda una tarjeta de buena calidad, especialmente si el registrador esta usado en condiciones de temperatura extremas. La tarjeta SD tiene que estar formateada en formato FAT estándar.
 
-## Data storage on the SD card
+## Insertar y sacar la tarjeta SD
 
-In the standard setup, the sensor takes 10 consecutive distance readings. This takes about 10&nbps;ms for the lidar, and 1.5&nbsp;s for the ultrasound sensor. In addition, it will take a measurement of the temperature sensor on the clock chip, and a voltage reading of the battery.
+Para insertar la tarjeta SD, empújela cuidadosamente en la ranura hasta que se encuentre completamente insertada. Verifique que se encuentra correctamente insertada, con los contactos orientados hacia el externo (alejándose de la batería).
 
-The SD card is formatted in standard FAT format. Any micro SD and micro SDHC card can be used. The SD card can be read with a PC without any specific software. The logger writes one file per day in text formar, with file name format YYYYMMDD.CSV. The content of the file is formatted as follows:
+Para remover la tarjeta SD, simplemente tírela hacia afuera. No saque la tarjeta SD mientras la luz LED roja esta iluminada.
+
+## Formato de grabación de los datos en la tarjeta SD
+
+En el seteo estándar, durante el período de medición, el sensor tomará 10 mediciones. La tarjeta SD puede ser leída por cualquier computador sin requerir algún software particular. El registrador escribe un archivo al día en formato texto, con el formato de nombre tipo  YYYYMMDD.CSV. El contenido del archivo presenta formato del tipo:
 
 `2019/01/01 12:00:00, 2215, 2214, 2214, 2215, 2214, 2214, 2214, 2214, 2215, 2215, 4100, 1950`
 
-In which each line represents one measurement period, and the columns are respectively:
-- Column 1: date and time in format YYYY/MM/DD HH:MM:SS
-- Columns 2 – 11: Raw distance measurements [mm].
-- Column 12: battery voltage [mV]. A full battery sits around 4200&nbsp;mV. The logger shuts down when voltage drops below around 3500mV.
-- Column 13: logger temperature in 1/100&deg;C (so a value of 1950 = 19.50&deg;C).
+en el cual cada línea representa un período de medición, y en donde las columnas son respectivamente:
 
-The logger will operate without an SD card inserted. However, the data in the internal memory will be overwritten when the memory is full.
+- Columna 1: fecha y hora en formato Año/Mes/Día hora:min:seg {AAAA/MM/DD HH:MM:SS}
+- Columnas 2 – 11: mediciones de distancia en milímetros [mm].
+- Columna 12: voltaje de la batería en milivolts [mV]. Una batería a plena carga debiera estar a aproximadamente 4200mV. El registrador se apaga cuando el voltaje baja a un valor menor a aproximadamente 3500mV.
+- Columna 13: temperatura del sensor en 1/100 grados Celsius (entonces un valor de 1950 = 19.50 C).
 
-
-
+El registrador puede operar sin una tarjeta SD insertada, pero la memoria interna será sobre-escrita si se llena.
 

@@ -13,7 +13,7 @@ entries:
     - title: Especificaciones t&eacute;cnicas
       url: techspec_es.html
       output: web    
-    - title: Setting up
+    - title: Necesidades de hardware y software
       url: start_es.html
       output: web
   - title: Programaci&oacute;n del logger

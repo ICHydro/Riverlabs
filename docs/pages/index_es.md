@@ -2,7 +2,8 @@
 title: "Documentación para los registradores Riverlabs"
 keywords: Riverlabs sensors water telemetry xbee
 layout: page_es
-summary: "Esta pagina presenta un resumen breve de la operación de los registradores Riverlabs. Se encuentra mas detalles en el resto de esta documentación"
+topnav: topnav_es
+summary: "Esta pagina presenta un breve resumen de la operación de los registradores Riverlabs. El resto de esta documentación provee mas detalles"
 sidebar: home_sidebar_es
 permalink: index_es.html
 ---

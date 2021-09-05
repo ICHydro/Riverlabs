@@ -2,10 +2,11 @@
 title: Arduino
 tags:
 keywords:
-layout: default_es
+layout: page_es
+topnav: topnav_es
 summary: "This page gives a short overview of the Arduino environment"
 sidebar: home_sidebar_es
-permalink: es/arduino.html
+permalink: arduino_es.html
 ---
 
 ## Intro

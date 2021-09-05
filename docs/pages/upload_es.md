@@ -1,18 +1,17 @@
 ---
-title: Uploading new code to the logger
-tags:
-keywords: 
-layout: default_es
-summary: "This page explains how to upload new code to the loggers"
+title: Subir codigo nuevo
+layout: page_es
+topnav: topnav_es
+summary: "Esta página explica cómo subir codigo Arduino al logger"
 sidebar: home_sidebar_es
-permalink: es/upload.html
+permalink: upload_es.html
 ---
 
-## Uploading the code
+## Subir el código
 
-### Get the required libraries
+### Adquisición de las bibliotecas
 
-The code uses the following external libraries that need to be installed separately:
+El código require las siguientes bibliotecas, que deben estar instalados separadamente del software Arduino:
 
 * RTC by Makuna
 * SoftwareSerial
@@ -20,70 +19,66 @@ The code uses the following external libraries that need to be installed separat
 * AltSoftSerial
 * Rocketscream LowPower
 
-The first 4 libraries can be installed via the Arduino app, following the [instructions](https://www.arduino.cc/en/Guide/Libraries) on the Arduino website.
+Se puede instalar los primeros 4 a través del software Arduino, siguiendo [las instrucciones](https://www.arduino.cc/en/Guide/Libraries) en el sitio web de Arduino.
 
-The Rocketscream LowPower library is not available via the Arduino app. You will need to download the code from the [Github page](https://github.com/rocketscream/Low-Power) and put it manually in your Arduino libraries folder (see Manual Installation on the [Arduino instructions page](https://www.arduino.cc/en/Guide/Libraries))
+La biblioteca RocketScream LowPower no esta disponible a traves del app Arduino. Hay que bajar el codito manualmente de su [página Github](https://github.com/rocketscream/Low-Power) y ponerlo en la carpeta de las biblioteca Arduino en su maquina (vea Instalación Manual en la [pagina deinstrucciones Arduino](https://www.arduino.cc/en/Guide/Libraries)))
 
-### Power considerations
+### Diseño energetico
 
-The logger has a power switch, which is labelled "ON (Batt) / OFF (ftdi)". This means that the logger is supplied with power from the battery when on (as you would expect). In the off state, the logger will receive power from the ftdi cable, if one is connected, and otherwise will not have any power.
+El logger tiene un switch para inciar, indicado "ON (Batt) / OFF (ftdi)" en la placa. En la posición "ON", el logger recibe energía de la batería. En la posición "OFF", la entrada de poder esta conectado con el pin de poder de la conexión FTDI. Ese diseño permite programar el logger con el cable FTDI sin que hay batería insertada. Como consecuencia, el logger estara prendido cuando hay un cable FTDI esta conectado, aun cuando el switch esta en "OFF". Sin embargo no es recomendado operar el logger de esta manera porque el cable FTDI no provee suficiente poder para ciertas funciones como el sensor lidar y la telemetría. Entonces siempre opera el logger con batería.
 
-This makes it possible to program the logger without a battery (as the logger will get power from the ftdi cable), which is convenient. But you can also program the logger when a battery is inserted, either in the OFF position (when the battery is disconnected, and the logger gets power from the ftdi cable) and in the ON position (when the logger will get power from the battery).
+### Instalar los drivers y conectar el logger a la computadora con un cable FTDI
 
-This design also makes it impossible to connect the ftdi power and the battery power at the same time, which may damage the battery (as it may be forced with 5V power from the USB port via the ftdi cable).
+Si usa el sistema operativa Windows, habrá que instalar el driver del chip FTDI, lo cual se puede bajar del (sitio web de FTDI)[https://ftdichip.com/drivers/vcp-drivers/]. Si usa Mac o Linux, típicamente no es necesario instalar ningun driver.
 
-### Connect the logger to your computer with the FTDI cable or breakout board
+Conecta el cable FTDI a la entrada FTDI en el logger. Ojo: observar la dirección: el logger tiene indicaciones "GRN" para indicar el lado del hilo verde, y "BLK" para indicar el lado del hilo negro. Conecta el lado USB del cable a su computadora. Si el cable (y otro adaptador) esta conecto y el driver esta instalado correctamente, Arduino reconocerá el cable y lo presentará en el menu "ports". El nombre depende del sistama operative, pero en Windows típicamente sera "COM?" donde "?" es un number (ej. "COM3").
 
-Plug the FTDI cable or breakout board onto the FTDI pins of the WMOnode board. The black pin (GND) is on the side of the SD card slot.
+### Opciones del software Arduino
 
-### Set the correct board in the Arduino interface
+Escojer los sigientes opciones en Arduio (en el menu "Tools"):
 
-Choose the following board settings in the Arduino IDE (under the "tools" menu):
 * Board: Arduino Pro or Pro Mini
 * Processor: Atmega328P (3.3V, 8MHz)
 
-Select the right port. If the FTDI cable or breakout board is properly connected and the driver is installed, it should show up in the "ports" menu. The name depends on the operating system, for instance "/dev/ttyUSB0" under linux. For a more detailed guide and troubleshooting, see the [Sparkfun guide](https://learn.sparkfun.com/tutorials/how-to-install-ftdi-drivers).
+Escojer la puerta correcta del cable en el menu "ports". Si la opción "ports" esta marcado en gris y no hay ninguna opción disponible en este menu, revisar si el driver esta instalado correctamente, y el cable esta conectado a una puerta USB.
 
-### Set the clock
+### Ajustar el tiempo del reloj
 
-This step is only needed when a new CR1220 coin battery is placed or the battery has been removed. The clock will retain the time as long as the coin battery is in place, even if new code is uploaded.
+Este paso solo es necesario cuando la bateria de reloj CR1220 esta insertada o reemplazada. El reloj interno guardará el tiempo mientras que una bateria reloj esta insertada.
 
-The clock can be set using the example script provided by the RTC library. In the Arduino IDE go to File -> Examples -> Rtc by Makuna -> RS3231_Simple.ino. Open the script. Open a Serial Monitor, set the baud rate to 57600, and hit the "upload" button. If all goes well, the monitor should show the correct time every 10 seconds.
+El repositorio cuenta con un script específico para poner el tiempo (set_clock.ino). Es una adaptación ligera del script "RS3231_Simple.ino" de la biblioteca Rtc by Makuna. Abrir el script, abrir tambien el Monitor de serie de Arduino, meter el "baud rate" en 115200, y aplastar el boton "upload". Si el proceso ha sido exitoso, el monitor mostrará el tiempo del registrador cada 10 segundos.
 
-A nice tutorial of how to use the Serial Monitor in Arduino can be found on [Instructables](https://www.instructables.com/id/HOW-TO-use-the-ARDUINO-SERIAL-MONITOR/).
+Un tutorial mas elaborado del uso del Monitor en serie en Arduino esta disponible en [Instructables](https://www.instructables.com/id/HOW-TO-use-the-ARDUINO-SERIAL-MONITOR/) (en Ingles).
 
-IMPORTANT NOTE: the Wari loggers are originally programmed in the UTC (GMT) time zone. If you set the clock again, then the clock will be set in the time zone of your computer. 
+NOTA 1: En su versión original el script pondrá el tiempo de su computadora, pero se puede ajustar por la zona de tiempo, por ejemplo para meter el tiempo UTC en el registrador. En ese caso hay que cambiar la siguiente linea el el script antes de subir el codido:
 
-LESS IMPORTANT NOTE: There is about a 10 second delay between the moment that the code is compiled on your computer, and the moment that your microcontroller will run it. This means that the clock on the logger will also be delayed with about 10s. To avoid this, you can change the code of the DS3231_Simple script to:
+`#define TZ 0`
 
-`RtcDateTime compiled = RtcDateTime(__DATE__, __TIME__) + 10;`
+NOTA 2: El script toma en cuenta el retrazo entre complicación del codigo y su ejecución el el CPU del registrador. Ese retrazo es alrededor de 11s, pero depende de su sistema. Si quiere afinar ese parametro (para que el tiempo del registraror sea mas preciso), ajustar la siguiente linea:
 
-You can also adjust this line if you want to program in a different time zone:
+`RtcDateTime compiled = RtcDateTime(__DATE__, __TIME__) - TZ * 3600 + 11`
 
-`RtcDateTime compiled = RtcDateTime(__DATE__, __TIME__) - TZ * 3600 + 10;`
+### Subir el codigo del registrador
 
-in which you replace 'TZ' by the time offset (in hours) between your computer's time and the desired time.
+Los codigos para operar el registrador estan en sus respectivas carpetas, wari y WMOnode.
 
+Abrir en Arduino el script que corresponde a su modelo de registrador, y aplastar el botón "upload".
 
-### Upload the logger code
+## Idenficar y resolver problemas (debugging)
 
-Download and open the "WMOnode.ino" script, and hit the "upload" button. 
-
-## Debugging
-
-For simple debugging, you can use the debug serial pinouts on the board and the FTDI cable. Connect the "GND" pin of the DBG pins on the WMOnode to the black wire of the FTDI cable, and the other pin to the yellow (serial in) wire of the FTDI cable using breadboard jumper wires. Open the Serial Monitor in the Arduino app, set the baud rate to 115200 and reset the board by hitting the reset button. You should now see the debugging information appearing on the monitor.
-
-## Troubleshooting
+El codigo incluye llamadas frecuentes a la función Serial.print(), la cual imprime mensajes a un interfaz serie. En el caso del modelo WMOnode, se puede usar el monitor en serie del software Arduino para leer estos mensajes, mientras que el registrador esta conectado a la computadora con el cable FTDI. Sin embargo, en el caso del modelo Wari, el sensor ultrasonido usa el mismo interfaz serie que el cable FTDI, entonces en ese caso el interfaz no esta disponible para imprimir mensajes. En este caso, el registrador usa un interfaz serie virtual (SoftSerial) contectado a los pins "debug" en la placa. Pare leer el output, se conecta el pin "GND" al hilo negro del cable FTDI, y el otro pin al hilo amarillo (serial in) del cable FTDI. Abrir el monitor de serie en el app Arduino, poner el baud rate en 115300, y aplastar el boton "reset" del registrador. Ahora apareceran los mensajes en el monitor.
 
 
-> when compiling, I get the error "This LowPower library only works on AVR processors"
+## Problemas frecuentes
 
-Make sure that you select the right board, i.e. "Arduino Pro or Pro Mini"
+> Durante la compilacion, encuentro el error "This LowPower library only works on AVR processors"
 
-> When uploading the code, I get the error "programmer is not responding"
+Asegurar que en la opcion "board" en Arduino esta en "Arduino Pro or Pro Mini"
 
-Make sure that:
-* you have selected the right board in the Arduino IDE;
-* the FTDI cable is properly connected to the board. Mind the pin layout: the green wire should be on the outside and the black wire should be on the side of the SD card slot.
+> Durante la subida del codigo, encuentro el error "programmer is not responding"
+
+El software Arduino no encuentra el registrador. Asegurar que:
+- El board adecuado esta seleccionado
+- El cable FTDI esta conectado adecuadamente al registrador y a la computadora. Ojo la dirección de la conexión al registrador: el hilo verde debe estar al lado "GRN" y el hilo verde al lado "BLK".
 
 
