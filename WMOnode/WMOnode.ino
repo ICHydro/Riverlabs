@@ -411,7 +411,7 @@ void loop ()
 
         /******** reset readings *****/    
           
-        for (i = 0; i < 10; i++){
+        for (i = 0; i < NREADINGS; i++){
             readings[i] = -1;
         }
     }
