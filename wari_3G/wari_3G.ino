@@ -170,7 +170,7 @@ void setup ()
 
     #ifdef DEBUG > 0
         Serial.println("");
-        Serial.print(F("This is Riverlabs WMOnode, compiled on "));
+        Serial.print(F("This is Riverlabs Wari_3G, compiled on "));
         Serial.println(__DATE__);
         Serial.print(F("Logger ID: "));
         Serial.println(LoggerID);
@@ -179,7 +179,7 @@ void setup ()
         Serial.print(datestring);
         Serial.println(F(" GMT"));
         Serial.println(F("Measuring the following variables:"));
-        Serial.println(F("- Distance (Lidarlite sensor)"));
+        Serial.println(F("- Distance (Maxbotix ultrasound sensor)"));
         Serial.print(F("Measurement interval (minutes): "));
         Serial.println(READ_INTERVAL);
     #endif
