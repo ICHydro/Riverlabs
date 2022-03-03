@@ -22,9 +22,10 @@
 #define READ_INTERVAL 5                           // Interval for sensor readings, in minutes
 #define SEND_INTERVAL 3                           // telemetry interval, in hours
 #define NREADINGS 9                               // number of readings taken per measurement (excluding 0 values)
-#define HOST "demo.thingsboard.io"                // internet address of the IoT server to report to
-#define ACCESSTOKEN "A1_TEST_TOKEN"               // COAP access token
-#define LOGGERID "MyLogger1"                      // Logger ID. Set to whatever you like
+#define HOST "riverflow.io"                // internet address of the IoT server to report to
+#define ACCESSTOKEN "utlVxoEcpM5owPXFqmnQ"               // COAP access token
+#define LOGGERID "dummy"                      // Logger ID. Set to whatever you like
+#define APN ""                            // APN of the cellular network
 #define TIMEOUT 180                               // cellular timeout in seconds, per attempt
 #define DONOTUSEEEPROMSENDBUFFER
 #define NTC                                       // set the clock at startup by querying an ntc server
@@ -228,25 +229,46 @@ void setup ()
             #endif
         }
     } else {
-      #ifdef DEBUG > 0
-          Serial.print(F("AI status = "));
-          Serial.println(AIstatus);
-      #endif
-    }
+        #ifdef DEBUG > 0
+            Serial.println(F("XBee 3G detected. Setting APN"));
+        #endif
+        uint8_t laCmd1[] = {'A','N'};
+        uint8_t laCmd2[] = {'W','R'};
+        uint8_t laCmd3[] = {'A','C'};
+        uint8_t laCmd4[] = {'D','O'};
+        char APNstring[] = APN;
+        uint8_t DOvalue = 0x43;
+        
+        AtCommandRequest atRequest1(laCmd1, APNstring, sizeof(APNstring) - 1);
+        AtCommandRequest atRequest2(laCmd2);
+        AtCommandRequest atRequest3(laCmd3);
+        AtCommandRequest atRequest4(laCmd4, &DOvalue, 1);
+        //AtCommandRequest atRequest4(laCmd1);
 
-    #ifdef NTC
-        if(setclock_ntc()) {
-            Serial.print(F("NTP received. Clock is set to: "));
-            RtcDateTime now = Rtc.GetDateTime();
-            printDateTime(now);
-            Serial.println();
-            digitalWrite(WriteLED, HIGH);
-            delay(1000);
-            digitalWrite(WriteLED, LOW);
-        } else {
-            error(2, ErrorLED);
-        }
-    #endif
+        
+        
+        uint8_t status = xbc.sendAndWait(atRequest1, 150);
+        xbc.sendAndWait(atRequest4, 150);
+        status += xbc.sendAndWait(atRequest2, 150);
+        status += xbc.sendAndWait(atRequest3, 150);
+        status += xbc.sendAndWait(atRequest4, 150);
+        
+        
+
+        #ifdef NTC
+            if(setclock_ntc()) {
+                Serial.print(F("NTP received. Clock is set to: "));
+                RtcDateTime now = Rtc.GetDateTime();
+                printDateTime(now);
+                Serial.println();
+                digitalWrite(WriteLED, HIGH);
+                delay(1000);
+                digitalWrite(WriteLED, LOW);
+            } else {
+                error(2, ErrorLED);
+            }
+        #endif
+    }
 
     xbc.onIPRxResponse(zbIPResponseCb_COAP);
     

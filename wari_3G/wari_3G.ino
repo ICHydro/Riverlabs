@@ -229,19 +229,23 @@ void setup ()
             #endif
         }
     } else {
-      #ifdef DEBUG > 0
-          Serial.println(F("XBee 3G detected. Setting APN"));
-      #endif
+        #ifdef DEBUG > 0
+            Serial.println(F("XBee 3G detected. Setting APN"));
+        #endif
         uint8_t laCmd1[] = {'A','N'};
         uint8_t laCmd2[] = {'W','R'};
         uint8_t laCmd3[] = {'A','C'};
+        uint8_t laCmd4[] = {'D','O'};
         char APNstring[] = APN;
+        uint8_t DOvalue = 0x43;
         
         AtCommandRequest atRequest1(laCmd1, APNstring, sizeof(APNstring) - 1);
         AtCommandRequest atRequest2(laCmd2);
         AtCommandRequest atRequest3(laCmd3);
+        AtCommandRequest atRequest4(laCmd4, &DOvalue, 1);
         
         uint8_t status = xbc.sendAndWait(atRequest1, 150);
+        status += xbc.sendAndWait(atRequest4, 150);
         status += xbc.sendAndWait(atRequest2, 150);
         status += xbc.sendAndWait(atRequest3, 150);
 

@@ -105,12 +105,12 @@ class CoapPacket {
 		CoapOption options[COAP_MAX_OPTION_NUM];
  
 		void addOption(uint8_t number, uint8_t length, uint8_t *opt_payload);
-        void parseMessage(uint8_t *message, uint16_t length);
-        uint8_t createMessage(uint8_t *p);
-        uint8_t createMessage(EEPROMClass);
-        uint8_t createMessageHeader(EEPROMClass);
-        uint8_t createMessageHeader(uint8_t *);
-        void print(Stream &stream);
+    void parseMessage(uint8_t *message, uint16_t length);
+    uint8_t createMessage(uint8_t *p);
+    uint8_t createMessage(EEPROMClass);
+    uint8_t createMessageHeader(uint8_t *);
+    uint8_t createMessageHeader(EEPROMClass);
+    void print(Stream &stream);
 };
 
 #endif

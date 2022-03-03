@@ -275,7 +275,6 @@ uint8_t CoapPacket::createMessageHeader(uint8_t *buffer) {
     return s;
 }
 
-
 void CoapPacket::print(Stream &stream) {
     stream.print(F("Type = "));
     stream.println(type);
