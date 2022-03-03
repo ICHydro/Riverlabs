@@ -6,7 +6,7 @@
  * Upload by selecting the board "Arduino Pro or Pro Mini"
  * and processor "Atmega 328 P (3.3V, 8 MHz)". 
  * 
- * By default, the logger takes 10 -repeated distance measurements 
+ * By default, the logger takes 10 repeated distance measurements 
  * at an interval of 5 minutes (starting at the hour).
  * These are written to the internal EEPROM chip,
  * which is flushed to the SD card every 24 hours. 
@@ -440,13 +440,12 @@ void setup()
   
     // setup external interupt 
     attachInterrupt(interruptNo, InterruptServiceRoutine, FALLING);
-  
-    digitalWrite(WriteLED, HIGH);
-
     
     #ifdef DEBUG
         DebugSerial.println(F("Flushing EEPROM. This will also test SD card"));
     #endif
+
+    digitalWrite(WriteLED, HIGH);
 
     if(dumpEEPROM()) {
         resetEEPromHeader(EEPROM_ADDR);
@@ -456,8 +455,8 @@ void setup()
     } else {
         #ifdef DEBUG
             DebugSerial.println(F("Failed to flush EEPROM. SD card missing? Continuing anyway."));
-            error(3, ErrorLED);
-        #endif     
+        #endif
+        error(3, ErrorLED);
     }
 
     digitalWrite(WriteLED, LOW);
