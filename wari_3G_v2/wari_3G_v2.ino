@@ -20,11 +20,11 @@
 
 #define COAP                                      // Do not change
 #define READ_INTERVAL 5                           // Interval for sensor readings, in minutes
-#define SEND_INTERVAL 1                           // telemetry interval, in hours
+#define SEND_INTERVAL 3                           // telemetry interval, in hours
 #define NREADINGS 9                               // number of readings taken per measurement (excluding 0 values)
 #define HOST "riverflow.io"                // internet address of the IoT server to report to
-#define ACCESSTOKEN " "               // COAP access token
-#define LOGGERID "dummy"                      // Logger ID. Set to whatever you like
+#define ACCESSTOKEN "zu9RYOiBw3eYRutA2utK"               // COAP access token
+#define LOGGERID "RL000281"                      // Logger ID. Set to whatever you like
 #define APN "hologram"                            // APN of the cellular network
 #define TIMEOUT 180                               // cellular timeout in seconds, per attempt
 #define DONOTUSEEEPROMSENDBUFFER
@@ -128,24 +128,16 @@ void setup ()
     
     pinMode(WriteLED, OUTPUT);
     pinMode(ErrorLED, OUTPUT);
+    pinMode(MBONPIN, OUTPUT);
     digitalWrite(WriteLED, LOW);
     digitalWrite(ErrorLED, LOW);
+    digitalWrite(MBONPIN, LOW);
 
     pinMode(VBATPIN, INPUT);
-
-    #ifdef Boost5V_on
-        pinMode(Boost5V_on, OUTPUT);
-        pinMode(SWITCH5V, OUTPUT);
-        digitalWrite(Boost5V_on, LOW);
-        digitalWrite(SWITCH5V, LOW);
-    #endif
 
     #ifdef XBEE_SLEEPPIN
         pinMode(XBEE_SLEEPPIN, INPUT);   // do not set high but keep floating
     #endif
-
-    pinMode(LIDARONPIN, OUTPUT);
-    digitalWrite(LIDARONPIN, LOW);
  
 
     /* Start clock */
@@ -170,7 +162,7 @@ void setup ()
 
     #ifdef DEBUG > 0
         Serial.println("");
-        Serial.print(F("This is Riverlabs Wari_3G, compiled on "));
+        Serial.print(F("This is Riverlabs Wari_3G_v2, compiled on "));
         Serial.println(__DATE__);
         Serial.print(F("Logger ID: "));
         Serial.println(LoggerID);
