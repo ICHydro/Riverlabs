@@ -387,12 +387,7 @@ void resetEEPromHeader(int deviceaddress){
 //************* setup *************//
 
 void setup() 
-{
-    #ifdef DEBUG
-        Serial.begin(115200);
-        Serial.println(F("Opened debugging connection"));
-    #endif
-  
+{ 
     // reset readings    
             
     for (int i=0; i < NREADINGS; i++){
@@ -434,6 +429,12 @@ void setup()
     attachInterrupt(interruptNo, InterruptServiceRoutine, FALLING);
     
     #ifdef DEBUG
+        Serial.begin(115200);
+        Serial.println(F("This is Riverlabs Wari v2.0"));
+        Serial.print(F("Current time is "));
+        formatDateTime(now);
+        Serial.print(datestring);
+        Serial.println(F(" GMT"));
         Serial.println(F("Flushing EEPROM. This will also test SD card"));
     #endif
 
@@ -496,7 +497,7 @@ void loop() {
             MBSerial.begin(9600);
 
             digitalWrite(WriteLED, HIGH);
-            digitalWrite(maxbotixPin, HIGH);
+            digitalWrite(maxbotixPin, LOW);
             delay(160);   // wait 160ms for startup and boot message to pass
             digitalWrite(WriteLED, LOW);
             readstart = millis();
@@ -509,7 +510,7 @@ void loop() {
                 }
             }
 
-            digitalWrite(maxbotixPin, LOW);
+            digitalWrite(maxbotixPin, HIGH);
             MBSerial.end();
 
             Serial.begin(115200);
