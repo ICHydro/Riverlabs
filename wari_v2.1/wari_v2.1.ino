@@ -401,7 +401,7 @@ void setup()
     pinMode(WriteLED, OUTPUT);
     digitalWrite(WriteLED, LOW);
     digitalWrite(ErrorLED, LOW);
-    digitalWrite(maxbotixPin, HIGH);    // Wari does low side switching
+    digitalWrite(maxbotixPin, LOW);    // Low side switching but through mosfet
   
     // start wire for the EEPROM
     Wire.begin();
@@ -430,7 +430,7 @@ void setup()
     
     #ifdef DEBUG
         Serial.begin(115200);
-        Serial.println(F("This is Riverlabs Wari v2.0"));
+        Serial.println(F("This is Riverlabs Wari v2.1"));
         Serial.print(F("Current time is "));
         formatDateTime(now);
         Serial.print(datestring);
@@ -497,7 +497,7 @@ void loop() {
             MBSerial.begin(9600);
 
             digitalWrite(WriteLED, HIGH);
-            digitalWrite(maxbotixPin, LOW);
+            digitalWrite(maxbotixPin, HIGH);
             delay(160);   // wait 160ms for startup and boot message to pass
             digitalWrite(WriteLED, LOW);
             readstart = millis();
@@ -510,7 +510,7 @@ void loop() {
                 }
             }
 
-            digitalWrite(maxbotixPin, HIGH);
+            digitalWrite(maxbotixPin, LOW);
             MBSerial.end();
 
             Serial.begin(115200);
