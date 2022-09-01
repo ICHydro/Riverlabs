@@ -23,10 +23,10 @@
 #define SEND_INTERVAL 1                           // telemetry interval, in hours
 #define NREADINGS 9                               // number of readings taken per measurement (excluding 0 values)
 #define HOST "thingsboard.io"                     // internet address of the IoT server to report to
-#define ACCESSTOKEN "my_access_token"             // COAP access token
-#define LOGGERID "RLXXXXXXX"                      // Logger ID. Set to whatever you like
+#define ACCESSTOKEN ""                            // COAP access token
+#define LOGGERID ""                               // Logger ID. Set to whatever you like
 #define APN ""                                    // APN of the cellular network
-#define TIMEOUT 180                               // cellular timeout in seconds, per attempt
+#define TIMEOUT 600                               // cellular timeout in seconds, per attempt
 #define DONOTUSEEEPROMSENDBUFFER
 #define NTC                                       // set the clock at startup by querying an ntc server
 
@@ -144,8 +144,8 @@ void setup ()
         pinMode(XBEE_SLEEPPIN, INPUT);   // do not set high but keep floating
     #endif
 
-    pinMode(LIDARONPIN, OUTPUT);
-    digitalWrite(LIDARONPIN, LOW);
+    pinMode(MBONPIN, OUTPUT);
+    digitalWrite(MBONPIN, HIGH);
  
 
     /* Start clock */
@@ -170,7 +170,7 @@ void setup ()
 
     #ifdef DEBUG > 0
         Serial.println("");
-        Serial.print(F("This is Riverlabs WMOnode, compiled on "));
+        Serial.print(F("This is Riverlabs Wari_4G, compiled on "));
         Serial.println(__DATE__);
         Serial.print(F("Logger ID: "));
         Serial.println(LoggerID);
@@ -179,7 +179,7 @@ void setup ()
         Serial.print(datestring);
         Serial.println(F(" GMT"));
         Serial.println(F("Measuring the following variables:"));
-        Serial.println(F("- Distance (Lidarlite sensor)"));
+        Serial.println(F("- Distance (Maxbotix ultrasound sensor)"));
         Serial.print(F("Measurement interval (minutes): "));
         Serial.println(READ_INTERVAL);
     #endif
@@ -187,7 +187,7 @@ void setup ()
     /* set interrupts */
 
     pinMode(interruptPin, INPUT);
-    attachInterrupt(digitalPinToInterrupt(interruptPin), InterruptServiceRoutine, FALLING);
+    attachInterrupt(interruptNo, InterruptServiceRoutine, FALLING);
     
     /* Set up cellular xbee */
     /* XBee needs to be in mode: API with escapes */
@@ -233,28 +233,36 @@ void setup ()
             Serial.println(F("XBee 3G detected. Setting APN"));
         #endif
         uint8_t laCmd1[] = {'A','N'};
+        uint8_t laCmd4[] = {'D','O'};
+        uint8_t laCmd5[] = {'C','P'};                   // carrier profile
+        uint8_t laCmd6[] = {'B','N'};                   // band mask IoT
+        uint8_t laCmd7[] = {'N','#'};                   // Network technology
         uint8_t laCmd2[] = {'W','R'};
         uint8_t laCmd3[] = {'A','C'};
-        uint8_t laCmd4[] = {'D','O'};
+        
         char APNstring[] = APN;
-        uint8_t DOvalue = 0x43;
+        uint8_t CarrierProfile = 0;
+        byte bandmask[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x08, 0x00, 0x80};
+        uint8_t nettech = 2;
+        uint8_t DOvalue = 1;
         
         AtCommandRequest atRequest1(laCmd1, APNstring, sizeof(APNstring) - 1);
+        AtCommandRequest atRequest4(laCmd4, &DOvalue, 1);
+        AtCommandRequest atRequest5(laCmd5, &CarrierProfile, 1);
+        AtCommandRequest atRequest6(laCmd6, bandmask, 16);
+        AtCommandRequest atRequest7(laCmd7, &nettech, 1);
         AtCommandRequest atRequest2(laCmd2);
         AtCommandRequest atRequest3(laCmd3);
-        AtCommandRequest atRequest4(laCmd4, &DOvalue, 1);
-        //AtCommandRequest atRequest4(laCmd1);
-
-        
-        
+      
         uint8_t status = xbc.sendAndWait(atRequest1, 150);
-        xbc.sendAndWait(atRequest4, 150);
+        status += xbc.sendAndWait(atRequest4, 150);
+        status += xbc.sendAndWait(atRequest5, 150);
+        status += xbc.sendAndWait(atRequest6, 150);
+        status += xbc.sendAndWait(atRequest7, 150);
         status += xbc.sendAndWait(atRequest2, 150);
         status += xbc.sendAndWait(atRequest3, 150);
-        status += xbc.sendAndWait(atRequest4, 150);
-        
+
         #ifdef NTC
-            seqStatus.reset();
             if(setclock_ntc()) {
                 Serial.print(F("NTP received. Clock is set to: "));
                 RtcDateTime now = Rtc.GetDateTime();
@@ -263,18 +271,8 @@ void setup ()
                 digitalWrite(WriteLED, HIGH);
                 delay(1000);
                 digitalWrite(WriteLED, LOW);
-            } else {                                      // try a second time, just in case
-                if(setclock_ntc()) {                    
-                    Serial.print(F("NTP received. Clock is set to: "));
-                    RtcDateTime now = Rtc.GetDateTime();
-                    printDateTime(now);
-                    Serial.println();
-                    digitalWrite(WriteLED, HIGH);
-                    delay(1000);
-                    digitalWrite(WriteLED, LOW);
-                } else {
-                    error(2, ErrorLED);
-                }
+            } else {
+                error(2, ErrorLED);
             }
         #endif
     }
@@ -396,8 +394,9 @@ void loop ()
 
         measuredvbat = analogRead(VBATPIN) * 2 * 3.3 / 1.024;     // Battery voltage
         temp = Rtc.GetTemperature().AsCentiDegC();                // Clock temperature
-        readLidarLite(readings, NREADINGS, DEBUG, Serial);            // Lidar
-        distance = median(readings, NREADINGS);
+        Serial.end();
+        distance = readMaxBotix(MBSERIALPIN, maxbotixPin, NREADINGS, 0); // distance
+        Serial.begin(115200); 
 
         #ifdef DEBUG > 0
             formatDateTime(now);
@@ -406,7 +405,7 @@ void loop ()
             Serial.println(measuredvbat);
             Serial.print(F("T = "));
             Serial.println(temp);
-            Serial.print(F("Distance (lidar) = "));
+            Serial.print(F("Distance (ultrasound) = "));
             Serial.println(distance);
         #endif
 

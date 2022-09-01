@@ -601,9 +601,9 @@ bool setclock_ntc() {
     uint32_t timeInMillis = 0;
     uint8_t i = 0;
 
-    // wait up to 1.5 min to connect
+    // wait up to 5 min to connect
 
-    while((i++ < 60) && (AIstatus != 0)) {
+    while((i++ < 100) && (AIstatus != 0)) {
         timeInMillis = millis();
         while((millis() - timeInMillis) < 3000) {
             xbc.loop();

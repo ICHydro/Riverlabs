@@ -24,7 +24,7 @@
 RtcDS3231<TwoWire> MyRtc(Wire);
 
 #define RtcSquareWavePin 2 
-#define RtcSquareWaveInterrupt 0
+//#define RtcSquareWaveInterrupt 0
 
 
 #if defined(_SAMD21_)                       // SAMD21 boards (sparkfun mini at least) use SerialUSB for the Serial Monitor
@@ -69,7 +69,7 @@ void setup ()
     MyRtc.LatchAlarmsTriggeredFlags();
 
     // setup external interupt 
-    attachInterrupt(RtcSquareWaveInterrupt, InterruptServiceRoutine, FALLING);
+    attachInterrupt(digitalPinToInterrupt(RtcSquareWavePin), InterruptServiceRoutine, FALLING);
 }
 
 void loop () 

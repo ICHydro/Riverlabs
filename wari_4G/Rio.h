@@ -11,7 +11,7 @@
 #define ErrorLED A2               
 #define WriteLED A2
 #define slaveSelect  10          // for SD card
-#define SDpowerPin A0             
+#define SDpowerPin 3             
 #define Boost5V_on 7
 #define MBONPIN 5 
 #define LIDARONPIN 5
@@ -19,6 +19,7 @@
 #define CellularSleepPin A1        
 #define interruptPin 2 
 #define interruptNo 0
+#define maxbotixPin 5
 #define VBATPIN A7
 #define DS18S20PIN A3
 #define MBSERIALPIN 0
@@ -41,7 +42,6 @@
 #define MAXFIT 50               // maximum number of records that fits in the EEPROM; will depend on format and number of variables to be transmitted.
                                 // TODO: can be calculated automatically
 #define OFFSET3GMASK (1 + EEPromSDMaskSize) * EEPromPageSize    // starting position of 3GMASK in EEPROM
-#define OFFSETSDMASK EEPromPageSize    // starting position of 3GMASK in EEPROM
  
 
 /******** includes *******/
@@ -66,8 +66,8 @@ class RioLogger
 };
 
 #include "Rio_EEPROM.h"
+#include "Rio_xbee.h"
 #include "Rio_Sensors.h"
-#include "Rio_SD.h"
 
 /* declaration of global variables */
 
