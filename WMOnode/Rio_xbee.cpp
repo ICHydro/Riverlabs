@@ -328,78 +328,88 @@ void zbIPResponseCb(IPRxResponse& ipResponse, uintptr_t) {
  
 void zbIPResponseCb_NTP(IPRxResponse& ipResponse, uintptr_t) {
 
-  unsigned long highWord = word(ipResponse.getData()[40], ipResponse.getData()[41]);
-  unsigned long lowWord = word(ipResponse.getData()[42], ipResponse.getData()[43]);
+    unsigned long highWord = word(ipResponse.getData()[40], ipResponse.getData()[41]);
+    unsigned long lowWord = word(ipResponse.getData()[42], ipResponse.getData()[43]);
+    
+    // combine the four bytes (two words) into a long integer
+    // this is NTP time (seconds since Jan 1 1900):
+    unsigned long secsSince1900 = highWord << 16 | lowWord;
+    uint32_t secsSince2000 = secsSince1900 - 2208988800UL - 946684800;
   
-  // combine the four bytes (two words) into a long integer
-  // this is NTP time (seconds since Jan 1 1900):
-  unsigned long secsSince1900 = highWord << 16 | lowWord;
-  uint32_t secsSince2000 = secsSince1900 - 2208988800UL - 946684800;
-
-  Rtc.SetDateTime((RtcDateTime) secsSince2000);
-  seqStatus.ipResponseReceived = true;
+    Rtc.SetDateTime((RtcDateTime) secsSince2000);
+    seqStatus.ipResponseReceived = true;
 }
 
 // Callback function for incoming TCP/IP message
 // This one specifically for COAP
 
 void zbIPResponseCb_COAP(IPRxResponse& ipResponse, uintptr_t) {
-  // Note that any incoming IP message is considered a success, even if it does not 
-  // contain the complete transmission from the web server.
-  // This is not realistic as a TCP message can be fragmented across multiple packets.
-  Serial.println(F("Callback - IP4 message received"));
-  #if DEBUG > 1
-      printIPRX(ipResponse, Serial);
-  #endif
-  CoapPacket cp;
-  cp.parseMessage(ipResponse.getData(), ipResponse.getDataLength());
-  #if DEBUG > 1
-      cp.print(Serial);
-  #endif
-
- // TODO: process coap response fully
-  if(cp.type == 2) {
-    Serial.println(F("COAP acknowledgement received (2)"));
-    seqStatus.CoapSentAcknowledged = true;
-    seqStatus.ipResponseReceived = 1;
-  }
-  if(cp.type == 0) {
-    Serial.println(F("COAP acknowledgeable message received (type = 0)"));
-    seqStatus.CoapSent203Received = true;
-    // send acknowledgement:
-    uint8_t buffer[5];    // can be small becuase it is only an acknowledgement.
-    uint8_t packetSize;
-    CoapPacket packet;
+    // Note that any incoming IP message is considered a success, even if it does not 
+    // contain the complete transmission from the web server.
+    // This is not realistic as a TCP message can be fragmented across multiple packets.
+    Serial.println(F("Callback - IP4 message received"));
+    #if DEBUG > 1
+        printIPRX(ipResponse, Serial);
+    #endif
+    CoapPacket cp;
+    cp.parseMessage(ipResponse.getData(), ipResponse.getDataLength());
+    #if DEBUG > 1
+        cp.print(Serial);
+    #endif
+  
+   // TODO: process coap response fully
+    if(cp.type == 2) {
+      Serial.println(F("COAP acknowledgement received (2)"));
+      seqStatus.CoapSentAcknowledged = true;
+      seqStatus.ipResponseReceived = 1; 
+    }
+    if(cp.type == 0) {
+        Serial.println(F("COAP acknowledgeable message received (type = 0)"));
+        // send acknowledgement:
+        uint8_t buffer[5];    // can be small because it is only an acknowledgement.
+        uint8_t packetSize;
+        CoapPacket packet;
+        
+        packet.type = COAP_ACK;
+        packet.code = 0;
+        packet.tokenlen = 0;
+        packet.payloadlen = 0;
+        packet.messageid = cp.messageid;
+        packetSize = packet.createMessage(buffer);
+        
+        Serial.print(F("Sending acknowledgement: "));
+        for(int i = 0; i < packetSize; i++) {
+            Serial.print(buffer[i], HEX);
+            Serial.print(" ");
+        }
+        Serial.println("");
     
-    packet.type = COAP_ACK;
-    packet.code = 0;
-    packet.tokenlen = 0;
-    packet.payloadlen = 0;
-    packet.messageid = cp.messageid;
-    packetSize = packet.createMessage(buffer);
+        seqStatus.ipRequestSentOk = false;     // reset this
     
-    Serial.print(F("Sending acknowledgement: "));
-    for(int i = 0; i < packetSize; i++) {
-        Serial.print(buffer[i], HEX);
-        Serial.print(" ");
-    }
-    Serial.println("");
-
-    seqStatus.ipRequestSentOk = false;     // reset this
-
-    tcpSend(IP, Port, protocol, (uint8_t*)buffer, packetSize);
-
-    uint32_t starttime = millis();
-    while(!seqStatus.ipRequestSentOk && (millis() - starttime < 5000)) {  // wait up to 5 seconds 
-      xbc.loop();
+        tcpSend(IP, Port, protocol, (uint8_t*)buffer, packetSize);
+    
+        uint32_t starttime = millis();
+        while(!seqStatus.ipRequestSentOk && (millis() - starttime < 5000)) {  // wait up to 5 seconds 
+            xbc.loop();
+        }
+    
+        if(seqStatus.ipRequestSentOk) {
+            Serial.println(F("Sent."));
+        } else {
+            Serial.println(F("Xbee did not (yet) confirm. Assume sent."));
+        }
     }
 
-    if(seqStatus.ipRequestSentOk) {
-      Serial.println(F("COAP 2.03 acknowledgement successfully sent. Transaction finished."));
-    } else {
-      Serial.println(F("Xbee did not (yet) confirm. Acknowledgement assumed to be sent."));
+    if(cp.code != 0) {
+        if(cp.code == 0x41) {
+            Serial.println(F("2.01 confirmation received. Transaction finished"));
+            seqStatus.CoapSent203Received = true;
+        }
+        if(cp.code == 0x43) {
+            Serial.println(F("2.03 confirmation received. Transaction finished"));
+            seqStatus.CoapSent203Received = true;
+        }        
     }
-  }
 }
 
 

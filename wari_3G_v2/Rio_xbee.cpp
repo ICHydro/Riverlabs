@@ -314,62 +314,72 @@ void zbIPResponseCb_NTP(IPRxResponse& ipResponse, uintptr_t) {
 // This one specifically for COAP
 
 void zbIPResponseCb_COAP(IPRxResponse& ipResponse, uintptr_t) {
-  // Note that any incoming IP message is considered a success, even if it does not 
-  // contain the complete transmission from the web server.
-  // This is not realistic as a TCP message can be fragmented across multiple packets.
-  Serial.println(F("Callback - IP4 message received"));
-  #if DEBUG > 1
-      printIPRX(ipResponse, Serial);
-  #endif
-  CoapPacket cp;
-  cp.parseMessage(ipResponse.getData(), ipResponse.getDataLength());
-  #if DEBUG > 1
-      cp.print(Serial);
-  #endif
-
- // TODO: process coap response fully
-  if(cp.type == 2) {
-    Serial.println(F("COAP acknowledgement received (2)"));
-    seqStatus.CoapSentAcknowledged = true;
-    seqStatus.ipResponseReceived = 1;
-  }
-  if(cp.type == 0) {
-    Serial.println(F("COAP acknowledgeable message received (type = 0)"));
-    seqStatus.CoapSent203Received = true;
-    // send acknowledgement:
-    uint8_t buffer[5];    // can be small becuase it is only an acknowledgement.
-    uint8_t packetSize;
-    CoapPacket packet;
+    // Note that any incoming IP message is considered a success, even if it does not 
+    // contain the complete transmission from the web server.
+    // This is not realistic as a TCP message can be fragmented across multiple packets.
+    Serial.println(F("Callback - IP4 message received"));
+    #if DEBUG > 1
+        printIPRX(ipResponse, Serial);
+    #endif
+    CoapPacket cp;
+    cp.parseMessage(ipResponse.getData(), ipResponse.getDataLength());
+    #if DEBUG > 1
+        cp.print(Serial);
+    #endif
+  
+   // TODO: process coap response fully
+    if(cp.type == 2) {
+      Serial.println(F("COAP acknowledgement received (2)"));
+      seqStatus.CoapSentAcknowledged = true;
+      seqStatus.ipResponseReceived = 1; 
+    }
+    if(cp.type == 0) {
+        Serial.println(F("COAP acknowledgeable message received (type = 0)"));
+        // send acknowledgement:
+        uint8_t buffer[5];    // can be small because it is only an acknowledgement.
+        uint8_t packetSize;
+        CoapPacket packet;
+        
+        packet.type = COAP_ACK;
+        packet.code = 0;
+        packet.tokenlen = 0;
+        packet.payloadlen = 0;
+        packet.messageid = cp.messageid;
+        packetSize = packet.createMessage(buffer);
+        
+        Serial.print(F("Sending acknowledgement: "));
+        for(int i = 0; i < packetSize; i++) {
+            Serial.print(buffer[i], HEX);
+            Serial.print(" ");
+        }
+        Serial.println("");
     
-    packet.type = COAP_ACK;
-    packet.code = 0;
-    packet.tokenlen = 0;
-    packet.payloadlen = 0;
-    packet.messageid = cp.messageid;
-    packetSize = packet.createMessage(buffer);
+        seqStatus.ipRequestSentOk = false;     // reset this
     
-    Serial.print(F("Sending acknowledgement: "));
-    for(int i = 0; i < packetSize; i++) {
-        Serial.print(buffer[i], HEX);
-        Serial.print(" ");
-    }
-    Serial.println("");
-
-    seqStatus.ipRequestSentOk = false;     // reset this
-
-    tcpSend(IP, Port, protocol, (uint8_t*)buffer, packetSize);
-
-    uint32_t starttime = millis();
-    while(!seqStatus.ipRequestSentOk && (millis() - starttime < 5000)) {  // wait up to 5 seconds 
-      xbc.loop();
+        tcpSend(IP, Port, protocol, (uint8_t*)buffer, packetSize);
+    
+        uint32_t starttime = millis();
+        while(!seqStatus.ipRequestSentOk && (millis() - starttime < 5000)) {  // wait up to 5 seconds 
+            xbc.loop();
+        }
+    
+        if(seqStatus.ipRequestSentOk) {
+            Serial.println(F("Sent."));
+        } else {
+            Serial.println(F("Xbee did not (yet) confirm. Assume sent."));
+        }
     }
 
-    if(seqStatus.ipRequestSentOk) {
-      Serial.println(F("COAP 2.03 acknowledgement successfully sent. Transaction finished."));
-    } else {
-      Serial.println(F("Xbee did not (yet) confirm. Acknowledgement assumed to be sent."));
+    if(cp.code != 0) {
+        if(cp.code == 0x41) {
+            Serial.println(F("2.01 confirmation received. Transaction finished"));
+            seqStatus.CoapSent203Received = true;
+        }
+        if(cp.code == 0x43) {
+            Serial.println(F("2.03 confirmation received. Transaction finished"));
+            seqStatus.CoapSent203Received = true;
+        }        
     }
-  }
 }
 
 
@@ -571,9 +581,9 @@ bool setclock_ntc() {
     uint32_t timeInMillis = 0;
     uint8_t i = 0;
 
-    // wait up to 2 min to connect
+    // wait up to 1.5 min to connect
 
-    while((i++ < 40) && (AIstatus != 0)) {
+    while((i++ < 60) && (AIstatus != 0)) {
         timeInMillis = millis();
         while((millis() - timeInMillis) < 3000) {
             xbc.loop();
@@ -581,44 +591,50 @@ bool setclock_ntc() {
         getAIStatus(Serial, &AIstatus);
         #ifdef DEBUG > 0
             Serial.print(F("AI status = "));
-            Serial.println(AIstatus);
+            Serial.println(AIstatus, HEX);
         #endif
         digitalWrite(WriteLED, HIGH);
         delay(50);
         digitalWrite(WriteLED, LOW);
     }
 
-    // wait up to 10 seconds for reply. Make 3 attempts.
-    i = 0;
-    while(!seqStatus.hostIPResolved && (i++ < 3)) {
-        sendDNSLookupCommand(host, sizeof(host) - 1);
+    if(seqStatus.isConnected) {
+
+        // wait up to 10 seconds for reply. Make 3 attempts.
+        i = 0;
+        while(!seqStatus.hostIPResolved && (i++ < 3)) {
+            sendDNSLookupCommand(host, sizeof(host) - 1);
+            timeInMillis = millis();
+            while((!seqStatus.hostIPResolved) && ((millis() - timeInMillis) < 10000)) {
+                xbc.loop();
+            }
+        }
+    
+        byte packetBuffer[48];
+        memset(packetBuffer, 0, 48);
+    
+        packetBuffer[0] = 0b11100011;   // LI, Version, Mode
+        packetBuffer[1] = 0;     // Stratum, or type of clock
+        packetBuffer[2] = 6;     // Polling Interval
+        packetBuffer[3] = 0xEC;  // Peer Clock Precision
+        // 8 bytes of zero for Root Delay & Root Dispersion
+        packetBuffer[12]  = 49;
+        packetBuffer[13]  = 0x4E;
+        packetBuffer[14]  = 49;
+        packetBuffer[15]  = 52;
+    
+        tcpSend(IP, Port, protocol, packetBuffer, 48);
         timeInMillis = millis();
-        while((!seqStatus.hostIPResolved) && ((millis() - timeInMillis) < 10000)) {
+        while((!seqStatus.ipResponseReceived) && (millis() - timeInMillis) < 15000) {
             xbc.loop();
         }
     }
-
-    byte packetBuffer[48];
-    memset(packetBuffer, 0, 48);
-
-    packetBuffer[0] = 0b11100011;   // LI, Version, Mode
-    packetBuffer[1] = 0;     // Stratum, or type of clock
-    packetBuffer[2] = 6;     // Polling Interval
-    packetBuffer[3] = 0xEC;  // Peer Clock Precision
-    // 8 bytes of zero for Root Delay & Root Dispersion
-    packetBuffer[12]  = 49;
-    packetBuffer[13]  = 0x4E;
-    packetBuffer[14]  = 49;
-    packetBuffer[15]  = 52;
-
-    tcpSend(IP, Port, protocol, packetBuffer, 48);
-    timeInMillis = millis();
-    while((!seqStatus.ipResponseReceived) && (millis() - timeInMillis) < 15000) {
-        xbc.loop();
-    }
     if(seqStatus.ipResponseReceived) {
+        seqStatus.reset();
         return(1);
     } else {
+        Serial.println(F("NTC timeout"));
+        seqStatus.reset();
         return(0);
     }
 }
