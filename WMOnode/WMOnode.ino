@@ -22,9 +22,9 @@
 #define READ_INTERVAL 5                           // Interval for sensor readings, in minutes
 #define SEND_INTERVAL 1                           // telemetry interval, in hours
 #define NREADINGS 9                               // number of readings taken per measurement (excluding 0 values)
-#define HOST "thingsboard.io"                     // internet address of the IoT server to report to
-#define ACCESSTOKEN "my_access_token"             // COAP access token
-#define LOGGERID "RLXXXXXXX"                      // Logger ID. Set to whatever you like
+#define HOST "demo.thingsboard.io"                // internet address of the IoT server to report to
+#define ACCESSTOKEN "A1_TEST_TOKEN"               // COAP access token
+#define LOGGERID ""                               // Logger ID. Set to whatever you like
 #define APN ""                                    // APN of the cellular network
 #define TIMEOUT 180                               // cellular timeout in seconds, per attempt
 #define DONOTUSEEEPROMSENDBUFFER
@@ -44,6 +44,7 @@ uint8_t n;
 bool TakeMeasurement = 0;
 uint16_t i, j;
 int16_t distance = -9999;
+Watchdog watchdog;
 
 volatile bool interruptFlag = false;              // variables needed in interrupt should be of type volatile.
 

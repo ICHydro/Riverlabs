@@ -230,7 +230,7 @@ void setup ()
         }
     } else {
         #ifdef DEBUG > 0
-            Serial.println(F("XBee 3G detected. Setting APN"));
+            Serial.println(F("Cellular XBee detected. Setting APN"));
         #endif
         uint8_t laCmd1[] = {'A','N'};
         uint8_t laCmd4[] = {'D','O'};
