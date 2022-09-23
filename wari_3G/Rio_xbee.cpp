@@ -207,8 +207,6 @@ bool getAIStatus(Stream &stream, uint8_t *returnvalue) {
   // association status command
   uint8_t assocCmd[] = {'A','I'};
   AtCommandRequest atRequest(assocCmd);
-  // XBee AT Command response object
-  // This object is used to receive an AT command response frame
   AtCommandResponse atResponse;
   
   uint8_t status = xbc.sendAndWait(atRequest, 150);
@@ -219,7 +217,6 @@ bool getAIStatus(Stream &stream, uint8_t *returnvalue) {
       if (atResponse.getValueLength() == 1) {
         if (atResponse.getValue()[0] == 0) {
           *returnvalue = atResponse.getValue()[0];
-          //stream.println(F("Internet connection established"));
           seqStatus.isConnected = true;
           return(1);
         } else {
@@ -279,6 +276,39 @@ bool getDBStatus(Stream &stream, uint8_t *returnvalue) {
     return(0);        
   }
 }
+
+bool getAPN(Stream &stream, uint8_t *returnvalue) {
+  // Get the APN value from the modem.
+  // A callback could be used, so as not to block, but in this case a quick response is expected
+  // as no internet messages need be sent/received, so sendAndWait() is used instead.
+
+  uint8_t assocCmd[] = {'A','N'};
+  AtCommandRequest atRequest(assocCmd);
+  AtCommandResponse atResponse;
+  
+  uint8_t status = xbc.sendAndWait(atRequest, 150);
+  
+  if (status == 0) {
+    xbc.getResponse().getAtCommandResponse(atResponse);
+    if (atResponse.isOk()) {
+        stream.print(F("APN = "));
+        stream.println(atResponse.getValueLength());
+        *returnvalue = atResponse.getValue()[0];
+        stream.println((char) *returnvalue);
+        return(1);
+    } else {
+        stream.print(F("DB Command returned error code: "));
+        *returnvalue = atResponse.getStatus();
+        stream.println(*returnvalue, HEX);
+        return(0);
+    }
+  } else {
+    stream.print(F("sendAndWait() returned error code when attempting to get DB indicator: "));
+    stream.println(status);
+    return(0);        
+  }
+}
+
 
 // Generic callback function for incoming TCP/IP message
 
@@ -373,11 +403,11 @@ void zbIPResponseCb_COAP(IPRxResponse& ipResponse, uintptr_t) {
     if(cp.code != 0) {
         if(cp.code == 0x41) {
             Serial.println(F("2.01 confirmation received. Transaction finished"));
-            seqStatus.CoapSent203Received = true;
+            seqStatus.MessageConfirmed = true;
         }
         if(cp.code == 0x43) {
             Serial.println(F("2.03 confirmation received. Transaction finished"));
-            seqStatus.CoapSent203Received = true;
+            seqStatus.MessageConfirmed = true;
         }        
     }
 }
@@ -446,7 +476,7 @@ void zbAtResponseCb(AtCommandResponse& atr, uintptr_t) {
         if (atr.isOk()) {
             if (atr.getValueLength() == 1) {
                 Serial.print(F("AI status = "));
-                Serial.println(atr.getValue()[0]);
+                Serial.println(atr.getValue()[0], HEX);
                 if (atr.getValue()[0] == 0) {
                     seqStatus.isConnected = true;
                 }
@@ -581,9 +611,9 @@ bool setclock_ntc() {
     uint32_t timeInMillis = 0;
     uint8_t i = 0;
 
-    // wait up to 2 min to connect
+    // wait up to 3 min to connect
 
-    while((i++ < 40) && (AIstatus != 0)) {
+    while((i++ < 60) && (AIstatus != 0)) {
         timeInMillis = millis();
         while((millis() - timeInMillis) < 3000) {
             xbc.loop();
@@ -591,44 +621,50 @@ bool setclock_ntc() {
         getAIStatus(Serial, &AIstatus);
         #ifdef DEBUG > 0
             Serial.print(F("AI status = "));
-            Serial.println(AIstatus);
+            Serial.println(AIstatus, HEX);
         #endif
         digitalWrite(WriteLED, HIGH);
         delay(50);
         digitalWrite(WriteLED, LOW);
     }
 
-    // wait up to 10 seconds for reply. Make 3 attempts.
-    i = 0;
-    while(!seqStatus.hostIPResolved && (i++ < 3)) {
-        sendDNSLookupCommand(host, sizeof(host) - 1);
+    if(seqStatus.isConnected) {
+
+        // wait up to 10 seconds for reply. Make 3 attempts.
+        i = 0;
+        while(!seqStatus.hostIPResolved && (i++ < 3)) {
+            sendDNSLookupCommand(host, sizeof(host) - 1);
+            timeInMillis = millis();
+            while((!seqStatus.hostIPResolved) && ((millis() - timeInMillis) < 10000)) {
+                xbc.loop();
+            }
+        }
+    
+        byte packetBuffer[48];
+        memset(packetBuffer, 0, 48);
+    
+        packetBuffer[0] = 0b11100011;   // LI, Version, Mode
+        packetBuffer[1] = 0;     // Stratum, or type of clock
+        packetBuffer[2] = 6;     // Polling Interval
+        packetBuffer[3] = 0xEC;  // Peer Clock Precision
+        // 8 bytes of zero for Root Delay & Root Dispersion
+        packetBuffer[12]  = 49;
+        packetBuffer[13]  = 0x4E;
+        packetBuffer[14]  = 49;
+        packetBuffer[15]  = 52;
+    
+        tcpSend(IP, Port, protocol, packetBuffer, 48);
         timeInMillis = millis();
-        while((!seqStatus.hostIPResolved) && ((millis() - timeInMillis) < 10000)) {
+        while((!seqStatus.ipResponseReceived) && (millis() - timeInMillis) < 15000) {
             xbc.loop();
         }
     }
-
-    byte packetBuffer[48];
-    memset(packetBuffer, 0, 48);
-
-    packetBuffer[0] = 0b11100011;   // LI, Version, Mode
-    packetBuffer[1] = 0;     // Stratum, or type of clock
-    packetBuffer[2] = 6;     // Polling Interval
-    packetBuffer[3] = 0xEC;  // Peer Clock Precision
-    // 8 bytes of zero for Root Delay & Root Dispersion
-    packetBuffer[12]  = 49;
-    packetBuffer[13]  = 0x4E;
-    packetBuffer[14]  = 49;
-    packetBuffer[15]  = 52;
-
-    tcpSend(IP, Port, protocol, packetBuffer, 48);
-    timeInMillis = millis();
-    while((!seqStatus.ipResponseReceived) && (millis() - timeInMillis) < 15000) {
-        xbc.loop();
-    }
     if(seqStatus.ipResponseReceived) {
+        seqStatus.reset();
         return(1);
     } else {
+        Serial.println(F("NTC timeout"));
+        seqStatus.reset();
         return(0);
     }
 }

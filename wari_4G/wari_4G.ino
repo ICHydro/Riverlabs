@@ -22,10 +22,10 @@
 #define READ_INTERVAL 5                           // Interval for sensor readings, in minutes
 #define SEND_INTERVAL 1                           // telemetry interval, in hours
 #define NREADINGS 9                               // number of readings taken per measurement (excluding 0 values)
-#define HOST "thingsboard.io"                     // internet address of the IoT server to report to
-#define ACCESSTOKEN ""                            // COAP access token
-#define LOGGERID ""                               // Logger ID. Set to whatever you like
-#define APN ""                                    // APN of the cellular network
+#define HOST "riverflow.io"                     // internet address of the IoT server to report to
+#define ACCESSTOKEN "GlfqnM8VxkUDd8JInnnz"                            // COAP access token
+#define LOGGERID "RL000325"                               // Logger ID. Set to whatever you like
+#define APN "hologram"                                    // APN of the cellular network
 #define TIMEOUT 600                               // cellular timeout in seconds, per attempt
 #define DONOTUSEEEPROMSENDBUFFER
 #define NTC                                       // set the clock at startup by querying an ntc server
@@ -33,6 +33,7 @@
 /* INCLUDES */
 
 #include "Rio.h"                                  // includes everything else
+#include<avr/wdt.h>
 
 /********** variable declarations **********/
 
@@ -246,7 +247,7 @@ void setup ()
         uint8_t nettech = 2;
         uint8_t DOvalue = 1;
         
-        AtCommandRequest atRequest1(laCmd1, APNstring, sizeof(APNstring) - 1);
+        AtCommandRequest atRequest1(laCmd1, (uint8_t*) APNstring, sizeof(APNstring) - 1);
         AtCommandRequest atRequest4(laCmd4, &DOvalue, 1);
         AtCommandRequest atRequest5(laCmd5, &CarrierProfile, 1);
         AtCommandRequest atRequest6(laCmd6, bandmask, 16);
@@ -285,10 +286,10 @@ void setup ()
     packet.code = 2;                                      // 0.02 = post method
     packet.tokenlen = sizeof(token) - 1;
     memcpy(packet.token, token, sizeof(token) - 1);
-    packet.addOption(11, sizeof(Option0) - 1, Option0);   // note: first argument is option number according to Table 7 in spec.
-    packet.addOption(11, sizeof(Option1) - 1, Option1);
-    packet.addOption(11, sizeof(Option2) - 1, Option2);
-    packet.addOption(11, sizeof(Option3) - 1, Option3);
+    packet.addOption(11, sizeof(Option0) - 1, (uint8_t*) Option0);   // note: first argument is option number according to Table 7 in spec.
+    packet.addOption(11, sizeof(Option1) - 1, (uint8_t*) Option1);
+    packet.addOption(11, sizeof(Option2) - 1, (uint8_t*) Option2);
+    packet.addOption(11, sizeof(Option3) - 1, (uint8_t*) Option3);
 
     Serial.flush();
 
@@ -310,6 +311,8 @@ void loop ()
      *  - Telemetry event ongoing. or timeout           -> continue telemetry operation.
      *  If none of the above applies, the logger goes to sleep
      */
+
+    wdt_reset();                                                           // Reset the watchdog every cycle
 
     if(interruptFlag) {
 
@@ -359,6 +362,7 @@ void loop ()
                 Serial.print(F("S"));
                 Serial.flush();
             #endif
+            wdt_disable();                                                  // disable watchdog timer during sleep
             #if defined(__MKL26Z64__)
                 Snooze.hibernate( config_digital );
             #endif
@@ -375,6 +379,9 @@ void loop ()
             Serial.print(F("W"));
             Serial.flush();
         #endif
+
+        // enable watchdog timer. Set at 8 seconds 
+        wdt_enable(WDTO_8S);
 
         // if we wake up after a timeout, reset the timer so that another telemetry attempt can be made
         if(timeout) {
@@ -495,7 +502,7 @@ void loop ()
                   // Send COAP message. Wait for direct confirmation from COAP server, but not for 2.03 response.
                   // sendXbeeMessage(bufferSize, host, sizeof(host) - 1); // do not include "\0"
                   #ifdef DONOTUSEEEPROMSENDBUFFER
-                      sendXbeeMessage(buffer, bufferSize, host, sizeof(host) - 1);
+                      sendXbeeMessage(buffer, bufferSize, (char*) host, sizeof(host) - 1);
                   #else
                       sendXbeeMessage(bufferSize, host, sizeof(host) - 1);
                   #endif
@@ -527,12 +534,12 @@ void loop ()
         // A new SendBuffer will be created in the next round. Once pagecount = 0,
         // the mask is empty and we can finish the telemetry process.
 
-        if(seqStatus.CoapSent203Received) {
+        if(seqStatus.MessageConfirmed) {
             SendBufferCreated = false;
             seqStatus.ipRequestSent = false;
             seqStatus.ipRequestSentOk = false;
             seqStatus.ipResponseReceived = false;
-            seqStatus.CoapSent203Received = false;
+            seqStatus.MessageConfirmed = false;
             #ifdef DONOTUSEEEPROMSENDBUFFER
                 Reset3GBuffer(startposition);                // in case only one page is written
             #else
@@ -545,7 +552,7 @@ void loop ()
         if (pagecount == 0) {
 
             #ifdef DEBUG > 0
-                Serial.println(F("All data sent. Sleeping."));
+                Serial.println(F("All data sent. Sleeping XBee."));
             #endif
             pinMode(XBEE_SLEEPPIN, INPUT);
             seqStatus.tryagain = 0;

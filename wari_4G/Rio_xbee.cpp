@@ -328,16 +328,16 @@ void zbIPResponseCb(IPRxResponse& ipResponse, uintptr_t) {
  
 void zbIPResponseCb_NTP(IPRxResponse& ipResponse, uintptr_t) {
 
-  unsigned long highWord = word(ipResponse.getData()[40], ipResponse.getData()[41]);
-  unsigned long lowWord = word(ipResponse.getData()[42], ipResponse.getData()[43]);
-  
-  // combine the four bytes (two words) into a long integer
-  // this is NTP time (seconds since Jan 1 1900):
-  unsigned long secsSince1900 = highWord << 16 | lowWord;
-  uint32_t secsSince2000 = secsSince1900 - 2208988800UL - 946684800;
+    unsigned long highWord = word(ipResponse.getData()[40], ipResponse.getData()[41]);
+    unsigned long lowWord = word(ipResponse.getData()[42], ipResponse.getData()[43]);
+    
+    // combine the four bytes (two words) into a long integer
+    // this is NTP time (seconds since Jan 1 1900):
+    unsigned long secsSince1900 = highWord << 16 | lowWord;
+    uint32_t secsSince2000 = secsSince1900 - 2208988800UL - 946684800;
 
-  Rtc.SetDateTime((RtcDateTime) secsSince2000);
-  seqStatus.ipResponseReceived = true;
+    Rtc.SetDateTime((RtcDateTime) secsSince2000);
+    seqStatus.ipResponseReceived = true;
 }
 
 // Callback function for incoming TCP/IP message
@@ -403,11 +403,11 @@ void zbIPResponseCb_COAP(IPRxResponse& ipResponse, uintptr_t) {
     if(cp.code != 0) {
         if(cp.code == 0x41) {
             Serial.println(F("2.01 confirmation received. Transaction finished"));
-            seqStatus.CoapSent203Received = true;
+            seqStatus.MessageConfirmed = true;
         }
         if(cp.code == 0x43) {
             Serial.println(F("2.03 confirmation received. Transaction finished"));
-            seqStatus.CoapSent203Received = true;
+            seqStatus.MessageConfirmed = true;
         }        
     }
 }
@@ -611,9 +611,9 @@ bool setclock_ntc() {
     uint32_t timeInMillis = 0;
     uint8_t i = 0;
 
-    // wait up to 5 min to connect
+    // wait up to 3 min to connect
 
-    while((i++ < 100) && (AIstatus != 0)) {
+    while((i++ < 60) && (AIstatus != 0)) {
         timeInMillis = millis();
         while((millis() - timeInMillis) < 3000) {
             xbc.loop();
@@ -633,7 +633,7 @@ bool setclock_ntc() {
         // wait up to 10 seconds for reply. Make 3 attempts.
         i = 0;
         while(!seqStatus.hostIPResolved && (i++ < 3)) {
-            sendDNSLookupCommand(host, sizeof(host) - 1);
+            sendDNSLookupCommand((char*) host, sizeof(host) - 1);
             timeInMillis = millis();
             while((!seqStatus.hostIPResolved) && ((millis() - timeInMillis) < 10000)) {
                 xbc.loop();
