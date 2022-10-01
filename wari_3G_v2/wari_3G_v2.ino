@@ -22,10 +22,10 @@
 #define READ_INTERVAL 5                           // Interval for sensor readings, in minutes
 #define SEND_INTERVAL 3                           // telemetry interval, in hours
 #define NREADINGS 9                               // number of readings taken per measurement (excluding 0 values)
-#define HOST "riverflow.io"                // internet address of the IoT server to report to
-#define ACCESSTOKEN "mdRi67hyto8Z6jgNlOU2"               // COAP access token
-#define LOGGERID "RL000322"                               // Logger ID. Set to whatever you like
-#define APN "hologram"                                    // APN of the cellular network
+#define HOST "demo.thingsboard.io"                // internet address of the IoT server to report to
+#define ACCESSTOKEN ""                            // COAP access token
+#define LOGGERID ""                               // Logger ID. Set to whatever you like
+#define APN ""                                    // APN of the cellular network
 #define TIMEOUT 180                               // cellular timeout in seconds, per attempt
 #define DONOTUSEEEPROMSENDBUFFER
 #define NTC                                       // set the clock at startup by querying an ntc server
@@ -33,7 +33,7 @@
 /* INCLUDES */
 
 #include "Rio.h"                                  // includes everything else
-#include<avr/wdt.h>
+#include <avr/wdt.h>
 
 /********** variable declarations **********/
 

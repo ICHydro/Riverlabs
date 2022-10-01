@@ -22,7 +22,7 @@
 #define READ_INTERVAL 5                           // Interval for sensor readings, in minutes
 #define SEND_INTERVAL 1                           // telemetry interval, in hours
 #define NREADINGS 9                               // number of readings taken per measurement (excluding 0 values)
-#define HOST "thingsboard.io"                     // internet address of the IoT server to report to
+#define HOST "demo.thingsboard.io"                // internet address of the IoT server to report to
 #define ACCESSTOKEN ""                            // COAP access token
 #define LOGGERID ""                               // Logger ID. Set to whatever you like
 #define APN ""                                    // APN of the cellular network
@@ -32,8 +32,8 @@
 
 /* INCLUDES */
 
-#include "Rio.h"                                  // includes everything else
-#include<avr/wdt.h>
+#include "src/Rio.h"                                  // includes everything else
+#include <avr/wdt.h>
 
 /********** variable declarations **********/
 

@@ -534,7 +534,7 @@ void sendXbeeMessage(uint8_t* buffer, uint16_t bufferSize, char *host, uint8_t h
             if (!seqStatus.dnsLookupRequested) {
               // Send a lookup request command
               Serial.println(F("Sending DNS Lookup")); 
-              sendDNSLookupCommand(host, hostlength);
+              sendDNSLookupCommand((char*) host, hostlength);
             }
         } else if (!seqStatus.ipRequestSent) {
             // Send the request
@@ -577,7 +577,7 @@ void sendXbeeMessage(uint16_t bufferSize, char *host, uint8_t hostlength) {
             if (!seqStatus.dnsLookupRequested) {
               // Send a lookup request command
               Serial.println(F("Sending DNS Lookup")); 
-              sendDNSLookupCommand(host, hostlength);
+              sendDNSLookupCommand((char*) host, hostlength);
             }
         } else if (!seqStatus.ipRequestSent) {
             // Send the request

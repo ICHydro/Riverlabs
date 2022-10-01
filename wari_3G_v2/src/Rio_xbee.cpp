@@ -328,16 +328,16 @@ void zbIPResponseCb(IPRxResponse& ipResponse, uintptr_t) {
  
 void zbIPResponseCb_NTP(IPRxResponse& ipResponse, uintptr_t) {
 
-  unsigned long highWord = word(ipResponse.getData()[40], ipResponse.getData()[41]);
-  unsigned long lowWord = word(ipResponse.getData()[42], ipResponse.getData()[43]);
-  
-  // combine the four bytes (two words) into a long integer
-  // this is NTP time (seconds since Jan 1 1900):
-  unsigned long secsSince1900 = highWord << 16 | lowWord;
-  uint32_t secsSince2000 = secsSince1900 - 2208988800UL - 946684800;
+    unsigned long highWord = word(ipResponse.getData()[40], ipResponse.getData()[41]);
+    unsigned long lowWord = word(ipResponse.getData()[42], ipResponse.getData()[43]);
+    
+    // combine the four bytes (two words) into a long integer
+    // this is NTP time (seconds since Jan 1 1900):
+    unsigned long secsSince1900 = highWord << 16 | lowWord;
+    uint32_t secsSince2000 = secsSince1900 - 2208988800UL - 946684800;
 
-  Rtc.SetDateTime((RtcDateTime) secsSince2000);
-  seqStatus.ipResponseReceived = true;
+    Rtc.SetDateTime((RtcDateTime) secsSince2000);
+    seqStatus.ipResponseReceived = true;
 }
 
 // Callback function for incoming TCP/IP message
@@ -534,7 +534,7 @@ void sendXbeeMessage(uint8_t* buffer, uint16_t bufferSize, char *host, uint8_t h
             if (!seqStatus.dnsLookupRequested) {
               // Send a lookup request command
               Serial.println(F("Sending DNS Lookup")); 
-              sendDNSLookupCommand(host, hostlength);
+              sendDNSLookupCommand((char*) host, hostlength);
             }
         } else if (!seqStatus.ipRequestSent) {
             // Send the request
@@ -577,7 +577,7 @@ void sendXbeeMessage(uint16_t bufferSize, char *host, uint8_t hostlength) {
             if (!seqStatus.dnsLookupRequested) {
               // Send a lookup request command
               Serial.println(F("Sending DNS Lookup")); 
-              sendDNSLookupCommand(host, hostlength);
+              sendDNSLookupCommand((char*) host, hostlength);
             }
         } else if (!seqStatus.ipRequestSent) {
             // Send the request
@@ -633,7 +633,7 @@ bool setclock_ntc() {
         // wait up to 10 seconds for reply. Make 3 attempts.
         i = 0;
         while(!seqStatus.hostIPResolved && (i++ < 3)) {
-            sendDNSLookupCommand((char *) host, sizeof(host) - 1);
+            sendDNSLookupCommand((char*) host, sizeof(host) - 1);
             timeInMillis = millis();
             while((!seqStatus.hostIPResolved) && ((millis() - timeInMillis) < 10000)) {
                 xbc.loop();
