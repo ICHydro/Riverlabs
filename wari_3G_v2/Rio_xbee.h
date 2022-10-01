@@ -36,8 +36,8 @@ class CellularStatus {
         //tryagain = false;
         dontSleep = false;
         CoapSentAcknowledged = false;
-        CoapSent203Received = false;
-        Coap203Confirmed = false;
+        MessageConfirmed = false;
+        MQTTconnected = false;
     };
     bool isAwake = false;
     bool isRegistered = false;
@@ -52,12 +52,11 @@ class CellularStatus {
     bool gotStatusResponse = false;
     uint8_t tryagain = 0;
     bool dontSleep = false;
-
-    // COAP stuff
+    bool MessageConfirmed = false;      // Telemetry server confirmed successful receipt of message (2.01 or 2.03 for COAP)
+    // MQTT specific status flags:
+    bool MQTTconnected = false;
+    // COAP specific status flags:
     bool CoapSentAcknowledged = false;     // Recipient acknowledges arrival
-    bool CoapSent203Received = false;      // Recipient confirms successful parsing (via confirmable 2.03 message)
-    bool Coap203Confirmed = false;         // 2.03 message confirmation sent
-
 };
 
 class CoapTransaction {

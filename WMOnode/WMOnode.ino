@@ -22,8 +22,8 @@
 #define READ_INTERVAL 5                           // Interval for sensor readings, in minutes
 #define SEND_INTERVAL 1                           // telemetry interval, in hours
 #define NREADINGS 9                               // number of readings taken per measurement (excluding 0 values)
-#define HOST ".io"                // internet address of the IoT server to report to
-#define ACCESSTOKEN ""               // COAP access token
+#define HOST "thingsboard.io"                     // internet address of the IoT server to report to
+#define ACCESSTOKEN ""                            // COAP access token
 #define LOGGERID ""                               // Logger ID. Set to whatever you like
 #define APN ""                                    // APN of the cellular network
 #define TIMEOUT 180                               // cellular timeout in seconds, per attempt
@@ -172,7 +172,7 @@ void setup ()
 
     #ifdef DEBUG > 0
         Serial.println("");
-        Serial.print(F("This is Riverlabs WMOnode, compiled on "));
+        Serial.print(F("This is Riverlabs WMOnode (optiboot), compiled on "));
         Serial.println(__DATE__);
         Serial.print(F("Logger ID: "));
         Serial.println(LoggerID);
@@ -341,13 +341,16 @@ void loop ()
         // so it can start connecting while doing other things
         
         if (((now.Hour() % SEND_INTERVAL) == 0) && (now.Minute() == 0)) {   // only on the hour itself!
-            seqStatus.tryagain = 5;                                         // maximum number of tries
-            pinMode(XBEE_SLEEPPIN, OUTPUT);
-            digitalWrite(XBEE_SLEEPPIN, LOW);
-            XbeeWakeUpTime = millis();                                      // used for timeout
-            timeInMillis = 0;
-            lastTimeInMillis = 0;
-            waitingMessageTime = 0;
+            measuredvbat = analogRead(VBATPIN) * 2 * 3.3 / 1.024;
+            if(measuredvbat >= 3500) {
+                seqStatus.tryagain = 5;                                     // maximum number of tries
+                pinMode(XBEE_SLEEPPIN, OUTPUT);
+                digitalWrite(XBEE_SLEEPPIN, LOW);
+                XbeeWakeUpTime = millis();                                  // used for timeout
+                timeInMillis = 0;
+                lastTimeInMillis = 0;
+                waitingMessageTime = 0;
+            }
         }
     
     }

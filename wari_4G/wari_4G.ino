@@ -171,7 +171,7 @@ void setup ()
 
     #ifdef DEBUG > 0
         Serial.println("");
-        Serial.print(F("This is Riverlabs Wari_4G, compiled on "));
+        Serial.print(F("This is Riverlabs Wari_4G (optiboot), compiled on "));
         Serial.println(__DATE__);
         Serial.print(F("Logger ID: "));
         Serial.println(LoggerID);
