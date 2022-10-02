@@ -29,10 +29,11 @@
 #define TIMEOUT 180                               // cellular timeout in seconds, per attempt
 #define DONOTUSEEEPROMSENDBUFFER
 #define NTC                                       // set the clock at startup by querying an ntc server
+//#define OPTIBOOT                                  // set ONLY if your device uses the optiboot bootloader
 
 /* INCLUDES */
 
-#include "Rio.h"                                  // includes everything else
+#include "src/Rio.h"                                  // includes everything else
 #include <avr/wdt.h>
 
 /********** variable declarations **********/
@@ -291,8 +292,10 @@ void loop ()
      *  If none of the above applies, the logger goes to sleep
      */
 
-    wdt_reset();                                                           // Reset the watchdog every cycle
-    
+    #ifdef OPTIBOOT
+        wdt_reset();                                                           // Reset the watchdog every cycle
+    #endif
+   
     if(interruptFlag) {
 
         cli();                                                              // See https://www.pjrc.com/teensy/interrupts.html
@@ -344,7 +347,9 @@ void loop ()
                 Serial.print(F("S"));
                 Serial.flush();
             #endif
-            wdt_disable();
+            #ifdef OPTIBOOT
+                wdt_disable();
+            #endif
             #if defined(__MKL26Z64__)
                 Snooze.hibernate( config_digital );
             #endif
@@ -355,8 +360,10 @@ void loop ()
             #endif
         #endif
         
-        // enable watchdog timer. Set at 8 seconds 
-        wdt_enable(WDTO_8S);
+        #ifdef OPTIBOOT
+            // enable watchdog timer. Set at 8 seconds 
+            wdt_enable(WDTO_8S);
+        #endif
 
         // when woken up:
 

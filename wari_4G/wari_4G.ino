@@ -22,18 +22,19 @@
 #define READ_INTERVAL 5                           // Interval for sensor readings, in minutes
 #define SEND_INTERVAL 1                           // telemetry interval, in hours
 #define NREADINGS 9                               // number of readings taken per measurement (excluding 0 values)
-#define HOST "thingsboard.io"                     // internet address of the IoT server to report to
+#define HOST "demo.thingsboard.io"                // internet address of the IoT server to report to
 #define ACCESSTOKEN ""                            // COAP access token
 #define LOGGERID ""                               // Logger ID. Set to whatever you like
 #define APN ""                                    // APN of the cellular network
 #define TIMEOUT 600                               // cellular timeout in seconds, per attempt
 #define DONOTUSEEEPROMSENDBUFFER
 #define NTC                                       // set the clock at startup by querying an ntc server
+//#define OPTIBOOT                                  // set ONLY if your device uses the optiboot bootloader
 
 /* INCLUDES */
 
-#include "Rio.h"                                  // includes everything else
-#include<avr/wdt.h>
+#include "src/Rio.h"                                  // includes everything else
+#include <avr/wdt.h>
 
 /********** variable declarations **********/
 
@@ -312,7 +313,9 @@ void loop ()
      *  If none of the above applies, the logger goes to sleep
      */
 
-    wdt_reset();                                                           // Reset the watchdog every cycle
+    #ifdef OPTIBOOT
+        wdt_reset();                                                           // Reset the watchdog every cycle
+    #endif
 
     if(interruptFlag) {
 
@@ -362,7 +365,9 @@ void loop ()
                 Serial.print(F("S"));
                 Serial.flush();
             #endif
-            wdt_disable();                                                  // disable watchdog timer during sleep
+            #ifdef OPTIBOOT
+                wdt_disable();
+            #endif
             #if defined(__MKL26Z64__)
                 Snooze.hibernate( config_digital );
             #endif
@@ -380,8 +385,10 @@ void loop ()
             Serial.flush();
         #endif
 
-        // enable watchdog timer. Set at 8 seconds 
-        wdt_enable(WDTO_8S);
+        #ifdef OPTIBOOT
+            // enable watchdog timer. Set at 8 seconds 
+            wdt_enable(WDTO_8S);
+        #endif
 
         // if we wake up after a timeout, reset the timer so that another telemetry attempt can be made
         if(timeout) {

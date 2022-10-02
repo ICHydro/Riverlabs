@@ -29,6 +29,7 @@
 #define TIMEOUT 180                               // cellular timeout in seconds, per attempt
 #define DONOTUSEEEPROMSENDBUFFER
 #define NTC                                       // set the clock at startup by querying an ntc server
+//#define OPTIBOOT                                  // set ONLY if your device uses the optiboot bootloader
 
 /* INCLUDES */
 
@@ -45,7 +46,6 @@ uint8_t n;
 bool TakeMeasurement = 0;
 uint16_t i, j;
 int16_t distance = -9999;
-Watchdog watchdog;
 
 volatile bool interruptFlag = false;              // variables needed in interrupt should be of type volatile.
 
@@ -314,8 +314,9 @@ void loop ()
      *  - Telemetry event ongoing. or timeout           -> continue telemetry operation.
      *  If none of the above applies, the logger goes to sleep
      */
-
-    wdt_reset();                                                           // Reset the watchdog every cycle
+    #ifdef OPTIBOOT
+        wdt_reset();                                                           // Reset the watchdog every cycle
+    #endif
 
     if(interruptFlag) {
 
@@ -368,7 +369,9 @@ void loop ()
                 Serial.print(F("S"));
                 Serial.flush();
             #endif
-            wdt_disable();
+            #ifdef OPTIBOOT
+                wdt_disable();
+            #endif
             #if defined(__MKL26Z64__)
                 Snooze.hibernate( config_digital );
             #endif
@@ -385,9 +388,11 @@ void loop ()
             Serial.print(F("W"));
             Serial.flush();
         #endif
-        
-        // enable watchdog timer. Set at 8 seconds 
-        wdt_enable(WDTO_8S);
+
+        #ifdef OPTIBOOT
+            // enable watchdog timer. Set at 8 seconds 
+            wdt_enable(WDTO_8S);
+        #endif
 
         // if we wake up after a timeout, reset the timer so that another telemetry attempt can be made
         if(timeout) {
