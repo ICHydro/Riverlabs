@@ -241,7 +241,7 @@ void setup ()
         char APNstring[] = APN;
         uint8_t DOvalue = 0x41;
         
-        AtCommandRequest atRequest1(laCmd1, APNstring, sizeof(APNstring) - 1);
+        AtCommandRequest atRequest1(laCmd1, (uint8_t*) APNstring, sizeof(APNstring) - 1);
         AtCommandRequest atRequest2(laCmd2);
         AtCommandRequest atRequest3(laCmd3);
         AtCommandRequest atRequest4(laCmd4, &DOvalue, 1);
@@ -274,10 +274,10 @@ void setup ()
     packet.code = 2;                                      // 0.02 = post method
     packet.tokenlen = sizeof(token) - 1;
     memcpy(packet.token, token, sizeof(token) - 1);
-    packet.addOption(11, sizeof(Option0) - 1, Option0);   // note: first argument is option number according to Table 7 in spec.
-    packet.addOption(11, sizeof(Option1) - 1, Option1);
-    packet.addOption(11, sizeof(Option2) - 1, Option2);
-    packet.addOption(11, sizeof(Option3) - 1, Option3);
+    packet.addOption(11, sizeof(Option0) - 1, (uint8_t*) Option0);   // note: first argument is option number according to Table 7 in spec.
+    packet.addOption(11, sizeof(Option1) - 1, (uint8_t*) Option1);
+    packet.addOption(11, sizeof(Option2) - 1, (uint8_t*) Option2);
+    packet.addOption(11, sizeof(Option3) - 1, (uint8_t*) Option3);
 
     Serial.flush();
 
@@ -496,7 +496,7 @@ void loop ()
                   // Send COAP message. Wait for direct confirmation from COAP server, but not for 2.03 response.
                   // sendXbeeMessage(bufferSize, host, sizeof(host) - 1); // do not include "\0"
                   #ifdef DONOTUSEEEPROMSENDBUFFER
-                      sendXbeeMessage(buffer, bufferSize, host, sizeof(host) - 1);
+                      sendXbeeMessage(buffer, bufferSize, (char*) host, sizeof(host) - 1);
                   #else
                       sendXbeeMessage(bufferSize, host, sizeof(host) - 1);
                   #endif
@@ -528,12 +528,12 @@ void loop ()
         // A new SendBuffer will be created in the next round. Once pagecount = 0,
         // the mask is empty and we can finish the telemetry process.
 
-        if(seqStatus.CoapSent203Received) {
+        if(seqStatus.MessageConfirmed) {
             SendBufferCreated = false;
             seqStatus.ipRequestSent = false;
             seqStatus.ipRequestSentOk = false;
             seqStatus.ipResponseReceived = false;
-            seqStatus.CoapSent203Received = false;
+            seqStatus.MessageConfirmed = false;
             #ifdef DONOTUSEEEPROMSENDBUFFER
                 Reset3GBuffer(startposition);                // in case only one page is written
             #else

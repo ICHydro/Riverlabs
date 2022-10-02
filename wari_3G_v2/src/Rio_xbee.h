@@ -61,7 +61,7 @@ class CellularStatus {
 
 class CoapTransaction {
     public:
-		CoapPacket packet;
+	CoapPacket packet;
 };
 
 

@@ -252,7 +252,7 @@ uint8_t CreateSendBuffer(uint16_t start, byte *mask, uint8_t *buffer) {
         bufferSize += 5;
         memcpy(buffer + bufferSize, string4, 7);
         bufferSize += 5;
-        sprintf((char* ) (buffer + bufferSize), "%5d", dataout[3]);
+        sprintf((char*) (buffer + bufferSize), "%5d", dataout[3]);
         bufferSize += 5;
         memcpy(buffer + bufferSize, string5, 3);
         bufferSize += 2;

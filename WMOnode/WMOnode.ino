@@ -512,7 +512,7 @@ void loop ()
                   // Send COAP message. Wait for direct confirmation from COAP server, but not for 2.03 response.
                   // sendXbeeMessage(bufferSize, host, sizeof(host) - 1); // do not include "\0"
                   #ifdef DONOTUSEEEPROMSENDBUFFER
-                      sendXbeeMessage(buffer, bufferSize, (char *) host, sizeof(host) - 1);
+                      sendXbeeMessage(buffer, bufferSize, (char*) host, sizeof(host) - 1);
                   #else
                       sendXbeeMessage(bufferSize, host, sizeof(host) - 1);
                   #endif
