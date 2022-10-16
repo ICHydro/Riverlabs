@@ -18,13 +18,13 @@
 
 /************* User settings **************/
 
-#define COAP                                      // Telemetry protocol. Choose either COAP or MQTT
+#define MQTT                                      // Telemetry protocol. Choose either COAP or MQTT
 #define READ_INTERVAL 5                           // Interval for sensor readings, in minutes
 #define SEND_INTERVAL 1                           // telemetry interval, in hours
 #define NREADINGS 9                               // number of readings taken per measurement (excluding 0 values)
-#define HOST "riverflow.io"                // internet address of the IoT server to report to
-#define ACCESSTOKEN "2mxjP6VnHKmaIEGAfAbb"                            // Thingsboard access token
-#define LOGGERID "VirtualTestDevice"                               // Logger ID. Set to whatever you like
+#define HOST "demo.thingsboard.io"                // internet address of the IoT server to report to
+#define ACCESSTOKEN ""                            // Thingsboard access token
+#define LOGGERID ""                               // Logger ID. Set to whatever you like
 #define APN ""                                    // APN of the cellular network
 #define TIMEOUT 600                               // cellular timeout in seconds, per attempt
 #define NTC                                       // set the clock at startup by querying an ntc server
@@ -503,7 +503,7 @@ void loop ()
                     tcpSend(IP, Port, protocol, m, 2);
                     MyXBeeStatus.MqttConnected = false;
                     timeInMillis = millis();              // should be ok to reuse here
-                    // local loop ok here because this should be quick because
+                    // local loop ok here; this should be quick because
                     // we are just waiting for the xbee to confirm sending.
                     while(!MyXBeeStatus.ipRequestSentOk && ((millis() - timeInMillis) < 1000)) {
                         xbc.loop();
@@ -515,8 +515,6 @@ void loop ()
             #ifdef DEBUG > 0
                 Serial.println(F("All data sent. Sleeping XBee."));
             #endif
-
-            // TODO: do we need to give the xbee the time to send this message?
             
             pinMode(XBEE_SLEEPPIN, INPUT);
             MyXBeeStatus.tryagain = 0;

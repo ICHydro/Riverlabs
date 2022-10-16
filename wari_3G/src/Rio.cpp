@@ -213,7 +213,7 @@ uint8_t CreateEepromSendBuffer(uint16_t start, byte *mask) {
 
 /*** non EEPROM version, sending one page at the time ****/
 
-uint8_t CreateSendBuffer(uint16_t start, byte *mask, uint8_t *buffer) {
+uint8_t CreateSendBuffer(uint16_t start, byte *mask2, uint8_t *buffer) {
 
     byte EEPromPage[EEPromPageSize];
     uint16_t i, j, index;
@@ -223,43 +223,32 @@ uint8_t CreateSendBuffer(uint16_t start, byte *mask, uint8_t *buffer) {
     char string4[] = ",\"t\":";
     char string5[] = "}}";
     int16_t *dataout;
-  
-    // read the right byte from the 3Gmask and identify the bit:
-    
-    mask[0] = i2c_eeprom_read_byte(EEPROM_ADDR, OFFSET3GMASK + start/8);
-    index = (start % 8) / 8;                    // index of the mask byte
-    j = start % 8;                            // index of the bit within the mask byte (0 - 7)
 
-    if ((mask[0] >> j) & 0x1) {
-        Serial.print(F("Reading page "));
-        Serial.println(start);
-        uint16_t readsize = (EEPromPageSize > 30) ? 30 : EEPromPageSize;
-        i2c_eeprom_read_buffer(EEPROM_ADDR, (start + EEPromHeaderSize) * EEPromPageSize, EEPromPage, readsize);
-        dataout = (int16_t *)EEPromPage;
+    Serial.print(F("Reading page "));
+    Serial.println(start);
+    uint16_t readsize = (EEPromPageSize > 30) ? 30 : EEPromPageSize;
+    i2c_eeprom_read_buffer(EEPROM_ADDR, (start + EEPromHeaderSize) * EEPromPageSize, EEPromPage, readsize);
+    dataout = (int16_t *)EEPromPage;
 
-        buffer[bufferSize++] = 0xFF;
-        memcpy(buffer + bufferSize, string1, 6);
-        bufferSize += 6;
-        sprintf((char* ) (buffer + bufferSize), "%10lu", ((uint32_t *)EEPromPage)[0] + 946684800);   
-        bufferSize += 10;
-        memcpy(buffer + bufferSize, string2, 19);
-        bufferSize += 18;
-        sprintf((char* ) (buffer + bufferSize), "%5d", dataout[4]);
-        bufferSize += 5;
-        memcpy(buffer + bufferSize, string3, 7);
-        bufferSize += 5;
-        sprintf((char* ) (buffer + bufferSize), "%5d", dataout[2]);
-        bufferSize += 5;
-        memcpy(buffer + bufferSize, string4, 7);
-        bufferSize += 5;
-        sprintf((char* ) (buffer + bufferSize), "%5d", dataout[3]);
-        bufferSize += 5;
-        memcpy(buffer + bufferSize, string5, 3);
-        bufferSize += 2;
-        return(1);
-    } else {
-        return(0);
-    }
+    memcpy(buffer + bufferSize, string1, 6);
+    bufferSize += 6;
+    sprintf((char*) (buffer + bufferSize), "%10lu", ((uint32_t *)EEPromPage)[0] + 946684800);   
+    bufferSize += 10;
+    memcpy(buffer + bufferSize, string2, 19);
+    bufferSize += 18;
+    sprintf((char*) (buffer + bufferSize), "%5d", dataout[4]);
+    bufferSize += 5;
+    memcpy(buffer + bufferSize, string3, 7);
+    bufferSize += 5;
+    sprintf((char*) (buffer + bufferSize), "%5d", dataout[2]);
+    bufferSize += 5;
+    memcpy(buffer + bufferSize, string4, 7);
+    bufferSize += 5;
+    sprintf((char*) (buffer + bufferSize), "%5d", dataout[3]);
+    bufferSize += 5;
+    memcpy(buffer + bufferSize, string5, 3);
+    bufferSize += 2;
+    return(1);
 }
 
 void Reset3GBuffer(uint16_t start, byte *oldmask) {
@@ -324,8 +313,9 @@ uint8_t count_ones (uint8_t byte)
 
 
 // find the first bit in the 3G mask that is not zero
+// return -1 if the buffer is empty
 
-uint32_t getBufferStartPosition() {
+int32_t getBufferStartPosition() {
     byte maskbyte; 
     for(uint32_t i = 0; i < (EEProm3GMaskSize * EEPromPageSize); i++) {
         maskbyte = i2c_eeprom_read_byte(EEPROM_ADDR, OFFSET3GMASK + i);
@@ -337,7 +327,7 @@ uint32_t getBufferStartPosition() {
             }
         }
     }
-    return(0);
+    return(-1);
 }
 
 // find the last bit in the 3G mask that is not zero

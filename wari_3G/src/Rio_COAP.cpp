@@ -272,6 +272,7 @@ uint8_t CoapPacket::createMessageHeader(uint8_t *buffer) {
         }
         running_delta = options[i].number;
     }
+    buffer[s++] = 0xFF;
     return s;
 }
 

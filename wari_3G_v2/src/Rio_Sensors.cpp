@@ -17,7 +17,7 @@ int16_t readMaxBotix(uint8_t serialPin, uint8_t powerPin, uint8_t nreadings, boo
     }
 
     digitalWrite(WriteLED, HIGH);
-    digitalWrite(MBONPIN, HIGH);
+    digitalWrite(MBONPIN, LOW);
     delay(160);   // wait 160ms for startup and boot message to pass
     
     uint32_t readstart = millis();
@@ -33,7 +33,7 @@ int16_t readMaxBotix(uint8_t serialPin, uint8_t powerPin, uint8_t nreadings, boo
 
     Serial.end();
 
-    digitalWrite(MBONPIN, LOW);
+    digitalWrite(MBONPIN, HIGH);
     digitalWrite(WriteLED, LOW);
 
     // Note: if more than half of the array is not filled because of read errors

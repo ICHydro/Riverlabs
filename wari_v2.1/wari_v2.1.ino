@@ -1,11 +1,11 @@
-/****************************************** 
+/******************************************
  * wari.ino: Arduino script for the Riverlabs Wari water level sensor
  * Wouter Buytaert
  * 2020/08/02
- * 
+ *
  * Upload by selecting the board "Arduino Pro or Pro Mini"
- * and processor "Atmega 328 P (3.3V, 8 MHz)". 
- * 
+ * and processor "Atmega 328 P (3.3V, 8 MHz)".
+ *
  * By default, the logger takes 10 repeated distance measurements 
  * at an interval of 5 minutes (starting at the hour).
  * These are written to the internal EEPROM chip,
@@ -37,7 +37,7 @@
 #define interruptNo 0
 #define maxbotixPin 5
 #define VBATPIN A7
-#define EEPROM_ADDR 0x51       
+#define EEPROM_ADDR 0x51
 #define EEPromPageSize 32
 #define EEPromHeaderSize 8
 #define MAXPAGENUMBER 2048
