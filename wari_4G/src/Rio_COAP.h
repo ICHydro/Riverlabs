@@ -19,6 +19,10 @@
 #define RESPONSE_CODE(class, detail) ((class << 5) | (detail))
 #define COAP_OPTION_DELTA(v, n) (v < 13 ? (*n = (0xFF & v)) : (v <= 0xFF + 13 ? (*n = 13) : (*n = 14)))
 
+extern int32_t startposition;
+extern byte *Eeprom3Gmask;
+extern uint32_t IP;
+
 typedef enum {
     COAP_CON = 0,
     COAP_NONCON = 1,
@@ -112,5 +116,7 @@ class CoapPacket {
         uint8_t createMessageHeader(uint8_t *);
         void print(Stream &stream);
 };
+
+void COAP_send();
 
 #endif

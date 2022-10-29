@@ -294,3 +294,14 @@ void CoapPacket::print(Stream &stream) {
         stream.println();
     }
 }
+
+void COAP_send() {
+    uint8_t[150] buffer;
+    uint16_t Port = 0x1633;                       // 5683 (COAP)
+    uint8_t protocol = 0;                         // 0 for UDP, 1 for TCP, 4 for SSL over TCP
+    packet.messageid = rand();                    // rand() returns int16_t, random() returns int_32
+    uint16_t bufferSize = packet.createMessageHeader(buffer);
+    CreateSendBuffer(startposition, Eeprom3Gmask, buffer);
+    tcpSend(IP, Port, protocol, buffer, bufferSize);
+    MyXBeeStatus.MessageSent = true;
+}

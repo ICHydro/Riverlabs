@@ -67,7 +67,10 @@ class RioLogger
 
 #include "Rio_EEPROM.h"
 #include "Rio_xbee.h"
+#include "Rio_COAP.h"
+#include "Rio_MQTT.h"
 #include "Rio_Sensors.h"
+#include "Rio_Flash.h"
 
 /* declaration of global variables */
 
@@ -83,6 +86,7 @@ extern RtcDateTime now;
 extern uint16_t bufferSize;
 extern uint16_t bufferSize2;
 extern volatile bool interruptFlag;
+extern 
 
 /* function declarations */
 
@@ -95,7 +99,7 @@ void printDateTime(const RtcDateTime&);
 void resetEEPromHeader(int);
 void resetEEPROMSDMask(int);
 uint8_t CreateEepromSendBuffer(uint16_t, byte*);
-uint8_t CreateSendBuffer(uint16_t, byte*, uint8_t*);
+uint16_t CreateSendBuffer(uint16_t, byte*, uint8_t*, uint16_t);
 void Reset3GBuffer(uint16_t, byte*);
 void Reset3GBuffer(uint16_t);
 int32_t getBufferStartPosition();

@@ -68,6 +68,7 @@ class RioLogger
 #include "Rio_EEPROM.h"
 #include "Rio_xbee.h"
 #include "Rio_Sensors.h"
+#include "Rio_SD.h"
 
 /* declaration of global variables */
 

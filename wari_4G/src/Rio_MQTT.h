@@ -9,5 +9,6 @@
 
 void MQTT_connect(uint8_t *buffer, char *clientid, uint8_t clientidsize, char *username, uint8_t usernamesize);
 uint8_t CreateMqttHeader(uint8_t *buffer, uint16_t messageid);
+void MQTT_send(uint16_t);
 
 #endif

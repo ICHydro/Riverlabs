@@ -82,7 +82,7 @@ extern TxStatusResponse txResponse;
 extern IPRxResponse ipResponse;
 extern CellularStatus MyXBeeStatus;
 extern uint32_t IP;
-extern const uint16_t Port;
+extern uint16_t Port;
 extern uint8_t protocol;
 extern RtcDS3231<TwoWire> Rtc;
 

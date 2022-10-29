@@ -58,3 +58,10 @@ uint8_t CreateMqttHeader(uint8_t *buffer, uint16_t messageid) {
     return(bufferSize);
 
 }
+
+void MQTT_send(uint16_t messageid) {
+    uint8_t[150] buffer;
+    uint16_t bufferSize = CreateMqttHeader(buffer, messageid);
+    CreateSendBuffer(startposition, Eeprom3Gmask, buffer);
+    tcpSend(IP, Port, protocol, buffer, bufferSize);
+}
