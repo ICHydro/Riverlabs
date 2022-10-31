@@ -29,6 +29,7 @@
 #define TIMEOUT 600                               // cellular timeout in seconds, per attempt
 #define DONOTUSEEEPROMSENDBUFFER
 #define NTC                                       // set the clock at startup by querying an ntc server
+//#define OPTIBOOT                                  // set ONLY if your device uses the optiboot bootloader. Enables the watchdog timer
 
 /* INCLUDES */
 
@@ -64,7 +65,7 @@ AltSoftSerial XBeeSerial;
 uint8_t resb[100];                            // XBee's responsebuffer
 uint8_t buffer[150];
 XBeeWithCallbacks xbc = XBeeWithCallbacks(resb, sizeof(resb));  // needs to be done this way, so we can delete the object, see https://forum.arduino.cc/index.php?topic=376860.0
-const char host[] = HOST;
+char host[] = HOST;
 uint32_t IP = 0;
 const uint16_t Port = 0x1633;                 // 0x50 = 80; 0x1BB = 443, 0x1633 = 5683 (COAP)
 uint8_t protocol = 0;                         // 0 for UDP, 1 for TCP, 4 for SSL over TCP
@@ -170,7 +171,11 @@ void setup ()
 
     #ifdef DEBUG > 0
         Serial.println("");
-        Serial.print(F("This is Riverlabs Wari_4G, compiled on "));
+        Serial.print(F("This is Riverlabs Wari_4G"));
+        #ifdef OPTIBOOT
+            Serial.print(F(" (optiboot)"));
+        #endif
+        Serial.print(F(", compiled on "));
         Serial.println(__DATE__);
         Serial.print(F("Logger ID: "));
         Serial.println(LoggerID);
@@ -246,7 +251,7 @@ void setup ()
         uint8_t nettech = 2;
         uint8_t DOvalue = 1;
         
-        AtCommandRequest atRequest1(laCmd1, APNstring, sizeof(APNstring) - 1);
+        AtCommandRequest atRequest1(laCmd1, (uint8_t*) APNstring, sizeof(APNstring) - 1);
         AtCommandRequest atRequest4(laCmd4, &DOvalue, 1);
         AtCommandRequest atRequest5(laCmd5, &CarrierProfile, 1);
         AtCommandRequest atRequest6(laCmd6, bandmask, 16);
@@ -285,10 +290,10 @@ void setup ()
     packet.code = 2;                                      // 0.02 = post method
     packet.tokenlen = sizeof(token) - 1;
     memcpy(packet.token, token, sizeof(token) - 1);
-    packet.addOption(11, sizeof(Option0) - 1, Option0);   // note: first argument is option number according to Table 7 in spec.
-    packet.addOption(11, sizeof(Option1) - 1, Option1);
-    packet.addOption(11, sizeof(Option2) - 1, Option2);
-    packet.addOption(11, sizeof(Option3) - 1, Option3);
+    packet.addOption(11, sizeof(Option0) - 1, (uint8_t*) Option0);   // note: first argument is option number according to Table 7 in spec.
+    packet.addOption(11, sizeof(Option1) - 1, (uint8_t*) Option1);
+    packet.addOption(11, sizeof(Option2) - 1, (uint8_t*) Option2);
+    packet.addOption(11, sizeof(Option3) - 1, (uint8_t*) Option3);
 
     Serial.flush();
 
@@ -310,6 +315,10 @@ void loop ()
      *  - Telemetry event ongoing. or timeout           -> continue telemetry operation.
      *  If none of the above applies, the logger goes to sleep
      */
+
+    #ifdef OPTIBOOT
+        wdt_reset();                                                           // Reset the watchdog every cycle
+    #endif
 
     if(interruptFlag) {
 
@@ -359,6 +368,9 @@ void loop ()
                 Serial.print(F("S"));
                 Serial.flush();
             #endif
+            #ifdef OPTIBOOT
+                wdt_disable();
+            #endif
             #if defined(__MKL26Z64__)
                 Snooze.hibernate( config_digital );
             #endif
@@ -374,6 +386,11 @@ void loop ()
         #ifdef DEBUG > 0
             Serial.print(F("W"));
             Serial.flush();
+        #endif
+
+        #ifdef OPTIBOOT
+            // enable watchdog timer. Set at 8 seconds 
+            wdt_enable(WDTO_8S);
         #endif
 
         // if we wake up after a timeout, reset the timer so that another telemetry attempt can be made

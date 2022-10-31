@@ -52,7 +52,7 @@
 #include <AltSoftSerial.h>
 #include <LowPower.h>
 #include <avr/power.h>
-#include <Watchdog.h>
+#include <avr/wdt.h>
 
 class RioLogger
 {

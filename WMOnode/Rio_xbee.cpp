@@ -633,7 +633,7 @@ bool setclock_ntc() {
         // wait up to 10 seconds for reply. Make 3 attempts.
         i = 0;
         while(!seqStatus.hostIPResolved && (i++ < 3)) {
-            sendDNSLookupCommand(host, sizeof(host) - 1);
+            sendDNSLookupCommand((char*) host, sizeof(host) - 1);
             timeInMillis = millis();
             while((!seqStatus.hostIPResolved) && ((millis() - timeInMillis) < 10000)) {
                 xbc.loop();

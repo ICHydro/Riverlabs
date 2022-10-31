@@ -1,7 +1,7 @@
 /**************************************
  * Arduino code for the Riverlabs sensor node with following functionality:
  * - LidarLite sensor
- * - Digi Cellular Xbee 3G transmission
+ * - Digi Cellular Xbee 3G/4G transmission
  * - Data buffering in EEPROM
  * 
  * (c) Riverlabs UK except where indicated
@@ -19,20 +19,22 @@
 /************* User settings **************/
 
 #define COAP                                      // Do not change
+#define XBEE4G                                    // set if you are using a 4G modem (LTE-M or NB-IoT)
 #define READ_INTERVAL 5                           // Interval for sensor readings, in minutes
 #define SEND_INTERVAL 1                           // telemetry interval, in hours
 #define NREADINGS 9                               // number of readings taken per measurement (excluding 0 values)
-#define HOST "demo.thingsboard.io"                // internet address of the IoT server to report to
-#define ACCESSTOKEN "A1_TEST_TOKEN"               // COAP access token
-#define LOGGERID ""                               // Logger ID. Set to whatever you like
-#define APN ""                                    // APN of the cellular network
+#define HOST "riverflow.io"                // internet address of the IoT server to report to
+#define ACCESSTOKEN "wNNecsvIMvKrnL1v0G48"               // COAP access token
+#define LOGGERID "RL000328"                               // Logger ID. Set to whatever you like
+#define APN "hologram"                                    // APN of the cellular network
 #define TIMEOUT 180                               // cellular timeout in seconds, per attempt
 #define DONOTUSEEEPROMSENDBUFFER
 #define NTC                                       // set the clock at startup by querying an ntc server
+#define OPTIBOOT                                  // set ONLY if your device uses the optiboot bootloader. Enables the watchdog timer
 
-/* INCLUDES */
+/*************** includes ******************/
 
-#include "Rio.h"                                  // includes everything else
+#include "Rio.h"
 
 /********** variable declarations **********/
 
@@ -44,7 +46,6 @@ uint8_t n;
 bool TakeMeasurement = 0;
 uint16_t i, j;
 int16_t distance = -9999;
-Watchdog watchdog;
 
 volatile bool interruptFlag = false;              // variables needed in interrupt should be of type volatile.
 
@@ -65,7 +66,7 @@ AltSoftSerial XBeeSerial;
 uint8_t resb[100];                            // XBee's responsebuffer
 uint8_t buffer[150];
 XBeeWithCallbacks xbc = XBeeWithCallbacks(resb, sizeof(resb));  // needs to be done this way, so we can delete the object, see https://forum.arduino.cc/index.php?topic=376860.0
-const char host[] = HOST;
+char host[] = HOST;
 uint32_t IP = 0;
 const uint16_t Port = 0x1633;                 // 0x50 = 80; 0x1BB = 443, 0x1633 = 5683 (COAP)
 uint8_t protocol = 0;                         // 0 for UDP, 1 for TCP, 4 for SSL over TCP
@@ -171,7 +172,11 @@ void setup ()
 
     #ifdef DEBUG > 0
         Serial.println("");
-        Serial.print(F("This is Riverlabs WMOnode, compiled on "));
+        Serial.print(F("This is Riverlabs WMOnode"));
+        #ifdef OPTIBOOT
+            Serial.print(F(" (optiboot)"));
+        #endif
+        Serial.print(F(", compiled on "));
         Serial.println(__DATE__);
         Serial.print(F("Logger ID: "));
         Serial.println(LoggerID);
@@ -231,29 +236,51 @@ void setup ()
         }
     } else {
         #ifdef DEBUG > 0
-            Serial.println(F("XBee 3G detected. Setting APN"));
+            Serial.println(F("Cellular XBee detected. Setting APN"));
         #endif
         uint8_t laCmd1[] = {'A','N'};
         uint8_t laCmd2[] = {'W','R'};
         uint8_t laCmd3[] = {'A','C'};
         uint8_t laCmd4[] = {'D','O'};
+        #ifdef XBEE4G
+            uint8_t laCmd5[] = {'C','P'};                   // carrier profile
+            uint8_t laCmd6[] = {'B','N'};                   // band mask IoT
+            uint8_t laCmd7[] = {'N','#'};                   // Network technology
+        #endif
+
         char APNstring[] = APN;
         uint8_t DOvalue = 0x43;
         
-        AtCommandRequest atRequest1(laCmd1, APNstring, sizeof(APNstring) - 1);
+        #ifdef XBEE4G
+            uint8_t CarrierProfile = 0;
+            byte bandmask[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x08, 0x00, 0x80};
+            uint8_t nettech = 2;
+            DOvalue = 1;
+        #endif
+        
+        AtCommandRequest atRequest1(laCmd1, (uint8_t*) APNstring, sizeof(APNstring) - 1);
         AtCommandRequest atRequest2(laCmd2);
         AtCommandRequest atRequest3(laCmd3);
         AtCommandRequest atRequest4(laCmd4, &DOvalue, 1);
-        //AtCommandRequest atRequest4(laCmd1);
-
         
+        #ifdef XBEE4G
+            AtCommandRequest atRequest5(laCmd5, &CarrierProfile, 1);
+            AtCommandRequest atRequest6(laCmd6, bandmask, 16);
+            AtCommandRequest atRequest7(laCmd7, &nettech, 1);
+        #endif
         
         uint8_t status = xbc.sendAndWait(atRequest1, 150);
-        xbc.sendAndWait(atRequest4, 150);
+        status += xbc.sendAndWait(atRequest4, 150);
+
+        #ifdef XBEE4G
+            status += xbc.sendAndWait(atRequest5, 150);
+            status += xbc.sendAndWait(atRequest6, 150);
+            status += xbc.sendAndWait(atRequest7, 150);
+        #endif
+
         status += xbc.sendAndWait(atRequest2, 150);
         status += xbc.sendAndWait(atRequest3, 150);
-        status += xbc.sendAndWait(atRequest4, 150);
-        
+
         #ifdef NTC
             seqStatus.reset();
             if(setclock_ntc()) {
@@ -288,10 +315,10 @@ void setup ()
     packet.code = 2;                                      // 0.02 = post method
     packet.tokenlen = sizeof(token) - 1;
     memcpy(packet.token, token, sizeof(token) - 1);
-    packet.addOption(11, sizeof(Option0) - 1, Option0);   // note: first argument is option number according to Table 7 in spec.
-    packet.addOption(11, sizeof(Option1) - 1, Option1);
-    packet.addOption(11, sizeof(Option2) - 1, Option2);
-    packet.addOption(11, sizeof(Option3) - 1, Option3);
+    packet.addOption(11, sizeof(Option0) - 1, (uint8_t*) Option0);   // note: first argument is option number according to Table 7 in spec.
+    packet.addOption(11, sizeof(Option1) - 1, (uint8_t*) Option1);
+    packet.addOption(11, sizeof(Option2) - 1, (uint8_t*) Option2);
+    packet.addOption(11, sizeof(Option3) - 1, (uint8_t*) Option3);
 
     Serial.flush();
 
@@ -313,6 +340,10 @@ void loop ()
      *  - Telemetry event ongoing. or timeout           -> continue telemetry operation.
      *  If none of the above applies, the logger goes to sleep
      */
+
+    #ifdef OPTIBOOT
+        wdt_reset();                                                           // Reset the watchdog every cycle
+    #endif
 
     if(interruptFlag) {
 
@@ -362,6 +393,9 @@ void loop ()
                 Serial.print(F("S"));
                 Serial.flush();
             #endif
+            #ifdef OPTIBOOT
+                wdt_disable();
+            #endif
             #if defined(__MKL26Z64__)
                 Snooze.hibernate( config_digital );
             #endif
@@ -377,6 +411,11 @@ void loop ()
         #ifdef DEBUG > 0
             Serial.print(F("W"));
             Serial.flush();
+        #endif
+
+        #ifdef OPTIBOOT
+            // enable watchdog timer. Set at 8 seconds 
+            wdt_enable(WDTO_8S);
         #endif
 
         // if we wake up after a timeout, reset the timer so that another telemetry attempt can be made
