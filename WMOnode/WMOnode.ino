@@ -1,7 +1,7 @@
 /**************************************
  * Arduino code for the Riverlabs sensor node with following functionality:
  * - LidarLite sensor
- * - Digi Cellular Xbee 3G transmission
+ * - Digi Cellular Xbee 3G/4G transmission
  * - Data buffering in EEPROM
  * 
  * (c) Riverlabs UK except where indicated
@@ -19,6 +19,7 @@
 /************* User settings **************/
 
 #define MQTT                                      // Do not change
+#define XBEE4G                                    // set if you are using a 4G modem (LTE-M or NB-IoT)
 #define READ_INTERVAL 5                           // Interval for sensor readings, in minutes
 #define SEND_INTERVAL 1                           // telemetry interval, in hours
 #define NREADINGS 9                               // number of readings taken per measurement (excluding 0 values)
@@ -30,12 +31,11 @@
 #define DONOTUSEEEPROMSENDBUFFER
 #define NTC                                       // set the clock at startup by querying an ntc server
 #define FLASH                                     // using flash backup storage?
-//#define OPTIBOOT                                  // set ONLY if your device uses the optiboot bootloader
+#define OPTIBOOT                                  // set ONLY if your device uses the optiboot bootloader
 
-/* INCLUDES */
+/*************** includes ******************/
 
 #include "src/Rio.h"                                  // includes everything else
-#include <avr/wdt.h>
 
 extern unsigned int __bss_end;
 extern unsigned int __heap_start;
@@ -197,7 +197,11 @@ void setup ()
 
     #ifdef DEBUG > 0
         Serial.println("");
-        Serial.print(F("This is Riverlabs WMOnode (optiboot), compiled on "));
+        Serial.print(F("This is Riverlabs WMOnode");
+        #ifdef OPTIBOOT
+            Serial.print(F(" (optiboot)");
+        #endif
+        Serial.println(F(", compiled on "));
         Serial.println(__DATE__);
         Serial.print(F("Logger ID: "));
         Serial.println(LoggerID);
@@ -257,25 +261,51 @@ void setup ()
         }
     } else {
         #ifdef DEBUG > 0
-            Serial.println(F("XBee 3G detected. Setting APN"));
+            Serial.println(F("Cellular XBee detected. Setting APN"));
         #endif
         uint8_t laCmd1[] = {'A','N'};
         uint8_t laCmd2[] = {'W','R'};
         uint8_t laCmd3[] = {'A','C'};
         uint8_t laCmd4[] = {'D','O'};
+        #ifdef XBEE4G
+            uint8_t laCmd5[] = {'C','P'};                   // carrier profile
+            uint8_t laCmd6[] = {'B','N'};                   // band mask IoT
+            uint8_t laCmd7[] = {'N','#'};                   // Network technology
+        #endif
+
         char APNstring[] = APN;
         uint8_t DOvalue = 0x43;
         
-        AtCommandRequest atRequest1(laCmd1, (uint8_t*) APNstring, sizeof(APNstring) - 1);
+        #ifdef XBEE4G
+            uint8_t CarrierProfile = 0;
+            byte bandmask[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x08, 0x00, 0x80};
+            uint8_t nettech = 2;
+            DOvalue = 1;
+        #endif
+        
+        AtCommandRequest atRequest1(laCmd1, APNstring, sizeof(APNstring) - 1);
         AtCommandRequest atRequest2(laCmd2);
         AtCommandRequest atRequest3(laCmd3);
         AtCommandRequest atRequest4(laCmd4, &DOvalue, 1);
         
+        #ifdef XBEE4G
+            AtCommandRequest atRequest5(laCmd5, &CarrierProfile, 1);
+            AtCommandRequest atRequest6(laCmd6, bandmask, 16);
+            AtCommandRequest atRequest7(laCmd7, &nettech, 1);
+        #endif
+        
         uint8_t status = xbc.sendAndWait(atRequest1, 150);
+        status += xbc.sendAndWait(atRequest4, 150);
+
+        #ifdef XBEE4G
+            status += xbc.sendAndWait(atRequest5, 150);
+            status += xbc.sendAndWait(atRequest6, 150);
+            status += xbc.sendAndWait(atRequest7, 150);
+        #endif
+
         status += xbc.sendAndWait(atRequest2, 150);
         status += xbc.sendAndWait(atRequest3, 150);
-        status += xbc.sendAndWait(atRequest4, 150);
-        Serial.println(getFreeSram());
+
         #ifdef NTC
             MyXBeeStatus.reset();
             if(setclock_ntc()) {
@@ -349,6 +379,10 @@ void loop ()
      *  - Telemetry event ongoing. or timeout           -> continue telemetry operation.
      *  If none of the above applies, the logger goes to sleep
      */
+    #ifdef OPTIBOOT
+        wdt_reset();                                                           // Reset the watchdog every cycle
+    #endif
+
     #ifdef OPTIBOOT
         wdt_reset();                                                           // Reset the watchdog every cycle
     #endif
