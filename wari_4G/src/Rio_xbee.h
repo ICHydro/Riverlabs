@@ -4,6 +4,8 @@
 #include <Arduino.h>
 #include <Wire.h>
 #include "XBee_dev.h"
+#include "Rio_COAP.h"
+#include "Rio_MQTT.h"
 #include <RtcDS3231.h>
 #if defined(__AVR_ATmega328P__)
     #include <SoftwareSerial.h>
@@ -78,7 +80,7 @@ extern TxStatusResponse txResponse;
 extern IPRxResponse ipResponse;
 extern CellularStatus MyXBeeStatus;
 extern uint32_t IP;
-extern const uint16_t Port;
+extern uint16_t Port;
 extern uint8_t protocol;
 extern RtcDS3231<TwoWire> Rtc;
 

@@ -213,7 +213,7 @@ uint8_t CreateEepromSendBuffer(uint16_t start, byte *mask) {
 
 /*** non EEPROM version, sending one page at the time ****/
 
-uint8_t CreateSendBuffer(uint16_t start, byte *mask2, uint8_t *buffer) {
+uint16_t CreateSendBuffer(uint16_t start, byte *mask2, uint8_t *buffer, uint16_t bufferSize) {
 
     byte EEPromPage[EEPromPageSize];
     uint16_t i, j, index;
@@ -248,7 +248,7 @@ uint8_t CreateSendBuffer(uint16_t start, byte *mask2, uint8_t *buffer) {
     bufferSize += 5;
     memcpy(buffer + bufferSize, string5, 3);
     bufferSize += 2;
-    return(1);
+    return(bufferSize);
 }
 
 void Reset3GBuffer(uint16_t start, byte *oldmask) {

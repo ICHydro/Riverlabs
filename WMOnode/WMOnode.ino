@@ -19,7 +19,7 @@
 /************* User settings **************/
 
 #define MQTT                                      // Do not change
-#define XBEE4G                                    // set if you are using a 4G modem (LTE-M or NB-IoT)
+//#define XBEE4G                                    // set if you are using a 4G modem (LTE-M or NB-IoT)
 #define READ_INTERVAL 5                           // Interval for sensor readings, in minutes
 #define SEND_INTERVAL 1                           // telemetry interval, in hours
 #define NREADINGS 9                               // number of readings taken per measurement (excluding 0 values)
@@ -30,7 +30,7 @@
 #define TIMEOUT 180                               // cellular timeout in seconds, per attempt
 #define DONOTUSEEEPROMSENDBUFFER
 #define NTC                                       // set the clock at startup by querying an ntc server
-#define FLASH                                     // using flash backup storage?
+//#define FLASH                                     // using flash backup storage?
 #define OPTIBOOT                                  // set ONLY if your device uses the optiboot bootloader
 
 /*************** includes ******************/
@@ -53,8 +53,8 @@ uint16_t getFreeSram() {
 
 /********** variable declarations **********/
 
-const char LoggerID[] = LOGGERID;              // unique logger ID, to be used for data transmission and writing files.
-const char accesstoken[] = ACCESSTOKEN;
+char LoggerID[] = LOGGERID;              // unique logger ID, to be used for data transmission and writing files.
+char accesstoken[] = ACCESSTOKEN;
 uint32_t readstart = 0;
 int16_t readings[NREADINGS];
 uint8_t nread;
@@ -95,6 +95,8 @@ uint32_t IP = 0;
     char Option3[] = "telemetry";
 #endif
 #ifdef MQTT
+    uint16_t Port = 0x75B;                  // 1833
+    uint8_t protocol = 1;                         // 0 for UDP, 1 for TCP, 4 for SSL over TCP
     byte m[] = {0xE0, 0x0};
 #endif
 
@@ -197,9 +199,9 @@ void setup ()
 
     #ifdef DEBUG > 0
         Serial.println("");
-        Serial.print(F("This is Riverlabs WMOnode");
+        Serial.print(F("This is Riverlabs WMOnode"));
         #ifdef OPTIBOOT
-            Serial.print(F(" (optiboot)");
+            Serial.print(F(" (optiboot)"));
         #endif
         Serial.println(F(", compiled on "));
         Serial.println(__DATE__);
@@ -283,7 +285,7 @@ void setup ()
             DOvalue = 1;
         #endif
         
-        AtCommandRequest atRequest1(laCmd1, APNstring, sizeof(APNstring) - 1);
+        AtCommandRequest atRequest1(laCmd1, (uint8_t*) APNstring, sizeof(APNstring) - 1);
         AtCommandRequest atRequest2(laCmd2);
         AtCommandRequest atRequest3(laCmd3);
         AtCommandRequest atRequest4(laCmd4, &DOvalue, 1);
@@ -387,6 +389,10 @@ void loop ()
         wdt_reset();                                                           // Reset the watchdog every cycle
     #endif
 
+    #ifdef OPTIBOOT
+        wdt_reset();                                                           // Reset the watchdog every cycle
+    #endif
+
     if(interruptFlag) {
 
         cli();                                                              // See https://www.pjrc.com/teensy/interrupts.html
@@ -412,8 +418,9 @@ void loop ()
         
         if (((now.Hour() % SEND_INTERVAL) == 0) && (now.Minute() == 0)) {   // only on the hour itself!
             measuredvbat = analogRead(VBATPIN) * 2 * 3.3 / 1.024;
-            if(measuredvbat >= 3500) {
-                TelemetryAttempts = 5;                                     // maximum number of tries
+            startposition = getBufferStartPosition();                       // will return -1 if the buffer is empty
+            if((measuredvbat >= 3500) && (startposition >= 0)) {
+                TelemetryAttempts = 5;                                      // maximum number of tries
                 pinMode(XBEE_SLEEPPIN, OUTPUT);
                 digitalWrite(XBEE_SLEEPPIN, LOW);
                 XbeeWakeUpTime = millis();                                  // used for timeout
@@ -548,21 +555,16 @@ void loop ()
 
         xbc.loop();                                       // Check for any messages from the Xbee.
 
-        // First, check if there are any data to be sent. Don't create the sendbuffer yet
-        // but locate the position of the first data in the EEPROM.
-        // Note: this is slow because this means that EEPROM buffer mask is read every time a data packet is sent.
-        // It may be faster to just read the mask in memory once, and then loop over that.
-        // (EEPROM3Gmask can be used for this)
-        // If the startposition is -1 then that means that the buffer is empty and we can go back
-        // to sleep.
+        // TODO: can we speed this up by reading the EEPROM mask in memory once, and then loop over that.
+        // (EEPROM3Gmask can be used for this) instead of reading EEPROM every time?
 
-        if(startposition < 0) {
+        //if(startposition < 0) {
           
-            startposition = getBufferStartPosition();     // will return -1 if the buffer is empty
+        //    startposition = getBufferStartPosition();     // will return -1 if the buffer is empty
 
-        }
+        //}
 
-        // If there is nothing to send, then we can finish the telemetry session.
+        // If startposition is -1, then the buffer is empty and we can finish the telemetry session.
 
         if (startposition < 0) {
 
@@ -577,7 +579,6 @@ void loop ()
                         xbc.loop();
                     }
                 }
-            
             #endif
 
             #ifdef DEBUG > 0
@@ -639,8 +640,6 @@ void loop ()
                 #endif
                 
                 #ifdef COAP
-                    // send one data message at a time and wait until it is entirely processed
-                    // before sending a new one.
                     if(!MyXBeeStatus.MessageSent) {
                         COAP_send(packet);
                     }
@@ -667,7 +666,7 @@ void loop ()
           
             MyXBeeStatus.MessageConfirmed = false;
             Reset3GBuffer(startposition);
-            startposition = -1;
+            startposition = getBufferStartPosition();
             MyXBeeStatus.MessageSent = false;
             
         }

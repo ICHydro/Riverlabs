@@ -68,9 +68,8 @@ class RioLogger
 
 #include "Rio_EEPROM.h"
 #include "Rio_xbee.h"
-#include "Rio_COAP.h"
-#include "Rio_MQTT.h"
 #include "Rio_Sensors.h"
+#include "Rio_SD.h"
 #include "Rio_Flash.h"
 
 /* declaration of global variables */
@@ -87,7 +86,6 @@ extern RtcDateTime now;
 extern uint16_t bufferSize;
 extern uint16_t bufferSize2;
 extern volatile bool interruptFlag;
-extern 
 
 /* function declarations */
 

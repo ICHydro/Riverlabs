@@ -4,6 +4,7 @@
 #define Rio_COAP_h
 
 #include <EEPROM.h>
+#include "Rio.h"
 
 #define COAP_HEADER_SIZE 4
 #define COAP_OPTION_HEADER_SIZE 1
@@ -20,7 +21,7 @@
 #define COAP_OPTION_DELTA(v, n) (v < 13 ? (*n = (0xFF & v)) : (v <= 0xFF + 13 ? (*n = 13) : (*n = 14)))
 
 extern int32_t startposition;
-extern byte *Eeprom3Gmask;
+extern byte Eeprom3Gmask[];
 extern uint32_t IP;
 
 typedef enum {

@@ -53,6 +53,7 @@
 #include <AltSoftSerial.h>
 #include <LowPower.h>
 #include <avr/power.h>
+#include <avr/wdt.h>
 
 class RioLogger
 {
@@ -69,6 +70,7 @@ class RioLogger
 #include "Rio_xbee.h"
 #include "Rio_Sensors.h"
 #include "Rio_SD.h"
+#include "Rio_Flash.h"
 
 /* declaration of global variables */
 
@@ -96,7 +98,7 @@ void printDateTime(const RtcDateTime&);
 void resetEEPromHeader(int);
 void resetEEPROMSDMask(int);
 uint8_t CreateEepromSendBuffer(uint16_t, byte*);
-uint8_t CreateSendBuffer(uint16_t, byte*, uint8_t*);
+uint16_t CreateSendBuffer(uint16_t, byte*, uint8_t*, uint16_t);
 void Reset3GBuffer(uint16_t, byte*);
 void Reset3GBuffer(uint16_t);
 int32_t getBufferStartPosition();

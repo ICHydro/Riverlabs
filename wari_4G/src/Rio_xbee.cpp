@@ -508,12 +508,12 @@ void zbAtResponseCb(AtCommandResponse& atr, uintptr_t) {
                      (((uint32_t)atr.getValue()[2]) << 8) + 
                      atr.getValue()[3];
                 // reset flags
-                // not that a postive LA response is the result of an ip request
+                // note that a positive LA response is the result of an ip request
                 MyXBeeStatus.hostIPResolved = true;
                 MyXBeeStatus.ipResponseReceived = true;
             }
         } else {
-            Serial.print(F("LA Command return error code: "));
+            Serial.print(F("LA command returned error code: "));
             Serial.println(atr.getStatus(), HEX);
             MyXBeeStatus.xbcErrorOccurred = true;
         }
@@ -675,36 +675,39 @@ bool setclock_ntc() {
 
     if(MyXBeeStatus.isConnected) {
 
-        // wait up to 10 seconds for reply. Make 3 attempts.
+        // wait up to 5 seconds for reply. Make 3 attempts.
         i = 0;
         while(!MyXBeeStatus.hostIPResolved && (i++ < 3)) {
             sendDNSLookupCommand((char*) host, sizeof(host) - 1);
             timeInMillis = millis();
-            while((!MyXBeeStatus.hostIPResolved) && ((millis() - timeInMillis) < 10000)) {
+            while((!MyXBeeStatus.hostIPResolved) && ((millis() - timeInMillis) < 5000)) {
                 xbc.loop();
             }
         }
 
         // Reset flats. (Set to true during IP resolution)  
-        MyXBeeStatus.ipResponseReceived = false;               
-    
-        byte packetBuffer[48];
-        memset(packetBuffer, 0, 48);
-    
-        packetBuffer[0] = 0b11100011;   // LI, Version, Mode
-        packetBuffer[1] = 0;     // Stratum, or type of clock
-        packetBuffer[2] = 6;     // Polling Interval
-        packetBuffer[3] = 0xEC;  // Peer Clock Precision
-        // 8 bytes of zero for Root Delay & Root Dispersion
-        packetBuffer[12]  = 49;
-        packetBuffer[13]  = 0x4E;
-        packetBuffer[14]  = 49;
-        packetBuffer[15]  = 52;
-    
-        tcpSend(IP, Port, protocol, packetBuffer, 48);
-        timeInMillis = millis();
-        while((!MyXBeeStatus.ipResponseReceived) && (millis() - timeInMillis) < 15000) {
-            xbc.loop();
+        MyXBeeStatus.ipResponseReceived = false; 
+
+        if(MyXBeeStatus.hostIPResolved) {
+
+            byte packetBuffer[48];
+            memset(packetBuffer, 0, 48);
+        
+            packetBuffer[0] = 0b11100011;   // LI, Version, Mode
+            packetBuffer[1] = 0;     // Stratum, or type of clock
+            packetBuffer[2] = 6;     // Polling Interval
+            packetBuffer[3] = 0xEC;  // Peer Clock Precision
+            // 8 bytes of zero for Root Delay & Root Dispersion
+            packetBuffer[12]  = 49;
+            packetBuffer[13]  = 0x4E;
+            packetBuffer[14]  = 49;
+            packetBuffer[15]  = 52;
+        
+            tcpSend(IP, Port, protocol, packetBuffer, 48);
+            timeInMillis = millis();
+            while((!MyXBeeStatus.ipResponseReceived) && (millis() - timeInMillis) < 15000) {
+                xbc.loop();
+            }
         }
     }
     if(MyXBeeStatus.ipResponseReceived) {

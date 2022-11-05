@@ -34,7 +34,6 @@ class CellularStatus {
         ipResponseReceived = false;
         xbcErrorOccurred = false;
         gotStatusResponse = false;
-        //tryagain = false;
         dontSleep = false;
         CoapSentAcknowledged = false;
         MessageSent = false;
@@ -54,7 +53,6 @@ class CellularStatus {
     bool ipResponseReceived = false;
     bool xbcErrorOccurred = false;
     bool gotStatusResponse = false;
-    uint8_t tryagain = 0;
     bool dontSleep = false;
     bool MessageSent = false;
     bool MessageConfirmed = false;      // Telemetry server confirmed successful receipt of message (2.01 or 2.03 for COAP)
