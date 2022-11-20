@@ -1,4 +1,4 @@
-/****************************************** 
+/******************************************
  * wari.ino: Arduino script for the Riverlabs Wari water level sensor
  * Wouter Buytaert
  * 2020/08/02
@@ -24,7 +24,8 @@
 #define NREADINGS 10           // number of sensor readings taken per measurement
 #define DEBUG
 #define FLUSHAFTER 288         // Number of readings before EEPROM is flushed to SD = (FLUSHAFTER x INTERVAL) minutes.
-
+//#define FLASH
+#define OPTIBOOT
 
 /******** DESIGN SPECIFICATIONS *******/
 
@@ -51,7 +52,8 @@
 #include <RtcDS3231.h>
 #include <SdFat.h>
 #include <avr/power.h>
-
+#include "src/Rio_Flash.h"
+#include <avr/wdt.h>
 
 /******** variable declarations **********/
 
@@ -92,6 +94,12 @@ boolean fileopen = false;
 byte EEPromPage[EEPromPageSize]; // byte array to read a page from eeprom;
 uint16_t eeaddress = 0;          // page address, starts after header
 boolean flusheeprom = false;
+
+// Flash variables
+#ifdef FLASH
+    SPIFlash flash(6);
+    uint32_t FlashStart = 0;
+#endif
 
 /************** functions ****************/
 
@@ -234,13 +242,15 @@ uint8_t dumpEEPROM() {
     
     if (!SD.begin(CS, SPI_FULL_SPEED)) {
         #ifdef DEBUG   
-            Serial.println("Card failed, or not present");
+            Serial.println(F("Card failed, or not present"));
         #endif
+        keep_SPCR=SPCR;
+        turnOffSDcard();
         return 0;
     }
 
     #ifdef DEBUG   
-        Serial.println("SD card found.");
+        Serial.println(F("SD card found."));
     #endif
 
     delay(100);  // probably not needed
@@ -254,6 +264,54 @@ uint8_t dumpEEPROM() {
         for(j = 0; j < 8; j++) {
             if ((headerbyte >> j) & 0x1) {
                 writefailure = !writeEEPROMline(i * 8 + j);
+                if(writefailure) {
+                    readmore = false;
+                    j = 8;
+                }
+            } else {
+                readmore = false;
+                j = 8;
+            }
+        }
+        i++;
+    }
+    
+    if(fileopen) {
+        dataFile.close();   // returns 1 on success 
+        fileopen = 0;       // set to 0 whatever the outcome of close() because the SD card will be powered off anyway.   
+    }
+    #ifdef DEBUG
+        Serial.println(F("Powering off SD card"));
+    #endif
+    keep_SPCR=SPCR;
+    turnOffSDcard(); 
+    digitalWrite(WriteLED, LOW);
+    return (writefailure) ? 0 : 1;
+}
+
+uint8_t dumpEEPROM2FLASH() {
+
+    uint16_t i, j;
+    boolean readmore = true;
+    boolean writefailure = false;
+    byte headerbyte;
+    digitalWrite(WriteLED, HIGH);
+
+    turnOnSDcard();
+    delay(10);  // let flash settle  
+    flash.begin();
+    flash.powerUp();
+
+    i = 0;
+
+    while(readmore) {
+      
+        headerbyte = i2c_eeprom_read_byte(EEPROM_ADDR, i);
+        
+        for(j = 0; j < 8; j++) {
+            if ((headerbyte >> j) & 0x1) {
+              // TODO!!!!!!!!!!
+                //writefailure = !writeEEPROMline(i * 8 + j);
                 if(writefailure) {
                     readmore = false;
                     j = 8;
@@ -305,7 +363,7 @@ uint8_t writeEEPROMline(uint16_t n) {
     // write in file: 
     if (!fileopen) {
         #ifdef DEBUG
-            Serial.println("Error: could not open datafile");
+            Serial.println(F("Error: could not open datafile"));
         #endif
         error(3, ErrorLED); // TODO: FAIL GRACIOUSLY -> TRY AGAIN LATER INSTEAD OF LOCKING UP
         return 0;
@@ -430,7 +488,12 @@ void setup()
     
     #ifdef DEBUG
         Serial.begin(115200);
-        Serial.println(F("This is Riverlabs Wari v2.1"));
+        Serial.print(F("This is Riverlabs Wari v2.1"));
+        #ifdef OPTIBOOT
+            Serial.print(F(" (optiboot)"));
+        #endif
+        Serial.print(F(", compiled on "));
+        Serial.println(__DATE__); 
         Serial.print(F("Current time is "));
         formatDateTime(now);
         Serial.print(datestring);
@@ -439,6 +502,13 @@ void setup()
     #endif
 
     digitalWrite(WriteLED, HIGH);
+
+    #ifdef FLASH
+        turnOnSDcard();                        // do not turn off, this will happen in dumpEEPROM()
+        FlashStart = getFlashStart();
+        Serial.print(F("FlashStart = "));
+        Serial.println(FlashStart);
+    #endif
 
     if(dumpEEPROM()) {
         resetEEPromHeader(EEPROM_ADDR);
@@ -452,12 +522,18 @@ void setup()
         error(3, ErrorLED);
     }
 
+    
+
     digitalWrite(WriteLED, LOW);
 }
 
 //******** main routine **********//
 
 void loop() {
+
+    #ifdef OPTIBOOT
+        wdt_reset();                                                           // Reset the watchdog every cycle
+    #endif
   
     // sleep until an interrupt happens, except if the alarm went off while still doing something else...
     // (the alarm goes off every minute, so that is quite likely!)
@@ -469,14 +545,25 @@ void loop() {
             Serial.flush();
         #endif
 
+        #ifdef OPTIBOOT
+            wdt_disable();
+        #endif
+
         LowPower.powerDown(SLEEP_FOREVER, ADC_OFF, BOD_OFF); 
 
         /* if interrupt wakes us up, then we take action: */
+
+        #ifdef OPTIBOOT
+            // enable watchdog timer. Set at 8 seconds 
+            wdt_enable(WDTO_8S);
+        #endif
 
         #ifdef DEBUG
             Serial.println(F("Waking up!"));
         #endif
     }
+
+
 
     if(interruptFlag) {                            // should always be true
       
