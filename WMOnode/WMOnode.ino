@@ -347,6 +347,18 @@ void loop ()
                 seqStatus.tryagain = 5;                                     // maximum number of tries
                 pinMode(XBEE_SLEEPPIN, OUTPUT);
                 digitalWrite(XBEE_SLEEPPIN, LOW);
+                // check whether the xbee responds
+                delay(1000)                                                 // How much time does the xbee need to wake up?
+                if(!getAIStatus(Serial, &AIstatus)) {
+                    #ifdef DEBUG > 0
+                        Serial.println(F("Can't find Xbee. Resetting"));
+                    #endif
+                    pinMode(XBEE_RESETPIN, OUTPUT);
+                    digitalWrite(XBEE_RESETPIN, LOW);
+                    delay(100);
+                    pinMode(XBEE_RESETPIN, INPUT);
+                }
+                // TODO: deal with case that reset is not effective
                 XbeeWakeUpTime = millis();                                  // used for timeout
                 timeInMillis = 0;
                 lastTimeInMillis = 0;
