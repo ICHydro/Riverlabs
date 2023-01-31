@@ -18,7 +18,6 @@
 #define SWITCH5V A3           
 #define CellularSleepPin A1        
 #define interruptPin 2 
-#define interruptNo 0
 #define maxbotixPin 5
 #define VBATPIN A7
 #define DS18S20PIN A3
@@ -86,6 +85,8 @@ extern RtcDateTime now;
 extern uint16_t bufferSize;
 extern uint16_t bufferSize2;
 extern volatile bool interruptFlag;
+extern int32_t startposition;
+extern byte Eeprom3Gmask[];
 
 /* function declarations */
 

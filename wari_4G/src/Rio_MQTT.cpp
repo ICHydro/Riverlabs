@@ -13,7 +13,7 @@ void MQTT_connect(char *clientid, uint8_t clientidsize, char *username, uint8_t 
 
     // create a connection message
     
-    buffer[s++] = 0b00010010;                       // control field: 0001 = connect. Flags = 0010 means QoS = 1
+    buffer[s++] = 0b00010000;                       // control field: 0001 = connect. Flags = 0000 // note: QoS = 1 happens at message level
     buffer[s++] = clientidsize + usernamesize + 16; // Remaining length.
     buffer[s++] = 0x00;                             // protocol name length (2 bytes)
     buffer[s++] = 0x04;

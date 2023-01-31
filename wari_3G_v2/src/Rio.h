@@ -18,8 +18,6 @@
 #define SWITCH5V A3           
 #define CellularSleepPin A1        
 #define interruptPin 2 
-#define interruptNo 0
-#define maxbotixPin 5
 #define VBATPIN A7
 #define DS18S20PIN A3
 #define MBSERIALPIN 0
@@ -53,6 +51,7 @@
 #include <AltSoftSerial.h>
 #include <LowPower.h>
 #include <avr/power.h>
+#include <avr/wdt.h>
 
 class RioLogger
 {
@@ -83,6 +82,8 @@ extern RtcDateTime now;
 extern uint16_t bufferSize;
 extern uint16_t bufferSize2;
 extern volatile bool interruptFlag;
+extern int32_t startposition;
+extern byte Eeprom3Gmask[];
 
 /* function declarations */
 
@@ -95,7 +96,7 @@ void printDateTime(const RtcDateTime&);
 void resetEEPromHeader(int);
 void resetEEPROMSDMask(int);
 uint8_t CreateEepromSendBuffer(uint16_t, byte*);
-uint8_t CreateSendBuffer(uint16_t, byte*, uint8_t*);
+uint16_t CreateSendBuffer(uint16_t, byte*, uint8_t*, uint16_t);
 void Reset3GBuffer(uint16_t, byte*);
 void Reset3GBuffer(uint16_t);
 int32_t getBufferStartPosition();

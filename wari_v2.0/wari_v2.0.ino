@@ -20,7 +20,7 @@
 
 /******** OPERATING SPECIFICATIONS *******/
 
-#define INTERVAL 5             // Measurement interval in minutes.
+#define INTERVAL 1             // Measurement interval in minutes.
 #define NREADINGS 10           // number of sensor readings taken per measurement
 #define DEBUG
 #define FLUSHAFTER 288         // Number of readings before EEPROM is flushed to SD = (FLUSHAFTER x INTERVAL) minutes.
@@ -37,7 +37,7 @@
 #define interruptNo 0
 #define maxbotixPin 5
 #define VBATPIN A7
-#define EEPROM_ADDR 0x51       
+#define EEPROM_ADDR 0x51
 #define EEPromPageSize 32
 #define EEPromHeaderSize 8
 #define MAXPAGENUMBER 2048

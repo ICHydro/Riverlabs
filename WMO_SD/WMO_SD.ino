@@ -18,16 +18,18 @@
 
 /************* User settings **************/
 
-#define READ_INTERVAL 15                           // Interval for sensor readings, in minutes
+#define READ_INTERVAL 15                          // Interval for sensor readings, in minutes
 #define FLUSHAFTER 288                            // Number of readings before EEPROM is flushed to SD = (FLUSHAFTER x INTERVAL) minutes.
 #define NREADINGS 9                               // number of readings taken per measurement (excluding 0 values)
-#define LOGGERID "MyLogger1"                      // Logger ID. Set to whatever you like
+#define LOGGERID ""                               // Logger ID. Set to whatever you like
 
 /* INCLUDES */
 
 #include "Rio.h"                                  // includes everything else
+#include <RH_RF95.h>
 
 /********** variable declarations **********/
+
 
 uint32_t readstart = 0;
 int16_t readings[NREADINGS];
@@ -104,10 +106,13 @@ void setup ()
         digitalWrite(Boost5V_on, LOW);
         digitalWrite(SWITCH5V, LOW);
     #endif
+    RH_RF95 radio(A1, 9);
+    if (!radio.init()){}
+    radio.sleep();
 
-    #ifdef XBEE_SLEEPPIN
-        pinMode(XBEE_SLEEPPIN, INPUT);   // do not set high but keep floating
-    #endif
+//    #ifdef XBEE_SLEEPPIN
+//        pinMode(XBEE_SLEEPPIN, INPUT);   // do not set high but keep floating
+//    #endif
 
     pinMode(LIDARONPIN, OUTPUT);
     digitalWrite(LIDARONPIN, LOW);
@@ -151,7 +156,7 @@ void setup ()
 
     /* set interrupts */
 
-    pinMode(interruptPin, INPUT);
+    pinMode(INTERRUPTPIN, INPUT);
     attachInterrupt(interruptNo, InterruptServiceRoutine, FALLING);
 
     // Start wire for i2c communication (EEPROM) (note: this does not seem necessary for atmel, but it is for SAMD21)

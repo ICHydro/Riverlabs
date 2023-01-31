@@ -8,19 +8,19 @@
 
 #define DEBUG 2
 
-#define ErrorLED A2               
-#define WriteLED A2
+#define ErrorLED 8               
+#define WriteLED 8
 #define slaveSelect  10          // for SD card
-#define SDpowerPin A0             
+#define SDpowerPin 9             
 #define Boost5V_on 7
-#define MBONPIN 5 
+#define MBONPIN 3 
 #define LIDARONPIN 5
 #define SWITCH5V A3           
 #define CellularSleepPin A1        
 #define interruptPin 2 
 #define interruptNo 0
 #define maxbotixPin 5
-#define VBATPIN A7
+#define VBATPIN A0
 #define DS18S20PIN A3
 #define MBSERIALPIN 0
 //#define DEBUGTX 4

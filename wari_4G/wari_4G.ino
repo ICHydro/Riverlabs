@@ -22,10 +22,10 @@
 #define READ_INTERVAL 5                           // Interval for sensor readings, in minutes
 #define SEND_INTERVAL 1                           // telemetry interval, in hours
 #define NREADINGS 9                               // number of readings taken per measurement (excluding 0 values)
-#define HOST "riverflow.io"                // internet address of the IoT server to report to
-#define ACCESSTOKEN "mdb3xnykNHBa63M9bcBE"                            // Thingsboard access token
-#define LOGGERID "RL000331"                               // Logger ID. Set to whatever you like
-#define APN "giffgaff.com"                                    // APN of the cellular network
+#define HOST "demo.thingsboard.io"                // internet address of the IoT server to report to
+#define ACCESSTOKEN ""                            // Thingsboard access token
+#define LOGGERID ""                               // Logger ID. Set to whatever you like
+#define APN ""                                    // APN of the cellular network
 #define TIMEOUT 600                               // cellular timeout in seconds, per attempt
 #define NTC                                       // set the clock at startup by querying an ntc server
 #define OPTIBOOT                                  // set ONLY if your device uses the optiboot bootloader
@@ -68,7 +68,7 @@ XBeeWithCallbacks xbc = XBeeWithCallbacks(resb, sizeof(resb));  // needs to be d
 const char host[] = HOST;
 uint32_t IP = 0;
 #ifdef COAP
-    uint16_t Port = 0x1633;                 // 5683 (COAP)
+    uint16_t Port = 0x1633;                       // 5683 (COAP)
     uint8_t protocol = 0;                         // 0 for UDP, 1 for TCP, 4 for SSL over TCP
     CoapPacket packet;
     char token[] = "tk";                          // to be randomised
@@ -79,7 +79,7 @@ uint32_t IP = 0;
     char Option3[] = "telemetry";
 #endif
 #ifdef MQTT
-    uint16_t Port = 0x75B;                  // 1833
+    uint16_t Port = 0x75B;                        // 1883
     uint8_t protocol = 1;                         // 0 for UDP, 1 for TCP, 4 for SSL over TCP
     byte m[] = {0xE0, 0x0};
 #endif

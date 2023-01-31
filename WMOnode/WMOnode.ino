@@ -18,20 +18,20 @@
 
 /************* User settings **************/
 
-#define MQTT                                      // Do not change
+#define MQTT                                      // Set to either MQTT or COAP
 //#define XBEE4G                                    // set if you are using a 4G modem (LTE-M or NB-IoT)
 #define READ_INTERVAL 5                           // Interval for sensor readings, in minutes
 #define SEND_INTERVAL 1                           // telemetry interval, in hours
 #define NREADINGS 9                               // number of readings taken per measurement (excluding 0 values)
-#define HOST "riverflow.io"                // internet address of the IoT server to report to
-#define ACCESSTOKEN "2mxjP6VnHKmaIEGAfAbb"                            // COAP access token
-#define LOGGERID "VTD"                               // Logger ID. Set to whatever you like
-#define APN "giffgaff.com"                                    // APN of the cellular network
+#define HOST "demo.thingsboard.io"                // internet address of the IoT server to report to
+#define ACCESSTOKEN "A1_TEST_TOKEN"               // Thingsboard access token
+#define LOGGERID ""                               // Logger ID. Set to whatever you like
+#define APN ""                                    // APN of the cellular network
 #define TIMEOUT 180                               // cellular timeout in seconds, per attempt
 #define DONOTUSEEEPROMSENDBUFFER
 #define NTC                                       // set the clock at startup by querying an ntc server
 //#define FLASH                                     // using flash backup storage?
-#define OPTIBOOT                                  // set ONLY if your device uses the optiboot bootloader
+//#define OPTIBOOT                                  // set ONLY if your device uses the optiboot bootloader
 
 /*************** includes ******************/
 
@@ -83,6 +83,7 @@ uint8_t resb[100];                            // XBee's responsebuffer
 XBeeWithCallbacks xbc = XBeeWithCallbacks(resb, sizeof(resb));  // needs to be done this way, so we can delete the object, see https://forum.arduino.cc/index.php?topic=376860.0
 const char host[] = HOST;
 uint32_t IP = 0;
+
 #ifdef COAP
     uint16_t Port = 0x1633;                       // 5683 (COAP)
     uint8_t protocol = 0;                         // 0 for UDP, 1 for TCP, 4 for SSL over TCP
@@ -113,8 +114,6 @@ uint16_t messageid = 1;
 byte Eeprom3Gmask[2 + MAXFIT / 8];  
 uint8_t assocCmd[] = {'A','I'};
 AtCommandRequest AIRequest(assocCmd);           
-
-
 
 // other variables
 
@@ -203,7 +202,7 @@ void setup ()
         #ifdef OPTIBOOT
             Serial.print(F(" (optiboot)"));
         #endif
-        Serial.println(F(", compiled on "));
+        Serial.print(F(", compiled on "));
         Serial.println(__DATE__);
         Serial.print(F("Logger ID: "));
         Serial.println(LoggerID);
@@ -333,8 +332,6 @@ void setup ()
             }
         #endif
     }
-
-    xbc.onIPRxResponse(zbIPResponseCb_COAP);
     
     pinMode(XBEE_SLEEPPIN, INPUT);                        // sleeping XBee. Deassert instead of setting high - see above
 
@@ -381,14 +378,7 @@ void loop ()
      *  - Telemetry event ongoing. or timeout           -> continue telemetry operation.
      *  If none of the above applies, the logger goes to sleep
      */
-    #ifdef OPTIBOOT
-        wdt_reset();                                                           // Reset the watchdog every cycle
-    #endif
-
-    #ifdef OPTIBOOT
-        wdt_reset();                                                           // Reset the watchdog every cycle
-    #endif
-
+     
     #ifdef OPTIBOOT
         wdt_reset();                                                           // Reset the watchdog every cycle
     #endif
@@ -429,7 +419,6 @@ void loop ()
                 waitingMessageTime = 0;
             }
         }
-    
     }
 
     // if nothing needs to be done, then we can safely sleep until the next alarm.
@@ -460,14 +449,14 @@ void loop ()
 
         // when woken up:
 
-        #ifdef DEBUG > 0
-            Serial.print(F("W"));
-            Serial.flush();
-        #endif
-
         #ifdef OPTIBOOT
             // enable watchdog timer. Set at 8 seconds 
             wdt_enable(WDTO_8S);
+        #endif
+
+        #ifdef DEBUG > 0
+            Serial.print(F("W"));
+            Serial.flush();
         #endif
 
         // if we wake up after a timeout, reset the timer so that another telemetry attempt can be made
@@ -493,6 +482,7 @@ void loop ()
 
         #ifdef DEBUG > 0
             formatDateTime(now);
+            Serial.println();
             Serial.println(datestring);
             Serial.print(F("VBatt = "));
             Serial.println(measuredvbat);
@@ -530,11 +520,11 @@ void loop ()
             EEPromPage[i++] = 0;
         }
 
-        for(i = 0; i < sizeof(EEPromPage); i++) {
-            Serial.print(EEPromPage[i], HEX);
-            Serial.print(" ");
-        }
-        Serial.println();
+        //for(i = 0; i < sizeof(EEPromPage); i++) {
+        //    Serial.print(EEPromPage[i], HEX);
+        //    Serial.print(" ");
+        //}
+        //Serial.println();
 
         myLogger.write2EEPROM(EEPromPage, sizeof(EEPromPage));
 
