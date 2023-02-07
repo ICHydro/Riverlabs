@@ -19,7 +19,7 @@
 /************* User settings **************/
 
 #define COAP                                      // Do not change
-#define XBEE4G                                    // set if you are using a 4G modem (LTE-M or NB-IoT)
+//#define XBEE4G                                    // set if you are using a 4G modem (LTE-M or NB-IoT)
 #define READ_INTERVAL 5                           // Interval for sensor readings, in minutes
 #define SEND_INTERVAL 1                           // telemetry interval, in hours
 #define NREADINGS 9                               // number of readings taken per measurement (excluding 0 values)
@@ -446,13 +446,13 @@ void loop ()
             Serial.println(measuredvbat);
             Serial.print(F("T = "));
             Serial.println(temp);
-            Serial.print(F("Distance (lidar) = "));
+            Serial.print(F("Distance = "));
             Serial.println(distance);
         #endif
 
         /*********** store values in EEPROM ***********/
         
-        SecondsSince2000 = uint32_t(now);
+        SecondsSince2000 = now.TotalSeconds();
 
         // prepare EEPromPage. Note that we use a 16 byte page here
 
