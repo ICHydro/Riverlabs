@@ -32,7 +32,6 @@
 #define NTC                                       // set the clock at startup by querying an ntc server
 //#define OPTIBOOT                                  // set ONLY if your device uses the optiboot bootloader
 
-
 /*************** includes ******************/
 
 #include "src/Rio.h"                              // includes everything else
