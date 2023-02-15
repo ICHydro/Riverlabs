@@ -51,17 +51,18 @@ void MQTT_connect(char *clientid, uint8_t clientidsize, char *username, uint8_t 
 uint8_t CreateMqttHeader(uint8_t *buffer, uint16_t messageid) {
 
     char topic[] = "v1/devices/me/telemetry";
+    uint8_t topiclength = sizeof(topic) - 1;
 
     uint8_t s = 0;
 
-    buffer[s++] = 0x32;
-    buffer[s++] = 0x58;
-    buffer[s++] = 0x00;
-    buffer[s++] = sizeof(topic) - 1;
+    buffer[s++] = 0x32;                             // 0b00110010
+    buffer[s++] = 2 + topiclength + 2 + 61;         // remaining length. Payload is 61 bytes
+    buffer[s++] = 0x00;                             // topic length (1st byte)
+    buffer[s++] = topiclength;                      // topid length (2nd byte)
 
-    memcpy(buffer + s, topic, sizeof(topic) - 1);
-    s = s + sizeof(topic) - 1;
-    Serial.println(s);
+    memcpy(buffer + s, topic, topiclength);
+    s = s + topiclength;
+    
     buffer[s++] = (messageid >> 8);    // message ID MSB
     buffer[s++] = (messageid & 0xFF);    // message ID LSB
 

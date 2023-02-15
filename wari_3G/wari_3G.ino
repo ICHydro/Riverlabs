@@ -24,7 +24,7 @@
 #define SEND_INTERVAL 1                           // telemetry interval, in hours
 #define NREADINGS 9                               // number of readings taken per measurement (excluding 0 values)
 #define HOST "demo.thingsbooard.io"               // internet address of the IoT server to report to
-#define ACCESSTOKEN "A1_TEST_TOKEN"               // Thingsboard access token
+#define ACCESSTOKEN "A1_TEST_TOKEN"               // Thingsboard access token, or ID for any other mqtt implementations
 #define LOGGERID ""                               // Logger ID. Set to whatever you like
 #define APN ""                                    // APN of the cellular network
 #define TIMEOUT 180                               // cellular timeout in seconds, per attempt
@@ -457,7 +457,7 @@ void loop ()
 
         /*********** store values in EEPROM ***********/
         
-        SecondsSince2000 = uint32_t(now);
+        SecondsSince2000 = now.TotalSeconds();
 
         // prepare EEPromPage. Note that we use a 16 byte page here
 
