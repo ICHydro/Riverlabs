@@ -335,7 +335,7 @@ void zbIPResponseCb_NTP(IPRxResponse& ipResponse, uintptr_t) {
     // this is NTP time (seconds since Jan 1 1900):
     unsigned long secsSince1900 = highWord << 16 | lowWord;
     uint32_t secsSince2000 = secsSince1900 - 2208988800UL - 946684800;
-
+  
     Rtc.SetDateTime((RtcDateTime) secsSince2000);
     seqStatus.ipResponseReceived = true;
 }

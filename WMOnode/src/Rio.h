@@ -11,7 +11,7 @@
 #define ErrorLED A2               
 #define WriteLED A2
 #define slaveSelect  10          // for SD card
-#define SDpowerPin 3             
+#define SDpowerPin A0
 #define Boost5V_on 7
 #define MBONPIN 5 
 #define LIDARONPIN 5
@@ -22,9 +22,9 @@
 #define VBATPIN A7
 #define DS18S20PIN A3
 #define MBSERIALPIN 0
-#define DEBUGTX 4
+//#define DEBUGTX 4
 #define XBEE_SLEEPPIN A1
-#define XBEE_RESETPIN 6
+#define XBEE_RESETPIN 4
 
 #define M24512                 // type of EEPROM. M24512 
 #define EEPROM_ADDR 0x51       // EEPROM I2C address: 0x57 for AT24c32 on clock; 0x51 or 81 for chip on PCB (Node_3G, SD boards)
@@ -52,7 +52,7 @@
 #include <AltSoftSerial.h>
 #include <LowPower.h>
 #include <avr/power.h>
-#include <Watchdog.h>
+#include <avr/wdt.h>
 
 class RioLogger
 {

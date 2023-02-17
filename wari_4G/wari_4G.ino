@@ -29,7 +29,7 @@
 #define TIMEOUT 600                               // cellular timeout in seconds, per attempt
 #define DONOTUSEEEPROMSENDBUFFER
 #define NTC                                       // set the clock at startup by querying an ntc server
-//#define OPTIBOOT                                  // set ONLY if your device uses the optiboot bootloader
+//#define OPTIBOOT                                  // set ONLY if your device uses the optiboot bootloader. Enables the watchdog timer
 
 /* INCLUDES */
 
@@ -66,7 +66,7 @@ AltSoftSerial XBeeSerial;
 uint8_t resb[100];                            // XBee's responsebuffer
 uint8_t buffer[150];
 XBeeWithCallbacks xbc = XBeeWithCallbacks(resb, sizeof(resb));  // needs to be done this way, so we can delete the object, see https://forum.arduino.cc/index.php?topic=376860.0
-const char host[] = HOST;
+char host[] = HOST;
 uint32_t IP = 0;
 const uint16_t Port = 0x1633;                 // 0x50 = 80; 0x1BB = 443, 0x1633 = 5683 (COAP)
 uint8_t protocol = 0;                         // 0 for UDP, 1 for TCP, 4 for SSL over TCP
@@ -172,7 +172,11 @@ void setup ()
 
     #ifdef DEBUG > 0
         Serial.println("");
-        Serial.print(F("This is Riverlabs Wari_4G (optiboot), compiled on "));
+        Serial.print(F("This is Riverlabs Wari_4G"));
+        #ifdef OPTIBOOT
+            Serial.print(F(" (optiboot)"));
+        #endif
+        Serial.print(F(", compiled on "));
         Serial.println(__DATE__);
         Serial.print(F("Logger ID: "));
         Serial.println(LoggerID);

@@ -29,7 +29,7 @@
 #define TIMEOUT 180                               // cellular timeout in seconds, per attempt
 #define DONOTUSEEEPROMSENDBUFFER
 #define NTC                                       // set the clock at startup by querying an ntc server
-//#define OPTIBOOT                                  // set ONLY if your device uses the optiboot bootloader
+//#define OPTIBOOT                                  // set ONLY if your device uses the optiboot bootloader. Enables the watchdog timer
 
 /* INCLUDES */
 
@@ -66,7 +66,7 @@ AltSoftSerial XBeeSerial;
 uint8_t resb[100];                            // XBee's responsebuffer
 uint8_t buffer[150];
 XBeeWithCallbacks xbc = XBeeWithCallbacks(resb, sizeof(resb));  // needs to be done this way, so we can delete the object, see https://forum.arduino.cc/index.php?topic=376860.0
-const char host[] = HOST;
+char host[] = HOST;
 uint32_t IP = 0;
 const uint16_t Port = 0x1633;                 // 0x50 = 80; 0x1BB = 443, 0x1633 = 5683 (COAP)
 uint8_t protocol = 0;                         // 0 for UDP, 1 for TCP, 4 for SSL over TCP
@@ -164,7 +164,11 @@ void setup ()
 
     #ifdef DEBUG > 0
         Serial.println("");
-        Serial.print(F("This is Riverlabs Wari_3G_v2, compiled on "));
+        Serial.print(F("This is Riverlabs Wari_3G_v2"));
+        #ifdef OPTIBOOT
+            Serial.print(F(" (optiboot)"));
+        #endif
+        Serial.print(F(", compiled on "));
         Serial.println(__DATE__);
         Serial.print(F("Logger ID: "));
         Serial.println(LoggerID);
@@ -233,7 +237,7 @@ void setup ()
         char APNstring[] = APN;
         uint8_t DOvalue = 0x41;
         
-        AtCommandRequest atRequest1(laCmd1, (uint8_t *) APNstring, sizeof(APNstring) - 1);
+        AtCommandRequest atRequest1(laCmd1, (uint8_t*) APNstring, sizeof(APNstring) - 1);
         AtCommandRequest atRequest2(laCmd2);
         AtCommandRequest atRequest3(laCmd3);
         AtCommandRequest atRequest4(laCmd4, &DOvalue, 1);
@@ -295,7 +299,7 @@ void loop ()
     #ifdef OPTIBOOT
         wdt_reset();                                                           // Reset the watchdog every cycle
     #endif
-   
+
     if(interruptFlag) {
 
         cli();                                                              // See https://www.pjrc.com/teensy/interrupts.html
@@ -370,6 +374,11 @@ void loop ()
         #ifdef DEBUG > 0
             Serial.print(F("W"));
             Serial.flush();
+        #endif
+
+        #ifdef OPTIBOOT
+            // enable watchdog timer. Set at 8 seconds 
+            wdt_enable(WDTO_8S);
         #endif
 
         // if we wake up after a timeout, reset the timer so that another telemetry attempt can be made
