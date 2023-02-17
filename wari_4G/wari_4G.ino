@@ -18,27 +18,26 @@
 
 /************* User settings **************/
 
-#define COAP                                      // Do not change
+#define MQTT                                      // Telemetry protocol. Choose either COAP or MQTT
 #define READ_INTERVAL 5                           // Interval for sensor readings, in minutes
 #define SEND_INTERVAL 1                           // telemetry interval, in hours
 #define NREADINGS 9                               // number of readings taken per measurement (excluding 0 values)
 #define HOST "demo.thingsboard.io"                // internet address of the IoT server to report to
-#define ACCESSTOKEN ""                            // COAP access token
+#define ACCESSTOKEN ""                            // Thingsboard access token
 #define LOGGERID ""                               // Logger ID. Set to whatever you like
 #define APN ""                                    // APN of the cellular network
 #define TIMEOUT 600                               // cellular timeout in seconds, per attempt
-#define DONOTUSEEEPROMSENDBUFFER
 #define NTC                                       // set the clock at startup by querying an ntc server
 //#define OPTIBOOT                                  // set ONLY if your device uses the optiboot bootloader. Enables the watchdog timer
 
 /* INCLUDES */
 
-#include "src/Rio.h"                                  // includes everything else
-#include <avr/wdt.h>
+#include "src/Rio.h"                              // includes everything else
 
 /********** variable declarations **********/
 
-const char LoggerID[] = LOGGERID;              // unique logger ID, to be used for data transmission and writing files.
+char LoggerID[] = LOGGERID;                 // unique logger ID, to be used for data transmission and writing files.
+char accesstoken[] = ACCESSTOKEN;
 uint32_t readstart = 0;
 int16_t readings[NREADINGS];
 uint8_t nread;
@@ -60,33 +59,42 @@ DS3231AlarmFlag flag;
 
 // Cellular xbee variables
 
-CellularStatus seqStatus;
+CellularStatus MyXBeeStatus;
 
 AltSoftSerial XBeeSerial;
-uint8_t resb[100];                            // XBee's responsebuffer
+uint8_t resb[100];                                // XBee's responsebuffer
 uint8_t buffer[150];
 XBeeWithCallbacks xbc = XBeeWithCallbacks(resb, sizeof(resb));  // needs to be done this way, so we can delete the object, see https://forum.arduino.cc/index.php?topic=376860.0
 char host[] = HOST;
 uint32_t IP = 0;
-const uint16_t Port = 0x1633;                 // 0x50 = 80; 0x1BB = 443, 0x1633 = 5683 (COAP)
-uint8_t protocol = 0;                         // 0 for UDP, 1 for TCP, 4 for SSL over TCP
-uint16_t bufferSize;
+#ifdef COAP
+    uint16_t Port = 0x1633;                       // 5683 (COAP)
+    uint8_t protocol = 0;                         // 0 for UDP, 1 for TCP, 4 for SSL over TCP
+    CoapPacket packet;
+    char token[] = "tk";                          // to be randomised
+    char MsgLength = 0;
+    char Option0[] = "api";
+    char Option1[] = "v1";
+    char Option2[] = ACCESSTOKEN;
+    char Option3[] = "telemetry";
+#endif
+#ifdef MQTT
+    uint16_t Port = 0x75B;                        // 1883
+    uint8_t protocol = 1;                         // 0 for UDP, 1 for TCP, 4 for SSL over TCP
+    byte m[] = {0xE0, 0x0};
+#endif
+
+uint8_t TelemetryAttempts = 0;
 uint32_t XbeeWakeUpTime;
 uint32_t timeInMillis = 0;
 uint32_t lastTimeInMillis = 0;
 uint32_t waitingMessageTime = 0;
-uint32_t startposition = 0;
+int32_t startposition = -1;                   
 uint8_t AIstatus;
 uint8_t DB;
 uint8_t pagecount;
-char token[] = "tk";                           // to be randomised
-char MsgLength = 0;
-char Option0[] = "api";
-char Option1[] = "v1";
-char Option2[] = ACCESSTOKEN;
-char Option3[] = "telemetry";
-CoapPacket packet; 
-bool SendBufferCreated = 0;
+uint16_t messageid = 1;
+
 byte Eeprom3Gmask[2 + MAXFIT / 8];  
 uint8_t assocCmd[] = {'A','I'};
 AtCommandRequest AIRequest(assocCmd);           
@@ -208,7 +216,7 @@ void setup ()
     pinMode(XBEE_RESETPIN, INPUT);                        // set by default on input. We should never set this high to avoid a potential short circuit in case xbee sets it low.
 
     xbc.setSerial(XBeeSerial);
-    seqStatus.reset();   
+    MyXBeeStatus.reset();   
     xbc.onModemStatusResponse(zbModemStatusCb);
     xbc.onAtCommandResponse(zbAtResponseCb);
     xbc.onTxStatusResponse(zbTcpSendResponseCb);
@@ -242,14 +250,14 @@ void setup ()
         uint8_t laCmd4[] = {'D','O'};
         uint8_t laCmd5[] = {'C','P'};                   // carrier profile
         uint8_t laCmd6[] = {'B','N'};                   // band mask IoT
-        uint8_t laCmd7[] = {'N','#'};                   // Network technology
+        uint8_t laCmd7[] = {'N','#'};                   // Network technology. Ignored if CP != 1.
         uint8_t laCmd2[] = {'W','R'};
         uint8_t laCmd3[] = {'A','C'};
         
         char APNstring[] = APN;
-        uint8_t CarrierProfile = 0;
+        uint8_t CarrierProfile = 1;                     // 0 = autodetect; 1 = no profile
         byte bandmask[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x08, 0x00, 0x80};
-        uint8_t nettech = 2;
+        uint8_t nettech = 3;                            // 0 = LTE-M/NB-IoT; 1 = NB-IoT/LTE-M; 2 = LTE-M only; 3 = NB-IoT only
         uint8_t DOvalue = 1;
         
         AtCommandRequest atRequest1(laCmd1, (uint8_t*) APNstring, sizeof(APNstring) - 1);
@@ -282,20 +290,25 @@ void setup ()
             }
         #endif
     }
-
-    xbc.onIPRxResponse(zbIPResponseCb_COAP);
     
     pinMode(XBEE_SLEEPPIN, INPUT);                        // sleeping XBee. Deassert instead of setting high - see above
 
-    packet.type = COAP_CON;                               // 0 = confirmable
-    packet.code = 2;                                      // 0.02 = post method
-    packet.tokenlen = sizeof(token) - 1;
-    memcpy(packet.token, token, sizeof(token) - 1);
-    packet.addOption(11, sizeof(Option0) - 1, (uint8_t*) Option0);   // note: first argument is option number according to Table 7 in spec.
-    packet.addOption(11, sizeof(Option1) - 1, (uint8_t*) Option1);
-    packet.addOption(11, sizeof(Option2) - 1, (uint8_t*) Option2);
-    packet.addOption(11, sizeof(Option3) - 1, (uint8_t*) Option3);
+    #ifdef COAP
+        packet.type = COAP_CON;                               // 0 = confirmable
+        packet.code = 2;                                      // 0.02 = post method
+        packet.tokenlen = sizeof(token) - 1;
+        memcpy(packet.token, token, sizeof(token) - 1);
+        packet.addOption(11, sizeof(Option0) - 1, (uint8_t*) Option0);   // note: first argument is option number according to Table 7 in spec.
+        packet.addOption(11, sizeof(Option1) - 1, (uint8_t*) Option1);
+        packet.addOption(11, sizeof(Option2) - 1, (uint8_t*) Option2);
+        packet.addOption(11, sizeof(Option3) - 1, (uint8_t*) Option3);
+        xbc.onIPRxResponse(zbIPResponseCb_COAP);
+    #endif
 
+    #ifdef MQTT
+        xbc.onIPRxResponse(zbIPResponseCb_MQTT);
+    #endif
+    
     Serial.flush();
 
     // Start wire for i2c communication (EEPROM) (note: this does not seem necessary for atmel, but it is for SAMD21)
@@ -341,26 +354,28 @@ void loop ()
             TakeMeasurement = true;
         }
 
-        // Check whether it is time for a telemetry event. Wake up xbee already
+        // Check whether  it is time for a telemetry event. Wake up xbee already
         // so it can start connecting while doing other things
         
-        if (((now.Hour() % SEND_INTERVAL) == 0) && (now.Minute() == 0)) {   // only on the hour itself!
-            seqStatus.tryagain = 5;                                         // maximum number of tries
-            pinMode(XBEE_SLEEPPIN, OUTPUT);
-            digitalWrite(XBEE_SLEEPPIN, LOW);
-            XbeeWakeUpTime = millis();                                      // used for timeout
-            timeInMillis = 0;
-            lastTimeInMillis = 0;
-            waitingMessageTime = 0;
+        if (((now.Hour() % SEND_INTERVAL) == 0) && (now.Minute() == 0 )) {   // only on the hour itself!
+            measuredvbat = analogRead(VBATPIN) * 2 * 3.3 / 1.024;
+            if(measuredvbat >= 3500) {                                       // Don't do telemetry if battery is too low.
+                TelemetryAttempts = 5;                                       // maximum number of tries
+                pinMode(XBEE_SLEEPPIN, OUTPUT);
+                digitalWrite(XBEE_SLEEPPIN, LOW);
+                XbeeWakeUpTime = millis();                                   // used for timeout
+                timeInMillis = 0;
+                lastTimeInMillis = 0;
+                waitingMessageTime = 0;
+            }
         }
-    
     }
 
     // if nothing needs to be done, then we can safely sleep until the next alarm.
-    // the timeout variable allows sleeping briefly between telemetry attemps
+    // The timeout variable allows sleeping briefly between telemetry attemps
     // (XBee stays awake)
     
-    if((!TakeMeasurement) && (seqStatus.tryagain == 0 || timeout)) {
+    if((!TakeMeasurement) && (TelemetryAttempts == 0 || timeout)) {
 
         #ifdef NOSLEEP
             while(!interruptFlag) {}                                        // wait for alarm if not sleeping
@@ -429,7 +444,7 @@ void loop ()
 
         /*********** store values in EEPROM ***********/
         
-        SecondsSince2000 = uint32_t(now);
+        SecondsSince2000 = now.TotalSeconds();
 
         // prepare EEPromPage. Note that we use a 16 byte page here
 
@@ -466,108 +481,49 @@ void loop ()
 
     /******************* Telemetry *********************/
 
-    if (seqStatus.tryagain > 0) {                         // start or continue the telemetry action;
+    if (TelemetryAttempts > 0) {                         // start or continue the telemetry action;
 
         xbc.loop();                                       // Check for any messages from the Xbee.
 
-        // create a new buffer if there isn't one
-        
-        // Note that we need to keep a copy the relevant part of the EEPROM3Gmask until succesfully sending
-        // to keep track of what records have been sent, because new records may be created
-        // between creating the buffer and sending it.
+        // First, check if there are any data to be sent. Don't create the sendbuffer yet
+        // but locate the position of the first data in the EEPROM.
+        // Note: this is slow because this means that EEPROM buffer mask is read every time a data packet is sent.
+        // It may be faster to just read the mask in memory once, and then loop over that.
+        // (EEPROM3Gmask can be used for this)
+        // If the startposition is -1 then that means that the buffer is empty and we can go back
+        // to sleep.
 
-        if(!SendBufferCreated) {
-            startposition = getBufferStartPosition();     // will return 0 if the buffer is empty
-            #ifdef DEBUG > 0
-                Serial.print(F("Startposition: "));
-                Serial.println(startposition);
-            #endif
-            packet.messageid = rand();                    // rand() returns int16_t, random() returns int_32
-            #ifdef DONOTUSEEEPROMSENDBUFFER
-                bufferSize = packet.createMessageHeader(buffer);
-                pagecount = CreateSendBuffer(startposition, Eeprom3Gmask, buffer);
-            #else
-                bufferSize = packet.createMessageHeader(EEPROM);
-                pagecount = CreateEepromSendBuffer(startposition, Eeprom3Gmask);
-            #endif
-     
-            if(pagecount > 0) {                           // if pagecount is zero then there is nothing to send
-                SendBufferCreated = true;
-            }           
+        if(startposition < 0) {
+          
+            startposition = getBufferStartPosition();     // will return -1 if the buffer is empty
+
         }
 
-        // If pagecount is zero then that means that there is nothing to send. Otherwise we may either
-        // be waiting for the buffer to be sent, or for the COAP server to respond.
+        // If there is nothing to send, then we can finish the telemetry session.
 
-        if(SendBufferCreated && !seqStatus.ipRequestSent) {
+        if (startposition < 0) {
 
-            // let's ignore the unsolicited status message for now. This sets isRegistered, but
-            // this may not necessarily mean that the modem is connected to the internet, so we better
-            // wait until we explicitly have an AI status of zero.
-            // At worst we lose 5 seconds with this.
-
-            if(seqStatus.isConnected) {
-                //if(!seqStatus.isConnected) { 
-                //    getAIStatus(Serial, &AIstatus);           // will set is.Connected
-                // } else {
-                  // Send COAP message. Wait for direct confirmation from COAP server, but not for 2.03 response.
-                  // sendXbeeMessage(bufferSize, host, sizeof(host) - 1); // do not include "\0"
-                  #ifdef DONOTUSEEEPROMSENDBUFFER
-                      sendXbeeMessage(buffer, bufferSize, (char*) host, sizeof(host) - 1);
-                  #else
-                      sendXbeeMessage(bufferSize, host, sizeof(host) - 1);
-                  #endif
-                //}
-            } else if (waitingMessageTime > 5000) {             // don't check once connection established to avoid interference between xbee replies.
-                xbc.send(AIRequest);
-                // wait for reply before sending another request:
-                waitingMessageTime = millis();                // reuse waitingMessageTime for memory efficiency
-                while((millis() - waitingMessageTime) < 150) {
-                  xbc.loop();
+            #ifdef MQTT
+                if(MyXBeeStatus.MqttConnected) {
+                    tcpSend(IP, Port, protocol, m, 2);
+                    MyXBeeStatus.MqttConnected = false;
+                    timeInMillis = millis();              // should be ok to reuse here
+                    // local loop ok here; this should be quick because
+                    // we are just waiting for the xbee to confirm sending.
+                    while(!MyXBeeStatus.ipRequestSentOk && ((millis() - timeInMillis) < 1000)) {
+                        xbc.loop();
+                    }
                 }
-                //xbc.send(DBRequest);
-                //getAIStatus(Serial, &AIstatus);
-                //#ifdef DEBUG > 0
-                //    Serial.print(F("AI status = "));
-                //    Serial.println(AIstatus);
-                //#endif
-                //getDBStatus(Serial, &DB);
-                waitingMessageTime = 0;
-            } else {
-                waitingMessageTime += timeInMillis - lastTimeInMillis;
-            }
-            lastTimeInMillis = timeInMillis;
-        }
-
-        timeInMillis = millis() - XbeeWakeUpTime;
-
-        // If we receive an acknowledgement, then SendBufferCreated can be reset, and the 3G mask erased.
-        // A new SendBuffer will be created in the next round. Once pagecount = 0,
-        // the mask is empty and we can finish the telemetry process.
-
-        if(seqStatus.MessageConfirmed) {
-            SendBufferCreated = false;
-            seqStatus.ipRequestSent = false;
-            seqStatus.ipRequestSentOk = false;
-            seqStatus.ipResponseReceived = false;
-            seqStatus.MessageConfirmed = false;
-            #ifdef DONOTUSEEEPROMSENDBUFFER
-                Reset3GBuffer(startposition);                // in case only one page is written
-            #else
-                Reset3GBuffer(startposition, Eeprom3Gmask);
+            
             #endif
-        }
-
-        // Close things off, and handle potential errors
-        
-        if (pagecount == 0) {
 
             #ifdef DEBUG > 0
                 Serial.println(F("All data sent. Sleeping XBee."));
             #endif
+            
             pinMode(XBEE_SLEEPPIN, INPUT);
-            seqStatus.tryagain = 0;
-            seqStatus.reset();
+            TelemetryAttempts = 0;
+            MyXBeeStatus.reset();
             
             // Reset the logger's writing position when we get to the end of the EEPROM              
             // Note that this is a stopgap until proper cycling is implemented.
@@ -575,11 +531,91 @@ void loop ()
             if(myLogger.eePageAddress >= (maxpagenumber - EEPromHeaderSize - 300)) {
                 myLogger.eePageAddress = 0;
             }
+
+        // if there is anything to send then first wait until the modem is connected
+        
+        } else if(!MyXBeeStatus.isConnected) {
+          
+            if (waitingMessageTime > 5000) {             // don't check once connection established to avoid interference between xbee replies.
+                xbc.send(AIRequest);                      // main xbee.loop() takes care of the response.
+                waitingMessageTime = 0;
+            } else {
+                  waitingMessageTime += timeInMillis - lastTimeInMillis;
+            }
+            lastTimeInMillis = timeInMillis;
+
+        // If the modem is connected then we can start sending the data. For now, we do things in sequence, i.e., wait for each transaction
+        // to finish before starting the next one. This can be made faster by sending messages without waiting for a reply, but this
+        // needs a system to keep track of all sent messages and their status.
+        // A transaction is finished if ipRequestSent is reset to false. This happens in th callback functions,
+        // but may need to be done manually for tcp messages that do not require a reply (e.g., MQTT disconnect).
+        
+        } else if(!MyXBeeStatus.ipRequestSent) {
+
+            // first resolve the IP address of the server. This is only done once per session
+
+            if(!MyXBeeStatus.hostIPResolved) {
+              
+                sendDNSLookupCommand((char*) host, sizeof(host) - 1);
+                MyXBeeStatus.ipRequestSent = true;
+                
+            } else {
+
+                // Note that we need to keep a copy of the relevant part of the EEPROM3Gmask until succesfully sending
+                // to keep track of what records have been sent, because new records may be created
+                // between creating the buffer and sending it.
+                
+                #ifdef MQTT
+                    if(!MyXBeeStatus.MqttConnected) {
+                        MQTT_connect(LoggerID, sizeof(LoggerID), accesstoken, sizeof(accesstoken));
+                        messageid = 1;
+                        // TODO: deal with timeout and errors
+                    } else {
+                        MQTT_send(messageid++);
+                    }
+                #endif
+                
+                #ifdef COAP
+                    if(!MyXBeeStatus.MessageSent) {
+                        COAP_send(packet);
+                    }
+                #endif
+            } 
+        
+        }
+
+        // if an IP response is received and processed, then we are ready to send the next packet
+        
+        if(MyXBeeStatus.ipResponseReceived) {
+          
+            MyXBeeStatus.ipRequestSent = false;
+            MyXBeeStatus.ipRequestSentOk = false;
+            MyXBeeStatus.ipResponseReceived = false;
             
-        } else if(((timeInMillis/1000) > TIMEOUT) || seqStatus.xbcErrorOccurred) {
-            seqStatus.tryagain--;
-            seqStatus.reset();
-            if(seqStatus.tryagain > 0) {
+        }
+
+        // Once we receive an acknowledgement of successful processing of a data message, 
+        // the 3G mask can be erased and the startposition reset.
+        // this starts the telemetry sequence again from the beginning.
+
+        if(MyXBeeStatus.MessageConfirmed) {
+          
+            MyXBeeStatus.MessageConfirmed = false;
+            Reset3GBuffer(startposition);
+            startposition = -1;
+            MyXBeeStatus.MessageSent = false;
+            
+        }
+
+        // Lastly, handle potential timeouts and errors
+        // TODO: deal with IP communication issues, e.g. lost packages. We probably need more than 1 timer
+
+        timeInMillis = millis() - XbeeWakeUpTime;
+        
+        if(((timeInMillis/1000) > TIMEOUT) || MyXBeeStatus.xbcErrorOccurred) {
+            TelemetryAttempts--;
+            MyXBeeStatus.reset();
+            if(TelemetryAttempts > 0) {
                 #ifdef DEBUG > 0
                     Serial.println(F("Timeout or error. Trying again next wakeup."));
                 #endif
@@ -589,6 +625,7 @@ void loop ()
                 #ifdef DEBUG > 0;
                     Serial.println(F("All attempts failed. Sleeping xbee modem."));
                 #endif
+                startposition = -1;
             }
         }
     }

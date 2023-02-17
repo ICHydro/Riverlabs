@@ -4,6 +4,7 @@
 #define Rio_COAP_h
 
 #include <EEPROM.h>
+#include "Rio.h"
 
 #define COAP_HEADER_SIZE 4
 #define COAP_OPTION_HEADER_SIZE 1
@@ -18,6 +19,10 @@
 
 #define RESPONSE_CODE(class, detail) ((class << 5) | (detail))
 #define COAP_OPTION_DELTA(v, n) (v < 13 ? (*n = (0xFF & v)) : (v <= 0xFF + 13 ? (*n = 13) : (*n = 14)))
+
+extern uint32_t IP;
+extern uint16_t Port;
+extern uint8_t protocol;
 
 typedef enum {
     COAP_CON = 0,
@@ -105,12 +110,14 @@ class CoapPacket {
 		CoapOption options[COAP_MAX_OPTION_NUM];
  
 		void addOption(uint8_t number, uint8_t length, uint8_t *opt_payload);
-    void parseMessage(uint8_t *message, uint16_t length);
-    uint8_t createMessage(uint8_t *p);
-    uint8_t createMessage(EEPROMClass);
-    uint8_t createMessageHeader(uint8_t *);
-    uint8_t createMessageHeader(EEPROMClass);
-    void print(Stream &stream);
+        void parseMessage(uint8_t *message, uint16_t length);
+        uint8_t createMessage(uint8_t *p);
+        uint8_t createMessage(EEPROMClass);
+        uint8_t createMessageHeader(EEPROMClass);
+        uint8_t createMessageHeader(uint8_t *);
+        void print(Stream &stream);
 };
+
+void COAP_send(CoapPacket);
 
 #endif

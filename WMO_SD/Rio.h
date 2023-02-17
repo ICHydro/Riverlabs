@@ -17,7 +17,7 @@
 #define LIDARONPIN 5
 #define SWITCH5V A3           
 #define CellularSleepPin A1        
-#define interruptPin 2 
+#define INTERRUPTPIN 2 
 #define interruptNo 0
 #define VBATPIN A7
 #define DS18S20PIN A3
@@ -50,7 +50,7 @@
 #include <RtcDS3231.h>
 #include <Wire.h>
 #include <SdFat.h>
-#include <AltSoftSerial.h>
+//#include <AltSoftSerial.h>
 #include <LowPower.h>
 #include <avr/power.h>
 

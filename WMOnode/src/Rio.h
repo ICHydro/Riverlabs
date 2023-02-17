@@ -18,7 +18,7 @@
 #define SWITCH5V A3           
 #define CellularSleepPin A1        
 #define interruptPin 2 
-#define interruptNo 0
+#define maxbotixPin 5
 #define VBATPIN A7
 #define DS18S20PIN A3
 #define MBSERIALPIN 0
@@ -68,6 +68,8 @@ class RioLogger
 #include "Rio_EEPROM.h"
 #include "Rio_xbee.h"
 #include "Rio_Sensors.h"
+#include "Rio_SD.h"
+#include "Rio_Flash.h"
 
 /* declaration of global variables */
 
@@ -83,6 +85,8 @@ extern RtcDateTime now;
 extern uint16_t bufferSize;
 extern uint16_t bufferSize2;
 extern volatile bool interruptFlag;
+extern int32_t startposition;
+extern byte Eeprom3Gmask[];
 
 /* function declarations */
 
@@ -95,10 +99,10 @@ void printDateTime(const RtcDateTime&);
 void resetEEPromHeader(int);
 void resetEEPROMSDMask(int);
 uint8_t CreateEepromSendBuffer(uint16_t, byte*);
-uint8_t CreateSendBuffer(uint16_t, byte*, uint8_t*);
+uint16_t CreateSendBuffer(uint16_t, byte*, uint8_t*, uint16_t);
 void Reset3GBuffer(uint16_t, byte*);
 void Reset3GBuffer(uint16_t);
-uint32_t getBufferStartPosition();
+int32_t getBufferStartPosition();
 uint32_t getBufferEndPosition();
 
 /* from https://playground.arduino.cc/Main/QuickStats */
