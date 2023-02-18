@@ -145,8 +145,8 @@ void setup ()
         pinMode(XBEE_SLEEPPIN, INPUT);   // do not set high but keep floating
     #endif
 
-    pinMode(LIDARONPIN, OUTPUT);
-    digitalWrite(LIDARONPIN, LOW);
+    pinMode(MBONPIN, OUTPUT);
+    digitalWrite(MBONPIN, LOW);
  
 
     /* Start clock */
