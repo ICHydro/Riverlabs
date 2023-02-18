@@ -19,14 +19,14 @@
 /************* User settings **************/
 
 #define MQTT                                      // Set to either MQTT or COAP
-//#define XBEE4G                                    // set if you are using a 4G modem (LTE-M or NB-IoT)
+#define XBEE4G                                    // set if you are using a 4G modem (LTE-M or NB-IoT)
 #define READ_INTERVAL 5                           // Interval for sensor readings, in minutes
 #define SEND_INTERVAL 1                           // telemetry interval, in hours
 #define NREADINGS 9                               // number of readings taken per measurement (excluding 0 values)
-#define HOST "demo.thingsboard.io"                // internet address of the IoT server to report to
-#define ACCESSTOKEN "A1_TEST_TOKEN"               // Thingsboard access token
+#define HOST "riverflow.io"                // internet address of the IoT server to report to
+#define ACCESSTOKEN "2mxjP6VnHKmaIEGAfAbb"        // Thingsboard access token
 #define LOGGERID ""                               // Logger ID. Set to whatever you like
-#define APN ""                                    // APN of the cellular network
+#define APN "arkessalp.com"                                    // APN of the cellular network
 #define TIMEOUT 180                               // cellular timeout in seconds, per attempt
 #define DONOTUSEEEPROMSENDBUFFER
 #define NTC                                       // set the clock at startup by querying an ntc server
@@ -282,7 +282,8 @@ void setup ()
         #ifdef XBEE4G
             uint8_t CarrierProfile = 0;
             byte bandmask[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x08, 0x00, 0x80};
-            uint8_t nettech = 2;
+            byte bandmask[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x08, 0x00, 0x80};            
+            uint8_t nettech = 3;
             DOvalue = 1;
         #endif
 
@@ -380,10 +381,6 @@ void loop ()
      *  - Telemetry event ongoing. or timeout           -> continue telemetry operation.
      *  If none of the above applies, the logger goes to sleep
      */
-     
-    #ifdef OPTIBOOT
-        wdt_reset();                                                           // Reset the watchdog every cycle
-    #endif
 
     #ifdef OPTIBOOT
         wdt_reset();                                                           // Reset the watchdog every cycle
@@ -420,7 +417,7 @@ void loop ()
                 pinMode(XBEE_SLEEPPIN, OUTPUT);
                 digitalWrite(XBEE_SLEEPPIN, LOW);
                 // check whether the xbee responds
-                delay(1000)                                                 // How much time does the xbee need to wake up?
+                delay(500);                                                 // How much time does the xbee need to wake up?
                 if(!getAIStatus(Serial, &AIstatus)) {
                     #ifdef DEBUG > 0
                         Serial.println(F("Can't find Xbee. Resetting"));
