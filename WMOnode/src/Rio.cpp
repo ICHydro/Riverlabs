@@ -1,4 +1,3 @@
-
 #include <Arduino.h>
 #include <Wire.h>
 #include <RtcDS3231.h>
@@ -100,13 +99,14 @@ void resetEEPromSDMask(int deviceaddress){
     }
 }
 
+// date time formatting from Rtc by Makuna
 
 void formatDateTime(const RtcDateTime& dt) {
-    snprintf_P(datestring, 
+    snprintf_P(datestring,
     countof(datestring),
     PSTR("%04u/%02u/%02u %02u:%02u:%02u"),
     dt.Year(),
-    dt.Month(), 
+    dt.Month(),
     dt.Day(),
     dt.Hour(),
     dt.Minute(),

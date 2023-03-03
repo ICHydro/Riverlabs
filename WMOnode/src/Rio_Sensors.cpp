@@ -18,16 +18,13 @@ uint8_t readLidarLite(int16_t* readings, uint8_t nreadings, uint8_t debug, Strea
     delay(30);
     digitalWrite(LIDARONPIN, HIGH);
     delay(30);
-    myLidarLite.begin(0, false);    
+    myLidarLite.begin(0, false);
     reading = myLidarLite.distance();
-    i++;
     if(reading > 0) {
-        readings[j] = reading;
-        j++;
+        readings[j++] = reading;
     }
-    while((j < nreadings) && (i < 50)) {           // Maximum 50 attempts
+    while((j < nreadings) && (++i < 50)) {           // Maximum 50 attempts
         reading = myLidarLite.distance(false);
-        i++;
         if(reading > 0) {
             readings[j++] = reading;
         }

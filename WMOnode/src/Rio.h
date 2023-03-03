@@ -41,6 +41,8 @@
 #define MAXFIT 50               // maximum number of records that fits in the EEPROM; will depend on format and number of variables to be transmitted.
                                 // TODO: can be calculated automatically
 #define OFFSET3GMASK (1 + EEPromSDMaskSize) * EEPromPageSize    // starting position of 3GMASK in EEPROM
+
+#define XBEEBUFFERSIZE 100
  
 
 /******** includes *******/
@@ -92,9 +94,7 @@ extern byte Eeprom3Gmask[];
 
 void InterruptServiceRoutine();
 void error(uint8_t, uint8_t);
-void getFilename(const RtcDateTime&);
 void formatDateTime(const RtcDateTime&);
-void printDateTime(const RtcDateTime&);
 
 void resetEEPromHeader(int);
 void resetEEPROMSDMask(int);

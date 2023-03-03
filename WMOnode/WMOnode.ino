@@ -23,20 +23,18 @@
 #define READ_INTERVAL 5                           // Interval for sensor readings, in minutes
 #define SEND_INTERVAL 1                           // telemetry interval, in hours
 #define NREADINGS 9                               // number of readings taken per measurement (excluding 0 values)
-#define HOST "riverflow.io"                // internet address of the IoT server to report to
-#define ACCESSTOKEN "2mxjP6VnHKmaIEGAfAbb"        // Thingsboard access token
+#define HOST ""                // internet address of the IoT server to report to
+#define ACCESSTOKEN ""        // Thingsboard access token
 #define LOGGERID ""                               // Logger ID. Set to whatever you like
-#define APN "arkessalp.com"                                    // APN of the cellular network
+#define APN ""                                    // APN of the cellular network
 #define TIMEOUT 180                               // cellular timeout in seconds, per attempt
-#define DONOTUSEEEPROMSENDBUFFER
-#define NTC                                       // set the clock at startup by querying an ntc server
-//#define FLASH                                     // using flash backup storage?
-//#define OPTIBOOT                                  // set ONLY if your device uses the optiboot bootloader. Enables the watchdog timer
+#define NTP                                       // set the clock at startup by querying an ntp server
+#define FLASH                                     // using flash backup storage?
+#define OPTIBOOT                                  // set ONLY if your device uses the optiboot bootloader. Enables the watchdog timer
 
 /*************** includes ******************/
 
 #include "src/Rio.h"                                  // includes everything else
-#include <avr/wdt.h>
 
 extern unsigned int __bss_end;
 extern unsigned int __heap_start;
@@ -80,8 +78,10 @@ DS3231AlarmFlag flag;
 CellularStatus MyXBeeStatus;
 
 AltSoftSerial XBeeSerial;
-uint8_t resb[100];                            // XBee's responsebuffer
-XBeeWithCallbacks xbc = XBeeWithCallbacks(resb, sizeof(resb));  // needs to be done this way, so we can delete the object, see https://forum.arduino.cc/index.php?topic=376860.0
+uint8_t resb[XBEEBUFFERSIZE];                            // XBee's responsebuffer
+//uint8_t *resb = new uint8_t[XBEEBUFFERSIZE];    // XBee's responsebuffer
+//uint8_t *resb;
+XBeeWithCallbacks xbc = XBeeWithCallbacks(resb, XBEEBUFFERSIZE);  // needs to be done this way, so we can delete the object, see https://forum.arduino.cc/index.php?topic=376860.0
 char host[] = HOST;
 uint32_t IP = 0;
 
@@ -135,13 +135,15 @@ boolean flusheeprom = false;
 
 // SD card stuff
 
+boolean SDcardOn;
+byte keep_SPCR;
+boolean fileopen = false;
+uint32_t day = 40;
 //SdFat SD;
 
 // Flash stuff
 #ifdef FLASH
     uint32_t FlashStart = 0;
-    byte keep_SPCR;
-    bool SDcardOn = false;
     SPIFlash flash(6);
 #endif
 
@@ -198,7 +200,7 @@ void setup ()
 
     now = Rtc.GetDateTime();
 
-    #ifdef DEBUG > 0
+    #if DEBUG > 0
         Serial.println("");
         Serial.print(F("This is Riverlabs WMOnode"));
         #ifdef OPTIBOOT
@@ -212,8 +214,8 @@ void setup ()
         formatDateTime(now);
         Serial.print(datestring);
         Serial.println(F(" GMT"));
-        Serial.println(F("Measuring the following variables:"));
-        Serial.println(F("- Distance (Lidarlite sensor)"));
+        Serial.println(F("Variables:"));
+        Serial.println(F("- Distance (Lidarlite)"));
         Serial.print(F("Measurement interval (minutes): "));
         Serial.println(READ_INTERVAL);
     #endif
@@ -222,13 +224,16 @@ void setup ()
 
     pinMode(interruptPin, INPUT);
     attachInterrupt(digitalPinToInterrupt(interruptPin), InterruptServiceRoutine, FALLING);
-    
-    /* Set up cellular xbee */
-    /* XBee needs to be in mode: API with escapes */
 
     myLogger.eePageAddress = getBufferEndPosition();      // do not overwrite any previous measurements that have not yet been transmitted
     Serial.print(F("Buffer starts at position: "));
     Serial.println(myLogger.eePageAddress);
+
+    //dumpEEPROM();
+    //Serial.println(".");
+
+    /* Set up cellular xbee */
+    /* XBee needs to be in mode: API with escapes */
 
     XBeeSerial.begin(9600);
     pinMode(XBEE_SLEEPPIN, OUTPUT);
@@ -248,8 +253,8 @@ void setup ()
     // check whether we can connect to the XBee:
 
     if(!getAIStatus(Serial, &AIstatus)) {
-        #ifdef DEBUG > 0
-            Serial.println(F("Error communicating with Xbee. Resetting"));
+        #if DEBUG > 0
+            Serial.println(F("Cannot find Xbee. Resetting"));
         #endif
         pinMode(XBEE_RESETPIN, OUTPUT); 
         digitalWrite(XBEE_RESETPIN, LOW);
@@ -258,80 +263,32 @@ void setup ()
         delay(2000);                                      // XBee needs 2s to restart
         if(!getAIStatus(Serial, &AIstatus)){
             error(3, ErrorLED);
-            #ifdef DEBUG > 0
+            #if DEBUG > 0
                 Serial.println(F("Unable to reset XBee"));
             #endif
         }
     } else {
-        #ifdef DEBUG > 0
-            Serial.println(F("Cellular XBee detected. Setting APN"));
-        #endif
-        uint8_t laCmd1[] = {'A','N'};
-        uint8_t laCmd2[] = {'W','R'};
-        uint8_t laCmd3[] = {'A','C'};
-        uint8_t laCmd4[] = {'D','O'};
-        #ifdef XBEE4G
-            uint8_t laCmd5[] = {'C','P'};                   // carrier profile
-            uint8_t laCmd6[] = {'B','N'};                   // band mask IoT
-            uint8_t laCmd7[] = {'N','#'};                   // Network technology
-        #endif
 
-        char APNstring[] = APN;
-        uint8_t DOvalue = 0x43;
-        
-        #ifdef XBEE4G
-            uint8_t CarrierProfile = 0;
-            byte bandmask[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x08, 0x00, 0x80};
-            byte bandmask[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x08, 0x00, 0x80};            
-            uint8_t nettech = 3;
-            DOvalue = 1;
-        #endif
-
-        AtCommandRequest atRequest1(laCmd1, (uint8_t*) APNstring, sizeof(APNstring) - 1);
-        AtCommandRequest atRequest2(laCmd2);
-        AtCommandRequest atRequest3(laCmd3);
-        AtCommandRequest atRequest4(laCmd4, &DOvalue, 1);
-        
-        #ifdef XBEE4G
-            AtCommandRequest atRequest5(laCmd5, &CarrierProfile, 1);
-            AtCommandRequest atRequest6(laCmd6, bandmask, 16);
-            AtCommandRequest atRequest7(laCmd7, &nettech, 1);
+        #if DEBUG > 0
+            Serial.println(F("XBee found. Configuring."));
         #endif
         
-        uint8_t status = xbc.sendAndWait(atRequest1, 150);
-        status += xbc.sendAndWait(atRequest4, 150);
+        ConfigureXBee();
 
-        #ifdef XBEE4G
-            status += xbc.sendAndWait(atRequest5, 150);
-            status += xbc.sendAndWait(atRequest6, 150);
-            status += xbc.sendAndWait(atRequest7, 150);
-        #endif
-
-        status += xbc.sendAndWait(atRequest2, 150);
-        status += xbc.sendAndWait(atRequest3, 150);
-
-        #ifdef NTC
+        #ifdef NTP
+            Serial.println(F("Getting network time"));
             MyXBeeStatus.reset();
-            if(setclock_ntc()) {
-                Serial.print(F("NTP received. Clock is set to: "));
-                RtcDateTime now = Rtc.GetDateTime();
-                printDateTime(now);
-                Serial.println();
+            bool ntpstatus = setclock_ntp();
+            if(!ntpstatus) ntpstatus = setclock_ntp();      // try once more, just in case
+            if(ntpstatus) {
+                Serial.print(F("NTP: "));
+                formatDateTime(Rtc.GetDateTime());
+                Serial.println(datestring);
                 digitalWrite(WriteLED, HIGH);
                 delay(1000);
                 digitalWrite(WriteLED, LOW);
-            } else {                                      // try a second time, just in case
-                if(setclock_ntc()) {                    
-                    Serial.print(F("NTP received. Clock is set to: "));
-                    RtcDateTime now = Rtc.GetDateTime();
-                    printDateTime(now);
-                    Serial.println();
-                    digitalWrite(WriteLED, HIGH);
-                    delay(1000);
-                    digitalWrite(WriteLED, LOW);
-                } else {
-                    error(2, ErrorLED);
-                }
+            } else {
+                error(2, ErrorLED);
             }
         #endif
     }
@@ -347,18 +304,25 @@ void setup ()
         packet.addOption(11, sizeof(Option1) - 1, (uint8_t*) Option1);
         packet.addOption(11, sizeof(Option2) - 1, (uint8_t*) Option2);
         packet.addOption(11, sizeof(Option3) - 1, (uint8_t*) Option3);
-        xbc.onIPRxResponse(zbIPResponseCb_COAP);
     #endif
 
     #ifdef MQTT
         xbc.onIPRxResponse(zbIPResponseCb_MQTT);
     #endif
-    Serial.println(getFreeSram());
+    #ifdef COAP
+        xbc.onIPRxResponse(zbIPResponseCb_COAP);
+    #endif
+
+    #if DEBUG > 1
+        Serial.println(getFreeSram());
+    #endif
 
     #ifdef FLASH
         FlashStart = getFlashStart();
-        Serial.print(F("Flash starts at: "));
-        Serial.println(FlashStart);
+        #if DEBUG > 1
+            Serial.print(F("Flash starts at: "));
+            Serial.println(FlashStart);
+        #endif
     #endif
     
     Serial.flush();
@@ -413,13 +377,14 @@ void loop ()
             measuredvbat = analogRead(VBATPIN) * 2 * 3.3 / 1.024;
             startposition = getBufferStartPosition();                       // will return -1 if the buffer is empty
             if((measuredvbat >= 3500) && (startposition >= 0)) {
+                //dumpEEPROM();
                 TelemetryAttempts = 5;                                      // maximum number of tries
                 pinMode(XBEE_SLEEPPIN, OUTPUT);
                 digitalWrite(XBEE_SLEEPPIN, LOW);
                 // check whether the xbee responds
                 delay(500);                                                 // How much time does the xbee need to wake up?
                 if(!getAIStatus(Serial, &AIstatus)) {
-                    #ifdef DEBUG > 0
+                    #if DEBUG > 0
                         Serial.println(F("Can't find Xbee. Resetting"));
                     #endif
                     pinMode(XBEE_RESETPIN, OUTPUT);
@@ -445,7 +410,7 @@ void loop ()
         #ifdef NOSLEEP
             while(!interruptFlag) {}                                        // wait for alarm if not sleeping
         #else 
-            #ifdef DEBUG > 0
+            #if DEBUG > 0
                 Serial.print(F("S"));
                 Serial.flush();
             #endif
@@ -469,7 +434,7 @@ void loop ()
             wdt_enable(WDTO_8S);
         #endif
 
-        #ifdef DEBUG > 0
+        #if DEBUG > 0
             Serial.print(F("W"));
             Serial.flush();
         #endif
@@ -495,7 +460,7 @@ void loop ()
         readLidarLite(readings, NREADINGS, DEBUG, Serial);            // Lidar
         distance = median(readings, NREADINGS);
 
-        #ifdef DEBUG > 0
+        #if DEBUG > 0        
             formatDateTime(now);
             Serial.println();
             Serial.println(datestring);
@@ -505,6 +470,10 @@ void loop ()
             Serial.println(temp);
             Serial.print(F("Distance (lidar) = "));
             Serial.println(distance);
+        #endif
+        #if DEBUG > 1
+            Serial.print(F("Free memory (bytes): "));
+            Serial.println(getFreeSram());
         #endif
 
         /*********** store values in EEPROM ***********/
@@ -544,7 +513,7 @@ void loop ()
         myLogger.write2EEPROM(EEPromPage, sizeof(EEPromPage));
 
         #ifdef FLASH
-            //writeToFlash(EEPromPage, sizeof(EEPromPage), FlashStart++);
+            writeToFlash(EEPromPage, sizeof(EEPromPage), FlashStart++);
         #endif
 
         /******** reset readings *****/    
@@ -563,12 +532,6 @@ void loop ()
         // TODO: can we speed this up by reading the EEPROM mask in memory once, and then loop over that.
         // (EEPROM3Gmask can be used for this) instead of reading EEPROM every time?
 
-        //if(startposition < 0) {
-          
-        //    startposition = getBufferStartPosition();     // will return -1 if the buffer is empty
-
-        //}
-
         // If startposition is -1, then the buffer is empty and we can finish the telemetry session.
 
         if (startposition < 0) {
@@ -586,7 +549,7 @@ void loop ()
                 }
             #endif
 
-            #ifdef DEBUG > 0
+            #if DEBUG > 0
                 Serial.println(F("Sleeping XBee."));
             #endif
             
@@ -685,17 +648,65 @@ void loop ()
             TelemetryAttempts--;
             MyXBeeStatus.reset();
             if(TelemetryAttempts > 0) {
-                #ifdef DEBUG > 0
+                #if DEBUG > 0
                     Serial.println(F("Timeout or error. Trying again next wakeup."));
                 #endif
                 timeout = true;
             } else {
                 pinMode(XBEE_SLEEPPIN, INPUT);
-                #ifdef DEBUG > 0;
+                #if DEBUG > 0
                     Serial.println(F("All attempts failed. Sleeping xbee modem."));
                 #endif
                 startposition = -1;
             }
         }
     }
+}
+
+/*************** helper functions ******************/
+
+void ConfigureXBee() {
+
+    uint8_t laCmd1[] = {'A','N'};
+    uint8_t laCmd2[] = {'W','R'};
+    uint8_t laCmd3[] = {'A','C'};
+    uint8_t laCmd4[] = {'D','O'};
+    #ifdef XBEE4G
+        uint8_t laCmd5[] = {'C','P'};                   // carrier profile
+        uint8_t laCmd6[] = {'B','N'};                   // band mask IoT
+        uint8_t laCmd7[] = {'N','#'};                   // Network technology
+    #endif
+
+    char APNstring[] = APN;
+    uint8_t DOvalue = 0x43;
+
+    #ifdef XBEE4G
+        uint8_t CarrierProfile = 0;
+        byte bandmask[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x08, 0x00, 0x80};
+        uint8_t nettech = 3;
+        DOvalue = 1;
+    #endif
+
+    AtCommandRequest atRequest1(laCmd1, (uint8_t*) APNstring, sizeof(APNstring) - 1);
+    AtCommandRequest atRequest2(laCmd2);
+    AtCommandRequest atRequest3(laCmd3);
+    AtCommandRequest atRequest4(laCmd4, &DOvalue, 1);
+
+    #ifdef XBEE4G
+        AtCommandRequest atRequest5(laCmd5, &CarrierProfile, 1);
+        AtCommandRequest atRequest6(laCmd6, bandmask, 16);
+        AtCommandRequest atRequest7(laCmd7, &nettech, 1);
+    #endif
+
+    uint8_t status = xbc.sendAndWait(atRequest1, 150);
+    status += xbc.sendAndWait(atRequest4, 150);
+
+    #ifdef XBEE4G
+        status += xbc.sendAndWait(atRequest5, 150);
+        status += xbc.sendAndWait(atRequest6, 150);
+        status += xbc.sendAndWait(atRequest7, 150);
+    #endif
+
+    status += xbc.sendAndWait(atRequest2, 150);
+    status += xbc.sendAndWait(atRequest3, 150);
 }
