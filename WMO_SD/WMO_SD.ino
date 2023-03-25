@@ -18,10 +18,10 @@
 
 /************* User settings **************/
 
-#define READ_INTERVAL 15                           // Interval for sensor readings, in minutes
+#define READ_INTERVAL 5                           // Interval for sensor readings, in minutes
 #define FLUSHAFTER 288                            // Number of readings before EEPROM is flushed to SD = (FLUSHAFTER x INTERVAL) minutes.
 #define NREADINGS 9                               // number of readings taken per measurement (excluding 0 values)
-#define LOGGERID "MyLogger1"                      // Logger ID. Set to whatever you like
+#define LOGGERID "Logger1"                      // Logger ID. Set to whatever you like
 
 /* INCLUDES */
 
@@ -273,7 +273,7 @@ void loop ()
 
         /*********** store values in EEPROM ***********/
         
-        SecondsSince2000 = uint32_t(now);
+        SecondsSince2000 = now.TotalSeconds();
 
         // prepare EEPromPage. Note that we use a 16 byte page here
 
