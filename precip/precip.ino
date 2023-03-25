@@ -20,6 +20,7 @@
 
 #define COAP                                      // Do not change
 //#define XBEE4G                                    // set if you are using a 4G modem (LTE-M or NB-IoT)
+#define SENSOR PREC_TB                            // PREC_TB = tipping bucket rain gauge
 #define READ_INTERVAL 5                           // Interval for sensor readings, in minutes
 #define SEND_INTERVAL 1                           // telemetry interval, in hours
 #define NREADINGS 9                               // number of readings taken per measurement (excluding 0 values)
@@ -34,7 +35,7 @@
 
 /*************** includes ******************/
 
-#include "Rio.h"
+#include "src/Rio.h"
 
 /********** variable declarations **********/
 
@@ -172,7 +173,7 @@ void setup ()
 
     #ifdef DEBUG > 0
         Serial.println("");
-        Serial.print(F("This is Riverlabs WMOnode"));
+        Serial.print(F("This is Riverlabs RiOS"));
         #ifdef OPTIBOOT
             Serial.print(F(" (optiboot)"));
         #endif
@@ -185,9 +186,12 @@ void setup ()
         Serial.print(datestring);
         Serial.println(F(" GMT"));
         Serial.println(F("Measuring the following variables:"));
-        Serial.println(F("- Distance (Lidarlite sensor)"));
-        Serial.print(F("Measurement interval (minutes): "));
-        Serial.println(READ_INTERVAL);
+        #if SENSOR == PREC_TB
+            Serial.println(F("- Precipitation (tipping bucket)"));
+        #else
+            Serial.print(F("Measurement interval (minutes): "));
+            Serial.println(READ_INTERVAL);
+        #endif
     #endif
 
     /* set interrupts */
@@ -615,4 +619,4 @@ void loop ()
             }
         }
     }
-  }
+}
