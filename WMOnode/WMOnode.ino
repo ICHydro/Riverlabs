@@ -19,7 +19,7 @@
 /************* User settings **************/
 
 #define MQTT                                      // Set to either MQTT or COAP
-//#define XBEE4G                                    // set if you are using a 4G modem (LTE-M or NB-IoT)
+#define XBEE4G                                    // set if you are using a 4G modem (LTE-M or NB-IoT)
 #define READ_INTERVAL 5                           // Interval for sensor readings, in minutes
 #define SEND_INTERVAL 1                           // telemetry interval, in hours
 #define NREADINGS 9                               // number of readings taken per measurement (excluding 0 values)
@@ -31,7 +31,7 @@
 #define DONOTUSEEEPROMSENDBUFFER
 #define NTC                                       // set the clock at startup by querying an ntc server
 //#define FLASH                                     // using flash backup storage?
-//#define OPTIBOOT                                  // set ONLY if your device uses the optiboot bootloader
+#define OPTIBOOT                                  // set ONLY if your device uses the optiboot bootloader
 
 /*************** includes ******************/
 
@@ -281,7 +281,7 @@ void setup ()
         #ifdef XBEE4G
             uint8_t CarrierProfile = 0;
             byte bandmask[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x08, 0x00, 0x80};
-            uint8_t nettech = 2;
+            uint8_t nettech = 3;         // 2 = LTE-M; 3 = NB-IoT
             DOvalue = 1;
         #endif
         
