@@ -6,9 +6,8 @@
  * Upload by selecting the board "Arduino Pro or Pro Mini"
  * and processor "Atmega 328 P (3.3V, 8 MHz)". 
  * 
- * By default, the logger takes 10 repeated distance measurements 
- * at an interval of 5 minutes (starting at the hour).
- * These are written to the internal EEPROM chip,
+ * By default, the logger integrates precipitation tips over 15 minutes.
+ * This value written to the internal EEPROM chip,
  * which is flushed to the SD card every 24 hours. 
  * Edit the #define statements below to alter any of these parameters.
  * 
@@ -20,20 +19,23 @@
 
 /******** OPERATING SPECIFICATIONS *******/
 
-#define NREADINGS 10           // number of sensor readings taken per measurement
-#define DEBUG
+#define NREADINGS 1            // number of sensor readings taken per measurement
+#define SENSOR PREC_TB         // PREC_TB = tipping bucket rain gauge
+#define READ_INTERVAL 5       // Interval for precipitation readings, in minutes
+#define DEBUG 1
 #define FLUSHAFTER 288         // Number of readings before EEPROM is flushed to SD = (FLUSHAFTER x INTERVAL) minutes.
+#define LOGGERID ""            // Logger ID. Set to whatever you like
+#define TIPINTERVAL 300        // minimum time between precipitation tips, to filter out bounces
 
 
 /******** DESIGN SPECIFICATIONS *******/
 
 #define ErrorLED A2
 #define WriteLED A2
-#define SDpowerPin 10
-#define CS A5 
+#define SDpowerPin A0
+#define CS 10
 #define interruptPin 2
-#define maxbotixPin 5
-#define VBATPIN A0
+#define VBATPIN A7
 #define EEPROM_ADDR 0x51       
 #define EEPromPageSize 32
 #define EEPromHeaderSize 8
@@ -52,6 +54,7 @@
 
 /******** variable declarations **********/
 
+const char LoggerID[] = LOGGERID;              // unique logger ID, to be used for data transmission and writing files.
 uint32_t readstart = 0;
 int16_t readings[NREADINGS];
 uint8_t nread;
@@ -59,13 +62,14 @@ uint8_t n;
 int8_t alarmcount = 0;
 uint16_t i, j;
 
-
 // variables needed in interrupt should be of type volatile.
 
-volatile uint16_t interruptCount = 0;
-volatile uint32_t last_interrupt_time_bucket = 0;
 volatile bool interruptFlag = false;
-volatile uint8_t BucketTips = 0;
+#if SENSOR == PREC_TB
+    volatile uint16_t BucketTips = 0;
+    volatile uint32_t TipTime = 0;
+    volatile uint32_t PreviousTipTime = 0;
+#endif
 
 //Clock variables
 
@@ -101,14 +105,12 @@ void InterruptServiceRoutine() {
     interruptFlag = true;
 }
 
+// too much for an interruptfunction?
+
 void count() {
-    uint32_t interrupt_time_bucket = millis();
-    // If interrupts come faster than 300ms, assume it's a bounce and ignore
-    if (interrupt_time_bucket - last_interrupt_time_bucket > 300) {
-        BucketTips++;
-    }
-    last_interrupt_time_bucket = interrupt_time_bucket;
-    interruptFlag = true;
+    TipTime = millis();
+    if((unsigned long) (TipTime - PreviousTipTime) > TIPINTERVAL) BucketTips++;
+    PreviousTipTime = TipTime;
 }
 
 // eeprom write functions from the arduino website:
@@ -286,21 +288,21 @@ uint8_t writeEEPROMline(uint16_t n) {
      } else {
         formatDateTime(timestamp);
         dataFile.print(datestring);
-        // #ifdef DEBUG
-            // Serial.print(datestring);
-        // #endif
-        for(n = 0; n < 12; n++) {
+         #ifdef DEBUG
+            Serial.print(datestring);
+        #endif
+        for(n = 0; n < (NREADINGS + 2); n++) {
             dataFile.print(F(", "));
             dataFile.print(dataout[n+2]);
-            // #ifdef DEBUG
-            //     Serial.print(F(", "));
-            //     Serial.print(dataout[n+2]);
-            // #endif
+             #ifdef DEBUG
+                 Serial.print(F(", "));
+                 Serial.print(dataout[n+2]);
+             #endif
         }
         dataFile.println("");
-        // #ifdef DEBUG
-        //     Serial.println("");
-        // #endif
+        #ifdef DEBUG
+            Serial.println("");
+        #endif
         return 1;
     }        
 }
@@ -370,40 +372,79 @@ void setup()
   
     // set the pins
     pinMode(interruptPin, INPUT);
-    //pinMode(ErrorLED, OUTPUT);
-    //pinMode(WriteLED, OUTPUT);
-    //digitalWrite(WriteLED, LOW);
-    //digitalWrite(ErrorLED, LOW);
+    pinMode(3, INPUT_PULLUP);
+    pinMode(ErrorLED, OUTPUT);
+    pinMode(WriteLED, OUTPUT);
+    digitalWrite(WriteLED, LOW);
+    digitalWrite(ErrorLED, LOW);
 
-    attachInterrupt(digitalPinToInterrupt(2), count, FALLING);
+ 
+    // start wire for the EEPROM
+    Wire.begin();
+  
+    // start clock. Note: clock initialization is done in separate script!
+  
+    Rtc.Begin();
+    now = Rtc.GetDateTime();
+      
+    Rtc.Enable32kHzPin(false);
+    Rtc.SetSquareWavePin(DS3231SquareWavePin_ModeAlarmBoth); 
+  
+    // Alarm 2 set to trigger at the top of the minute
+    // (Using alarm 2 with minute resolution - not sure why this is different from alarm 1)
+    DS3231AlarmTwo alarm2(0,
+                          0,
+                          0, 
+                          DS3231AlarmTwoControl_OncePerMinute);
+    Rtc.SetAlarmTwo(alarm2);
+  
+    // throw away any old alarm state
+    Rtc.LatchAlarmsTriggeredFlags();
+  
+    // setup external interupt 
+    attachInterrupt(digitalPinToInterrupt(interruptPin), InterruptServiceRoutine, FALLING);
+
+    attachInterrupt(digitalPinToInterrupt(3), count, FALLING);
     
     
-    #ifdef DEBUG
+    #if DEBUG > 0
         Serial.begin(115200);
-        while (!Serial) {
-            yield();
-        }
-        Serial.println(F("This is Riverlabs Wari v2.1"));
+        Serial.println("");
+        Serial.print(F("This is Riverlabs Wari"));
+        #ifdef OPTIBOOT
+            Serial.print(F(" (optiboot)"));
+        #endif
+        Serial.print(F(", compiled on "));
+        Serial.println(__DATE__);
+        Serial.print(F("Logger ID: "));
+        Serial.println(LoggerID);
         Serial.print(F("Current time is "));
         formatDateTime(now);
         Serial.print(datestring);
         Serial.println(F(" GMT"));
+        Serial.println(F("Measuring the following variables:"));
+        #if SENSOR == PREC_TB
+            Serial.println(F("- Precipitation (tipping bucket)"));
+        #else
+            Serial.print(F("Measurement interval (minutes): "));
+            Serial.println(READ_INTERVAL);
+        #endif
         Serial.println(F("Flushing EEPROM. This will also test SD card"));
     #endif
 
     digitalWrite(WriteLED, HIGH);
 
-    // if(dumpEEPROM()) {
-    //     resetEEPromHeader(EEPROM_ADDR);
-    //     #ifdef DEBUG
-    //         Serial.println(F("EEPROM flushed."));
-    //     #endif
-    // } else {
-    //     #ifdef DEBUG
-    //         Serial.println(F("Failed to flush EEPROM. SD card missing? Continuing anyway."));
-    //     #endif
-    //     error(3, ErrorLED);
-    // }
+    if(dumpEEPROM()) {
+        resetEEPromHeader(EEPROM_ADDR);
+        #ifdef DEBUG
+            Serial.println(F("EEPROM flushed."));
+        #endif
+    } else {
+        #ifdef DEBUG
+            Serial.println(F("Failed to flush EEPROM. SD card missing? Continuing anyway."));
+        #endif
+        error(3, ErrorLED);
+    }
 
     digitalWrite(WriteLED, LOW);
 }
@@ -412,29 +453,132 @@ void setup()
 
 void loop() {
   
-    // The routine 
+    // Do not sleep within TIPINTERVAL ms of the previous bucket tip
 
-    if(!interruptFlag) {
+    if(!interruptFlag && ((unsigned long)(millis() - PreviousTipTime) > TIPINTERVAL)) {
     
         #ifdef DEBUG
-            Serial.println(F("Sleeping"));
+            Serial.print(F("S"));
             Serial.flush();           
         #endif
 
-        LowPower.powerDown(SLEEP_FOREVER, ADC_OFF, BOD_OFF); 
+        // Check if alarm went off while we were doing something else,
+        // just to avoid that we missed it and never wake up again...
+
+        if(Rtc.LatchAlarmsTriggeredFlags()) {
+            interruptFlag = true;
+        } else {
+            LowPower.powerDown(SLEEP_FOREVER, ADC_OFF, BOD_OFF);
+        }
 
         /* if interrupt wakes us up, then we take action: */
-
-        #ifdef DEBUG
-            Serial.println(F("Waking up!"));
-        #endif
     }
 
     if(interruptFlag) {                            // should always be true
-      
-        interruptFlag = false;                     // reset the flag
+        #ifdef DEBUG
+            Serial.print(F("W"));
+        #endif 
 
-        Serial.print("Counts = ");
-        Serial.println(BucketTips);
+        cli();     
+        interruptFlag = false;                     // reset the flag
+        sei();
+
+        flag = Rtc.LatchAlarmsTriggeredFlags();    // Switch off the alarm
+
+        now = Rtc.GetDateTime();                   // get the current time from the clock
+
+        if(now.Minute() % READ_INTERVAL == 0) {         // only take measurement if interval threshold is exceeded:         
+        
+            /************ take a reading **********/
+      
+            nread = 0;
+
+            int16_t measuredvbat = analogRead(VBATPIN) * 2 * 3.3 / 1.024;
+            int16_t temp = Rtc.GetTemperature().AsCentiDegC(); // take the temperature
+            readings[0] = BucketTips;
+            cli();
+                BucketTips = 0;
+            sei();
+
+            #if DEBUG > 0
+                formatDateTime(now);
+                Serial.print(datestring);
+                Serial.print(", ");
+                n = 0;
+                while(n < NREADINGS) {        
+                    Serial.print(readings[n]);
+                    Serial.print(F(", "));
+                    n++;
+                }
+                Serial.print(((float) measuredvbat)/1000);
+                Serial.print(F(", "));
+                Serial.println(temp);
+            #endif
+
+
+            /*********** store values in EEPROM ***********/
+
+            SecondsSince2000 = now.TotalSeconds();
+
+            // prepare EEPromPage
+
+            for(i = 0; i < 4; i++){
+                EEPromPage[i] = ((byte *)&SecondsSince2000)[i];
+            }
+            for(i = 0; i < (NREADINGS * 2); i++) {
+                EEPromPage[i+4] = ((byte *)readings)[i];
+            }
+            for(i = 0; i < 2; i++){
+                EEPromPage[i+4+(NREADINGS*2)] = ((byte *)&measuredvbat)[i];
+            }
+            for(i = 0; i < 2; i++){
+                EEPromPage[i+6+(NREADINGS*2)] = ((byte *)&temp)[i];
+            }
+            for(i = (8 + (NREADINGS*2)); i < EEPromPageSize; i++){    // fill rest of page with zeros
+                EEPromPage[i] = 0;
+            }
+
+            // Write page. Note: only write 30 bits because the last 2 bits seem to be used by Wire library
+                
+            i2c_eeprom_write_page(EEPROM_ADDR, (eeaddress + EEPromHeaderSize) * EEPromPageSize, EEPromPage, 30);
+
+            delay(50);  // to get rid of some issues with writing to EEPROM (first entry is sometimes wrong)
+            
+            // mark page as written (and not flushed) in EEPromHeader
+
+            byte EEPROMbyte = i2c_eeprom_read_byte(EEPROM_ADDR, (uint16_t) eeaddress / 8); // read the relevant byte 
+            bitWrite(EEPROMbyte, eeaddress % 8, 1);                                        // toggle relevant bit
+            i2c_eeprom_write_byte(EEPROM_ADDR, (uint16_t) eeaddress / 8, EEPROMbyte);      // write relevant byte
+            
+            eeaddress++;
+            
+            delay(5);
+
+            /******** reset readings *****/    
+          
+            for (i = 0; i < NREADINGS; i++){
+                readings[i] = -1;
+            }
+
+            /********* flush EEPROM to SD card when full **********/
+            
+            if(eeaddress >= FLUSHAFTER) {
+              flusheeprom = true;
+            }
+
+            if(flusheeprom) {
+                if(dumpEEPROM()) {
+                    resetEEPromHeader(EEPROM_ADDR);
+                    eeaddress = 0;
+                    flusheeprom = false;
+                }
+            }
+
+            // avoid memory overflow - just cycle memory
+
+            if(eeaddress > (MAXPAGENUMBER - EEPromHeaderSize)) {
+                eeaddress = 0;
+            }
+        }                                     // end of threshold if
     }                                         // end interruptflag
 }                                             // end loop()
