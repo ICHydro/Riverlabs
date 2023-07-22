@@ -184,7 +184,7 @@ void setup ()
     /* set interrupts */
 
     pinMode(interruptPin, INPUT);
-    attachInterrupt(interruptNo, InterruptServiceRoutine, FALLING);
+    attachInterrupt(digitalPinToInterrupt(interruptPin)), InterruptServiceRoutine, FALLING);
     
     /* Set up cellular xbee */
     /* XBee needs to be in mode: API with escapes */

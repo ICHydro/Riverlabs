@@ -18,10 +18,10 @@
 
 /************* User settings **************/
 
-#define READ_INTERVAL 5                           // Interval for sensor readings, in minutes
+#define READ_INTERVAL 15                           // Interval for sensor readings, in minutes
 #define FLUSHAFTER 288                            // Number of readings before EEPROM is flushed to SD = (FLUSHAFTER x INTERVAL) minutes.
 #define NREADINGS 9                               // number of readings taken per measurement (excluding 0 values)
-#define LOGGERID "Logger1"                      // Logger ID. Set to whatever you like
+#define LOGGERID "Logger6"                      // Logger ID. Set to whatever you like
 
 /* INCLUDES */
 
@@ -247,6 +247,12 @@ void loop ()
             Serial.flush();
         #endif
 
+        // if battery voltage is too low, do not do anything
+        measuredvbat = analogRead(VBATPIN) * 2 * 3.3 / 1.024;
+        if(measuredvbat < 3500) {
+            interruptFlag = false;                                            // this will disable everything else
+        }
+
     }
          
     /* if it is time for a measurement then do so */
@@ -255,7 +261,7 @@ void loop ()
 
         TakeMeasurement = false;
 
-        measuredvbat = analogRead(VBATPIN) * 2 * 3.3 / 1.024;     // Battery voltage
+        //measuredvbat = analogRead(VBATPIN) * 2 * 3.3 / 1.024;     // Battery voltage
         temp = Rtc.GetTemperature().AsCentiDegC();                // Clock temperature
         readLidarLite(readings, NREADINGS, DEBUG, Serial);            // Lidar
         distance = median(readings, NREADINGS);
