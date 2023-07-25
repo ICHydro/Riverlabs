@@ -17,7 +17,7 @@
 #define LIDARONPIN 5
 #define SWITCH5V A3           
 #define CellularSleepPin A1        
-#define interruptPin 2 
+#define INTERRUPTPIN 2 
 #define interruptNo 0
 #define VBATPIN A7
 #define DS18S20PIN A3
@@ -40,8 +40,8 @@
 #define EEPromHeaderSize (1 + EEPromMaskSize + EEPromSDMaskSize + EEProm3GMaskSize)   // gives 3999 useable pages for M24512 with 16 byte pages (13 days at 5 min intervals)
 #define MAXFIT 50               // maximum number of records that fits in the EEPROM; will depend on format and number of variables to be transmitted.
                                 // TODO: can be calculated automatically
-#define OFFSET3GMASK (1 + EEPromSDMaskSize) * EEPromPageSize    // starting position of 3GMASK in EEPROM
-#define OFFSETSDMASK EEPromPageSize    // starting position of 3GMASK in EEPROM
+#define OFFSET3GMASK (1 + EEPromSDMaskSize) * EEPromPageSize   // starting position of 3GMASK in EEPROM [bytes]
+#define OFFSETSDMASK EEPromPageSize    // starting position of 3GMASK in EEPROM [bytes]
  
 
 /******** includes *******/
@@ -50,7 +50,7 @@
 #include <RtcDS3231.h>
 #include <Wire.h>
 #include <SdFat.h>
-#include <AltSoftSerial.h>
+//#include <AltSoftSerial.h>
 #include <LowPower.h>
 #include <avr/power.h>
 

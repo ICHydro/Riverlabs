@@ -18,16 +18,17 @@
 
 /************* User settings **************/
 
-#define READ_INTERVAL 15                           // Interval for sensor readings, in minutes
+#define READ_INTERVAL 15                          // Interval for sensor readings, in minutes
 #define FLUSHAFTER 288                            // Number of readings before EEPROM is flushed to SD = (FLUSHAFTER x INTERVAL) minutes.
 #define NREADINGS 9                               // number of readings taken per measurement (excluding 0 values)
-#define LOGGERID "Logger6"                      // Logger ID. Set to whatever you like
+#define LOGGERID "mylogger"                       // Logger ID. Set to whatever you like
 
 /* INCLUDES */
 
 #include "Rio.h"                                  // includes everything else
 
 /********** variable declarations **********/
+
 
 uint32_t readstart = 0;
 int16_t readings[NREADINGS];
@@ -63,7 +64,6 @@ RioLogger myLogger = RioLogger();
 //EEPROM stuff
 
 byte EEPromPage[(EEPromPageSize > 30) ? 30 : EEPromPageSize]; 
-uint16_t eeaddress = 0;                           // page address, starts after header
 boolean flusheeprom = false;
 
 // internal EEPROM is used to create the telemetry buffer
@@ -105,9 +105,9 @@ void setup ()
         digitalWrite(SWITCH5V, LOW);
     #endif
 
-    #ifdef XBEE_SLEEPPIN
-        pinMode(XBEE_SLEEPPIN, INPUT);   // do not set high but keep floating
-    #endif
+//    #ifdef XBEE_SLEEPPIN
+//        pinMode(XBEE_SLEEPPIN, INPUT);   // do not set high but keep floating
+//    #endif
 
     pinMode(LIDARONPIN, OUTPUT);
     digitalWrite(LIDARONPIN, LOW);
@@ -151,7 +151,7 @@ void setup ()
 
     /* set interrupts */
 
-    pinMode(interruptPin, INPUT);
+    pinMode(INTERRUPTPIN, INPUT);
     attachInterrupt(interruptNo, InterruptServiceRoutine, FALLING);
 
     // Start wire for i2c communication (EEPROM) (note: this does not seem necessary for atmel, but it is for SAMD21)
@@ -316,22 +316,23 @@ void loop ()
 
         /********* flush EEPROM to SD card when full **********/
             
-        if(eeaddress >= FLUSHAFTER) {
+        if(myLogger.eePageAddress >= FLUSHAFTER) {
           flusheeprom = true;
         }
 
         if(flusheeprom) {
             if(dumpEEPROM2()) {
                 resetEEPromHeader(EEPROM_ADDR);
-                eeaddress = 0;
+                myLogger.eePageAddress = 0;
                 flusheeprom = false;
             }
         }
 
-        // avoid memory overflow - just cycle memory
+        // avoid memory overflow - just cycle memory.
+        // NOTE: redundant: already part of the write2EEPROM function.
 
-        if(eeaddress > (maxpagenumber - EEPromHeaderSize)) {
-            eeaddress = 0;
+        if(myLogger.eePageAddress > (maxpagenumber - EEPromHeaderSize)) {
+            myLogger.eePageAddress = 0;
         }
     }
 }
