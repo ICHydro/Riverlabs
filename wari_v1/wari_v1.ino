@@ -97,9 +97,10 @@ boolean flusheeprom = false;
 // Set up the debug interface for debugging using an FTDI cable
 
 #ifdef DEBUG
-    SoftwareSerial DebugSerial(5, 4); // RX, TX
+//    SoftwareSerial DebugSerial(5, 4); // RX, TX
 #endif
 
+#define DebugSerial Serial
 
 /************** functions ****************/
 
@@ -499,6 +500,8 @@ void loop() {
       
             nread = 0;
 
+            DebugSerial.end();
+
             MBSerial.begin(9600);
 
             digitalWrite(WriteLED, HIGH);
@@ -517,6 +520,8 @@ void loop() {
 
             digitalWrite(maxbotixPin, HIGH);
             MBSerial.end();
+
+            DebugSerial.begin(115200);
 
             int16_t measuredvbat = analogRead(VBATPIN) * 2 * 3.3 / 1.024;
             int16_t temp = Rtc.GetTemperature().AsCentiDegC(); // take the temperature

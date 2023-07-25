@@ -21,7 +21,7 @@
 #define READ_INTERVAL 15                          // Interval for sensor readings, in minutes
 #define FLUSHAFTER 288                            // Number of readings before EEPROM is flushed to SD = (FLUSHAFTER x INTERVAL) minutes.
 #define NREADINGS 9                               // number of readings taken per measurement (excluding 0 values)
-#define LOGGERID ""                               // Logger ID. Set to whatever you like
+#define LOGGERID "RL000398"                               // Logger ID. Set to whatever you like
 
 /* INCLUDES */
 
@@ -65,7 +65,6 @@ RioLogger myLogger = RioLogger();
 //EEPROM stuff
 
 byte EEPromPage[(EEPromPageSize > 30) ? 30 : EEPromPageSize]; 
-uint16_t eeaddress = 0;                           // page address, starts after header
 boolean flusheeprom = false;
 
 // internal EEPROM is used to create the telemetry buffer
@@ -315,22 +314,23 @@ void loop ()
 
         /********* flush EEPROM to SD card when full **********/
             
-        if(eeaddress >= FLUSHAFTER) {
+        if(myLogger.eePageAddress >= FLUSHAFTER) {
           flusheeprom = true;
         }
 
         if(flusheeprom) {
             if(dumpEEPROM2()) {
                 resetEEPromHeader(EEPROM_ADDR);
-                eeaddress = 0;
+                myLogger.eePageAddress = 0;
                 flusheeprom = false;
             }
         }
 
-        // avoid memory overflow - just cycle memory
+        // avoid memory overflow - just cycle memory.
+        // NOTE: redundant: already part of the write2EEPROM function.
 
-        if(eeaddress > (maxpagenumber - EEPromHeaderSize)) {
-            eeaddress = 0;
+        if(myLogger.eePageAddress > (maxpagenumber - EEPromHeaderSize)) {
+            myLogger.eePageAddress = 0;
         }
     }
 }
