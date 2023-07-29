@@ -23,7 +23,7 @@
 #define SENSOR PREC_TB         // PREC_TB = tipping bucket rain gauge
 #define READ_INTERVAL 5       // Interval for precipitation readings, in minutes
 #define DEBUG 1
-#define FLUSHAFTER 288         // Number of readings before EEPROM is flushed to SD = (FLUSHAFTER x INTERVAL) minutes.
+#define FLUSHAFTER 4         // Number of readings before EEPROM is flushed to SD = (FLUSHAFTER x INTERVAL) minutes.
 #define LOGGERID ""            // Logger ID. Set to whatever you like
 #define TIPINTERVAL 300        // minimum time between precipitation tips, to filter out bounces
 
@@ -34,7 +34,7 @@
 #define WriteLED A2
 #define SDpowerPin A0
 #define CS 10
-#define interruptPin 2
+#define INTERRUPTPIN 2
 #define VBATPIN A7
 #define EEPROM_ADDR 0x51       
 #define EEPromPageSize 32
@@ -50,6 +50,7 @@
 #include <RtcDS3231.h>
 #include <SdFat.h>
 #include <avr/power.h>
+#include <RH_RF95.h>
 
 
 /******** variable declarations **********/
@@ -371,7 +372,7 @@ void setup()
     }
   
     // set the pins
-    pinMode(interruptPin, INPUT);
+    pinMode(INTERRUPTPIN, INPUT);
     pinMode(3, INPUT_PULLUP);
     pinMode(ErrorLED, OUTPUT);
     pinMode(WriteLED, OUTPUT);
@@ -402,7 +403,7 @@ void setup()
     Rtc.LatchAlarmsTriggeredFlags();
   
     // setup external interupt 
-    attachInterrupt(digitalPinToInterrupt(interruptPin), InterruptServiceRoutine, FALLING);
+    attachInterrupt(digitalPinToInterrupt(INTERRUPTPIN), InterruptServiceRoutine, FALLING);
 
     attachInterrupt(digitalPinToInterrupt(3), count, FALLING);
     
@@ -432,6 +433,13 @@ void setup()
         Serial.println(F("Flushing EEPROM. This will also test SD card"));
     #endif
 
+    RH_RF95 rf95(A1, 9);
+    rf95.init();    // even if it fails, tt is still needed!!
+    rf95.sleep();   // do not init (fails anyway on pin 9) but do put to sleep!
+
+    pinMode(A1, OUTPUT);
+    digitalWrite(A1, HIGH); // needed to avoid some ghost current through this pin, CS high disables the device anyway.
+
     digitalWrite(WriteLED, HIGH);
 
     if(dumpEEPROM()) {
@@ -447,6 +455,8 @@ void setup()
     }
 
     digitalWrite(WriteLED, LOW);
+
+
 }
 
 //******** main routine **********//
