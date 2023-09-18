@@ -523,7 +523,7 @@ void loop() {
                 Serial.print(datestring);
                 Serial.print(",");
                 n = 0;
-                while(n < 10) {        
+                while(n < NREADINGS) {        
                     Serial.print(readings[n]);
                     Serial.print(F(", "));
                     n++;
@@ -534,7 +534,7 @@ void loop() {
 
             /*********** store values in EEPROM ***********/
 
-            SecondsSince2000 = uint32_t(now);
+            SecondsSince2000 = now.TotalSeconds();
 
             // prepare EEPromPage
 

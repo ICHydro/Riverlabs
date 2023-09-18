@@ -19,7 +19,7 @@
 /************* User settings **************/
 
 #define COAP                                      // Do not change
-//#define XBEE4G                                    // set if you are using a 4G modem (LTE-M or NB-IoT)
+#define XBEE4G                                    // set if you are using a 4G modem (LTE-M or NB-IoT)
 #define READ_INTERVAL 5                           // Interval for sensor readings, in minutes
 #define SEND_INTERVAL 1                           // telemetry interval, in hours
 #define NREADINGS 9                               // number of readings taken per measurement (excluding 0 values)
@@ -30,7 +30,7 @@
 #define TIMEOUT 180                               // cellular timeout in seconds, per attempt
 #define DONOTUSEEEPROMSENDBUFFER
 #define NTC                                       // set the clock at startup by querying an ntc server
-//#define OPTIBOOT                                  // set ONLY if your device uses the optiboot bootloader. Enables the watchdog timer
+#define OPTIBOOT                                  // set ONLY if your device uses the optiboot bootloader. Enables the watchdog timer
 
 /*************** includes ******************/
 
@@ -615,4 +615,4 @@ void loop ()
             }
         }
     }
-}
+  }
