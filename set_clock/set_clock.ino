@@ -50,12 +50,12 @@ void setup ()
     
     MyRtc.Begin();
 
-    RtcDateTime compiled = RtcDateTime(__DATE__, __TIME__) - TZ * 3600 - -11;
+    RtcDateTime compiled = RtcDateTime(__DATE__, __TIME__) - TZ * 3600 + 11;
     RtcDateTime now = MyRtc.GetDateTime();
     MyRtc.SetDateTime(compiled);
     
     MyRtc.Enable32kHzPin(false);
-    MyRtc.SetSquareWavePin(DS3231SquareWavePin_ModeAlarmBoth); 
+    MyRtc.SetSquareWavePin(DS3231SquareWavePin_ModeAlarmTwo); 
 
     // Alarm 2 set to trigger at the top of the minute
     DS3231AlarmTwo alarm2(

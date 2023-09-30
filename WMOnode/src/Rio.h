@@ -10,15 +10,14 @@
 
 #define ErrorLED A2               
 #define WriteLED A2
-#define slaveSelect  10          // for SD card
+#define SD_CS_PIN  10          // for SD card
 #define SDpowerPin A0
 #define Boost5V_on 7
 #define MBONPIN 5 
 #define LIDARONPIN 5
 #define SWITCH5V A3           
 #define CellularSleepPin A1        
-#define interruptPin 2 
-#define interruptNo 0
+#define interruptPin 2
 #define VBATPIN A7
 #define DS18S20PIN A3
 #define MBSERIALPIN 0
