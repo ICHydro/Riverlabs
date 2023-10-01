@@ -81,7 +81,7 @@ uint32_t IP = 0;
     char Option3[] = "telemetry";
 #endif
 #ifdef MQTT
-    uint16_t Port = 0x75B;                        // 1833
+    uint16_t Port = 0x75B;                        // 1883
     uint8_t protocol = 1;                         // 0 for UDP, 1 for TCP, 4 for SSL over TCP
     byte m[] = {0xE0, 0x0};
 #endif
