@@ -14,7 +14,7 @@
  *  
  ********************************************/
  
-#define TZ 0                                // time zone offset from UTC in hours
+#define TZ 1                                // time zone offset from UTC in hours
 
 
 #include <Wire.h>
@@ -28,7 +28,7 @@ RtcDS3231<TwoWire> MyRtc(Wire);
 
 
 #if defined(_SAMD21_)                       // SAMD21 boards (sparkfun mini at least) use SerialUSB for the Serial Monitor
-    #define Serial SerialUSB
+    //#define Serial SerialUSB
 #endif
 
 
@@ -44,18 +44,19 @@ void InterruptServiceRoutine()
 void setup () 
 {
     Serial.begin(115200);
+    while(!Serial);
 
     // set the interupt pin to input mode
     pinMode(RtcSquareWavePin, INPUT);
     
     MyRtc.Begin();
 
-    RtcDateTime compiled = RtcDateTime(__DATE__, __TIME__) - TZ * 3600 + 11;
+    RtcDateTime compiled = RtcDateTime(__DATE__, __TIME__) - TZ * 3600 + 8;
     RtcDateTime now = MyRtc.GetDateTime();
     MyRtc.SetDateTime(compiled);
     
     MyRtc.Enable32kHzPin(false);
-    MyRtc.SetSquareWavePin(DS3231SquareWavePin_ModeAlarmBoth); 
+    MyRtc.SetSquareWavePin(DS3231SquareWavePin_ModeAlarmTwo); 
 
     // Alarm 2 set to trigger at the top of the minute
     DS3231AlarmTwo alarm2(
@@ -100,9 +101,9 @@ bool Alarmed()
     if (interruptFlag)  // check our flag that gets sets in the interupt
     {
         wasAlarmed = true;
-        cli();                     // see https://www.pjrc.com/teensy/interrupts.html
+        //cli();                     // see https://www.pjrc.com/teensy/interrupts.html
         interruptFlag = false;     // reset the flag
-        sei();
+        //sei();
         
         // this gives us which alarms triggered and
         // then allows for others to trigger again

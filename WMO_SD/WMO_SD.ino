@@ -22,14 +22,13 @@
 #define FLUSHAFTER 288                            // Number of readings before EEPROM is flushed to SD = (FLUSHAFTER x INTERVAL) minutes.
 #define NREADINGS 9                               // number of readings taken per measurement (excluding 0 values)
 #define LOGGERID ""                               // Logger ID. Set to whatever you like
+#define FLASH                                     // write to flash chip
 
 /* INCLUDES */
 
-#include "Rio.h"                                  // includes everything else
-#include <RH_RF95.h>
+#include "src/Rio.h"                                  // includes everything else
 
 /********** variable declarations **********/
-
 
 uint32_t readstart = 0;
 int16_t readings[NREADINGS];
@@ -62,17 +61,13 @@ bool timeout = false;
 
 RioLogger myLogger = RioLogger();
 
-//EEPROM stuff
+//EEPROM variables
 
 byte EEPromPage[(EEPromPageSize > 30) ? 30 : EEPromPageSize]; 
 uint16_t eeaddress = 0;                           // page address, starts after header
 boolean flusheeprom = false;
 
-// internal EEPROM is used to create the telemetry buffer
-
-uint16_t EEPROM_payload_start = 0;
-
-// SD card stuff
+// SD card variables
 
 SdFat SD;
 SdFile dataFile;
@@ -81,6 +76,12 @@ boolean SDcardOn;
 byte keep_SPCR;
 uint8_t status;
 boolean fileopen = false;
+
+// Flash variables
+
+uint32_t flashStart;
+SPIFlash flash = SPIFlash(FLASH_CS);
+byte buffer[FLASHPAGESIZE];
 
 /*************** setup ***************/
 
@@ -106,9 +107,10 @@ void setup ()
         digitalWrite(Boost5V_on, LOW);
         digitalWrite(SWITCH5V, LOW);
     #endif
-    RH_RF95 radio(A1, 9);
-    if (!radio.init()){}
-    radio.sleep();
+
+    //RH_RF95 radio(A1, 9);
+    //if (!radio.init()){}
+    //radio.sleep();
 
 //    #ifdef XBEE_SLEEPPIN
 //        pinMode(XBEE_SLEEPPIN, INPUT);   // do not set high but keep floating
@@ -122,7 +124,7 @@ void setup ()
     
     Rtc.Begin();    
     Rtc.Enable32kHzPin(false);
-    Rtc.SetSquareWavePin(DS3231SquareWavePin_ModeAlarmBoth); 
+    Rtc.SetSquareWavePin(DS3231SquareWavePin_ModeAlarmTwo); 
 
     // Alarm 2 set to trigger at the top of the minute
     
@@ -163,10 +165,8 @@ void setup ()
 
     Wire.begin();
 
-      
     digitalWrite(WriteLED, HIGH);
 
-    
     #ifdef DEBUG
         Serial.println(F("Flushing EEPROM. This will also test SD card"));
     #endif
@@ -184,6 +184,17 @@ void setup ()
     }
 
     digitalWrite(WriteLED, LOW);
+
+    #ifdef FLASH
+        flashStart = getFlashStart();
+
+        #if DEBUG > 0
+            DebugSerial.print(F("Flash memory starting at position: "));
+            DebugSerial.println(flashStart);
+        #endif
+    #endif
+
+    turnOffFlash();
 
 }
 
@@ -332,5 +343,14 @@ void loop ()
         if(eeaddress > (maxpagenumber - EEPromHeaderSize)) {
             eeaddress = 0;
         }
+
+    buffer[0] = SecondsSince2000;
+    buffer[1] = SecondsSince2000 >> 8;
+    buffer[2] = SecondsSince2000 >> 16;
+    buffer[3] = SecondsSince2000 >> 24;
+    buffer[4] = lowByte(measuredvbat);
+    buffer[5] = highByte(measuredvbat);
+    buffer[6] = lowByte(distance);
+    buffer[7] = highByte(distance);
     }
 }
