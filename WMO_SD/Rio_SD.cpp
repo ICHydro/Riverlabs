@@ -36,7 +36,6 @@ void turnOnSDcard() {
     power_spi_enable();                      // enable the SPI clock 
     SPCR=keep_SPCR;                          // enable SPI peripheral
     delay(10);
-    SDcardOn = true;       // just a flag
 }
 
 void turnOffSDcard() {
@@ -50,7 +49,6 @@ void turnOffSDcard() {
     delay(6);
     pinMode(SDpowerPin, OUTPUT); digitalWrite(SDpowerPin, LOW);
     delay(6);
-    SDcardOn = false;
 } 
 
 #endif

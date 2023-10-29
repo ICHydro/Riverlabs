@@ -76,7 +76,7 @@ SdFat SD;
 SdFile dataFile;
 char filename[] = "00000000.CSV";
 boolean SDcardOn;
-byte keep_SPCR;
+byte keep_SPCR = SPCR;
 uint8_t status;
 boolean fileopen = false;
 
@@ -98,6 +98,9 @@ void setup ()
 
     pinMode(VBATPIN, INPUT);
 
+    pinMode(LIDARONPIN, OUTPUT);
+    digitalWrite(LIDARONPIN, LOW);
+
     #ifdef Boost5V_on
         pinMode(Boost5V_on, OUTPUT);
         pinMode(SWITCH5V, OUTPUT);
@@ -108,10 +111,6 @@ void setup ()
 //    #ifdef XBEE_SLEEPPIN
 //        pinMode(XBEE_SLEEPPIN, INPUT);   // do not set high but keep floating
 //    #endif
-
-    pinMode(LIDARONPIN, OUTPUT);
-    digitalWrite(LIDARONPIN, LOW);
- 
 
     /* Start clock */
     
@@ -157,11 +156,9 @@ void setup ()
     // Start wire for i2c communication (EEPROM) (note: this does not seem necessary for atmel, but it is for SAMD21)
 
     Wire.begin();
-
       
     digitalWrite(WriteLED, HIGH);
 
-    
     #ifdef DEBUG
         Serial.println(F("Flushing EEPROM. This will also test SD card"));
     #endif
