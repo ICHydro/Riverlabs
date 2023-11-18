@@ -18,10 +18,10 @@
 
 /************* User settings **************/
 
-#define READ_INTERVAL 15                          // Interval for sensor readings, in minutes
+#define READ_INTERVAL 5                          // Interval for sensor readings, in minutes
 #define FLUSHAFTER 288                            // Number of readings before EEPROM is flushed to SD = (FLUSHAFTER x INTERVAL) minutes.
 #define NREADINGS 9                               // number of readings taken per measurement (excluding 0 values)
-#define LOGGERID ""                               // Logger ID. Set to whatever you like
+#define LOGGERID "RL000393"                               // Logger ID. Set to whatever you like
 #define FLASH                                     // write to flash chip
 
 /* INCLUDES */
@@ -85,8 +85,7 @@ byte buffer[FLASHPAGESIZE];
 
 /*************** setup ***************/
 
-void setup () 
-{
+void setup () {
     
     #if DEBUG > 0
         Serial.begin(115200);
@@ -100,6 +99,9 @@ void setup ()
     digitalWrite(ErrorLED, LOW);
 
     pinMode(VBATPIN, INPUT);
+
+    pinMode(FLASHPOWERPIN, OUTPUT);
+    pinMode(SDpowerPin, OUTPUT);
 
     #ifdef Boost5V_on
         pinMode(Boost5V_on, OUTPUT);
@@ -116,9 +118,6 @@ void setup ()
 //        pinMode(XBEE_SLEEPPIN, INPUT);   // do not set high but keep floating
 //    #endif
 
-    pinMode(LIDARONPIN, OUTPUT);
-    digitalWrite(LIDARONPIN, LOW);
- 
 
     /* Start clock */
     
@@ -165,11 +164,11 @@ void setup ()
 
     Wire.begin();
 
-    digitalWrite(WriteLED, HIGH);
-
     #ifdef DEBUG
         Serial.println(F("Flushing EEPROM. This will also test SD card"));
     #endif
+
+    turnOnSDcard();
 
     if(dumpEEPROM2()) {
         resetEEPromHeader(EEPROM_ADDR);
@@ -183,18 +182,22 @@ void setup ()
         #endif     
     }
 
-    digitalWrite(WriteLED, LOW);
-
     #ifdef FLASH
         flashStart = getFlashStart();
-
         #if DEBUG > 0
-            DebugSerial.print(F("Flash memory starting at position: "));
-            DebugSerial.println(flashStart);
+            Serial.print(F("Flash memory starting at position: "));
+            Serial.println(flashStart);
         #endif
     #endif
 
-    turnOffFlash();
+    turnOffSPI();
+
+    #ifdef DEBUG
+        Serial.println(F("Powering off SD card and Flash chip"));
+    #endif
+
+    keep_SPCR=SPCR;
+    turnOffSDcard();
 
 }
 
@@ -317,40 +320,59 @@ void loop ()
 
         myLogger.write2EEPROM(EEPromPage, sizeof(EEPromPage));
 
+        /*********** store values in FLASH ***********/
+
+        #ifdef FLASH
+
+            turnOnSDcard();
+
+            #ifdef FLASH
+                write2Flash(EEPromPage, sizeof(EEPromPage), flashStart++);
+            #endif
+
+            turnOffSDcard();
+        #endif
+
         /******** reset readings *****/    
           
         for (i = 0; i < NREADINGS; i++){
             readings[i] = -1;
         }
 
+        Serial.println(eeaddress);
+
 
         /********* flush EEPROM to SD card when full **********/
             
-        if(eeaddress >= FLUSHAFTER) {
+        if(myLogger.eePageAddress >= FLUSHAFTER) {
           flusheeprom = true;
         }
 
         if(flusheeprom) {
+
+            //digitalWrite(SDpowerPin, HIGH);
+            //delay(6);                      // let FLASH power settle
+            //turnOnSPI();
+            turnOnSDcard();
+
             if(dumpEEPROM2()) {
                 resetEEPromHeader(EEPROM_ADDR);
-                eeaddress = 0;
+                myLogger.eePageAddress = 0;
                 flusheeprom = false;
             }
+
+            turnOffSDcard();
+
+            //turnOffSPI();
+            //digitalWrite(SDpowerPin, LOW);
+
         }
 
-        // avoid memory overflow - just cycle memory
+        // avoid memory overflow - just cycle memory.
+        // NOTE: redundant: already part of the write2EEPROM function.
 
-        if(eeaddress > (maxpagenumber - EEPromHeaderSize)) {
-            eeaddress = 0;
+        if(myLogger.eePageAddress > (maxpagenumber - EEPromHeaderSize)) {
+            myLogger.eePageAddress = 0;
         }
-
-    buffer[0] = SecondsSince2000;
-    buffer[1] = SecondsSince2000 >> 8;
-    buffer[2] = SecondsSince2000 >> 16;
-    buffer[3] = SecondsSince2000 >> 24;
-    buffer[4] = lowByte(measuredvbat);
-    buffer[5] = highByte(measuredvbat);
-    buffer[6] = lowByte(distance);
-    buffer[7] = highByte(distance);
     }
 }

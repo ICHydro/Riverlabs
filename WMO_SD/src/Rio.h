@@ -25,8 +25,9 @@
 #define DEBUGTX 4
 #define XBEE_SLEEPPIN A1
 #define XBEE_RESETPIN 6
+#define FLASHPOWERPIN A0
 #define FLASH_CS 6
-#define FLASHPAGESIZE 8
+#define FLASHPAGESIZE 16
 
 #define M24512                 // type of EEPROM. M24512 
 #define EEPROM_ADDR 0x51       // EEPROM I2C address: 0x57 for AT24c32 on clock; 0x51 or 81 for chip on PCB (Node_3G, SD boards)
@@ -72,6 +73,7 @@ class RioLogger
 #include "Rio_EEPROM.h"
 #include "Rio_Sensors.h"
 #include "Rio_SD.h"
+#include "Rio_Flash.h"
 
 /* declaration of global variables */
 

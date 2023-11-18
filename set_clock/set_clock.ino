@@ -14,7 +14,7 @@
  *  
  ********************************************/
  
-#define TZ 1                                // time zone offset from UTC in hours
+#define TZ 0                                // time zone offset from UTC in hours
 
 
 #include <Wire.h>

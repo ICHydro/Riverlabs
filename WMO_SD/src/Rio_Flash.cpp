@@ -1,10 +1,7 @@
 
 #include "Rio_Flash.h"
 
-void turnOnFlash() {
-    pinMode(FLASHPOWERPIN, OUTPUT);
-    digitalWrite(FLASHPOWERPIN, HIGH);          //turn on the SD ground line
-    delay(6);                                // let the card settle
+void turnOnSPI() {
     // some cards will fail on power-up unless SS is pulled up  ( &  D0/MISO as well? )
     DDRB = DDRB | (1<<DDB5) | (1<<DDB3) | (1<<DDB2); // set SCLK(D13), MOSI(D11) & SS(D10) as OUTPUT
     // Note: | is an OR operation so  the other pins stay as they were.                (MISO stays as INPUT) 
@@ -14,30 +11,26 @@ void turnOnFlash() {
     delay(10);
 }
 
-void turnOffFlash() {
+void turnOffSPI() {
     delay(6);
     keep_SPCR=SPCR;
     SPCR = 0;                                         // disable SPI
     power_spi_disable();                     // disable SPI clock
     DDRB &= ~((1<<DDB5) | (1<<DDB4) | (1<<DDB3) | (1<<DDB2));   // set All SPI pins to INPUT
     PORTB |= ((1<<DDB5) | (1<<DDB4) | (1<<DDB3) | (1<<DDB2));     // set ALL SPI pins HIGH (~30k pullup)
-    // Note: you must disconnect the LED on pin 13 or you’ll bleed current through the limit resistor
     LowPower.powerDown(SLEEP_1S, ADC_OFF, BOD_OFF); // wait 1 second before pulling the plug!
-    //delay(6);
-    pinMode(FLASHPOWERPIN, OUTPUT); digitalWrite(FLASHPOWERPIN, LOW);
-    delay(6);
 } 
 
-void write2Flash(byte array[], uint16_t size, uint32_t start) {
-    turnOnFlash();
+void write2Flash(byte buffer[], uint16_t size, uint32_t start) {
+    
     flash.begin();
     flash.powerUp();
     
-    flash.writeByteArray(start * PAGESIZE, buffer, size);
+    flash.writeByteArray(start * FLASHPAGESIZE, buffer, size);
     Serial.print(F("Written to Flash page "));
     Serial.print(start);
     Serial.print(F(": "));
-    flash.readByteArray(start * PAGESIZE, buffer, size);
+    flash.readByteArray(start * FLASHPAGESIZE, buffer, size);
 
     for(uint8_t i = 0; i < size; i++) {
         Serial.print(buffer[i], HEX);
@@ -47,21 +40,20 @@ void write2Flash(byte array[], uint16_t size, uint32_t start) {
     Serial.flush();
 
     flash.powerDown();
-    turnOffFlash();
+
 }
 
 uint32_t getFlashStart() {
     uint32_t i = 0;
-    turnOnSDcard();
-    SPIFlash flash(6);
+    //turnOnSDcard();
     flash.begin();
     //flash.eraseChip();
-    uint32_t size = flash.getCapacity() / EEPromPageSize;        // size in pages
-    while((flash.readByte(i * EEPromPageSize) != 255) && (i++ < size)) {
-        //Serial.println(flash.readByte(i * EEPromPageSize));
+    uint32_t size = flash.getCapacity() / FLASHPAGESIZE;        // size in pages
+    while((flash.readByte(i * FLASHPAGESIZE) != 255) && (i++ < size)) {
+        //Serial.println(flash.readByte(i * FLASHPAGESIZE));
     };
     flash.powerDown();
-    turnOffSDcard();
+    //turnOffSDcard();
     if(i == size) {
         return 0;
     } else {
