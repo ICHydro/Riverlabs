@@ -197,6 +197,7 @@ void setup () {
     #endif
 
     keep_SPCR=SPCR;
+    pinMode(FLASH_CS, INPUT_PULLUP);
     turnOffSDcard();
 
 }
@@ -324,11 +325,16 @@ void loop ()
 
         #ifdef FLASH
 
+            pinMode(FLASH_CS, OUTPUT);
+
             turnOnSDcard();
 
             #ifdef FLASH
                 write2Flash(EEPromPage, sizeof(EEPromPage), flashStart++);
             #endif
+
+            keep_SPCR=SPCR;
+            pinMode(FLASH_CS, INPUT_PULLUP);
 
             turnOffSDcard();
         #endif
