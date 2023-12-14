@@ -21,7 +21,7 @@
 #define READ_INTERVAL 5                          // Interval for sensor readings, in minutes
 #define FLUSHAFTER 288                            // Number of readings before EEPROM is flushed to SD = (FLUSHAFTER x INTERVAL) minutes.
 #define NREADINGS 9                               // number of readings taken per measurement (excluding 0 values)
-#define LOGGERID "RL000393"                               // Logger ID. Set to whatever you like
+#define LOGGERID "MyLogger"                               // Logger ID. Set to whatever you like
 #define FLASH                                     // write to flash chip
 
 /* INCLUDES */
@@ -79,9 +79,11 @@ boolean fileopen = false;
 
 // Flash variables
 
-uint32_t flashStart;
-SPIFlash flash = SPIFlash(FLASH_CS);
-byte buffer[FLASHPAGESIZE];
+#ifdef FLASH
+    uint32_t flashStart;
+    SPIFlash flash = SPIFlash(FLASH_CS);
+    byte buffer[FLASHPAGESIZE];
+#endif
 
 /*************** setup ***************/
 
@@ -329,9 +331,7 @@ void loop ()
 
             turnOnSDcard();
 
-            #ifdef FLASH
-                write2Flash(EEPromPage, sizeof(EEPromPage), flashStart++);
-            #endif
+            write2Flash(EEPromPage, sizeof(EEPromPage), flashStart++);
 
             keep_SPCR=SPCR;
             pinMode(FLASH_CS, INPUT_PULLUP);

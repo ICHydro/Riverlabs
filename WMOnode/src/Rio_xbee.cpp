@@ -332,16 +332,31 @@ void zbIPResponseCb(IPRxResponse& ipResponse, uintptr_t) {
  
 void zbIPResponseCb_NTP(IPRxResponse& ipResponse, uintptr_t) {
 
+    //#if DEBUG > 1
+    //    printIPRX(ipResponse, Serial);
+    //#endif
+
     unsigned long highWord = word(ipResponse.getData()[40], ipResponse.getData()[41]);
     unsigned long lowWord = word(ipResponse.getData()[42], ipResponse.getData()[43]);
     
     // combine the four bytes (two words) into a long integer
     // this is NTP time (seconds since Jan 1 1900):
     unsigned long secsSince1900 = highWord << 16 | lowWord;
-    uint32_t secsSince2000 = secsSince1900 - 2208988800UL - 946684800;
-  
-    Rtc.SetDateTime((RtcDateTime) secsSince2000);
-    MyXBeeStatus.ipResponseReceived = true;
+
+    // Discard if first two bits of response (leap indicator) euqals 3
+    // which indicates an error (clock unsyncronised)
+    // In that case secSince1900 tends to be zero.
+    // We also check that, although it is probably not necessary
+
+    if(((ipResponse.getData()[0] >> 6) != 3) || (secsSince1900 == 0) ) {
+        uint32_t secsSince2000 = secsSince1900 - 2208988800UL - 946684800UL;
+        Rtc.SetDateTime((RtcDateTime) secsSince2000);
+        MyXBeeStatus.ipResponseReceived = true;
+    } else {
+        #if DEBUG > 1
+            Serial.println("Invalid NTP response");
+        #endif
+    }
 }
 
 // Callback function for incoming TCP/IP message

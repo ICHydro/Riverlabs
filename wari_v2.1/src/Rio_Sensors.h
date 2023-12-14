@@ -3,7 +3,7 @@
  */
 
 #include "Rio.h"
-#include <LIDARLite_v3HP.h>
+#include "LIDARLite.h"
 
 #ifndef Rio_Sensors_h
 #define Rio_Sensors_h

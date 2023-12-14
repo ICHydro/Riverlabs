@@ -23,13 +23,13 @@
 #define READ_INTERVAL 5                           // Interval for sensor readings, in minutes
 #define SEND_INTERVAL 1                           // telemetry interval, in hours
 #define NREADINGS 9                               // number of readings taken per measurement (excluding 0 values)
-#define HOST ""                // internet address of the IoT server to report to
-#define ACCESSTOKEN ""        // Thingsboard access token
+#define HOST ""                                   // internet address of the IoT server to report to
+#define ACCESSTOKEN ""                            // Thingsboard access token
 #define LOGGERID ""                               // Logger ID. Set to whatever you like
 #define APN ""                                    // APN of the cellular network
 #define TIMEOUT 180                               // cellular timeout in seconds, per attempt
 #define NTP                                       // set the clock at startup by querying an ntp server
-#define FLASH                                     // using flash backup storage?
+//#define FLASH                                     // using flash backup storage?
 #define OPTIBOOT                                  // set ONLY if your device uses the optiboot bootloader. Enables the watchdog timer
 
 /*************** includes ******************/
@@ -683,7 +683,7 @@ void ConfigureXBee() {
     #ifdef XBEE4G
         uint8_t CarrierProfile = 0;
         byte bandmask[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x08, 0x00, 0x80};
-        uint8_t nettech = 3;
+        uint8_t nettech = 3;     // 3 = NB-IoT only
         DOvalue = 1;
     #endif
 
@@ -693,7 +693,7 @@ void ConfigureXBee() {
     AtCommandRequest atRequest4(laCmd4, &DOvalue, 1);
 
     #ifdef XBEE4G
-        AtCommandRequest atRequest5(laCmd5, &CarrierProfile, 1);
+        AtCommandRequest atRequest5(laCmd5, &CarrierProfile, 0);  // 0 = read out from SIM
         AtCommandRequest atRequest6(laCmd6, bandmask, 16);
         AtCommandRequest atRequest7(laCmd7, &nettech, 1);
     #endif
@@ -703,7 +703,7 @@ void ConfigureXBee() {
 
     #ifdef XBEE4G
         status += xbc.sendAndWait(atRequest5, 150);
-        status += xbc.sendAndWait(atRequest6, 150);
+        //status += xbc.sendAndWait(atRequest6, 150);
         status += xbc.sendAndWait(atRequest7, 150);
     #endif
 
