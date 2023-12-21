@@ -125,21 +125,21 @@ void setup()
   
     // set the pins
     pinMode(INTERRUPTPIN, INPUT);
-    pinMode(maxbotixPin, OUTPUT);
+    pinMode(MBONPIN, OUTPUT);
     pinMode(ErrorLED, OUTPUT);
     pinMode(WriteLED, OUTPUT);
     digitalWrite(WriteLED, LOW);
     digitalWrite(ErrorLED, LOW);
-    digitalWrite(maxbotixPin, LOW);    // Low side switching but through mosfet
+    digitalWrite(MBONPIN, LOW);    // Low side switching but through mosfet
 
     pinMode(FLASHPOWERPIN, OUTPUT);
     digitalWrite(FLASHPOWERPIN, HIGH);
     pinMode(SDpowerPin, OUTPUT);
 
-    pinMode(7, OUTPUT);
-    pinMode(A3, OUTPUT);
-    digitalWrite(7, LOW);
-    digitalWrite(A3, LOW);
+    pinMode(Boost5V_on, OUTPUT);
+    pinMode(SWITCH5V, OUTPUT);
+    digitalWrite(Boost5V_on, LOW);
+    digitalWrite(SWITCH5V, LOW);
   
     // start wire for the EEPROM
     Wire.begin();
@@ -264,7 +264,7 @@ void loop() {
             MBSerial.begin(9600);
 
             digitalWrite(WriteLED, HIGH);
-            digitalWrite(maxbotixPin, HIGH);
+            digitalWrite(MBONPIN, HIGH);
             //LowPower.powerDown(SLEEP_250MS, ADC_OFF, BOD_OFF); 
             delay(160);   // wait 160ms for startup and boot message to pass
             digitalWrite(WriteLED, LOW);
@@ -278,7 +278,7 @@ void loop() {
                 }
             }
 
-            digitalWrite(maxbotixPin, LOW);
+            digitalWrite(MBONPIN, LOW);
             MBSerial.end();
 
             Serial.begin(115200);

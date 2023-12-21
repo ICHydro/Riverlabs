@@ -1,4 +1,3 @@
-
 #include "Rio_Flash.h"
 
 void turnOnSPI() {

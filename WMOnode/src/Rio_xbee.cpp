@@ -354,7 +354,7 @@ void zbIPResponseCb_NTP(IPRxResponse& ipResponse, uintptr_t) {
         MyXBeeStatus.ipResponseReceived = true;
     } else {
         #if DEBUG > 1
-            Serial.println("Invalid NTP response");
+            Serial.println(F("Invalid NTP response"));
         #endif
     }
 }
@@ -682,6 +682,7 @@ bool setclock_ntp() {
             xbc.loop();
         }
         getAIStatus(Serial, &AIstatus);
+        wdt_reset();
         #if DEBUG > 0
             Serial.print(F("AI status = "));
             Serial.println(AIstatus, HEX);
@@ -722,6 +723,7 @@ bool setclock_ntp() {
         tcpSend(IP, Port, protocol, packetBuffer, 48);
         timeInMillis = millis();
         while((!MyXBeeStatus.ipResponseReceived) && (millis() - timeInMillis) < 15000) {
+            wdt_reset();
             xbc.loop();
         }
     }

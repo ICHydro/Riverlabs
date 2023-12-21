@@ -15,7 +15,6 @@
 #define Boost5V_on 7
 #define MBONPIN 5
 #define MBSerial Serial
-#define maxbotixPin 5
 #define LIDARONPIN 5
 #define SWITCH5V A3           
 #define CellularSleepPin A1        

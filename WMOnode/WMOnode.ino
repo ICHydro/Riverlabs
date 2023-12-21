@@ -29,7 +29,7 @@
 #define APN ""                                    // APN of the cellular network
 #define TIMEOUT 180                               // cellular timeout in seconds, per attempt
 #define NTP                                       // set the clock at startup by querying an ntp server
-//#define FLASH                                     // using flash backup storage?
+#define FLASH                                     // using flash backup storage?
 #define OPTIBOOT                                  // set ONLY if your device uses the optiboot bootloader. Enables the watchdog timer
 
 /*************** includes ******************/
@@ -144,14 +144,20 @@ uint32_t day = 40;
 // Flash stuff
 #ifdef FLASH
     uint32_t FlashStart = 0;
-    SPIFlash flash(6);
+    SPIFlash flash(FLASH_CS);
 #endif
 
 /*************** setup ***************/
 
 void setup () 
 {
-    
+
+    #ifdef OPTIBOOT
+        // enable watchdog timer. Set at 8 seconds
+        // TODO: may searching flash starting point take longer than 8s? 
+        wdt_enable(WDTO_8S);
+    #endif
+
     #if DEBUG > 0
         Serial.begin(115200);
     #endif
@@ -165,12 +171,11 @@ void setup ()
 
     pinMode(VBATPIN, INPUT);
 
-    #ifdef Boost5V_on
-        pinMode(Boost5V_on, OUTPUT);
-        pinMode(SWITCH5V, OUTPUT);
-        digitalWrite(Boost5V_on, LOW);
-        digitalWrite(SWITCH5V, LOW);
-    #endif
+    pinMode(Boost5V_on, OUTPUT);
+    pinMode(SWITCH5V, OUTPUT);
+    digitalWrite(Boost5V_on, LOW);
+    digitalWrite(SWITCH5V, LOW);
+
 
     #ifdef XBEE_SLEEPPIN
         pinMode(XBEE_SLEEPPIN, INPUT);   // do not set high but keep floating
@@ -318,12 +323,21 @@ void setup ()
     #endif
 
     #ifdef FLASH
+    turnOnSDcard();
+        #ifdef OPTIBOOT
+            wdt_reset();                                                           // Reset the watchdog every cycle
+        #endif
         FlashStart = getFlashStart();
-        #if DEBUG > 1
+        #if DEBUG > 0
             Serial.print(F("Flash starts at: "));
             Serial.println(FlashStart);
         #endif
     #endif
+
+    turnOffSDcard();
+    pinMode(FLASH_CS, INPUT_PULLUP);
+    digitalWrite(FLASHPOWERPIN, LOW);
+    digitalWrite(WriteLED, LOW);
     
     Serial.flush();
 
@@ -512,8 +526,22 @@ void loop ()
 
         myLogger.write2EEPROM(EEPromPage, sizeof(EEPromPage));
 
+        /*********** store values in FLASH ***********/
+
         #ifdef FLASH
-            writeToFlash(EEPromPage, sizeof(EEPromPage), FlashStart++);
+
+            digitalWrite(FLASHPOWERPIN, HIGH);
+            pinMode(FLASH_CS, OUTPUT);
+            turnOnSDcard();
+
+            #ifdef FLASH
+                write2Flash(EEPromPage, 30, FlashStart++);
+            #endif
+
+            pinMode(FLASH_CS, INPUT_PULLUP);
+            keep_SPCR=SPCR;
+            turnOffSDcard();
+            digitalWrite(FLASHPOWERPIN, LOW);
         #endif
 
         /******** reset readings *****/    
@@ -681,7 +709,7 @@ void ConfigureXBee() {
     uint8_t DOvalue = 0x43;
 
     #ifdef XBEE4G
-        uint8_t CarrierProfile = 0;
+        uint8_t CarrierProfile = 0;   // 0 = read out from SIM
         byte bandmask[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x08, 0x00, 0x80};
         uint8_t nettech = 3;     // 3 = NB-IoT only
         DOvalue = 1;
@@ -693,8 +721,8 @@ void ConfigureXBee() {
     AtCommandRequest atRequest4(laCmd4, &DOvalue, 1);
 
     #ifdef XBEE4G
-        AtCommandRequest atRequest5(laCmd5, &CarrierProfile, 0);  // 0 = read out from SIM
-        AtCommandRequest atRequest6(laCmd6, bandmask, 16);
+        AtCommandRequest atRequest5(laCmd5, &CarrierProfile, 1);
+        //AtCommandRequest atRequest6(laCmd6, bandmask, 16);
         AtCommandRequest atRequest7(laCmd7, &nettech, 1);
     #endif
 
