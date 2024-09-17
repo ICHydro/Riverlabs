@@ -34,7 +34,7 @@
 
 /*************** includes ******************/
 
-#include "src/Rio.h"                                  // includes everything else
+#include "src/Rio.h"                              // includes everything else
 
 extern unsigned int __bss_end;
 extern unsigned int __heap_start;
@@ -97,7 +97,7 @@ uint32_t IP = 0;
     char Option3[] = "telemetry";
 #endif
 #ifdef MQTT
-    uint16_t Port = 0x75B;                        // 1833
+    uint16_t Port = 0x75B;                        // 1883
     uint8_t protocol = 1;                         // 0 for UDP, 1 for TCP, 4 for SSL over TCP
     byte m[] = {0xE0, 0x00};
     char topic[] = "v1/devices/me/telemetry";
@@ -176,7 +176,6 @@ void setup ()
     digitalWrite(Boost5V_on, LOW);
     digitalWrite(SWITCH5V, LOW);
 
-
     #ifdef XBEE_SLEEPPIN
         pinMode(XBEE_SLEEPPIN, INPUT);   // do not set high but keep floating
     #endif
@@ -207,7 +206,7 @@ void setup ()
 
     #if DEBUG > 0
         Serial.println("");
-        Serial.print(F("This is Riverlabs WMOnode"));
+        Serial.print(F("This is Riverlabs Wari"));
         #ifdef OPTIBOOT
             Serial.print(F(" (optiboot)"));
         #endif
@@ -416,7 +415,7 @@ void loop ()
     }
 
     // if nothing needs to be done, then we can safely sleep until the next alarm.
-    // the timeout variable allows sleeping briefly between telemetry attemps
+    // The timeout variable allows sleeping briefly between telemetry attemps
     // (XBee stays awake)
     
     if((!TakeMeasurement) && (TelemetryAttempts == 0 || timeout)) {
@@ -534,9 +533,7 @@ void loop ()
             pinMode(FLASH_CS, OUTPUT);
             turnOnSDcard();
 
-            #ifdef FLASH
-                write2Flash(EEPromPage, 30, FlashStart++);
-            #endif
+            write2Flash(EEPromPage, 30, FlashStart++);
 
             pinMode(FLASH_CS, INPUT_PULLUP);
             keep_SPCR=SPCR;
