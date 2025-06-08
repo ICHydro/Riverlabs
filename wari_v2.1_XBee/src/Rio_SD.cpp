@@ -36,7 +36,7 @@ void turnOnSDcard() {
     delay(10);
     pinMode(SDpowerPin, OUTPUT);
     digitalWrite(SDpowerPin, HIGH);          //turn on the SD ground line
-    delay(100);                                // let the card settle
+    delay(6);                                // let the card settle
     power_spi_enable();                      // enable the SPI clock 
     SPCR=keep_SPCR;                          // enable SPI peripheral
     delay(10);
@@ -65,10 +65,9 @@ uint8_t dumpEEPROM() {
     boolean readmore = true;
     boolean writefailure = false;
     byte headerbyte;
-    //digitalWrite(WriteLED, HIGH);
+    digitalWrite(WriteLED, HIGH);
 
     turnOnSDcard();
-    LowPower.powerDown(SLEEP_250MS, ADC_OFF, BOD_OFF);
     
     if (!SD.begin(SD_CS_PIN, SPI_FULL_SPEED)) {
         #ifdef DEBUG   
@@ -76,7 +75,6 @@ uint8_t dumpEEPROM() {
         #endif
         keep_SPCR=SPCR;
         turnOffSDcard();
-        digitalWrite(WriteLED, LOW);
         return 0;
     }
 

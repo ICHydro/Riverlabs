@@ -19,7 +19,7 @@
 /************* User settings **************/
 
 #define MQTT                                      // Set to either MQTT or COAP
-#define XBEE4G                                    // set if you are using a 4G modem (LTE-M or NB-IoT)
+//#define XBEE4G                                    // set if you are using a 4G modem (LTE-M or NB-IoT)
 #define READ_INTERVAL 5                           // Interval for sensor readings, in minutes
 #define SEND_INTERVAL 1                           // telemetry interval, in hours
 #define NREADINGS 9                               // number of readings taken per measurement (excluding 0 values)

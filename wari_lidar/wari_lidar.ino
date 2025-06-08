@@ -18,10 +18,10 @@
 
 /************* User settings **************/
 
-#define READ_INTERVAL 5                          // Interval for sensor readings, in minutes
+#define READ_INTERVAL 15                          // Interval for sensor readings, in minutes
 #define FLUSHAFTER 288                            // Number of readings before EEPROM is flushed to SD = (FLUSHAFTER x INTERVAL) minutes.
 #define NREADINGS 9                               // number of readings taken per measurement (excluding 0 values)
-#define LOGGERID "MyLogger"                               // Logger ID. Set to whatever you like
+#define LOGGERID "RL000539"                       // Logger ID. Set to whatever you like
 #define FLASH                                     // write to flash chip
 
 /* INCLUDES */
@@ -143,7 +143,7 @@ void setup () {
 
     #ifdef DEBUG > 0
         Serial.println("");
-        Serial.print(F("This is Riverlabs WMOnode, compiled on "));
+        Serial.print(F("This is Riverlabs Wari, compiled on "));
         Serial.println(__DATE__);
         Serial.print(F("Logger ID: "));
         Serial.println(LOGGERID);

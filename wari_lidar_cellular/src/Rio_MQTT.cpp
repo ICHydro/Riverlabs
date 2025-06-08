@@ -1,5 +1,3 @@
-
-
 #include "Rio_MQTT.h"
 
 void MQTT_connect(char *clientid, uint8_t clientidsize, char *username, uint8_t usernamesize) {
@@ -39,9 +37,6 @@ void MQTT_connect(char *clientid, uint8_t clientidsize, char *username, uint8_t 
     buffer[s++] = 0x00;
 
     // send the message
-    Serial.println(clientidsize);
-    Serial.println(usernamesize);
-    Serial.println(s);
 
     tcpSend(IP, Port, protocol, buffer, s);
 

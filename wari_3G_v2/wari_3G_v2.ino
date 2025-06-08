@@ -19,7 +19,7 @@
 /************* User settings **************/
 
 #define MQTT                                      // Set to either MQTT or COAP
-//#define XBEE4G                                    // set if you are using a 4G modem (LTE-M or NB-IoT)
+//#define XBEE4G                                  // set if you are using a 4G modem (LTE-M or NB-IoT)
 #define READ_INTERVAL 5                           // Interval for sensor readings, in minutes
 #define SEND_INTERVAL 1                           // telemetry interval, in hours
 #define NREADINGS 9                               // number of readings taken per measurement (excluding 0 values)
@@ -30,7 +30,7 @@
 #define TIMEOUT 180                               // cellular timeout in seconds, per attempt
 #define DONOTUSEEEPROMSENDBUFFER
 #define NTC                                       // set the clock at startup by querying an ntc server
-//#define OPTIBOOT                                  // set ONLY if your device uses the optiboot bootloader. Enables the watchdog timer
+#define OPTIBOOT                                  // set ONLY if your device uses the optiboot bootloader. Enables the watchdog timer
 
 /*************** includes ******************/
 
@@ -179,7 +179,7 @@ void setup ()
         Serial.print(F("Current time is "));
         formatDateTime(now);
         Serial.print(datestring);
-        Serial.println(F(" GMT"));
+        Serial.println(F(" UTC"));
         Serial.println(F("Measuring the following variables:"));
         Serial.println(F("- Distance (Maxbotix ultrasound sensor)"));
         Serial.print(F("Measurement interval (minutes): "));
@@ -422,11 +422,6 @@ void loop ()
             Serial.flush();
         #endif
 
-        #ifdef OPTIBOOT
-            // enable watchdog timer. Set at 8 seconds 
-            wdt_enable(WDTO_8S);
-        #endif
-
         // if we wake up after a timeout, reset the timer so that another telemetry attempt can be made
         if(timeout) {
             timeout = false;
@@ -495,6 +490,9 @@ void loop ()
         for (i = 0; i < NREADINGS; i++){
             readings[i] = -1;
         }
+        #ifdef OPTIBOOT
+            wdt_reset(); 
+        #endif
     }
 
     /******************* Telemetry *********************/

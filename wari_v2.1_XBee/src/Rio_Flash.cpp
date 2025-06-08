@@ -44,9 +44,11 @@ void write2Flash(byte buffer[], uint16_t size, uint32_t start) {
 
 uint32_t getFlashStart() {
     uint32_t i = 0;
+    //turnOnSDcard();
     flash.begin();
     //flash.eraseChip();
     uint32_t size = flash.getCapacity() / FLASHPAGESIZE;        // size in pages
+    //Serial.println(size);
     while((flash.readByte(i * FLASHPAGESIZE) != 255) && (i < size)) {
         //Serial.print(i);
         //Serial.print(" ");
@@ -54,6 +56,7 @@ uint32_t getFlashStart() {
         i++;
     };
     flash.powerDown();
+    //turnOffSDcard();
     if(i == size) {
         return 0;
     } else {

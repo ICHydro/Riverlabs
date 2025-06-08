@@ -28,7 +28,7 @@
 #define APN ""                                    // APN of the cellular network
 #define TIMEOUT 600                               // cellular timeout in seconds, per attempt
 #define NTC                                       // set the clock at startup by querying an ntc server
-//#define OPTIBOOT                                  // set ONLY if your device uses the optiboot bootloader. Enables the watchdog timer
+#define OPTIBOOT                                  // set ONLY if your device uses the optiboot bootloader. Enables the watchdog timer
 
 /* INCLUDES */
 

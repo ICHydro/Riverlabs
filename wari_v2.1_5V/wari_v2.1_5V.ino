@@ -20,11 +20,11 @@
 
 /******** OPERATING SPECIFICATIONS *******/
 
-#define INTERVAL 1             // Measurement interval in minutes.
+#define INTERVAL 5             // Measurement interval in minutes.
 #define NREADINGS 10           // number of sensor readings taken per measurement
 #define DEBUG 2
 #define FLUSHAFTER 288         // Number of readings before EEPROM is flushed to SD = (FLUSHAFTER x INTERVAL) minutes.
-#define LOGGERID "RL-09998"
+#define LOGGERID "RL000510"    
 #define FLASH
 #define OPTIBOOT
 
@@ -130,15 +130,13 @@ void setup()
     pinMode(WriteLED, OUTPUT);
     digitalWrite(WriteLED, LOW);
     digitalWrite(ErrorLED, LOW);
-    digitalWrite(MBONPIN, LOW);            // Low side switching but through mosfet
+    digitalWrite(MBONPIN, LOW);    // Low side switching but through mosfet
 
     pinMode(FLASHPOWERPIN, OUTPUT);
-    digitalWrite(FLASHPOWERPIN, LOW);      // start in off mode
-    pinMode(SD_CS_PIN, OUTPUT);
-    digitalWrite(SD_CS_PIN, HIGH);         // high = deactivated. Needed to avoid interference with flash comms
-    pinMode(FLASH_CS, INPUT_PULLUP);
+    digitalWrite(FLASHPOWERPIN, HIGH);
+    pinMode(FLASH_CS, OUTPUT);
     pinMode(SDpowerPin, OUTPUT);
-    digitalWrite(SDpowerPin, LOW);         // start in off mode
+    digitalWrite(SDpowerPin, LOW);
 
     pinMode(Boost5V_on, OUTPUT);
     pinMode(SWITCH5V, OUTPUT);
@@ -189,23 +187,18 @@ void setup()
 
     #ifdef FLASH
         pinMode(FLASH_CS, OUTPUT);
-        digitalWrite(FLASHPOWERPIN, HIGH);           // switch flash on;
-        delay(100);                                  // no need for turnonSPI(). Already on.
+        turnOnSDcard();                        // do not turn off, this will happen in dumpEEPROM()
         flashStart = getFlashStart();
         #if DEBUG > 0
             Serial.print(F("Flash memory starting at position: "));
             Serial.println(flashStart);
         #endif
-        pinMode(FLASH_CS, INPUT_PULLUP);
-        digitalWrite(FLASHPOWERPIN, LOW);
     #endif
 
     //#ifdef OPTIBOOT
-        // enable watchdog timer. Set at 8 seconds
+        // enable watchdog timer. Set at 8 seconds 
         //wdt_enable(WDTO_8S);
     //#endif
-
-    digitalWrite(WriteLED, HIGH);
 
     if(dumpEEPROM()) {
         resetEEPromHeader(EEPROM_ADDR);
@@ -219,7 +212,8 @@ void setup()
         error(3, ErrorLED);
     }
 
-
+    pinMode(FLASH_CS, INPUT_PULLUP);
+    digitalWrite(FLASHPOWERPIN, LOW);
     digitalWrite(WriteLED, LOW);
 }
 
@@ -278,6 +272,10 @@ void loop() {
             MBSerial.begin(9600);
 
             digitalWrite(WriteLED, HIGH);
+            pinMode(Boost5V_on, OUTPUT);
+            delay(50);
+            pinMode(SWITCH5V, OUTPUT);
+            delay(50);
             digitalWrite(MBONPIN, HIGH);
             LowPower.powerDown(SLEEP_250MS, ADC_OFF, BOD_OFF);     // for Li-SOCl batteries to minimize power peak. 
             //delay(160);   // wait 160ms for startup and boot message to pass
