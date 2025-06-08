@@ -24,6 +24,9 @@
 //#define DEBUGTX 4
 #define XBEE_SLEEPPIN A1
 #define XBEE_RESETPIN 4
+#define FLASHPOWERPIN 3
+#define FLASH_CS 6
+#define FLASHPAGESIZE 32       // should be the same as EEpromPageSize!!
 
 #define M24512                 // type of EEPROM. M24512 
 #define EEPROM_ADDR 0x51       // EEPROM I2C address: 0x57 for AT24c32 on clock; 0x51 or 81 for chip on PCB (Node_3G, SD boards)

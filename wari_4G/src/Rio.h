@@ -8,24 +8,27 @@
 
 #define DEBUG 2
 
-#define ErrorLED 8               
-#define WriteLED 8
+#define ErrorLED A2               
+#define WriteLED A2
 #define slaveSelect  10          // for SD card
-#define SDpowerPin 9             
+#define SDpowerPin A0             
 #define Boost5V_on 7
-#define MBONPIN 3 
+#define MBONPIN 5 
 #define LIDARONPIN 5
 #define SWITCH5V A3           
 #define CellularSleepPin A1        
 #define interruptPin 2 
 #define interruptNo 0
 #define maxbotixPin 5
-#define VBATPIN A0
+#define VBATPIN A7
 #define DS18S20PIN A3
 #define MBSERIALPIN 0
 //#define DEBUGTX 4
 #define XBEE_SLEEPPIN A1
 #define XBEE_RESETPIN 4
+#define FLASHPOWERPIN 3
+#define FLASH_CS 6
+#define FLASHPAGESIZE 32       // should be the same as EEpromPageSize!!
 
 #define M24512                 // type of EEPROM. M24512 
 #define EEPROM_ADDR 0x51       // EEPROM I2C address: 0x57 for AT24c32 on clock; 0x51 or 81 for chip on PCB (Node_3G, SD boards)
@@ -42,7 +45,9 @@
 #define MAXFIT 50               // maximum number of records that fits in the EEPROM; will depend on format and number of variables to be transmitted.
                                 // TODO: can be calculated automatically
 #define OFFSET3GMASK (1 + EEPromSDMaskSize) * EEPromPageSize    // starting position of 3GMASK in EEPROM
- 
+
+#define XBEEBUFFERSIZE 100 
+
 
 /******** includes *******/
 
@@ -86,6 +91,8 @@ extern RtcDateTime now;
 extern uint16_t bufferSize;
 extern uint16_t bufferSize2;
 extern volatile bool interruptFlag;
+extern int32_t startposition;
+extern byte Eeprom3Gmask[];
 
 /* function declarations */
 
