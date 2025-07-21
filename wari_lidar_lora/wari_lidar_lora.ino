@@ -25,7 +25,7 @@
 
 /* INCLUDES */
 
-#include "Rio.h"                                  // includes everything else
+#include "src/Rio.h"                                  // includes everything else
 #include <RH_RF95.h>
 
 /********** variable declarations **********/

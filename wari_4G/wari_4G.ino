@@ -33,7 +33,7 @@
 
 /* INCLUDES */
 
-#include "Rio.h"                                  // includes everything else
+#include "src/Rio.h"                                  // includes everything else
 
 /********** variable declarations **********/
 
