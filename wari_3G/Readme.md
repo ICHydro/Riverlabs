@@ -1,12 +1,12 @@
-# WMOnode Lidar-based Water Level Sensor
+# Wari ultrasound-based Water Level Sensor
 
-This is the Arduino code for the Riverlabs WMOnode water level sensor.
+This is the Arduino code for the Riverlabs Wari water level sensor.
 
 To prepare the nodes for deployment, use the instructions below.
 
-## Configuring the Cellular XBee 3G
+## Configuring the Cellular XBee
 
-The WMOnode uses a [DIGI XBee Cellular 3G](https://www.digi.com/products/embedded-systems/digi-xbee/cellular-modems/digi-xbee-cellular-3g) for telemetry. XBees are extremely solid and reliable embedded modems that integrate nicely with Arduino thanks to the xbee-arduino library. We have extended the [original library](https://github.com/andrewrapp/xbee-arduino) with the functionality required to interact with the Cellular modems. Our version is available on our [github page](https://github.com/ICHydro/xbee-arduino) but is already included in the WMOnode package here, so you do not need to install it separately.
+The WMOnode uses a [DIGI XBee Cellular 3G or 4G](https://www.digi.com/products/embedded-systems/digi-xbee/cellular-modems/digi-xbee-cellular-3g) for telemetry. XBees are extremely solid and reliable embedded modems that integrate nicely with Arduino thanks to the xbee-arduino library. We have extended the [original library](https://github.com/andrewrapp/xbee-arduino) with the functionality required to interact with the Cellular modems. Our version is available on our [github page](https://github.com/ICHydro/xbee-arduino) but is already included in the WMOnode package here, so you do not need to install it separately.
 
 Most of the configuration of the Cellular XBee is done directly in the Arduino code. However you need to set some parameters manually to make sure that the logger is able to communicate with the XBee. This can be done most easily with DIGI's free [XCTU software](https://www.digi.com/products/embedded-systems/digi-xbee/digi-xbee-tools/xctu). We plan to elaborate a short manual here, but for now please follow the [manual here](https://www.digi.com/products/embedded-systems/digi-xbee/digi-xbee-tools/xctu).
 
