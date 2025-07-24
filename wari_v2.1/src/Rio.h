@@ -18,8 +18,7 @@
 #define LIDARONPIN 5
 #define SWITCH5V 7           // careful: this was pin A3 in older designs. Now set the same as Boost5V_on (7)
 #define CellularSleepPin A1        
-#define INTERRUPTPIN 2 
-#define interruptNo 0
+#define INTERRUPTPIN 2
 #define VBATPIN A7
 #define DS18S20PIN A3
 #define MBSERIALPIN 0
@@ -41,7 +40,12 @@
                                 // TODO: calculate this automatically
 #define EEProm3GMaskSize 32     // mask to keep track of what data have been sent out via 3G XBee
 #define EEPromMaskSize 32       // mask to keep track of what pages have written data on them (used for cycling)
-#define EEPromHeaderSize 8
+#define EEPromHeaderSize (1 + EEPromMaskSize + EEPromSDMaskSize + EEProm3GMaskSize)   // gives 3999 useable pages for M24512 with 16 byte pages (13 days at 5 min intervals)
+#define MAXFIT 50               // maximum number of records that fits in the EEPROM; will depend on format and number of variables to be transmitted.
+                                // TODO: can be calculated automatically
+#define OFFSET3GMASK (1 + EEPromSDMaskSize) * EEPromPageSize    // starting position of 3GMASK in EEPROM
+#define OFFSETSDMASK EEPromPageSize    // starting position of 3GMASK in EEPROM
+#define XBEEBUFFERSIZE 100
  
 
 /******** includes *******/
@@ -51,8 +55,9 @@
 #include <Wire.h>
 #include <SdFat.h>
 #include <SPIMemory.h>
-//#include <AltSoftSerial.h>
+#include <AltSoftSerial.h>
 #include <LowPower.h>
+#include <LIDARLite_v3HP.h>
 #include <avr/power.h>
 #include <avr/wdt.h>
 #include <RH_RF95.h>
@@ -69,6 +74,7 @@ class RioLogger
 };
 
 #include "Rio_EEPROM.h"
+#include "Rio_xbee.h"
 #include "Rio_Sensors.h"
 #include "Rio_SD.h"
 #include "Rio_Flash.h"
@@ -99,10 +105,10 @@ void printDateTime(const RtcDateTime&);
 void resetEEPromHeader(int);
 void resetEEPROMSDMask(int);
 uint8_t CreateEepromSendBuffer(uint16_t, byte*);
-uint8_t CreateSendBuffer(uint16_t, byte*, uint8_t*);
+uint16_t CreateSendBuffer(uint16_t, byte*, uint8_t*, uint16_t);
 void Reset3GBuffer(uint16_t, byte*);
 void Reset3GBuffer(uint16_t);
-uint32_t getBufferStartPosition();
+int32_t getBufferStartPosition();
 uint32_t getBufferEndPosition();
 
 /* from https://playground.arduino.cc/Main/QuickStats */

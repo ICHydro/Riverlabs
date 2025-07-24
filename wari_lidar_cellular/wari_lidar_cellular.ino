@@ -226,8 +226,8 @@ void setup ()
 
     /* set interrupts */
 
-    pinMode(interruptPin, INPUT);
-    attachInterrupt(digitalPinToInterrupt(interruptPin), InterruptServiceRoutine, FALLING);
+    pinMode(INTERRUPTPIN, INPUT);
+    attachInterrupt(digitalPinToInterrupt(INTERRUPTPIN), InterruptServiceRoutine, FALLING);
 
     myLogger.eePageAddress = getBufferEndPosition();      // do not overwrite any previous measurements that have not yet been transmitted
     Serial.print(F("Buffer starts at position: "));
@@ -585,7 +585,7 @@ void loop ()
             // Reset the logger's writing position when we get to the end of the EEPROM              
             // Note that this is a stopgap until proper cycling is implemented.
             
-            if(myLogger.eePageAddress >= (maxpagenumber - EEPromHeaderSize - 300)) {
+            if(myLogger.eePageAddress >= (MAXPAGENUMBER - EEPromHeaderSize - 300)) {
                 myLogger.eePageAddress = 0;
             }
 

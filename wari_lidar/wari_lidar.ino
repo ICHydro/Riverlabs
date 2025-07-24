@@ -21,7 +21,7 @@
 #define READ_INTERVAL 15                          // Interval for sensor readings, in minutes
 #define FLUSHAFTER 288                            // Number of readings before EEPROM is flushed to SD = (FLUSHAFTER x INTERVAL) minutes.
 #define NREADINGS 9                               // number of readings taken per measurement (excluding 0 values)
-#define LOGGERID "RL000539"                       // Logger ID. Set to whatever you like
+#define LOGGERID ""                               // Logger ID. Set to whatever you like
 #define FLASH                                     // write to flash chip
 
 /* INCLUDES */
@@ -160,7 +160,7 @@ void setup () {
     /* set interrupts */
 
     pinMode(INTERRUPTPIN, INPUT);
-    attachInterrupt(interruptNo, InterruptServiceRoutine, FALLING);
+    attachInterrupt(digitalPinToInterrupt(INTERRUPTPIN), InterruptServiceRoutine, FALLING);
 
     // Start wire for i2c communication (EEPROM) (note: this does not seem necessary for atmel, but it is for SAMD21)
 
@@ -377,7 +377,7 @@ void loop ()
         // avoid memory overflow - just cycle memory.
         // NOTE: redundant: already part of the write2EEPROM function.
 
-        if(myLogger.eePageAddress > (maxpagenumber - EEPromHeaderSize)) {
+        if(myLogger.eePageAddress > (MAXPAGENUMBER - EEPromHeaderSize)) {
             myLogger.eePageAddress = 0;
         }
     }

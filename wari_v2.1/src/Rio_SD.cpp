@@ -36,7 +36,7 @@ void turnOnSDcard() {
     delay(10);
     pinMode(SDpowerPin, OUTPUT);
     digitalWrite(SDpowerPin, HIGH);          //turn on the SD ground line
-    delay(100);                                // let the card settle
+    delay(6);                                // let the card settle
     power_spi_enable();                      // enable the SPI clock 
     SPCR=keep_SPCR;                          // enable SPI peripheral
     delay(10);
@@ -59,65 +59,66 @@ void turnOffSDcard() {
 #endif
 
 
-uint8_t dumpEEPROM() {
+uint8_t dumpEEPROM2() {
 
     uint16_t i, j;
     boolean readmore = true;
     boolean writefailure = false;
     byte headerbyte;
-    //digitalWrite(WriteLED, HIGH);
+    digitalWrite(WriteLED, HIGH);
 
-    turnOnSDcard();
-    LowPower.powerDown(SLEEP_250MS, ADC_OFF, BOD_OFF);
+    //turnOnSDcard();
     
     if (!SD.begin(SD_CS_PIN, SPI_FULL_SPEED)) {
         #ifdef DEBUG   
-            Serial.println(F("Card failed, or not present"));
+            Serial.println("Card failed, or not present");
         #endif
-        keep_SPCR=SPCR;
-        turnOffSDcard();
-        digitalWrite(WriteLED, LOW);
-        return 0;
-    }
+        writefailure = true;
+    } else {
 
-    #ifdef DEBUG   
-        Serial.println(F("SD card found."));
-    #endif
+        #ifdef DEBUG   
+            Serial.println("SD card found.");
+        #endif
 
-    delay(100);  // probably not needed
+        delay(100);  // needed? init time should be part of sd.begin()
 
-    i = 0;
+        i = 0;       // writeEEPROMline takes into account the header size
 
-    while(readmore) {
-      
-        headerbyte = i2c_eeprom_read_byte(EEPROM_ADDR, i);
-        wdt_reset();
+        while(readmore) {
         
-        for(j = 0; j < 8; j++) {
-            if ((headerbyte >> j) & 0x1) {
-                writefailure = !writeEEPROMline(i * 8 + j);
-                if(writefailure) {
+            headerbyte = i2c_eeprom_read_byte(EEPROM_ADDR, OFFSETSDMASK + i);
+
+            //Serial.print("Reading byte: ");
+            //Serial.println(OFFSETSDMASK + i);
+            //Serial.println(headerbyte);
+            
+            for(j = 0; j < 8; j++) {
+                if ((headerbyte >> j) & 0x1) {
+                    writefailure = !writeEEPROMline(i * 8 + j);
+                    if(writefailure) {
+                        readmore = false;
+                        j = 8;
+                    }
+                } else {
                     readmore = false;
                     j = 8;
                 }
-            } else {
-                readmore = false;
-                j = 8;
             }
+            i++;
         }
-        i++;
-    }
-    
-    if(fileopen) {
-        dataFile.close();   // returns 1 on success 
-        fileopen = 0;       // set to 0 whatever the outcome of close() because the SD card will be powered off anyway.   
+        
+        if(fileopen) {
+            dataFile.close();   // returns 1 on success 
+            fileopen = 0;       // set to 0 whatever the outcome of close() because the SD card will be powered off anyway.   
+        }
     }
     #ifdef DEBUG
         Serial.println(F("Powering off SD card"));
     #endif
-    keep_SPCR=SPCR;
-    turnOffSDcard(); 
+    //keep_SPCR=SPCR;
+    //turnOffSDcard(); 
     digitalWrite(WriteLED, LOW);
+
     return (writefailure) ? 0 : 1;
 }
 

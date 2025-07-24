@@ -168,7 +168,7 @@ void setup()
     Rtc.LatchAlarmsTriggeredFlags();
   
     // setup external interupt 
-    attachInterrupt(interruptNo, InterruptServiceRoutine, FALLING);
+    attachInterrupt(digitalPinToInterrupt(INTERRUPTPIN), InterruptServiceRoutine, FALLING);
     
     #ifdef DEBUG
         Serial.begin(115200);
@@ -207,7 +207,7 @@ void setup()
 
     digitalWrite(WriteLED, HIGH);
 
-    if(dumpEEPROM()) {
+    if(dumpEEPROM2()) {
         resetEEPromHeader(EEPROM_ADDR);
         #ifdef DEBUG
             Serial.println(F("EEPROM flushed."));
@@ -385,7 +385,7 @@ void loop() {
             }
 
             if(flusheeprom) {
-                if(dumpEEPROM()) {
+                if(dumpEEPROM2()) {
                     resetEEPromHeader(EEPROM_ADDR);
                     eeaddress = 0;
                     flusheeprom = false;

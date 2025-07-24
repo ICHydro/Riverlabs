@@ -24,7 +24,7 @@ void turnOffSPI() {
 void write2Flash(byte buffer[], uint16_t size, uint32_t start) {
     
     flash.begin();
-    flash.powerUp();
+    flash.powerUp();   // should this not come first?
     
     flash.writeByteArray(start * FLASHPAGESIZE, buffer, size);
     Serial.print(F("Written to Flash page "));
@@ -45,15 +45,16 @@ void write2Flash(byte buffer[], uint16_t size, uint32_t start) {
 
 uint32_t getFlashStart() {
     uint32_t i = 0;
-    //turnOnSDcard();
     flash.begin();
     //flash.eraseChip();
     uint32_t size = flash.getCapacity() / FLASHPAGESIZE;        // size in pages
-    while((flash.readByte(i * FLASHPAGESIZE) != 255) && (i++ < size)) {
-        //Serial.println(flash.readByte(i * FLASHPAGESIZE));
+    while((flash.readByte(i * FLASHPAGESIZE) != 255) && (i < size)) {
+        //Serial.print(i);
+        //Serial.print(" ");
+        //Serial.println(flash.readByte(i * FLASHPAGESIZE), HEX);
+        i++;
     };
     flash.powerDown();
-    //turnOffSDcard();
     if(i == size) {
         return 0;
     } else {
@@ -67,9 +68,6 @@ uint8_t dumpEEPROM2FLASH() {
     boolean readmore = true;
     boolean writefailure = false;
     byte headerbyte;
-
-    SPIFlash flash = SPIFlash(6);
-
     digitalWrite(WriteLED, HIGH);
 
     turnOnSDcard();

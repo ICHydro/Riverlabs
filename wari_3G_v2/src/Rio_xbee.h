@@ -97,7 +97,7 @@ void tcpSend(uint32_t, uint16_t, uint8_t, uint8_t*, uint16_t);
 void getTcpSendResponse();
 void readIPResponse();
 void printUnexpectedMessage();
-void printIPRX(IPRxResponse& IPresponse, Stream &stream);
+//void printIPRX(IPRxResponse& IPresponse, Stream &stream);         // only used internally
 void sendAtCommand(AtCommandRequest);
 
 // callback functions:
@@ -112,6 +112,6 @@ void zbAtResponseCb(AtCommandResponse& atr, uintptr_t);
 void sendXbeeMessage(uint8_t*, uint16_t, char *host, uint8_t);
 void sendXbeeMessage(uint16_t, char *host, uint8_t);
 
-bool setclock_ntc();
+bool setclock_ntp();
 
 #endif

@@ -276,7 +276,6 @@ uint8_t CoapPacket::createMessageHeader(uint8_t *buffer) {
     return s;
 }
 
-
 void CoapPacket::print(Stream &stream) {
     stream.print(F("Type = "));
     stream.println(type);
@@ -293,4 +292,13 @@ void CoapPacket::print(Stream &stream) {
         }
         stream.println();
     }
+}
+
+void COAP_send(CoapPacket packet) {
+    uint8_t buffer[150];
+    packet.messageid = rand();                    // rand() returns int16_t, random() returns int_32
+    uint16_t bufferSize = packet.createMessageHeader(buffer);
+    bufferSize = CreateSendBuffer(startposition, Eeprom3Gmask, buffer, bufferSize);
+    tcpSend(IP, Port, protocol, buffer, bufferSize);
+    MyXBeeStatus.MessageSent = true;
 }

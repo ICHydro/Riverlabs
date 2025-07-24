@@ -1,15 +1,51 @@
-
 /************************************************************
  * Xbee functions developed by Imperial College London and Riverlabs
  *
  ***********************************************************/
-
 
 #include "Rio_xbee.h"
 #include "Rio.h"
 
 // Wait for cellular registration, signalled by modem status message containing status 2
 // Set isRegistered to true when registered on the network
+
+// Print out the contents of the ipResponse object
+
+void printSendAndWaitError(Stream &stream) {
+    stream.print(F("sendAndWait() error: "));
+}
+
+void printIPRX(IPRxResponse& ipResponse, Stream &stream) {
+  stream.println(F("IP Transmission Received"));
+  stream.print(F("IP "));
+  stream.print(ipResponse.getRemoteIPAddress(), HEX);
+  stream.print("(");
+  stream.print(ipResponse.getDestinationPort());
+  stream.println(")");
+  stream.print(F("Source port "));
+  stream.println(ipResponse.getSourcePort());
+  stream.print(F("Protocol "));
+  stream.println(ipResponse.getProtocol());
+  stream.print(F("Data length "));
+  stream.println(ipResponse.getDataLength());
+
+  if (ipResponse.getDataLength() > 0) {
+    stream.print(F("Data: "));
+
+    // Uncomment this loop to print every received byte in HEX
+    for (int i = 0; i < ipResponse.getDataLength(); i++) {
+      stream.print(ipResponse.getData()[i], HEX);
+      stream.print(" ");
+    }
+    stream.println();
+
+    // Uncomment this loop to print the received message
+    //for (int i = 0; i < ipResponse.getDataLength(); i++) {
+    //  stream.print((char) ipResponse.getData()[i]);
+    //}
+    //stream.println("");
+  }
+}
 
 void checkForRegistrationMessage() {
   // check for modem status messages
@@ -23,7 +59,7 @@ void checkForRegistrationMessage() {
       Serial.print(F("Modem Status Response = "));
       Serial.println(modemStatus, HEX);
       if (modemStatus == 2) {
-        Serial.println(F("Registered with the cellular network"));
+        //Serial.println(F("Registered with the cellular network"));
         MyXBeeStatus.isRegistered = true;
       }
     } else {
@@ -31,7 +67,7 @@ void checkForRegistrationMessage() {
       printUnexpectedMessage();
     }
   } else if (xbc.getResponse().isError()) {
-    Serial.print(F("XBee error. error code is "));
+    Serial.print(F("XBee error: "));
     Serial.println(xbc.getResponse().getErrorCode(), DEC);
     MyXBeeStatus.xbcErrorOccurred = true;
   }
@@ -127,14 +163,16 @@ void readIPResponse() {
     if (xbc.getResponse().getApiId() == RX_IP4_RESPONSE) {
       // a message was received from the internet, so copy to ipResponse object for convenience
       ipResponse.init(xbc.getResponse());
-      printIPRX(ipResponse, Serial);
+      #if DEBUG > 1
+          printIPRX(ipResponse, Serial);
+      #endif
       MyXBeeStatus.ipResponseReceived = true;
     } else {
       printUnexpectedMessage();
       MyXBeeStatus.gotStatusResponse = true;
     }
   } else if (xbc.getResponse().isError()) {
-    Serial.print(F("XBee error. error code is "));
+    Serial.print(F("XBee error: "));
     Serial.println(xbc.getResponse().getErrorCode(), DEC);
     MyXBeeStatus.xbcErrorOccurred = true;
   }
@@ -162,40 +200,6 @@ void printUnexpectedMessage() {
     }
 
     Serial.println("");
-  }
-}
-
-// Print out the contents of the ipResponse object
-
-void printIPRX(IPRxResponse& ipResponse, Stream &stream) {
-  stream.println(F("IP Transmission Received"));
-  stream.print(F("IP "));
-  stream.print(ipResponse.getRemoteIPAddress(), HEX);
-  stream.print("(");
-  stream.print(ipResponse.getDestinationPort());
-  stream.println(")");
-  stream.print(F("Source port "));
-  stream.println(ipResponse.getSourcePort());
-  stream.print(F("Protocol "));
-  stream.println(ipResponse.getProtocol());
-  stream.print(F("Data length "));
-  stream.println(ipResponse.getDataLength());
-
-  if (ipResponse.getDataLength() > 0) {
-    stream.print(F("Data: "));
-    
-    // Uncomment this loop to print every received byte in HEX
-    for (int i = 0; i < ipResponse.getDataLength(); i++) {
-      stream.print(ipResponse.getData()[i], HEX);
-      stream.print(" ");
-    }
-    stream.println();
-
-    // Uncomment this loop to print the received message
-    //for (int i = 0; i < ipResponse.getDataLength(); i++) {
-    //  stream.print((char) ipResponse.getData()[i]);
-    //}
-    //stream.println("");
   }
 }
 
@@ -227,18 +231,18 @@ bool getAIStatus(Stream &stream, uint8_t *returnvalue) {
         }
       } else {
         // This should never happen
-        stream.println(F("Failed to get AI value from AI command"));
+        stream.println(F("Failed to get AI"));
         MyXBeeStatus.xbcErrorOccurred = true;
         return(0);
       }
     } else {
-        stream.print(F("Command returned error code: "));
+        stream.print(F("Command returned error: "));
         *returnvalue = atResponse.getStatus();
         stream.println(*returnvalue, HEX);
         MyXBeeStatus.xbcErrorOccurred = true;
     }
   } else {
-    stream.print(F("sendAndWait() returned error code when attempting to get AI indicator: "));
+    printSendAndWaitError(stream);
     stream.println(status);
     return(0);
     // TOD); move this out of this function
@@ -265,13 +269,13 @@ bool getDBStatus(Stream &stream, uint8_t *returnvalue) {
         stream.println(*returnvalue, HEX);
         return(1);
     } else {
-        stream.print(F("DB Command returned error code: "));
+        stream.print(F("DB Command returned error: "));
         *returnvalue = atResponse.getStatus();
         stream.println(*returnvalue, HEX);
         return(0);
     }
   } else {
-    stream.print(F("sendAndWait() returned error code when attempting to get DB indicator: "));
+    printSendAndWaitError(stream);
     stream.println(status);
     return(0);        
   }
@@ -297,13 +301,13 @@ bool getAPN(Stream &stream, uint8_t *returnvalue) {
         stream.println((char) *returnvalue);
         return(1);
     } else {
-        stream.print(F("DB Command returned error code: "));
-        *returnvalue = atResponse.getStatus();
-        stream.println(*returnvalue, HEX);
+        //stream.print(F("DB Command returned error code: "));
+        //*returnvalue = atResponse.getStatus();
+        //stream.println(*returnvalue, HEX);
         return(0);
     }
   } else {
-    stream.print(F("sendAndWait() returned error code when attempting to get DB indicator: "));
+    printSendAndWaitError(stream);
     stream.println(status);
     return(0);        
   }
@@ -316,7 +320,7 @@ void zbIPResponseCb(IPRxResponse& ipResponse, uintptr_t) {
     // Note that any incoming IP message is considered a success, even if it does not 
     // contain the complete transmission from the web server.
     // This is not reaslistic as a TCP message can be fragmented across multiple packets.
-    Serial.println(F("Callback - IP4 message received"));
+    //Serial.println(F("Callback - IP4 message received"));
     #if DEBUG > 1
         printIPRX(ipResponse, Serial);
     #endif
@@ -328,16 +332,31 @@ void zbIPResponseCb(IPRxResponse& ipResponse, uintptr_t) {
  
 void zbIPResponseCb_NTP(IPRxResponse& ipResponse, uintptr_t) {
 
+    //#if DEBUG > 1
+    //    printIPRX(ipResponse, Serial);
+    //#endif
+
     unsigned long highWord = word(ipResponse.getData()[40], ipResponse.getData()[41]);
     unsigned long lowWord = word(ipResponse.getData()[42], ipResponse.getData()[43]);
     
     // combine the four bytes (two words) into a long integer
     // this is NTP time (seconds since Jan 1 1900):
     unsigned long secsSince1900 = highWord << 16 | lowWord;
-    uint32_t secsSince2000 = secsSince1900 - 2208988800UL - 946684800;
 
-    Rtc.SetDateTime((RtcDateTime) secsSince2000);
-    MyXBeeStatus.ipResponseReceived = true;
+    // Discard if first two bits of response (leap indicator) euqals 3
+    // which indicates an error (clock unsyncronised)
+    // In that case secSince1900 tends to be zero.
+    // We also check that, although it is probably not necessary
+
+    if(((ipResponse.getData()[0] >> 6) != 3) || (secsSince1900 == 0) ) {
+        uint32_t secsSince2000 = secsSince1900 - 2208988800UL - 946684800UL;
+        Rtc.SetDateTime((RtcDateTime) secsSince2000);
+        MyXBeeStatus.ipResponseReceived = true;
+    } else {
+        #if DEBUG > 1
+            Serial.println(F("Invalid NTP response"));
+        #endif
+    }
 }
 
 // Callback function for incoming TCP/IP message
@@ -347,7 +366,7 @@ void zbIPResponseCb_COAP(IPRxResponse& ipResponse, uintptr_t) {
     // Note that any incoming IP message is considered a success, even if it does not 
     // contain the complete transmission from the web server.
     // This is not realistic as a TCP message can be fragmented across multiple packets.
-    Serial.println(F("Callback - IP4 message received"));
+    //Serial.println(F("Callback - IP4 message received"));
     MyXBeeStatus.ipResponseReceived = true;
     #if DEBUG > 1
         printIPRX(ipResponse, Serial);
@@ -360,12 +379,12 @@ void zbIPResponseCb_COAP(IPRxResponse& ipResponse, uintptr_t) {
   
    // TODO: process coap response fully
     if(cp.type == 2) {
-      Serial.println(F("COAP acknowledgement received (2)"));
+      //Serial.println(F("COAP acknowledgement received (2)"));
       MyXBeeStatus.CoapSentAcknowledged = true;
       MyXBeeStatus.ipResponseReceived = 1; 
     }
     if(cp.type == 0) {
-        Serial.println(F("COAP acknowledgeable message received (type = 0)"));
+        //Serial.println(F("COAP acknowledgeable message received (type = 0)"));
         // send acknowledgement:
         uint8_t buffer[5];    // can be small because it is only an acknowledgement.
         uint8_t packetSize;
@@ -397,7 +416,7 @@ void zbIPResponseCb_COAP(IPRxResponse& ipResponse, uintptr_t) {
         if(MyXBeeStatus.ipRequestSentOk) {
             Serial.println(F("Sent."));
         } else {
-            Serial.println(F("Xbee did not (yet) confirm. Assume sent."));
+            //Serial.println(F("Xbee did not (yet) confirm. Assume sent."));
         }
     }
 
@@ -419,8 +438,8 @@ void zbIPResponseCb_MQTT(IPRxResponse& ipResponse, uintptr_t) {
   // Note: this code cannot deal with fragmented TCP messages.
   //       I don't know how relevant this is, but incoming packets are likely
   //       small enough to minimize the issue.
-  Serial.println(F("Callback - IP4 message received"));
   #if DEBUG > 1
+      Serial.println(F("Callback - IP4 message received"));
       printIPRX(ipResponse, Serial);
   #endif
 
@@ -435,26 +454,25 @@ void zbIPResponseCb_MQTT(IPRxResponse& ipResponse, uintptr_t) {
     if(ipResponse.getDataLength() != 4){
         Serial.println(F("Unexpected data length. Message corrupted?"));
     } else {
-        Serial.println(F("MQTT CONNACK received"));
+        Serial.print(F("CONNACK received"));
         MyXBeeStatus.MqttConnack = true;
         MyXBeeStatus.ipResponseReceived = 1;
         if(ipResponse.getData()[3] == 0) {
-             Serial.println(F("MQTT connection accepted"));
+             Serial.println(F(": accepted"));
             MyXBeeStatus.MqttConnected = true;
         }
+        Serial.println();
     }
   }
 
   if(type == 4) {
-    Serial.print(F("MQTT PUBACK received. Message ID = "));
+    Serial.print(F("PUBACK received. Message ID: "));
     MyXBeeStatus.MqttPuback = true;
     MyXBeeStatus.MessageConfirmed = true;
     MyXBeeStatus.ipResponseReceived = 1;
     Serial.println((uint16_t) (ipResponse.getData()[2]) << 8 | ipResponse.getData()[3]);
   }
 }
-
-
 
 // when XBee powers up, connects and disconnects from the internet, it sends modem status messages,
 // assumming it's configured correctly, as follows (p.119 Digi XBee Cellular 3g Manual):
@@ -467,21 +485,21 @@ void zbIPResponseCb_MQTT(IPRxResponse& ipResponse, uintptr_t) {
 
 void zbModemStatusCb(ModemStatusResponse& mx, uintptr_t) {
   int modemStatus = mx.getStatus();
-  Serial.print(F("Callback - Modem Status Response= "));
+  Serial.print(F("Callback - Modem Status Response: "));
   Serial.println(modemStatus, HEX);
   if (modemStatus == 2) {
-    Serial.println(F("Registered with the cellular network"));
+    //Serial.println(F("Registered with the cellular network"));
     MyXBeeStatus.isRegistered = true;
   } else if (modemStatus == 3) {
-    Serial.println(F("Unregistered with the cellular network"));
+    //Serial.println(F("Unregistered with the cellular network"));
     MyXBeeStatus.isRegistered = false;
   } else if (modemStatus == 0) {
-    Serial.println(F("Hardware reset or power up"));
+    //Serial.println(F("Hardware reset or power up"));
     MyXBeeStatus.isRegistered = false;
   } else if (modemStatus == 0x0E) {
-    Serial.println(F("Remote Manager connected"));
+    //Serial.println(F("Remote Manager connected"));
   } else if (modemStatus == 0x0F) {
-    Serial.println(F("Remote Manager disconnected"));
+    //Serial.println(F("Remote Manager disconnected"));
   }
 }
 
@@ -508,12 +526,12 @@ void zbAtResponseCb(AtCommandResponse& atr, uintptr_t) {
                      (((uint32_t)atr.getValue()[2]) << 8) + 
                      atr.getValue()[3];
                 // reset flags
-                // note that a positive LA response is the result of an ip request
+                // not that a postive LA response is the result of an ip request
                 MyXBeeStatus.hostIPResolved = true;
                 MyXBeeStatus.ipResponseReceived = true;
             }
         } else {
-            Serial.print(F("LA command returned error code: "));
+            Serial.print(F("LA command error: "));
             Serial.println(atr.getStatus(), HEX);
             MyXBeeStatus.xbcErrorOccurred = true;
         }
@@ -527,11 +545,11 @@ void zbAtResponseCb(AtCommandResponse& atr, uintptr_t) {
                 }
             } else {
                 // This should never happen
-                Serial.println(F("Failed to get AI value from AI command"));
+                Serial.println(F("Failed to get AI value"));
                 MyXBeeStatus.xbcErrorOccurred = true;
             }
         } else {
-            Serial.print(F("AI Command returned error code: "));
+            Serial.print(F("AI command error: "));
             Serial.println(atr.getStatus(), HEX);
         } 
     } else if(atr.getCommand()[0] == 'D' || atr.getCommand()[1] == 'B') {
@@ -539,12 +557,12 @@ void zbAtResponseCb(AtCommandResponse& atr, uintptr_t) {
             Serial.print(F("Cellular signal strength = "));
             Serial.println(atr.getValue()[0]);
         } else {
-            Serial.print(F("DB Command returned error code: "));
+            Serial.print(F("DB Command error: "));
             Serial.println(atr.getStatus());
         }
     // capture any unrecognized At commands:
     } else {
-        Serial.print(F("Callback - At command not recognized:"));
+        Serial.print(F("Callback - AT command not recognized:"));
         Serial.print((char)atr.getCommand()[0]);
         Serial.println((char)atr.getCommand()[1]);
     }
@@ -553,10 +571,10 @@ void zbAtResponseCb(AtCommandResponse& atr, uintptr_t) {
 
 void zbTcpSendResponseCb(TxStatusResponse& txr, uintptr_t) {
   if (txr.isSuccess()) {
-    Serial.println(F("Callback - Transmission was successful!"));
+    //Serial.println(F("Callback - Transmission was successful!"));
     MyXBeeStatus.ipRequestSentOk = true;
   } else {
-    Serial.print(F("Transmission returned error code: "));
+    Serial.print(F("Transmission returned error: "));
     Serial.println(txr.getStatus(), HEX);
     MyXBeeStatus.xbcErrorOccurred = true;
   }
@@ -646,7 +664,7 @@ void sendXbeeMessage(uint16_t bufferSize, char *host, uint8_t hostlength) {
     }
 }
 
-bool setclock_ntc() {
+bool setclock_ntp() {
 
     const char host[] = "pool.ntp.org";
     uint16_t Port = 123;                 // 0x50 = 80; 0x1BB = 443, 0x1633 = 5683 (COAP), 0x75B = 1883 (MQTT), 1337 = NTP
@@ -664,7 +682,8 @@ bool setclock_ntc() {
             xbc.loop();
         }
         getAIStatus(Serial, &AIstatus);
-        #ifdef DEBUG > 0
+        wdt_reset();
+        #if DEBUG > 0
             Serial.print(F("AI status = "));
             Serial.println(AIstatus, HEX);
         #endif
@@ -675,46 +694,46 @@ bool setclock_ntc() {
 
     if(MyXBeeStatus.isConnected) {
 
-        // wait up to 5 seconds for reply. Make 3 attempts.
+        // wait up to 10 seconds for reply. Make 3 attempts.
         i = 0;
         while(!MyXBeeStatus.hostIPResolved && (i++ < 3)) {
             sendDNSLookupCommand((char*) host, sizeof(host) - 1);
             timeInMillis = millis();
-            while((!MyXBeeStatus.hostIPResolved) && ((millis() - timeInMillis) < 5000)) {
+            while((!MyXBeeStatus.hostIPResolved) && ((millis() - timeInMillis) < 10000)) {
                 xbc.loop();
             }
         }
 
         // Reset flats. (Set to true during IP resolution)  
-        MyXBeeStatus.ipResponseReceived = false; 
+        MyXBeeStatus.ipResponseReceived = false;
 
-        if(MyXBeeStatus.hostIPResolved) {
+        byte packetBuffer[48];
+        memset(packetBuffer, 0, 48);
 
-            byte packetBuffer[48];
-            memset(packetBuffer, 0, 48);
-        
-            packetBuffer[0] = 0b11100011;   // LI, Version, Mode
-            packetBuffer[1] = 0;     // Stratum, or type of clock
-            packetBuffer[2] = 6;     // Polling Interval
-            packetBuffer[3] = 0xEC;  // Peer Clock Precision
-            // 8 bytes of zero for Root Delay & Root Dispersion
-            packetBuffer[12]  = 49;
-            packetBuffer[13]  = 0x4E;
-            packetBuffer[14]  = 49;
-            packetBuffer[15]  = 52;
-        
-            tcpSend(IP, Port, protocol, packetBuffer, 48);
-            timeInMillis = millis();
-            while((!MyXBeeStatus.ipResponseReceived) && (millis() - timeInMillis) < 15000) {
-                xbc.loop();
-            }
+        packetBuffer[0] = 0b11100011;   // LI, Version, Mode
+        packetBuffer[1] = 0;     // Stratum, or type of clock
+        packetBuffer[2] = 6;     // Polling Interval
+        packetBuffer[3] = 0xEC;  // Peer Clock Precision
+        // 8 bytes of zero for Root Delay & Root Dispersion
+        packetBuffer[12]  = 49;
+        packetBuffer[13]  = 0x4E;
+        packetBuffer[14]  = 49;
+        packetBuffer[15]  = 52;
+
+        tcpSend(IP, Port, protocol, packetBuffer, 48);
+        timeInMillis = millis();
+        while((!MyXBeeStatus.ipResponseReceived) && (millis() - timeInMillis) < 15000) {
+            wdt_reset();
+            xbc.loop();
         }
     }
     if(MyXBeeStatus.ipResponseReceived) {
         MyXBeeStatus.reset();
         return(1);
     } else {
-        Serial.println(F("NTC timeout"));
+        #if DEBUG > 0
+            Serial.println(F("NTP timeout"));
+        #endif
         MyXBeeStatus.reset();
         return(0);
     }

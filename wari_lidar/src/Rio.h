@@ -10,32 +10,30 @@
 
 #define ErrorLED A2               
 #define WriteLED A2
-#define slaveSelect  10          // for SD card
-#define SDpowerPin A0             
+#define SD_CS_PIN  10          // for SD card
+#define SDpowerPin A0
 #define Boost5V_on 7
-#define MBONPIN 5 
+#define MBONPIN 5
 #define MBSerial Serial
-#define maxbotixPin 5
 #define LIDARONPIN 5
 #define SWITCH5V A3           
 #define CellularSleepPin A1        
-#define INTERRUPTPIN 2 
-#define interruptNo 0
+#define INTERRUPTPIN 2
 #define VBATPIN A7
 #define DS18S20PIN A3
 #define MBSERIALPIN 0
-#define DEBUGTX 4
+//#define DEBUGTX 4
 #define XBEE_SLEEPPIN A1
-#define XBEE_RESETPIN 6
-#define FLASHPOWERPIN A0
+#define XBEE_RESETPIN 4
+#define FLASHPOWERPIN 3
 #define FLASH_CS 6
-#define FLASHPAGESIZE 16
+#define FLASHPAGESIZE 32       // should be the same as EEpromPageSize!!
 
 #define M24512                 // type of EEPROM. M24512 
 #define EEPROM_ADDR 0x51       // EEPROM I2C address: 0x57 for AT24c32 on clock; 0x51 or 81 for chip on PCB (Node_3G, SD boards)
 #define EEPromPageSize 16      // max 32 bytes for the AT24c32, up to 128 bytes for M24512. Can be smaller (e.g., 8, 16)
 #ifdef M24512
-    #define maxpagenumber 65536 / EEPromPageSize      // maximum number of pages: 128 for AT24c32, 2048 for M24512 if page consists of 32 bytes (256 bits)
+    #define MAXPAGENUMBER 65536 / EEPromPageSize      // maximum number of pages: 128 for AT24c32, 2048 for M24512 if page consists of 32 bytes (256 bits)
 #endif
 #define EEPromSDMaskSize 32     // mask to keep track of writeout to SD card in [number of pages].
                                 // This should be bigger than (maxpagenumber - EEPromHeaderSize)/ (EEPromPageSize * 8)
@@ -47,7 +45,8 @@
                                 // TODO: can be calculated automatically
 #define OFFSET3GMASK (1 + EEPromSDMaskSize) * EEPromPageSize    // starting position of 3GMASK in EEPROM
 #define OFFSETSDMASK EEPromPageSize    // starting position of 3GMASK in EEPROM
- 
+#define XBEEBUFFERSIZE 100
+
 
 /******** includes *******/
 
@@ -56,10 +55,11 @@
 #include <Wire.h>
 #include <SdFat.h>
 #include <SPIMemory.h>
-//#include <AltSoftSerial.h>
+#include <AltSoftSerial.h>
 #include <LowPower.h>
+#include <LIDARLite_v3HP.h>
 #include <avr/power.h>
-#include <RH_RF95.h>
+#include <avr/wdt.h>
 
 class RioLogger
 {
@@ -73,6 +73,7 @@ class RioLogger
 };
 
 #include "Rio_EEPROM.h"
+#include "Rio_xbee.h"
 #include "Rio_Sensors.h"
 #include "Rio_SD.h"
 #include "Rio_Flash.h"
@@ -91,6 +92,8 @@ extern RtcDateTime now;
 extern uint16_t bufferSize;
 extern uint16_t bufferSize2;
 extern volatile bool interruptFlag;
+extern int32_t startposition;
+extern byte Eeprom3Gmask[];
 
 /* function declarations */
 
@@ -103,10 +106,10 @@ void printDateTime(const RtcDateTime&);
 void resetEEPromHeader(int);
 void resetEEPROMSDMask(int);
 uint8_t CreateEepromSendBuffer(uint16_t, byte*);
-uint8_t CreateSendBuffer(uint16_t, byte*, uint8_t*);
+uint16_t CreateSendBuffer(uint16_t, byte*, uint8_t*, uint16_t);
 void Reset3GBuffer(uint16_t, byte*);
 void Reset3GBuffer(uint16_t);
-uint32_t getBufferStartPosition();
+int32_t getBufferStartPosition();
 uint32_t getBufferEndPosition();
 
 /* from https://playground.arduino.cc/Main/QuickStats */

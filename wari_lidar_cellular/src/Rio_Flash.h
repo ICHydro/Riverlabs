@@ -2,7 +2,6 @@
  * 
  */
 
-#include <SPIMemory.h>
 #include "Rio.h"
 
 #ifndef Rio_Flash_h

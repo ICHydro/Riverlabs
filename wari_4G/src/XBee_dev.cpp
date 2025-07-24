@@ -1085,9 +1085,10 @@ uint8_t PayloadRequest::getPayload(uint16_t index) {
 			t = _payloadPtr[index];
 		}
 	    //char t = pgm_read_byte_near(myLogger.PayloadHeader1 + index);
-		//Serial.print((char) t);
-		Serial.print(t, HEX);
-		Serial.print(" ");
+		#if DEBUG > 1
+			Serial.print((char) t);
+		#endif
+		//Serial.print(" ");
 		return(t);
 //	} else if(index < (myLogger.PayloadHeader1Length + myLogger.PayloadHeader2Length)){
 //		return(myLogger.PayloadHeader2[index - myLogger.PayloadHeader1Length]);

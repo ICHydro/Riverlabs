@@ -69,7 +69,7 @@ uint8_t dumpEEPROM2() {
 
     //turnOnSDcard();
     
-    if (!SD.begin(slaveSelect, SPI_FULL_SPEED)) {
+    if (!SD.begin(SD_CS_PIN, SPI_FULL_SPEED)) {
         #ifdef DEBUG   
             Serial.println("Card failed, or not present");
         #endif

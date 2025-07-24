@@ -20,6 +20,6 @@ extern byte keep_SPCR;
 void turnOnSDcard();
 void turnOffSDcard();
 uint8_t writeEEPROMline(uint16_t);
-uint8_t dumpEEPROM();
+uint8_t dumpEEPROM2();
 
 #endif

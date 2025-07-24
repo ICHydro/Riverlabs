@@ -28,7 +28,7 @@
 #define LOGGERID ""                               // Logger ID. Set to whatever you like
 #define APN ""                                    // APN of the cellular network
 #define TIMEOUT 180                               // cellular timeout in seconds, per attempt
-#define NTC                                       // set the clock at startup by querying an ntc server
+#define NTP                                       // set the clock at startup by querying an ntp server
 #define FLASH                                     // using flash backup storage?
 #define OPTIBOOT                                  // set ONLY if your device uses the optiboot bootloader. Enables the watchdog timer
 
@@ -210,8 +210,8 @@ void setup ()
 
     /* set interrupts */
 
-    pinMode(interruptPin, INPUT);
-    attachInterrupt(digitalPinToInterrupt(interruptPin), InterruptServiceRoutine, FALLING);
+    pinMode(INTERRUPTPIN, INPUT);
+    attachInterrupt(digitalPinToInterrupt(INTERRUPTPIN), InterruptServiceRoutine, FALLING);
 
     myLogger.eePageAddress = getBufferEndPosition();      // do not overwrite any previous measurements that have not yet been transmitted
     Serial.print(F("Buffer starts at position: "));
@@ -287,8 +287,8 @@ void setup ()
         status += xbc.sendAndWait(atRequest2, 150);
         status += xbc.sendAndWait(atRequest3, 150);
 
-        #ifdef NTC
-            if(setclock_ntc()) {
+        #ifdef NTP
+            if(setclock_ntp()) {
                 Serial.print(F("NTP received. Clock is set to: "));
                 RtcDateTime now = Rtc.GetDateTime();
                 printDateTime(now);
@@ -457,7 +457,7 @@ void loop ()
         measuredvbat = analogRead(VBATPIN) * 2 * 3.3 / 1.024;     // Battery voltage
         temp = Rtc.GetTemperature().AsCentiDegC();                // Clock temperature
         Serial.end();
-        distance = readMaxBotix(MBSERIALPIN, maxbotixPin, NREADINGS, 0); // distance
+        distance = readMaxBotix(MBSERIALPIN, MBONPIN, NREADINGS, 0); // distance
         Serial.begin(115200); 
 
         #if DEBUG > 0
@@ -562,7 +562,7 @@ void loop ()
             // Reset the logger's writing position when we get to the end of the EEPROM              
             // Note that this is a stopgap until proper cycling is implemented.
             
-            if(myLogger.eePageAddress >= (maxpagenumber - EEPromHeaderSize - 300)) {
+            if(myLogger.eePageAddress >= (MAXPAGENUMBER - EEPromHeaderSize - 300)) {
                 myLogger.eePageAddress = 0;
             }
 

@@ -29,7 +29,7 @@
 #define APN ""                                    // APN of the cellular network
 #define TIMEOUT 180                               // cellular timeout in seconds, per attempt
 #define DONOTUSEEEPROMSENDBUFFER
-#define NTC                                       // set the clock at startup by querying an ntc server
+#define NTP                                       // set the clock at startup by querying an ntc server
 #define OPTIBOOT                                  // set ONLY if your device uses the optiboot bootloader. Enables the watchdog timer
 
 /*************** includes ******************/
@@ -188,8 +188,8 @@ void setup ()
 
     /* set interrupts */
 
-    pinMode(interruptPin, INPUT);
-    attachInterrupt(digitalPinToInterrupt(interruptPin), InterruptServiceRoutine, FALLING);
+    pinMode(INTERRUPTPIN, INPUT);
+    attachInterrupt(digitalPinToInterrupt(INTERRUPTPIN), InterruptServiceRoutine, FALLING);
     
     /* Set up cellular xbee */
     /* XBee needs to be in mode: API with escapes */
@@ -277,9 +277,9 @@ void setup ()
         status += xbc.sendAndWait(atRequest2, 150);
         status += xbc.sendAndWait(atRequest3, 150);
 
-        #ifdef NTC
+        #ifdef NTP
             MyXBeeStatus.reset();
-            if(setclock_ntc()) {
+            if(setclock_ntp()) {
                 Serial.print(F("NTP received. Clock is set to: "));
                 RtcDateTime now = Rtc.GetDateTime();
                 printDateTime(now);
@@ -288,7 +288,7 @@ void setup ()
                 delay(1000);
                 digitalWrite(WriteLED, LOW);
              } else {                                     // try a second time, just in case
-                if(setclock_ntc()) {                    
+                if(setclock_ntp()) {                    
                     Serial.print(F("NTP received. Clock is set to: "));
                     RtcDateTime now = Rtc.GetDateTime();
                     printDateTime(now);
@@ -530,7 +530,7 @@ void loop ()
             // Reset the logger's writing position when we get to the end of the EEPROM              
             // Note that this is a stopgap until proper cycling is implemented.
             
-            if(myLogger.eePageAddress >= (maxpagenumber - EEPromHeaderSize - 300)) {
+            if(myLogger.eePageAddress >= (MAXPAGENUMBER - EEPromHeaderSize - 300)) {
                 myLogger.eePageAddress = 0;
             }
 

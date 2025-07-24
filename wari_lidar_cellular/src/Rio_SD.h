@@ -1,24 +1,25 @@
-/* some notes:
- * 
- */
+/*
+  Rio_SD.h - Library for riverflow.io sensors: functions that deal with SD card writing
+  Created by Wouter Buytaert
+*/
 
-#include "Rio.h"
+#include "Rio_EEPROM.h"
 
-#ifndef Rio_SD_h
-#define Rio_SD_h
+#ifndef SD_h
+#define SD_h
 
+#define countof(a) (sizeof(a) / sizeof(a[0]))
+
+extern SdFat sd;
+extern char filename[];
+extern char datestring[20];
 extern boolean SDcardOn;
 extern byte keep_SPCR;
-extern uint8_t status;
-extern bool fileopen;
-extern uint32_t day;
-extern SdFat SD;
 
-void getFilename(const RtcDateTime&, char*);
-void printDateTime(const RtcDateTime&);
-uint8_t dumpEEPROM();
-uint8_t writeEEPROMline(uint16_t n, SdFile);
+
 void turnOnSDcard();
 void turnOffSDcard();
+uint8_t writeEEPROMline(uint16_t);
+uint8_t dumpEEPROM2();
 
 #endif

@@ -1,3 +1,4 @@
+
 #include "Rio_MQTT.h"
 
 void MQTT_connect(char *clientid, uint8_t clientidsize, char *username, uint8_t usernamesize) {
@@ -5,13 +6,13 @@ void MQTT_connect(char *clientid, uint8_t clientidsize, char *username, uint8_t 
     clientidsize--;                                 // remove array end
     usernamesize--;                                 // remove array end
 
-    uint8_t buffer[50];                             //18 + clientidsize + usernamesize
+    uint8_t buffer[18 + clientidsize + usernamesize];
     uint8_t i = 0;
     uint8_t s = 0;                                  // buffersize
 
     // create a connection message
     
-    buffer[s++] = 0b00010000;                       // control field: 0001 = connect. Note that QoS flag should not be set here.
+    buffer[s++] = 0b00010000;                       // control field: 0001 = connect. Flags = 0000 // note: QoS = 1 is set (if desired) at message level
     buffer[s++] = clientidsize + usernamesize + 16; // Remaining length.
     buffer[s++] = 0x00;                             // protocol name length (2 bytes)
     buffer[s++] = 0x04;
@@ -37,7 +38,6 @@ void MQTT_connect(char *clientid, uint8_t clientidsize, char *username, uint8_t 
     buffer[s++] = 0x00;
 
     // send the message
-
     tcpSend(IP, Port, protocol, buffer, s);
 
     // Don't return anything. Any follow up is handled by the main loop.
