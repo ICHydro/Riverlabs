@@ -23,7 +23,7 @@ void RioLogger::write2EEPROM(byte *EEPromPage, uint8_t length) {
     }
 
     // wrap around if needed:
-    eePageAddress = (eePageAddress < MAXPAGENUMBER) ?  eePageAddress + 1 : 0;
+    eePageAddress = (eePageAddress < (MAXPAGENUMBER - EEPromHeaderSize)) ?  eePageAddress + 1 : 0;
 
     delay(5);
 }

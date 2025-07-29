@@ -64,7 +64,6 @@ RioLogger myLogger = RioLogger();
 //EEPROM variables
 
 byte EEPromPage[(EEPromPageSize > 30) ? 30 : EEPromPageSize]; 
-uint16_t eeaddress = 0;                           // page address, starts after header
 boolean flusheeprom = false;
 
 // SD card variables
@@ -344,8 +343,6 @@ void loop ()
         for (i = 0; i < NREADINGS; i++){
             readings[i] = -1;
         }
-
-        Serial.println(eeaddress);
 
 
         /********* flush EEPROM to SD card when full **********/

@@ -60,7 +60,7 @@
 #include <LIDARLite_v3HP.h>
 #include <avr/power.h>
 #include <avr/wdt.h>
-#include <RH_RF95.h>
+//#include <RH_RF95.h>         // only needed if a LoRa radio is present on the board, to put it in sleep mode.
 
 class RioLogger
 {
@@ -93,6 +93,8 @@ extern RtcDateTime now;
 extern uint16_t bufferSize;
 extern uint16_t bufferSize2;
 extern volatile bool interruptFlag;
+extern int32_t startposition;
+extern byte Eeprom3Gmask[];
 
 /* function declarations */
 

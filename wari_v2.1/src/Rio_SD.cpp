@@ -66,18 +66,16 @@ uint8_t dumpEEPROM2() {
     boolean writefailure = false;
     byte headerbyte;
     digitalWrite(WriteLED, HIGH);
-
-    //turnOnSDcard();
-    
+   
     if (!SD.begin(SD_CS_PIN, SPI_FULL_SPEED)) {
         #ifdef DEBUG   
-            Serial.println("Card failed, or not present");
+            Serial.println(F("Card failed, or not present"));
         #endif
         writefailure = true;
     } else {
 
         #ifdef DEBUG   
-            Serial.println("SD card found.");
+            Serial.println(F("SD card found."));
         #endif
 
         delay(100);  // needed? init time should be part of sd.begin()
@@ -85,6 +83,8 @@ uint8_t dumpEEPROM2() {
         i = 0;       // writeEEPROMline takes into account the header size
 
         while(readmore) {
+
+            wdt_reset();
         
             headerbyte = i2c_eeprom_read_byte(EEPROM_ADDR, OFFSETSDMASK + i);
 

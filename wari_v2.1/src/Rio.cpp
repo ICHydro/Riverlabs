@@ -39,6 +39,7 @@ void error(uint8_t errno, uint8_t errpin) {
       delay(100);
     }
     delay(1000);
+    wdt_reset();
     j++;
   }
 }
@@ -87,6 +88,7 @@ void resetEEPromHeader(int deviceaddress){
     // todo: this can be sped up with a page write (16 pages, as library can do max 30
 
     for(uint16_t i = 0; i < (EEPromHeaderSize * EEPromPageSize); i++) {
+        wdt_reset();
         i2c_eeprom_write_byte(deviceaddress, i, 0x00);
     }
 }

@@ -24,8 +24,8 @@
 #define NREADINGS 10           // number of sensor readings taken per measurement
 #define DEBUG 2
 #define FLUSHAFTER 288         // Number of readings before EEPROM is flushed to SD = (FLUSHAFTER x INTERVAL) minutes.
-#define LOGGERID "RL-09998"
-#define FLASH
+#define LOGGERID "RL009998"
+//#define FLASH
 #define OPTIBOOT
 
 #include "src/Rio.h"                                  // includes everything else
@@ -38,6 +38,7 @@ uint8_t nread;
 uint8_t n;
 int8_t alarmcount = 0;
 uint16_t i, j;
+RioLogger myLogger = RioLogger();
 
 // variables needed in interrupt should be of type volatile.
 
@@ -67,7 +68,6 @@ boolean fileopen = false;
 //EEPROM variables
 
 byte EEPromPage[EEPromPageSize]; // byte array to read a page from eeprom;
-uint16_t eeaddress = 0;          // page address, starts after header
 boolean flusheeprom = false;
 
 // Flash variables
@@ -182,7 +182,7 @@ void setup()
         formatDateTime(now);
         Serial.print(datestring);
         Serial.println(F(" GMT"));
-        Serial.println(F("Flushing EEPROM. This will also test SD card"));
+        Serial.print(F("Flushing EEPROM... "));
     #endif
 
     digitalWrite(WriteLED, HIGH);
@@ -200,12 +200,13 @@ void setup()
         digitalWrite(FLASHPOWERPIN, LOW);
     #endif
 
-    //#ifdef OPTIBOOT
-        // enable watchdog timer. Set at 8 seconds
-        //wdt_enable(WDTO_8S);
-    //#endif
+    // enable watchdog timer. Set at 8 seconds
 
-    digitalWrite(WriteLED, HIGH);
+    #ifdef OPTIBOOT
+        wdt_enable(WDTO_8S);
+    #endif
+
+    turnOnSDcard();
 
     if(dumpEEPROM2()) {
         resetEEPromHeader(EEPROM_ADDR);
@@ -219,8 +220,7 @@ void setup()
         error(3, ErrorLED);
     }
 
-
-    digitalWrite(WriteLED, LOW);
+    turnOffSDcard();
 }
 
 //******** main routine **********//
@@ -282,6 +282,13 @@ void loop() {
             LowPower.powerDown(SLEEP_250MS, ADC_OFF, BOD_OFF);     // for Li-SOCl batteries to minimize power peak. 
             //delay(160);   // wait 160ms for startup and boot message to pass
             digitalWrite(WriteLED, LOW);
+
+            // The watchdog timer seems to be disabled after period sleep, perhaps because powerDown() needs the timer?
+            // In any case, reenabling it should not hurt
+            #ifdef OPTIBOOT
+                wdt_enable(WDTO_8S);
+            #endif
+
             readstart = millis();
          
             while ((millis() - readstart) <= 1800) {
@@ -338,19 +345,7 @@ void loop() {
 
             // Write page. Note: only write 30 bits because the last 2 bits seem to be used by Wire library
                 
-            i2c_eeprom_write_page(EEPROM_ADDR, (eeaddress + EEPromHeaderSize) * EEPromPageSize, EEPromPage, 30);
-
-            delay(50);  // to get rid of some issues with writing to EEPROM (first entry is sometimes wrong)
-            
-            // mark page as written (and not flushed) in EEPromHeader
-
-            byte EEPROMbyte = i2c_eeprom_read_byte(EEPROM_ADDR, (uint16_t) eeaddress / 8); // read the relevant byte 
-            bitWrite(EEPROMbyte, eeaddress % 8, 1);                                        // toggle relevant bit
-            i2c_eeprom_write_byte(EEPROM_ADDR, (uint16_t) eeaddress / 8, EEPROMbyte);      // write relevant byte
-            
-            eeaddress++;
-            
-            delay(5);
+            myLogger.write2EEPROM(EEPromPage, sizeof(EEPromPage));
 
             /*********** store values in FLASH ***********/
 
@@ -380,22 +375,28 @@ void loop() {
 
             /********* flush EEPROM to SD card when full **********/
             
-            if(eeaddress >= FLUSHAFTER) {
+            if(myLogger.eePageAddress >= FLUSHAFTER) {
               flusheeprom = true;
             }
 
             if(flusheeprom) {
+
+                turnOnSDcard();
+
                 if(dumpEEPROM2()) {
                     resetEEPromHeader(EEPROM_ADDR);
-                    eeaddress = 0;
+                    myLogger.eePageAddress = 0;
                     flusheeprom = false;
                 }
+
+                turnOffSDcard();
+
             }
 
-            // avoid memory overflow - just cycle memory
+            // avoid memory overflow - redundant because already done in RioLogger:write2EEPROM()
 
-            if(eeaddress > (MAXPAGENUMBER - EEPromHeaderSize)) {
-                eeaddress = 0;
+            if(myLogger.eePageAddress > (MAXPAGENUMBER - EEPromHeaderSize)) {
+                myLogger.eePageAddress = 0;
             }
         }                                     // end of threshold if
     }                                         // end interruptflag

@@ -39,6 +39,7 @@ void error(uint8_t errno, uint8_t errpin) {
       delay(100);
     }
     delay(1000);
+    wdt_reset();
     j++;
   }
 }
