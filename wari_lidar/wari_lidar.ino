@@ -22,8 +22,8 @@
 #define FLUSHAFTER 288                            // Number of readings before EEPROM is flushed to SD = (FLUSHAFTER x INTERVAL) minutes.
 #define NREADINGS 9                               // number of readings taken per measurement (excluding 0 values)
 #define LOGGERID ""                               // Logger ID. Set to whatever you like
-#define FLASH                                     // write to flash chip
-
+//#define FLASH                                     // write to flash chip
+#define OPTIBOOT
 /* INCLUDES */
 
 #include "src/Rio.h"                                  // includes everything else
@@ -142,14 +142,18 @@ void setup () {
 
     #ifdef DEBUG > 0
         Serial.println("");
-        Serial.print(F("This is Riverlabs Wari, compiled on "));
+        Serial.print(F("This is Riverlabs Wari Lidar"));
+        #ifdef OPTIBOOT
+            Serial.print(F(" (optiboot)"));
+        #endif
+        Serial.print(F(", compiled on "));
         Serial.println(__DATE__);
         Serial.print(F("Logger ID: "));
         Serial.println(LOGGERID);
         Serial.print(F("Current time is "));
         formatDateTime(now);
         Serial.print(datestring);
-        Serial.println(F(" GMT"));
+        Serial.println(F(" UTC"));
         Serial.println(F("Measuring the following variables:"));
         Serial.println(F("- Distance (Lidarlite sensor)"));
         Serial.print(F("Measurement interval (minutes): "));
@@ -167,6 +171,12 @@ void setup () {
 
     #ifdef DEBUG
         Serial.println(F("Flushing EEPROM. This will also test SD card"));
+    #endif
+
+    // enable watchdog timer. Set at 8 seconds
+
+    #ifdef OPTIBOOT
+        wdt_enable(WDTO_8S);
     #endif
 
     turnOnSDcard();
@@ -194,7 +204,7 @@ void setup () {
     turnOffSPI();
 
     #ifdef DEBUG
-        Serial.println(F("Powering off SD card and Flash chip"));
+        //Serial.println(F("Powering off SD card and Flash chip"));
     #endif
 
     keep_SPCR=SPCR;
@@ -207,6 +217,10 @@ void setup () {
 
 void loop () 
 {
+
+    #ifdef OPTIBOOT
+        wdt_reset();                                                           // Reset the watchdog every cycle
+    #endif
 
     /* At the start of the loop, the logger can be in the following states:
      *  
@@ -256,7 +270,14 @@ void loop ()
             #endif
             #if defined(__AVR_ATmega328P__)
                 if(!interruptFlag) {                                        // check again, just in case alarm went off right before sleeping
+                    #ifdef OPTIBOOT
+                        wdt_disable();
+                    #endif
                     LowPower.powerDown(SLEEP_FOREVER, ADC_OFF, BOD_OFF);    // SLEEP_FOREVER
+                    #ifdef OPTIBOOT
+                        // enable watchdog timer. Set at 8 seconds 
+                        wdt_enable(WDTO_8S);
+                    #endif
                 }
             #endif
         #endif

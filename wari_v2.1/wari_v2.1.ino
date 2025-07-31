@@ -20,11 +20,11 @@
 
 /******** OPERATING SPECIFICATIONS *******/
 
-#define INTERVAL 1             // Measurement interval in minutes.
+#define INTERVAL 5             // Measurement interval in minutes.
 #define NREADINGS 10           // number of sensor readings taken per measurement
 #define DEBUG 2
 #define FLUSHAFTER 288         // Number of readings before EEPROM is flushed to SD = (FLUSHAFTER x INTERVAL) minutes.
-#define LOGGERID "RL009998"
+#define LOGGERID ""
 //#define FLASH
 #define OPTIBOOT
 
@@ -181,7 +181,7 @@ void setup()
         Serial.print(F("Current time is "));
         formatDateTime(now);
         Serial.print(datestring);
-        Serial.println(F(" GMT"));
+        Serial.println(F(" UTC"));
         Serial.print(F("Flushing EEPROM... "));
     #endif
 
