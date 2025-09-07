@@ -33,3 +33,6 @@
 
 # Settings folders
 .vscode/
+
+# other
+.DS_Store

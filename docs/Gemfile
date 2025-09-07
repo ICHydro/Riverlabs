@@ -7,3 +7,5 @@ gem 'github-pages'
 #gem "jekyll"
 
 gem 'jekyll-multiple-languages-plugin'
+
+gem "webrick", "~> 1.8"
