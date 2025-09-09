@@ -10,7 +10,7 @@
 
 #define ErrorLED A2               
 #define WriteLED A2
-#define SD_CS_PIN  10          // for SD card
+#define SD_CS_PIN 10          // for SD card
 #define SDpowerPin A0             
 #define Boost5V_on 7
 #define MBONPIN 5

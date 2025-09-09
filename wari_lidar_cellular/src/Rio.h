@@ -10,7 +10,7 @@
 
 #define ErrorLED A2               
 #define WriteLED A2
-#define SD_CS_PIN  10          // for SD card
+#define SD_CS_PIN 10          // for SD card
 #define SDpowerPin A0
 #define Boost5V_on 7
 #define MBONPIN 5
@@ -44,7 +44,7 @@
 #define MAXFIT 50               // maximum number of records that fits in the EEPROM; will depend on format and number of variables to be transmitted.
                                 // TODO: can be calculated automatically
 #define OFFSET3GMASK (1 + EEPromSDMaskSize) * EEPromPageSize    // starting position of 3GMASK in EEPROM
-#define OFFSETSDMASK EEPromPageSize    // starting position of 3GMASK in EEPROM
+#define OFFSETSDMASK EEPromPageSize    // starting position of SDMASK in EEPROM
 #define XBEEBUFFERSIZE 100
 
 
