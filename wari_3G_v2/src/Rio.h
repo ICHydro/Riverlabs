@@ -47,7 +47,6 @@
 #define OFFSETSDMASK EEPromPageSize    // starting position of SDMASK in EEPROM
 #define XBEEBUFFERSIZE 100
 
-
 /******** includes *******/
 
 #include <Arduino.h>
