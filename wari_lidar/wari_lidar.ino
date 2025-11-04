@@ -21,14 +21,14 @@
 #define READ_INTERVAL 15                          // Interval for sensor readings, in minutes
 #define FLUSHAFTER 288                            // Number of readings before EEPROM is flushed to SD = (FLUSHAFTER x INTERVAL) minutes.
 #define NREADINGS 9                               // number of readings taken per measurement (excluding 0 values)
-#define LOGGERID "mylogger"                       // Logger ID. Set to whatever you like
-
+#define LOGGERID ""                               // Logger ID. Set to whatever you like
+//#define FLASH                                     // write to flash chip
+#define OPTIBOOT
 /* INCLUDES */
 
 #include "src/Rio.h"                                  // includes everything else
 
 /********** variable declarations **********/
-
 
 uint32_t readstart = 0;
 int16_t readings[NREADINGS];
@@ -61,29 +61,32 @@ bool timeout = false;
 
 RioLogger myLogger = RioLogger();
 
-//EEPROM stuff
+//EEPROM variables
 
 byte EEPromPage[(EEPromPageSize > 30) ? 30 : EEPromPageSize]; 
 boolean flusheeprom = false;
 
-// internal EEPROM is used to create the telemetry buffer
-
-uint16_t EEPROM_payload_start = 0;
-
-// SD card stuff
+// SD card variables
 
 SdFat SD;
 SdFile dataFile;
 char filename[] = "00000000.CSV";
 boolean SDcardOn;
-byte keep_SPCR = SPCR;
+byte keep_SPCR;
 uint8_t status;
 boolean fileopen = false;
 
+// Flash variables
+
+#ifdef FLASH
+    uint32_t flashStart;
+    SPIFlash flash = SPIFlash(FLASH_CS);
+    byte buffer[FLASHPAGESIZE];
+#endif
+
 /*************** setup ***************/
 
-void setup () 
-{
+void setup () {
     
     #if DEBUG > 0
         Serial.begin(115200);
@@ -98,6 +101,9 @@ void setup ()
 
     pinMode(VBATPIN, INPUT);
 
+    pinMode(FLASHPOWERPIN, OUTPUT);
+    pinMode(SDpowerPin, OUTPUT);
+
     pinMode(LIDARONPIN, OUTPUT);
     digitalWrite(LIDARONPIN, LOW);
 
@@ -108,15 +114,20 @@ void setup ()
         digitalWrite(SWITCH5V, LOW);
     #endif
 
+    //RH_RF95 radio(A1, 9);
+    //if (!radio.init()){}
+    //radio.sleep();
+
 //    #ifdef XBEE_SLEEPPIN
 //        pinMode(XBEE_SLEEPPIN, INPUT);   // do not set high but keep floating
 //    #endif
+
 
     /* Start clock */
     
     Rtc.Begin();    
     Rtc.Enable32kHzPin(false);
-    Rtc.SetSquareWavePin(DS3231SquareWavePin_ModeAlarmBoth); 
+    Rtc.SetSquareWavePin(DS3231SquareWavePin_ModeAlarmTwo); 
 
     // Alarm 2 set to trigger at the top of the minute
     
@@ -134,14 +145,18 @@ void setup ()
 
     #ifdef DEBUG > 0
         Serial.println("");
-        Serial.print(F("This is Riverlabs WMOnode, compiled on "));
+        Serial.print(F("This is Riverlabs Wari Lidar"));
+        #ifdef OPTIBOOT
+            Serial.print(F(" (optiboot)"));
+        #endif
+        Serial.print(F(", compiled on "));
         Serial.println(__DATE__);
         Serial.print(F("Logger ID: "));
         Serial.println(LOGGERID);
         Serial.print(F("Current time is "));
         formatDateTime(now);
         Serial.print(datestring);
-        Serial.println(F(" GMT"));
+        Serial.println(F(" UTC"));
         Serial.println(F("Measuring the following variables:"));
         Serial.println(F("- Distance (Lidarlite sensor)"));
         Serial.print(F("Measurement interval (minutes): "));
@@ -151,17 +166,23 @@ void setup ()
     /* set interrupts */
 
     pinMode(INTERRUPTPIN, INPUT);
-    attachInterrupt(interruptNo, InterruptServiceRoutine, FALLING);
+    attachInterrupt(digitalPinToInterrupt(INTERRUPTPIN), InterruptServiceRoutine, FALLING);
 
     // Start wire for i2c communication (EEPROM) (note: this does not seem necessary for atmel, but it is for SAMD21)
 
     Wire.begin();
-      
-    digitalWrite(WriteLED, HIGH);
 
     #ifdef DEBUG
         Serial.println(F("Flushing EEPROM. This will also test SD card"));
     #endif
+
+    // enable watchdog timer. Set at 8 seconds
+
+    #ifdef OPTIBOOT
+        wdt_enable(WDTO_8S);
+    #endif
+
+    turnOnSDcard();
 
     if(dumpEEPROM2()) {
         resetEEPromHeader(EEPROM_ADDR);
@@ -175,7 +196,23 @@ void setup ()
         #endif     
     }
 
-    digitalWrite(WriteLED, LOW);
+    #ifdef FLASH
+        flashStart = getFlashStart();
+        #if DEBUG > 0
+            Serial.print(F("Flash memory starting at position: "));
+            Serial.println(flashStart);
+        #endif
+    #endif
+
+    turnOffSPI();
+
+    #ifdef DEBUG
+        //Serial.println(F("Powering off SD card and Flash chip"));
+    #endif
+
+    keep_SPCR=SPCR;
+    pinMode(FLASH_CS, INPUT_PULLUP);
+    turnOffSDcard();
 
 }
 
@@ -183,6 +220,10 @@ void setup ()
 
 void loop () 
 {
+
+    #ifdef OPTIBOOT
+        wdt_reset();                                                           // Reset the watchdog every cycle
+    #endif
 
     /* At the start of the loop, the logger can be in the following states:
      *  
@@ -209,9 +250,12 @@ void loop ()
         // Check whether it is time for a measurement
 
         if((now.Minute() % READ_INTERVAL) == 0) {
-            TakeMeasurement = true;
+            // if battery voltage is too low, do not do anything
+            measuredvbat = analogRead(VBATPIN) * 2 * 3.3 / 1.024;
+            if(measuredvbat > 3500) {
+                TakeMeasurement = true;
+            }
         }
-
     }
 
     // if nothing needs to be done, then we can safely sleep until the next alarm.
@@ -232,7 +276,14 @@ void loop ()
             #endif
             #if defined(__AVR_ATmega328P__)
                 if(!interruptFlag) {                                        // check again, just in case alarm went off right before sleeping
+                    #ifdef OPTIBOOT
+                        wdt_disable();
+                    #endif
                     LowPower.powerDown(SLEEP_FOREVER, ADC_OFF, BOD_OFF);    // SLEEP_FOREVER
+                    #ifdef OPTIBOOT
+                        // enable watchdog timer. Set at 8 seconds 
+                        wdt_enable(WDTO_8S);
+                    #endif
                 }
             #endif
         #endif
@@ -244,12 +295,6 @@ void loop ()
             Serial.flush();
         #endif
 
-        // if battery voltage is too low, do not do anything
-        measuredvbat = analogRead(VBATPIN) * 2 * 3.3 / 1.024;
-        if(measuredvbat < 3500) {
-            interruptFlag = false;                                            // this will disable everything else
-        }
-
     }
          
     /* if it is time for a measurement then do so */
@@ -258,7 +303,6 @@ void loop ()
 
         TakeMeasurement = false;
 
-        //measuredvbat = analogRead(VBATPIN) * 2 * 3.3 / 1.024;     // Battery voltage
         temp = Rtc.GetTemperature().AsCentiDegC();                // Clock temperature
         readLidarLite(readings, NREADINGS, DEBUG, Serial);            // Lidar
         distance = median(readings, NREADINGS);
@@ -304,6 +348,22 @@ void loop ()
 
         myLogger.write2EEPROM(EEPromPage, sizeof(EEPromPage));
 
+        /*********** store values in FLASH ***********/
+
+        #ifdef FLASH
+
+            pinMode(FLASH_CS, OUTPUT);
+
+            turnOnSDcard();
+
+            write2Flash(EEPromPage, sizeof(EEPromPage), flashStart++);
+
+            keep_SPCR=SPCR;
+            pinMode(FLASH_CS, INPUT_PULLUP);
+
+            turnOffSDcard();
+        #endif
+
         /******** reset readings *****/    
           
         for (i = 0; i < NREADINGS; i++){
@@ -318,17 +378,29 @@ void loop ()
         }
 
         if(flusheeprom) {
+
+            //digitalWrite(SDpowerPin, HIGH);
+            //delay(6);                      // let FLASH power settle
+            //turnOnSPI();
+            turnOnSDcard();
+
             if(dumpEEPROM2()) {
                 resetEEPromHeader(EEPROM_ADDR);
                 myLogger.eePageAddress = 0;
                 flusheeprom = false;
             }
+
+            turnOffSDcard();
+
+            //turnOffSPI();
+            //digitalWrite(SDpowerPin, LOW);
+
         }
 
         // avoid memory overflow - just cycle memory.
         // NOTE: redundant: already part of the write2EEPROM function.
 
-        if(myLogger.eePageAddress > (maxpagenumber - EEPromHeaderSize)) {
+        if(myLogger.eePageAddress > (MAXPAGENUMBER - EEPromHeaderSize)) {
             myLogger.eePageAddress = 0;
         }
     }
