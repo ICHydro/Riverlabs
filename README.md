@@ -4,7 +4,7 @@
 
 This is the code repository for the [Riverlabs](https://riverlabs.uk) suite of sensors. The sensors use an Arduino-compatible bootloader, and the recommended programming environment is therefore the Arduino IDE. To get started with Arduino, we refer to the excellent [Arduino documentation](https://www.arduino.cc/en/Guide/HomePage).
 
-Full documentation and instructions can be found on our [Github Pages site](https://ichydro.github.io/Riverlabs/).
+Full documentation and instructions can be found on our [Github Pages site](https://trowan92.github.io/Riverlabs/).
 
 ## Sketches
 
