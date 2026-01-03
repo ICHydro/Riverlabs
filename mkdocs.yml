@@ -1,11 +1,11 @@
 site_name: Riverlabs Documentation
-site_url: https://ichydro.github.io/Riverlabs/
+site_url: https://trowan92.github.io/Riverlabs/
 site_author: Riverlabs Ltd
 site_description: Documentation for the Riverlabs suite of environmental sensors
 
-repo_name: ICHydro/Riverlabs
-repo_url: https://github.com/ICHydro/Riverlabs
-edit_uri: edit/main/docs/
+repo_name: trowan92/Riverlabs
+repo_url: https://github.com/trowan92/Riverlabs
+edit_uri: edit/docs-update-27.12.25/docs/
 
 theme:
   name: material
