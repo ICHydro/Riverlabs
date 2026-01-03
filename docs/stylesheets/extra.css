@@ -1,0 +1,89 @@
+/* Make the logo bigger */
+.md-header__button.md-logo img,
+.md-header__button.md-logo svg {
+    height: 2.5rem;
+    width: auto;
+    max-width: none;
+}
+
+/* Hide the site name in the header */
+.md-header__title {
+    display: none;
+}
+
+/* Adjust logo positioning */
+.md-header__button.md-logo {
+    margin: 0.4rem 0.8rem;
+    padding: 0;
+}
+
+/* Right-align all header content except the logo */
+.md-header__inner {
+    display: flex;
+    justify-content: space-between;
+}
+
+.md-header__topic {
+    margin-left: auto;
+}
+
+/* Right-align the navigation tabs, search, and other controls */
+.md-header__source,
+.md-header__option,
+[data-md-component="search"],
+.md-header .md-header__button:not(.md-logo) {
+    margin-left: auto;
+}
+
+/* Ensure proper navigation indentation in sidebar */
+.md-nav__item .md-nav__item {
+    padding-left: 1rem;
+}
+
+.md-nav__item .md-nav__item .md-nav__item {
+    padding-left: 2rem;
+}
+
+/* Make section headers more prominent */
+.md-nav__item--section > .md-nav__link {
+    font-weight: 700;
+}
+
+/* Left sidebar navigation indentation - more specific selectors */
+.md-sidebar--primary .md-nav--primary .md-nav__item .md-nav__list .md-nav__item {
+    margin-left: 0.25rem;
+}
+
+.md-sidebar--primary .md-nav--primary .md-nav__item .md-nav__list .md-nav__item .md-nav__list .md-nav__item {
+    margin-left: 0.5rem;
+}
+
+/* Alternative approach using padding on links */
+.md-sidebar--primary .md-nav__link {
+    padding-left: 0.15rem;
+}
+
+.md-sidebar--primary .md-nav .md-nav .md-nav__link {
+    padding-left: 0.4rem;
+}
+
+.md-sidebar--primary .md-nav .md-nav .md-nav .md-nav__link {
+    padding-left: 0.65rem;
+}
+
+/* Right-hand side table of contents indentation */
+.md-sidebar--secondary .md-nav--secondary > .md-nav__list > .md-nav__item {
+    padding-left: 0;
+}
+
+.md-sidebar--secondary .md-nav--secondary .md-nav__item .md-nav__item {
+    padding-left: 1rem;
+}
+
+.md-sidebar--secondary .md-nav--secondary .md-nav__item .md-nav__item .md-nav__item {
+    padding-left: 2rem;
+}
+
+.md-sidebar--secondary .md-nav--secondary .md-nav__item .md-nav__item .md-nav__item .md-nav__item {
+    padding-left: 3rem;
+}
