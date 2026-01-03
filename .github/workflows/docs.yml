@@ -12,16 +12,12 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
-
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -44,22 +40,11 @@ jobs:
         run: |
           pip install -r requirements.txt
 
-      - name: Build documentation
+      - name: Configure git
         run: |
-          mkdocs build --clean --verbose
-          
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./site
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
 
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Build and deploy documentation
+        run: |
+          mkdocs gh-deploy --force --clean --verbose
