@@ -1,6 +1,6 @@
 ## Introduction
 
-The Riverlabs loggers are a series of low-cost environmental loggers based on the Arduino bootloader. This makes them easy to program using with a PC without the need for additional hardware (except for an FTDI cable) or propriety software. It also provides the flexibility to extend and alter them to fit specific applications and workflow.
+The Riverlabs loggers are a series of low-cost environmental loggers based on the Arduino bootloader. This makes them easy to program with a PC without the need for additional hardware (except for an FTDI cable) or proprietary software. It also provides the flexibility to extend and alter them to fit specific applications and workflows.
 
 ## Overview and specifications
 
