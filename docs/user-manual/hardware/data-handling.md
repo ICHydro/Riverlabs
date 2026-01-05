@@ -17,24 +17,20 @@ A flash chip can also be installed on some board varients to backup data (especi
 A flow chart of this is shown below:
 
 ```mermaid
-flowchart LR
-    subgraph left [Manual Trigger]
-        RST[Reset Button<br/>Pressed]
-    end
+flowchart TD
+    RST[Reset Button<br/>Pressed]
+    A[Sensor Reading]
+    B[Store in EEPROM<br/>Buffer]
+    C{Flush Condition<br/>Met?}
+    D[Flush EEPROM<br/>to SD Card]
+    E{FLASH Chip<br/>Enabled?}
+    F[Backup to<br/>Flash Memory]
+    G[Data Stored]
     
-    subgraph center [Main Data Flow]
-        A[Sensor Reading] --> B[Store in EEPROM Buffer]
-        B --> C{Flush Condition<br/>Met?}
-        C -->|FLUSHAFTER<br/>reached| D[Flush EEPROM<br/>to SD Card]
-        C -->|No| B
-        D --> G[Data Stored]
-    end
-    
-    subgraph right [Backup Storage]
-        E{FLASH Chip<br/>Enabled?}
-        F[Backup to<br/>Flash Memory]
-    end
-    
+    A --> B
+    B --> C
+    C -->|FLUSHAFTER<br/>reached| D
+    C -->|No| B
     RST -.->|Triggers| D
     D --> E
     E -->|Yes| F
