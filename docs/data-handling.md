@@ -1,6 +1,8 @@
 ## Functionality of the SD card slot
 
-Some Riverlabs loggers come with an SD card slot for local data storage. This is needed when the logger is deployed without telemetry.
+The Riverlabs loggers come with an SD card slot for local data storage. This is needed when the logger is deployed without telemetry.
+
+The SD card functionality is activated by default in the Wari logger. Although the WMOnode logger comes with a physical slot, the SD card code is not yet included in the current version. This is foreseen for a future revision of the code.
 
 The logger contains an EEPROM chip of 512 kbit, which it uses as internal buffer to store readings to reduce the number of writings to the SD card and to optimise power consumption. The frequency with which the data are flushed from the EEPROM to the SD card can be set in the code by editing the following line:
 
@@ -8,37 +10,11 @@ The logger contains an EEPROM chip of 512 kbit, which it uses as internal buffer
 
 The default option is equivalent to once a day at a measurement interval of 5 minutes. EEPROM is non-volatile memory so the written data are retained even when the battery is removed.
 
-The logger will also flush the EEPROM when it is reset. Pushing the reset button before taking out the SD card will therefore ensure that all the latest data are written to the SD card. The LED will light up during the flushing process. This can take several seconds, depending on the amount of data to be transferred. 
-
-A flash chip can also be installed on some board varients to backup data (especially helpful for telemetered loggers), this is activated in the firmware using:
-
-`#define FLASH`
-
-A flow chart of this is shown below:
-
-```mermaid
-flowchart TD
-    A[Sensor Reading] --> B[Store in EEPROM Buffer]
-    B --> C{Flush Condition Met?}
-    C -->|FLUSHAFTER reached| D[Write to SD Card]
-    C -->|Reset Button Pressed| D
-    C -->|No| B
-    D --> E{FLASH Chip Enabled?}
-    E -->|Yes| F[Backup to Flash]
-    E -->|No| G[Data Stored]
-    F --> G
-```
-
-
-!!! danger Do not take out the SD card while the LED light is on, as this may damage the card and make it unreadable.**
+The logger will also flush the EEPROM when it is reset. Pushing the reset button before taking out the SD card will therefore ensure that all the latest data are written to the SD card. The LED will light up during the flushing process. This can take several seconds, depending on the amount of data to be transferred. **Do not take out the SD card while the LED light is on, as this may damage the card and make it unreadable.**
 
 ## Inserting and removing the SD card
 
-To insert an SD card, push the card gently in the slot until it is fully inserted. Make sure that it is correctly inserted, with the contacts facing outside (away from the battery). 
-
-Then press the RESET Button to reset the logger to work with and right data to the SD Card. The LED will pause briefly and then show a long red puslse while any data stored on the EEPROM is flushed to the SD card.
-
-To remove the SD card, first flush the data by pressing the RESET Button then wait while the LED is red then 
+To insert an SD card, push the card gently in the slot until it is fully inserted. Make sure that it is correctly inserted, with the contacts facing outside (away from the battery). To remove the SD card, simply pull it out.
 
 ## Data storage on the SD card
 

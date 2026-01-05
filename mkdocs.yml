@@ -96,6 +96,7 @@ nav:
       - Quick Start Guide: user-manual/quick-start/quick-start.md
       - Arduino Setup: user-manual/quick-start/arduino-setup.md
       - First Deployment Checklist: user-manual/quick-start/first-deployment-checklist.md
+      - First Data Download: user-manual/quick-start/first-data-download.md
     - Installation:
       - Mounting Guide: user-manual/installation/mounting-guide.md
       - Sensor Positioning: user-manual/installation/sensor-positioning.md
@@ -105,7 +106,7 @@ nav:
       - Battery & Power Guide: user-manual/hardware/battery-power-guide.md
       - Internal Components: user-manual/hardware/internal-components.md
       - Maintenance: user-manual/hardware/maintenance.md
-      - SD Card Setup: SDcard.md
+      - Data Handling: data-handling.md
     - Configuration:
       - Getting Started: start.md
       - Telemetry Setup Guide: user-manual/telemetry/setup-guide.md
