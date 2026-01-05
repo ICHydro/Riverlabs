@@ -283,57 +283,6 @@ int16_t delta = current_distance - last_distance;
 last_distance = current_distance;
 ```
 
-**4. Bit Packing**
-
-Pack multiple small values into single bytes:
-
-```cpp
-// Pack 4 values into 1 byte
-uint8_t packed = 0;
-packed |= (alarm_state & 0x01) << 0;  // bit 0
-packed |= (low_battery & 0x01) << 1;  // bit 1
-packed |= (sensor_fault & 0x01) << 2; // bit 2
-packed |= (quality & 0x1F) << 3;      // bits 3-7 (0-31 range)
-```
-
-### Example Optimized Payload
-
-**10-byte payload for water level logger:**
-
-```cpp
-uint8_t payload[10];
-
-// Bytes 0-1: Distance (mm, 0-65535)
-uint16_t distance = 1234;
-payload[0] = distance >> 8;
-payload[1] = distance & 0xFF;
-
-// Bytes 2-3: Battery voltage (mV, 0-65535)
-uint16_t battery = 3700;
-payload[2] = battery >> 8;
-payload[3] = battery & 0xFF;
-
-// Bytes 4-7: Timestamp (Unix epoch, seconds)
-uint32_t timestamp = 1704556800;
-payload[4] = (timestamp >> 24) & 0xFF;
-payload[5] = (timestamp >> 16) & 0xFF;
-payload[6] = (timestamp >> 8) & 0xFF;
-payload[7] = timestamp & 0xFF;
-
-// Byte 8: Temperature (°C, -40 to +87, offset by 40)
-int8_t temp = 15 + 40;  // 15°C
-payload[8] = temp;
-
-// Byte 9: Status flags
-uint8_t status = 0;
-status |= (measurement_valid & 0x01) << 0;
-status |= (low_battery & 0x01) << 1;
-status |= (sensor_error & 0x01) << 2;
-payload[9] = status;
-```
-
----
-
 ## TTN Payload Decoder
 
 Create a decoder function in TTN to convert binary payload to JSON:
@@ -362,10 +311,6 @@ function Decoder(bytes, port) {
   // Byte 8: Temperature (offset by 40)
   decoded.temperature_c = bytes[8] - 40;
   
-  // Byte 9: Status flags
-  decoded.measurement_valid = (bytes[9] & 0x01) > 0;
-  decoded.low_battery = (bytes[9] & 0x02) > 0;
-  decoded.sensor_error = (bytes[9] & 0x04) > 0;
   
   return decoded;
 }
@@ -409,9 +354,9 @@ function Decoder(bytes, port) {
 
 ## Next Steps
 
-- 📊 [ThingsBoard Configuration](thingsboard-configuration.md) - Set up dashboard for LoRaWAN data
-- 🔋 [Battery & Power Guide](../hardware/battery-power-guide.md) - Optimize LoRa power consumption
-- 🔧 [Arduino Setup](../quick-start/arduino-setup.md) - Program your LoRa logger
+- [ThingsBoard Configuration](thingsboard-configuration.md) - Set up dashboard for LoRaWAN data
+- [Battery & Power Guide](../hardware/battery-power-guide.md) - Optimize LoRa power consumption
+- [Arduino Setup](../quick-start/arduino-setup.md) - Program your LoRa logger
 
 ---
 

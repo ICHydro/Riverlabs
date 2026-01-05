@@ -9,13 +9,13 @@ Riverlabs loggers can be equipped with cellular telemetry to transmit data remot
 
 **What You'll Need:**
 
-- [ ] Riverlabs logger with XBee socket (telemetry version)
-- [ ] Digi XBee3 Cellular LTE-M/NB-IoT module
-- [ ] Active SIM card with data plan
-- [ ] USB adapter for XBee configuration
-- [ ] XBee Studio software (replaces XCTU)
-- [ ] ThingsBoard account or compatible IoT platform
-- [ ] Computer for configuration
+- Riverlabs logger with XBee socket (telemetry version)
+- Digi XBee3 Cellular LTE-M/NB-IoT module
+- Active SIM card with data plan
+- USB adapter for XBee configuration
+- XBee Studio software (replaces XCTU)
+- ThingsBoard account or compatible IoT platform
+- Computer for configuration
 
 **Time Required:** 1-2 hours for first-time setup
 
@@ -595,10 +595,9 @@ Compare to:
 
 ## Next Steps
 
-- 📊 [ThingsBoard Configuration](thingsboard-configuration.md) - Set up your dashboard
-- 🔧 [XBee Setup Walkthrough](xbee-setup-walkthrough.md) - Detailed XBee Studio guide with screenshots
-- 🚨 [Troubleshooting Connections](troubleshooting-connections.md) - Fix telemetry issues
-- 🔋 [Battery & Power Guide](../hardware/battery-power-guide.md) - Optimize for telemetry
+- [ThingsBoard Configuration](thingsboard-configuration.md) - Set up your dashboard
+- [XBee Setup Walkthrough](xbee-setup-walkthrough.md) - Detailed XBee Studio guide with screenshots
+- [Troubleshooting Connections](troubleshooting-connections.md) - Fix telemetry issues
 
 ---
 

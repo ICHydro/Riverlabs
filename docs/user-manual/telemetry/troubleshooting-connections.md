@@ -783,10 +783,10 @@ Logger not transmitting?
 
 ## Next Steps
 
-- 📡 [Telemetry Setup Guide](setup-guide.md) - Complete setup overview
-- 🔧 [XBee Setup Walkthrough](xbee-setup-walkthrough.md) - Detailed XBee configuration
-- 📊 [ThingsBoard Configuration](thingsboard-configuration.md) - Dashboard setup
-- 🔋 [Battery & Power Guide](../hardware/battery-power-guide.md) - Power optimization
+- [Telemetry Setup Guide](setup-guide.md) - Complete setup overview
+- [XBee Setup Walkthrough](xbee-setup-walkthrough.md) - Detailed XBee configuration
+- [ThingsBoard Configuration](thingsboard-configuration.md) - Dashboard setup
+- [Battery & Power Guide](../hardware/battery-power-guide.md) - Power optimization
 
 ---
 

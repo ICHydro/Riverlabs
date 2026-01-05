@@ -47,10 +47,32 @@ The Wari logger is based around the Maxbotix MB7389 Ultrasound distance sensor. 
 
 **Look for:**
 
-- **"Wari v1"**, **"Wari v2"**, **"Wari v2.1"** - Ultrasound models
-- **"WMOnode"**, **"Lidar"** - Lidar models
+- **Serial Number:** "RL0XXX" format (e.g., RL000123)
+- **Sensor Type:** Ultrasound (Maxbotix) or Lidar (Garmin)
+- **Telemetry:** Check for XBee cellular modem or LoRa radio
 
-The Wari has the following characteristics:
+### Firmware Selection by Serial Number
+
+| Serial Number Range | Sensor | Telemetry | Firmware File |
+|---------------------|--------|-----------|---------------|
+| RL000001 - RL000277 | Ultrasound | None | `wari_v1.ino` |
+| RL000001 - RL000277 | Ultrasound | 3G Cellular | `wari_3G.ino` |
+| RL000278 - RL000330 | Ultrasound | None | `wari_v2.0.ino` |
+| RL000278+ | Ultrasound | 3G Cellular | `wari_3G_v2.ino` |
+| RL000331+ | Ultrasound | None | `wari_v2.1.ino` |
+| Any | Ultrasound | 4G LTE-M/NB-IoT | `wari_4G.ino` |
+| Any | Lidar | None | `wari_lidar.ino` |
+| Any | Lidar | 3G or 4G Cellular | `wari_lidar_cellular.ino` * |
+| Any | Lidar | LoRa Radio | `wari_lidar_lora.ino` |
+
+**\*** Set correct modem type (3G or LTE-M) in compiler definition at top of code
+
+!!! info "Legacy Names"
+    - `wari_lidar.ino` was formerly `WMO_SD.ino`
+    - `wari_lidar_cellular.ino` was formerly `WMOnode.ino`
+    - `wari_lidar_lora.ino` was formerly `WMO_SD_lora.ino`
+
+
 
 ### Technical specifications
 

@@ -2,6 +2,24 @@
 
 This guide will help you set up the Arduino IDE and prepare your computer for programming your Riverlabs logger.
 
+### Main Components
+
+![Arduino IDE Overview](../../images/arduino1.jpg)
+*The Arduino IDE showing the editor window (top) and information window (bottom)*
+
+**Editor Window** (top) - This is where you write and edit your code. Arduino uses a language very similar to C++. Each program (called a "sketch") consists of two main functions:
+
+- `setup()` - Runs once when the logger powers on
+- `loop()` - Runs repeatedly while the logger is powered
+
+**Information Window** (bottom) - Displays compilation output, upload progress, and any errors that occur during the process.
+
+**Important Toolbar Buttons:**
+
+- ✓ **Verify** - Compiles your code to check for errors
+- → **Upload** - Compiles and uploads code to your logger
+- **Serial Monitor** - View real-time serial output from your logger
+
 ## What is Arduino?
 
 [Arduino](https://www.arduino.cc/) is a fantastic open source hardware ecosystem centered around the Arduino IDE - a user-friendly software development environment for writing code that runs on embedded processors like those in Riverlabs loggers.
@@ -67,14 +85,7 @@ FTDI cables come in 3.3V or 5V versions. Riverlabs loggers work with both, but *
 ![FTDI Cable Connection](../../images/FTDICable.png)
 *FTDI cable showing the 6-pin connector with color-coded wires*
 
-### Install FTDI Drivers
 
-After purchasing your FTDI cable/board, you'll need to install drivers:
-
-1. Visit the [Sparkfun FTDI Driver Tutorial](https://learn.sparkfun.com/tutorials/how-to-install-ftdi-drivers)
-2. Follow the instructions for your operating system
-3. Restart your computer after installation
-4. Connect your FTDI cable and verify it appears as a serial port in Arduino IDE (**Tools → Port**)
 
 ## Step 4: Install MiniCore Board Support
 
@@ -127,40 +138,7 @@ Once you've connected your FTDI cable to your computer:
 
 If no port appears, check that FTDI drivers are properly installed.
 
-## Understanding the Arduino IDE
 
-The Arduino IDE has a straightforward interface with two main windows:
-
-### Main Components
-
-![Arduino IDE Overview](../../images/arduino1.jpg)
-*The Arduino IDE showing the editor window (top) and information window (bottom)*
-
-**Editor Window** (top) - This is where you write and edit your code. Arduino uses a language very similar to C++. Each program (called a "sketch") consists of two main functions:
-
-- `setup()` - Runs once when the logger powers on
-- `loop()` - Runs repeatedly while the logger is powered
-
-**Information Window** (bottom) - Displays compilation output, upload progress, and any errors that occur during the process.
-
-**Important Toolbar Buttons:**
-
-- ✓ **Verify** - Compiles your code to check for errors
-- → **Upload** - Compiles and uploads code to your logger
-- **Serial Monitor** - View real-time serial output from your logger
-
-### Board Settings
-
-The **Tools** menu is where you configure critical settings for your logger:
-
-![Arduino Board Settings](../../images/arduino2.jpg)
-*Board and processor settings in the Tools menu*
-
-As mentioned in Step 5, you must select:
-
-- **Board:** MiniCore → ATmega328
-- **Clock:** External 8 MHz
-- **Port:** Your FTDI cable's serial port
 
 !!! example "Testing with Blink"
     Arduino comes with many example sketches. The classic "Blink" example (`File → Examples → 01.Basics → Blink`) can be adapted for Riverlabs loggers by replacing `LED_BUILTIN` with:
@@ -169,6 +147,12 @@ As mentioned in Step 5, you must select:
     - `A2` for WMOnode loggers
     
     This will make the onboard LED blink, confirming your setup is working!
+
+- **Serial Number:** "RL0XXX" format (e.g., RL000123)
+- **Sensor Type:** Ultrasound (Maxbotix) or Lidar (Garmin)
+- **Telemetry:** Check for XBee cellular modem or LoRa radio
+
+
 
 ## Next Steps
 

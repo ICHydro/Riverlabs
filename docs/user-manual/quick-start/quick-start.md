@@ -1,8 +1,5 @@
 # Quick Start Guide
 
-!!! tip "New to Riverlabs Loggers?"
-    This guide will get you up and running with your Riverlabs environmental logger in minutes. For detailed technical information, see the [Developer Manual](../../arduino.md).
-
 ## What You'll Need
 
 Before you begin, make sure you have:
@@ -14,18 +11,15 @@ Before you begin, make sure you have:
 - FTDI cable or adapter (for programming)
 - Arduino IDE installed on your computer
 
-!!! warning "Battery Safety"
-    **Always check battery polarity before insertion.** Incorrect polarity can cause permanent damage and fire risk, especially on loggers with solar charging circuits.
 
-## Quick Setup Steps
 
-### 1. Identify Your Logger
+## 1. Identify Your Logger
 
 First, identify which logger model you have. See the [Logger Identification Guide](logger-identification.md) for detailed comparisons.
 
 <div class="grid cards" markdown>
 
--   :material-water-outline:{ .lg .middle } **Wari Logger**
+-    **Wari Ultrasound Logger**
 
     ---
 
@@ -49,7 +43,7 @@ First, identify which logger model you have. See the [Logger Identification Guid
 
     ---
 
-    **Laser Distance Sensor**
+    **Wari Lidar Logger**
 
     ![Lidar logger](../../images/WMOnode.jpg){ width="250" }
 
@@ -67,7 +61,7 @@ First, identify which logger model you have. See the [Logger Identification Guid
 
 </div>
 
-### 2. Insert Batteries
+## 2. Insert Batteries
 
 !!! danger "Check Polarity First!"
     Double-check battery orientation before insertion. Match the **+** and **-** markings on the battery with the markings in the battery compartment.
@@ -79,29 +73,24 @@ First, identify which logger model you have. See the [Logger Identification Guid
 !!! tip "Date Preservation" 
     Coin cell may already be installed, only replace if needed to preserve programmed date install the main battery first and switch on.
 
-1. Locate the small coin battery slot on the PCB (sometimes on the revere)
+1. Locate the small coin battery slot on the PCB (sometimes on the revesre)
 2. Insert the CR1220 battery (+ side up, typically)
 3. Press firmly until it clicks into place
-
-!!! tip "Battery Life"
-    A freshly charged 18650 lipo battery should show ~4.2V. The logger will function down to ~3.3V. See the [Battery & Power Guide](../hardware/battery-power-guide.md) for detailed voltage interpretation.
-
 4. if applicable screw the circuit board back into the enclosure.
 
-**Main Battery (18650 or 14500):**
+**Main Battery (ususally a 18650 or 14500):**
 
-2. Verify polarity markings
-3. Insert the 18650 or 14500 battery (typically flat end first)
+1. Check you have the right battery - [Battery & Power Guide](../hardware/battery-power-guide.md)
+2. Verify the Polarity +/- and charge
+3. Insert the Battery, ensuing the metal clips touch the battery.
 
 
 ### 3. Prepare SD Card
 
-Your logger needs a micro SD card to store data locally.
+Your logger may needs a microSD card.
 
 2. Insert the card into the logger's micro SD slot
 3. Ensure it clicks into place - you should be able to feel this
-
-
 
 ### 4. Set the Clock
 
@@ -129,19 +118,37 @@ Your logger needs a micro SD card to store data locally.
 
 **The clock only needs to be set once** (unless both batteries are removed).
 
+### 5. Firmware Selection by Serial Number
 
-### 5. Upload Main Script
+| Serial Number Range | Sensor | Telemetry | Firmware File |
+|---------------------|--------|-----------|---------------|
+| RL000001 - RL000277 | Ultrasound | None | `wari_v1.ino` |
+| RL000001 - RL000277 | Ultrasound | 3G Cellular | `wari_3G.ino` |
+| RL000278 - RL000330 | Ultrasound | None | `wari_v2.0.ino` |
+| RL000278+ | Ultrasound | 3G Cellular | `wari_3G_v2.ino` |
+| RL000331+ | Ultrasound | None | `wari_v2.1.ino` |
+| Any | Ultrasound | 4G LTE-M/NB-IoT | `wari_4G.ino` |
+| Any | Lidar | None | `wari_lidar.ino` |
+| Any | Lidar | 3G or 4G Cellular | `wari_lidar_cellular.ino` * |
+| Any | Lidar | LoRa Radio | `wari_lidar_lora.ino` |
+
+**\*** Set correct modem type (3G or LTE-M) in compiler definition at top of code
+
+!!! info "Legacy Names"
+    - `wari_lidar.ino` was formerly `WMO_SD.ino`
+    - `wari_lidar_cellular.ino` was formerly `WMOnode.ino`
+    - `wari_lidar_lora.ino` was formerly `WMO_SD_lora.ino`
+
+
+### 6. Upload Main Script
 
 Now upload the main logging script:
 
 !!! warning "Sensor Must Be Disconnected"
     Keep the sensor disconnected during this step as well (Wari Ultrasonic only).
 
-1. Open the appropriate script for your logger model:
-   - `wari.ino` - Wari Ultrasonic
-   - `wari_lidar.ino` - Wari Lidar
-   - `wari_3G.ino` or `wari_4G.ino` - Cellular telemetry models
-   - etc.
+1. Open the appropriate script in Ardunio IDE
+
 2. Review and adjust settings at the top of the script:
    ```cpp
    #define INTERVAL 5             // Measurement interval in minutes
@@ -160,7 +167,7 @@ Now upload the main logging script:
 !!! tip "Battery Considerations"
     Higher logging frequency = shorter battery life. Start with conservative settings (10-15 minute intervals) for deployments.
 
-### 6. Test Before Deployment
+### 7. Test Before Deployment
 
 Before taking your logger to the field, perform a bench test:
 
@@ -173,11 +180,9 @@ Before taking your logger to the field, perform a bench test:
 
 See the [First Deployment Checklist](first-deployment-checklist.md) for comprehensive pre-deployment testing.
 
-### 7. Install in Field
+### 8. Install in Field
 
-Your logger is now ready for field deployment!
-
-See the [Mounting Guide](../installation/mounting-guide.md) for detailed installation instructions including:
+Your logger is now ready for field deployment! See the [Mounting Guide](../installation/mounting-guide.md) for detailed installation instructions including:
 
 - Zip tie mounting methods
 - Adhesive mounting techniques
