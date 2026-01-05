@@ -96,16 +96,17 @@ nav:
       - Quick Start Guide: user-manual/quick-start/quick-start.md
       - Arduino Setup: user-manual/quick-start/arduino-setup.md
       - First Deployment Checklist: user-manual/quick-start/first-deployment-checklist.md
-      - First Data Download: user-manual/quick-start/first-data-download.md
+      - Data Download: user-manual/quick-start/data-download.md
     - Installation:
       - Mounting Guide: user-manual/installation/mounting-guide.md
       - Sensor Positioning: user-manual/installation/sensor-positioning.md
       - Environmental Considerations: user-manual/installation/environmental-considerations.md
     - Hardware:
-      - Technical Specifications: techspec.md
+      - Technical Specifications: user-manual/hardware/technical-specifications.md
       - Battery & Power Guide: user-manual/hardware/battery-power-guide.md
+      - Internal Components: user-manual/hardware/internal-components.md
       - Maintenance: user-manual/hardware/maintenance.md
-      - Data Handling: data-handling.md
+      - Data Handling: user-manual/hardware/data-handling.md
     - Telemetry Configuration:
       - Cellular Setup Guide: user-manual/telemetry/setup-guide.md
       - LoRa / LoRaWAN Guide: user-manual/telemetry/lora-lorawan-guide.md
@@ -118,11 +119,9 @@ nav:
       # - FAQ: user-manual/troubleshooting/faq.md
   - Developer Manual:
     - Programming:
-      - Arduino Setup: arduino.md
-      - Uploading Code: upload.md
-    - Hardware:
-      - Internal Components: developer-manual/hardware/internal-components.md
+      - Arduino Setup: developer-manual/programming/arduino-setup.md
+      - Uploading Code: developer-manual/programming/uploading-code.md
     - Technical Reference:
-      - Installation Details: installation.md
-      - ThingsBoard Integration: thingsboard.md
-      - XBee 3G Setup: xbee3G.md
+      - Installation Details: developer-manual/technical-reference/installation-details.md
+      - ThingsBoard Integration: developer-manual/technical-reference/thingsboard-integration.md
+      - XBee 3G Setup: developer-manual/technical-reference/xbee-3g-setup.md
