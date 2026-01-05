@@ -38,14 +38,14 @@ When telemetry fails, problems can occur at multiple layers:
 
 **Start here for fast triage:**
 
-- [ ] **Power:** Battery >3.3V?
-- [ ] **Hardware:** XBee seated properly?
-- [ ] **SIM:** Active and inserted correctly?
-- [ ] **Signal:** RSSI better than -105 dBm?
-- [ ] **Configuration:** API Mode = 2?
-- [ ] **Network:** APN correct?
-- [ ] **Server:** ThingsBoard device active?
-- [ ] **Code:** Correct access token?
+- **Power:** Battery >3.3V?
+- **Hardware:** XBee seated properly?
+- **SIM:** Active and inserted correctly?
+- **Signal:** RSSI better than -105 dBm?
+- **Configuration:** API Mode = 2?
+- **Network:** APN correct?
+- **Server:** ThingsBoard device active?
+- **Code:** Correct access token?
 
 **If all checked and still failing:** Continue to detailed diagnostics below.
 
@@ -119,8 +119,8 @@ Some carriers only support LTE-M OR NB-IoT:
 2. Read configuration
 3. Current NT value?
 4. Try opposite:
-   - If NT=0 (LTE-M): Change to NT=1 (NB-IoT)
-   - If NT=1 (NB-IoT): Change to NT=0 (LTE-M)
+ - If NT=0 (LTE-M): Change to NT=1 (NB-IoT)
+ - If NT=1 (NB-IoT): Change to NT=0 (LTE-M)
 5. Write configuration
 6. Retest connection
 
@@ -219,9 +219,9 @@ IP address obtained
 **Solutions:**
 
 1. **Improve antenna position:**
-   - Higher elevation
-   - Away from obstacles
-   - External antenna if using internal
+    - Higher elevation
+    - Away from obstacles
+    - External antenna if using internal
 
 2. **Add retry logic** (code modification):
    ```cpp
@@ -601,45 +601,45 @@ MY      // IP address
 ### Regular Checks
 
 **Weekly:**
-- [ ] Check battery voltage trend
-- [ ] Verify transmission success rate >90%
-- [ ] Review signal strength (should be consistent)
+- Check battery voltage trend
+- Verify transmission success rate >90%
+- Review signal strength (should be consistent)
 
 **Monthly:**
-- [ ] Check SIM data usage vs. plan
-- [ ] Inspect XBee physical condition (corrosion, etc.)
-- [ ] Verify firmware up to date
+- Check SIM data usage vs. plan
+- Inspect XBee physical condition (corrosion, etc.)
+- Verify firmware up to date
 
 **Quarterly:**
-- [ ] Test logger retrieval and reconfiguration
-- [ ] Clean antenna connections
-- [ ] Review and update server endpoints if needed
+- Test logger retrieval and reconfiguration
+- Clean antenna connections
+- Review and update server endpoints if needed
 
 ### Optimization
 
 **Maximize reliability:**
 
 1. **Signal strength:**
-   - Use external antenna in marginal locations
-   - Elevate logger if possible
+ - Use external antenna in marginal locations
+ - Elevate logger if possible
 
 2. **Power:**
-   - Size battery for 2× expected transmissions
-   - Monitor voltage, replace proactively
+ - Size battery for 2× expected transmissions
+ - Monitor voltage, replace proactively
 
 3. **Transmission interval:**
-   - Balance freshness vs. battery life
-   - More frequent during events, less during stable conditions
+ - Balance freshness vs. battery life
+ - More frequent during events, less during stable conditions
 
 4. **Retry logic:**
-   - Max 3 retries
-   - Exponential backoff (5s, 30s, 60s)
-   - Log failures to SD card
+ - Max 3 retries
+ - Exponential backoff (5s, 30s, 60s)
+ - Log failures to SD card
 
 5. **Monitoring:**
-   - Set up ThingsBoard alerts
-   - Email on: No data for 2× expected interval
-   - Email on: Battery < 3.5V
+ - Set up ThingsBoard alerts
+ - Email on: No data for 2× expected interval
+ - Email on: Battery < 3.5V
 
 ---
 
@@ -655,28 +655,28 @@ MY      // IP address
 **Gather information before contacting:**
 
 1. **Logger details:**
-   - Model (Wari, Lidar)
-   - Firmware version
-   - Logger ID
+ - Model (Wari, Lidar)
+ - Firmware version
+ - Logger ID
 
 2. **XBee details:**
-   - Model (XB3-C-A2-XX-001)
-   - Firmware version
-   - Configuration (export profile)
+ - Model (XB3-C-A2-XX-001)
+ - Firmware version
+ - Configuration (export profile)
 
 3. **SIM/Carrier:**
-   - Carrier name
-   - Plan details
-   - APN
+ - Carrier name
+ - Plan details
+ - APN
 
 4. **Symptoms:**
-   - Specific error messages
-   - Serial Monitor logs
-   - ThingsBoard screenshots
+ - Specific error messages
+ - Serial Monitor logs
+ - ThingsBoard screenshots
 
 5. **Diagnostics performed:**
-   - Tests run
-   - Results
+ - Tests run
+ - Results
 
 ### Support Resources
 
