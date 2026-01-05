@@ -74,42 +74,175 @@ Battery voltage indicates remaining capacity, but the voltage ranges differ betw
 
 #### LiPo (3.7V Nominal) Batteries
 
-| Voltage | State of Charge | Status | Action |
-|---------|----------------|--------|--------|
-| **4.20V** | 100% | Fresh/Fully Charged | Optimal |
-| **4.10V** | ~95% | Excellent | Normal operation |
-| **4.00V** | ~85% | Very Good | Normal operation |
-| **3.90V** | ~75% | Good | Normal operation |
-| **3.80V** | ~60% | Fair | Monitor |
-| **3.70V** | ~45% | Nominal | Plan replacement |
-| **3.60V** | ~30% | Low | Replace soon |
-| **3.50V** | ~20% | Very Low | Replace immediately |
-| **3.40V** | ~10% | Critical | **Replace now** |
-| **3.30V** | ~5% | Emergency | **Imminent failure** |
-| **3.00V** | 0% | Depleted | Logger may stop |
-| **<3.00V** | Over-discharged | Damaged | Battery may be ruined |
+<table>
+<thead>
+<tr>
+<th>Voltage</th>
+<th>State of Charge</th>
+<th>Status</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr style="background-color: #22c55e; color: white;">
+<td><strong>4.20V</strong></td>
+<td>100%</td>
+<td>Fresh/Fully Charged</td>
+<td>Optimal</td>
+</tr>
+<tr style="background-color: #4ade80; color: white;">
+<td><strong>4.10V</strong></td>
+<td>~95%</td>
+<td>Excellent</td>
+<td>Normal operation</td>
+</tr>
+<tr style="background-color: #86efac;">
+<td><strong>4.00V</strong></td>
+<td>~85%</td>
+<td>Very Good</td>
+<td>Normal operation</td>
+</tr>
+<tr style="background-color: #bbf7d0;">
+<td><strong>3.90V</strong></td>
+<td>~75%</td>
+<td>Good</td>
+<td>Normal operation</td>
+</tr>
+<tr style="background-color: #d9f99d;">
+<td><strong>3.80V</strong></td>
+<td>~60%</td>
+<td>Fair</td>
+<td>Monitor</td>
+</tr>
+<tr style="background-color: #fde047;">
+<td><strong>3.70V</strong></td>
+<td>~45%</td>
+<td>Nominal</td>
+<td>Plan replacement</td>
+</tr>
+<tr style="background-color: #fbbf24;">
+<td><strong>3.60V</strong></td>
+<td>~30%</td>
+<td>Low</td>
+<td>Replace soon</td>
+</tr>
+<tr style="background-color: #fb923c;">
+<td><strong>3.50V</strong></td>
+<td>~20%</td>
+<td>Very Low</td>
+<td>Replace immediately</td>
+</tr>
+<tr style="background-color: #f97316; color: white;">
+<td><strong>3.40V</strong></td>
+<td>~10%</td>
+<td>Critical</td>
+<td><strong>Replace now</strong></td>
+</tr>
+<tr style="background-color: #dc2626; color: white;">
+<td><strong>3.30V</strong></td>
+<td>~5%</td>
+<td>Emergency</td>
+<td><strong>Imminent failure</strong></td>
+</tr>
+<tr style="background-color: #991b1b; color: white;">
+<td><strong>3.00V</strong></td>
+<td>0%</td>
+<td>Depleted</td>
+<td>Logger may stop</td>
+</tr>
+<tr style="background-color: #000000; color: white;">
+<td><strong>&lt;3.00V</strong></td>
+<td>Over-discharged</td>
+<td>Damaged</td>
+<td>Battery may be ruined</td>
+</tr>
+</tbody>
+</table>
 
 #### LiFePO4 (3.2V Nominal) Batteries
 
-| Voltage | State of Charge | Status | Action |
-|---------|----------------|--------|--------|
-| **3.65V** | 100% | Fresh/Fully Charged | Optimal |
-| **3.40V** | ~95% | Excellent | Normal operation |
-| **3.30V** | ~75% | Very Good | Normal operation |
-| **3.25V** | ~50% | Good | Normal operation |
-| **3.20V** | ~40% | Fair | Monitor |
-| **3.10V** | ~20% | Low | Replace soon |
-| **3.00V** | ~10% | Very Low | Replace immediately |
-| **2.90V** | ~5% | Critical | **Replace now** |
-| **2.70V** | ~2% | Emergency | **Imminent failure** |
-| **2.50V** | 0% | Depleted | Logger will stop |
-| **<2.50V** | Over-discharged | Damaged | Battery may be ruined |
+<table>
+<thead>
+<tr>
+<th>Voltage</th>
+<th>State of Charge</th>
+<th>Status</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr style="background-color: #22c55e; color: white;">
+<td><strong>3.65V</strong></td>
+<td>100%</td>
+<td>Fresh/Fully Charged</td>
+<td>Optimal</td>
+</tr>
+<tr style="background-color: #4ade80; color: white;">
+<td><strong>3.40V</strong></td>
+<td>~95%</td>
+<td>Excellent</td>
+<td>Normal operation</td>
+</tr>
+<tr style="background-color: #86efac;">
+<td><strong>3.30V</strong></td>
+<td>~75%</td>
+<td>Very Good</td>
+<td>Normal operation</td>
+</tr>
+<tr style="background-color: #bbf7d0;">
+<td><strong>3.25V</strong></td>
+<td>~50%</td>
+<td>Good</td>
+<td>Normal operation</td>
+</tr>
+<tr style="background-color: #d9f99d;">
+<td><strong>3.20V</strong></td>
+<td>~40%</td>
+<td>Fair</td>
+<td>Monitor</td>
+</tr>
+<tr style="background-color: #fbbf24;">
+<td><strong>3.10V</strong></td>
+<td>~20%</td>
+<td>Low</td>
+<td>Replace soon</td>
+</tr>
+<tr style="background-color: #fb923c;">
+<td><strong>3.00V</strong></td>
+<td>~10%</td>
+<td>Very Low</td>
+<td>Replace immediately</td>
+</tr>
+<tr style="background-color: #f97316; color: white;">
+<td><strong>2.90V</strong></td>
+<td>~5%</td>
+<td>Critical</td>
+<td><strong>Replace now</strong></td>
+</tr>
+<tr style="background-color: #dc2626; color: white;">
+<td><strong>2.70V</strong></td>
+<td>~2%</td>
+<td>Emergency</td>
+<td><strong>Imminent failure</strong></td>
+</tr>
+<tr style="background-color: #991b1b; color: white;">
+<td><strong>2.50V</strong></td>
+<td>0%</td>
+<td>Depleted</td>
+<td>Logger will stop</td>
+</tr>
+<tr style="background-color: #000000; color: white;">
+<td><strong>&lt;2.50V</strong></td>
+<td>Over-discharged</td>
+<td>Damaged</td>
+<td>Battery may be ruined</td>
+</tr>
+</tbody>
+</table>
 
 !!! info "Flatter Discharge Curve"
     LiFePO4 batteries maintain voltage more consistently throughout discharge. They stay around 3.2-3.3V for most of their capacity, then drop quickly when depleted.
 
-![Battery voltage discharge curve](../../images/battery-discharge-curve.png)
-*Typical 18650 discharge curve under logger load*
 
 ### Reading Battery Voltage
 
@@ -252,10 +385,10 @@ Battery voltage indicates remaining capacity, but the voltage ranges differ betw
 
 ## Next Steps
 
-- 🔧 [Internal Components](internal-components.md) - Understanding your logger's hardware
-- 🛠️ [Maintenance Guide](maintenance.md) - Regular upkeep procedures
-- 📊 [ThingsBoard](../telemetry/thingsboard-configuration.md) - Monitor battery voltage remotely
-- 🚨 [Troubleshooting](../troubleshooting/common-issues.md) - Power-related issues
+-  [Internal Components](internal-components.md) - Understanding your logger's hardware
+-  [Maintenance Guide](maintenance.md) - Regular upkeep procedures
+-  [ThingsBoard](../telemetry/thingsboard-configuration.md) - Monitor battery voltage remotely
+-  [Troubleshooting](../troubleshooting/common-issues.md) - Power-related issues
 
 ---
 

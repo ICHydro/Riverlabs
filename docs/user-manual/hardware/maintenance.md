@@ -144,27 +144,27 @@ If accessible and time permits:
 
 1. **Enclosure integrity**
 
-   - No cracks, scratches, or damage
-   - All screws/fasteners present and tight
-   - Gaskets/seals in good condition
-   - Cable glands tight and sealed
-   - No water marks inside
+    - No cracks, scratches, or damage
+    - All screws/fasteners present and tight
+    - Gaskets/seals in good condition
+    - Cable glands tight and sealed
+    - No water marks inside
 
 2. **Mounting security**
 
-   - Mounting hardware tight
-   - No corrosion on brackets/ties
-   - Zip ties not brittle (replace if degraded)
-   - No movement or wobble
-   - Alignment still correct
+    - Mounting hardware tight
+    - No corrosion on brackets/ties
+    - Zip ties not brittle (replace if degraded)
+    - No movement or wobble
+    - Alignment still correct
 
 3. **Environmental factors**
 
-   - Vegetation trimmed (clear zones maintained)
-   - No new nearby obstructions
-   - Sun shield intact (if present)
-   - Bird deterrents working
-   - No animal activity
+    - Vegetation trimmed (clear zones maintained)
+    - No new nearby obstructions
+    - Sun shield intact (if present)
+    - Bird deterrents working
+    - No animal activity
 
 **2. Internal Inspection (10 min)**
 
@@ -172,69 +172,69 @@ Open enclosure and inspect:
 
 1. **No moisture inside**
 
-   - Desiccant dry (replace if saturated)
-   - No condensation on PCB
-   - No corrosion on components
+    - Desiccant dry (replace if saturated)
+    - No condensation on PCB
+    - No corrosion on components
 
 2. **Battery condition**
 
-   - No swelling or damage
-   - Contacts clean and shiny
-   - Good mechanical connection
+    - No swelling or damage
+    - Contacts clean and shiny
+    - Good mechanical connection
 
 3. **SD card**
 
-   - Seated properly
-   - No physical damage
-   - Recent data present
+    - Seated properly
+    - No physical damage
+    - Recent data present
 
 4. **Connections**
 
-   - Sensor cable secure
-   - No frayed wires
-   - Solder joints intact
-   - XBee seated (if present)
+    - Sensor cable secure
+    - No frayed wires
+    - Solder joints intact
+    - XBee seated (if present)
 
 5. **Visual PCB check**
 
-   - No burn marks
-   - No corrosion
-   - All components present
-   - No loose parts rattling
+    - No burn marks
+    - No corrosion
+    - All components present
+    - No loose parts rattling
 
 **3. Functional Testing (10 min)**
 
 1. **Power test**
 
-   - Logger powers on
-   - LED sequence normal
-   - No error indicators
+    - Logger powers on
+    - LED sequence normal
+    - No error indicators
 
 2. **Clock check**
 
-   - Time accurate (within 1 minute)
-   - Date correct
-   - If off: Re-set using set_clock.ino
+    - Time accurate (within 1 minute)
+    - Date correct
+    - If off: Re-set using set_clock.ino
 
 3. **Sensor test**
 
-   - Take several test readings
-   - Values reasonable and consistent
-   - No error messages
-   - Standard deviation acceptable
+    - Take several test readings
+    - Values reasonable and consistent
+    - No error messages
+    - Standard deviation acceptable
 
 4. **SD card test**
 
-   - Card readable
-   - Recent data present
-   - Files not corrupted
-   - Free space adequate
+    - Card readable
+    - Recent data present
+    - Files not corrupted
+    - Free space adequate
 
 5. **Telemetry test** (if applicable)
 
-   - XBee LED activity
-   - Recent successful transmission
-   - Signal strength adequate
+    - XBee LED activity
+    - Recent successful transmission
+    - Signal strength adequate
 
 
 **5. Data Management (5 min)**
