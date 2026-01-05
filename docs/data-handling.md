@@ -29,8 +29,8 @@ flowchart TD
     F --> G
 ```
 
-
-!!! danger Do not take out the SD card while the LED light is on, as this may damage the card and make it unreadable.**
+!!! danger "Data Safety Warning"
+    Do not take out the SD card while the LED light is on, as this may damage the card and make it unreadable.
 
 ## Inserting and removing the SD card
 
