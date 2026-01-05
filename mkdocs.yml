@@ -95,7 +95,6 @@ nav:
     - Quick Start:
       - Quick Start Guide: user-manual/quick-start/quick-start.md
       - Arduino Setup: user-manual/quick-start/arduino-setup.md
-      - Logger Identification: user-manual/quick-start/logger-identification.md
       - First Deployment Checklist: user-manual/quick-start/first-deployment-checklist.md
     - Installation:
       - Mounting Guide: user-manual/installation/mounting-guide.md

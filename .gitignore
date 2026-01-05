@@ -36,3 +36,20 @@
 
 # other
 .DS_Store
+
+# MkDocs
+site/
+.cache/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+.venv/
+venv/
+ENV/
+env/
+
+# Jekyll backup
+docs_jekyll_backup/
