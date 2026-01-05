@@ -241,156 +241,63 @@ Mechanical brackets provide the most secure mounting, ideal for bridges, buildin
 ### Bracket Types
 
 **L-Bracket (Simple):**
-- Attach logger to one side
-- Mount bracket to surface with bolts/screws
-- Good for flat surfaces
-- Easy adjustment
+
+   - Attach logger to one side
+   - Mount bracket to surface with bolts/screws
+   - Good for flat surfaces
+   - Easy adjustment
 
 **U-Channel (Pipe/Post):**
-- Wraps around pipe or post
-- Secure with through-bolts
-- Excellent for round structures
-- Anti-rotation
 
-**Custom Fabrication:**
-- Perfect fit for specific applications
-- Can include cable management
-- Professional appearance
-
+   - Wraps around pipe or post
+   - Secure with through-bolts
+   - Excellent for round structures
+   - Anti-rotation
 
 ### Installation Steps
 
 1. **Design/Select Bracket**
+
    - Consider logger dimensions
    - Plan for cable routing
    - Include drainage holes
    - Allow for removal/maintenance access
 
 2. **Mark Mounting Holes**
+
    - Position bracket in place
    - Use level to ensure orientation
    - Mark hole locations
    - Double-check measurements
 
 3. **Drill Pilot Holes**
+
    - Use appropriate bit for substrate
    - Drill to required depth
    - Clean holes of debris
    - Insert anchors if needed
 
 4. **Attach Bracket to Surface**
+
    - Install fasteners loosely first
    - Verify alignment
    - Tighten in star pattern
    - Torque to specification (don't over-tighten)
 
 5. **Mount Logger to Bracket**
+
    - Position logger on bracket
    - Install mounting hardware
    - Use anti-vibration washers
    - Secure but don't crush housing
 
 6. **Cable Management**
+
    - Route cables neatly
    - Use cable ties or clips
    - Provide strain relief
    - Weatherproof all connections
 
----
-## Sensor Positioning Requirements
-
-### General Clearance Requirements
-
-!!! warning "Critical: Sensor Must Have Clear Path to Target"
-    Obstructions in the sensor's path will cause measurement errors or complete failure.
-
-#### Wari (Ultrasound)
-
-**Beam Characteristics:**
-- Cone angle: ~15° (spreads with distance)
-- At 1m: ~26cm diameter footprint
-- At 3m: ~80cm diameter footprint
-- At 5m: ~130cm diameter footprint
-
-**Minimum Clearances:**
-- **Horizontal:** 0.2m from any obstacle
-- **Recommended:** 0.5m for reliable operation
-- Mount **vertically** whenever possible
-- Keep sensor face clean and unobstructed
-
-![Ultrasound beam pattern](../../images/ultrasound-beam-pattern.png)
-*Ultrasound beam divergence and clearance requirements*
-
-#### Lidar
-
-**Beam Characteristics:**
-- Beam divergence: 8 milliradians (~0.5° effective)
-- Very tight beam, minimal spread
-- At 10m: ~8cm spot size
-- At 35m: ~28cm spot size
-
-**Minimum Clearances:**
-- **Horizontal:** 0.05m (minimal clearance needed)
-- Can work in tight spaces
-- Angled mounting acceptable (up to 40°)
-- Keep lens clean
-
-![Lidar beam pattern](../../images/lidar-beam-pattern.png)
-*Lidar narrow beam and angle capability*
-
-### Mounting Orientation
-
-#### Vertical Mounting (Preferred)
-
-✅ **Best for both sensor types**
-- Most accurate readings
-- Simpler calculations
-- No angle corrections needed
-- Standard configuration
-
-**Installation:**
-1. Use level or plumb bob
-2. Verify vertical alignment
-3. Secure before tightening fully
-4. Recheck after tightening
-
-#### Angled Mounting
-
-!!! info "Lidar Only - Up to 40° from Vertical"
-    Wari (ultrasound) accuracy degrades significantly with angle. Lidar can operate up to 40° with minimal impact.
-
-**For Lidar Angled Installation:**
-- Maximum angle: 40° from vertical
-- Accuracy loss: <1% up to 40°
-- Record angle for data processing
-- Ensure target surface visible at angle
-- Consider angle in distance calculations
-
-**Angle Correction Formula:**
-```
-Vertical Distance = Measured Distance × cos(angle)
-```
-
-**Example:** At 30° angle, 10m measurement = 8.66m vertical distance
-
-![Angled mounting diagram](../../images/angled-mounting.png)
-*Lidar angled mounting and correction calculation*
-
-### Target Surface Considerations
-
-**Water Surfaces:**
-- Calm water: Good reflectivity (both sensors)
-- Turbulent water: Better for ultrasound
-- Clear/smooth water: Poor for lidar (use ultrasound)
-- Sediment-laden water: Excellent for lidar
-
-**Distance from Target:**
-- **Wari:** 0.3m minimum, 4.5m practical maximum
-- **Lidar:** 0.05m minimum, 35m maximum (reflectivity dependent)
-- Allow margin for water level variation
-- Account for extreme high water events
-
----
 
 ## Waiver and Disclaimer
 
