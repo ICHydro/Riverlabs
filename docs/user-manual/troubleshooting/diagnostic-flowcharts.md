@@ -18,28 +18,21 @@
 ### Symptom
 Logger appears to power on but no new data appears on SD card.
 
-```
-┌─────────────────────────────────┐
-│  Logger Won't Record Data       │
-└────────────┬────────────────────┘
-             │
-             ▼
-      Does LED blink?
-             │
-      ┌──────┴──────┐
-     No             Yes
-      │              │
-      ▼              ▼
-Is battery      SD card LED
-  >3.3V?        or Power LED?
-      │              │
-  ┌───┴───┐      ┌───┴───┐
- No      Yes    SD    Power
-  │       │      │      │
-  ▼       ▼      ▼      ▼
-Replace  Check  Go to  Logger is
-battery  power  SD     recording
-         wiring Flow   (check card)
+```mermaid
+flowchart TD
+    A[Logger Won't Record Data] --> B{Does LED blink?}
+    B -->|No| C{Is battery >3.3V?}
+    B -->|Yes| D{SD card LED<br/>or Power LED?}
+    C -->|No| E[Replace battery]
+    C -->|Yes| F[Check power wiring]
+    D -->|SD card LED| G[Go to SD card<br/>Flow below]
+    D -->|Power LED| H[Logger is recording<br/>check card]
+    
+    style A fill:#dc2626,stroke:#991b1b,stroke-width:2px,color:#fff
+    style E fill:#10b981,stroke:#059669,stroke-width:2px,color:#fff
+    style F fill:#f59e0b,stroke:#d97706,stroke-width:2px,color:#000
+    style G fill:#3b82f6,stroke:#2563eb,stroke-width:2px,color:#fff
+    style H fill:#10b981,stroke:#059669,stroke-width:2px,color:#fff
 ```
 
 ### Full Decision Tree
@@ -118,23 +111,19 @@ battery  power  SD     recording
 ### Symptom
 Logger records data but values are incorrect, constant, or erratic.
 
-```
-┌─────────────────────────────────┐
-│  Sensor Readings Wrong          │
-└────────────┬────────────────────┘
-             │
-             ▼
-    What's the symptom?
-             │
-      ┌──────┼──────┬──────┐
-      │      │      │      │
-  Always  Changes  Random  Negative
-   same    slowly   jumps   values
-      │      │      │      │
-      ▼      ▼      ▼      ▼
-  Sensor  Temp or  Noise/  Install
-  frozen  fouling  EMI     height
-                           error
+```mermaid
+flowchart TD
+    A[Sensor Readings Wrong] --> B{What's the<br/>symptom?}
+    B -->|Always same| C[Sensor frozen]
+    B -->|Changes slowly| D[Temp or fouling]
+    B -->|Random jumps| E[Noise/EMI]
+    B -->|Negative values| F[Install height<br/>error]
+    
+    style A fill:#dc2626,stroke:#991b1b,stroke-width:2px,color:#fff
+    style C fill:#f59e0b,stroke:#d97706,stroke-width:2px,color:#000
+    style D fill:#fbbf24,stroke:#f59e0b,stroke-width:2px,color:#000
+    style E fill:#ef4444,stroke:#dc2626,stroke-width:2px,color:#fff
+    style F fill:#3b82f6,stroke:#2563eb,stroke-width:2px,color:#fff
 ```
 
 ### Full Decision Tree
@@ -229,35 +218,24 @@ Logger records data but values are incorrect, constant, or erratic.
 ### Symptom
 Logger records to SD card but ThingsBoard receives no data.
 
-```
-┌─────────────────────────────────┐
-│  No Telemetry Data              │
-└────────────┬────────────────────┘
-             │
-             ▼
-    Does SD card work?
-             │
-      ┌──────┴──────┐
-     No             Yes
-      │              │
-      ▼              ▼
-   Fix SD      Is XBee
-  first!      installed?
-      │              │
-      └──────┬───┌───┴───┐
-             │  No      Yes
-             │   │       │
-             ▼   ▼       ▼
-         (Done) Add   Is SIM
-                XBee  active?
-                       │
-                  ┌────┴────┐
-                 No        Yes
-                  │          │
-                  ▼          ▼
-              Activate    Go to
-               SIM      Network
-                        Flowchart
+```mermaid
+flowchart TD
+    A[No Telemetry Data] --> B{Does SD card<br/>work?}
+    B -->|No| C[Fix SD first!]
+    B -->|Yes| D{Is XBee<br/>installed?}
+    D -->|No| E[Add XBee]
+    D -->|Yes| F{Is SIM active?}
+    F -->|No| G[Activate SIM]
+    F -->|Yes| H[Go to Network<br/>Flowchart]
+    C --> I[Done]
+    E --> I
+    
+    style A fill:#dc2626,stroke:#991b1b,stroke-width:2px,color:#fff
+    style C fill:#f59e0b,stroke:#d97706,stroke-width:2px,color:#000
+    style E fill:#fbbf24,stroke:#f59e0b,stroke-width:2px,color:#000
+    style G fill:#3b82f6,stroke:#2563eb,stroke-width:2px,color:#fff
+    style H fill:#10b981,stroke:#059669,stroke-width:2px,color:#fff
+    style I fill:#8b5cf6,stroke:#7c3aed,stroke-width:2px,color:#fff
 ```
 
 ### Full Decision Tree
@@ -352,26 +330,18 @@ Logger records to SD card but ThingsBoard receives no data.
 ### Symptom
 Battery voltage drops faster than expected.
 
-```
-┌─────────────────────────────────┐
-│  Battery Drains Too Fast        │
-└────────────┬────────────────────┘
-             │
-             ▼
-    With or without telemetry?
-             │
-      ┌──────┴──────┐
-   Without        With
-  Telemetry    Telemetry
-      │            │
-      ▼            ▼
-  Logging      Transmit
-  interval     frequency
-    too         too high
-   short          │
-      │           ▼
-      └──────> Optimize
-               settings
+```mermaid
+flowchart TD
+    A[Battery Drains<br/>Too Fast] --> B{With or without<br/>telemetry?}
+    B -->|Without| C[Logging interval<br/>too short]
+    B -->|With| D[Transmit frequency<br/>too high]
+    C --> E[Optimize settings]
+    D --> E
+    
+    style A fill:#dc2626,stroke:#991b1b,stroke-width:2px,color:#fff
+    style C fill:#f59e0b,stroke:#d97706,stroke-width:2px,color:#000
+    style D fill:#fbbf24,stroke:#f59e0b,stroke-width:2px,color:#000
+    style E fill:#10b981,stroke:#059669,stroke-width:2px,color:#fff
 ```
 
 ### Full Decision Tree
@@ -461,28 +431,18 @@ Battery voltage drops faster than expected.
 ### Symptom
 SD card won't initialize, data corrupted, or filesystem errors.
 
-```
-┌─────────────────────────────────┐
-│  SD Card Issues                 │
-└────────────┬────────────────────┘
-             │
-             ▼
-    Can computer read the card?
-             │
-      ┌──────┴──────┐
-     No             Yes
-      │              │
-      ▼              ▼
-   Card     Is card >32GB
-  failed    or wrong format?
-             │
-      ┌──────┴──────┐
-     Yes            No
-      │              │
-      ▼              ▼
-   Format     Is card
-  as FAT32    write-
-   <32GB     protected?
+```mermaid
+flowchart TD
+    A[SD Card Issues] --> B{Can computer<br/>read the card?}
+    B -->|No| C[Card failed]
+    B -->|Yes| D{Is card >32GB<br/>or wrong format?}
+    D -->|Yes| E[Format as FAT32<br/><32GB]
+    D -->|No| F{Is card<br/>write-protected?}
+    
+    style A fill:#dc2626,stroke:#991b1b,stroke-width:2px,color:#fff
+    style C fill:#ef4444,stroke:#dc2626,stroke-width:2px,color:#fff
+    style E fill:#3b82f6,stroke:#2563eb,stroke-width:2px,color:#fff
+    style F fill:#fbbf24,stroke:#f59e0b,stroke-width:2px,color:#000
 ```
 
 ### Full Decision Tree
