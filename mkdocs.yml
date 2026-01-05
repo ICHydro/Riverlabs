@@ -11,7 +11,7 @@ theme:
   name: material
   language: en
   logo: images/riverlabs_white_mono.svg
-  favicon: images/riverlabs_logo.png
+  favicon: images/riverlabs_icon.svg
   palette:
     # Palette toggle for light mode
     - media: "(prefers-color-scheme: light)"
