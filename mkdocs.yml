@@ -104,7 +104,6 @@ nav:
     - Hardware:
       - Technical Specifications: techspec.md
       - Battery & Power Guide: user-manual/hardware/battery-power-guide.md
-      - Internal Components: user-manual/hardware/internal-components.md
       - Maintenance: user-manual/hardware/maintenance.md
       - Data Handling: data-handling.md
     - Configuration:
@@ -121,6 +120,8 @@ nav:
     - Programming:
       - Arduino Setup: arduino.md
       - Uploading Code: upload.md
+    - Hardware:
+      - Internal Components: developer-manual/hardware/internal-components.md
     - Technical Reference:
       - Installation Details: installation.md
       - ThingsBoard Integration: thingsboard.md
