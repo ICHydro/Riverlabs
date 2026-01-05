@@ -104,14 +104,19 @@ If no port appears, check that FTDI drivers are properly installed.
 
 ## Understanding the Arduino IDE
 
-The Arduino IDE has a straightforward interface:
+The Arduino IDE has a straightforward interface with two main windows:
 
-**Main Components:**
+### Main Components
 
-- **Editor Window** (top) - Where you write and edit your code
-- **Information Window** (bottom) - Shows compilation output, upload progress, and errors
-- **Toolbar** (top) - Quick access buttons for common actions
-- **Tools Menu** - Board settings, port selection, and other configuration options
+![Arduino IDE Overview](../../images/arduino1.jpg)
+*The Arduino IDE showing the editor window (top) and information window (bottom)*
+
+**Editor Window** (top) - This is where you write and edit your code. Arduino uses a language very similar to C++. Each program (called a "sketch") consists of two main functions:
+
+- `setup()` - Runs once when the logger powers on
+- `loop()` - Runs repeatedly while the logger is powered
+
+**Information Window** (bottom) - Displays compilation output, upload progress, and any errors that occur during the process.
 
 **Important Toolbar Buttons:**
 
@@ -119,11 +124,26 @@ The Arduino IDE has a straightforward interface:
 - → **Upload** - Compiles and uploads code to your logger
 - **Serial Monitor** - View real-time serial output from your logger
 
-!!! tip "Arduino Language"
-    Arduino uses a language very similar to C++. Each program (called a "sketch") has two main functions:
+### Board Settings
+
+The **Tools** menu is where you configure critical settings for your logger:
+
+![Arduino Board Settings](../../images/arduino2.jpg)
+*Board and processor settings in the Tools menu*
+
+As mentioned in Step 4, you must select:
+
+- **Board:** Arduino Pro or Pro Mini
+- **Processor:** ATmega328P (3.3V, 8MHz)
+- **Port:** Your FTDI cable's serial port
+
+!!! example "Testing with Blink"
+    Arduino comes with many example sketches. The classic "Blink" example (`File → Examples → 01.Basics → Blink`) can be adapted for Riverlabs loggers by replacing `LED_BUILTIN` with:
     
-    - `setup()` - Runs once when the logger powers on
-    - `loop()` - Runs repeatedly while the logger is powered
+    - `8` for Wari loggers
+    - `A2` for WMOnode loggers
+    
+    This will make the onboard LED blink, confirming your setup is working!
 
 ## Next Steps
 

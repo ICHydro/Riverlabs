@@ -106,16 +106,16 @@ nav:
       - Battery & Power Guide: user-manual/hardware/battery-power-guide.md
       - Maintenance: user-manual/hardware/maintenance.md
       - Data Handling: data-handling.md
-    - Configuration:
-      - Getting Started: start.md
-      - Telemetry Setup Guide: user-manual/telemetry/setup-guide.md
+    - Telemetry Configuration:
+      - Cellular Setup Guide: user-manual/telemetry/setup-guide.md
+      - LoRa / LoRaWAN Guide: user-manual/telemetry/lora-lorawan-guide.md
       - ThingsBoard Configuration: user-manual/telemetry/thingsboard-configuration.md
       - XBee Setup Walkthrough: user-manual/telemetry/xbee-setup-walkthrough.md
       - Troubleshooting Connections: user-manual/telemetry/troubleshooting-connections.md
     - Troubleshooting:
       - Diagnostic Flowcharts: user-manual/troubleshooting/diagnostic-flowcharts.md
-      - Common Issues: user-manual/troubleshooting/common-issues.md
-      - FAQ: user-manual/troubleshooting/faq.md
+      # - Common Issues: user-manual/troubleshooting/common-issues.md
+      # - FAQ: user-manual/troubleshooting/faq.md
   - Developer Manual:
     - Programming:
       - Arduino Setup: arduino.md

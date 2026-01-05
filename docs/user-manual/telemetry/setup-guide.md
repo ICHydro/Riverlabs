@@ -167,17 +167,21 @@ Recommended plan: 5-10 MB/month
 **Installation Steps:**
 
 1. **Obtain activated SIM** from provider
+
 2. **Note APN settings** (provided by carrier)
-   - APN name (e.g., "m2m.com.attwireless.com")
-   - Username (if required)
-   - Password (if required)
+    - APN name (e.g., "m2m.com.attwireless.com")
+    - Username (if required)
+    - Password (if required)
+
 3. **Locate SIM slot** on XBee module
-   - Usually on underside
-   - Spring-loaded tray
+    - Usually on underside
+    - Spring-loaded tray
+
 4. **Insert SIM**
-   - Correct orientation (notched corner)
-   - Push until clicks
-   - Ensure fully seated
+    - Correct orientation (notched corner)
+    - Push until clicks
+    - Ensure fully seated
+
 5. **Record ICCID** (SIM card number for tracking)
 
 ---
@@ -273,9 +277,9 @@ Navigate through tabs and configure the following:
 2. Click **"Connect to Network"**
 3. Wait for connection (may take 30-60 seconds)
 4. Check for:
-   - Network registered: Yes
-   - Signal strength: >-100 dBm (stronger is better)
-   - IP address assigned
+    - Network registered: Yes
+    - Signal strength: >-100 dBm (stronger is better)
+    - IP address assigned
 
 **Troubleshooting Connection Issues:**
 
@@ -308,26 +312,26 @@ The telemetry configuration is set in the Arduino sketch (e.g., `wari_3G.ino`).
 **Adjust for Your Setup:**
 
 1. **TELEMETRY_INTERVAL**
-   - How often to transmit
-   - Example: If logging every 15 min, interval 4 = transmit hourly
-   - Higher interval = better battery life
+    - How often to transmit
+    - Example: If logging every 15 min, interval 4 = transmit hourly
+    - Higher interval = better battery life
 
 2. **SERVER_URL**
-   - Your ThingsBoard or server endpoint
-   - Include authentication token in URL
-   - See [ThingsBoard Configuration](thingsboard-configuration.md) for details
+    - Your ThingsBoard or server endpoint
+    - Include authentication token in URL
+    - See [ThingsBoard Configuration](thingsboard-configuration.md) for details
 
 3. **XBEE_BAUD**
-   - Must match XBee BD setting
-   - Default: 9600
+    - Must match XBee BD setting
+    - Default: 9600
 
 ### Upload Code
 
 1. **Connect logger** via FTDI cable
 2. **Open Arduino IDE**
 3. **Load appropriate sketch**
-   - `wari_3G.ino` for Wari with telemetry
-   - `wari_lidar_cellular.ino` for Lidar with telemetry
+    - `wari_3G.ino` for Wari with telemetry
+    - `wari_lidar_cellular.ino` for Lidar with telemetry
 4. **Verify settings** above are correct
 5. **Compile** (check for errors)
 6. **Upload** to logger
@@ -341,6 +345,7 @@ The telemetry configuration is set in the Arduino sketch (e.g., `wari_3G.ino`).
 ### Bench Test Before Deployment
 
 **Setup:**
+
 1. Logger with XBee installed (SIM card in place)
 2. Power on with charged battery
 3. Serial monitor connected (optional but recommended)
@@ -349,30 +354,30 @@ The telemetry configuration is set in the Arduino sketch (e.g., `wari_3G.ino`).
 **Test Procedure:**
 
 1. **Power On**
-   - Logger boots
-   - Initializes XBee
-   - XBee connects to network (watch LED)
+    - Logger boots
+    - Initializes XBee
+    - XBee connects to network (watch LED)
 
 2. **Wait for Measurement**
-   - Logger takes measurement(s)
-   - Stores to SD card
-   - Prepares telemetry packet
+    - Logger takes measurement(s)
+    - Stores to SD card
+    - Prepares telemetry packet
 
 3. **Observe Transmission**
-   - XBee LED activity (if visible)
-   - Serial debug messages (if enabled):
-     ```
-     Connecting to network...
-     Network connected
-     Sending data...
-     HTTP POST: 200 OK
-     Transmission successful
-     ```
+    - XBee LED activity (if visible)
+    - Serial debug messages (if enabled):
+        ```
+        Connecting to network...
+        Network connected
+        Sending data...
+        HTTP POST: 200 OK
+        Transmission successful
+        ```
 
 4. **Verify Reception**
-   - Check ThingsBoard dashboard
-   - Data should appear within 1-2 minutes
-   - Verify timestamp and values correct
+    - Check ThingsBoard dashboard
+    - Data should appear within 1-2 minutes
+    - Verify timestamp and values correct
 
 **Expected Timing:**
 - Boot: 5-10 seconds
@@ -420,10 +425,10 @@ Before permanent installation:
 1. **Bring phone on same carrier** as SIM
 2. **Check signal strength** at installation location
 3. **Consider antenna position:**
-   - Vertical orientation often best
-   - Higher = better signal
-   - Away from metal obstructions
-   - Clear view of sky preferred
+    - Vertical orientation often best
+    - Higher = better signal
+    - Away from metal obstructions
+    - Clear view of sky preferred
 
 **Minimum Signal Requirements:**
 - LTE-M/NB-IoT: -110 dBm minimum, -90 dBm good
@@ -472,18 +477,18 @@ With telemetry (hourly transmission):
 **Optimization Strategies:**
 
 1. **Reduce transmission frequency**
-   - Measure every 15 min, transmit hourly
-   - 4× battery life improvement vs. transmit-every-measurement
+    - Measure every 15 min, transmit hourly
+    - 4× battery life improvement vs. transmit-every-measurement
 
 2. **Scheduled transmissions**
-   - Transmit once or twice daily
-   - Massive power savings
-   - SD card holds full resolution data
+    - Transmit once or twice daily
+    - Massive power savings
+    - SD card holds full resolution data
 
 3. **Adaptive transmission**
-   - Transmit frequently during events
-   - Reduce during stable conditions
-   - Requires more complex code
+    - Transmit frequently during events
+    - Reduce during stable conditions
+    - Requires more complex code
 
 See [Battery & Power Guide](../hardware/battery-power-guide.md) for detailed calculations.
 

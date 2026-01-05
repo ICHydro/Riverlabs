@@ -37,38 +37,34 @@ Each issue includes:
 **✅ Solution:**
 
 **Step 1: Check battery voltage**
-```
+
 - Disconnect battery from logger
 - Measure with multimeter: Red probe to red wire, black to black
 - Reading:
-  - 3.7-4.2V: Battery good → issue is in logger (go to Step 3)
-  - 2.5-3.5V: Battery discharged → charge/replace, retest
-  - <2.5V: Battery dead → replace (likely won't accept charge)
-  - 0V: No battery or complete failure → replace
-```
+    - 3.7-4.2V: Battery good → issue is in logger (go to Step 3)
+    - 2.5-3.5V: Battery discharged → charge/replace, retest
+    - <2.5V: Battery dead → replace (likely won't accept charge)
+    - 0V: No battery or complete failure → replace
 
 **Step 2: Inspect battery connector**
-```
+
 - JST connector properly inserted?
 - Pins making contact? (wiggle gently, does it power on intermittently?)
 - Correct polarity? (Red wire to + pad on PCB, black to -)
 - If backward: IMMEDIATELY disconnect! Check for damage (burned components, smell)
-```
 
 **Step 3: Test power switch**
-```
+
 - Toggle switch multiple times (may be dirty contacts)
 - If available: Bypass switch (temporary wire across switch terminals) for testing
 - Switch broken? Desolder and replace, or permanently bypass
-```
 
 **Step 4: Check for PCB damage**
-```
+
 - Visual inspection: burned components? broken traces?
 - Smell: burnt electronics smell?
 - Voltage regulator hot when battery connected? (regulator failure)
 - If PCB damaged: Professional repair or logger replacement
-```
 
 **⚙️ Prevention:**
 - Monitor battery voltage, replace before <3.3V
@@ -105,34 +101,32 @@ digitalWrite(XBEE_SLEEP_PIN, HIGH); // Sleep XBee when not transmitting
 ```
 
 **Step 2: Measure current draw**
-```
+
 - Equipment needed: Multimeter with current measurement (mA mode)
 - Disconnect battery, connect ammeter in series
 - Power on logger
 - Observe current:
-  - Sleep: <1 mA (good)
-  - Active/measuring: 50-100 mA (normal, brief)
-  - Continuous >50 mA: Not sleeping! (problem)
-```
+    - Sleep: <1 mA (good)
+    - Active/measuring: 50-100 mA (normal, brief)
+    - Continuous >50 mA: Not sleeping! (problem)
 
 **Step 3: Check serial debug output**
-```
+
 - Connect FTDI cable
 - Open Serial Monitor
 - Watch for:
-  - "Entering sleep" messages? (if not, sleep not triggered)
-  - "XBee timeout" or similar? (stuck waiting for XBee)
-  - Continuous output? (should be periodic, not constant)
-```
+    - "Entering sleep" messages? (if not, sleep not triggered)
+    - "XBee timeout" or similar? (stuck waiting for XBee)
+    - Continuous output? (should be periodic, not constant)
 
 **Step 4: Isolate telemetry**
-```
+
 If logger has XBee:
+
 - Remove XBee module
 - Test overnight with SD-only logging
 - If battery life good now: XBee configuration issue (SM not set to pin sleep)
 - If battery still drains: Issue is in logger code/hardware
-```
 
 **⚙️ Prevention:**
 - Test battery life in bench setup (overnight) before field deployment
@@ -177,35 +171,35 @@ Voltage   Approximate Remaining %
 **Note:** Percentage is non-linear and temperature/load dependent.
 
 **Step 1: Use voltage thresholds, not percentage**
-```
+
 Instead of:  "Battery at 50%"
 Use:         "Battery voltage: 3.7V" (more accurate)
 
 Alert thresholds:
+
 - 3.5V: Plan retrieval in next week
 - 3.4V: Retrieve within 2 days
 - 3.3V: Retrieve immediately (may not transmit)
-```
 
 **Step 2: Temperature compensation**
-```
+
 Cold weather causes temporary voltage drop:
+
 - Measured voltage may read 3.5V in 0°C
 - Actual capacity may be higher (warms up → voltage recovers)
 - Don't panic on single low reading in cold
 - Retrieve if multiple consecutive readings <3.4V
-```
 
 **Step 3: Battery aging**
-```
+
 LiPo batteries degrade over time:
+
 - New: Full 2600 mAh capacity
 - 1 year: ~90% capacity (2340 mAh)
 - 2 years: ~80% capacity (2080 mAh)
 - 3+ years: <70% capacity, replace
 
 Solution: Replace batteries annually for critical deployments
-```
 
 **⚙️ Prevention:**
 - Set alerts based on voltage, not percentage
@@ -232,55 +226,53 @@ Solution: Replace batteries annually for critical deployments
 **✅ Solution:**
 
 **Step 1: Check for sensor clicking**
-```
+
 - Power on logger
 - Hold sensor near ear (carefully, don't touch face)
 - Should hear: "tick" or "click" each measurement (every 15 sec or your interval)
 - Clicking: Sensor powered and transmitting → go to Step 2
 - Not clicking: Sensor not powered → go to Step 3
-```
 
 **Step 2: Sensor powered but no echo**
-```
+
 Causes of no echo:
+
 1. No target in beam path
-   - Too far: Move closer or use Lidar
-   - Aimed at sky: Re-aim toward target
+    - Too far: Move closer or use Lidar
+    - Aimed at sky: Re-aim toward target
 
 2. Target too absorbent
-   - Snow (fresh powder): Very absorbent
-   - Foam: Absorbs ultrasound
-   - Solution: Wait for snow to melt, or use Lidar
+    - Snow (fresh powder): Very absorbent
+    - Foam: Absorbs ultrasound
+    - Solution: Wait for snow to melt, or use Lidar
 
 3. Beam width too narrow, missing target
-   - Ultrasound beam: ~15-20° cone
-   - Small target (e.g., thin stream): May miss
-   - Solution: Aim more carefully, or use wider beam sensor
-```
+    - Ultrasound beam: ~15-20° cone
+    - Small target (e.g., thin stream): May miss
+    - Solution: Aim more carefully, or use wider beam sensor
 
 **Step 3: Sensor not powered**
-```
+
 - Disconnect sensor cable from logger
 - Check continuity:
-  - Cable pins to connector: Should have <1Ω resistance
-  - Cable damaged? (crushed, cut, corroded): Replace cable
+    - Cable pins to connector: Should have <1Ω resistance
+    - Cable damaged? (crushed, cut, corroded): Replace cable
 - Check PCB connector:
-  - Solder joints intact? (visual inspection)
-  - Pins making contact? (try re-seating cable)
+    - Solder joints intact? (visual inspection)
+    - Pins making contact? (try re-seating cable)
 - Test with multimeter:
-  - Measure voltage at sensor connector when logger active
-  - Should see 5V or 12V (depending on sensor model)
-  - No voltage: Power circuit failure on PCB
-```
+    - Measure voltage at sensor connector when logger active
+    - Should see 5V or 12V (depending on sensor model)
+    - No voltage: Power circuit failure on PCB
 
 **Step 4: Sensor replacement**
-```
+
 If all else fails:
+
 - Sensor may be internally failed (rare but possible)
 - Test: Swap sensor with known-good unit
 - If new sensor works: Original sensor dead
 - If new sensor also reads max range: Issue is aiming/target/environment, not sensor
-```
 
 **⚙️ Prevention:**
 - Careful aiming during installation (test before leaving site)
@@ -306,45 +298,42 @@ If all else fails:
 **✅ Solution:**
 
 **Step 1: Check temperature correlation**
-```
+
 - Plot distance vs. temperature over time
 - If strong correlation (distance increases when temp increases):
-  - Cause: Mounting structure expanding with heat
-  - Example: Metal mounting heats in sun, expands, sensor moves 5mm down
-  - Solution: 
-    a) Accept as natural variation (±50mm usually acceptable)
-    b) Use thermally stable mounting (minimize metal)
-    c) Temperature-compensate in post-processing
-```
+    - Cause: Mounting structure expanding with heat
+    - Example: Metal mounting heats in sun, expands, sensor moves 5mm down
+    - Solution: 
+        - a) Accept as natural variation (±50mm usually acceptable)
+        - b) Use thermally stable mounting (minimize metal)
+        - c) Temperature-compensate in post-processing
 
 **Step 2: Inspect mounting**
-```
+
 - Visual inspection of logger installation
 - Check:
-  - Zip ties tight? (may loosen over time)
-  - Screws/bolts tight?
-  - Mounting bracket bent or moved?
+    - Zip ties tight? (may loosen over time)
+    - Screws/bolts tight?
+    - Mounting bracket bent or moved?
 - Solution: Re-tighten, reinforce mounting
-```
 
 **Step 3: Check for vegetation**
-```
+
 - Inspect beam path
 - Growing vegetation? (grass, weeds, branches)
-  - New leaves in spring?
-  - Algae growing on target surface?
+    - New leaves in spring?
+    - Algae growing on target surface?
 - Solution: Trim vegetation, clean target
 - Prevention: Install with clear beam path, anticipate seasonal growth
-```
 
 **Step 4: Sensor calibration check**
-```
+
 Rarely needed, but to verify:
+
 - Measure known distance with tape measure (e.g., 2000mm)
 - Place target at that distance
 - Logger reading should match ±50mm
 - If off by >100mm: Sensor may need replacement
-```
 
 **⚙️ Prevention:**
 - Use thermally stable mounting materials
@@ -368,26 +357,26 @@ Rarely needed, but to verify:
 **✅ Solution:**
 
 **Step 1: Check for pattern**
-```
+
 - When do negatives occur?
-  - Randomly: I2C error (go to Step 2)
-  - All readings after certain value: Overflow (go to Step 3)
-  - During/after transmission: XBee interfering with I2C (go to Step 4)
-```
+    - Randomly: I2C error (go to Step 2)
+    - All readings after certain value: Overflow (go to Step 3)
+    - During/after transmission: XBee interfering with I2C (go to Step 4)
 
 **Step 2: I2C communication reliability**
-```
+
 I2C is sensitive to:
+
 - Wire length (keep <30cm)
 - Interference (EMI from nearby sources)
 - Poor connections (loose wires)
 
 Solutions:
-a) Add pull-up resistors (2.2kΩ or 4.7kΩ on SDA and SCL)
-b) Shorten I2C wires
-c) Add ferrite bead on cable
-d) Shield cable if near strong RF source
-```
+
+- a) Add pull-up resistors (2.2kΩ or 4.7kΩ on SDA and SCL)
+- b) Shorten I2C wires
+- c) Add ferrite bead on cable
+- d) Shield cable if near strong RF source
 
 **Step 3: Code bug - overflow**
 ```cpp
@@ -403,22 +392,26 @@ long distance = lidar.read(); // long = much larger range
 
 **Step 4: XBee interference**
 ```
+**Step 4: XBee interference**
+
 If negatives occur during/after telemetry:
+
 - XBee transmission may cause EMI
 - Solution:
-  a) Separate I2C wires from XBee antenna
-  b) Measure before transmission (not during)
-  c) Add I2C pull-ups (improves signal integrity)
-```
+    - a) Separate I2C wires from XBee antenna
+    - b) Measure before transmission (not during)
+    - c) Add I2C pull-ups (improves signal integrity)
 
 **Step 5: Filter in post-processing**
-```
+
 As a last resort (if hardware fixes impractical):
+
 - Remove negative values during data analysis
 - Interpolate: Replace negative with average of neighboring values
 - Example Python:
+  ```python
   df['distance'] = df['distance'].clip(lower=0)
-```
+  ```
 
 **⚙️ Prevention:**
 - Use proper data types (unsigned int for distances)

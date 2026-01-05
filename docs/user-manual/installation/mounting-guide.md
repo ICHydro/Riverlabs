@@ -29,7 +29,7 @@ Zip ties provide a quick, non-invasive mounting solution ideal for pipes, railin
 ### Materials Needed
 
 - **UV-resistant zip ties**
-  - Width: Minimum 7.6mm (0.3")
+  - Width: Minimum 4mm 
   - Length: 300-400mm depending on mounting surface
   - Rating: Outdoor/UV resistant (black nylon)
   - Quantity: 4-6 ties per logger
@@ -47,46 +47,46 @@ Zip ties provide a quick, non-invasive mounting solution ideal for pipes, railin
 ### Step-by-Step Installation
 
 1. **Select Mounting Location**
-   - Choose stable, rigid structure (pipe, post, railing)
-   - Verify clearance requirements (see Positioning section below)
-   - Ensure drainage away from logger
+    - Choose stable, rigid structure (pipe, post, railing)
+    - Verify clearance requirements (see Positioning section below)
+    - Ensure drainage away from logger
 
 2. **Prepare Surface**
-   - Clean mounting surface
-   - Remove any sharp edges that could damage ties
-   - Add foam padding if surface is rough or vibration is a concern
+    - Clean mounting surface
+    - Remove any sharp edges that could damage ties
+    - Add foam padding if surface is rough or vibration is a concern
 
 3. **Position Logger**
-   - Hold logger in final position
-   - Verify sensor orientation
-   - Confirm all clearances
-   - Have assistant hold or use temporary support
+    - Hold logger in final position
+    - Verify sensor orientation
+    - Confirm all clearances
+    - Have assistant hold or use temporary support
 
 4. **Install Zip Ties**
-   - Use **minimum 4 ties** distributed around enclosure
-   - Place ties at:
-     - Top of enclosure
-     - Bottom of enclosure  
-     - 2 ties in middle section
-   - Thread ties through any mounting holes in enclosure
-   - If no mounting holes, wrap around body
+    - Use **minimum 4 ties** distributed around enclosure
+    - Place ties at:
+        - Top of enclosure
+        - Bottom of enclosure  
+        - 2 ties in middle section
+    - Thread ties through any mounting holes in enclosure
+    - If no mounting holes, wrap around body
 
 5. **Tension Ties**
-   - Tighten evenly, rotating through all ties
-   - **DO NOT over-tighten** - should be snug but not crushing
-   - Test: You should barely be able to rotate the logger
-   - All ties should share the load equally
+    - Tighten evenly, rotating through all ties
+    - **DO NOT over-tighten** - should be snug but not crushing
+    - Test: You should barely be able to rotate the logger
+    - All ties should share the load equally
 
 6. **Strain Relief**
-   - Add separate tie for sensor cable (loose loop)
-   - Add tie for power cable (if solar)
-   - Ensure no cables under tension
-   - Allow slight movement to prevent fatigue
+    - Add separate tie for sensor cable (loose loop)
+    - Add tie for power cable (if solar)
+    - Ensure no cables under tension
+    - Allow slight movement to prevent fatigue
 
 7. **Trim and Secure**
-   - Cut excess tie length, leaving 2-3cm
-   - File any sharp edges
-   - Optional: Heat-shrink over tie ends for cleaner look
+    - Cut excess tie length, leaving 2-3cm
+    - File any sharp edges
+    - Optional: Heat-shrink over tie ends for cleaner look
 
 ### Best Practices
 
@@ -96,13 +96,15 @@ Zip ties provide a quick, non-invasive mounting solution ideal for pipes, railin
     - ❌ Too few ties (logger can rotate or slip)
     - ❌ Ties in direct sun path (accelerates degradation)
 
-✅ **Do:**
+**✅ Do:**
+
 - Use UV-resistant, outdoor-rated ties
 - Distribute load across multiple ties
 - Check tie condition during maintenance visits
 - Replace ties annually in harsh environments
 
-❌ **Don't:**
+**❌ Don't:**
+
 - Over-tighten (can crack housing)
 - Use damaged or reused ties
 - Mount where ties will sit in standing water
@@ -148,62 +150,66 @@ Adhesive mounting provides a clean, secure installation for smooth surfaces with
 ### Step-by-Step Installation
 
 1. **Surface Preparation** (Critical!)
-   - Clean surface thoroughly
-   - Remove all dirt, oil, rust, paint
-   - Use solvent (isopropyl alcohol or acetone)
-   - Allow to dry completely
-   - Roughen smooth surfaces with sandpaper (80-120 grit)
+    - Clean surface thoroughly
+    - Remove all dirt, oil, rust, paint
+    - Use solvent (isopropyl alcohol or acetone)
+    - Allow to dry completely
+    - Roughen smooth surfaces with sandpaper (80-120 grit)
 
 2. **Test Fit**
-   - Position logger without adhesive
-   - Mark mounting location with pencil
-   - Verify orientation and clearances
-   - Take photo for reference
+    - Position logger without adhesive
+    - Mark mounting location with pencil
+    - Verify orientation and clearances
+    - Take photo for reference
 
 3. **Apply Adhesive**
-   - Apply adhesive to logger mounting surface
-   - Use enough to ensure full contact (~3-5mm layer)
-   - Don't over-apply (causes mess during pressing)
-   - Work in manageable sections
+    - Apply adhesive to logger mounting surface
+    - Use enough to ensure full contact (~3-5mm layer)
+    - Don't over-apply (causes mess during pressing)
+    - Work in manageable sections
 
 4. **Install Logger**
-   - Press firmly into position
-   - Align with marked location
-   - Apply steady pressure for 30-60 seconds
-   - Remove excess adhesive immediately with rag
+    - Press firmly into position
+    - Align with marked location
+    - Apply steady pressure for 30-60 seconds
+    - Remove excess adhesive immediately with rag
 
 5. **Support During Cure**
-   - Use temporary supports if mounted vertically
-   - Tape in place if necessary
-   - **DO NOT disturb during cure time**
-   - Follow adhesive manufacturer's cure schedule
+    - Use temporary supports if mounted vertically
+    - Tape in place if necessary
+    - **DO NOT disturb during cure time**
+    - Follow adhesive manufacturer's cure schedule
 
 6. **Curing Time**
-   - Initial cure: 24 hours (minimum)
-   - Full cure: 3-7 days (depends on adhesive)
-   - **Do not stress joint during cure**
-   - Avoid temperature extremes during cure
+    - Initial cure: 24 hours (minimum)
+    - Full cure: 3-7 days (depends on adhesive)
+    - **Do not stress joint during cure**
+    - Avoid temperature extremes during cure
 
 ### Surface-Specific Guidance
 
 **Concrete/Masonry:**
+
 - Use construction adhesive or epoxy
 - Surface must be clean and dry
 - Consider mechanical fasteners for added security
 
 **Metal:**
+
 - Remove all rust and oxidation
 - Prime if necessary
 - Marine epoxy or polyurethane adhesive
 - Roughen smooth metal surfaces
 
 **Plastic/Fiberglass:**
+
 - Clean with solvent
 - Light sanding improves adhesion
 - Test adhesive compatibility first
 - Two-part epoxy works well
 
 **Wood:**
+
 - Must be treated/sealed wood for outdoor use
 - Ensure surface is dry (<15% moisture)
 - Construction adhesive or polyurethane
