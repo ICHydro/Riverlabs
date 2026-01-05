@@ -41,21 +41,25 @@ Adjust frequency based on:
 **Tasks:**
 
 1. **Check Latest Data Transmission**
+
    - Data received in last 24-48 hours
    - No gaps in data stream
    - Timestamps continuous and correct
 
 2. **Review Battery Voltage**
+
    - Voltage trend is stable/expected
    - No sudden drops
    - Above 3.5V (plan visit if approaching this level of depletion)
 
 3. **Inspect Sensor Readings**
+
    - Values within expected range
    - No stuck readings (same value repeatedly)
    - Variance appropriate for conditions
 
 4. **Check Telemetry Health (if applicable)**
+
    - Signal strength adequate
    - Connection successful
    - No excessive retries
@@ -80,6 +84,7 @@ If no telemetry, increase frequency of physical site visits (monthly instead of 
 ### Visual External Inspection
 
 1. **Enclosure:**
+
    - No visible damage or cracks
    - Seals intact
    - No water inside enclosure (look for condensation and check colour of silica inside)
@@ -89,12 +94,14 @@ If no telemetry, increase frequency of physical site visits (monthly instead of 
    - Ensure no hairs or strand materials across the seals
 
 2. **Environmental:**
+
    - Vegetation clearance maintained
    - No new obstructions in sensor path
    - Drainage working (no water pooling)
    - No animal/insect nests visible
 
 3. **Sensor:**
+
    - Sensor face clean
    - No cobwebs or debris
    - No physical damage
@@ -124,6 +131,7 @@ If accessible and time permits:
 ### Pre-Maintenance Checklist
 
 **Bring:**
+
 - Cleaning supplies (see Cleaning section)
 - Spare batteries if required (charged)
 - Cross head screwdriver and basic tools
@@ -135,6 +143,7 @@ If accessible and time permits:
 **1. External Condition (10 min)**
 
 1. **Enclosure integrity**
+
    - No cracks, scratches, or damage
    - All screws/fasteners present and tight
    - Gaskets/seals in good condition
@@ -142,6 +151,7 @@ If accessible and time permits:
    - No water marks inside
 
 2. **Mounting security**
+
    - Mounting hardware tight
    - No corrosion on brackets/ties
    - Zip ties not brittle (replace if degraded)
@@ -149,6 +159,7 @@ If accessible and time permits:
    - Alignment still correct
 
 3. **Environmental factors**
+
    - Vegetation trimmed (clear zones maintained)
    - No new nearby obstructions
    - Sun shield intact (if present)
@@ -160,27 +171,32 @@ If accessible and time permits:
 Open enclosure and inspect:
 
 1. **No moisture inside**
+
    - Desiccant dry (replace if saturated)
    - No condensation on PCB
    - No corrosion on components
 
 2. **Battery condition**
+
    - No swelling or damage
    - Contacts clean and shiny
    - Good mechanical connection
 
 3. **SD card**
+
    - Seated properly
    - No physical damage
    - Recent data present
 
 4. **Connections**
+
    - Sensor cable secure
    - No frayed wires
    - Solder joints intact
    - XBee seated (if present)
 
 5. **Visual PCB check**
+
    - No burn marks
    - No corrosion
    - All components present
@@ -189,43 +205,45 @@ Open enclosure and inspect:
 **3. Functional Testing (10 min)**
 
 1. **Power test**
+
    - Logger powers on
    - LED sequence normal
    - No error indicators
 
 2. **Clock check**
+
    - Time accurate (within 1 minute)
    - Date correct
    - If off: Re-set using set_clock.ino
 
 3. **Sensor test**
+
    - Take several test readings
    - Values reasonable and consistent
    - No error messages
    - Standard deviation acceptable
 
 4. **SD card test**
+
    - Card readable
    - Recent data present
    - Files not corrupted
    - Free space adequate
 
 5. **Telemetry test** (if applicable)
+
    - XBee LED activity
    - Recent successful transmission
    - Signal strength adequate
 
-**4. Cleaning (10 min)**
-
-See [Cleaning Procedures](#cleaning-procedures) section below.
 
 **5. Data Management (5 min)**
 
-- Download all data from SD card
-- Verify data integrity
-- Backup data (multiple locations)
-- Optional: Replace SD card with fresh formatted card
-- Document data retrieval in log
+    - Download all data from SD card
+    - Verify data integrity
+    - Backup data (multiple locations)
+    - Optional: Replace SD card with fresh formatted card
+    - Document data retrieval in log
 
 
 

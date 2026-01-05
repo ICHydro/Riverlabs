@@ -77,13 +77,13 @@
 }
 
 .md-sidebar--secondary .md-nav--secondary .md-nav__item .md-nav__item {
-    padding-left: 1rem;
+    padding-left: 0.15rem;
 }
 
 .md-sidebar--secondary .md-nav--secondary .md-nav__item .md-nav__item .md-nav__item {
-    padding-left: 2rem;
+    padding-left: 0.3rem;
 }
 
 .md-sidebar--secondary .md-nav--secondary .md-nav__item .md-nav__item .md-nav__item .md-nav__item {
-    padding-left: 3rem;
+    padding-left: 0.45rem;
 }

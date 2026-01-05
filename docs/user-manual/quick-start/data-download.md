@@ -1,4 +1,4 @@
-# First Data Download
+# Data Download
 
 This guide will walk you through downloading data from your Riverlabs logger for the first time.
 

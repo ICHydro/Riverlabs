@@ -7,6 +7,8 @@
 
 Riverlabs loggers use a dual-battery system for power and timekeeping.
 
+![Battery types comparison](../../images/Battery_Types.png)
+*18650 and 14500 battery sizes with LiPo and LiFePO4 chemistry options*
 
 
 ### Main Power: 18650 or 14500 Battery
@@ -20,8 +22,6 @@ Riverlabs loggers support two battery sizes with two chemistry options:
 | **14500** | LiPo (Lithium Polymer) | 3.7V | 600-800 mAh | 14mm × 50mm | Smaller, lower capacity |
 | **14500** | LiFePO4 (Lithium Iron Phosphate) | 3.2V | 400-600 mAh | 14mm × 50mm | Safer, smaller form factor |
 
-![Battery types comparison](../../images/Battery_Types.png)
-*18650 and 14500 battery sizes with LiPo and LiFePO4 chemistry options*
 
 **Chemistry Comparison:**
 
@@ -48,17 +48,19 @@ Riverlabs loggers support two battery sizes with two chemistry options:
 ### Backup Battery: CR1220 Coin Cell
 
 **Specifications:**
-- **Type:** CR1220 Lithium coin cell (non-rechargeable)
-- **Nominal Voltage:** 3.0V
-- **Capacity:** ~40 mAh
-- **Purpose:** Real-time clock backup only
-- **Lifespan:** 5-10 years typical
+
+    - **Type:** CR1220 Lithium coin cell (non-rechargeable)
+    - **Nominal Voltage:** 3.0V
+    - **Capacity:** ~40 mAh
+    - **Purpose:** Real-time clock backup only
+    - **Lifespan:** 5-10 years typical
 
 **Function:**
-- Maintains clock time when main battery removed
-- Does NOT power logger or sensor
-- Logger operates without it (but loses time)
-- Essential for telemetry applications (UTC time)
+
+    - Maintains clock time when main battery removed
+    - Does NOT power logger or sensor
+    - Logger operates without it (but loses time)
+    - Essential for telemetry applications (UTC time)
 
 ---
 
@@ -112,9 +114,10 @@ Battery voltage indicates remaining capacity, but the voltage ranges differ betw
 ### Reading Battery Voltage
 
 **From Logger Data:**
-- Voltage recorded with each measurement
-- Typically last column in data file
-- Value in millivolts (e.g., 3850 = 3.85V)
+
+    - Voltage recorded with each measurement
+    - Typically last column in data file
+    - Value in millivolts (e.g., 3850 = 3.85V)
 
 **Example Data Line:**
 ```
@@ -124,11 +127,12 @@ Battery voltage indicates remaining capacity, but the voltage ranges differ betw
 ```
 
 **With Multimeter:**
-1. Set multimeter to DC voltage
-2. Access battery terminals (may require opening logger)
-3. Red probe to + terminal
-4. Black probe to - terminal
-5. Read voltage (should show 3.0-4.2V)
+
+    1. Set multimeter to DC voltage
+    2. Access battery terminals (may require opening logger)
+    3. Red probe to + terminal
+    4. Black probe to - terminal
+    5. Read voltage (should show 3.0-4.2V)
 
 !!! tip "Voltage Sag During Measurement"
     Voltage drops briefly during active measurement due to high current draw. The logged voltage is typically measured during sleep (more accurate for capacity estimation).
@@ -144,10 +148,11 @@ Battery voltage indicates remaining capacity, but the voltage ranges differ betw
 ### Solar Panel Specifications
 
 **Typical Solar Setup:**
-- Panel: 5-10W, 6V
-- Charge Controller: 3.7V Li-ion compatible
-- Cable: Weatherproof, strain relief
-- Mounting: Adjustable for sun angle
+
+    - Panel: 5-10W, 6V
+    - Charge Controller: 3.7V Li-ion compatible
+    - Cable: Weatherproof, strain relief
+    - Mounting: Adjustable for sun angle
 
 !!! warning "Solar Charging Limitations"
     - Only charges above 0°C
@@ -162,10 +167,11 @@ Battery voltage indicates remaining capacity, but the voltage ranges differ betw
 ### Long-Term Storage
 
 **Optimal Storage Conditions:**
-- **Voltage:** 3.7-3.8V for LiPo (50% charge) or 3.2-3.3V for LiFePO4
-- **Temperature:** 15-20°C
-- **Humidity:** <60%
-- **Location:** Cool, dry, away from metal objects
+
+    - **Voltage:** 3.7-3.8V for LiPo (50% charge) or 3.2-3.3V for LiFePO4
+    - **Temperature:** 15-20°C
+    - **Humidity:** <60%
+    - **Location:** Cool, dry, away from metal objects
 
 **Storage Duration:**
 
@@ -196,24 +202,26 @@ Battery voltage indicates remaining capacity, but the voltage ranges differ betw
 **Never throw batteries in regular trash!**
 
 **Proper Disposal:**
-1. Discharge to < 3.0V (use in logger until depleted)
-2. Tape terminals with electrical tape
-3. Take to battery recycling center
-4. Many retailers accept 18650 batteries for recycling
-5. Check local hazardous waste facilities
+
+    1. Discharge to < 3.0V (use in logger until depleted)
+    2. Tape terminals with electrical tape
+    3. Take to battery recycling center
+    4. Many retailers accept 18650 batteries for recycling
+    5. Check local hazardous waste facilities
 
 ---
 
 ## Troubleshooting Power Issues
 
-### Logg Won't Power On
+### Logger Won't Power On
 
 **Check:**
-1. Battery voltage > 3.0V
-2. Battery polarity correct
-3. Battery contacts clean and making contact
-4. No physical damage to logger
-5. Try known-good battery
+
+    1. Battery voltage > 3.3V
+    2. Battery polarity correct
+    3. Battery contacts clean and making contact
+    4. No physical damage to logger
+    5. Try known-good battery
 
 ### Rapid Battery Drain
 
@@ -228,32 +236,17 @@ Battery voltage indicates remaining capacity, but the voltage ranges differ betw
 ### Voltage Reading Errors
 
 **Inconsistent Voltage Readings:**
-- Poor contact: Clean terminals
-- Code issue: Re-upload firmware
-- Battery dying: Replace
+
+    - Poor contact: Clean terminals
+    - Code issue: Re-upload firmware
+    - Battery dying: Replace
 
 **No Voltage Logged:**
-- Check data file format
-- Verify voltage measurement in code
-- Test ADC with multimeter
 
+    - Check data file format
+    - Verify voltage measurement in code
+    - Test ADC with multimeter
 
-
----
-
-
-## Summary Checklist
-
-**For Optimal Battery Performance:**
-
-- [ ] Use quality, 18650 cells
-- [ ] Start with 4.0V+ charged battery
-- [ ] Install CR1220 backup for clock
-- [ ] Reduce telemetry frequency if possible
-- [ ] Monitor voltage trends
-- [ ] Plan replacement at 3.6V
-- [ ] Store spare batteries properly
-- [ ] Document all battery changes
 
 ---
 

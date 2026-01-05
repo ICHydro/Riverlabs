@@ -46,7 +46,7 @@ The logger comes with a high-quality microSD card pre-installed.
 
 ---
 
-## ☑️ Software Configuration
+## Software Configuration
 
 ### Clock Setup
 
@@ -143,7 +143,7 @@ See [Telemetry Setup Guide](../telemetry/setup-guide.md) for detailed configurat
 - No excessive connection attempts
 
 
-## 🚨 Troubleshooting Quick Reference
+## Troubleshooting Quick Reference
 
 If problems arise, see:
 
