@@ -26,7 +26,8 @@ The ultrasound sensor emits a conical beam that spreads as distance increases.
 | 3.0m | ~80cm | 0.502 m² |
 | 5.0m | ~130cm | 1.327 m² |
 
-![Ultrasound beam pattern](../../images/ultrasound-beam-pattern.png)
+![Ultrasound beam pattern](../../images/installation_US.png)
+
 *Ultrasound beam spreads in a cone pattern*
 
 ### Lidar Beam Characteristics
@@ -50,7 +51,8 @@ The lidar sensor emits a highly focused laser beam with minimal divergence.
 | 20m | ~16cm | 0.020 m² |
 | 35m | ~28cm | 0.062 m² |
 
-![Lidar beam pattern](../../images/lidar-beam-pattern.png)
+![Lidar beam pattern](../../images/installation_lidar.png)
+
 *Lidar beam maintains tight focus over distance*
 
 ---

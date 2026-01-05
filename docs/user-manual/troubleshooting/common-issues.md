@@ -774,8 +774,8 @@ If failures correlate with peak hours:
 **🔍 Likely Causes:**
 1. **Sensor connected during upload** (CRITICAL - most common for Wari Ultrasonic)
 2. **FTDI cable wrong orientation** (green/black reversed)
-3. **Wrong board settings** (not Arduino Pro Mini)
-4. **Wrong processor settings** (5V/16MHz instead of 3.3V/8MHz)
+3. **Wrong board settings** (not MiniCore ATmega328)
+4. **Wrong clock settings** (not External 8 MHz)
 5. **FTDI cable not seated** properly
 6. **Power issue** (insufficient power or no power)
 
@@ -809,10 +809,10 @@ If reversed:
 
 **Step 3: Verify Arduino IDE settings**
 ```
-Tools → Board: "Arduino Pro or Pro Mini"
-Tools → Processor: "ATmega328P (3.3V, 8MHz)"
+Tools → Board → MiniCore: "ATmega328"
+Tools → Clock: "External 8 MHz"
 
-NOT: "ATmega328P (5V, 16MHz)"  ← Wrong!
+NOT: "Arduino Pro or Pro Mini"  ← Old/Wrong!
 ```
 
 **Step 4: Check power**
@@ -925,8 +925,8 @@ Linux:
 **Step 1: Verify board selection**
 ```
 Arduino IDE:
-- Tools → Board → Should be: "Arduino Pro or Pro Mini"
-- Tools → Processor → Should be: "ATmega328P (3.3V, 8MHz)"
+- Tools → Board → MiniCore: Should be "ATmega328"
+- Tools → Clock: Should be "External 8 MHz"
 - If wrong: Select correct, re-upload
 ```
 
@@ -1081,8 +1081,8 @@ Fix: Move inner folder up one level
 Error: "This LowPower library only works on AVR processors"
 
 Solution:
-- Board must be: Arduino Pro or Pro Mini
-- Processor must be: ATmega328P (3.3V, 8MHz)
+- Board must be: MiniCore → ATmega328
+- Clock must be: External 8 MHz
 - NOT: Arduino Uno, Mega, or other non-AVR boards
 ```
 

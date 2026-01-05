@@ -23,27 +23,49 @@ Before you begin, make sure you have:
 
 First, identify which logger model you have. See the [Logger Identification Guide](logger-identification.md) for detailed comparisons.
 
-=== "Wari Ultrasound"
+<div class="grid cards" markdown>
 
-    ![Wari logger](../../images/Wari_v1.jpg){ width="300" }
-    
-    **Key Features:**
-    
-    - Maxbotix MB7389 ultrasound sensor
-    - 0.3m - 5m range
-    - Best for water level monitoring
-    - Wide beam angle (requires clearance)
+-   :material-water-outline:{ .lg .middle } **Wari Logger**
 
-=== "Wari Lidar"
+    ---
 
-    ![Lidar logger](../../images/WMOnode.jpg){ width="300" }
+    **Ultrasound Distance Sensor**
+
+    ![Wari logger](../../images/Wari_v1.jpg){ width="250" }
+
+    **Sensor:** Maxbotix MB7389  
+    **Range:** 0.3m - 5m  
+    **Resolution:** 1mm  
+    **Beam Angle:** Wide (~15°)  
+
+    **Best For:**
     
-    **Key Features:**
+    - Water level monitoring
+    - Budget-conscious projects
+    - Shorter range applications
+    - Vertical mounting positions
+
+-   :material-laser-pointer:{ .lg .middle } **Lidar Logger**
+
+    ---
+
+    **Laser Distance Sensor**
+
+    ![Lidar logger](../../images/WMOnode.jpg){ width="250" }
+
+    **Sensor:** Garmin Lidarlite v3HP  
+    **Range:** 0.05m - 35m  
+    **Resolution:** 1cm  
+    **Beam Angle:** Very narrow (~0.5°)  
+
+    **Best For:**
     
-    - Garmin Lidarlite v3HP sensor
-    - 0.05m - 35m range
-    - Can measure at angles up to 40°
-    - Narrow beam (precise measurements)
+    - Long-range measurements
+    - Angled installations (up to 40°)
+    - High-precision applications
+    - Difficult mounting situations
+
+</div>
 
 ### 2. Insert Batteries
 
@@ -54,7 +76,8 @@ First, identify which logger model you have. See the [Logger Identification Guid
 
 **RTC Battery (CR1220):**
 
-!!! tip "Coin cell may already be installed, only replace if needed to preserve programmed date install the main battery first and switch on.
+!!! tip "Date Preservation" 
+    Coin cell may already be installed, only replace if needed to preserve programmed date install the main battery first and switch on.
 
 1. Locate the small coin battery slot on the PCB (sometimes on the revere)
 2. Insert the CR1220 battery (+ side up, typically)
@@ -88,7 +111,7 @@ Your logger needs a micro SD card to store data locally.
 **Before Programming:**
 
 !!! danger "Disconnect Sensor First - CRITICAL"
-    **For Wari Ultrasonic models:** Disconnect the Maxbotix sensor (white connector) from the logger before programming. The sensor and FTDI cable use the same serial port, causing interference that prevents successful code upload. Reconnect the sensor after programming is complete.
+    **For Wari Ultrasonic models:** Disconnect the Maxbotix sensor (three pin connector) from the logger before programming. The sensor and FTDI cable use the same serial port, causing interference that prevents successful code upload. Reconnect the sensor after programming is complete.
 
 **Clock Setting Steps:**
 
@@ -98,8 +121,8 @@ Your logger needs a micro SD card to store data locally.
    - Align black wire with "BLK" marking
 3. Set power switch to OFF position (powered by FTDI)
 4. Open Arduino IDE
-5. Set board to **Arduino Pro or Pro Mini**
-6. Set processor to **ATmega328P (3.3V, 8MHz External)**
+5. Set board to **MiniCore → ATmega328**
+6. Set clock to **External 8 MHz**
 7. Load the `set_clock.ino` sketch (in repository root)
 8. Upload to the logger
 9. Open Serial Monitor (baud rate: 57600) to verify time
@@ -141,7 +164,7 @@ Now upload the main logging script:
 
 Before taking your logger to the field, perform a bench test:
 
-- **Sensor reconnected** (white connector plugged in)
+- **Sensor reconnected** (matbotix 3-pin connector plugged in)
 - Power switch in ON position
 - Verify LED flashes during measurements
 - Check that data is being written to SD card

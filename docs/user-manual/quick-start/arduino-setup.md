@@ -76,18 +76,43 @@ After purchasing your FTDI cable/board, you'll need to install drivers:
 3. Restart your computer after installation
 4. Connect your FTDI cable and verify it appears as a serial port in Arduino IDE (**Tools → Port**)
 
-## Step 4: Configure Arduino IDE for Riverlabs Loggers
+## Step 4: Install MiniCore Board Support
+
+Riverlabs loggers use the MiniCore hardware package, which provides better support for ATmega328 microcontrollers:
+
+1. Open the Arduino IDE
+2. Go to **File → Preferences**
+3. In the "Additional Boards Manager URLs" field, add:
+   ```
+   https://mcudude.github.io/MiniCore/package_MCUdude_MiniCore_index.json
+   ```
+4. Click **OK**
+5. Go to **Tools → Board → Boards Manager**
+6. Search for **MiniCore**
+7. Click **Install** on the MiniCore entry by MCUdude
+8. Close the Boards Manager
+
+!!! info "MiniCore"
+    MiniCore is a community-maintained Arduino hardware package specifically designed for ATmega328 and similar microcontrollers. Learn more at the [MiniCore GitHub repository](https://github.com/MCUdude/MiniCore).
+
+## Step 5: Configure Arduino IDE for Riverlabs Loggers
 
 Before uploading code, you must configure the Arduino IDE with the correct board settings:
 
 ### Board Settings
 
 1. Open the Arduino IDE
-2. Go to **Tools → Board** and select **Arduino Pro or Pro Mini**
-3. Go to **Tools → Processor** and select **ATmega328P (3.3V, 8MHz)**
+2. Go to **Tools → Board → MiniCore** and select **ATmega328**
+3. Configure the following settings in the **Tools** menu:
+   - **Clock:** External 8 MHz
+   - **BOD:** BOD 2.7V
+   - **EEPROM:** EEPROM retained
+   - **Compiler LTO:** LTO Disabled
+   - **Variant:** 328P / 328PA
+   - **Bootloader:** Yes (UART0)
 
-!!! warning "Critical Setting"
-    The processor MUST be set to **ATmega328P (3.3V, 8MHz)**. Using the wrong setting (like 5V, 16MHz) will cause upload failures or runtime issues.
+!!! warning "Critical Settings"
+    The board MUST be set to **MiniCore → ATmega328** with **Clock: External 8 MHz**. Using the wrong settings will cause upload failures or runtime issues.
 
 ### Select the Port
 
@@ -131,10 +156,10 @@ The **Tools** menu is where you configure critical settings for your logger:
 ![Arduino Board Settings](../../images/arduino2.jpg)
 *Board and processor settings in the Tools menu*
 
-As mentioned in Step 4, you must select:
+As mentioned in Step 5, you must select:
 
-- **Board:** Arduino Pro or Pro Mini
-- **Processor:** ATmega328P (3.3V, 8MHz)
+- **Board:** MiniCore → ATmega328
+- **Clock:** External 8 MHz
 - **Port:** Your FTDI cable's serial port
 
 !!! example "Testing with Blink"

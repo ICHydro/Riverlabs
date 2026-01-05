@@ -76,11 +76,21 @@ FTDI cables/boards come in **3.3V** or **5V** versions. Riverlabs loggers are co
 
 **Board Settings** (under the **Tools** menu):
 
-1. **Board:** Arduino Pro or Pro Mini
-2. **Processor:** ATmega328P (3.3V, 8MHz)
+1. **Board:** MiniCore → ATmega328
+2. **Clock:** External 8 MHz
+3. **BOD:** BOD 2.7V
+4. **Variant:** 328P / 328PA
+5. **Bootloader:** Yes (UART0)
 
-!!! warning "Processor Setting is Critical"
-    The processor MUST be set to **ATmega328P (3.3V, 8MHz)**. Using the wrong voltage/speed setting (like 5V, 16MHz) can cause upload failures or runtime issues.
+!!! warning "Board Settings are Critical"
+    The board MUST be set to **MiniCore → ATmega328** with **Clock: External 8 MHz**. Using the wrong settings can cause upload failures or runtime issues.
+
+!!! info "MiniCore Installation"
+    If you don't see MiniCore in your boards list, you need to install it via the Boards Manager. Add this URL in File → Preferences → Additional Boards Manager URLs:
+    ```
+    https://mcudude.github.io/MiniCore/package_MCUdude_MiniCore_index.json
+    ```
+    Then install MiniCore from Tools → Board → Boards Manager.
 
 **Select the Port:**
 
@@ -208,9 +218,9 @@ This is invaluable for troubleshooting issues in the field or during development
 **Cause:** Wrong board type selected in Arduino IDE.
 
 **Solution:**
-- Go to **Tools → Board**
-- Select **Arduino Pro or Pro Mini**
-- Verify **Processor** is set to **ATmega328P (3.3V, 8MHz)**
+- Go to **Tools → Board → MiniCore**
+- Select **ATmega328**
+- Verify **Clock** is set to **External 8 MHz**
 
 ---
 

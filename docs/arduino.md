@@ -10,11 +10,29 @@ A lot of excellent manuals exist to work with Arduino, but the best place is pro
 
 To install the Arduino IDE, simply head to the [website](https://www.arduino.cc/en/software) to dowload and install it for your operating system.
 
-Programming an Arduino board consists of the following steps:
+## Installing MiniCore Board Support
+
+Riverlabs loggers use the **MiniCore** hardware package, which provides optimized support for ATmega328 microcontrollers:
+
+1. Open the Arduino IDE
+2. Go to **File → Preferences**
+3. In the "Additional Boards Manager URLs" field, add:
+   ```
+   https://mcudude.github.io/MiniCore/package_MCUdude_MiniCore_index.json
+   ```
+4. Click **OK**
+5. Go to **Tools → Board → Boards Manager**
+6. Search for **MiniCore**
+7. Click **Install** on the MiniCore entry by MCUdude
+8. Close the Boards Manager
+
+For more information, visit the [MiniCore GitHub repository](https://github.com/MCUdude/MiniCore).
+
+## Programming Steps
 
 - Connecting the board to the computer
 - Set the correct port
-- Set the correct board and board options (if your board has any)
+- Set the correct board (MiniCore → ATmega328) and board options (Clock: External 8 MHz)
 - Compile and upload the code
 
 Many boards can be connected to the computer via a USB cable. The Riverlabs boards are slightly different, as they do not have a USB port, but a serial (UART) port instead. So you will need a serial-to-usb converter instead. See the section on [uploading code with Arduino](upload.md) for more details. Once this is done, the remaining steps can be executed via the graphical interface of the Arduino IDE.
