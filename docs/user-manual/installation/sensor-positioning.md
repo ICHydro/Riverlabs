@@ -11,10 +11,10 @@ The ultrasound sensor emits a conical beam that spreads as distance increases.
 
 **Beam Properties:**
 
-- **Frequency:** 42 kHz ultrasonic pulses
-- **Beam Angle:** Approximately 15° cone
-- **Footprint Growth:** ~26cm diameter per meter of distance
-- **Reflection:** Requires reflective surface within beam cone
+    - **Frequency:** 42 kHz ultrasonic pulses
+    - **Beam Angle:** Approximately 15° cone
+    - **Footprint Growth:** ~26cm diameter per meter of distance
+    - **Reflection:** Requires reflective surface within beam cone
 
 **Distance vs. Footprint:**
 
@@ -61,17 +61,19 @@ The lidar sensor emits a highly focused laser beam with minimal divergence.
 
 
 **Using a Level:**
-1. Attach level to logger housing
-2. Adjust until bubble centered
-3. Verify from multiple angles
-4. Secure mounting hardware
-5. Re-check after tightening
+
+    1. Attach level to logger housing
+    2. Adjust until bubble centered
+    3. Verify from multiple angles
+    4. Secure mounting hardware
+    5. Re-check after tightening
 
 **Using Plumb Bob:**
-1. Hang plumb line from mounting point
-2. Align sensor axis with string
-3. Verify alignment from 90° perspective
-4. Tighten while maintaining position
+
+    1. Hang plumb line from mounting point
+    2. Align sensor axis with string
+    3. Verify alignment from 90° perspective
+    4. Tighten while maintaining position
 
 !!! tip "Verification Method"
     After mounting, take measurements at known distance and compare with manual measurement. Difference >2% suggests misalignment.
@@ -84,9 +86,9 @@ The lidar sensor emits a highly focused laser beam with minimal divergence.
 
 Consider angled mounting when:
 
-- Vertical mounting is physically impossible
-- Bridge/structure geometry requires it
-- Access/safety concerns prevent vertical installation
+    - Vertical mounting is physically impossible
+    - Bridge/structure geometry requires it
+    - Access/safety concerns prevent vertical installation
 
 ### Lidar: Angled Mounting Capability
 
@@ -122,19 +124,6 @@ Vertical distance = 10.5m × 0.906
 Vertical distance = 9.51m
 ```
 
-**Angle Correction Table:**
-
-| Angle | Cosine | Multiply Measured Distance By |
-|-------|--------|------------------------------|
-| 5° | 0.996 | 0.996 |
-| 10° | 0.985 | 0.985 |
-| 15° | 0.966 | 0.966 |
-| 20° | 0.940 | 0.940 |
-| 25° | 0.906 | 0.906 |
-| 30° | 0.866 | 0.866 |
-| 35° | 0.819 | 0.819 |
-| 40° | 0.766 | 0.766 |
-
 
 
 ## Target Surface Considerations
@@ -146,66 +135,75 @@ The condition of the water surface significantly affects measurement reliability
 #### Ultrasound on Water
 
 **Excellent Conditions:**
-- Calm water with light ripples
-- Slightly turbulent water
-- Sediment-laden water
-- Water with foam/debris
+
+    - Calm water with light ripples
+    - Slightly turbulent water
+    - Sediment-laden water
+    - Water with foam/debris
 
 **Poor Conditions:**
-- Perfectly smooth glass-like surface
-- Heavy turbulence/white water
-- Water surface at angle to beam
-- Surface covered by floating debris
+
+    - Perfectly smooth glass-like surface
+    - Heavy turbulence/white water
+    - Water surface at angle to beam
+    - Surface covered by floating debris
 
 **Optimization Tips:**
-- Take multiple readings and average
-- Increase number of readings in turbulent conditions
-- Avoid mounting where wind creates consistent wave patterns
-- Consider measurement timing (calm periods)
+
+    - Take multiple readings and average
+    - Increase number of readings in turbulent conditions
+    - Avoid mounting where wind creates consistent wave patterns
+    - Consider measurement timing (calm periods)
 
 #### Lidar on Water
 
 **Excellent Conditions:**
-- Slightly rough water surface
-- Turbid/sediment-laden water
-- Water with suspended particles
-- Foam or debris on surface
+
+    - Slightly rough water surface
+    - Turbid/sediment-laden water
+    - Water with suspended particles
+    - Foam or debris on surface
 
 **Poor Conditions:**
-- Perfectly clear, smooth water (mirror-like)
-- Very clean water in calm conditions
-- Highly transparent water
-- Dark water with no suspended material
+
+    - Perfectly clear, smooth water (mirror-like)
+    - Very clean water in calm conditions
+    - Highly transparent water
+    - Dark water with no suspended material
 
 **Why Smooth/Clear Water is Difficult for Lidar:**
-- Specular reflection (mirror-like) reflects beam away
-- Transparent water allows beam to penetrate surface
-- Requires diffuse reflection for reliable measurement
-- Natural water usually has sufficient turbidity
+
+    - Specular reflection (mirror-like) reflects beam away
+    - Transparent water allows beam to penetrate surface
+    - Requires diffuse reflection for reliable measurement
+    - Natural water usually has sufficient turbidity
 
 **Optimization:**
-- Most natural rivers/streams work well
-- Laboratory/clean water may be problematic
-- Test at site before permanent installation
-- Consider ultrasound for very clean water applications
+
+    - Most natural rivers/streams work well
+    - Laboratory/clean water may be problematic
+    - Test at site before permanent installation
+    - Consider ultrasound for very clean water applications
 
 ### Non-Water Surfaces
 
 Both sensors can measure non-water targets:
 
 **Good Targets:**
-- Concrete (rough finish)
-- Wood
-- Soil/ground
-- Granular materials
-- Textured surfaces
+
+    - Concrete (rough finish)
+    - Wood
+    - Soil/ground
+    - Granular materials
+    - Textured surfaces
 
 **Challenging Targets:**
-- Smooth metal (specular reflection)
-- Glass or mirrors
-- Highly polished surfaces
-- Transparent materials
-- Very dark, non-reflective materials
+
+    - Smooth metal (specular reflection)
+    - Glass or mirrors
+    - Highly polished surfaces
+    - Transparent materials
+    - Very dark, non-reflective materials
 
 ---
 

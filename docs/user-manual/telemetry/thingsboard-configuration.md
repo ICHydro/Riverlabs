@@ -683,10 +683,10 @@ If ThingsBoard doesn't fit your needs:
 
 ## Next Steps
 
-- 🛠️ [XBee Setup Walkthrough](xbee-setup-walkthrough.md) - Detailed XBee configuration
-- 🚨 [Troubleshooting Connections](troubleshooting-connections.md) - Fix telemetry issues
-- 📊 [ThingsBoard Documentation](https://thingsboard.io/docs/) - Official docs for advanced features
-- 🔋 [Battery & Power Guide](../hardware/battery-power-guide.md) - Monitor battery health
+- [XBee Setup Walkthrough](xbee-setup-walkthrough.md) - Detailed XBee configuration
+- [Troubleshooting Connections](troubleshooting-connections.md) - Fix telemetry issues
+- [ThingsBoard Documentation](https://thingsboard.io/docs/) - Official docs for advanced features
+- [Battery & Power Guide](../hardware/battery-power-guide.md) - Monitor battery health
 
 ---
 

@@ -25,10 +25,9 @@ This comprehensive checklist ensures your logger is fully tested and ready for d
 The logger comes with a high-quality microSD card pre-installed.
 
 !!! warning "Do Not Replace SD Card"
-    The provided microSD card has been tested for reliability. **Do not replace it** unless absolutely necessary.
+    The provided microSD card has been tested for reliability. **Do not replace it** unless absolutely necessary use exact brand and spec as supplied.
 
 - MicroSD card properly seated in slot
-- Card write-protection switch in OFF position (if present)
 
 !!! info "Data Backup Options"
     - **Flash Memory:** Can be installed and used as an additional backup if required
@@ -42,7 +41,7 @@ The logger comes with a high-quality microSD card pre-installed.
 - Sensor clean and undamaged
 - Sensor lens/transducer free of debris
 - All screws and fasteners tight
-- Silica gel pack present and fresh (should not be yellow or green)
+- Silica gel pack present and fresh (should not be off colour)
 
 ---
 
@@ -108,11 +107,13 @@ See [Telemetry Setup Guide](../telemetry/setup-guide.md) for detailed configurat
 - Multiple readings show low variance
 
 **For Wari Ultrasonic:**
+
 - Test targets at various distances (0.5m, 1m, 2m, etc.)
 - Verify no interference from nearby objects
 - Check beam has clear path
 
 **For Wari Lidar:**
+
 - Test on different surface types
 - Verify angle measurements (if using)
 - Confirm readings from 10cm to max expected range

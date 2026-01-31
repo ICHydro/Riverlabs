@@ -29,7 +29,6 @@ Zip ties provide a quick, non-invasive mounting solution ideal for pipes, railin
 ### Materials Needed
 
 - **UV-resistant zip ties**
-  - Width: Minimum 4mm 
   - Length: 300-400mm depending on mounting surface
   - Rating: Outdoor/UV resistant (black nylon)
   - Quantity: 4-6 ties per logger
@@ -41,12 +40,12 @@ Zip ties provide a quick, non-invasive mounting solution ideal for pipes, railin
 !!! tip "Zip Tie Selection"
     - **Heavy Duty:** HellermannTyton T50R or equivalent
     - **UV Resistant:** Stainless steel ties for extended outdoor use
-    - **Width:** 7.6mm (300lb rating) minimum
     - **Color:** Black (contains UV inhibitors)
 
 ### Step-by-Step Installation
 
 1. **Select Mounting Location**
+
     - Choose stable, rigid structure (pipe, post, railing)
     - Verify clearance requirements (see Positioning section below)
     - Ensure drainage away from logger
@@ -69,7 +68,7 @@ Zip ties provide a quick, non-invasive mounting solution ideal for pipes, railin
         - Bottom of enclosure  
         - 2 ties in middle section
     - Thread ties through any mounting holes in enclosure
-    - If no mounting holes, wrap around body
+    - If not wanting to open the lid to access the mounting holes, wrap around body
 
 5. **Tension Ties**
     - Tighten evenly, rotating through all ties
@@ -92,23 +91,10 @@ Zip ties provide a quick, non-invasive mounting solution ideal for pipes, railin
 
 !!! warning "Common Mistakes"
     - ❌ Using indoor/non-UV-resistant ties (will fail in months)
-    - ❌ Over-tightening (can crack enclosure)
+    - ❌ Over-tightening (can crack ties)
     - ❌ Too few ties (logger can rotate or slip)
     - ❌ Ties in direct sun path (accelerates degradation)
 
-**✅ Do:**
-
-- Use UV-resistant, outdoor-rated ties
-- Distribute load across multiple ties
-- Check tie condition during maintenance visits
-- Replace ties annually in harsh environments
-
-**❌ Don't:**
-
-- Over-tighten (can crack housing)
-- Use damaged or reused ties
-- Mount where ties will sit in standing water
-- Rely on ties alone for critical installations
 
 ### Maintenance
 
@@ -221,11 +207,12 @@ Adhesive mounting provides a clean, secure installation for smooth surfaces with
     Removal will likely damage both the logger housing and mounting surface. Plan carefully before using adhesives.
 
 **If removal is necessary:**
-1. Heat adhesive with heat gun (low setting)
-2. Use thin wire or dental floss to cut through adhesive layer
-3. Apply solvent to remaining adhesive
-4. Scrape carefully with plastic scraper
-5. Sand/clean both surfaces
+
+   1. Heat adhesive with heat gun (low setting)
+   2. Use thin wire or dental floss to cut through adhesive layer
+   3. Apply solvent to remaining adhesive
+   4. Scrape carefully with plastic scraper
+   5. Sand/clean both surfaces
 
 ---
 
@@ -242,61 +229,61 @@ Mechanical brackets provide the most secure mounting, ideal for bridges, buildin
 
 **L-Bracket (Simple):**
 
-   - Attach logger to one side
-   - Mount bracket to surface with bolts/screws
-   - Good for flat surfaces
-   - Easy adjustment
+- Attach logger to one side
+- Mount bracket to surface with bolts/screws
+- Good for flat surfaces
+- Easy adjustment
 
 **U-Channel (Pipe/Post):**
 
-   - Wraps around pipe or post
-   - Secure with through-bolts
-   - Excellent for round structures
-   - Anti-rotation
+- Wraps around pipe or post
+- Secure with through-bolts
+- Excellent for round structures
+- Anti-rotation
 
 ### Installation Steps
 
 1. **Design/Select Bracket**
 
-   - Consider logger dimensions
-   - Plan for cable routing
-   - Include drainage holes
-   - Allow for removal/maintenance access
+- Consider logger dimensions
+- Plan for cable routing
+- Include drainage holes
+- Allow for removal/maintenance access
 
 2. **Mark Mounting Holes**
 
-   - Position bracket in place
-   - Use level to ensure orientation
-   - Mark hole locations
-   - Double-check measurements
+- Position bracket in place
+- Use level to ensure orientation
+- Mark hole locations
+- Double-check measurements
 
 3. **Drill Pilot Holes**
 
-   - Use appropriate bit for substrate
-   - Drill to required depth
-   - Clean holes of debris
-   - Insert anchors if needed
+- Use appropriate bit for substrate
+- Drill to required depth
+- Clean holes of debris
+- Insert anchors if needed
 
 4. **Attach Bracket to Surface**
 
-   - Install fasteners loosely first
-   - Verify alignment
-   - Tighten in star pattern
-   - Torque to specification (don't over-tighten)
+- Install fasteners loosely first
+- Verify alignment
+- Tighten in star pattern
+- Torque to specification (don't over-tighten)
 
 5. **Mount Logger to Bracket**
 
-   - Position logger on bracket
-   - Install mounting hardware
-   - Use anti-vibration washers
-   - Secure but don't crush housing
+- Position logger on bracket
+- Install mounting hardware
+- Use anti-vibration washers
+- Secure but don't crush housing
 
 6. **Cable Management**
 
-   - Route cables neatly
-   - Use cable ties or clips
-   - Provide strain relief
-   - Weatherproof all connections
+- Route cables neatly
+- Use cable ties or clips
+- Provide strain relief
+- Weatherproof all connections
 
 
 ## Waiver and Disclaimer
@@ -329,22 +316,6 @@ Mechanical brackets provide the most secure mounting, ideal for bridges, buildin
     - Use appropriate personal protective equipment
     - Work within your competency level
     - Consult professionals for complex installations
-
----
-
-## Quick Reference Checklist
-
-Before you go to site:
-
-- [ ] Mounting method selected
-- [ ] All hardware/materials gathered
-- [ ] Tools packed
-- [ ] Logger tested and configured
-- [ ] Clearances verified in plan
-- [ ] Site access permission obtained
-- [ ] Safety equipment ready
-- [ ] Camera/measurement tools packed
-- [ ] This guide available (print or mobile)
 
 ---
 

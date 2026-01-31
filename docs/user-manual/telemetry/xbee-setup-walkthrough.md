@@ -23,12 +23,12 @@
 
 Before starting, ensure you have:
 
-- [ ] **XBee Cellular module** (3G, LTE-M, or NB-IoT)
-- [ ] **Active SIM card** (inserted in XBee)
-- [ ] **USB adapter** for XBee (XBee Grove Board or similar)
-- [ ] **Computer** (Windows, macOS, or Linux)
-- [ ] **XBee Studio** or **XCTU** installed
-- [ ] **Carrier APN details** (from SIM provider)
+-  **XBee Cellular module** (3G, LTE-M, or NB-IoT)
+-  **Active SIM card** (inserted in XBee)
+-  **USB adapter** for XBee (XBee Grove Board or similar)
+-  **Computer** (Windows, macOS, or Linux)
+-  **XBee Studio** or **XCTU** installed
+-  **Carrier APN details** (from SIM provider)
 
 ---
 
@@ -677,65 +677,14 @@ If settings reset: Configuration wasn't written properly. Repeat Part 6.
    - Check firmware version (Radio Configuration tab)
    - Reconfigure settings (firmware update may reset)
 
----
 
-## Quick Reference Card
-
-**Print and laminate for field use:**
-
-```
-┌───────────────────────────────────────────┐
-│   XBEE3 CELLULAR - QUICK CONFIG          │
-├───────────────────────────────────────────┤
-│ SERIAL INTERFACING:                       │
-│  BD = 9600 (baud rate)                    │
-│  NB = 0 (no parity)                       │
-│  SB = 1 (1 stop bit)                      │
-│                                           │
-│ NETWORKING:                               │
-│  AN = [carrier APN]                       │
-│  AU = (blank usually)                     │
-│  AV = (blank usually)                     │
-│  NT = 0 (LTE-M)                           │
-│                                           │
-│ API MODE:                                 │
-│  AP = 2 (API with escapes) **CRITICAL**  │
-│  AO = 0 (standard)                        │
-│                                           │
-│ SLEEP:                                    │
-│  SM = 1 (pin sleep)                       │
-│  SO = 0 (standard)                        │
-│                                           │
-│ SAVE: Click "Write" button!              │
-└───────────────────────────────────────────┘
-```
-
----
-
-## Best Practices
-
-**Do:**
-- ✅ Save configuration profile for reuse
-- ✅ Label configured modules
-- ✅ Test network connection before field deployment
-- ✅ Document settings (APN, etc.) for each logger
-- ✅ Keep XBee Studio updated
-
-**Don't:**
-- ❌ Disconnect USB during firmware update
-- ❌ Skip clicking "Write" button
-- ❌ Assume settings saved without verification
-- ❌ Bend pins during installation/removal
-- ❌ Insert/remove SIM when powered
-
----
 
 ## Next Steps
 
-- 📊 [ThingsBoard Configuration](thingsboard-configuration.md) - Set up your dashboard
-- 🚨 [Troubleshooting Connections](troubleshooting-connections.md) - Fix telemetry issues
-- 📡 [Telemetry Setup Guide](setup-guide.md) - Complete setup overview
-- 🔋 [Battery & Power Guide](../hardware/battery-power-guide.md) - Optimize for telemetry
+- [ThingsBoard Configuration](thingsboard-configuration.md) - Set up your dashboard
+- [Troubleshooting Connections](troubleshooting-connections.md) - Fix telemetry issues
+- [Telemetry Setup Guide](setup-guide.md) - Complete setup overview
+- [Battery & Power Guide](../hardware/battery-power-guide.md) - Optimize for telemetry
 
 ---
 

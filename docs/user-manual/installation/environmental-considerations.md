@@ -58,17 +58,20 @@
 *Simple sun shield reduces internal temperature by 15-20°C*
 
 1. **Sun Shields:**
+
    - Aluminum or white plastic sheet
    - Mount 5-10cm above logger
    - Allow air circulation underneath
    - Angle to block afternoon sun
 
 2. **Reflective Coating:**
+
    - Paint enclosure white
    - Use reflective tape
    - Aluminum foil external wrap
 
 3. **Shade Structures:**
+
    - Natural shade from trees/structures
    - Purpose-built canopy
    - Position on shaded side of structure
@@ -78,16 +81,19 @@
 #### Rain and Water Ingress
 
 1. **Cable Entries**
+
    - Check waterproof cable glands tight
    - Apply silicone sealant if mounting upwards to avoid pooling.
    - Route cables downward (drip loop)
 
 2. **Enclosure Seals**
+
    - Check gasket in good condition
    - Clean sealing surfaces before closing
    - Even pressure on all fasteners
 
 3. **Sensor Housing**
+
    - No water pooling on sensor
 
 **Water Pooling Prevention:**
@@ -101,6 +107,7 @@
 #### Condensation
 
 **Condensation Causes:**
+
 - Temperature cycling (day/night)
 - Humidity differential (inside/outside)
 - Sealed enclosure trapping moisture
@@ -109,6 +116,7 @@
 **Anti-Condensation Measures:**
 
 1. **Desiccant Packs**
+
    - Resfresh silica gel packs inside enclosure
    - Replace every 3-6 months
    - Indicator type shows when saturated (typically yellow fresh green used)
@@ -120,6 +128,7 @@
 ### Insects and Spiders
 
 **Common Problems:**
+
 - Spider webs across sensor/lens
 - Insects nesting in enclosure
 - Webs triggering false readings
@@ -128,28 +137,30 @@
 **Prevention:**
 
 ✅ **Physical Barriers:**
+
 - Fine mesh over sensor (must not affect beam)
 - Petroleum jelly around entry points
 - Regular cleaning schedule
 
 ✅ **Chemical Deterrents:**
+
 - Insect repellent spray around (not on) sensor
 - Peppermint oil cotton balls in enclosure
 - Commercial spider deterrent
 - Re-apply monthly
 
 **Lidar Specific:**
+
 - Spiders particularly attracted to lens
 - Weekly inspection in high-insect season
 - Soft brush or compressed air for cleaning
 - Never touch lens with fingers
 
 
-## Site-Specific Hazards
-
 ### Flood Risk
 
 **During Flooding:**
+
 - Logger may be submerged
 - Debris impact damage
 - Siltation of sensor
@@ -158,18 +169,21 @@
 **Flood Protection:**
 
 1. **Mounting Height**
+
    - Above 100-year flood level if possible
    - Document flood history for area
    - Add 1m safety margin
    - Mark maximum known flood on mounting
 
 2. **Debris Protection**
+
    - Mount behind structure if possible
    - Debris deflector upstream
    - Protective cage around logger
    - Streamlined mounting (minimal snag points)
 
 3. **Post-Flood Inspection**
+
    - Immediate visual check
    - Clean sensor thoroughly
    - Check for water ingress

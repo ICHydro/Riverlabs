@@ -17,7 +17,7 @@ Your logger stores data on a microSD card. To download data, you'll need:
 
 1. Press the **RESET** button on the logger to flush any buffered data
 2. Wait for the LED to show a red pulse (indicating data transfer)
-3. Once the LED turns off, the data has been saved
+3. Once the LED turns off, the data has been flushed to the microSD card.
 4. Gently push and release the SD card to eject it from the slot
 5. Remove the SD card carefully
 
@@ -92,36 +92,6 @@ Once you've confirmed your data has been successfully copied:
    - Push gently until it clicks into place
 3. Press the **RESET** button to reinitialize the logger
 
-## Data Processing Tips
-
-### Converting Raw Distance to Water Level
-
-The raw distance measurements are from the sensor to the water surface. To convert to water level:
-
-1. Calculate the average of the 10 readings (columns 2-11)
-2. Subtract from the sensor height above datum
-3. Apply any calibration offsets
-
-**Example:**
-- Sensor height above datum: 5000 mm
-- Average distance reading: 2214 mm
-- Water level = 5000 - 2214 = 2786 mm above datum
-
-### Monitoring Battery Health
-
-- **Full battery:** ~4200 mV
-- **Good condition:** 3900-4200 mV
-- **Monitor closely:** 3700-3900 mV
-- **Replace soon:** <3700 mV
-- **Logger shutdown:** ~3500 mV
-
-### Checking Data Quality
-
-Look for:
-- ✅ Consistent readings across the 10 measurements
-- ✅ Gradual changes in water level over time
-- ❌ Sudden jumps or erratic readings (may indicate sensor issues)
-- ❌ Repeated identical readings (potential sensor fault)
 
 ## Troubleshooting
 
