@@ -1,0 +1,39 @@
+site_name: Riverlabs user manual
+site_url: https://github.com/riverlabs
+
+docs_dir: "../../docs/es" # Where to find the Spanish markdown files
+site_dir: "../../site/es" # Where to put the Spanish HTML files
+
+theme:
+  name: material
+  custom_dir: "../../overrides/"
+  Language: es
+
+extra: # Language Selection
+  alternate:
+    # Switch to English
+    - name: English
+      link: /Riverlabs/en/
+      lang: en
+    # Switch to Spanish
+    - name: Español
+      link: /Riverlabs/es/
+      lang: es
+
+markdown_extensions:
+  - tables
+
+nav:
+  - Inicio:
+    - Resumen: index.md
+    - Especificaciones t&eacute;cnicas: techspec.md
+    - Necesidades de hardware y software: start.md
+  - Programaci&oacute;n del logger:
+    - El ecosistema Arduino: arduino.md
+    - Subir codigo con arduino: upload.md
+  - Almacenamiento de datos y telemetr&iacute;a:
+    - Almacenamiento en tarjeta SD: SDcard.md
+    - El modem XBee 3G: xbee3G.md
+    - Thingsboard: thingsboard.md
+  - Instalaci&oacute;n:
+    - Instalaci&oacute;n: installation.md
