@@ -17,7 +17,7 @@ El modelo *Wari* tiene la siguientes características:
 
 ### Especificaciones técnicas
 
-| Property                   | Specification                    |
+| Propiedad                  | Especificación                   |
 | -------------------------- | -------------------------------- |
 | Rango                      | 300 mm - 5000 mm                 |
 | Resolución (nivel de agua) | 1 mm                             |
@@ -49,7 +49,7 @@ El *WMOnode* ha sido desarrollado con apoy de un proyecto *Innovation Hub* del O
 
 ### Especificaciones técnicas
 
-| Property                   | Specification                    |
+| Propiedad                  | Especificación                   |
 | -------------------------- | -------------------------------- |
 | Rango                      | 0.05 m - 35 m                    |
 | Resolución (nivel de agua) | 1 cm                             |
