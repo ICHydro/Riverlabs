@@ -15,7 +15,7 @@ Los registradores ("loggers") Riverlabs son una serie de registradores de bajo c
 ## Resumen y especificaciones
 
 <div class="row">
-    <div class="col-md-6">
+    <div class="column">
         <center>
         <h3>Wari</h3>
         <img src="assets/images/Wari_v1.jpg" alt="Registrador Wari">
@@ -27,7 +27,7 @@ Los registradores ("loggers") Riverlabs son una serie de registradores de bajo c
         <li>Arduino Pro Mini bootloader</li>
         </ul>
     </div>
-    <div class="col-md-6">
+    <div class="column">
         <center>
         <h3>Lidar</h3>
         <img src="assets/images/WMOnode.jpg" alt="Registrador WMOode">

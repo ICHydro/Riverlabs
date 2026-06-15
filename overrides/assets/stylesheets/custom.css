@@ -1,0 +1,17 @@
+.column {
+  float: left;
+  width: 50%;
+}
+
+.column img {
+  height: 300px;
+  width: 100%;
+   object-fit: contain;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}

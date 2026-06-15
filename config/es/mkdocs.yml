@@ -22,6 +22,11 @@ extra: # Language Selection
 
 markdown_extensions:
   - tables
+  - toc:
+      permalink: "¤"
+
+extra_css:
+  - "assets/stylesheets/custom.css"
 
 nav:
   - Inicio:

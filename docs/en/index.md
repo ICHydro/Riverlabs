@@ -13,7 +13,7 @@ The Riverlabs loggers are a series of low-cost environmental loggers based on th
 ## Overview and specifications
 
 <div class="row">
-    <div class="col-md-6">
+    <div class="column">
         <center>
         <h3>Wari</h3>
         <img src="assets/images/Wari_v1.jpg" alt="Wari logger">
@@ -25,7 +25,7 @@ The Riverlabs loggers are a series of low-cost environmental loggers based on th
         <li>Arduino Pro Mini bootloader</li>
         </ul>
     </div>
-    <div class="col-md-6">
+    <div class="column">
         <center>
         <h3>Lidar</h3>
         <img src="assets/images/WMOnode.jpg" alt=" logger">
