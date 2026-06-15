@@ -41,7 +41,7 @@ The Riverlabs loggers are a series of low-cost environmental loggers based on th
 
 ## Power considerations
 
-The logger requires two batteries. The main power source is a 3.7V 18650 lithium battery, which is a commonly available battery that can be found in may electronic stores. These are rechargeable batteries with a capacity of around 2000 mAh. Make sure that you purchase an appropriate charger. They cannot be charged with Ni-MH chargers!
+The logger requires two batteries. The main power source is a 3.7V 18650 lithium battery, which is a commonly available battery that can be found in many electronic stores. These are rechargeable batteries with a capacity of around 2000 mAh. Make sure that you purchase an appropriate charger. They cannot be charged with Ni-MH chargers!
 
 Also mind the polarity when inserting the battery. The logger versions without solar charging circuit are protected for reverse polarity, but those with a solar charging circuit are not. Inserting the battery wrongly will cause permanent damage to those loggers and may cause fire.
 

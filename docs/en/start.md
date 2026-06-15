@@ -26,7 +26,7 @@ If you use a Windows operating system, then you may need to follow [these instru
 
 ### XBee development board
 
-If you intend to use the XBee module for telemetry, then you may consider buying an [XBee Development board] (https://www.digi.com/products/models/xbib-c-smt) from DIGI, which is needed to adjust the settings of the XBee. If you have purchased the logger with XBee modem from Riverlabs, then this is not strictly necessary because in that case the XBee will have been configured already. However, if you purchase the XBee separately, or want to change any of the Riverlabs configurations, then a development board will be necessary.
+If you intend to use the XBee module for telemetry, then you may consider buying an [XBee Development board](https://www.digi.com/products/models/xbib-c-smt) from DIGI, which is needed to adjust the settings of the XBee. If you have purchased the logger with XBee modem from Riverlabs, then this is not strictly necessary because in that case the XBee will have been configured already. However, if you purchase the XBee separately, or want to change any of the Riverlabs configurations, then a development board will be necessary.
 
 ## Software
 

@@ -21,17 +21,17 @@ Los registradores Wari y WMOnode estan basados en un procesador Atmel328. Es un 
 - [Sparkfun FTDI basic breakout board](https://www.sparkfun.com/products/9873)
 - [Seeed UARTSBee](https://wiki.seeedstudio.com/UartSBee_V4/)
 
-Si usa el sistema operativa Windows, habrá que instalar el driver del chip, disponible en (sitio web de FTDI)[https://ftdichip.com/drivers/vcp-drivers/].
+Si usa el sistema operativa Windows, habrá que instalar el driver del chip, disponible en [sitio web de FTDI](https://ftdichip.com/drivers/vcp-drivers/).
 
 ## Software Arduino
 
-El sistema Arduino simplifica considerablemente la programación del registrador, usando solo un cable FTDI. El ambiente de programación (IDE) Arduino es software de codigo abierto y se puede bajar sin costo del [sitio web Arduino](https://www.arduino.cc/en/software). El sitio web Arduino tambien tiene un rango muy aplio de [documentacion] (https://www.arduino.cc/en/Guide) por si quiere aprender mas sobre Arduino y el ecosistema de manuales, bibliotecas de software, y otros recursos comunicatarios.
+El sistema Arduino simplifica considerablemente la programación del registrador, usando solo un cable FTDI. El ambiente de programación (IDE) Arduino es software de codigo abierto y se puede bajar sin costo del [sitio web Arduino](https://www.arduino.cc/en/software). El sitio web Arduino tambien tiene un rango muy aplio de [documentacion](https://www.arduino.cc/en/Guide) por si quiere aprender mas sobre Arduino y el ecosistema de manuales, bibliotecas de software, y otros recursos comunicatarios.
 
 ## Herramientas opcionales
 
 ### XBee development board
 
-Si usa un modulo XBee para la funcionalidad de telemetría, se puede considerar la compra de un [XBee Development board] (https://www.digi.com/products/models/xbib-c-smt) de DIGI, lo cual es necesario para cambiar las opciones en el XBee. Si ha comprado su registrador de Riverlabs, las opciones ya estarán programadas de manera correcta; sin embargo se se compra los modulos directamente de DIGI, el development board es necesario para grabar los valores correctos en el XBee. Sino, el registrador no reconocera el modulo.
+Si usa un modulo XBee para la funcionalidad de telemetría, se puede considerar la compra de un [XBee Development board](https://www.digi.com/products/models/xbib-c-smt) de DIGI, lo cual es necesario para cambiar las opciones en el XBee. Si ha comprado su registrador de Riverlabs, las opciones ya estarán programadas de manera correcta; sin embargo se se compra los modulos directamente de DIGI, el development board es necesario para grabar los valores correctos en el XBee. Sino, el registrador no reconocera el modulo.
 
 ### XCTU
 

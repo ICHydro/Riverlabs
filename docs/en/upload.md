@@ -39,6 +39,7 @@ Plug the FTDI cable or breakout board onto the FTDI pins of the WMOnode board. T
 ### Set the correct board in the Arduino interface
 
 Choose the following board settings in the Arduino IDE (under the "tools" menu):
+
 * Board: Arduino Pro or Pro Mini
 * Processor: Atmega328P (3.3V, 8MHz)
 

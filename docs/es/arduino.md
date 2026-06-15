@@ -28,7 +28,7 @@ Programming an Arduino board consists of the following steps:
 - Set the correct board and board options (if your board has any)
 - Compile and upload the code
 
-Many boards can be connected to the computer via a USB cable. The Riverlabs boards are slightly different, as they do not have a USB port, but a serial (UART) port instead. So you will need a serial-to-usb converter instead. See the section on [uploading code with Arduino](upload.html) for more details. Once this is done, the remaining steps can be executed via the graphical interface of the Arduino IDE.
+Many boards can be connected to the computer via a USB cable. The Riverlabs boards are slightly different, as they do not have a USB port, but a serial (UART) port instead. So you will need a serial-to-usb converter instead. See the section on [uploading code with Arduino](upload.md) for more details. Once this is done, the remaining steps can be executed via the graphical interface of the Arduino IDE.
 
 ## The Arduino IDE
 
@@ -42,4 +42,4 @@ Of the menus, the "tool" menu is the most important. This is where you set the c
 
 ![Board settings in Arduino](assets/images/arduino2.jpg "Arduino IDE Settings")
 
-Now you are ready to proceed to [uploading the code to your Riverlabs logger](upload.html)!
+Now you are ready to proceed to [uploading the code to your Riverlabs logger](upload.md)!

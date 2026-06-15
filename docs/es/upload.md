@@ -21,7 +21,7 @@ El código require las siguientes bibliotecas, que deben estar instalados separa
 
 Se puede instalar los primeros 4 a través del software Arduino, siguiendo [las instrucciones](https://www.arduino.cc/en/Guide/Libraries) en el sitio web de Arduino.
 
-La biblioteca RocketScream LowPower no esta disponible a traves del app Arduino. Hay que bajar el codito manualmente de su [página Github](https://github.com/rocketscream/Low-Power) y ponerlo en la carpeta de las biblioteca Arduino en su maquina (vea Instalación Manual en la [pagina deinstrucciones Arduino](https://www.arduino.cc/en/Guide/Libraries)))
+La biblioteca RocketScream LowPower no esta disponible a traves del app Arduino. Hay que bajar el codito manualmente de su [página Github](https://github.com/rocketscream/Low-Power) y ponerlo en la carpeta de las biblioteca Arduino en su maquina (vea Instalación Manual en la [pagina deinstrucciones Arduino](https://www.arduino.cc/en/Guide/Libraries)).
 
 ### Diseño energetico
 
@@ -29,7 +29,7 @@ El logger tiene un switch para inciar, indicado "ON (Batt) / OFF (ftdi)" en la p
 
 ### Instalar los drivers y conectar el logger a la computadora con un cable FTDI
 
-Si usa el sistema operativa Windows, habrá que instalar el driver del chip FTDI, lo cual se puede bajar del (sitio web de FTDI)[https://ftdichip.com/drivers/vcp-drivers/]. Si usa Mac o Linux, típicamente no es necesario instalar ningun driver.
+Si usa el sistema operativa Windows, habrá que instalar el driver del chip FTDI, lo cual se puede bajar del [sitio web de FTDI](https://ftdichip.com/drivers/vcp-drivers/). Si usa Mac o Linux, típicamente no es necesario instalar ningun driver.
 
 Conecta el cable FTDI a la entrada FTDI en el logger. Ojo: observar la dirección: el logger tiene indicaciones "GRN" para indicar el lado del hilo verde, y "BLK" para indicar el lado del hilo negro. Conecta el lado USB del cable a su computadora. Si el cable (y otro adaptador) esta conecto y el driver esta instalado correctamente, Arduino reconocerá el cable y lo presentará en el menu "ports". El nombre depende del sistama operative, pero en Windows típicamente sera "COM?" donde "?" es un number (ej. "COM3").
 
