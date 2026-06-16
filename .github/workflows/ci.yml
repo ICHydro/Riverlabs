@@ -1,0 +1,27 @@
+name: CI Riverlabs
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test-docs:
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: 3.14
+          cache: pip
+          cache-dependency-path: requirements.tx
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install .
+      - name: Test the docs built correctly
+        run: |
+          mkdocs build -f config/en/mkdocs.yml
+          mkdocs build -f config/es/mkdocs.yml
