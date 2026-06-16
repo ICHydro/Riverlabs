@@ -9,15 +9,21 @@ theme:
   custom_dir: "../../overrides/"
   Language: en
 
+plugins:
+  - search:
+      lang: en # Set language for search
+  - section-index
+  - glightbox
+
 extra: # Language Selection
   alternate:
     # Switch to English
     - name: English
-      link: /Riverlabs/en/
+      link: /riverlabs/en/
       lang: en
     # Switch to Spanish
     - name: Español
-      link: /Riverlabs/es/
+      link: /riverlabs/es/
       lang: es
 
 markdown_extensions:
