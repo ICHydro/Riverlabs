@@ -23,7 +23,6 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-          pip install .
       - name: Test the docs built correctly
         run: |
           mkdocs build -f config/en/mkdocs.yml
