@@ -77,5 +77,6 @@ Asegurar que en la opcion "board" en Arduino esta en "Arduino Pro or Pro Mini"
 > Durante la subida del codigo, encuentro el error "programmer is not responding"
 
 El software Arduino no encuentra el registrador. Asegurar que:
+
 - El board adecuado esta seleccionado
 - El cable FTDI esta conectado adecuadamente al registrador y a la computadora. Ojo la dirección de la conexión al registrador: el hilo verde debe estar al lado "GRN" y el hilo verde al lado "BLK".

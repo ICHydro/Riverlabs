@@ -84,6 +84,7 @@ Make sure that you select the right board, i.e. "Arduino Pro or Pro Mini"
 > When uploading the code, I get the error "programmer is not responding"
 
 Make sure that:
+
 * you have selected the right board in the Arduino IDE;
 * the FTDI cable is properly connected to the board. Mind the pin layout: the green wire should be on the outside and the black wire should be on the side of the SD card slot.
 
