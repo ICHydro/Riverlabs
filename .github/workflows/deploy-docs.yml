@@ -1,7 +1,12 @@
+name: Deploy MkDocs (Multi-language)
+
 on:
   push:
     branches:
       - main
+
+permissions:
+  contents: write
 
 jobs:
   test:
@@ -11,16 +16,42 @@ jobs:
     needs: test
     timeout-minutes: 15
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v6
-      - uses: actions/setup-python@v6
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Configure Git Credentials
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
         with:
           python-version: 3.14
           cache: pip
           cache-dependency-path: requirements.txt
+
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-      - name: Deploy Docs
-        run: mkdocs gh-deploy --force
+
+      # Build each language into its own subdirectory
+      - name: Build docs
+        run: |
+          mkdocs build -f config/en/mkdocs.yml
+          mkdocs build -f config/es/mkdocs.yml
+
+      # Copy the root redirect index.html into the site folder
+      - name: Copy root index redirect
+        run: cp index.html site/index.html
+
+      # Deploy the entire site/ folder to gh-pages
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./site
+          publish_branch: gh-pages

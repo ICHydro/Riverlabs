@@ -1,5 +1,5 @@
 site_name: Riverlabs user manual
-site_url: https://github.com/riverlabs
+site_url: https://github.com/ICHydro/Riverlabs
 
 docs_dir: "../../docs/en" # Where to find the English markdown files
 site_dir: "../../site/en" # Where to put the English HTML files
