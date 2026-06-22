@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -39,9 +40,9 @@ jobs:
           mkdocs build -f config/en/mkdocs.yml
           mkdocs build -f config/es/mkdocs.yml
 
-      # Copy the root redirect index.html into the site folder
+      # Copy the redirect index.html into the site folder
       - name: Copy root index redirect
-        run: cp index.html site/index.html
+        run: cp docs/index.html site/index.html
 
       # Deploy the entire site/ folder to gh-pages
       - name: Deploy to GitHub Pages
