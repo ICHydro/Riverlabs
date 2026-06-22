@@ -2,8 +2,6 @@
 title: "Documentation for the Riverlabs suite of sensors"
 keywords: Riverlabs sensors water telemetry xbee
 summary: "This page gives a concise overview of operating the Riverlabs environmental loggers. Further details can be found in the rest of this documentation"
-sidebar: home_sidebar
-permalink: index.html
 ---
 
 ## Introduction

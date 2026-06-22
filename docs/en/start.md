@@ -4,8 +4,6 @@ tags:
 keywords: 
 last_updated: 11 April 2021
 summary: "What do you need to get going with the Riverlabs loggers? This page gives an overview of the hardware and software required to program the loggers."
-sidebar: home_sidebar
-permalink: start.html
 ---
 
 ## Introduction

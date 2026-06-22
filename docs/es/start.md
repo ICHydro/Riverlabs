@@ -1,10 +1,6 @@
 ---
 title: Herramientas de hardware y software
-layout: page_es
-topnav: topnav_es
 summary: "Esta pagina revisa los herramientas de hardware y software que se necesita para programar y operar los registradores Riverlabs"
-sidebar: home_sidebar_es
-permalink: start_es.html
 ---
 
 ## Introducción

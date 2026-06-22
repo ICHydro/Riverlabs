@@ -4,8 +4,6 @@ tags:
 keywords: 
 last_updated: 11 April 2021
 summary: "Configuration of the DIGI Xbee 3G Global modem for use with the Riverlabs loggers"
-sidebar: home_sidebar
-permalink: xbee3G.html
 ---
 
 ## Key settings

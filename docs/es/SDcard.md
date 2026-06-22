@@ -1,10 +1,6 @@
 ---
 title: Almacenamiento de datos en tarjeta SD
-layout: page_es
-topnav: topnav_es
 summary: "Almacenamiento local de datos en la tarjeta SD"
-sidebar: home_sidebar_es
-permalink: SDcard_es.html
 ---
 
 ## Como funciona la tarjeta SD

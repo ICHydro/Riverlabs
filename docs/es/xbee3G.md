@@ -1,10 +1,6 @@
 ---
 title: Xbee 3G Global modem configuration
-layout: page_es
-topnav: topnav_es
 summary: "Configuration of the DIGI Xbee 3G Global modem for use with the Riverlabs loggers"
-sidebar: home_sidebar_es
-permalink: xbee3G_es.html
 ---
 
 ## Key settings

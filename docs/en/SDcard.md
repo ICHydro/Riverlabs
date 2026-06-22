@@ -4,8 +4,6 @@ tags:
 keywords: 
 last_updated: 11 April 2021
 summary: "Storing data locally using the SD card slot"
-sidebar: home_sidebar
-permalink: SDcard.html
 ---
 
 ## Functionality of the SD card slot

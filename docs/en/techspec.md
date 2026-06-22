@@ -3,8 +3,6 @@ title: Technical Specifications
 tags:
 keywords: 
 summary: "Technical specifications of the Riverlabs loggers"
-sidebar: home_sidebar
-permalink: techspec.html
 ---
 
 ## Wari logger

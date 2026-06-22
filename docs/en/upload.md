@@ -4,8 +4,6 @@ tags:
 keywords: 
 last_updated: 11 April 2021
 summary: "This page explains how to upload new code to the loggers"
-sidebar: home_sidebar
-permalink: upload.html
 ---
 
 ## Uploading the code

@@ -1,10 +1,6 @@
 ---
 title: Subir codigo nuevo
-layout: page_es
-topnav: topnav_es
 summary: "Esta página explica cómo subir codigo Arduino al logger"
-sidebar: home_sidebar_es
-permalink: upload_es.html
 ---
 
 ## Subir el código

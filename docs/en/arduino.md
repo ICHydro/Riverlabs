@@ -3,8 +3,6 @@ title: Arduino
 tags:
 keywords:
 summary: "This page gives a short overview of the Arduino environment"
-sidebar: home_sidebar
-permalink: arduino.html
 ---
 
 ## Intro

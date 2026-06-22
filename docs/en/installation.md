@@ -3,8 +3,6 @@ title: Installation
 tags:
 keywords:
 summary: "This page covers technical aspects of installing distance sensors for non-contact river stage monitoring"
-sidebar: home_sidebar
-permalink: installation.html
 ---
 
 ## Wari logger (ultrasound sensor)

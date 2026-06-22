@@ -1,10 +1,6 @@
 ---
 title: Instalación
-layout: page_es
-topnav: topnav_es
 summary: "Esta pagina cubre los aspectos técnicos de la instalación de sensores de distancia para el monitoreo de nivel de agua en ríos"
-sidebar: home_sidebar_es
-permalink: installation_es.html
 ---
 
 ## Registrador Wari (sensor ultrasonido)

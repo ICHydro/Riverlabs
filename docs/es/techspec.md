@@ -1,10 +1,6 @@
 ---
 title: Especificaciones técnicas
-layout: page_es
-topnav: topnav_es
 summary: "Especificaciones técnicas de los registradores Riverlabs"
-sidebar: home_sidebar_es
-permalink: techspec_es.html
 ---
 
 ## Registrador Wari
