@@ -27,8 +27,8 @@ Below the editor you can find an information window, which displays the output o
 
 Of the menus, the "tool" menu is the most important. This is where you set the correct USB port to which the board is attached (menu item "board"), and you will also need to select the correct type of board, and sometimes the correct type of processor. The screenshots below show where these settings can be found.
 
-![Arduino IDE overview](../images/arduino1.jpg "Arduino IDE Overview")
+![Arduino IDE overview](assets/images/arduino1.jpg "Arduino IDE Overview")
 
-![Board settings in Arduino](../images/arduino2.jpg "Arduino IDE Settings")
+![Board settings in Arduino](assets/images/arduino2.jpg "Arduino IDE Settings")
 
 Now you are ready to proceed to [uploading the code to your Riverlabs logger](upload.md)!

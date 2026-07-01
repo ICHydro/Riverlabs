@@ -18,7 +18,7 @@ El modelo *Wari* tiene la siguientes características:
 
 ### Layout del PCB
 
-![PCB layout of the Wari](../images/wari_layout.jpg "Layout del PCB Wari")
+![PCB layout of the Wari](assets/images/wari_layout.jpg "Layout del PCB Wari")
 
 Sensor y conexión al sensor: el sensor puede ser desconectado del registrador si es necesario. Cuando los reconecte, compruebe que el sensor es conectado correctamente. En el tablero verde principal, el cable proveniente del pin vecino a la X en MAXBOTIX (pin más alejado de la batería) debe estar hacia el extremo externo del terminal conector. El sensor genera “clicks” apenas perceptibles cuando está midiendo (10 clicks un período de medición en torno a 1.5s).
 

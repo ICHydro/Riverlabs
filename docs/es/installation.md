@@ -4,10 +4,10 @@ El wari usa un sensor de distancia de la marca Maxbotix. El rango teôrico es 5m
 
 El sensor requiere ser instalado sobre la superficie de agua a ser medida, apuntando verticalmente hacia abajo. Un área con un radio de alrededor de 0.5 m debe estar libre de obstáculos.
 
-![Ultrasound installation sketch](../images/installation_US.png "Instalación Wari")
+![Ultrasound installation sketch](assets/images/installation_US.png "Instalación Wari")
 
 ## Registrador WMOnode (sensor lidar)
 
 La instalación del sensor lidar es parecido al ultrasonido. Además se puede incorporar un angulo hasta 40&deg;:
 
-![Lidar installation sketch](../images/installation_lidar.png "Instalación WMOnode")
+![Lidar installation sketch](assets/images/installation_lidar.png "Instalación WMOnode")

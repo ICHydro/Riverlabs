@@ -100,16 +100,16 @@ extra:
 copyright: Copyright &copy; 2025 Riverlabs Ltd
 
 nav:
-  - Getting started:
-    - Overview: index.md
-    - Technical specifications: techspec.md
-    - Setting up: start.md
-  - Programming the logger:
-    - The Arduino ecosystem: arduino.md
-    - Uploading code with the Arduino IDE: upload.md
-  - Data storage and telemetry:
-    - SD card storage: SDcard.md
-    - Xbee 3G Modem: xbee3G.md
+  - Inicio:
+    - Resumen: index.md
+    - Especificaciones t&eacute;cnicas: techspec.md
+    - Necesidades de hardware y software: start.md
+  - Programaci&oacute;n del logger:
+    - El ecosistema Arduino: arduino.md
+    - Subir codigo con arduino: upload.md
+  - Almacenamiento de datos y telemetr&iacute;a:
+    - Almacenamiento en tarjeta SD: SDcard.md
+    - El modem XBee 3G: xbee3G.md
     - Thingsboard: thingsboard.md
-  - Installation:
-    - Installation: installation.md
+  - Instalaci&oacute;n:
+    - Instalaci&oacute;n: installation.md
