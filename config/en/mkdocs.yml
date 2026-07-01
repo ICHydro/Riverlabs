@@ -82,7 +82,7 @@ extra_css:
   - assets/stylesheets/extra.css
 
 extra_javascript:
-  - javascripts/extra.js
+  - assets/javascripts/extra.js
 
 extra:
   social:

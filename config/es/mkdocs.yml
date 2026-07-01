@@ -82,7 +82,7 @@ extra_css:
   - assets/stylesheets/extra.css
 
 extra_javascript:
-  - javascripts/extra.js
+  - assets/javascripts/extra.js
 
 extra:
   social:
@@ -91,11 +91,11 @@ extra:
   alternate:
     # Switch to English
     - name: English
-      link: /riverlabs/en/
+      link: /Riverlabs/en/
       lang: en
     # Switch to Spanish
     - name: Español
-      link: /riverlabs/es/
+      link: /Riverlabs/es/
       lang: es
 copyright: Copyright &copy; 2025 Riverlabs Ltd
 
