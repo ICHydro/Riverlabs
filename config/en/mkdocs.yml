@@ -100,7 +100,6 @@ extra:
 copyright: Copyright &copy; 2025 Riverlabs Ltd
 
 nav:
-  - Home: index.md
   - User Manual:
     - Quick Start:
       - Quick Start Guide: user-manual/quick-start/quick-start.md
