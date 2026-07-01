@@ -46,6 +46,6 @@ It is most convenient to use Digi’s XCTU software to program an XBee via a PC.
 
 XCTU is also well documented in the user manual, so here we focus only on the steps that are relevant for operating the Riverlabs loggers. The main steps to connect to the Xbee are outlined in Figures 2 and 3.
 
-![XCTU screenshot 1](images/XCTU1.jpg "XCTU screenshot 1")
+![XCTU screenshot 1](../../assets/images/XCTU1.jpg "XCTU screenshot 1")
 
-![XCTU screenshot 2](images/XCTU2.jpg "XCTU screenshot 2")
+![XCTU screenshot 2](../../assets/images/XCTU2.jpg "XCTU screenshot 2")

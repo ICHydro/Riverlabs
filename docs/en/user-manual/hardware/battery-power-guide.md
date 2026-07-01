@@ -7,7 +7,7 @@
 
 Riverlabs loggers use a dual-battery system for power and timekeeping.
 
-![Battery types comparison](../../images/Battery_Types.png)
+![Battery types comparison](../../assets/images/Battery_Types.png)
 *18650 and 14500 battery sizes with LiPo and LiFePO4 chemistry options*
 
 

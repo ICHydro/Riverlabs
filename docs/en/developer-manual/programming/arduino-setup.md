@@ -35,7 +35,7 @@ For more information, visit the [MiniCore GitHub repository](https://github.com/
 - Set the correct board (MiniCore → ATmega328) and board options (Clock: External 8 MHz)
 - Compile and upload the code
 
-Many boards can be connected to the computer via a USB cable. The Riverlabs boards are slightly different, as they do not have a USB port, but a serial (UART) port instead. So you will need a serial-to-usb converter instead. See the section on [uploading code with Arduino](upload.md) for more details. Once this is done, the remaining steps can be executed via the graphical interface of the Arduino IDE.
+Many boards can be connected to the computer via a USB cable. The Riverlabs boards are slightly different, as they do not have a USB port, but a serial (UART) port instead. So you will need a serial-to-usb converter instead. See the section on [uploading code with Arduino](uploading-code.md) for more details. Once this is done, the remaining steps can be executed via the graphical interface of the Arduino IDE.
 
 ## The Arduino IDE
 
@@ -45,8 +45,8 @@ Below the editor you can find an information window, which displays the output o
 
 Of the menus, the "tool" menu is the most important. This is where you set the correct USB port to which the board is attached (menu item "board"), and you will also need to select the correct type of board, and sometimes the correct type of processor. The screenshots below show where these settings can be found.
 
-![Arduino IDE overview](images/arduino1.jpg "Arduino IDE Overview")
+![Arduino IDE overview](../../assets/images/arduino1.jpg "Arduino IDE Overview")
 
-![Board settings in Arduino](images/arduino2.jpg "Arduino IDE Settings")
+![Board settings in Arduino](../../assets/images/arduino2.jpg "Arduino IDE Settings")
 
-Now you are ready to proceed to [uploading the code to your Riverlabs logger](upload.md)!
+Now you are ready to proceed to [uploading the code to your Riverlabs logger](uploading-code.md)!

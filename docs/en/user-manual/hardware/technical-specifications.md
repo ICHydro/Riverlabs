@@ -88,7 +88,7 @@ The Wari logger is based around the Maxbotix MB7389 Ultrasound distance sensor. 
 
 ### PCB layout
 
-![PCB layout of the Wari](images/wari_layout.jpg "Wari PCB layout")
+![PCB layout of the Wari](../../assets/images/wari_layout.jpg "Wari PCB layout")
 
 ### Power considerations
 

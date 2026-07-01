@@ -4,7 +4,7 @@ This guide will help you set up the Arduino IDE and prepare your computer for pr
 
 ### Main Components
 
-![Arduino IDE Overview](../../images/arduino1.jpg)
+![Arduino IDE Overview](../../assets/images/arduino1.jpg)
 *The Arduino IDE showing the editor window (top) and information window (bottom)*
 
 **Editor Window** (top) - This is where you write and edit your code. Arduino uses a language very similar to C++. Each program (called a "sketch") consists of two main functions:
@@ -82,7 +82,7 @@ Riverlabs loggers don't have a USB port - they use a serial interface instead. Y
 
 FTDI cables come in 3.3V or 5V versions. Riverlabs loggers work with both, but **3.3V is recommended**.
 
-![FTDI Cable Connection](../../images/FTDICable.png)
+![FTDI Cable Connection](../../assets/images/FTDICable.png)
 *FTDI cable showing the 6-pin connector with color-coded wires*
 
 
@@ -159,7 +159,7 @@ If no port appears, check that FTDI drivers are properly installed.
 Now that you have Arduino set up, you're ready to program your logger:
 
 - [Quick Start Guide](quick-start.md) - Complete setup workflow
-- [Uploading Code](../../upload.md) - Detailed upload instructions with troubleshooting
+- [Uploading Code](../../developer-manual/programming/uploading-code.md) - Detailed upload instructions with troubleshooting
 - [Logger Identification](logger-identification.md) - Find the right code for your logger model
 
 ## Troubleshooting

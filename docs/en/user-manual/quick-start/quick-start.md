@@ -25,7 +25,7 @@ First, identify which logger model you have. See the [Logger Identification Guid
 
     **Ultrasound Distance Sensor**
 
-    ![Wari logger](../../images/Wari_v1.jpg){ width="250" }
+    ![Wari logger](../../assets/images/Wari_v1.jpg){ width="250" }
 
     **Sensor:** Maxbotix MB7389  
     **Range:** 0.3m - 5m  
@@ -45,7 +45,7 @@ First, identify which logger model you have. See the [Logger Identification Guid
 
     **Wari Lidar Logger**
 
-    ![Lidar logger](../../images/WMOnode.jpg){ width="250" }
+    ![Lidar logger](../../assets/images/WMOnode.jpg){ width="250" }
 
     **Sensor:** Garmin Lidarlite v3HP  
     **Range:** 0.05m - 35m  
