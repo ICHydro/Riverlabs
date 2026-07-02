@@ -114,7 +114,7 @@ Once you've confirmed your data has been successfully copied:
 
 Now that you've successfully downloaded your first data:
 
-- [Data Handling](../../data-handling.md) - Detailed SD card management
+- [Data Handling](../hardware/data-handling.md) - Detailed SD card management
 - [Common Issues](../troubleshooting/common-issues.md) - Troubleshooting data problems
 - [Maintenance Guide](../hardware/maintenance.md) - Regular maintenance schedule
 - [ThingsBoard Configuration](../telemetry/thingsboard-configuration.md) - Set up remote monitoring

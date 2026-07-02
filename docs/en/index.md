@@ -4,13 +4,13 @@ The Riverlabs loggers are a series of low-cost environmental loggers based on th
 
 !!! tip "New to Riverlabs Loggers?"
     This site will get you up and running with your Riverlabs environmental logger in minutes. 
-        - For detailed technical information, see the [Developer Manual](../../arduino.md).
-        - For detailed user information, see the [User Manual](../../quickstart.md).
+        - For detailed technical information, see the [Developer Manual](developer-manual/programming/arduino-setup.md).
+        - For detailed user information, see the [User Manual](user-manual/quick-start/quick-start.md).
 
 ## Overview and Specifications
 
 ### Wari
-![Wari logger](images/Wari_v1.jpg)
+![Wari logger](assets/images/Wari_v1.jpg)
 
 - Maxbotix MB7389 Ultrasound sensor
 - 0.3m - 5m range, 1mm resolution
@@ -18,7 +18,7 @@ The Riverlabs loggers are a series of low-cost environmental loggers based on th
 - Arduino Pro Mini bootloader
 
 ### Lidar
-![Lidar logger](images/WMOnode.jpg)
+![Lidar logger](assets/images/WMOnode.jpg)
 
 - Garmin Lidarlite v3HP sensor
 - 0.05 - 35m range, 1cm resolution

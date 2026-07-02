@@ -97,7 +97,7 @@ See [Logger Identification Guide](../user-manual/quick-start/logger-identificati
 - Battery age (degrades over time)
 - Telemetry signal strength (weak signal = more power)
 
-See [Battery & Power Guide](../user-manual/hardware/battery-power-guide.md) for detailed calculations and optimization tips.
+See [Battery & Power Guide](../hardware/battery-power-guide.md) for detailed calculations and optimization tips.
 
 ---
 
@@ -289,7 +289,7 @@ See [parts list] for detailed component specifications and suppliers.
 - Absorbs moisture (prevents condensation)
 - Replace if saturated (turns pink)
 
-See [Installation Guide](../user-manual/installation/mounting-guide.md) for detailed waterproofing instructions.
+See [Installation Guide](../installation/mounting-guide.md) for detailed waterproofing instructions.
 
 ---
 
@@ -446,7 +446,7 @@ Logger → XBee → Cellular → ThingsBoard → Email/SMS
 - AWS SNS
 - Other SMS gateway
 
-See [ThingsBoard Configuration](../user-manual/telemetry/thingsboard-configuration.md) for alert setup instructions.
+See [ThingsBoard Configuration](../telemetry/thingsboard-configuration.md) for alert setup instructions.
 
 **Limitation:** Logger can't proactively alert if it loses power or connection (dead logger can't send "I'm dead" message). ThingsBoard can alert on "no data received in X hours."
 
@@ -464,7 +464,7 @@ See [ThingsBoard Configuration](../user-manual/telemetry/thingsboard-configurati
 
 **2. Vertical is ideal:**
 - Straight down eliminates angle errors
-- If angled: Use trigonometry to correct (see [Sensor Positioning](../user-manual/installation/sensor-positioning.md))
+- If angled: Use trigonometry to correct (see [Sensor Positioning](../installation/sensor-positioning.md))
 
 **3. Account for level changes:**
 - Low flow: Where will water be? (don't aim too high)
@@ -925,7 +925,7 @@ df['water_depth_mm'] = installation_height - df['Distance_mm']
 
 ## Next Steps
 
-- 🚀 [Quick Start Guide](../user-manual/quick-start/quick-start.md) - Get started now
+- 🚀 [Quick Start Guide](../quick-start/quick-start.md) - Get started now
 - 📊 [Diagnostic Flowcharts](diagnostic-flowcharts.md) - Visual troubleshooting
 - 📋 [Common Issues](common-issues.md) - Detailed problem solutions
 - 🛠️ [Hardware Maintenance](../hardware/maintenance.md) - Keep logger healthy

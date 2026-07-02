@@ -7,11 +7,15 @@ repo_name: trowan92/Riverlabs
 repo_url: https://github.com/trowan92/Riverlabs
 edit_uri: edit/docs-update-27.12.25/docs/
 
+docs_dir: "../../docs/en" # Where to find the English markdown files
+site_dir: "../../site/en" # Where to put the English HTML files
+
 theme:
   name: material
+  custom_dir: "../../overrides/"
   language: en
-  logo: images/riverlabs_white_mono.svg
-  favicon: images/riverlabs_icon.svg
+  logo: assets/images/riverlabs_white_mono.svg
+  favicon: assets/images/riverlabs_icon.svg
   palette:
     # Palette toggle for light mode
     - media: "(prefers-color-scheme: light)"
@@ -75,23 +79,24 @@ markdown_extensions:
       permalink: true
 
 extra_css:
-  - stylesheets/extra.css
+  - assets/stylesheets/extra.css
 
 extra_javascript:
-  - javascripts/extra.js
+  - assets/javascripts/extra.js
 
 extra:
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/ICHydro
   alternate:
+    # Switch to English
     - name: English
-      link: /
+      link: /Riverlabs/en/
       lang: en
+    # Switch to Spanish
     - name: Español
-      link: /es/
+      link: /Riverlabs/es/
       lang: es
-
 copyright: Copyright &copy; 2025 Riverlabs Ltd
 
 nav:

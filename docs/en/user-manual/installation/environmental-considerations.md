@@ -54,7 +54,7 @@
 
 **Sun Protection Methods:**
 
-![Sun shield design](../../images/sun-shield-diagram.png)
+![Sun shield design](../../assets/images/sun-shield-diagram.png)
 *Simple sun shield reduces internal temperature by 15-20°C*
 
 1. **Sun Shields:**
@@ -98,7 +98,7 @@
 
 **Water Pooling Prevention:**
 
-![Drainage design](../../images/drainage-design.png)
+![Drainage design](../../assets/images/drainage-design.png)
 
 - Tilt enclosure 5-10° for runoff
 - Cables exit from bottom

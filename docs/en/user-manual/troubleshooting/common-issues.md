@@ -391,8 +391,6 @@ long distance = lidar.read(); // long = much larger range
 ```
 
 **Step 4: XBee interference**
-```
-**Step 4: XBee interference**
 
 If negatives occur during/after telemetry:
 

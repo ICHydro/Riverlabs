@@ -23,7 +23,7 @@ Choose the mounting method based on your installation requirements, access to th
 
 Zip ties provide a quick, non-invasive mounting solution ideal for pipes, railings, and temporary installations.
 
-![Zip tie mounting example](../../images/mounting-ziptie-sketch.png)
+![Zip tie mounting example](../../assets/images/mounting-ziptie-sketch.png)
 *Recommended zip tie placement for secure mounting*
 
 ### Materials Needed
@@ -114,7 +114,7 @@ Zip ties provide a quick, non-invasive mounting solution ideal for pipes, railin
 
 Adhesive mounting provides a clean, secure installation for smooth surfaces without drilling. Best for permanent installations where aesthetics matter.
 
-![Adhesive mounting example](../../images/mounting-adhesive-sketch.png)
+![Adhesive mounting example](../../assets/images/mounting-adhesive-sketch.png)
 *Surface preparation and adhesive application*
 
 ### Suitable Adhesive Types
@@ -222,7 +222,7 @@ Adhesive mounting provides a clean, secure installation for smooth surfaces with
 
 Mechanical brackets provide the most secure mounting, ideal for bridges, buildings, and permanent monitoring stations.
 
-![Bracket mounting example](../../images/mounting-bracket-sketch.png)
+![Bracket mounting example](../../assets/images/mounting-bracket-sketch.png)
 *Bracket mounting on bridge structure*
 
 ### Bracket Types

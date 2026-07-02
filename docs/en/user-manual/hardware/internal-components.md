@@ -24,7 +24,7 @@ The Riverlabs logger PCB contains the following key components:
 10. **LED Indicators** - Status indication
 11. **EEPROM** - External data buffering
 
-![PCB component layout - coming soon](../../images/pcb-layout-annotated.png)
+![PCB component layout - coming soon](../../assets/images/pcb-layout-annotated.png)
 *Annotated PCB layout showing component locations*
 
 ---
@@ -689,7 +689,7 @@ Complete component lists available in the [repository documentation](https://git
 - 🔋 [Battery & Power Guide](battery-power-guide.md) - Power system details
 - 🛠️ [Maintenance Guide](maintenance.md) - Regular maintenance procedures
 - 🚨 [Troubleshooting](../troubleshooting/common-issues.md) - Component-specific issues
-- 💻 [Arduino Setup](../../arduino.md) - Programming and firmware
+- 💻 [Arduino Setup](../quick-start/arduino-setup.md) - Programming and firmware
 
 ---
 
