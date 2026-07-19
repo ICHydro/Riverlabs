@@ -19,7 +19,7 @@
 /************* User settings **************/
 
 #define MQTT                                      // Set to either MQTT or COAP
-//#define XBEE4G                                  // set if you are using a 4G modem (LTE-M or NB-IoT)
+//#define LTE                                     // set if you are using an LTE modem (LTE-M / NB-IoT, Cat 1, or Cat 4)
 #define READ_INTERVAL 5                           // Interval for sensor readings, in minutes
 #define SEND_INTERVAL 1                           // telemetry interval, in hours
 #define NREADINGS 9                               // number of readings taken per measurement (excluding 0 values)
@@ -234,44 +234,44 @@ void setup ()
         #ifdef DEBUG > 0
             Serial.println(F("Cellular XBee detected. Setting APN"));
         #endif
-        uint8_t laCmd1[] = {'A','N'};
-        uint8_t laCmd2[] = {'W','R'};
-        uint8_t laCmd3[] = {'A','C'};
-        uint8_t laCmd4[] = {'D','O'};
-        #ifdef XBEE4G
-            uint8_t laCmd5[] = {'C','P'};                 // carrier profile
-            uint8_t laCmd6[] = {'B','N'};                 // band mask IoT
-            uint8_t laCmd7[] = {'N','#'};                 // Network technology
+        uint8_t anCmd[] = {'A','N'};
+        uint8_t wrCmd[] = {'W','R'};
+        uint8_t acCmd[] = {'A','C'};
+        uint8_t doCmd[] = {'D','O'};
+        #ifdef LTE
+            uint8_t cpCmd[] = {'C','P'};                 // carrier profile
+            uint8_t bmCmd[] = {'B','M'};                 // band mask IoT
+            uint8_t n_Cmd[] = {'N','#'};                 // Network technology
         #endif
 
         char APNstring[] = APN;
-        uint8_t DOvalue = 0x43;
+        uint8_t DOvalue = 0x43;         // default for 3G modems
+        uint8_t CarrierProfile = 0;     // auto detect
 
-        #ifdef XBEE4G
-            uint8_t CarrierProfile = 0;
+        #ifdef LTE
             byte bandmask[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x08, 0x00, 0x80};
-            uint8_t nettech = 2;
-            DOvalue = 1;
+            uint8_t nettech = 2;        // only for LTE-M / NBIOT
+            DOvalue = 0x83;             // enable 2G and 3G fallback for LTE modems
         #endif
         
-        AtCommandRequest atRequest1(laCmd1, (uint8_t*) APNstring, sizeof(APNstring) - 1);
-        AtCommandRequest atRequest2(laCmd2);
-        AtCommandRequest atRequest3(laCmd3);
-        AtCommandRequest atRequest4(laCmd4, &DOvalue, 1);
+        AtCommandRequest atRequest1(anCmd, (uint8_t*) APNstring, sizeof(APNstring) - 1);
+        AtCommandRequest atRequest2(wrCmd);
+        AtCommandRequest atRequest3(acCmd);
+        AtCommandRequest atRequest4(doCmd, &DOvalue, 1);
 
-        #ifdef XBEE4G
-            AtCommandRequest atRequest5(laCmd5, &CarrierProfile, 1);
-            AtCommandRequest atRequest6(laCmd6, bandmask, 16);
-            AtCommandRequest atRequest7(laCmd7, &nettech, 1);
+        #ifdef LTE
+            AtCommandRequest atRequest5(cpCmd, &CarrierProfile, 1);
+            //AtCommandRequest atRequest6(bmCmd, bandmask, 16);             // only needed if CarrierProfile is set to 1 (no profile)
+            //AtCommandRequest atRequest7(n_Cmd, &nettech, 1);              // only for LTE-M / NBIOT
         #endif
 
         uint8_t status = xbc.sendAndWait(atRequest1, 150);
         status += xbc.sendAndWait(atRequest4, 150);
 
-        #ifdef XBEE4G
+        #ifdef LTE
             status += xbc.sendAndWait(atRequest5, 150);
             status += xbc.sendAndWait(atRequest6, 150);
-            status += xbc.sendAndWait(atRequest7, 150);
+        //    status += xbc.sendAndWait(atRequest7, 150);
         #endif
 
         status += xbc.sendAndWait(atRequest2, 150);
@@ -287,7 +287,8 @@ void setup ()
                 digitalWrite(WriteLED, HIGH);
                 delay(1000);
                 digitalWrite(WriteLED, LOW);
-             } else {                                     // try a second time, just in case
+             } else {
+                Serial.println(F("Trying again."));                                    // try a second time, just in case
                 if(setclock_ntp()) {                    
                     Serial.print(F("NTP received. Clock is set to: "));
                     RtcDateTime now = Rtc.GetDateTime();
@@ -506,6 +507,7 @@ void loop ()
 
         if (startposition < 0) {
 
+            // terminate MQTT connection
             #ifdef MQTT
                 if(MyXBeeStatus.MqttConnected) {
                     tcpSend(IP, Port, protocol, m, 2);

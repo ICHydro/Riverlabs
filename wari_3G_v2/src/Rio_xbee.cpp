@@ -525,8 +525,8 @@ void zbAtResponseCb(AtCommandResponse& atr, uintptr_t) {
                      (((uint32_t)atr.getValue()[1]) << 16) + 
                      (((uint32_t)atr.getValue()[2]) << 8) + 
                      atr.getValue()[3];
-                // reset flags
-                // not that a postive LA response is the result of an ip request
+                // Set flags
+                // An LA request is technically not an IP request but treated as one for convenience
                 MyXBeeStatus.hostIPResolved = true;
                 MyXBeeStatus.ipResponseReceived = true;
             }
