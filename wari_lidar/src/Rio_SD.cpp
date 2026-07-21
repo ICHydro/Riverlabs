@@ -26,13 +26,17 @@ void getFilename(const RtcDateTime& Rtc) {
 // TODO: we need an alternative for TeensyLC and other ARM processors
 
 void turnOnSDcard() {
-    pinMode(SDpowerPin, OUTPUT);
-    digitalWrite(SDpowerPin, HIGH);          //turn on the SD ground line
-    delay(6);                                // let the card settle
-    // some cards will fail on power-up unless SS is pulled up  ( &  D0/MISO as well? )
+    // Riverlabs comment: it seems more stable to set pins 10, 11, and 13 first before powering on the SD card.
+    // Otherwise some boards restart when the SD card is switched on. Maybe a power surge through one of the pins?
+    // Still need to look into the following comment from Mallon:
+    // "some cards will fail on power-up unless SS is pulled up  ( &  D0/MISO as well? )"
     DDRB = DDRB | (1<<DDB5) | (1<<DDB3) | (1<<DDB2); // set SCLK(D13), MOSI(D11) & SS(D10) as OUTPUT
     // Note: | is an OR operation so  the other pins stay as they were.                (MISO stays as INPUT) 
     PORTB = PORTB & ~(1<<DDB5);  // disable pin 13 SCLK pull-up – leave pull-up in place on the other 3 lines
+    delay(10);
+    pinMode(SDpowerPin, OUTPUT);
+    digitalWrite(SDpowerPin, HIGH);          //turn on the SD ground line
+    delay(6);                                // let the card settle
     power_spi_enable();                      // enable the SPI clock 
     SPCR=keep_SPCR;                          // enable SPI peripheral
     delay(10);
@@ -49,6 +53,7 @@ void turnOffSDcard() {
     delay(6);
     pinMode(SDpowerPin, OUTPUT); digitalWrite(SDpowerPin, LOW);
     delay(6);
+    SDcardOn = false;
 } 
 
 #endif
@@ -62,17 +67,15 @@ uint8_t dumpEEPROM2() {
     byte headerbyte;
     digitalWrite(WriteLED, HIGH);
 
-    turnOnSDcard();
-    
-    if (!SD.begin(slaveSelect, SPI_FULL_SPEED)) {
+    if (!SD.begin(SD_CS_PIN, SPI_FULL_SPEED)) {
         #ifdef DEBUG   
-            Serial.println("Card failed, or not present");
+            Serial.println(F("Card failed, or not present"));
         #endif
         writefailure = true;
     } else {
 
         #ifdef DEBUG   
-            Serial.println("SD card found.");
+            Serial.println(F("SD card found."));
         #endif
 
         delay(100);  // needed? init time should be part of sd.begin()
@@ -80,6 +83,8 @@ uint8_t dumpEEPROM2() {
         i = 0;       // writeEEPROMline takes into account the header size
 
         while(readmore) {
+        
+            wdt_reset();
         
             headerbyte = i2c_eeprom_read_byte(EEPROM_ADDR, OFFSETSDMASK + i);
 
@@ -110,8 +115,8 @@ uint8_t dumpEEPROM2() {
     #ifdef DEBUG
         Serial.println(F("Powering off SD card"));
     #endif
-    keep_SPCR=SPCR;
-    turnOffSDcard(); 
+    //keep_SPCR=SPCR;
+    //turnOffSDcard(); 
     digitalWrite(WriteLED, LOW);
 
     return (writefailure) ? 0 : 1;

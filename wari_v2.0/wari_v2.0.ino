@@ -37,7 +37,7 @@
 #define interruptNo 0
 #define maxbotixPin 5
 #define VBATPIN A7
-#define EEPROM_ADDR 0x51       
+#define EEPROM_ADDR 0x51
 #define EEPromPageSize 32
 #define EEPromHeaderSize 8
 #define MAXPAGENUMBER 2048
@@ -534,7 +534,7 @@ void loop() {
 
             /*********** store values in EEPROM ***********/
 
-            SecondsSince2000 = uint32_t(now);
+            SecondsSince2000 = now.TotalSeconds();
 
             // prepare EEPromPage
 

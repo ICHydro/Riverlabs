@@ -66,7 +66,7 @@ uint8_t dumpEEPROM2() {
     boolean writefailure = false;
     byte headerbyte;
     digitalWrite(WriteLED, HIGH);
-
+   
     if (!SD.begin(SD_CS_PIN, SPI_FULL_SPEED)) {
         #ifdef DEBUG   
             Serial.println(F("Card failed, or not present"));
@@ -83,7 +83,7 @@ uint8_t dumpEEPROM2() {
         i = 0;       // writeEEPROMline takes into account the header size
 
         while(readmore) {
-        
+
             wdt_reset();
         
             headerbyte = i2c_eeprom_read_byte(EEPROM_ADDR, OFFSETSDMASK + i);

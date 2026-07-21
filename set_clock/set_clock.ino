@@ -24,11 +24,9 @@
 RtcDS3231<TwoWire> MyRtc(Wire);
 
 #define RtcSquareWavePin 2 
-//#define RtcSquareWaveInterrupt 0
 
-
-#if defined(_SAMD21_)                       // SAMD21 boards (sparkfun mini at least) use SerialUSB for the Serial Monitor
-    #define Serial SerialUSB
+#if defined(_SAMD21_)                       // Sparkfun mini (SAMD21) boards use SerialUSB for the Serial Monitor
+    #define Serial SerialUSB                // but note that Adafruit boards do not, so set as appropriate
 #endif
 
 
@@ -44,18 +42,21 @@ void InterruptServiceRoutine()
 void setup () 
 {
     Serial.begin(115200);
+    while(!Serial);
 
     // set the interupt pin to input mode
     pinMode(RtcSquareWavePin, INPUT);
     
     MyRtc.Begin();
 
-    RtcDateTime compiled = RtcDateTime(__DATE__, __TIME__) - TZ * 3600 + 11;
+    RtcDateTime compiled = RtcDateTime(__DATE__, __TIME__) - TZ * 3600 + 12;
     RtcDateTime now = MyRtc.GetDateTime();
     MyRtc.SetDateTime(compiled);
     
     MyRtc.Enable32kHzPin(false);
     MyRtc.SetSquareWavePin(DS3231SquareWavePin_ModeAlarmTwo); 
+
+    // The next code checks if the alarm interrupt works.
 
     // Alarm 2 set to trigger at the top of the minute
     DS3231AlarmTwo alarm2(
@@ -100,10 +101,14 @@ bool Alarmed()
     if (interruptFlag)  // check our flag that gets sets in the interupt
     {
         wasAlarmed = true;
-        cli();                     // see https://www.pjrc.com/teensy/interrupts.html
+        #if defined(__AVR_ATmega328P__) // see https://www.pjrc.com/teensy/interrupts.html
+            cli();
+        #endif
         interruptFlag = false;     // reset the flag
-        sei();
-        
+        #if defined(__AVR_ATmega328P__)
+            sei();
+        #endif
+
         // this gives us which alarms triggered and
         // then allows for others to trigger again
         DS3231AlarmFlag flag = MyRtc.LatchAlarmsTriggeredFlags();
@@ -122,11 +127,13 @@ bool Alarmed()
 
 #define countof(a) (sizeof(a) / sizeof(a[0]))
 
+// date time formatting from Rtc by Makuna
+
 void printDateTime(const RtcDateTime& dt)
 {
   char datestring[20];
 
-  snprintf_P(datestring, 
+  snprintf_P(datestring,
       countof(datestring),
       PSTR("%02u/%02u/%04u %02u:%02u:%02u"),
       dt.Month(),

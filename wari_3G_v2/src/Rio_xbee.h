@@ -5,6 +5,7 @@
 #include <Wire.h>
 #include "XBee_dev.h"
 #include "Rio_COAP.h"
+#include "Rio_MQTT.h"
 #include <RtcDS3231.h>
 #if defined(__AVR_ATmega328P__)
     #include <SoftwareSerial.h>
@@ -22,7 +23,7 @@
 class CellularStatus {
     public:
     void reset() {
-	    isAwake = false;
+        isAwake = false;
         isRegistered = false;
         aiRequested = false;
         isConnected = false;
@@ -33,11 +34,13 @@ class CellularStatus {
         ipResponseReceived = false;
         xbcErrorOccurred = false;
         gotStatusResponse = false;
-        //tryagain = false;
         dontSleep = false;
         CoapSentAcknowledged = false;
-        CoapSent203Received = false;
-        Coap203Confirmed = false;
+        MessageSent = false;
+        MessageConfirmed = false;
+        MqttConnected = false;
+        MqttConnack = false;
+        MqttPuback = false;
     };
     bool isAwake = false;
     bool isRegistered = false;
@@ -50,20 +53,21 @@ class CellularStatus {
     bool ipResponseReceived = false;
     bool xbcErrorOccurred = false;
     bool gotStatusResponse = false;
-    uint8_t tryagain = 0;
     bool dontSleep = false;
-
-    // COAP stuff
+    bool MessageSent = false;
+    bool MessageConfirmed = false;      // Telemetry server confirmed successful receipt of message (2.01 or 2.03 for COAP)
+    // MQTT specific status flags:
+    bool MqttConnected = false;
+    bool MqttConnack = false;
+    bool MqttPuback = false;
+    // COAP specific status flags:
     bool CoapSentAcknowledged = false;     // Recipient acknowledges arrival
-    bool CoapSent203Received = false;      // Recipient confirms successful parsing (via confirmable 2.03 message)
-    bool Coap203Confirmed = false;         // 2.03 message confirmation sent
-
 };
 
-class CoapTransaction {
-    public:
-		CoapPacket packet;
-};
+//class CoapTransaction {
+//    public:
+//		CoapPacket packet;
+//};
 
 
 /* variable and function declarations */
@@ -74,9 +78,9 @@ extern AtCommandResponse atResponse;
 extern IPTxRequest ipRequest;
 extern TxStatusResponse txResponse;
 extern IPRxResponse ipResponse;
-extern CellularStatus seqStatus;
+extern CellularStatus MyXBeeStatus;
 extern uint32_t IP;
-extern const uint16_t Port;
+extern uint16_t Port;
 extern uint8_t protocol;
 extern RtcDS3231<TwoWire> Rtc;
 
@@ -93,20 +97,21 @@ void tcpSend(uint32_t, uint16_t, uint8_t, uint8_t*, uint16_t);
 void getTcpSendResponse();
 void readIPResponse();
 void printUnexpectedMessage();
-void printIPRX(IPRxResponse& IPresponse, Stream &stream);
+//void printIPRX(IPRxResponse& IPresponse, Stream &stream);         // only used internally
 void sendAtCommand(AtCommandRequest);
 
 // callback functions:
 void zbModemStatusCb(ModemStatusResponse& mx, uintptr_t);
-void zbIPResponseCb(IPRxResponse& ipResponse, uintptr_t);        // generic callback
-void zbIPResponseCb_COAP(IPRxResponse& ipResponse, uintptr_t);        // specific for COAP
-void zbIPResponseCb_NTP(IPRxResponse& ipResponse, uintptr_t);        // specific for NTP
+void zbIPResponseCb(IPRxResponse& ipResponse, uintptr_t);           // generic callback
+void zbIPResponseCb_COAP(IPRxResponse& ipResponse, uintptr_t);      // specific for COAP
+void zbIPResponseCb_NTP(IPRxResponse& ipResponse, uintptr_t);       // specific for NTP
+void zbIPResponseCb_MQTT(IPRxResponse& ipResponse, uintptr_t);      // specific for MQTT
 void zbTcpSendResponseCb(TxStatusResponse& txr, uintptr_t);
 void zbAtResponseCb(AtCommandResponse& atr, uintptr_t);
 
 void sendXbeeMessage(uint8_t*, uint16_t, char *host, uint8_t);
 void sendXbeeMessage(uint16_t, char *host, uint8_t);
 
-bool setclock_ntc();
+bool setclock_ntp();
 
 #endif
