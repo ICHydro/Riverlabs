@@ -17,7 +17,7 @@ Before you begin, make sure you have:
 
 First, identify which logger model you have. See the [Logger Identification Guide](logger-identification.md) for detailed comparisons.
 
-<div class="grid cards" markdown>
+<div class="grid cards logger-cards" markdown>
 
 -    **Wari Ultrasound Logger**
 

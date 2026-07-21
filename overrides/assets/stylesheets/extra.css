@@ -87,3 +87,14 @@
 .md-sidebar--secondary .md-nav--secondary .md-nav__item .md-nav__item .md-nav__item .md-nav__item {
     padding-left: 0.45rem;
 }
+
+/* Quick start logger cards: keep image heights consistent */
+.logger-cards > ul > li img {
+    height: 220px;
+    width: auto;
+    max-width: 100%;
+    object-fit: contain;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
