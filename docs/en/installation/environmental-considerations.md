@@ -57,7 +57,7 @@
 
 **Sun Protection Methods:**
 
-![Sun shield design](../../assets/images/sun-shield-diagram.png)<br>
+![Sun shield design](../assets/images/sun-shield-diagram.png)<br>
 *Simple sun shield reduces internal temperature by 15–20°C*
 
 1. **Sun Shields:**
@@ -91,7 +91,7 @@
 
 **Water Pooling Prevention:**
 
-![Drainage design](../../assets/images/drainage-design.png)
+![Drainage design](../assets/images/drainage-design.png)
 
 - Tilt enclosure 5–10° for runoff
 - Cables exit from bottom
@@ -178,9 +178,9 @@
 
 ## Next Steps
 
-- 🔋 [Battery & Power Guide](../hardware/battery-power-guide.md): Optimize for your climate
-- 🔧 [Maintenance Guide](../hardware/maintenance.md): Regular checks for environmental factors
-- 🚨 [Common Issues](../troubleshooting/common-issues.md): Environment-related problems
+- 🔋 [Battery & Power Guide](../operation/hardware/battery-power-guide.md): Optimize for your climate
+- 🔧 [Maintenance Guide](../operation/hardware/maintenance.md): Regular checks for environmental factors
+- 🚨 [Common Issues](../operation/troubleshooting/common-issues.md): Environment-related problems
 - 📞 Contact support: info@riverlabs.uk
 
 ---

@@ -4,8 +4,8 @@ The Riverlabs loggers are a series of low-cost environmental loggers based on th
 
 !!! tip "New to Riverlabs Loggers?"
     This site will get you up and running with your Riverlabs environmental logger in minutes. 
-        - For detailed technical information, see the [Developer Manual](developer-manual/programming/arduino-setup.md).
-        - For detailed user information, see the [User Manual](user-manual/quick-start/quick-start.md).
+        - For detailed technical information, see the [Developer Manual](programming/arduino-setup.md).
+        - For detailed user information, see the [User Manual](operation/quick-start/quick-start.md).
 
 ## Overview and Specifications
 

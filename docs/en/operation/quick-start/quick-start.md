@@ -177,7 +177,7 @@ See the [First Deployment Checklist](first-deployment-checklist.md) for comprehe
 
 ### 8. Install in Field
 
-Your logger is now ready for field deployment! See the [Mounting Guide](../installation/mounting-guide.md) for detailed installation instructions including:
+Your logger is now ready for field deployment! See the [Mounting Guide](../../installation/mounting-guide.md) for detailed installation instructions including:
 
 - Zip tie mounting methods
 - Adhesive mounting techniques
@@ -188,7 +188,7 @@ Your logger is now ready for field deployment! See the [Mounting Guide](../insta
 
 - [Logger Identification](logger-identification.md): Compare Wari vs Lidar in detail
 - [First Deployment Checklist](first-deployment-checklist.md): Complete pre-deployment verification
-- [Telemetry Setup](../telemetry/setup-guide.md): Configure cellular data transmission
+- [Telemetry Setup](../../telemetry/setup-guide.md): Configure cellular data transmission
 - [Battery & Power Guide](../hardware/battery-power-guide.md): Understand battery life and voltage
 
 ## Need Help?

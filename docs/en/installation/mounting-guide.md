@@ -23,7 +23,7 @@ Choose the mounting method based on your installation requirements, access to th
 
 Zip ties provide a quick, non-invasive mounting solution ideal for pipes, railings, and temporary installations.
 
-![Zip tie mounting example](../../assets/images/mounting-ziptie-sketch.png)<br>
+![Zip tie mounting example](../assets/images/mounting-ziptie-sketch.png)<br>
 *Recommended zip tie placement for secure mounting*
 
 ### Materials Needed
@@ -113,7 +113,7 @@ Zip ties provide a quick, non-invasive mounting solution ideal for pipes, railin
 
 Adhesive mounting provides a clean, secure installation for smooth surfaces without drilling. Best for permanent installations where aesthetics matter.
 
-![Adhesive mounting example](../../assets/images/mounting-adhesive-sketch.png)<br>
+![Adhesive mounting example](../assets/images/mounting-adhesive-sketch.png)<br>
 *Surface preparation and adhesive application*
 
 ### Suitable Adhesive Types
@@ -221,7 +221,7 @@ Adhesive mounting provides a clean, secure installation for smooth surfaces with
 
 Mechanical brackets provide the most secure mounting, ideal for bridges, buildings, and permanent monitoring stations.
 
-![Bracket mounting example](../../assets/images/mounting-bracket-sketch.png)<br>
+![Bracket mounting example](../assets/images/mounting-bracket-sketch.png)<br>
 *Bracket mounting on bridge structure*
 
 ### Bracket Types
@@ -322,7 +322,7 @@ Mechanical brackets provide the most secure mounting, ideal for bridges, buildin
 
 After installation:
 
-- ✅ Complete [First Deployment Checklist](../quick-start/first-deployment-checklist.md)
+- ✅ Complete [First Deployment Checklist](../operation/quick-start/first-deployment-checklist.md)
 - 📊 Set up monitoring dashboard
 - 📅 Schedule maintenance visits
 - 📝 File installation documentation
@@ -331,5 +331,5 @@ After installation:
 
 - [Sensor Positioning Guide](sensor-positioning.md): Detailed positioning information
 - [Environmental Considerations](environmental-considerations.md): Weather/climate factors
-- [Common Issues](../troubleshooting/common-issues.md): Installation troubleshooting
+- [Common Issues](../operation/troubleshooting/common-issues.md): Installation troubleshooting
 - Contact support: info@riverlabs.uk

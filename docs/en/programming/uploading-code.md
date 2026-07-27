@@ -315,6 +315,6 @@ This error can occur for any missing library:
 
 ### Need More Help?
 
-- Check the [Common Issues](../../user-manual/troubleshooting/common-issues.md) guide
-- Review the [Diagnostic Flowcharts](../../user-manual/troubleshooting/diagnostic-flowcharts.md)
+- Check the [Common Issues](../operation/troubleshooting/common-issues.md) guide
+- Review the [Diagnostic Flowcharts](../operation/troubleshooting/diagnostic-flowcharts.md)
 - Contact support: info@riverlabs.uk

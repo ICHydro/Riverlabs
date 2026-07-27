@@ -86,7 +86,7 @@ The logger comes with a high-quality microSD card pre-installed.
 - SIM card installed with active data plan
 - Test transmission successful
 
-See [Telemetry Setup Guide](../telemetry/setup-guide.md) for detailed configuration.
+See [Telemetry Setup Guide](../../telemetry/setup-guide.md) for detailed configuration.
 
 ---
 
@@ -167,6 +167,6 @@ If problems arise, see:
 
 ## Next Steps
 
-- Proceed to [Mounting Guide](../installation/mounting-guide.md)
-- Set up monitoring on [ThingsBoard](../telemetry/thingsboard-configuration.md)
+- Proceed to [Mounting Guide](../../installation/mounting-guide.md)
+- Set up monitoring on [ThingsBoard](../../telemetry/thingsboard-configuration.md)
 - Review [Maintenance Schedule](../hardware/maintenance.md)

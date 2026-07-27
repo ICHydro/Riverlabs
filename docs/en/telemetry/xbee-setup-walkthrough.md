@@ -725,7 +725,7 @@ If settings reset:
 - [ThingsBoard Configuration](thingsboard-configuration.md): Set up your dashboard
 - [Troubleshooting Connections](troubleshooting-connections.md): Fix telemetry issues
 - [Telemetry Setup Guide](setup-guide.md): Complete setup overview
-- [Battery & Power Guide](../hardware/battery-power-guide.md): Optimize for telemetry
+- [Battery & Power Guide](../operation/hardware/battery-power-guide.md): Optimize for telemetry
 
 ---
 

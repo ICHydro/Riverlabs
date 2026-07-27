@@ -156,7 +156,7 @@ If no port appears, check that FTDI drivers are properly installed.
 Now that you have Arduino set up, you're ready to program your logger:
 
 - [Quick Start Guide](quick-start.md): Complete setup workflow
-- [Uploading Code](../../developer-manual/programming/uploading-code.md): Detailed upload instructions with troubleshooting
+- [Uploading Code](../../programming/uploading-code.md): Detailed upload instructions with troubleshooting
 - [Logger Identification](logger-identification.md): Find the right code for your logger model
 
 ## Troubleshooting

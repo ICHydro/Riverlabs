@@ -381,7 +381,7 @@ Battery voltage indicates remaining capacity, but the voltage ranges differ betw
 
 -  [Internal Components](internal-components.md): Understanding your logger's hardware
 -  [Maintenance Guide](maintenance.md): Regular upkeep procedures
--  [ThingsBoard](../telemetry/thingsboard-configuration.md): Monitor battery voltage remotely
+-  [ThingsBoard](../../telemetry/thingsboard-configuration.md): Monitor battery voltage remotely
 -  [Troubleshooting](../troubleshooting/common-issues.md): Power-related issues
 
 ---

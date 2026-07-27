@@ -26,7 +26,7 @@ The ultrasound sensor emits a conical beam that spreads as distance increases.
 | 3.0 m     | ~80 cm         | 0.502 m²       |
 | 5.0 m     | ~130 cm        | 1.327 m²       |
 
-![Ultrasound beam pattern](../../assets/images/installation_US.png)
+![Ultrasound beam pattern](../assets/images/installation_US.png)
 
 *Ultrasound beam spreads in a cone pattern*
 
@@ -51,7 +51,7 @@ The lidar sensor emits a highly focused laser beam with minimal divergence.
 | 20 m     | ~16 cm        | 0.020 m²      |
 | 35 m     | ~28 cm        | 0.062 m²      |
 
-![Lidar beam pattern](../../assets/images/installation_lidar.png)
+![Lidar beam pattern](../assets/images/installation_lidar.png)
 
 *Lidar beam maintains tight focus over distance*
 
@@ -209,8 +209,8 @@ Both sensors can measure non-water targets:
 
 - 📐 [Mounting Guide](mounting-guide.md): Install your optimized sensor position
 - 🌡️ [Environmental Considerations](environmental-considerations.md): Site-specific factors
-- 🔋 [Battery & Power Guide](../hardware/battery-power-guide.md): Power planning
-- 🔧 [Maintenance](../hardware/maintenance.md): Keep sensor positioned correctly
+- 🔋 [Battery & Power Guide](../operation/hardware/battery-power-guide.md): Power planning
+- 🔧 [Maintenance](../operation/hardware/maintenance.md): Keep sensor positioned correctly
 
 ---
 

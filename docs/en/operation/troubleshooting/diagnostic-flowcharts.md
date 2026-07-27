@@ -556,7 +556,7 @@ If you've followed the appropriate flowchart and still have issues:
 - 📋 [Common Issues](common-issues.md): Detailed problem descriptions and solutions
 - ❓ [FAQ](faq.md): Frequently asked questions
 - 🔧 [Hardware Maintenance](../hardware/maintenance.md): Preventive maintenance
-- 🚨 [Troubleshooting Telemetry](../telemetry/troubleshooting-connections.md): Detailed telemetry diagnostics
+- 🚨 [Troubleshooting Telemetry](../../telemetry/troubleshooting-connections.md): Detailed telemetry diagnostics
 
 ---
 

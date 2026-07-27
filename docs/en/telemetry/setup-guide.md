@@ -510,7 +510,7 @@ With telemetry (hourly transmission):
     - Reduce during stable conditions
     - Requires more complex code
 
-See [Battery & Power Guide](../hardware/battery-power-guide.md) for detailed calculations.
+See [Battery & Power Guide](../operation/hardware/battery-power-guide.md) for detailed calculations.
 
 ---
 

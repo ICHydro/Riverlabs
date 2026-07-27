@@ -100,37 +100,34 @@ extra:
 copyright: Copyright &copy; 2025 Riverlabs Ltd
 
 nav:
-  - User Manual:
+  - Operation:
     - Quick Start:
-      - Quick Start Guide: user-manual/quick-start/quick-start.md
-      - Arduino Setup: user-manual/quick-start/arduino-setup.md
-      - First Deployment Checklist: user-manual/quick-start/first-deployment-checklist.md
-      - Data Download: user-manual/quick-start/data-download.md
-    - Installation:
-      - Mounting Guide: user-manual/installation/mounting-guide.md
-      - Sensor Positioning: user-manual/installation/sensor-positioning.md
-      - Environmental Considerations: user-manual/installation/environmental-considerations.md
-    - Hardware:
-      - Technical Specifications: user-manual/hardware/technical-specifications.md
-      - Battery & Power Guide: user-manual/hardware/battery-power-guide.md
-      - Internal Components: user-manual/hardware/internal-components.md
-      - Maintenance: user-manual/hardware/maintenance.md
-      - Data Handling: user-manual/hardware/data-handling.md
-    - Telemetry Configuration:
-      - Cellular Setup Guide: user-manual/telemetry/setup-guide.md
-      - LoRa / LoRaWAN Guide: user-manual/telemetry/lora-lorawan-guide.md
-      - ThingsBoard Configuration: user-manual/telemetry/thingsboard-configuration.md
-      - XBee Setup Walkthrough: user-manual/telemetry/xbee-setup-walkthrough.md
-      - Troubleshooting Connections: user-manual/telemetry/troubleshooting-connections.md
+      - Quick Start Guide: operation/quick-start/quick-start.md
+      - Arduino Setup: operation/quick-start/arduino-setup.md
+      - First Deployment Checklist: operation/quick-start/first-deployment-checklist.md
+      - Data Download: operation/quick-start/data-download.md
+    - Hardware:  
+      - Technical Specifications: operation/hardware/technical-specifications.md
+      - Battery & Power Guide: operation/hardware/battery-power-guide.md
+      - Internal Components: operation/hardware/internal-components.md
+      - Maintenance: operation/hardware/maintenance.md
+      - Data Handling: operation/hardware/data-handling.md
     - Troubleshooting:
-      - Diagnostic Flowcharts: user-manual/troubleshooting/diagnostic-flowcharts.md
-      # - Common Issues: user-manual/troubleshooting/common-issues.md
-      # - FAQ: user-manual/troubleshooting/faq.md
-  - Developer Manual:
-    - Programming:
-      - Arduino Setup: developer-manual/programming/arduino-setup.md
-      - Uploading Code: developer-manual/programming/uploading-code.md
-    - Technical Reference:
-      - Installation Details: developer-manual/technical-reference/installation-details.md
-      - ThingsBoard Integration: developer-manual/technical-reference/thingsboard-integration.md
-      - XBee 3G Setup: developer-manual/technical-reference/xbee-3g-setup.md
+      - Diagnostic Flowcharts: operation/troubleshooting/diagnostic-flowcharts.md
+  - Installation:
+    - Mounting Guide: installation/mounting-guide.md
+    - Sensor Positioning: installation/sensor-positioning.md
+    - Environmental Considerations: installation/environmental-considerations.md
+  - Telemetry:
+    - Cellular Setup Guide: telemetry/setup-guide.md
+    - LoRa / LoRaWAN Guide: telemetry/lora-lorawan-guide.md
+    - ThingsBoard Configuration: telemetry/thingsboard-configuration.md
+    - XBee Setup Walkthrough: telemetry/xbee-setup-walkthrough.md
+    - Troubleshooting Connections: telemetry/troubleshooting-connections.md
+  - Programming:
+    - Arduino Setup: programming/arduino-setup.md
+    - Uploading Code: programming/uploading-code.md
+  - Development:
+    - Installation Details: development/installation-details.md
+    - ThingsBoard Integration: development/thingsboard-integration.md
+    - XBee 3G Setup: development/xbee-3g-setup.md      

@@ -359,8 +359,8 @@ function Decoder(bytes, port) {
 ## Next Steps
 
 - [ThingsBoard Configuration](thingsboard-configuration.md): Set up dashboard for LoRaWAN data
-- [Battery & Power Guide](../hardware/battery-power-guide.md): Optimize LoRa power consumption
-- [Arduino Setup](../quick-start/arduino-setup.md): Program your LoRa logger
+- [Battery & Power Guide](../operation/hardware/battery-power-guide.md): Optimize LoRa power consumption
+- [Arduino Setup](../operation/quick-start/arduino-setup.md): Program your LoRa logger
 
 ---
 
