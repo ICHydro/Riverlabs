@@ -5,13 +5,11 @@
 Before you begin, make sure you have:
 
 - Your Riverlabs logger (Ultrasonic or Lidar)
-- Main Battery (a 14500 or 18650 depening on type).
+- Main battery (a 14500 or 18650 depending on type)
 - CR1220 coin battery (for RTC backup)
-- Micro SD card 
+- MicroSD card 
 - FTDI cable or adapter (for programming)
 - Arduino IDE installed on your computer
-
-
 
 ## 1. Identify Your Logger
 
@@ -28,15 +26,14 @@ First, identify which logger model you have. See the [Logger Identification Guid
     ![Wari logger](../../assets/images/Wari_v1.jpg){ width="250" }
 
     **Sensor:** Maxbotix MB7389  
-    **Range:** 0.3m - 5m  
-    **Resolution:** 1mm  
-    **Beam Angle:** Wide (~15°)  
+    **Range:** 0.3 m–5 m  
+    **Resolution:** 1 mm  
+    **Beam angle:** Wide (~15°)  
+    **Best for:**
 
-    **Best For:**
-    
     - Water level monitoring
     - Budget-conscious projects
-    - Shorter range applications
+    - Shorter-range applications
     - Vertical mounting positions
 
 -   :material-laser-pointer:{ .lg .middle } **Lidar Logger**
@@ -48,11 +45,10 @@ First, identify which logger model you have. See the [Logger Identification Guid
     ![Lidar logger](../../assets/images/WMOnode.jpg){ width="250" }
 
     **Sensor:** Garmin Lidarlite v3HP  
-    **Range:** 0.05m - 35m  
-    **Resolution:** 1cm  
-    **Beam Angle:** Very narrow (~0.5°)  
-
-    **Best For:**
+    **Range:** 0.05 m–35 m  
+    **Resolution:** 1 cm  
+    **Beam angle:** Very narrow (~0.5°)  
+    **Best for:**
     
     - Long-range measurements
     - Angled installations (up to 40°)
@@ -66,43 +62,42 @@ First, identify which logger model you have. See the [Logger Identification Guid
 !!! danger "Check Polarity First!"
     Double-check battery orientation before insertion. Match the **+** and **-** markings on the battery with the markings in the battery compartment.
 
-0. Switch off the board
-
 **RTC Battery (CR1220):**
 
 !!! tip "Date Preservation" 
-    Coin cell may already be installed, only replace if needed to preserve programmed date install the main battery first and switch on.
+    The coin cell may already be installed. Only replace it if needed to preserve the programmed date. Install the main battery first and switch on.
 
-1. Locate the small coin battery slot on the PCB (sometimes on the revesre)
-2. Insert the CR1220 battery (+ side up, typically)
-3. Press firmly until it clicks into place
-4. if applicable screw the circuit board back into the enclosure.
+1. Switch off the board
+2. Locate the small coin battery slot on the PCB (sometimes on the reverse)
+3. Insert the CR1220 battery (typically **+** side up)
+4. Press firmly until it clicks into place
+5. If applicable, screw the circuit board back into the enclosure
 
 **Main Battery (ususally a 18650 or 14500):**
 
-1. Check you have the right battery - [Battery & Power Guide](../hardware/battery-power-guide.md)
-2. Verify the Polarity +/- and charge
-3. Insert the Battery, ensuing the metal clips touch the battery.
-
+1. Switch off the board
+2. Check you have the right battery (see the [Battery & Power Guide](../hardware/battery-power-guide.md))
+3. Verify the polarity (**+**/**-**) and charge
+4. Insert the battery, ensuring the metal clips touch the battery
 
 ### 3. Prepare SD Card
 
-Your logger may needs a microSD card.
+Your logger may need a microSD card.
 
-2. Insert the card into the logger's micro SD slot
-3. Ensure it clicks into place - you should be able to feel this
+- Insert the card into the logger's microSD slot
+- Ensure it clicks into place (you should be able to feel this)
 
 ### 4. Set the Clock
 
 !!! warning "Important First Step"
-    The clock must be set before first use, and should be set to **UTC time zone** if using telemetry.
+    The clock must be set before first use. Set the clock to **UTC time zone** if using telemetry.
 
-**Before Programming:**
+**Before programming:**
 
-!!! danger "Disconnect Sensor First - CRITICAL"
-    **For Wari Ultrasonic models:** Disconnect the Maxbotix sensor (three pin connector) from the logger before programming. The sensor and FTDI cable use the same serial port, causing interference that prevents successful code upload. Reconnect the sensor after programming is complete.
+!!! danger "CRITICAL: Disconnect Sensor First"
+    **For Wari Ultrasonic models:** Disconnect the Maxbotix sensor (3-pin connector) from the logger before programming. The sensor and FTDI cable use the same serial port, causing interference that prevents successful code upload. Reconnect the sensor after programming is complete.
 
-**Clock Setting Steps:**
+**Clock setting steps:**
 
 1. **Disconnect sensor** (white connector) if using Wari Ultrasonic
 2. Connect the FTDI cable to your logger
@@ -120,19 +115,19 @@ Your logger may needs a microSD card.
 
 ### 5. Firmware Selection by Serial Number
 
-| Serial Number Range | Sensor | Telemetry | Firmware File |
-|---------------------|--------|-----------|---------------|
-| RL000001 - RL000277 | Ultrasound | None | `wari_v1.ino` |
-| RL000001 - RL000277 | Ultrasound | 3G Cellular | `wari_3G.ino` |
-| RL000278 - RL000330 | Ultrasound | None | `wari_v2.0.ino` |
-| RL000278+ | Ultrasound | 3G Cellular | `wari_3G_v2.ino` |
-| RL000331+ | Ultrasound | None | `wari_v2.1.ino` |
-| Any | Ultrasound | 4G LTE-M/NB-IoT | `wari_4G.ino` |
-| Any | Lidar | None | `wari_lidar.ino` |
-| Any | Lidar | 3G or 4G Cellular | `wari_lidar_cellular.ino` * |
-| Any | Lidar | LoRa Radio | `wari_lidar_lora.ino` |
+| Serial Number Range | Sensor      | Telemetry         | Firmware File               |
+|---------------------|-------------|-------------------|-----------------------------|
+| RL000001–RL000277   | Ultrasound  | None              | `wari_v1.ino`               |
+| RL000001–RL000277   | Ultrasound  | 3G Cellular       | `wari_3G.ino`               |
+| RL000278–RL000330   | Ultrasound  | None              | `wari_v2.0.ino`             |
+| RL000278+           | Ultrasound  | 3G Cellular       | `wari_3G_v2.ino`            |
+| RL000331+           | Ultrasound  | None              | `wari_v2.1.ino`             |
+| Any                 | Ultrasound  | 4G LTE-M/NB-IoT   | `wari_4G.ino`               |
+| Any                 | Lidar       | None              | `wari_lidar.ino`            |
+| Any                 | Lidar       | 3G or 4G Cellular | `wari_lidar_cellular.ino`*  |
+| Any                 | Lidar       | LoRa Radio        | `wari_lidar_lora.ino`       |
 
-**\*** Set correct modem type (3G or LTE-M) in compiler definition at top of code
+*\*Set correct modem type (3G or LTE-M) in compiler definition at top of code*
 
 !!! info "Legacy Names"
     - `wari_lidar.ino` was formerly `WMO_SD.ino`
@@ -165,13 +160,13 @@ Now upload the main logging script:
     When the LED flashes after upload, your logger is programmed and ready. Don't forget to reconnect the sensor!
 
 !!! tip "Battery Considerations"
-    Higher logging frequency = shorter battery life. Start with conservative settings (10-15 minute intervals) for deployments.
+    Higher logging frequency = shorter battery life. Start with conservative settings (10–15 minute intervals) for deployments.
 
 ### 7. Test Before Deployment
 
 Before taking your logger to the field, perform a bench test:
 
-- **Sensor reconnected** (matbotix 3-pin connector plugged in)
+- **Sensor reconnected** (Matbotix 3-pin connector plugged in)
 - Power switch in ON position
 - Verify LED flashes during measurements
 - Check that data is being written to SD card
@@ -191,14 +186,14 @@ Your logger is now ready for field deployment! See the [Mounting Guide](../insta
 
 ## Next Steps
 
-- [Logger Identification](logger-identification.md) - Compare Wari vs Lidar in detail
-- [First Deployment Checklist](first-deployment-checklist.md) - Complete pre-deployment verification
-- [Telemetry Setup](../telemetry/setup-guide.md) - Configure cellular data transmission
-- [Battery & Power Guide](../hardware/battery-power-guide.md) - Understand battery life and voltage
+- [Logger Identification](logger-identification.md): Compare Wari vs Lidar in detail
+- [First Deployment Checklist](first-deployment-checklist.md): Complete pre-deployment verification
+- [Telemetry Setup](../telemetry/setup-guide.md): Configure cellular data transmission
+- [Battery & Power Guide](../hardware/battery-power-guide.md): Understand battery life and voltage
 
 ## Need Help?
 
-- Check [Common Issues](../troubleshooting/common-issues.md) for quick solutions
+- Check [Common Issues and Solutions](../troubleshooting/common-issues.md) for quick solutions
 - Review [Diagnostic Flowcharts](../troubleshooting/diagnostic-flowcharts.md) for systematic troubleshooting
 - Contact support: info@riverlabs.uk
 

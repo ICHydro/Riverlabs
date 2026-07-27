@@ -5,7 +5,7 @@
 
 ## What is ThingsBoard?
 
-[ThingsBoard](https://thingsboard.io/) is an open-source IoT platform for device management, data collection, and visualization. It's ideal for Riverlabs loggers because:
+[ThingsBoard](https://thingsboard.io/) is an open-source IoT platform for device management, data collection and visualization. It's ideal for Riverlabs loggers because:
 
 - **Free tier available** (demo server)
 - **Easy HTTP API** integration
@@ -22,12 +22,14 @@
 ### Option 1: ThingsBoard Demo Server (Recommended for Testing)
 
 **Pros:**
+
 - Free to use
 - No setup required
 - Good for evaluation and learning
 - Includes all features
 
 **Cons:**
+
 - Data deleted after inactivity
 - Shared infrastructure
 - No guaranteed uptime
@@ -35,11 +37,12 @@
 
 **URL:** https://demo.thingsboard.io
 
-**Use Case:** Testing, learning, short-term deployments
+**Use Case:** Testing, learning and short-term deployments
 
 ### Option 2: ThingsBoard Cloud
 
 **Pros:**
+
 - Managed hosting
 - Guaranteed uptime
 - Technical support
@@ -47,28 +50,31 @@
 - Production-ready
 
 **Cons:**
-- Monthly fees (~$10-50+)
+
+- Monthly fees (~$10–50+)
 - Subscription required
 
 **URL:** https://thingsboard.cloud
 
-**Use Case:** Long-term monitoring, critical deployments, multiple loggers
+**Use Case:** Long-term monitoring, critical deployments and multiple loggers
 
 ### Option 3: Self-Hosted
 
 **Pros:**
+
 - Full control
 - No monthly fees (after setup)
 - Data privacy
 - Custom configuration
 
 **Cons:**
+
 - Requires server management skills
 - Infrastructure costs (AWS/DigitalOcean)
 - Maintenance responsibility
 - Security management
 
-**Use Case:** Organizations with IT staff, many loggers, custom requirements
+**Use Case:** Organizations with IT staff, many loggers and custom requirements
 
 !!! tip "Start with Demo Server"
     Use the demo server to learn ThingsBoard and test your logger. Migrate to Cloud or self-hosted once you're confident in the setup.
@@ -82,9 +88,9 @@
 1. **Navigate to** https://demo.thingsboard.io
 2. **Click "Sign Up"** (top right)
 3. **Fill registration form:**
-   - Email address
-   - First and last name
-   - Password (strong, save in password manager)
+    - Email address
+    - First and last name
+    - Password (use a strong password and save in password manager)
 4. **Check email** for activation link
 5. **Click activation link**
 6. **Log in** to ThingsBoard
@@ -111,10 +117,10 @@
 2. **Navigate to "Devices"** (left sidebar)
 3. **Click "+ Add Device"** (top right)
 4. **Fill device form:**
-   - **Name:** `Wari-001` (or your logger ID)
-   - **Label:** `Creek Monitoring - Site A` (descriptive location)
-   - **Device Profile:** `Default` (or custom profile)
-   - **Gateway:** Leave unchecked
+    - **Name:** `Wari-001` (or your logger ID)
+    - **Label:** `Creek Monitoring - Site A` (descriptive location)
+    - **Device Profile:** `Default` (or custom profile)
+    - **Gateway:** Leave unchecked
 5. **Click "Add"**
 6. **Device created!**
 
@@ -177,11 +183,12 @@ curl -X POST \
 Empty JSON response = success!
 
 **In ThingsBoard:**
+
 1. Navigate to device
 2. Click "Latest Telemetry" tab
 3. Values should appear
 
-**If no data appears:** Check token, URL, network connectivity.
+**If no data appears:** Check token, URL and network connectivity.
 
 ---
 
@@ -213,17 +220,18 @@ Riverlabs loggers send data in JSON format:
 
 ### Telemetry Keys
 
-| Key | Type | Description | Units |
-|-----|------|-------------|-------|
-| `distance_mm` | Integer | Sensor-to-water distance | Millimeters |
-| `temperature_C` | Float | Air temperature (Wari only) | Celsius |
-| `battery_V` | Float | Battery voltage | Volts |
-| `signal_strength` | Integer | Lidar signal quality | Arbitrary (0-100) |
-| `timestamp` | Integer | Unix timestamp | Seconds since epoch |
+| Key               | Type    | Description                 | Units               |
+|-------------------|---------|-----------------------------|---------------------|
+| `distance_mm`     | Integer | Sensor-to-water distance    | Millimeters         |
+| `temperature_C`   | Float   | Air temperature (Wari only) | Celsius             |
+| `battery_V`       | Float   | Battery voltage             | Volts               |
+| `signal_strength` | Integer | Lidar signal quality        | Arbitrary (0–100)   |
+| `timestamp`       | Integer | Unix timestamp              | Seconds since epoch |
 
 **ThingsBoard stores:**
-- **Telemetry:** Time-series data (distance, temperature, etc.)
-- **Attributes:** Static data (device model, location, install date)
+
+- **Telemetry:** Time-series data (e.g., distance, temperature, etc.)
+- **Attributes:** Static data (device model, location and install date)
 
 ---
 
@@ -240,6 +248,7 @@ Riverlabs loggers send data in JSON format:
 ### Step 2: Add Widgets
 
 **Open dashboard in edit mode:**
+
 1. Click dashboard name to open
 2. Click **pencil icon** (edit mode, top right)
 
@@ -249,17 +258,18 @@ Riverlabs loggers send data in JSON format:
 2. **Select widget bundle:** `Charts` (or `Gauges`, `Cards`, etc.)
 3. **Select widget type:** `Timeseries Line Chart`
 4. **Configure datasource:**
-   - **Type:** `Entity`
-   - **Entity:** Select your device
-   - **Data keys:** Check `distance_mm`, `battery_V`
+    - **Type:** `Entity`
+    - **Entity:** Select your device
+    - **Data keys:** Check `distance_mm`; `battery_V`
 5. **Configure appearance:**
-   - **Title:** `Water Level & Battery`
-   - **Time window:** Last 7 days
-   - **Line colors:** Blue (distance), Red (battery)
+    - **Title:** `Water Level & Battery`
+    - **Time window:** Last 7 days
+    - **Line colors:** Blue (distance); Red (battery)
 6. **Click "Add"**
 7. **Widget appears on dashboard**
 
 **Resize and position:**
+
 - Drag widget to move
 - Drag edges/corners to resize
 - Add more widgets
@@ -282,9 +292,9 @@ Riverlabs loggers send data in JSON format:
 - **Min value:** 3.0
 - **Max value:** 4.2
 - **Color ranges:**
-  - 3.0-3.3: Red (critical)
-  - 3.3-3.6: Orange (low)
-  - 3.6-4.2: Green (good)
+    - 3.0–3.3: Red (critical)
+    - 3.3–3.6: Orange (low)
+    - 3.6–4.2: Green (good)
 
 **3. Temperature Chart** (Wari only)
 
@@ -297,7 +307,7 @@ Riverlabs loggers send data in JSON format:
 
 - **Bundle:** `Cards`
 - **Type:** `Entity Table`
-- **Shows:** Last activity, attributes, status
+- **Shows:** Last activity, attributes and status
 
 ### Step 4: Save Dashboard
 
@@ -312,13 +322,15 @@ Riverlabs loggers send data in JSON format:
 ### Customizing Time Windows
 
 **Fixed Window:**
+
 - Last hour
 - Last 24 hours
 - Last 7 days
 - Custom range
 
 **Example:** Show only business hours
-- Configure: 8:00 AM - 6:00 PM
+
+- Configure: 8:00 AM–6:00 PM
 - Useful for solar-powered loggers
 
 ### Adding Thresholds
@@ -328,9 +340,9 @@ Riverlabs loggers send data in JSON format:
 1. Edit widget (pencil icon)
 2. Navigate to "Advanced" tab
 3. Add **threshold lines:**
-   - **High water warning:** 500mm (red line)
-   - **Low water warning:** 2000mm (orange line)
-   - **Battery critical:** 3.3V (red line)
+    - **High water warning:** 500 mm (red line)
+    - **Low water warning:** 2000 mm (orange line)
+    - **Battery critical:** 3.3 V (red line)
 
 ### Data Aggregation
 
@@ -342,6 +354,7 @@ Riverlabs loggers send data in JSON format:
 - **Sum:** Total over period
 
 **Example:** Daily maximum water level
+
 - Aggregation: `Max`
 - Interval: `1 day`
 
@@ -406,9 +419,9 @@ Estimate % from voltage:
 2. **Open "Root Rule Chain"**
 3. **Add "Send Email" node**
 4. **Configure SMTP settings:**
-   - Server (Gmail, SendGrid, etc.)
-   - Credentials
-   - Recipient addresses
+    - Server (Gmail, SendGrid, etc.)
+    - Credentials
+    - Recipient addresses
 5. **Connect alarm nodes** to email node
 
 **SMS Notifications** (via third-party service):
@@ -434,8 +447,8 @@ Estimate % from voltage:
 3. **Select date range**
 4. **Click export icon** (top right)
 5. **Choose format:**
-   - CSV (Excel-compatible)
-   - JSON (for processing)
+    - CSV (Excel-compatible)
+    - JSON (for processing)
 6. **Download file**
 
 **CSV Format:**
@@ -465,6 +478,7 @@ curl -X GET \
 ### Adding Multiple Loggers
 
 **Repeat for each logger:**
+
 1. Add device (unique name: `Wari-001`, `Wari-002`, etc.)
 2. Get access token
 3. Configure Arduino with respective token
@@ -491,11 +505,11 @@ curl -X GET \
 
 **Example Layout:**
 
-| Device | Location | Last Seen | Battery | Distance | Status |
-|--------|----------|-----------|---------|----------|--------|
-| Wari-001 | Site A | 2 min ago | 3.85V | 1234mm | 🟢 OK |
-| Wari-002 | Site B | 17 min ago | 3.45V | 2456mm | 🟡 Low Battery |
-| Lidar-001 | Site C | 3 hours ago | 3.12V | -- | 🔴 Offline |
+| Device    | Location | Last Seen   | Battery | Distance | Status         |
+|-----------|----------|-------------|---------|----------|----------------|
+| Wari-001  | Site A   | 2 min ago   | 3.85 V  | 1234 mm  | 🟢 OK          |
+| Wari-002  | Site B   | 17 min ago  | 3.45 V  | 2456 mm  | 🟡 Low Battery |
+| Lidar-001 | Site C   | 3 hours ago | 3.12 V  | --       | 🔴 Offline     |
 
 ---
 
@@ -510,11 +524,11 @@ Demo server doesn't support multiple users.
 1. **Navigate to "Users"** (left sidebar)
 2. **Click "+ Add User"**
 3. **Fill form:**
-   - Email, name
-   - Role (Customer, Tenant, etc.)
+    - Email, name
+    - Role (Customer, Tenant, etc.)
 4. **Assign permissions:**
-   - View-only (for stakeholders)
-   - Full access (for technicians)
+    - View-only (for stakeholders)
+    - Full access (for technicians)
 5. **Send activation** email
 
 ### Sharing Dashboards
@@ -537,10 +551,12 @@ Demo server doesn't support multiple users.
 ### Installing the App
 
 **iOS:**
+
 - App Store: Search "ThingsBoard Live"
 - Or: https://apps.apple.com/app/thingsboard-live
 
 **Android:**
+
 - Google Play: Search "ThingsBoard Live"
 - Or: https://play.google.com/store/apps/details?id=org.thingsboard.demo.app
 
@@ -548,14 +564,15 @@ Demo server doesn't support multiple users.
 
 1. **Open app**
 2. **Select server:**
-   - Demo: `demo.thingsboard.io`
-   - Cloud: `thingsboard.cloud`
-   - Custom: Your server URL
+    - Demo: `demo.thingsboard.io`
+    - Cloud: `thingsboard.cloud`
+    - Custom: Your server URL
 3. **Log in** with credentials
 4. **Dashboards** appear on home screen
 5. **Tap to view** real-time data
 
 **Mobile Features:**
+
 - View dashboards
 - Check alarms
 - Export data
@@ -570,8 +587,8 @@ Demo server doesn't support multiple users.
 **Checklist:**
 
 1. **Verify logger sending data**
-   - Check Serial Monitor for "HTTP 200 OK"
-   - Verify SD card has recent data
+    - Check Serial Monitor for "HTTP 200 OK"
+    - Verify SD card has recent data
 2. **Check access token** in Arduino code
 3. **Verify server URL** matches ThingsBoard instance
 4. **Test with curl** (manual POST request)
@@ -581,9 +598,9 @@ Demo server doesn't support multiple users.
 ### Data Appears but Dashboard Blank
 
 1. **Check widget configuration:**
-   - Correct device selected?
-   - Data keys match telemetry keys?
-   - Time window includes data period?
+    - Correct device selected?
+    - Data keys match telemetry keys?
+    - Time window includes data period?
 2. **Refresh dashboard** (F5)
 3. **Check browser console** for errors
 
@@ -607,6 +624,7 @@ Demo server doesn't support multiple users.
 ### Dashboard Design
 
 **Do:**
+
 - Use clear widget titles
 - Show key metrics prominently
 - Color-code by severity (red = bad, green = good)
@@ -614,6 +632,7 @@ Demo server doesn't support multiple users.
 - Group related data
 
 **Don't:**
+
 - Overcrowd with too many widgets
 - Use misleading scales
 - Forget mobile users (test on phone)
@@ -638,24 +657,26 @@ Demo server doesn't support multiple users.
 ## Cost Considerations
 
 ### Demo Server
+
 - **Cost:** Free
 - **Limits:** Data retention, no SLA, periodic deletion
 - **Best for:** Testing, education
 
 ### ThingsBoard Cloud
+
 - **Free Tier:** 
-  - 1 device
-  - Limited dashboards
-  - Community support
-- **Paid Plans:** ~$10-50+/month
-  - More devices
-  - Advanced features
-  - Technical support
-  - SLA
+    - 1 device
+    - Limited dashboards
+    - Community support
+- **Paid Plans:** ~$10–50+/month
+    - More devices
+    - Advanced features
+    - Technical support
+    - SLA
 
 ### Self-Hosted
-- **Infrastructure:** $5-20+/month (DigitalOcean, AWS)
-- **Setup time:** 4-8 hours (first time)
+- **Infrastructure:** $5–20+/month (DigitalOcean, AWS)
+- **Setup time:** 4–8 hours (first time)
 - **Maintenance:** Ongoing
 - **Best for:** Organizations with IT resources
 
@@ -666,16 +687,19 @@ Demo server doesn't support multiple users.
 If ThingsBoard doesn't fit your needs:
 
 **Open-Source:**
+
 - **Grafana + InfluxDB:** Popular, powerful, steep learning curve
 - **Node-RED:** Visual flow programming, flexible
 - **Emoncms:** Energy monitoring focus
 
 **Commercial:**
+
 - **Losant:** Enterprise IoT platform
 - **Ubidots:** Easy to use, moderate pricing
 - **TagoIO:** Good for prototyping
 
 **DIY:**
+
 - Custom server with PHP/Python + MySQL
 - Google Sheets (via IFTTT or custom script)
 
@@ -683,10 +707,10 @@ If ThingsBoard doesn't fit your needs:
 
 ## Next Steps
 
-- [XBee Setup Walkthrough](xbee-setup-walkthrough.md) - Detailed XBee configuration
-- [Troubleshooting Connections](troubleshooting-connections.md) - Fix telemetry issues
-- [ThingsBoard Documentation](https://thingsboard.io/docs/) - Official docs for advanced features
-- [Battery & Power Guide](../hardware/battery-power-guide.md) - Monitor battery health
+- [XBee Setup Walkthrough](xbee-setup-walkthrough.md): Detailed XBee configuration
+- [Troubleshooting Connections](troubleshooting-connections.md): Fix telemetry issues
+- [ThingsBoard Documentation](https://thingsboard.io/docs/): Official docs for advanced features
+- [Battery & Power Guide](../hardware/battery-power-guide.md): Monitor battery health
 
 ---
 

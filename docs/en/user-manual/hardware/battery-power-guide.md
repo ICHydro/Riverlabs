@@ -1,7 +1,7 @@
 # Battery & Power Guide
 
 !!! abstract "Overview"
-    Understanding battery behavior and power management is essential for reliable field deployments. This guide covers battery selection, voltage interpretation.
+    Understanding battery behavior and power management is essential for reliable field deployments. This guide covers battery selection and voltage interpretation.
 
 ## Battery System Overview
 
@@ -15,25 +15,24 @@ Riverlabs loggers use a dual-battery system for power and timekeeping.
 
 Riverlabs loggers support two battery sizes with two chemistry options:
 
-| Battery Type | Chemistry | Nominal Voltage | Capacity | Form Factor | Notes |
-|--------------|-----------|----------------|----------|-------------|-------|
-| **18650** | LiPo (Lithium Polymer) | 3.7V | 2000-3000 mAh | 18mm × 65mm | Most common, high capacity |
-| **18650** | LiFePO4 (Lithium Iron Phosphate) | 3.2V | 1500-2000 mAh | 18mm × 65mm | Safer, longer cycle life, lower voltage |
-| **14500** | LiPo (Lithium Polymer) | 3.7V | 600-800 mAh | 14mm × 50mm | Smaller, lower capacity |
-| **14500** | LiFePO4 (Lithium Iron Phosphate) | 3.2V | 400-600 mAh | 14mm × 50mm | Safer, smaller form factor |
-
+| Battery Type | Chemistry                        | Nominal Voltage | Capacity        | Form Factor   | Notes                                   |
+|--------------|----------------------------------|-----------------|-----------------|---------------|-----------------------------------------|
+| **18650**    | LiPo (Lithium Polymer)           | 3.7 V           | 2000–3000 mAh   | 18 mm × 65 mm | Most common, high capacity              |
+| **18650**    | LiFePO4 (Lithium Iron Phosphate) | 3.2 V           | 1500–2000 mAh   | 18 mm × 65 mm | Safer, longer cycle life, lower voltage |
+| **14500**    | LiPo (Lithium Polymer)           | 3.7 V           | 600–800 mAh     | 14 mm × 50 mm | Smaller, lower capacity                 |
+| **14500**    | LiFePO4 (Lithium Iron Phosphate) | 3.2 V           | 400–600 mAh     | 14 mm × 50 mm | Safer, smaller form factor              |
 
 **Chemistry Comparison:**
 
-| Feature | LiPo (3.7V) | LiFePO4 (3.2V) |
-|---------|-------------|----------------|
-| **Voltage Range** | 4.2V (full) - 3.0V (empty) | 3.65V (full) - 2.5V (empty) |
-| **Energy Density** | Higher | Lower |
-| **Safety** | Good (with protection) | Excellent (very stable) |
-| **Cycle Life** | 300-500 cycles | 2000+ cycles |
-| **Temperature Tolerance** | -20°C to 60°C | -20°C to 60°C |
-| **Cost** | Lower | Slightly higher |
-| **Best For** | Maximum runtime | Long-term reliability, safety |
+| Feature                   | LiPo (3.7 V)                 | LiFePO4 (3.2 V)               |
+|---------------------------|------------------------------|-------------------------------|
+| **Voltage Range**         | 4.2 V (full)–3.0 V (empty)   | 3.65 V (full)–2.5 V (empty).  |
+| **Energy Density**        | Higher                       | Lower                         |
+| **Safety**                | Good (with protection)       | Excellent (very stable)       |
+| **Cycle Life**            | 300–500 cycles               | 2000+ cycles                  |
+| **Temperature Tolerance** | -20°C to 60°C                | -20°C to 60°C                 |
+| **Cost**                  | Lower                        | Slightly higher               |
+| **Best For**              | Maximum runtime              | Long-term reliability, safety |
 
 **Critical Safety Information:**
 
@@ -43,24 +42,24 @@ Riverlabs loggers support two battery sizes with two chemistry options:
     - ⚠️ Do not charge below 0°C
     - ⚠️ Do not expose to heat >60°C
     - ⚠️ Replace if swollen or leaking
-    - ⚠️ Dispose properly (battery recycling)
+    - ⚠️ Dispose of properly (battery recycling)
 
 ### Backup Battery: CR1220 Coin Cell
 
 **Specifications:**
 
-    - **Type:** CR1220 Lithium coin cell (non-rechargeable)
-    - **Nominal Voltage:** 3.0V
-    - **Capacity:** ~40 mAh
-    - **Purpose:** Real-time clock backup only
-    - **Lifespan:** 5-10 years typical
+- **Type:** CR1220 Lithium coin cell (non-rechargeable)
+- **Nominal Voltage:** 3.0 V
+- **Capacity:** ~40 mAh
+- **Purpose:** Real-time clock backup only
+- **Lifespan:** 5-10 years typical
 
 **Function:**
 
-    - Maintains clock time when main battery removed
-    - Does NOT power logger or sensor
-    - Logger operates without it (but loses time)
-    - Essential for telemetry applications (UTC time)
+- Maintains clock time when main battery removed
+- Does NOT power logger or sensor
+- Logger operates without it (but loses time)
+- Essential for telemetry applications (UTC time)
 
 ---
 
@@ -72,7 +71,7 @@ Understanding battery voltage helps predict remaining life and identify issues.
 
 Battery voltage indicates remaining capacity, but the voltage ranges differ between LiPo and LiFePO4:
 
-#### LiPo (3.7V Nominal) Batteries
+#### LiPo (3.7 V Nominal) Batteries
 
 <table>
 <thead>
@@ -85,73 +84,73 @@ Battery voltage indicates remaining capacity, but the voltage ranges differ betw
 </thead>
 <tbody>
 <tr style="background-color: #22c55e; color: white;">
-<td><strong>4.20V</strong></td>
+<td><strong>4.20 V</strong></td>
 <td>100%</td>
 <td>Fresh/Fully Charged</td>
 <td>Optimal</td>
 </tr>
 <tr style="background-color: #4ade80; color: white;">
-<td><strong>4.10V</strong></td>
+<td><strong>4.10 V</strong></td>
 <td>~95%</td>
 <td>Excellent</td>
 <td>Normal operation</td>
 </tr>
 <tr style="background-color: #86efac;">
-<td><strong>4.00V</strong></td>
+<td><strong>4.00 V</strong></td>
 <td>~85%</td>
 <td>Very Good</td>
 <td>Normal operation</td>
 </tr>
 <tr style="background-color: #bbf7d0;">
-<td><strong>3.90V</strong></td>
+<td><strong>3.90 V</strong></td>
 <td>~75%</td>
 <td>Good</td>
 <td>Normal operation</td>
 </tr>
 <tr style="background-color: #d9f99d;">
-<td><strong>3.80V</strong></td>
+<td><strong>3.80 V</strong></td>
 <td>~60%</td>
 <td>Fair</td>
 <td>Monitor</td>
 </tr>
 <tr style="background-color: #fde047;">
-<td><strong>3.70V</strong></td>
+<td><strong>3.70 V</strong></td>
 <td>~45%</td>
 <td>Nominal</td>
 <td>Plan replacement</td>
 </tr>
 <tr style="background-color: #fbbf24;">
-<td><strong>3.60V</strong></td>
+<td><strong>3.60 V</strong></td>
 <td>~30%</td>
 <td>Low</td>
 <td>Replace soon</td>
 </tr>
 <tr style="background-color: #fb923c;">
-<td><strong>3.50V</strong></td>
+<td><strong>3.50 V</strong></td>
 <td>~20%</td>
 <td>Very Low</td>
 <td>Replace immediately</td>
 </tr>
 <tr style="background-color: #f97316; color: white;">
-<td><strong>3.40V</strong></td>
+<td><strong>3.40 V</strong></td>
 <td>~10%</td>
 <td>Critical</td>
 <td><strong>Replace now</strong></td>
 </tr>
 <tr style="background-color: #dc2626; color: white;">
-<td><strong>3.30V</strong></td>
+<td><strong>3.30 V</strong></td>
 <td>~5%</td>
 <td>Emergency</td>
 <td><strong>Imminent failure</strong></td>
 </tr>
 <tr style="background-color: #991b1b; color: white;">
-<td><strong>3.00V</strong></td>
+<td><strong>3.00 V</strong></td>
 <td>0%</td>
 <td>Depleted</td>
 <td>Logger may stop</td>
 </tr>
 <tr style="background-color: #000000; color: white;">
-<td><strong>&lt;3.00V</strong></td>
+<td><strong>&lt;3.00 V</strong></td>
 <td>Over-discharged</td>
 <td>Damaged</td>
 <td>Battery may be ruined</td>
@@ -159,7 +158,7 @@ Battery voltage indicates remaining capacity, but the voltage ranges differ betw
 </tbody>
 </table>
 
-#### LiFePO4 (3.2V Nominal) Batteries
+#### LiFePO4 (3.2 V Nominal) Batteries
 
 <table>
 <thead>
@@ -172,67 +171,67 @@ Battery voltage indicates remaining capacity, but the voltage ranges differ betw
 </thead>
 <tbody>
 <tr style="background-color: #22c55e; color: white;">
-<td><strong>3.65V</strong></td>
+<td><strong>3.65 V</strong></td>
 <td>100%</td>
 <td>Fresh/Fully Charged</td>
 <td>Optimal</td>
 </tr>
 <tr style="background-color: #4ade80; color: white;">
-<td><strong>3.40V</strong></td>
+<td><strong>3.40 V</strong></td>
 <td>~95%</td>
 <td>Excellent</td>
 <td>Normal operation</td>
 </tr>
 <tr style="background-color: #86efac;">
-<td><strong>3.30V</strong></td>
+<td><strong>3.30 V</strong></td>
 <td>~75%</td>
 <td>Very Good</td>
 <td>Normal operation</td>
 </tr>
 <tr style="background-color: #bbf7d0;">
-<td><strong>3.25V</strong></td>
+<td><strong>3.25 V</strong></td>
 <td>~50%</td>
 <td>Good</td>
 <td>Normal operation</td>
 </tr>
 <tr style="background-color: #d9f99d;">
-<td><strong>3.20V</strong></td>
+<td><strong>3.20 V</strong></td>
 <td>~40%</td>
 <td>Fair</td>
 <td>Monitor</td>
 </tr>
 <tr style="background-color: #fbbf24;">
-<td><strong>3.10V</strong></td>
+<td><strong>3.10 V</strong></td>
 <td>~20%</td>
 <td>Low</td>
 <td>Replace soon</td>
 </tr>
 <tr style="background-color: #fb923c;">
-<td><strong>3.00V</strong></td>
+<td><strong>3.00 V</strong></td>
 <td>~10%</td>
 <td>Very Low</td>
 <td>Replace immediately</td>
 </tr>
 <tr style="background-color: #f97316; color: white;">
-<td><strong>2.90V</strong></td>
+<td><strong>2.90 V</strong></td>
 <td>~5%</td>
 <td>Critical</td>
 <td><strong>Replace now</strong></td>
 </tr>
 <tr style="background-color: #dc2626; color: white;">
-<td><strong>2.70V</strong></td>
+<td><strong>2.70 V</strong></td>
 <td>~2%</td>
 <td>Emergency</td>
 <td><strong>Imminent failure</strong></td>
 </tr>
 <tr style="background-color: #991b1b; color: white;">
-<td><strong>2.50V</strong></td>
+<td><strong>2.50 V</strong></td>
 <td>0%</td>
 <td>Depleted</td>
 <td>Logger will stop</td>
 </tr>
 <tr style="background-color: #000000; color: white;">
-<td><strong>&lt;2.50V</strong></td>
+<td><strong>&lt;2.50 V</strong></td>
 <td>Over-discharged</td>
 <td>Damaged</td>
 <td>Battery may be ruined</td>
@@ -241,16 +240,15 @@ Battery voltage indicates remaining capacity, but the voltage ranges differ betw
 </table>
 
 !!! info "Flatter Discharge Curve"
-    LiFePO4 batteries maintain voltage more consistently throughout discharge. They stay around 3.2-3.3V for most of their capacity, then drop quickly when depleted.
-
+    LiFePO4 batteries maintain voltage more consistently throughout discharge. They stay around 3.2–3.3 V for most of their capacity, then drop quickly when depleted.
 
 ### Reading Battery Voltage
 
 **From Logger Data:**
 
-    - Voltage recorded with each measurement
-    - Typically last column in data file
-    - Value in millivolts (e.g., 3850 = 3.85V)
+- Voltage recorded with each measurement
+- Typically last column in data file
+- Value in millivolts (e.g., 3850 = 3.85 V)
 
 **Example Data Line:**
 ```
@@ -261,11 +259,11 @@ Battery voltage indicates remaining capacity, but the voltage ranges differ betw
 
 **With Multimeter:**
 
-    1. Set multimeter to DC voltage
-    2. Access battery terminals (may require opening logger)
-    3. Red probe to + terminal
-    4. Black probe to - terminal
-    5. Read voltage (should show 3.0-4.2V)
+1. Set multimeter to DC voltage
+2. Access battery terminals (may require opening logger)
+3. Red probe to + terminal
+4. Black probe to - terminal
+5. Read voltage (should show 3.0–4.2 V)
 
 !!! tip "Voltage Sag During Measurement"
     Voltage drops briefly during active measurement due to high current draw. The logged voltage is typically measured during sleep (more accurate for capacity estimation).
@@ -275,23 +273,21 @@ Battery voltage indicates remaining capacity, but the voltage ranges differ betw
 
 ---
 
-
 ## Solar Charging
 
 ### Solar Panel Specifications
 
 **Typical Solar Setup:**
 
-    - Panel: 5-10W, 6V
-    - Charge Controller: 3.7V Li-ion compatible
-    - Cable: Weatherproof, strain relief
-    - Mounting: Adjustable for sun angle
+- Panel: 5–10 W, 6 V
+- Charge Controller: 3.7 V Li-ion compatible
+- Cable: Weatherproof, strain relief
+- Mounting: Adjustable for sun angle
 
 !!! warning "Solar Charging Limitations"
     - Only charges above 0°C
     - Requires good sun exposure, not suitable for heavily shaded locations
     - May not keep up with telemetry use
-
 
 ---
 
@@ -301,34 +297,34 @@ Battery voltage indicates remaining capacity, but the voltage ranges differ betw
 
 **Optimal Storage Conditions:**
 
-    - **Voltage:** 3.7-3.8V for LiPo (50% charge) or 3.2-3.3V for LiFePO4
-    - **Temperature:** 15-20°C
-    - **Humidity:** <60%
-    - **Location:** Cool, dry, away from metal objects
+- **Voltage:** 3.7–3.8 V for LiPo (50% charge) or 3.2–3.3 V for LiFePO4
+- **Temperature:** 15–20°C
+- **Humidity:** <60%
+- **Location:** Cool, dry, away from metal objects
 
 **Storage Duration:**
 
 **LiPo Batteries:**
 
-| Voltage at Storage | Time to Self-Discharge to 3.0V |
-|-------------------|--------------------------------|
-| 4.2V (full) | ~12-18 months |
-| 3.8V (50%) | 18-24 months |
-| 3.4V (low) | 6-12 months |
+| Voltage at Storage | Time to Self-Discharge to 3.0 V |
+|--------------------|---------------------------------|
+| 4.2 V (full)       | ~12–18 months                   |
+| 3.8 V (50%)        | 18–24 months                    |
+| 3.4 V (low)        | 6–12 months                     |
 
 **LiFePO4 Batteries:**
 
-| Voltage at Storage | Time to Self-Discharge to 2.5V |
-|-------------------|--------------------------------|
-| 3.65V (full) | ~18-24 months |
-| 3.2V (50%) | 24-36 months |
-| 2.9V (low) | 12-18 months |
+| Voltage at Storage | Time to Self-Discharge to 2.5 V |
+|--------------------|---------------------------------|
+| 3.65 V (full)      | ~18–24 months                   |
+| 3.2 V (50%)        | 24–36 months                    |
+| 2.9 V (low)        | 12–18 months                    |
 
 !!! warning "Check Stored Batteries"
-    Batteries in storage should be checked every 3-6 months. 
+    Batteries in storage should be checked every 3–6 months. 
     
-    - **LiPo:** Recharge to 3.7-3.8V if below 3.4V
-    - **LiFePO4:** Recharge to 3.2-3.3V if below 2.9V
+    - **LiPo:** Recharge to 3.7–3.8 V if below 3.4 V
+    - **LiFePO4:** Recharge to 3.2–3.3 V if below 2.9 V
 
 ### Disposal
 
@@ -336,11 +332,11 @@ Battery voltage indicates remaining capacity, but the voltage ranges differ betw
 
 **Proper Disposal:**
 
-    1. Discharge to < 3.0V (use in logger until depleted)
-    2. Tape terminals with electrical tape
-    3. Take to battery recycling center
-    4. Many retailers accept 18650 batteries for recycling
-    5. Check local hazardous waste facilities
+1. Discharge to < 3.0 V (use in logger until depleted)
+2. Tape terminals with electrical tape
+3. Take to battery recycling center
+4. Many retailers accept 18650 batteries for recycling
+5. Check local hazardous waste facilities
 
 ---
 
@@ -350,45 +346,43 @@ Battery voltage indicates remaining capacity, but the voltage ranges differ betw
 
 **Check:**
 
-    1. Battery voltage > 3.3V
-    2. Battery polarity correct
-    3. Battery contacts clean and making contact
-    4. No physical damage to logger
-    5. Try known-good battery
+1. Battery voltage >3.3 V
+2. Battery polarity correct
+3. Battery contacts clean and making contact
+4. No physical damage to logger
+5. Try known-good battery
 
 ### Rapid Battery Drain
 
 **Possible Causes:**
 
-| Symptom | Likely Cause | Solution |
-|---------|--------------|----------|
-| New battery drains in days | Excessive telemetry or failure to enter sleep modde | Reduce telemetry frequency and Re-upload firmware |
-| Gradual worsening | Battery aging | Replace battery |
-
+| Symptom                    | Likely Cause                                       | Solution                                          |
+|----------------------------|----------------------------------------------------|---------------------------------------------------|
+| New battery drains in days | Excessive telemetry or failure to enter sleep mode | Reduce telemetry frequency and re-upload firmware |
+| Gradual worsening          | Battery aging                                      | Replace battery                                   |
 
 ### Voltage Reading Errors
 
 **Inconsistent Voltage Readings:**
 
-    - Poor contact: Clean terminals
-    - Code issue: Re-upload firmware
-    - Battery dying: Replace
+- Poor contact: Clean terminals
+- Code issue: Re-upload firmware
+- Battery dying: Replace
 
 **No Voltage Logged:**
 
-    - Check data file format
-    - Verify voltage measurement in code
-    - Test ADC with multimeter
-
+- Check data file format
+- Verify voltage measurement in code
+- Test ADC with multimeter
 
 ---
 
 ## Next Steps
 
--  [Internal Components](internal-components.md) - Understanding your logger's hardware
--  [Maintenance Guide](maintenance.md) - Regular upkeep procedures
--  [ThingsBoard](../telemetry/thingsboard-configuration.md) - Monitor battery voltage remotely
--  [Troubleshooting](../troubleshooting/common-issues.md) - Power-related issues
+-  [Internal Components](internal-components.md): Understanding your logger's hardware
+-  [Maintenance Guide](maintenance.md): Regular upkeep procedures
+-  [ThingsBoard](../telemetry/thingsboard-configuration.md): Monitor battery voltage remotely
+-  [Troubleshooting](../troubleshooting/common-issues.md): Power-related issues
 
 ---
 

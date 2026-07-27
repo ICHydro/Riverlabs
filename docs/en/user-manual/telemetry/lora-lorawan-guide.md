@@ -1,7 +1,7 @@
 # LoRa / LoRaWAN Configuration Guide
 
 !!! abstract "Overview"
-    This guide explains how to configure your LoRaWAN device using the MCCI LMIC library and connect it to The Things Network (TTN). Covers EUI formatting, payload optimization, TTN usage policies, and best practices.
+    This guide explains how to configure your LoRaWAN device using the MCCI LMIC library and connect it to The Things Network (TTN). Covers EUI formatting, payload optimization, TTN usage policies and best practices.
 
 ## What is LoRaWAN?
 
@@ -9,22 +9,22 @@
 
 **Key Features:**
 
-- **Range:** Up to 10-15 km line-of-sight, 2-5 km in urban areas
+- **Range:** Up to 10–15 km line-of-sight; 2–5 km in urban areas
 - **Power:** Extremely low power consumption (years on battery)
-- **Data Rate:** Low (0.3 - 50 kbps depending on spreading factor)
-- **Frequency:** License-free ISM bands (868 MHz in EU, 915 MHz in US)
+- **Data Rate:** Low (0.3–50 kbps depending on spreading factor)
+- **Frequency:** License-free ISM bands (868 MHz in EU; 915 MHz in US)
 - **Infrastructure:** Requires gateway connected to network server
 
 **LoRa vs. Cellular:**
 
-| Feature | LoRaWAN | Cellular (3G/4G) |
-|---------|---------|------------------|
-| **Range** | 2-15 km | Carrier dependent |
-| **Power** | Ultra-low | Higher |
-| **Cost** | Gateway required, no SIM fees | Monthly SIM fees |
-| **Data Rate** | Very low (bytes/minute) | High (MB/s) |
-| **Latency** | Higher | Lower |
-| **Best For** | Infrequent updates, battery life critical | Real-time data, frequent updates |
+| Feature       | LoRaWAN                                   | Cellular (3G/4G)                 |
+|---------------|-------------------------------------------|----------------------------------|
+| **Range**     | 2–15 km                                   | Carrier dependent                |
+| **Power**     | Ultra-low                                 | Higher                           |
+| **Cost**      | Gateway required, no SIM fees             | Monthly SIM fees                 |
+| **Data Rate** | Very low (bytes/minute)                   | High (MB/s)                      |
+| **Latency**   | Higher                                    | Lower                            |
+| **Best For**  | Infrequent updates, battery life critical | Real-time data, frequent updates |
 
 ---
 
@@ -32,10 +32,10 @@
 
 ### Components Needed
 
-1. **End Device (Logger)** - Your Riverlabs logger with LoRa radio
-2. **Gateway** - Receives LoRa signals and forwards to network server
-3. **Network Server** - The Things Network (TTN) or other LoRaWAN network
-4. **Application Server** - Your dashboard/database (e.g., ThingsBoard)
+1. **End Device (Logger)**: Your Riverlabs logger with LoRa radio
+2. **Gateway**: Receives LoRa signals and forwards to network server
+3. **Network Server**: The Things Network (TTN) or other LoRaWAN network
+4. **Application Server**: Your dashboard/database (e.g., ThingsBoard)
 
 ### Data Flow
 
@@ -48,7 +48,7 @@ Logger (LoRa) → Gateway → TTN Network Server → Application Server → Dash
 1. Logger sends LoRa radio packet (encrypted)
 2. Nearby gateway(s) receive packet
 3. Gateway forwards to TTN via internet
-4. TTN decrypts, validates, and routes to your application
+4. TTN decrypts, validates and routes to your application
 5. Your application processes and displays data
 
 ---
@@ -59,7 +59,7 @@ Logger (LoRa) → Gateway → TTN Network Server → Application Server → Dash
 
 1. Go to [The Things Network Console](https://console.thethingsnetwork.org/)
 2. Create free account
-3. Select your region (e.g., EU868, US915)
+3. Select your region (e.g., EU868 or US915)
 
 ### Step 2: Register Gateway
 
@@ -99,15 +99,15 @@ If you have your own gateway:
 ## EUI and Key Format Requirements
 
 !!! danger "Critical: Byte Order Matters"
-    TTN Console uses **MSB** (Most Significant Byte first) format, while the MCCI LMIC library expects **LSB** (Least Significant Byte first) for most identifiers. Getting this wrong prevents your device from joining the network.
+    TTN Console uses **MSB first** (Most Significant Byte first) format, while the MCCI LMIC library expects **LSB first** (Least Significant Byte first) for most identifiers. Getting this wrong prevents your device from joining the network.
 
 ### Format Comparison Table
 
-| Field | Format in TTN Console | Format in LMIC Code | Notes |
-|-------|----------------------|---------------------|-------|
-| **DevEUI** | MSB | LSB (reversed) | Device unique ID |
-| **AppEUI/JoinEUI** | MSB | LSB (reversed) | Application/Join server ID |
-| **AppKey** | MSB | MSB (same order) | Application encryption key |
+| Field              | Format in TTN Console | Format in LMIC Code | Notes                      |
+|--------------------|-----------------------|---------------------|----------------------------|
+| **DevEUI**         | MSB                   | LSB (reversed)      | Device unique ID           |
+| **AppEUI/JoinEUI** | MSB                   | LSB (reversed)      | Application/join server ID |
+| **AppKey**         | MSB                   | MSB (same order)    | Application encryption key |
 
 ### Example Conversion
 
@@ -147,6 +147,7 @@ static const u1_t PROGMEM APPKEY[16] = {
 The RX2 (Receive Window 2) settings must match between your device and TTN.
 
 **TTN EU868 Default:**
+
 - **Frequency:** 869.525 MHz
 - **Spreading Factor:** SF9
 - **Bandwidth:** 125 kHz
@@ -159,6 +160,7 @@ LMIC.dn2Dr = DR_SF9;  // RX2 datarate
 ```
 
 **Verify in TTN:**
+
 1. Go to device settings
 2. Check "Network Layer" section
 3. Confirm RX2 frequency and data rate
@@ -178,29 +180,30 @@ LMIC.dn2Dr = DR_SF9;  // RX2 datarate
 ### Calculating Airtime
 
 Airtime depends on:
+
 1. **Payload size** (bytes)
-2. **Spreading Factor** (SF7-SF12)
+2. **Spreading Factor** (SF7–SF12)
 3. **Bandwidth** (usually 125 kHz)
 
 **Example Airtimes:**
 
-| Payload | SF7 | SF9 | SF12 |
-|---------|-----|-----|------|
-| 10 bytes | 41 ms | 165 ms | 1318 ms |
-| 20 bytes | 72 ms | 288 ms | 2302 ms |
+| Payload  | SF7    | SF9    | SF12    |
+|----------|--------|--------|---------|
+| 10 bytes | 41 ms  | 165 ms | 1318 ms |
+| 20 bytes | 72 ms  | 288 ms | 2302 ms |
 | 51 bytes | 154 ms | 616 ms | 4916 ms |
 
 **Maximum Messages per Day:**
 
-| SF | 10-byte payload | 20-byte payload |
-|----|-----------------|-----------------|
-| SF7 | ~730 msgs | ~416 msgs |
-| SF9 | ~182 msgs | ~104 msgs |
-| SF12 | ~23 msgs | ~13 msgs |
+| SF   | 10-byte payload | 20-byte payload |
+|------|-----------------|-----------------|
+| SF7  | ~730 msgs       | ~416 msgs       |
+| SF9  | ~182 msgs       | ~104 msgs       |
+| SF12 | ~23 msgs        | ~13 msgs        |
 
 !!! tip "Stay Within Limits"
-    - Use SF7-SF9 when possible (lower SF = shorter airtime)
-    - Keep payloads small (10-20 bytes typical)
+    - Use SF7–SF9 when possible (lower SF = shorter airtime)
+    - Keep payloads small (10–20 bytes typical)
     - Avoid confirmed uplinks (double the airtime)
     - Transmit hourly or less frequently
 
@@ -208,18 +211,18 @@ Airtime depends on:
 
 ## Spreading Factor Selection
 
-**Spreading Factor (SF)** controls the tradeoff between range, data rate, and airtime.
+**Spreading Factor (SF)** controls the trade-off between range, data rate and airtime.
 
-| SF Level | Range | Data Rate | Airtime | Best For |
-|----------|-------|-----------|---------|----------|
-| **SF7** | Short | Fast (5.5 kbps) | Very low | Close to gateway, frequent updates |
-| **SF8** | Medium | Medium | Low | Balanced |
-| **SF9** | Good | Moderate | Moderate | Good range/airtime balance |
-| **SF10** | Long | Slow | High | Difficult locations |
-| **SF12** | Maximum | Very slow | Very high | Last resort, rare updates |
+| SF Level | Range   | Data Rate       | Airtime   | Best For                           |
+|----------|---------|-----------------|-----------|------------------------------------|
+| **SF7**  | Short   | Fast (5.5 kbps) | Very low  | Close to gateway, frequent updates |
+| **SF8**  | Medium  | Medium          | Low       | Balanced                           |
+| **SF9**  | Good    | Moderate        | Moderate  | Good range/airtime balance         |
+| **SF10** | Long    | Slow            | High      | Difficult locations                |
+| **SF12** | Maximum | Very slow       | Very high | Last resort, rare updates          |
 
 **LMIC Auto-Adjusts SF:**
-The MCCI LMIC library uses Adaptive Data Rate (ADR), which automatically adjusts SF based on signal quality. Start with SF9-SF10, and let TTN optimize.
+The MCCI LMIC library uses Adaptive Data Rate (ADR), which automatically adjusts SF based on signal quality. Start with SF9–SF10, and let TTN optimize.
 
 **Manual SF Control:**
 ```cpp
@@ -239,9 +242,9 @@ LMIC_setDrTxpow(DR_SF9, 14);  // SF9, 14dBm transmit power
 
 | Spreading Factor | Max Payload | Recommended Payload |
 |------------------|-------------|---------------------|
-| SF7 | 51 bytes | 20-30 bytes |
-| SF9 | 51 bytes | 15-20 bytes |
-| SF12 | 51 bytes | 10-15 bytes |
+| SF7              | 51 bytes    | 20–30 bytes         |
+| SF9              | 51 bytes    | 15–20 bytes         |
+| SF12             | 51 bytes    | 10–15 bytes         |
 
 ### Optimization Techniques
 
@@ -288,6 +291,7 @@ last_distance = current_distance;
 Create a decoder function in TTN to convert binary payload to JSON:
 
 **In TTN Console:**
+
 1. Go to your application
 2. Click "Payload Formatters"
 3. Select "Custom JavaScript formatter"
@@ -324,17 +328,17 @@ function Decoder(bytes, port) {
 
 **Check:**
 
-1. **EUI byte order** - Most common issue! Verify DevEUI and AppEUI are reversed
-2. **AppKey matches** - Must be identical in device and TTN
-3. **Gateway online** - Check TTN gateway status
-4. **Frequency plan** - Device and gateway must use same region
-5. **Antenna connected** - Device needs antenna attached
+1. **EUI byte order**: Most common issue! Verify DevEUI and AppEUI are reversed
+2. **AppKey matches**: Must be identical in device and TTN
+3. **Gateway online**: Check TTN gateway status
+4. **Frequency plan**: Device and gateway must use same region
+5. **Antenna connected**: Device needs antenna attached
 
 ### Poor Range / Connectivity
 
 **Solutions:**
 
-- Use higher SF (SF10-SF12)
+- Use higher SF (SF10–SF12)
 - Improve antenna placement (vertical, elevated, clear line of sight)
 - Check gateway coverage on [TTN Mapper](https://ttnmapper.org/)
 - Reduce obstacles (buildings, trees) between device and gateway
@@ -347,16 +351,16 @@ function Decoder(bytes, port) {
 
 - Reduce transmission frequency
 - Decrease payload size
-- Lower SF (SF7-SF9)
+- Lower SF (SF7–SF9)
 - Disable confirmed uplinks
 
 ---
 
 ## Next Steps
 
-- [ThingsBoard Configuration](thingsboard-configuration.md) - Set up dashboard for LoRaWAN data
-- [Battery & Power Guide](../hardware/battery-power-guide.md) - Optimize LoRa power consumption
-- [Arduino Setup](../quick-start/arduino-setup.md) - Program your LoRa logger
+- [ThingsBoard Configuration](thingsboard-configuration.md): Set up dashboard for LoRaWAN data
+- [Battery & Power Guide](../hardware/battery-power-guide.md): Optimize LoRa power consumption
+- [Arduino Setup](../quick-start/arduino-setup.md): Program your LoRa logger
 
 ---
 

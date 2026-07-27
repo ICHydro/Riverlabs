@@ -17,7 +17,7 @@ Riverlabs loggers can be equipped with cellular telemetry to transmit data remot
 - ThingsBoard account or compatible IoT platform
 - Computer for configuration
 
-**Time Required:** 1-2 hours for first-time setup
+**Time Required:** 1–2 hours for first-time setup
 
 ---
 
@@ -70,20 +70,20 @@ Riverlabs loggers can be equipped with cellular telemetry to transmit data remot
 
 **Specifications:**
 
-| Feature | Specification |
-|---------|---------------|
-| **Technology** | LTE-M (Cat-M1) and NB-IoT |
-| **Frequencies** | Region-specific (check model) |
-| **Power** | 3.3V-4.3V operation |
-| **Current Draw** | ~200mA during transmission |
-| **Form Factor** | Through-hole or surface mount |
-| **Protocols** | HTTP, HTTPS, CoAP, MQTT |
-| **SIM** | Micro-SIM slot |
+| Feature          | Specification                 |
+|------------------|-------------------------------|
+| **Technology**   | LTE-M (Cat-M1) and NB-IoT     |
+| **Frequencies**  | Region-specific (check model) |
+| **Power**        | 3.3 V–4.3 V operation         |
+| **Current Draw** | ~200 mA during transmission   |
+| **Form Factor**  | Through-hole or surface mount |
+| **Protocols**    | HTTP, HTTPS, CoAP, MQTT       |
+| **SIM**          | Micro-SIM slot                |
 
 **Model Numbers:**
 
-- **XB3-C-A2-UT-001** - LTE-M (US/Canada)
-- **XB3-C-A2-EU-001** - LTE-M/NB-IoT (Europe)
+- **XB3-C-A2-UT-001**: LTE-M (US/Canada)
+- **XB3-C-A2-EU-001**: LTE-M/NB-IoT (Europe)
 - **Check Digi website** for your region
 
 ### XBee vs. Legacy XCTU
@@ -100,6 +100,7 @@ Riverlabs loggers can be equipped with cellular telemetry to transmit data remot
 ### Choosing a SIM Card Provider
 
 **Requirements:**
+
 - LTE-M or NB-IoT support (not all carriers support these)
 - IoT/M2M data plan
 - Good coverage at deployment location
@@ -108,6 +109,7 @@ Riverlabs loggers can be equipped with cellular telemetry to transmit data remot
 **Recommended Providers (by region):**
 
 **United States:**
+
 - AT&T IoT DataConnect
 - Verizon ThingSpace
 - T-Mobile IoT
@@ -115,17 +117,20 @@ Riverlabs loggers can be equipped with cellular telemetry to transmit data remot
 - Soracom (multi-carrier)
 
 **Europe:**
+
 - Vodafone M2M
 - Telefonica M2M
 - 1NCE (multi-carrier, IoT-specific)
 - Eseye (multi-carrier)
 
 **United Kingdom:**
+
 - EE M2M
 - Vodafone IoT
 - O2 M2M
 
 **Global/Multi-Region:**
+
 - Hologram
 - Twilio Super SIM
 - 1NCE
@@ -135,9 +140,10 @@ Riverlabs loggers can be equipped with cellular telemetry to transmit data remot
 **Estimate Data Usage:**
 
 **Typical Data per Transmission:**
-- Measurement data: ~50-100 bytes
-- HTTP overhead: ~200-500 bytes
-- Total per transmission: ~300-600 bytes
+
+- Measurement data: ~50–100 bytes
+- HTTP overhead: ~200–500 bytes
+- Total per transmission: ~300–600 bytes
 - Safety factor: Use 1 KB per transmission
 
 **Monthly Data Calculation:**
@@ -153,23 +159,26 @@ Recommended plan: 5-10 MB/month
 ```
 
 **Typical Plans:**
-- 1 MB/month: ~$2-5/month
-- 10 MB/month: ~$5-10/month
-- 100 MB/month: ~$10-15/month
+
+- 1 MB/month: ~$2–5/month
+- 10 MB/month: ~$5–10/month
+- 100 MB/month: ~$10–15/month
 
 !!! tip "Start Small"
-    Begin with the smallest plan. You can always upgrade. Most IoT plans don't have overage charges, they just stop working.
+    Begin with the smallest plan. You can always upgrade. Most IoT plans don't have overage charges — they just stop working.
 
 ### SIM Card Installation
 
-**SIM Type:** Micro-SIM (3FF)
+**SIM Type:**
+
+- Micro-SIM (3FF)
 
 **Installation Steps:**
 
 1. **Obtain activated SIM** from provider
 
 2. **Note APN settings** (provided by carrier)
-    - APN name (e.g., "m2m.com.attwireless.com")
+    - APN name (e.g., `m2m.com.attwireless.com`)
     - Username (if required)
     - Password (if required)
 
@@ -191,6 +200,7 @@ Recommended plan: 5-10 MB/month
 ### Hardware Setup for Configuration
 
 **Required:**
+
 - XBee module with SIM installed
 - XBee USB adapter (e.g., Digi XBee Grove Development Board or similar)
 - USB cable
@@ -220,46 +230,46 @@ Navigate through tabs and configure the following:
 
 **1. Network Settings**
 
-| Setting | Parameter | Value | Notes |
-|---------|-----------|-------|-------|
-| **Mobile Network** | AN (Access Point Name) | [Your carrier APN] | e.g., "m2m.com.attwireless.com" |
-| **APN Username** | AU | [If required] | Leave blank if not needed |
-| **APN Password** | AV | [If required] | Leave blank if not needed |
-| **Network Technology** | NT | LTE-M (or NB-IoT) | Match your SIM |
+| Setting                | Parameter              | Value              | Notes                           |
+|------------------------|------------------------|--------------------|---------------------------------|
+| **Mobile Network**     | AN (Access Point Name) | [Your carrier APN] | e.g., `m2m.com.attwireless.com` |
+| **APN Username**       | AU                     | [If required]      | Leave blank if not needed       |
+| **APN Password**       | AV                     | [If required]      | Leave blank if not needed       |
+| **Network Technology** | NT                     | LTE-M (or NB-IoT)  | Match your SIM                  |
 
 **2. Serial Settings**
 
-| Setting | Parameter | Value | Notes |
-|---------|-----------|-------|-------|
-| **Baud Rate** | BD | 9600 | Must match Arduino code |
-| **Parity** | NB | No Parity | Standard |
-| **Stop Bits** | SB | 1 | Standard |
-| **Data Bits** | -- | 8 | Default |
+| Setting       | Parameter | Value     | Notes                   |
+|---------------|-----------|-----------|-------------------------|
+| **Baud Rate** | BD        | 9600      | Must match Arduino code |
+| **Parity**    | NB        | No parity | Standard                |
+| **Stop Bits** | SB        | 1         | Standard                |
+| **Data Bits** | --        | 8         | Default                 |
 
 **3. API Mode**
 
-| Setting | Parameter | Value | Notes |
-|---------|-----------|-------|-------|
-| **API Enable** | AP | 2 | API Mode with escapes |
-| **API Output Mode** | AO | 0 | Standard |
+| Setting             | Parameter | Value | Notes                 |
+|---------------------|-----------|-------|-----------------------|
+| **API Enable**      | AP        | 2     | API Mode with escapes |
+| **API Output Mode** | AO        | 0     | Standard              |
 
 !!! danger "API Mode is Critical"
     The logger firmware expects **API Mode 2 (with escapes)**. Setting AP=1 (without escapes) or AP=0 (transparent) will prevent communication.
 
 **4. Power Management**
 
-| Setting | Parameter | Value | Notes |
-|---------|-----------|-------|-------|
-| **Sleep Mode** | SM | 1 | Pin Sleep |
-| **Sleep Options** | SO | 0 | Standard |
+| Setting           | Parameter | Value | Notes     |
+|-------------------|-----------|-------|-----------|
+| **Sleep Mode**    | SM        | 1     | Pin Sleep |
+| **Sleep Options** | SO        | 0     | Standard  |
 
 **5. Additional Settings**
 
-| Setting | Parameter | Value | Notes |
-|---------|-----------|-------|-------|
-| **Timeout** | RO | 3 | Character timeout |
-| **TD** | TD | 0 | TX Delay |
-| **FT** | FT | 681 | Flow control threshold |
+| Setting     | Parameter | Value | Notes                  |
+|-------------|-----------|-------|------------------------|
+| **Timeout** | RO        | 3     | Character timeout      |
+| **TD**      | TD        | 0     | TX Delay               |
+| **FT**      | FT        | 681   | Flow control threshold |
 
 #### Verify Configuration
 
@@ -275,7 +285,7 @@ Navigate through tabs and configure the following:
 
 1. In XBee Studio, navigate to **"Cellular Network"** section
 2. Click **"Connect to Network"**
-3. Wait for connection (may take 30-60 seconds)
+3. Wait for connection (may take 30–60 seconds)
 4. Check for:
     - Network registered: Yes
     - Signal strength: >-100 dBm (stronger is better)
@@ -283,12 +293,12 @@ Navigate through tabs and configure the following:
 
 **Troubleshooting Connection Issues:**
 
-| Problem | Likely Cause | Solution |
-|---------|--------------|----------|
-| No network found | SIM inactive or wrong APN | Verify with carrier, check APN |
-| Poor signal | Location | Move to window/higher location |
-| Connection timeout | Network technology mismatch | Switch LTE-M ↔ NB-IoT |
-| Authentication failed | Wrong APN credentials | Verify username/password |
+| Problem               | Likely Cause                | Solution                       |
+|-----------------------|-----------------------------|--------------------------------|
+| No network found      | SIM inactive or wrong APN   | Verify with carrier, check APN |
+| Poor signal           | Location                    | Move to window/higher location |
+| Connection timeout    | Network technology mismatch | Switch LTE-M ↔ NB-IoT          |
+| Authentication failed | Wrong APN credentials       | Verify username/password       |
 
 ---
 
@@ -302,9 +312,8 @@ The telemetry configuration is set in the Arduino sketch (e.g., `wari_3G.ino`).
 
 ```cpp
 // Telemetry Configuration
-#define TELEMETRY_INTERVAL 12    // Transmit every N measurements
+#define TELEMETRY_INTERVAL 12 // Transmit every N measurements
 #define SERVER_URL "http://demo.thingsboard.io/api/v1/[YOUR_TOKEN]/telemetry"
-
 // XBee Settings (must match XBee configuration)
 #define XBEE_BAUD 9600
 ```
@@ -376,30 +385,34 @@ The telemetry configuration is set in the Arduino sketch (e.g., `wari_3G.ino`).
 
 4. **Verify Reception**
     - Check ThingsBoard dashboard
-    - Data should appear within 1-2 minutes
+    - Data should appear within 1–2 minutes
     - Verify timestamp and values correct
 
 **Expected Timing:**
-- Boot: 5-10 seconds
-- Network connection: 30-60 seconds (first time), 5-15 seconds (subsequent)
-- Data transmission: 5-10 seconds
+
+- Boot: 5–10 seconds
+- Network connection: 30–60 seconds (first time), 5–15 seconds (subsequent)
+- Data transmission: 5–10 seconds
 - Total: ~1 minute per transmission
 
 ### Troubleshooting Test Failures
 
 **No network connection:**
+
 - Verify SIM active
 - Check signal strength (try window/outside)
 - Verify APN settings
 - Check XBee LED patterns
 
 **Network connects but no data received:**
+
 - Verify server URL correct
 - Check authentication token
 - Inspect Serial Monitor for error codes
 - Test server endpoint with curl/Postman
 
 **Data received but values wrong:**
+
 - Check data parsing on server
 - Verify JSON format
 - Compare with SD card data
@@ -431,23 +444,27 @@ Before permanent installation:
     - Clear view of sky preferred
 
 **Minimum Signal Requirements:**
+
 - LTE-M/NB-IoT: -110 dBm minimum, -90 dBm good
 - Weaker signals work but drain battery faster
 
 ### Post-Installation Verification
 
 **Within 1 Hour:**
+
 - [ ] First transmission received
 - [ ] Data appears on dashboard
 - [ ] Values reasonable
 
 **Within 24 Hours:**
+
 - [ ] Regular transmissions occurring
 - [ ] No gaps in data
 - [ ] Battery voltage stable
 - [ ] Signal strength consistent
 
 **First Week:**
+
 - [ ] Daily data check
 - [ ] Monitor battery drain rate
 - [ ] Watch for transmission failures
@@ -460,19 +477,22 @@ Before permanent installation:
 ### Telemetry Power Budget
 
 **XBee Power Consumption:**
+
 - Sleep: <1 mA
 - Connected idle: ~10 mA
-- Transmission: ~200 mA (5-10 seconds)
+- Transmission: ~200 mA (5–10 seconds)
 
 **Impact on Battery Life:**
 
 Without telemetry (SD only):
-- Wari: ~30-60 days (15-min logging)
-- Lidar: ~15-30 days (15-min logging)
+
+- Wari: ~30–60 days (15 min logging)
+- Lidar: ~15–30 days (15 min logging)
 
 With telemetry (hourly transmission):
-- Wari: ~20-40 days (15-min logging)
-- Lidar: ~10-20 days (15-min logging)
+
+- Wari: ~20–40 days (15 min logging)
+- Lidar: ~10–20 days (15 min logging)
 
 **Optimization Strategies:**
 
@@ -499,16 +519,19 @@ See [Battery & Power Guide](../hardware/battery-power-guide.md) for detailed cal
 ### Data Security
 
 **Transport Security:**
+
 - Use HTTPS instead of HTTP when possible
 - ThingsBoard supports TLS
 - Some overhead in data and processing
 
 **Authentication:**
+
 - Device tokens (ThingsBoard)
 - API keys
 - Never hard-code credentials if code is public
 
 **SIM Security:**
+
 - Use fixed IP APN if available
 - SIM PIN protection
 - Monitor for unusual data usage
@@ -526,16 +549,19 @@ See [Battery & Power Guide](../hardware/battery-power-guide.md) for detailed cal
 ### What to Monitor
 
 **Daily (automated alerts):**
+
 - [ ] Data received in last 24 hours
 - [ ] Battery voltage trend
 - [ ] Signal strength
 
 **Weekly:**
+
 - [ ] Transmission success rate
 - [ ] Data quality
 - [ ] SIM data usage
 
 **Monthly:**
+
 - [ ] Battery health
 - [ ] Plan data remaining
 - [ ] Firmware updates available
@@ -546,12 +572,12 @@ See [Troubleshooting Connections](troubleshooting-connections.md) for detailed d
 
 **Quick Reference:**
 
-| Symptom | Quick Check | Likely Fix |
-|---------|------------|------------|
-| No transmissions | SIM active? Signal? | Check carrier status, move logger |
-| Intermittent | Signal strength varying? | Improve antenna position |
-| High battery drain | Transmission too frequent? | Reduce frequency |
-| Data corrupted | Server parsing issue? | Check JSON format |
+| Symptom            | Quick Check                | Likely Fix                        |
+|--------------------|----------------------------|-----------------------------------|
+| No transmissions   | SIM active? Signal?        | Check carrier status, move logger |
+| Intermittent       | Signal strength varying?   | Improve antenna position          |
+| High battery drain | Transmission too frequent? | Reduce frequency                  |
+| Data corrupted     | Server parsing issue?      | Check JSON format                 |
 
 ---
 
@@ -573,18 +599,21 @@ Configuration principles are similar; consult platform documentation for endpoin
 ## Cost Summary
 
 **One-Time Costs:**
-- XBee3 Cellular module: $60-80
-- USB adapter for configuration: $20-30
-- SIM card activation: $0-20
+
+- XBee3 Cellular module: $60–80
+- USB adapter for configuration: $20–30
+- SIM card activation: $0–20
 
 **Recurring Costs:**
-- Data plan: $2-15/month
-- Server hosting (if not ThingsBoard free tier): $0-10/month
+
+- Data plan: $2–15/month
+- Server hosting (if not ThingsBoard free tier): $0–10/month
 
 **Total First Year:**
+
 - Hardware: ~$100
-- Service: ~$50-180
-- **Total: ~$150-280**
+- Service: ~$50–180
+- **Total: ~$150–280**
 
 Compare to:
 - Site visit costs (fuel, time)
@@ -595,9 +624,9 @@ Compare to:
 
 ## Next Steps
 
-- [ThingsBoard Configuration](thingsboard-configuration.md) - Set up your dashboard
-- [XBee Setup Walkthrough](xbee-setup-walkthrough.md) - Detailed XBee Studio guide with screenshots
-- [Troubleshooting Connections](troubleshooting-connections.md) - Fix telemetry issues
+- [ThingsBoard Configuration](thingsboard-configuration.md): Set up your dashboard
+- [XBee Setup Walkthrough](xbee-setup-walkthrough.md): Detailed XBee Studio guide with screenshots
+- [Troubleshooting Connections](troubleshooting-connections.md): Fix telemetry issues
 
 ---
 

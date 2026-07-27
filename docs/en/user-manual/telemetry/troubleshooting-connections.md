@@ -26,6 +26,7 @@ When telemetry fails, problems can occur at multiple layers:
 ```
 
 **Systematic approach:**
+
 1. Identify symptom
 2. Isolate layer
 3. Test specific component
@@ -38,7 +39,7 @@ When telemetry fails, problems can occur at multiple layers:
 
 **Start here for fast triage:**
 
-- **Power:** Battery >3.3V?
+- **Power:** Battery >3.3 V?
 - **Hardware:** XBee seated properly?
 - **SIM:** Active and inserted correctly?
 - **Signal:** RSSI better than -105 dBm?
@@ -56,6 +57,7 @@ When telemetry fails, problems can occur at multiple layers:
 ### Symptom 1: Logger Never Transmits
 
 **Observations:**
+
 - No network connection
 - XBee LED never blinks (if visible)
 - Serial Monitor: "Network connection failed"
@@ -66,13 +68,14 @@ When telemetry fails, problems can occur at multiple layers:
 
 Low voltage causes XBee failures:
 
-| Voltage | Status | Action |
-|---------|--------|--------|
-| >3.8V | Good | Continue diagnostics |
-| 3.5-3.8V | Marginal | Charge/replace, retest |
-| <3.5V | Too low | Replace battery |
+| Voltage     | Status   | Action                 |
+|-------------|----------|------------------------|
+| >3.8 V      | Good     | Continue diagnostics   |
+| 3.5–3.8 V | Marginal | Charge/replace, retest |
+| <3.5 V      | Too low  | Replace battery        |
 
 **How to check:**
+
 - Measure with multimeter
 - Or: Serial Monitor shows voltage
 - Or: ThingsBoard (if SD data uploaded manually)
@@ -80,9 +83,9 @@ Low voltage causes XBee failures:
 **2. XBee Physical Installation**
 
 - Remove and inspect:
-  - Pins straight?
-  - All pins engaging PCB socket?
-  - No bent/missing pins?
+    - Pins straight?
+    - All pins engaging PCB socket?
+    - No bent/missing pins?
 - Re-seat firmly
 - Visual inspection of solder joints (if DIY assembly)
 
@@ -99,12 +102,14 @@ Low voltage causes XBee failures:
 **1. Signal Strength**
 
 **Test location:**
+
 - Move logger to window
 - Elevate if possible
 - Away from metal structures
 - Test with phone (same carrier) at same location
 
 **Expected phone signal:**
+
 - 2+ bars: Should work
 - 1 bar: Marginal
 - 0 bars: Won't work
@@ -119,8 +124,8 @@ Some carriers only support LTE-M OR NB-IoT:
 2. Read configuration
 3. Current NT value?
 4. Try opposite:
- - If NT=0 (LTE-M): Change to NT=1 (NB-IoT)
- - If NT=1 (NB-IoT): Change to NT=0 (LTE-M)
+    - If NT=0 (LTE-M): Change to NT=1 (NB-IoT)
+    - If NT=1 (NB-IoT): Change to NT=0 (LTE-M)
 5. Write configuration
 6. Retest connection
 
@@ -134,18 +139,19 @@ Some carriers only support LTE-M OR NB-IoT:
 4. Reconfigure XBee if needed
 
 **Common mistakes:**
+
 - Typo in APN
 - Extra spaces
 - Wrong case (some APNs are case-sensitive)
 
 **Common APNs:**
 
-| Carrier | Correct APN | Common Mistakes |
-|---------|-------------|-----------------|
-| AT&T | `m2m.com.attwireless.com` | `attwireless.com` (wrong) |
-| T-Mobile | `iot.t-mobile.com` | `epc.tmobile.com` (consumer, not IoT) |
-| Verizon | `vzwinternet` | `vzwm2m` (old) |
-| Hologram | `hologram` | `hologram.io` (wrong) |
+| Carrier  | Correct APN               | Common Mistakes                       |
+|----------|---------------------------|---------------------------------------|
+| AT&T     | `m2m.com.attwireless.com` | `attwireless.com` (wrong)             |
+| T-Mobile | `iot.t-mobile.com`        | `epc.tmobile.com` (consumer, not IoT) |
+| Verizon  | `vzwinternet`             | `vzwm2m` (old)                        |
+| Hologram | `hologram`                | `hologram.io` (wrong)                 |
 
 #### Layer 3: XBee Configuration
 
@@ -155,14 +161,15 @@ Some carriers only support LTE-M OR NB-IoT:
 2. Read configuration
 3. Verify:
 
-| Parameter | Required Value | If Wrong |
-|-----------|---------------|----------|
-| AP | 2 | **CRITICAL** - Must be 2! |
-| BD | 9600 | Must match Arduino |
-| AN | [Your APN] | Check carrier |
-| SM | 1 | For power saving |
+| Parameter | Required Value | If Wrong                  |
+|-----------|----------------|---------------------------|
+| AP        | 2              | **CRITICAL** — Must be 2! |
+| BD        | 9600           | Must match Arduino        |
+| AN        | [Your APN]     | Check carrier             |
+| SM        | 1              | For power saving          |
 
 **If any wrong:**
+
 - Correct in XBee Studio
 - **Click Write**
 - Click Read to verify
@@ -181,6 +188,7 @@ XBee ready           // ← Should see this
 ```
 
 **If "XBee timeout" or similar:**
+
 - Check serial connection (TX/RX pins)
 - Verify baud rate match (9600)
 - Check XBee physically present
@@ -197,6 +205,7 @@ IP address obtained
 ```
 
 **If stuck at "Waiting for network":**
+
 - Network issue (see Layer 2)
 - XBee configuration (see Layer 3)
 
@@ -205,8 +214,9 @@ IP address obtained
 ### Symptom 2: Intermittent Transmissions
 
 **Observations:**
+
 - Sometimes works, sometimes fails
-- "Success rate: 60-80%"
+- "Success rate: 60–80%"
 - Random gaps in ThingsBoard data
 
 #### Cause 1: Signal Strength Fluctuations
@@ -249,7 +259,7 @@ IP address obtained
 **Solutions:**
 
 1. **Stagger transmission times** across multiple loggers
-2. **Avoid peak hours** if possible (schedule for 2-5 AM)
+2. **Avoid peak hours** if possible (schedule for 2–5 AM)
 3. **Increase transmission interval** (reduce frequency)
 
 #### Cause 3: Power Issues
@@ -259,12 +269,13 @@ IP address obtained
 XBee draws ~200 mA during transmit. If battery weak:
 
 **Symptoms:**
+
 - Transmissions fail as battery drains
 - Success rate correlates with battery voltage
 
 **Solution:**
 
-1. Replace battery sooner (don't wait until 3.3V)
+1. Replace battery sooner (don't wait until 3.3 V)
 2. Use higher capacity battery
 3. Reduce transmission frequency
 
@@ -296,11 +307,13 @@ curl -X POST \
 **Expected:** `{}` (empty JSON = success)
 
 **If timeout or error:**
+
 - ThingsBoard server down (check status page)
 - Network routing issue
 - Firewall blocking
 
 **Solution:**
+
 - Wait and retry
 - Use alternative server (Cloud vs. Demo)
 
@@ -309,6 +322,7 @@ curl -X POST \
 ### Symptom 3: Data Appears but Values Wrong
 
 **Observations:**
+
 - ThingsBoard shows data
 - But values incorrect, null, or garbled
 
@@ -320,6 +334,7 @@ curl -X POST \
 ```
 
 **ThingsBoard expects keys to match:**
+
 - Case-sensitive: `distance_mm` ≠ `Distance_MM`
 - Spelling matters
 
@@ -337,6 +352,7 @@ curl -X POST \
 2. Verify key names in ThingsBoard widget configuration
 
 **Solution:**
+
 - Fix key names in code or dashboard
 - Consistent naming
 
@@ -345,10 +361,12 @@ curl -X POST \
 **ThingsBoard interprets data types:**
 
 **Example issue:**
+
 - Sent as string: `"distance_mm":"1234"`
 - Expected integer: `"distance_mm":1234`
 
 **Solution:**
+
 - Remove quotes around numeric values in code
 - Ensure `String(value)` doesn't add quotes
 
@@ -357,6 +375,7 @@ curl -X POST \
 **If timestamps wrong:**
 
 **Logger not setting timestamp:**
+
 - ThingsBoard uses server time (usually correct)
 
 **Logger sending timestamp:**
@@ -365,6 +384,7 @@ curl -X POST \
 ```
 
 **Issue:** Wrong epoch format
+
 - ThingsBoard expects milliseconds
 - Logger sending seconds
 
@@ -378,6 +398,7 @@ long timestamp = rtc.now().unixtime() * 1000L; // Convert to milliseconds
 ### Symptom 4: High Data Costs
 
 **Observations:**
+
 - SIM data usage higher than expected
 - Plan exceeds quota
 
@@ -391,10 +412,12 @@ long timestamp = rtc.now().unixtime() * 1000L; // Convert to milliseconds
 - Monthly: 12 KB × 30 = 360 KB
 
 **If actual usage >> expected:**
+
 - Check transmission interval in code
 - Verify not transmitting on every measurement
 
 **Solution:**
+
 - Increase `TELEMETRY_INTERVAL` in code
 - Balance: Data freshness vs. costs
 
@@ -407,6 +430,7 @@ long timestamp = rtc.now().unixtime() * 1000L; // Convert to milliseconds
 - Multiple retries: Multiplies costs
 
 **Solution:**
+
 1. Fix root cause of failures (signal, config)
 2. Limit retries in code (max 3)
 3. Add exponential backoff
@@ -479,12 +503,12 @@ Size: ~30 bytes
 
 **Key indicators:**
 
-| Message | Meaning | If Missing |
-|---------|---------|------------|
-| `XBee initializing...` | Serial communication working | Check connections |
-| `Network registered` | Cellular connected | Check SIM, APN, signal |
-| `RSSI: -XX dBm` | Signal strength known | XBee communication issue |
-| `HTTP POST: 200 OK` | Server received data | Check URL, token |
+| Message                | Meaning                      | If Missing               |
+|------------------------|------------------------------|--------------------------|
+| `XBee initializing...` | Serial communication working | Check connections        |
+| `Network registered`   | Cellular connected           | Check SIM, APN, signal   |
+| `RSSI: -XX dBm`        | Signal strength known        | XBee communication issue |
+| `HTTP POST: 200 OK`    | Server received data         | Check URL, token         |
 
 ### XBee Studio Network Diagnostics
 
@@ -495,22 +519,22 @@ Size: ~30 bytes
 **3. View current status:**
 
 - **Registration Status:**
-  - Not registered: No network
-  - Registered (home): Good
-  - Registered (roaming): May work (check roaming on SIM)
-  - Searching: Still looking
+    - Not registered: No network
+    - Registered (home): Good
+    - Registered (roaming): May work (check roaming on SIM)
+    - Searching: Still looking
 
 - **Signal Strength:**
-  - Numeric RSSI value
-  - Quality bars (0-5)
+    - Numeric RSSI value
+    - Quality bars (0–5)
 
 - **IP Address:**
-  - If assigned: Network is connected
-  - If blank: DHCP failed or not registered
+    - If assigned: Network is connected
+    - If blank: DHCP failed or not registered
 
 - **Data Usage:**
-  - Some modules track usage
-  - Compare to SIM plan
+    - Some modules track usage
+    - Compare to SIM plan
 
 **4. Connection Test:**
 
@@ -560,39 +584,39 @@ MY      // IP address
 
 **AI (Association Indication) parameter:**
 
-| Code | Meaning | Action |
-|------|---------|--------|
-| 0x00 | Connected | Good! |
-| 0x22 | Registering to network | Wait |
-| 0x23 | Connecting to internet | Wait |
-| 0x24 | Bypass mode active | Check configuration |
-| 0x25 | Initializing | Wait or power cycle |
-| 0x2A | Airplane mode | Disable airplane mode |
-| 0x2F | Switched off | Check SM setting |
+| Code | Meaning                | Action                |
+|------|------------------------|-----------------------|
+| 0x00 | Connected              | Good!                 |
+| 0x22 | Registering to network | Wait                  |
+| 0x23 | Connecting to internet | Wait                  |
+| 0x24 | Bypass mode active     | Check configuration   |
+| 0x25 | Initializing           | Wait or power cycle   |
+| 0x2A | Airplane mode          | Disable airplane mode |
+| 0x2F | Switched off           | Check SM setting      |
 
 ### HTTP Response Codes
 
 **From ThingsBoard or server:**
 
-| Code | Meaning | Solution |
-|------|---------|----------|
-| 200 | Success | No action needed |
-| 400 | Bad Request | Check JSON format |
-| 401 | Unauthorized | Verify access token |
-| 404 | Not Found | Check server URL |
-| 429 | Too Many Requests | Reduce frequency |
-| 500 | Server Error | ThingsBoard issue, wait |
-| 503 | Service Unavailable | Server down, wait |
+| Code | Meaning            | Solution                |
+|------|--------------------|-------------------------|
+| 200 | Success             | No action needed        |
+| 400 | Bad Request         | Check JSON format       |
+| 401 | Unauthorized        | Verify access token     |
+| 404 | Not Found           | Check server URL        |
+| 429 | Too Many Requests   | Reduce frequency        |
+| 500 | Server Error        | ThingsBoard issue, wait |
+| 503 | Service Unavailable | Server down, wait       |
 
 ### Arduino XBee Library Errors
 
 **If using XBee Arduino library:**
 
-| Error | Meaning | Solution |
-|-------|---------|----------|
-| XBEE_TIMEOUT | No response | Check connections, baud rate |
-| XBEE_INVALID_RESPONSE | Corrupt data | Check API mode (must be 2) |
-| XBEE_TX_FAILURE | Transmission failed | Network issue |
+| Error                 | Meaning             | Solution                     |
+|-----------------------|---------------------|------------------------------|
+| XBEE_TIMEOUT          | No response         | Check connections, baud rate |
+| XBEE_INVALID_RESPONSE | Corrupt data        | Check API mode (must be 2)   |
+| XBEE_TX_FAILURE       | Transmission failed | Network issue                |
 
 ---
 
@@ -601,16 +625,19 @@ MY      // IP address
 ### Regular Checks
 
 **Weekly:**
+
 - Check battery voltage trend
 - Verify transmission success rate >90%
 - Review signal strength (should be consistent)
 
 **Monthly:**
+
 - Check SIM data usage vs. plan
 - Inspect XBee physical condition (corrosion, etc.)
 - Verify firmware up to date
 
 **Quarterly:**
+
 - Test logger retrieval and reconfiguration
 - Clean antenna connections
 - Review and update server endpoints if needed
@@ -620,26 +647,26 @@ MY      // IP address
 **Maximize reliability:**
 
 1. **Signal strength:**
- - Use external antenna in marginal locations
- - Elevate logger if possible
+    - Use external antenna in marginal locations
+    - Elevate logger if possible
 
 2. **Power:**
- - Size battery for 2× expected transmissions
- - Monitor voltage, replace proactively
+    - Size battery for 2× expected transmissions
+    - Monitor voltage, replace proactively
 
 3. **Transmission interval:**
- - Balance freshness vs. battery life
- - More frequent during events, less during stable conditions
+    - Balance freshness vs. battery life
+    - More frequent during events, less during stable conditions
 
 4. **Retry logic:**
- - Max 3 retries
- - Exponential backoff (5s, 30s, 60s)
- - Log failures to SD card
+    - Max 3 retries
+    - Exponential backoff (5 s, 30 s, 60 s)
+    - Log failures to SD card
 
 5. **Monitoring:**
- - Set up ThingsBoard alerts
- - Email on: No data for 2× expected interval
- - Email on: Battery < 3.5V
+    - Set up ThingsBoard alerts
+    - Email on: No data for 2× expected interval
+    - Email on: Battery < 3.5 V
 
 ---
 
@@ -655,44 +682,48 @@ MY      // IP address
 **Gather information before contacting:**
 
 1. **Logger details:**
- - Model (Wari, Lidar)
- - Firmware version
- - Logger ID
+    - Model (Wari, Lidar)
+    - Firmware version
+    - Logger ID
 
 2. **XBee details:**
- - Model (XB3-C-A2-XX-001)
- - Firmware version
- - Configuration (export profile)
+    - Model (XB3-C-A2-XX-001)
+    - Firmware version
+    - Configuration (export profile)
 
 3. **SIM/Carrier:**
- - Carrier name
- - Plan details
- - APN
+    - Carrier name
+    - Plan details
+    - APN
 
 4. **Symptoms:**
- - Specific error messages
- - Serial Monitor logs
- - ThingsBoard screenshots
+    - Specific error messages
+    - Serial Monitor logs
+    - ThingsBoard screenshots
 
 5. **Diagnostics performed:**
- - Tests run
- - Results
+    - Tests run
+    - Results
 
 ### Support Resources
 
 **Riverlabs/ICHydro:**
+
 - GitHub Issues: https://github.com/ICHydro/Riverlabs/issues
 - Email: (if provided by project)
 
 **Digi (XBee) Support:**
+
 - Forums: https://www.digi.com/support/forum
 - Technical support: (for XBee-specific issues)
 
 **ThingsBoard:**
+
 - Community: https://groups.google.com/forum/#!forum/thingsboard
 - Professional support: (paid plans)
 
 **Carrier (SIM) Support:**
+
 - Contact your SIM provider for network issues
 
 ---
@@ -702,19 +733,23 @@ MY      // IP address
 ### Case 1: Intermittent Failures at Night
 
 **Symptoms:**
-- Transmissions work during day (8 AM - 6 PM)
-- Fail overnight (6 PM - 8 AM)
+
+- Transmissions work during day (8 AM–6 PM)
+- Fail overnight (6 PM–8 AM)
 
 **Investigation:**
+
 - Signal strength: Same day/night
 - Battery: Adequate
 - Pattern: 100% success during day, 0% at night
 
 **Root Cause:**
+
 - Carrier tower switch
 - Night tower has different configuration
 
 **Solution:**
+
 - Contacted carrier
 - Tower configuration updated
 - Success rate now 95%+ all times
@@ -722,32 +757,39 @@ MY      // IP address
 ### Case 2: Data Appears but Timestamps Wrong
 
 **Symptoms:**
+
 - ThingsBoard receives data
 - Timestamps show 1970 (epoch zero)
 
 **Root Cause:**
+
 - RTC not set on logger
 - Logger sending timestamp:0
 
 **Solution:**
+
 - Set RTC with set_clock utility
 - Or: Remove timestamp from payload (ThingsBoard uses server time)
 
 ### Case 3: High Battery Drain
 
 **Symptoms:**
+
 - Battery drains in 5 days (expected 30 days)
 - Telemetry working
 
 **Investigation:**
+
 - Transmission frequency: Every measurement (too high)
 - XBee not sleeping properly
 
 **Root Cause:**
+
 - Sleep mode configuration
 - SM not set to pin sleep
 
 **Solution:**
+
 - Configure XBee: SM=1 (pin sleep)
 - Increase TELEMETRY_INTERVAL to 12 (transmit every 12 measurements)
 - Battery now lasts 35 days
@@ -783,12 +825,12 @@ Logger not transmitting?
 
 ## Next Steps
 
-- [Telemetry Setup Guide](setup-guide.md) - Complete setup overview
-- [XBee Setup Walkthrough](xbee-setup-walkthrough.md) - Detailed XBee configuration
-- [ThingsBoard Configuration](thingsboard-configuration.md) - Dashboard setup
-- [Battery & Power Guide](../hardware/battery-power-guide.md) - Power optimization
+- [Telemetry Setup Guide](setup-guide.md): Complete setup overview
+- [XBee Setup Walkthrough](xbee-setup-walkthrough.md): Detailed XBee configuration
+- [ThingsBoard Configuration](thingsboard-configuration.md): Dashboard setup
+- [Battery & Power Guide](../hardware/battery-power-guide.md): Power optimization
 
 ---
 
 !!! tip "Systematic Approach Works"
-    Most telemetry issues are simple: wrong APN, bad signal, or configuration mistake. Work through diagnostics methodically and you'll find the problem!
+    Most telemetry issues are simple: wrong APN, bad signal or configuration mistake. Work through diagnostics methodically and you'll find the problem!

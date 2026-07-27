@@ -1,19 +1,19 @@
 # Mounting Guide
 
 !!! abstract "Overview"
-    This guide covers practical methods for installing Riverlabs loggers in the field, including mounting techniques, positioning requirements, and best practices for long-term deployments.
+    This guide covers practical methods for installing Riverlabs loggers in the field, including mounting techniques, positioning requirements and best practices for long-term deployments.
 
 ## Mounting Methods
 
-Choose the mounting method based on your installation requirements, access to the site, and expected deployment duration.
+Choose the mounting method based on your installation requirements, access to the site and expected deployment duration.
 
 ### Comparison of Methods
 
-| Method | Pros | Cons | Best For | Cost |
-|--------|------|------|----------|------|
-| **Zip Ties** | Quick, reversible, no surface prep | Less secure, UV degradation | Temporary, pipes/rails | £ |
-| **Adhesive** | Strong, clean look, no drilling | Permanent, surface prep needed | Smooth surfaces, long-term | ££ |
-| **Brackets** | Very secure, adjustable | Requires drilling, more visible | Permanent installations, bridges | £££ |
+| Method       | Pros                               | Cons                            | Best For                         | Cost |
+|--------------|------------------------------------|---------------------------------|----------------------------------|------|
+| **Zip Ties** | Quick, reversible, no surface prep | Less secure, UV degradation     | Temporary, pipes/rails           | £    |
+| **Adhesive** | Strong, clean look, no drilling    | Permanent, surface prep needed  | Smooth surfaces, long-term       | ££   |
+| **Brackets** | Very secure, adjustable            | Requires drilling, more visible | Permanent installations, bridges | £££  |
 
 ---
 
@@ -23,15 +23,15 @@ Choose the mounting method based on your installation requirements, access to th
 
 Zip ties provide a quick, non-invasive mounting solution ideal for pipes, railings, and temporary installations.
 
-![Zip tie mounting example](../../assets/images/mounting-ziptie-sketch.png)
+![Zip tie mounting example](../../assets/images/mounting-ziptie-sketch.png)<br>
 *Recommended zip tie placement for secure mounting*
 
 ### Materials Needed
 
 - **UV-resistant zip ties**
-  - Length: 300-400mm depending on mounting surface
-  - Rating: Outdoor/UV resistant (black nylon)
-  - Quantity: 4-6 ties per logger
+    - Length: 300–400 mm, depending on mounting surface
+    - Rating: Outdoor/UV-resistant (black nylon)
+    - Quantity: 4–6 ties per logger
 - Cable tie tensioning tool (optional, helps prevent over-tightening)
 - Rubber/foam padding (optional, reduces vibration)
 
@@ -45,8 +45,7 @@ Zip ties provide a quick, non-invasive mounting solution ideal for pipes, railin
 ### Step-by-Step Installation
 
 1. **Select Mounting Location**
-
-    - Choose stable, rigid structure (pipe, post, railing)
+    - Choose stable, rigid structure (e.g., a pipe, post or railing)
     - Verify clearance requirements (see Positioning section below)
     - Ensure drainage away from logger
 
@@ -72,8 +71,8 @@ Zip ties provide a quick, non-invasive mounting solution ideal for pipes, railin
 
 5. **Tension Ties**
     - Tighten evenly, rotating through all ties
-    - **DO NOT over-tighten** - should be snug but not crushing
-    - Test: You should barely be able to rotate the logger
+    - **DO NOT over-tighten** — should be snug but not crushing
+    - Test: you should barely be able to rotate the logger
     - All ties should share the load equally
 
 6. **Strain Relief**
@@ -83,9 +82,9 @@ Zip ties provide a quick, non-invasive mounting solution ideal for pipes, railin
     - Allow slight movement to prevent fatigue
 
 7. **Trim and Secure**
-    - Cut excess tie length, leaving 2-3cm
+    - Cut excess tie length, leaving 2–3 cm
     - File any sharp edges
-    - Optional: Heat-shrink over tie ends for cleaner look
+    - Optional: heat-shrink over tie ends for cleaner look
 
 ### Best Practices
 
@@ -98,12 +97,12 @@ Zip ties provide a quick, non-invasive mounting solution ideal for pipes, railin
 
 ### Maintenance
 
-- **Inspect ties every 3-6 months**
+- **Inspect ties every 3–6 months**
 - Replace if showing:
-  - Cracks or brittleness
-  - Discoloration
-  - Loosening
-  - Surface chalking (UV damage)
+    - Cracks or brittleness
+    - Discoloration
+    - Loosening
+    - Surface chalking (UV damage)
 - Keep spare ties in field kit
 
 ---
@@ -114,17 +113,17 @@ Zip ties provide a quick, non-invasive mounting solution ideal for pipes, railin
 
 Adhesive mounting provides a clean, secure installation for smooth surfaces without drilling. Best for permanent installations where aesthetics matter.
 
-![Adhesive mounting example](../../assets/images/mounting-adhesive-sketch.png)
+![Adhesive mounting example](../../assets/images/mounting-adhesive-sketch.png)<br>
 *Surface preparation and adhesive application*
 
 ### Suitable Adhesive Types
 
-| Adhesive Type | Pros | Cons | Best For |
-|---------------|------|------|----------|
-| **Marine Epoxy** | Very strong, waterproof | Permanent, slow cure | Metal, fiberglass, concrete |
-| **Construction Adhesive** | Strong, fills gaps | Can be messy | Rough concrete, masonry |
-| **Structural Tape** | Clean, no cure time | Lower strength | Smooth metal, plastic (temporary) |
-| **Polyurethane Sealant** | Flexible, waterproof | Medium strength | Surfaces with movement |
+| Adhesive Type             | Pros                    | Cons                 | Best For                          |
+|---------------------------|-------------------------|----------------------|-----------------------------------|
+| **Marine Epoxy**          | Very strong, waterproof | Permanent, slow cure | Metal, fiberglass, concrete       |
+| **Construction Adhesive** | Strong, fills gaps      | Can be messy         | Rough concrete, masonry           |
+| **Structural Tape**       | Clean, no cure time     | Lower strength       | Smooth metal, plastic (temporary) |
+| **Polyurethane Sealant**  | Flexible, waterproof    | Medium strength      | Surfaces with movement            |
 
 ### Recommended Products
 
@@ -135,12 +134,12 @@ Adhesive mounting provides a clean, secure installation for smooth surfaces with
 
 ### Step-by-Step Installation
 
-1. **Surface Preparation** (Critical!)
+1. **Surface Preparation** (critical!)
     - Clean surface thoroughly
-    - Remove all dirt, oil, rust, paint
-    - Use solvent (isopropyl alcohol or acetone)
+    - Remove all dirt, oil, rust and paint
+    - Use solvent (e.g., isopropyl alcohol or acetone)
     - Allow to dry completely
-    - Roughen smooth surfaces with sandpaper (80-120 grit)
+    - Roughen smooth surfaces with sandpaper (80–120 grit)
 
 2. **Test Fit**
     - Position logger without adhesive
@@ -150,14 +149,14 @@ Adhesive mounting provides a clean, secure installation for smooth surfaces with
 
 3. **Apply Adhesive**
     - Apply adhesive to logger mounting surface
-    - Use enough to ensure full contact (~3-5mm layer)
+    - Use enough to ensure full contact (~3–5 mm layer)
     - Don't over-apply (causes mess during pressing)
     - Work in manageable sections
 
 4. **Install Logger**
     - Press firmly into position
     - Align with marked location
-    - Apply steady pressure for 30-60 seconds
+    - Apply steady pressure for 30–60 seconds
     - Remove excess adhesive immediately with rag
 
 5. **Support During Cure**
@@ -168,7 +167,7 @@ Adhesive mounting provides a clean, secure installation for smooth surfaces with
 
 6. **Curing Time**
     - Initial cure: 24 hours (minimum)
-    - Full cure: 3-7 days (depends on adhesive)
+    - Full cure: 3–7 days (depends on adhesive)
     - **Do not stress joint during cure**
     - Avoid temperature extremes during cure
 
@@ -222,7 +221,7 @@ Adhesive mounting provides a clean, secure installation for smooth surfaces with
 
 Mechanical brackets provide the most secure mounting, ideal for bridges, buildings, and permanent monitoring stations.
 
-![Bracket mounting example](../../assets/images/mounting-bracket-sketch.png)
+![Bracket mounting example](../../assets/images/mounting-bracket-sketch.png)<br>
 *Bracket mounting on bridge structure*
 
 ### Bracket Types
@@ -245,46 +244,45 @@ Mechanical brackets provide the most secure mounting, ideal for bridges, buildin
 
 1. **Design/Select Bracket**
 
-- Consider logger dimensions
-- Plan for cable routing
-- Include drainage holes
-- Allow for removal/maintenance access
+    - Consider logger dimensions
+    - Plan for cable routing
+    - Include drainage holes
+    - Allow for removal/maintenance access
 
 2. **Mark Mounting Holes**
 
-- Position bracket in place
-- Use level to ensure orientation
-- Mark hole locations
-- Double-check measurements
+    - Position bracket in place
+    - Use level to ensure orientation
+    - Mark hole locations
+    - Double-check measurements
 
 3. **Drill Pilot Holes**
 
-- Use appropriate bit for substrate
-- Drill to required depth
-- Clean holes of debris
-- Insert anchors if needed
+    - Use appropriate bit for substrate
+    - Drill to required depth
+    - Clean holes of debris
+    - Insert anchors if needed
 
 4. **Attach Bracket to Surface**
 
-- Install fasteners loosely first
-- Verify alignment
-- Tighten in star pattern
-- Torque to specification (don't over-tighten)
+    - Install fasteners loosely first
+    - Verify alignment
+    - Tighten in star pattern
+    - Torque to specification (don't over-tighten)
 
 5. **Mount Logger to Bracket**
 
-- Position logger on bracket
-- Install mounting hardware
-- Use anti-vibration washers
-- Secure but don't crush housing
+    - Position logger on bracket
+    - Install mounting hardware
+    - Use anti-vibration washers
+    - Secure but don't crush housing
 
 6. **Cable Management**
 
-- Route cables neatly
-- Use cable ties or clips
-- Provide strain relief
-- Weatherproof all connections
-
+    - Route cables neatly
+    - Use cable ties or clips
+    - Provide strain relief
+    - Weatherproof all connections
 
 ## Waiver and Disclaimer
 
@@ -295,22 +293,23 @@ Mechanical brackets provide the most secure mounting, ideal for bridges, buildin
     
     - Installation is at your own risk
     - Riverlabs Ltd is not responsible for:
-      - Personal injury during installation
-      - Property damage during or after installation
-      - Equipment loss or theft after installation
-      - Failure to obtain necessary permissions
-      - Damage from improper installation
+        - Personal injury during installation
+        - Property damage during or after installation
+        - Equipment loss or theft after installation
+        - Failure to obtain necessary permissions
+        - Damage from improper installation
     - You are responsible for:
-      - Obtaining all necessary permissions and permits
-      - Ensuring installation meets local codes and regulations
-      - Proper maintenance and monitoring of equipment
-      - Safe working practices during installation
+        - Obtaining all necessary permissions and permits
+        - Ensuring installation meets local codes and regulations
+        - Proper maintenance and monitoring of equipment
+        - Safe working practices during installation
     - Equipment warranty is void if:
-      - Installed improperly
-      - Modified without authorization
-      - Subjected to forces beyond specification
+        - Installed improperly
+        - Modified without authorization
+        - Subjected to forces beyond specification
     
     **Always:**
+
     - Obtain landowner/authority permission before installing
     - Follow all safety regulations and guidelines
     - Use appropriate personal protective equipment
@@ -330,7 +329,7 @@ After installation:
 
 ## Need Help?
 
-- [Sensor Positioning Guide](sensor-positioning.md) - Detailed positioning information
-- [Environmental Considerations](environmental-considerations.md) - Weather/climate factors
-- [Common Issues](../troubleshooting/common-issues.md) - Installation troubleshooting
+- [Sensor Positioning Guide](sensor-positioning.md): Detailed positioning information
+- [Environmental Considerations](environmental-considerations.md): Weather/climate factors
+- [Common Issues](../troubleshooting/common-issues.md): Installation troubleshooting
 - Contact support: info@riverlabs.uk

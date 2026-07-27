@@ -58,28 +58,29 @@ flowchart TD
 
 ### Removing the SD card
 
-!!! warning "Always flush data before removal"
+!!! warning "Always Flush Data Before Removal"
      Follow these steps to prevent data loss:
 
-1. Press the **RESET** button to flush any buffered data
-2. Wait for the LED to show a red pulse (indicating data transfer)
-3. Once the LED turns off, safely remove the SD card by pulling it out gently
+    1. Press the **RESET** button to flush any buffered data
+    2. Wait for the LED to show a red pulse (indicating data transfer)
+    3. Once the LED turns off, safely remove the SD card by pulling it out gently
 
-!!! tip
+!!! tip "Flushing Data"
      The flushing process may take several seconds depending on the amount of buffered data. Never remove the SD card while the LED is illuminated.
 
 ## Data storage on the SD card
 
-In the standard setup, the sensor takes 10 consecutive distance readings. This takes about 10&nbps;ms for the lidar, and 1.5&nbsp;s for the ultrasound sensor. In addition, it will take a measurement of the temperature sensor on the clock chip, and a voltage reading of the battery.
+In the standard setup, the sensor takes 10 consecutive distance readings. This takes about 10&nbsp;ms for the lidar, and 1.5&nbsp;s for the ultrasound sensor. In addition, it will take a measurement of the temperature sensor on the clock chip, and a voltage reading of the battery.
 
-The SD card is formatted in standard FAT format. Any micro SD and micro SDHC card can be used. The SD card can be read with a PC without any specific software. The logger writes one file per day in text formar, with file name format YYYYMMDD.CSV. The content of the file is formatted as follows:
+The SD card is formatted in standard FAT format. Any microSD and microSDHC card can be used. The SD card can be read with a PC without any specific software. The logger writes one file per day in text format, with file name format `YYYYMMDD.CSV`. The content of the file is formatted as follows:
 
 `2019/01/01 12:00:00, 2215, 2214, 2214, 2215, 2214, 2214, 2214, 2214, 2215, 2215, 4100, 1950`
 
-In which each line represents one measurement period, and the columns are respectively:
-- Column 1: date and time in format YYYY/MM/DD HH:MM:SS
-- Columns 2 – 11: Raw distance measurements [mm].
-- Column 12: battery voltage [mV]. A full battery sits around 4200&nbsp;mV. The logger shuts down when voltage drops below around 3500mV.
-- Column 13: logger temperature in 1/100&deg;C (so a value of 1950 = 19.50&deg;C).
+In which each line represents one measurement period, and the columns are, respectively:
+
+- **Column 1**: date and time in format YYYY/MM/DD HH:MM:SS
+- **Columns 2 – 11**: Raw distance measurements (mm).
+- **Column 12**: battery voltage (mV). A full battery sits around 4200&nbsp;mV. The logger shuts down when voltage drops below around 3500&nbsp;mV.
+- **Column 13**: logger temperature in 1/100&deg;C (so a value of 1950 = 19.50&deg;C).
 
 The logger will operate without an SD card inserted. However, the data in the internal memory will be overwritten when the memory is full.

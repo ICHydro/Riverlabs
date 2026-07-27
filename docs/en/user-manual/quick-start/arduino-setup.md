@@ -7,22 +7,25 @@ This guide will help you set up the Arduino IDE and prepare your computer for pr
 ![Arduino IDE Overview](../../assets/images/arduino1.jpg)
 *The Arduino IDE showing the editor window (top) and information window (bottom)*
 
-**Editor Window** (top) - This is where you write and edit your code. Arduino uses a language very similar to C++. Each program (called a "sketch") consists of two main functions:
+**Editor Window** (top)<br>
 
-- `setup()` - Runs once when the logger powers on
-- `loop()` - Runs repeatedly while the logger is powered
+- This is where you write and edit your code. Arduino uses a language very similar to C++. Each program (called a "sketch") consists of two main functions:
+    - `setup()`: runs once when the logger powers on
+    - `loop()`: runs repeatedly while the logger is powered
 
-**Information Window** (bottom) - Displays compilation output, upload progress, and any errors that occur during the process.
+**Information Window** (bottom)<br>
 
-**Important Toolbar Buttons:**
+- Displays compilation output, upload progress and any errors that occur during the process.
 
-- ✓ **Verify** - Compiles your code to check for errors
-- → **Upload** - Compiles and uploads code to your logger
-- **Serial Monitor** - View real-time serial output from your logger
+**Important toolbar buttons**
+
+- ✓ **Verify**: Compiles your code to check for errors
+- → **Upload**: Compiles and uploads code to your logger
+- **Serial Monitor**: View real-time serial output from your logger
 
 ## What is Arduino?
 
-[Arduino](https://www.arduino.cc/) is a fantastic open source hardware ecosystem centered around the Arduino IDE - a user-friendly software development environment for writing code that runs on embedded processors like those in Riverlabs loggers.
+[Arduino](https://www.arduino.cc/) is a fantastic open-source hardware ecosystem centred around the Arduino IDE: a user-friendly software development environment for writing code that runs on embedded processors, such as those in Riverlabs loggers.
 
 The Arduino team developed a special bootloader that allows you to connect Arduino-compatible boards to your computer without needing specialized hardware programmers. Your Riverlabs logger comes with this bootloader pre-installed.
 
@@ -32,23 +35,23 @@ The Arduino team developed a special bootloader that allows you to connect Ardui
 ## Step 1: Install Arduino IDE
 
 1. Visit the [Arduino Software page](https://www.arduino.cc/en/software)
-2. Download the Arduino IDE for your operating system (Windows, macOS, or Linux)
+2. Download the Arduino IDE for your operating system (Windows, macOS or Linux)
 3. Run the installer and follow the installation instructions
 4. Launch the Arduino IDE once installation is complete
 
 ## Step 2: Install Required Libraries
 
-Your Riverlabs logger requires several external libraries. Most can be installed through the Arduino Library Manager:
+Your Riverlabs logger requires several external libraries. Most can be installed through the Arduino Library Manager.
 
 ### Install via Library Manager
 
 1. Open Arduino IDE
 2. Go to **Sketch → Include Library → Manage Libraries**
 3. Search for and install each of these libraries:
-   - **RTC by Makuna** - Real-time clock control
-   - **SoftwareSerial** - Software serial communication (for cellular models)
-   - **SdFat by Bill Greiman** - SD card file system
-   - **AltSoftSerial** - Alternative software serial (for cellular/lidar models)
+    - **RTC by Makuna**: Real-time clock control
+    - **SoftwareSerial**: Software serial communication (for cellular models)
+    - **SdFat by Bill Greiman**: SD card file system
+    - **AltSoftSerial**: Alternative software serial (for cellular/lidar models)
 
 !!! note "SdFat Version"
     Make sure to install the original **SdFat** library by **Bill Greiman**. If multiple versions appear in the search, select the one authored by Bill Greiman.
@@ -61,9 +64,9 @@ The **Rocketscream LowPower** library is not available in the Library Manager an
 2. Click the green **Code** button and select **Download ZIP**
 3. Extract the ZIP file
 4. Move the extracted folder to your Arduino libraries directory:
-   - **Windows:** `Documents\Arduino\libraries\`
-   - **macOS:** `~/Documents/Arduino/libraries/`
-   - **Linux:** `~/Arduino/libraries/`
+    - **Windows:** `Documents\Arduino\libraries\`
+    - **macOS:** `~/Documents/Arduino/libraries/`
+    - **Linux:** `~/Arduino/libraries/`
 5. Restart the Arduino IDE
 
 !!! tip "Library Installation Help"
@@ -71,21 +74,19 @@ The **Rocketscream LowPower** library is not available in the Library Manager an
 
 ## Step 3: Get an FTDI Cable
 
-Riverlabs loggers don't have a USB port - they use a serial interface instead. You'll need a **USB to Serial (TTL level) converter**, commonly called an FTDI cable or FTDI board.
+Riverlabs loggers don't have a USB port — they use a serial interface instead. You'll need a **USB to Serial (TTL level) converter**, commonly called an FTDI cable or FTDI board.
 
-**Recommended Options:**
+**Recommended options:**
 
-- **FTDI Cable** - Direct USB connection ([Sparkfun FTDI Cable](https://www.sparkfun.com/products/9717))
-- **FTDI Breakout Board** - Small board requiring micro-USB cable ([Sparkfun FTDI Basic](https://www.sparkfun.com/products/9873))
+- **FTDI Cable**: Direct USB connection ([Sparkfun FTDI Cable](https://www.sparkfun.com/products/9717))
+- **FTDI Breakout Board**: Small board requiring micro-USB cable ([Sparkfun FTDI Basic](https://www.sparkfun.com/products/9873))
 
-**Voltage Selection:**
+**Voltage selection:**
 
-FTDI cables come in 3.3V or 5V versions. Riverlabs loggers work with both, but **3.3V is recommended**.
+FTDI cables come in 3.3 V or 5 V versions. Riverlabs loggers work with both, but **3.3 V is recommended**.
 
-![FTDI Cable Connection](../../assets/images/FTDICable.png)
-*FTDI cable showing the 6-pin connector with color-coded wires*
-
-
+![FTDI Cable Connection](../../assets/images/FTDICable.png)<br>
+*FTDI cable showing the 6-pin connector with colour-coded wires*
 
 ## Step 4: Install MiniCore Board Support
 
@@ -116,7 +117,7 @@ Before uploading code, you must configure the Arduino IDE with the correct board
 2. Go to **Tools → Board → MiniCore** and select **ATmega328**
 3. Configure the following settings in the **Tools** menu:
    - **Clock:** External 8 MHz
-   - **BOD:** BOD 2.7V
+   - **BOD:** BOD 2.7 V
    - **EEPROM:** EEPROM retained
    - **Compiler LTO:** LTO Disabled
    - **Variant:** 328P / 328PA
@@ -132,13 +133,11 @@ Once you've connected your FTDI cable to your computer:
 1. Go to **Tools → Port**
 2. Select the port that appears after connecting the FTDI cable
 3. Port names vary by operating system:
-   - **macOS:** `/dev/cu.usbserial-XXXXXXXX`
-   - **Linux:** `/dev/ttyUSB0` or `/dev/ttyACM0`
-   - **Windows:** `COM3`, `COM4`, etc.
+    - **macOS:** `/dev/cu.usbserial-XXXXXXXX`
+    - **Linux:** `/dev/ttyUSB0` or `/dev/ttyACM0`
+    - **Windows:** `COM3`, `COM4`, etc.
 
 If no port appears, check that FTDI drivers are properly installed.
-
-
 
 !!! example "Testing with Blink"
     Arduino comes with many example sketches. The classic "Blink" example (`File → Examples → 01.Basics → Blink`) can be adapted for Riverlabs loggers by replacing `LED_BUILTIN` with:
@@ -152,15 +151,13 @@ If no port appears, check that FTDI drivers are properly installed.
 - **Sensor Type:** Ultrasound (Maxbotix) or Lidar (Garmin)
 - **Telemetry:** Check for XBee cellular modem or LoRa radio
 
-
-
 ## Next Steps
 
 Now that you have Arduino set up, you're ready to program your logger:
 
-- [Quick Start Guide](quick-start.md) - Complete setup workflow
-- [Uploading Code](../../developer-manual/programming/uploading-code.md) - Detailed upload instructions with troubleshooting
-- [Logger Identification](logger-identification.md) - Find the right code for your logger model
+- [Quick Start Guide](quick-start.md): Complete setup workflow
+- [Uploading Code](../../developer-manual/programming/uploading-code.md): Detailed upload instructions with troubleshooting
+- [Logger Identification](logger-identification.md): Find the right code for your logger model
 
 ## Troubleshooting
 
@@ -189,4 +186,4 @@ Now that you have Arduino set up, you're ready to program your logger:
 
 - [Arduino Official Documentation](https://www.arduino.cc/en/Guide/HomePage)
 - [Sparkfun FTDI Tutorial](https://learn.sparkfun.com/tutorials/serial-communication)
-- [Common Issues](../troubleshooting/common-issues.md) - Programming troubleshooting
+- [Common Issues](../troubleshooting/common-issues.md): Programming troubleshooting

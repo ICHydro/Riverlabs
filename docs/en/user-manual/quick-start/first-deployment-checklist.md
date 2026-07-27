@@ -1,7 +1,7 @@
 # First Deployment Checklist
 
 !!! success "Pre-Deployment Verification"
-    Complete this checklist before deploying your logger in the field. Taking time now prevents failed deployments and wasted trips.
+    Complete this checklist before deploying your logger in the field. Taking the time to do this now prevents failed deployments and wasted trips.
 
 ## Overview
 
@@ -25,13 +25,13 @@ This comprehensive checklist ensures your logger is fully tested and ready for d
 The logger comes with a high-quality microSD card pre-installed.
 
 !!! warning "Do Not Replace SD Card"
-    The provided microSD card has been tested for reliability. **Do not replace it** unless absolutely necessary use exact brand and spec as supplied.
+    The provided microSD card has been tested for reliability. **Do not replace it** unless absolutely necessary. Use the exact brand and spec as supplied.
 
 - MicroSD card properly seated in slot
 
 !!! info "Data Backup Options"
     - **Flash Memory:** Can be installed and used as an additional backup if required
-    - **EEPROM:** Can sometimes recover lost data in case the SD card is incorrecly installed.
+    - **EEPROM:** Can sometimes recover lost data in case the SD card is incorrectly installed
 
 ### Physical Condition
 
@@ -41,7 +41,7 @@ The logger comes with a high-quality microSD card pre-installed.
 - Sensor clean and undamaged
 - Sensor lens/transducer free of debris
 - All screws and fasteners tight
-- Silica gel pack present and fresh (should not be off colour)
+- Silica gel pack present and fresh (should not be off-colour)
 
 ---
 
@@ -57,8 +57,8 @@ The logger comes with a high-quality microSD card pre-installed.
 ### Main Script
 
 - Correct script for logger model uploaded
-  - `wari.ino` for Wari Ultrasonic loggers
-  - `wari_lidar.ino` for Wari Lidar loggers
+    - `wari.ino` for Wari Ultrasonic loggers
+    - `wari_lidar.ino` for Wari Lidar loggers
 - Measurement interval configured appropriately
   ```cpp
   #define INTERVAL 5  // Your chosen interval in minutes
@@ -108,7 +108,7 @@ See [Telemetry Setup Guide](../telemetry/setup-guide.md) for detailed configurat
 
 **For Wari Ultrasonic:**
 
-- Test targets at various distances (0.5m, 1m, 2m, etc.)
+- Test targets at various distances (0.5 m, 1 m, 2 m, etc.)
 - Verify no interference from nearby objects
 - Check beam has clear path
 
@@ -116,12 +116,12 @@ See [Telemetry Setup Guide](../telemetry/setup-guide.md) for detailed configurat
 
 - Test on different surface types
 - Verify angle measurements (if using)
-- Confirm readings from 10cm to max expected range
+- Confirm readings from 10 cm to max expected range
 
 ### Data Logging
 
 - Run logger for minimum 30 minutes
-- LED flashes at expected intervals (when readings taken - compare to the serial output)
+- LED flashes at expected intervals (when readings taken — compare to the serial output)
 - SD card contains data file
 - Data file readable and properly formatted
 - Timestamps in data file correct
@@ -132,7 +132,7 @@ See [Telemetry Setup Guide](../telemetry/setup-guide.md) for detailed configurat
 ```
 2025/12/27 14:30:00, 1250, 1248, 1252, 1249, 1251, 1250, 1248, 1251, 1249, 1250, 4150
 ```
-(Date/time, 10 distance readings in mm, battery voltage in mV)
+*Shows date/time, 10 distance readings in mm and battery voltage in mV*
 
 ### Telemetry Testing (If Enabled)
 
@@ -148,20 +148,19 @@ See [Telemetry Setup Guide](../telemetry/setup-guide.md) for detailed configurat
 
 If problems arise, see:
 
-- [Common Issues](../troubleshooting/common-issues.md) - Quick fixes
-- [Diagnostic Flowcharts](../troubleshooting/diagnostic-flowcharts.md) - Systematic diagnosis
-- [FAQ](../troubleshooting/faq.md) - Frequently asked questions
+- [Common Issues](../troubleshooting/common-issues.md): Quick fixes
+- [Diagnostic Flowcharts](../troubleshooting/diagnostic-flowcharts.md): Systematic diagnosis
+- [FAQ](../troubleshooting/faq.md): Frequently asked questions
 
 **Common Pre-Deployment Issues:**
 
-| Symptom | Likely Cause | Quick Fix |
-|---------|--------------|-----------|
-| No LED activity | Battery dead/reversed | Check voltage & polarity |
-| Erratic readings | Sensor obstructed | Clean sensor, check beam path |
-| No SD writes | SD card failure | Check card, consider Flash memory backup |
-| Clock reset | No backup battery | Install CR1220 |
-| No telemetry | XBee not configured | Verify API mode, settings |
-
+| Symptom          | Likely Cause          | Quick Fix                                |
+|------------------|-----------------------|------------------------------------------|
+| No LED activity  | Battery dead/reversed | Check voltage & polarity                 |
+| Erratic readings | Sensor obstructed     | Clean sensor, check beam path            |
+| No SD writes     | SD card failure       | Check card, consider Flash memory backup |
+| Clock reset      | No backup battery     | Install CR1220                           |
+| No telemetry     | XBee not configured   | Verify API mode, settings                |
 
 !!! success "Ready for Deployment!"
     If you've completed all items on this checklist, your logger is ready for reliable field operation. Keep this checklist for future reference and use it for subsequent deployments.
