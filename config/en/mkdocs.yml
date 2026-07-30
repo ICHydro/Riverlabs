@@ -1,11 +1,11 @@
 site_name: Riverlabs Documentation
-site_url: https://trowan92.github.io/Riverlabs/
+site_url: https://ichydro.github.io/Riverlabs/
 site_author: Riverlabs Ltd
 site_description: Documentation for the Riverlabs suite of environmental sensors
 
-repo_name: trowan92/Riverlabs
-repo_url: https://github.com/trowan92/Riverlabs
-edit_uri: edit/docs-update-27.12.25/docs/
+repo_name: ichydro/Riverlabs
+repo_url: https://github.com/ICHydro/Riverlabs
+edit_uri: edit/main/
 
 docs_dir: "../../docs/en" # Where to find the English markdown files
 site_dir: "../../site/en" # Where to put the English HTML files
