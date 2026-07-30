@@ -283,7 +283,7 @@ void do_send(osjob_t* j){
         // transmit on port 1 (the first parameter); you can use any value from 1 to 223 (others are reserved).
         // don't request an ack (the last parameter, if not zero, requests an ack from the network).
         // Remember, acks consume a lot of network resources; don't ask for an ack unless you really need it.
-        LMIC_setTxData2(1, payload, sizeof(payload)-1, 0);
+        LMIC_setTxData2(1, payload, sizeof(payload), 0);
     }
     // Next TX is scheduled after TX_COMPLETE event.
 }
