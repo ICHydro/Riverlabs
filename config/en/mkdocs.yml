@@ -53,6 +53,9 @@ plugins:
   - search:
       lang: en
   - tags
+  - redirects:
+      redirect_maps:
+        "index.md": "operation/quick-start/quick-start.md"
 
 markdown_extensions:
   - admonition
