@@ -1,7 +1,7 @@
 # ThingsBoard Configuration
 
 !!! abstract "Overview"
-    Complete guide to setting up ThingsBoard IoT platform for Riverlabs data visualization and monitoring. From account creation to advanced dashboards.
+    This is a complete guide to setting up the ThingsBoard IoT platform for Riverlabs data visualization and monitoring, from account creation to advanced dashboards.
 
 ## What is ThingsBoard?
 
@@ -260,11 +260,11 @@ Riverlabs loggers send data in JSON format:
 4. **Configure datasource:**
     - **Type:** `Entity`
     - **Entity:** Select your device
-    - **Data keys:** Check `distance_mm`; `battery_V`
+    - **Data keys:** Check `distance_mm`, `battery_V`
 5. **Configure appearance:**
     - **Title:** `Water Level & Battery`
     - **Time window:** Last 7 days
-    - **Line colors:** Blue (distance); Red (battery)
+    - **Line colors:** Blue (distance), Red (battery)
 6. **Click "Add"**
 7. **Widget appears on dashboard**
 

@@ -20,7 +20,7 @@ The Riverlabs logger PCB contains the following key components:
 6. **Backup Battery Holder**: CR1220 coin cell clip
 7. **Power Regulation**: Voltage regulators and protection
 8. **XBee Socket** (telemetry models): Cellular modem interface 
-9. **Sensor Connector**: Connection to ultrasound/Lidar sensor
+9. **Sensor Connector**: Connection to ultrasound/lidar sensor
 10. **LED Indicators**: Status indication
 11. **EEPROM**: External data buffering
 
@@ -48,10 +48,10 @@ The Riverlabs logger PCB contains the following key components:
 **Specifications:**
 
 - 8-bit AVR architecture
-- 32KB flash memory (program storage)
-- 2KB SRAM (working memory)
-- 1KB EEPROM (optional data buffer)
-- 16MHz clock speed
+- 32 KB flash memory (program storage)
+- 2 KB SRAM (working memory)
+- 1 KB EEPROM (optional data buffer)
+- 16 MHz clock speed
 
 **User Serviceable:**
 
@@ -85,8 +85,8 @@ The Riverlabs logger PCB contains the following key components:
 
 **Troubleshooting:**
 
-- If clock resets: replace CR1220 battery
-- If clock drifts: check code for proper RTC initialization
+- If clock resets: Replace CR1220 battery
+- If clock drifts: Check code for proper RTC initialization
 
 ### 3. SD Card Slot
 
@@ -104,7 +104,7 @@ The Riverlabs logger PCB contains the following key components:
 
 - MicroSD card interface
 - SPI communication
-- Supports SD and SDHC cards (up to 32GB)
+- Supports SD and SDHC cards (up to 32 GB)
 - FAT32 filesystem
 
 **Maintenance:**
@@ -116,9 +116,9 @@ The Riverlabs logger PCB contains the following key components:
 
 **Common Issues:**
 
-- Card not detected: reseat card and check formatting
-- Write errors: replace card (wear-out)
-- Slow writes: use faster card (Class 10)
+- Card not detected: Reseat card and check formatting
+- Write errors: Replace card (wear-out)
+- Slow writes: Use faster card (Class 10)
 
 ### 4. FTDI Programming Header
 
@@ -138,7 +138,7 @@ GRN side          BLK side
 
 - **"GRN"** marking indicates green wire side
 - **"BLK"** marking indicates black wire side
-- On cellular/lidar models: black pin (GND) is on SD card side
+- On cellular/lidar models: Black pin (GND) is on SD card side
 
 **Function:**
 
@@ -154,7 +154,7 @@ GRN side          BLK side
     - Black wire aligns with "BLK" marking
 - **Voltage:** 5 V or 3.3 V FTDI cables supported (3.3 V recommended)
 - **Auto-reset:** DTR pin triggers automatic reset for programming
-- **Power:** can power logger when connected (see Power Switch section)
+- **Power:** Can power logger when connected (see Power Switch section)
 
 **Protection:**
 
@@ -164,8 +164,8 @@ GRN side          BLK side
 
 **Cable Types:**
 
-- [Sparkfun FTDI Cable 3.3V](https://www.sparkfun.com/products/9717): Direct USB connection
-- [Sparkfun FTDI Basic Breakout 3.3V](https://www.sparkfun.com/products/9873): Requires micro-USB cable
+- [Sparkfun FTDI Cable 3.3 V](https://www.sparkfun.com/products/9717): Direct USB connection
+- [Sparkfun FTDI Basic Breakout 3.3 V](https://www.sparkfun.com/products/9873): Requires micro-USB cable
 
 ### 4b. Debug Serial Pins (DBG)
 
@@ -330,8 +330,8 @@ Entering sleep...
 **OFF Position (FTDI):**
 
 - Battery is disconnected from circuit
-- If FTDI cable connected: logger powered via USB
-- If FTDI not connected: logger has no power
+- If FTDI cable connected: Logger powered via USB
+- If FTDI not connected: Logger has no power
 - Convenient for programming without battery installed
 - Prevents battery damage from USB power
 
@@ -500,8 +500,8 @@ You can program the logger in three configurations:
 **Error Patterns:**
 
 - Rapid flashing: SD card error
-- Continuous on: stuck in error state
-- No activity: power/code issue
+- Continuous on: Stuck in error state
+- No activity: Power/code issue
 
 **Power Saving:**
 
@@ -745,7 +745,7 @@ You can program the logger in three configurations:
 - Check connector secure
 - Verify cable continuity
 - Test sensor separately (on working logger if possible)
-- Check for 5 V on power pin (Lidar only)
+- Check for 5 V on power pin (lidar only)
 
 **Serial communication failure:**
 

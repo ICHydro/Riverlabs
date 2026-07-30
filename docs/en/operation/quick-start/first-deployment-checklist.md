@@ -13,7 +13,7 @@ This comprehensive checklist ensures your logger is fully tested and ready for d
 
 ### Battery Installation
 
-- Fully charged battery polarity verified **before** insertion
+- Battery fully charged and polarity verified **before** insertion
 - CR1220 backup battery installed
 - No loose connections or rattling
 
@@ -24,10 +24,10 @@ This comprehensive checklist ensures your logger is fully tested and ready for d
 
 The logger comes with a high-quality microSD card pre-installed.
 
+- MicroSD card properly seated in slot
+
 !!! warning "Do Not Replace SD Card"
     The provided microSD card has been tested for reliability. **Do not replace it** unless absolutely necessary. Use the exact brand and spec as supplied.
-
-- MicroSD card properly seated in slot
 
 !!! info "Data Backup Options"
     - **Flash Memory:** Can be installed and used as an additional backup if required
@@ -35,12 +35,13 @@ The logger comes with a high-quality microSD card pre-installed.
 
 ### Physical Condition
 
-- Enclosure intact, no cracks or damage
+
+- Enclosure intact with no cracks or damage
 - Seals and gaskets in good condition
-- Cable glands tight
+- Cable glands are tight
 - Sensor clean and undamaged
 - Sensor lens/transducer free of debris
-- All screws and fasteners tight
+- All screws and fasteners are tight
 - Silica gel pack present and fresh (should not be off-colour)
 
 ---
@@ -49,7 +50,7 @@ The logger comes with a high-quality microSD card pre-installed.
 
 ### Clock Setup
 
-- Real-time clock set using `set_clock.ino`
+- Real-time clock set using `set_clock.ino` script
 - Time verified in Serial Monitor
 - UTC timezone used (if telemetry enabled)
 - Clock verified accurate within 1 minute
@@ -86,7 +87,7 @@ The logger comes with a high-quality microSD card pre-installed.
 - SIM card installed with active data plan
 - Test transmission successful
 
-See [Telemetry Setup Guide](../../telemetry/setup-guide.md) for detailed configuration.
+See the [Telemetry Setup Guide](../../telemetry/setup-guide.md) for detailed configuration.
 
 ---
 
@@ -103,7 +104,7 @@ See [Telemetry Setup Guide](../../telemetry/setup-guide.md) for detailed configu
 
 - Sensor measurements returning valid readings
 - Readings consistent and reasonable
-- Test at known distance to verify accuracy
+- Accuracy verified by testing at a known distance
 - Multiple readings show low variance
 
 **For Wari Ultrasonic:**
@@ -121,10 +122,10 @@ See [Telemetry Setup Guide](../../telemetry/setup-guide.md) for detailed configu
 ### Data Logging
 
 - Run logger for minimum 30 minutes
-- LED flashes at expected intervals (when readings taken — compare to the serial output)
+- LED flashes at expected intervals (compare to serial output when readings taken)
 - SD card contains data file
 - Data file readable and properly formatted
-- Timestamps in data file correct
+- Data file contains correct timestamps
 - Sensor values in expected range
 - No missing or corrupted entries
 
@@ -132,7 +133,7 @@ See [Telemetry Setup Guide](../../telemetry/setup-guide.md) for detailed configu
 ```
 2025/12/27 14:30:00, 1250, 1248, 1252, 1249, 1251, 1250, 1248, 1251, 1249, 1250, 4150
 ```
-*Shows date/time, 10 distance readings in mm and battery voltage in mV*
+*Shows date/time, 10 distance readings (mm) and battery voltage (mV)*
 
 ### Telemetry Testing (If Enabled)
 
@@ -142,7 +143,6 @@ See [Telemetry Setup Guide](../../telemetry/setup-guide.md) for detailed configu
 - Transmission timing as configured
 - Connection LED patterns normal
 - No excessive connection attempts
-
 
 ## Troubleshooting Quick Reference
 
@@ -156,11 +156,11 @@ If problems arise, see:
 
 | Symptom          | Likely Cause          | Quick Fix                                |
 |------------------|-----------------------|------------------------------------------|
-| No LED activity  | Battery dead/reversed | Check voltage & polarity                 |
+| No LED activity  | Battery dead/reversed | Check voltage and polarity               |
 | Erratic readings | Sensor obstructed     | Clean sensor, check beam path            |
-| No SD writes     | SD card failure       | Check card, consider Flash memory backup |
+| No SD writes     | SD card failure       | Check card, consider flash memory backup |
 | Clock reset      | No backup battery     | Install CR1220                           |
-| No telemetry     | XBee not configured   | Verify API mode, settings                |
+| No telemetry     | XBee not configured   | Verify API mode and settings             |
 
 !!! success "Ready for Deployment!"
     If you've completed all items on this checklist, your logger is ready for reliable field operation. Keep this checklist for future reference and use it for subsequent deployments.

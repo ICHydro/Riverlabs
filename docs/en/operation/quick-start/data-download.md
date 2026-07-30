@@ -8,7 +8,7 @@ Your logger stores data on a microSD card. To download data, you'll need:
 
 - **MicroSD card reader** (USB or built into your computer)
 - Access to the logger to remove the SD card
-- A computer with spreadsheet software (e.g., Excel, Google Sheets, etc.)
+- A computer with spreadsheet software (e.g., Excel or Google Sheets)
 
 ## Step 1: Safely Remove the SD Card
 
@@ -74,7 +74,7 @@ Each line represents one measurement period with the following columns:
 | Column | Content           | Example             | Description                                    |
 |--------|-------------------|---------------------|------------------------------------------------|
 | 1      | Date/Time         | 2026/01/03 12:00:00 | Timestamp in YYYY/MM/DD HH:MM:SS format        |
-| 2-11   | Distance readings | 2215, 2214, 2214... | 10 consecutive raw measurements (mm)           |
+| 2–11   | Distance readings | 2215, 2214, 2214... | 10 consecutive raw measurements (mm)           |
 | 12     | Battery voltage   | 4100                | Battery voltage (mV)                           |
 | 13     | Temperature       | 1950                | Logger temperature in 1/100°C (1950 = 19.50°C) |
 
@@ -89,8 +89,8 @@ Once you've confirmed your data has been successfully copied:
 
 1. Safely eject the SD card from your computer
 2. Re-insert it into the logger:
-   - Ensure correct orientation (contacts facing outward and away from battery)
-   - Push gently until it clicks into place
+    - Ensure correct orientation (contacts facing outward and away from battery)
+    - Push gently until it clicks into place
 3. Press the **RESET** button to reinitialize the logger
 
 

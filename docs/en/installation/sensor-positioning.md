@@ -99,10 +99,10 @@ Consider angled mounting when:
 
 | Angle from Vertical | Accuracy Impact | Notes                      |
 |---------------------|-----------------|----------------------------|
-| 0°–10°             | <0.5% error     | Negligible correction      |
-| 10°–20°            | <1% error       | Recommended maximum        |
-| 20°–30°            | <1.5% error     | Acceptable with correction |
-| 30°–40°            | <2.5% error     | Maximum recommended        |
+| 0°–10°              | <0.5% error     | Negligible correction      |
+| 10°–20°             | <1% error       | Recommended maximum        |
+| 20°–30°             | <1.5% error     | Acceptable with correction |
+| 30°–40°             | <2.5% error     | Maximum recommended        |
 | >40°                | >3% error       | Not recommended            |
 
 **Installation Steps:**
@@ -215,4 +215,4 @@ Both sensors can measure non-water targets:
 ---
 
 !!! success "Optimal Positioning Achieved"
-    With careful attention to positioning, clearances, and target considerations, your logger will provide accurate, reliable measurements for years of operation.
+    With careful attention to positioning, clearances and target considerations, your logger will provide accurate, reliable measurements for years of operation.

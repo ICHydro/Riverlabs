@@ -1,14 +1,14 @@
 # Diagnostic Flowcharts
 
 !!! abstract "Overview"
-    Visual decision trees for diagnosing common Riverlabs logger problems. Follow the flowchart from symptom to solution.
+    This page contains visual decision trees for diagnosing common Riverlabs logger problems. Follow the flowchart from symptom to solution.
 
 ## How to Use These Flowcharts
 
 1. **Identify your symptom** from the list below
 2. **Start at the top** of the relevant flowchart
-3. **Answer yes/no questions** and follow arrows
-4. **Arrive at a solution** or next diagnostic step
+3. **Answer yes/no questions** and follow the arrows
+4. **Arrive at a solution** or the next diagnostic step
 5. **Cross-reference** with detailed guides as needed
 
 ---
@@ -102,7 +102,7 @@ flowchart TD
 **Q11: Is RTC time set correctly?**
 
 - Check .CSV filename (includes date/time)
-- **Files dated 2000/01/01** → **SOLUTION: Set RTC with set_clock utility**
+- **Files dated 2000/01/01** → **SOLUTION: Set RTC with `set_clock` utility**
 - **Files dated correctly** → **SOLUTION: Check measurement interval in code (might be very long)**
 
 ---
@@ -110,7 +110,7 @@ flowchart TD
 ## Flowchart 2: Sensor Readings Look Wrong
 
 ### Symptom
-Logger records data but values are incorrect, constant, or erratic.
+Logger records data but values are incorrect, constant or erratic.
 
 ```mermaid
 flowchart TD
@@ -160,7 +160,7 @@ flowchart TD
 
 - **Can you hear clicking?** (sensor should click each measurement)
     - **No clicking** → **SOLUTION: Sensor not powered, check cable**
-    - **Clicks** → **SOLUTION: Sensor transmitting but no echo (no target, aimed wrong, or target too absorbent)**
+    - **Clicks** → **SOLUTION: Sensor transmitting but no echo (no target, aimed wrong or target too absorbent)**
 
 **Q6: WRONG BUT CHANGING - How wrong are values?**
 
@@ -211,7 +211,7 @@ flowchart TD
     - Check: Installation height configured? Units consistent (mm vs. cm)?
 - **Distance > installation height** → **SOLUTION: Sensor aimed at ground/obstruction instead of water**
     - Fix: Re-aim sensor
-- **Distance > sensor max range** → **SOLUTION: Target out of range, increase height or use Lidar**
+- **Distance > sensor max range** → **SOLUTION: Target out of range, increase height or use lidar**
 
 ---
 
@@ -370,33 +370,33 @@ flowchart TD
 - **Expected battery life:**
     - 1-min interval: ~7 days
     - 5-min interval: ~15 days
-    - 15-min interval: ~30-60 days
+    - 15-min interval: ~30–60 days
 
 **Q4: Logging interval reasonable but battery still drains fast**
 
 - **Sensor type?**
-    - **Lidar** → Go to Q5 (Lidar draws more power)
+    - **Lidar** → Go to Q5 (lidar draws more power)
     - **Ultrasonic** → **SOLUTION: Possible defective component, check for heat (regulator failing?)**
 
 **Q5: Lidar power consumption**
 
-- **Expected Lidar battery life:** ~15–30 days (15-min logging, 3.7 V 2600 mAh)
+- **Expected lidar battery life:** ~15–30 days (15-min logging, 3.7 V 2600 mAh)
 - **Actual life much shorter (< 1 week)?**
     - **SOLUTION: Check for firmware issues (sensor not sleeping), or hardware short**
-- **Life 10-15 days** → Normal for Lidar
+- **Life 10–15 days** → Normal for lidar
 
 **Q6: TELEMETRY LOGGER - Transmission frequency?**
 
 - Check code: TELEMETRY_INTERVAL
-- **Every measurement** → **SOLUTION: Way too frequent! Set to every 4-12 measurements**
-- **Every 4-12 measurements** → Go to Q7 (reasonable, but check other factors)
+- **Every measurement** → **SOLUTION: Way too frequent! Set to every 4–12 measurements**
+- **Every 4–12 measurements** → Go to Q7 (reasonable, but check other factors)
 - **Daily or less** → Go to Q8 (very infrequent, issue elsewhere)
 
 **Q7: Reasonable telemetry interval but fast drain**
 
 - **Check signal strength:**
     - **RSSI < -100 dBm (weak signal)** → **SOLUTION: Weak signal causes XBee to transmit at higher power**
-        - Fix: External antenna, relocate logger, or increase interval
+        - Fix: External antenna, relocate logger or increase interval
     - **RSSI > -100 dBm (good signal)** → Go to Q8
 
 **Q8: Other power drains**
@@ -412,7 +412,7 @@ flowchart TD
 **Q9: Battery health check**
 
 - **Is battery old or damaged?**
-    - Age > 2 years?
+    - Age >2 years?
     - Battery hot during charging?
     - Capacity degraded?
     - **SOLUTION: Replace battery** (LiPo degrades over time)
@@ -422,7 +422,7 @@ flowchart TD
 
 - **Measure current draw with ammeter:**
     - Sleep mode: Should be <1 mA
-    - Active (measuring): <50 mA (ultrasonic) or <100 mA (Lidar)
+    - Active (measuring): <50 mA (ultrasonic) or <100 mA (lidar)
     - Transmitting: ~200 mA
 - **Current much higher than expected?**
     - **SOLUTION: Hardware fault (short, failing component)**
@@ -532,17 +532,17 @@ flowchart TD
 ### Tips
 
 1. **Print and laminate** for field use
-2. **Follow systematically** - don't skip steps
-3. **Document your path** - note which branches you followed
+2. **Follow systematically**: don't skip steps
+3. **Document your path**: note which branches you followed
 4. **Cross-reference** detailed guides for solutions
-5. **Multiple issues?** - Use multiple flowcharts
+5. **Multiple issues?** Use multiple flowcharts
 
 ### When Flowcharts Don't Resolve Issue
 
 If you've followed the appropriate flowchart and still have issues:
 
-1. **Review [Common Issues](common-issues.md)**: similar symptoms with detailed explanations
-2. **Check [FAQ](faq.md)**: edge cases and unusual situations
+1. **Review [Common Issues](common-issues.md)**: Similar symptoms with detailed explanations
+2. **Check [FAQ](faq.md)**: Edge cases and unusual situations
 3. **Contact support** with:
     - Flowchart path followed
     - Diagnostic results

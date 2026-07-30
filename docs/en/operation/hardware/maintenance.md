@@ -1,7 +1,7 @@
 # Maintenance Guide
 
 !!! abstract "Overview"
-    Regular maintenance ensures reliable, long-term operation of your Riverlabs logger. This guide covers routine checks, cleaning procedures, and preventive maintenance schedules.
+    Regular maintenance ensures reliable, long-term operation of your Riverlabs logger. This guide covers routine checks, cleaning procedures and preventive maintenance schedules.
 
 ## Maintenance Philosophy
 
@@ -17,7 +17,7 @@ Regular, systematic checks catch problems before they cause data loss or equipme
 
 | Frequency     | Duration | Tasks                                                                     | Priority |
 |---------------|----------|---------------------------------------------------------------------------|----------|
-| **Monthly**   | 1 min    | Data Review — check data and battery levels, data download as appropriate | Medium   |
+| **Monthly**   | 1 min    | Data Review: check data and battery levels, data download as appropriate  | Medium   |
 | **Quarterly** | 5 min    | Basic visual inspection and external cleaning                             | High     |
 | **Annually**  | 20 mins  | External cleaning, silica replacement and battery change recommended      | High     |
 
@@ -80,7 +80,7 @@ If no telemetry, increase frequency of physical site visits (monthly instead of 
 
 ---
 
-## Site Inspection (Quarterly or Anually)
+## Site Inspection (Quarterly or Annually)
 
 ### Time Required: 15–30 minutes
 
@@ -151,7 +151,7 @@ If accessible and time permits:
 
 1. **Enclosure integrity**
 
-    - No cracks, scratches, or damage
+    - No cracks, scratches or damage
     - All screws/fasteners present and tight
     - Gaskets/seals in good condition
     - Cable glands tight and sealed
@@ -221,7 +221,7 @@ Open enclosure and inspect:
 
     - Time accurate (within 1 minute)
     - Date correct
-    - If off: re-set using `set_clock.ino`
+    - If off: Re-set using `set_clock.ino` script
 
 3. **Sensor test**
 
@@ -268,7 +268,7 @@ Open enclosure and inspect:
 
 **3. Clock Reset**
 
-- **Solution:** Replace CR1220, reset clock with set_clock.ino
+- **Solution:** Replace CR1220, reset clock with `set_clock.ino` script
 - **Prevention:** Replace CR1220 annually
 
 **4. Sensor Dirty/Obstructed**

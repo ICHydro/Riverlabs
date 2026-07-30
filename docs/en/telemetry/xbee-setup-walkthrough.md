@@ -1,7 +1,7 @@
 # XBee Setup Walkthrough
 
 !!! abstract "Overview"
-    Step-by-step visual guide to configuring Digi XBee Cellular modules for Riverlabs loggers. This guide covers both XBee Studio (recommended) and XCTU (legacy) configuration tools.
+    This is a step-by-step visual guide to configuring Digi XBee Cellular modules for Riverlabs loggers. It covers both XBee Studio (recommended) and XCTU (legacy) configuration tools.
     
     **Compatibility:** XBee 3G, XBee Cellular LTE-M/NB-IoT and XBee3 Cellular
 

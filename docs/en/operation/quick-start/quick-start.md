@@ -4,7 +4,7 @@
 
 Before you begin, make sure you have:
 
-- Your Riverlabs logger (Ultrasonic or Lidar)
+- Your Riverlabs logger (ultrasonic or lidar)
 - Main battery (a 14500 or 18650 depending on type)
 - CR1220 coin battery (for RTC backup)
 - MicroSD card 

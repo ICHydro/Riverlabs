@@ -21,7 +21,7 @@ Choose the mounting method based on your installation requirements, access to th
 
 ### Overview
 
-Zip ties provide a quick, non-invasive mounting solution ideal for pipes, railings, and temporary installations.
+Zip ties provide a quick, non-invasive mounting solution ideal for pipes, railings and temporary installations.
 
 ![Zip tie mounting example](../assets/images/mounting-ziptie-sketch.png)<br>
 *Recommended zip tie placement for secure mounting*

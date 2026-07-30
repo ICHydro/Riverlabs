@@ -11,7 +11,7 @@ The Wari logger is based around the Maxbotix MB7389 Ultrasound distance sensor. 
 | Specification         | Value                | Notes                            |
 |-----------------------|----------------------|----------------------------------|
 | **Sensor Type**       | Ultrasonic           | Maxbotix MB7389 HRXL             |
-| **Measurement Range** | 0.3 m–5 m          | Practical range ~4.5 m           |
+| **Measurement Range** | 0.3 m–5 m            | Practical range ~4.5 m           |
 | **Resolution**        | 1 mm                 | Under ideal conditions           |
 | **Accuracy**          | ±1%                  | Temperature dependent            |
 | **Beam Width**        | ~15° cone            | Requires obstacle clearance      |
@@ -27,7 +27,7 @@ The Wari logger is based around the Maxbotix MB7389 Ultrasound distance sensor. 
 | Specification         | Value             | Notes                          |
 |-----------------------|-------------------|--------------------------------|
 | **Sensor Type**       | Laser rangefinder | Garmin Lidarlite v3HP          |
-| **Measurement Range** | 0.05 m–35 m     | Depends on target reflectivity |
+| **Measurement Range** | 0.05 m–35 m       | Depends on target reflectivity |
 | **Resolution**        | 1 cm              | Consistent across range        |
 | **Accuracy**          | ±2.5 cm           | Up to 40 m                     |
 | **Beam Divergence**   | 8 milliradians    | Very narrow, <1° effective     |
@@ -47,7 +47,7 @@ The Wari logger is based around the Maxbotix MB7389 Ultrasound distance sensor. 
 **Look for:**
 
 - **Serial Number:** "RL0XXX" format (e.g., RL000123)
-- **Sensor Type:** Ultrasound (Maxbotix) or Lidar (Garmin)
+- **Sensor Type:** Ultrasound (Maxbotix) or lidar (Garmin)
 - **Telemetry:** Check for XBee cellular modem or LoRa radio
 
 ### Firmware Selection by Serial Number
@@ -75,11 +75,11 @@ The Wari logger is based around the Maxbotix MB7389 Ultrasound distance sensor. 
 
 | Specification                | Value                            |
 |------------------------------|----------------------------------|
-| **Range**                    | 300 mm–5000 mm                 |
+| **Range**                    | 300 mm–5000 mm                   |
 | **Resolution (water level)** | 1 mm                             |
 | **Resolution (temperature)** | 0.25°C                           |
 | **Resolution (voltage)**     | 0.01 V                           |
-| **Accuracy (water level)**   | ~ 5 mm                           |
+| **Accuracy (water level)**   | ~5 mm                            |
 | **Power supply**             | 1 x 3.6 V Li-ion battery (18650) |
 | **Water resistance**         | IP67                             |
 
@@ -93,17 +93,17 @@ The Wari logger is based around the Maxbotix MB7389 Ultrasound distance sensor. 
 
 ### Overview
 
-The WMOnode was developed as part of the WMO-funded Innovation Hub project. It is based around a Lidarlite v3HP Lidar distance sensor with a range of up to 35 m, and has a slot for a telemetry module (XBee form factor). We typically combine it with a DIGI 3G Cellular modem for telemetry.
+The WMOnode was developed as part of the WMO-funded Innovation Hub project. It is based around a Lidarlite v3HP lidar distance sensor with a range of up to 35 m, and has a slot for a telemetry module (XBee form factor). We typically combine it with a DIGI 3G Cellular modem for telemetry.
 
 ### Technical specifications
 
 | Specification                | Value                            |
 |------------------------------|----------------------------------|
-| **Range**                    | 0.05 m–35 m                    |
+| **Range**                    | 0.05 m–35 m                      |
 | **Resolution (water level)** | 1 cm                             |
 | **Resolution (temperature)** | 0.25°C                           |
 | **Resolution (voltage)**     | 0.01 V                           |
-| **Accuracy (water level)**   | ~ 5–10 cm                      |
+| **Accuracy (water level)**   | ~5–10 cm                         |
 | **Power supply**             | 1 x 3.6 V Li-ion battery (18650) |
 | **Water resistance**         | IP67                             |
 

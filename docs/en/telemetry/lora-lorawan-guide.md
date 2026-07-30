@@ -1,7 +1,7 @@
 # LoRa / LoRaWAN Configuration Guide
 
 !!! abstract "Overview"
-    This guide explains how to configure your LoRaWAN device using the MCCI LMIC library and connect it to The Things Network (TTN). Covers EUI formatting, payload optimization, TTN usage policies and best practices.
+    This guide explains how to configure your LoRaWAN device using the MCCI LMIC library and connect it to The Things Network (TTN). It covers EUI formatting, payload optimization, TTN usage policies and best practices.
 
 ## What is LoRaWAN?
 
@@ -9,10 +9,10 @@
 
 **Key Features:**
 
-- **Range:** Up to 10–15 km line-of-sight; 2–5 km in urban areas
+- **Range:** Up to 10–15 km line-of-sight, 2–5 km in urban areas
 - **Power:** Extremely low power consumption (years on battery)
 - **Data Rate:** Low (0.3–50 kbps depending on spreading factor)
-- **Frequency:** License-free ISM bands (868 MHz in EU; 915 MHz in US)
+- **Frequency:** License-free ISM bands (868 MHz in EU, 915 MHz in US)
 - **Infrastructure:** Requires gateway connected to network server
 
 **LoRa vs. Cellular:**

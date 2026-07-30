@@ -1,7 +1,7 @@
 # Troubleshooting Telemetry Connections
 
 !!! abstract "Overview"
-    Diagnostic guide for resolving cellular telemetry issues. From no connection to intermittent failures, with systematic troubleshooting approaches.
+    This is a diagnostic guide for resolving cellular telemetry issues, from no connection to intermittent failures, with systematic troubleshooting approaches.
 
 ## Diagnostic Overview
 

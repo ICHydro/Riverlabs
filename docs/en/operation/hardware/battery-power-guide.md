@@ -52,7 +52,7 @@ Riverlabs loggers support two battery sizes with two chemistry options:
 - **Nominal Voltage:** 3.0 V
 - **Capacity:** ~40 mAh
 - **Purpose:** Real-time clock backup only
-- **Lifespan:** 5-10 years typical
+- **Lifespan:** 5–10 years typical
 
 **Function:**
 
@@ -332,7 +332,7 @@ Battery voltage indicates remaining capacity, but the voltage ranges differ betw
 
 **Proper Disposal:**
 
-1. Discharge to < 3.0 V (use in logger until depleted)
+1. Discharge to <3.0 V (use in logger until depleted)
 2. Tape terminals with electrical tape
 3. Take to battery recycling center
 4. Many retailers accept 18650 batteries for recycling
@@ -387,4 +387,4 @@ Battery voltage indicates remaining capacity, but the voltage ranges differ betw
 ---
 
 !!! success "Power Management Mastered"
-    With proper battery selection, monitoring, and optimization, your logger deployments can achieve reliable operation for weeks to months on a single battery charge.
+    With proper battery selection, monitoring and optimization, your logger deployments can achieve reliable operation for weeks to months on a single battery charge.

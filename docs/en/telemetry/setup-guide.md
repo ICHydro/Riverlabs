@@ -1,7 +1,7 @@
 # Telemetry Setup Guide
 
 !!! abstract "Overview"
-    This guide covers end-to-end setup of cellular telemetry using XBee modules for remote data transmission. From hardware installation to first successful transmission.
+    This guide covers end-to-end setup of cellular telemetry using XBee modules for remote data transmission, from hardware installation to first successful transmission.
 
 ## Overview
 
@@ -340,7 +340,7 @@ The telemetry configuration is set in the Arduino sketch (e.g., `wari_3G.ino`).
 2. **Open Arduino IDE**
 3. **Load appropriate sketch**
     - `wari_3G.ino` for Wari with telemetry
-    - `wari_lidar_cellular.ino` for Lidar with telemetry
+    - `wari_lidar_cellular.ino` for lidar with telemetry
 4. **Verify settings** above are correct
 5. **Compile** (check for errors)
 6. **Upload** to logger
@@ -616,6 +616,7 @@ Configuration principles are similar; consult platform documentation for endpoin
 - **Total: ~$150–280**
 
 Compare to:
+
 - Site visit costs (fuel, time)
 - Data gaps from infrequent visits
 - Real-time monitoring value

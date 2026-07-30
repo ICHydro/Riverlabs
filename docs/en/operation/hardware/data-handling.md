@@ -76,10 +76,10 @@ The SD card is formatted in standard FAT format. Any microSD and microSDHC card 
 
 `2019/01/01 12:00:00, 2215, 2214, 2214, 2215, 2214, 2214, 2214, 2214, 2215, 2215, 4100, 1950`
 
-In which each line represents one measurement period, and the columns are, respectively:
+in which each line represents one measurement period, and the columns are, respectively:
 
 - **Column 1**: date and time in format YYYY/MM/DD HH:MM:SS
-- **Columns 2 – 11**: Raw distance measurements (mm).
+- **Columns 2–11**: Raw distance measurements (mm).
 - **Column 12**: battery voltage (mV). A full battery sits around 4200&nbsp;mV. The logger shuts down when voltage drops below around 3500&nbsp;mV.
 - **Column 13**: logger temperature in 1/100&deg;C (so a value of 1950 = 19.50&deg;C).
 

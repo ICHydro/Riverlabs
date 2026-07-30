@@ -1,6 +1,6 @@
 # Arduino Setup Guide
 
-This guide will help you set up the Arduino IDE and prepare your computer for programming your Riverlabs logger.
+This guide will help you set up the Arduino IDE (Integrated Development Environment) and prepare your computer for programming your Riverlabs logger.
 
 ### Main Components
 
@@ -9,19 +9,20 @@ This guide will help you set up the Arduino IDE and prepare your computer for pr
 
 **Editor Window** (top)<br>
 
-- This is where you write and edit your code. Arduino uses a language very similar to C++. Each program (called a "sketch") consists of two main functions:
-    - `setup()`: runs once when the logger powers on
-    - `loop()`: runs repeatedly while the logger is powered
+This is where you write and edit your code. Arduino uses a language very similar to C++. Each program (called a "sketch") consists of two main functions:
+
+- `setup()`: Runs once when the logger powers on
+- `loop()`: Runs repeatedly while the logger is powered
 
 **Information Window** (bottom)<br>
 
-- Displays compilation output, upload progress and any errors that occur during the process.
+This window displays compilation output, upload progress and any errors that occur during the process.
 
 **Important toolbar buttons**
 
 - ✓ **Verify**: Compiles your code to check for errors
 - → **Upload**: Compiles and uploads code to your logger
-- **Serial Monitor**: View real-time serial output from your logger
+- **Serial Monitor**: Shows real-time serial output from your logger
 
 ## What is Arduino?
 
@@ -37,7 +38,7 @@ The Arduino team developed a special bootloader that allows you to connect Ardui
 1. Visit the [Arduino Software page](https://www.arduino.cc/en/software)
 2. Download the Arduino IDE for your operating system (Windows, macOS or Linux)
 3. Run the installer and follow the installation instructions
-4. Launch the Arduino IDE once installation is complete
+4. Once installation is complete, launch the Arduino IDE
 
 ## Step 2: Install Required Libraries
 
@@ -54,7 +55,7 @@ Your Riverlabs logger requires several external libraries. Most can be installed
     - **AltSoftSerial**: Alternative software serial (for cellular/lidar models)
 
 !!! note "SdFat Version"
-    Make sure to install the original **SdFat** library by **Bill Greiman**. If multiple versions appear in the search, select the one authored by Bill Greiman.
+    Make sure to install the original **SdFat** library authored by **Bill Greiman**.
 
 ### Manual Installation: Rocketscream LowPower
 
@@ -116,12 +117,12 @@ Before uploading code, you must configure the Arduino IDE with the correct board
 1. Open the Arduino IDE
 2. Go to **Tools → Board → MiniCore** and select **ATmega328**
 3. Configure the following settings in the **Tools** menu:
-   - **Clock:** External 8 MHz
-   - **BOD:** BOD 2.7 V
-   - **EEPROM:** EEPROM retained
-   - **Compiler LTO:** LTO Disabled
-   - **Variant:** 328P / 328PA
-   - **Bootloader:** Yes (UART0)
+    - **Clock:** External 8 MHz
+    - **BOD:** BOD 2.7 V
+    - **EEPROM:** EEPROM retained
+    - **Compiler LTO:** LTO Disabled
+    - **Variant:** 328P / 328PA
+    - **Bootloader:** Yes (UART0)
 
 !!! warning "Critical Settings"
     The board MUST be set to **MiniCore → ATmega328** with **Clock: External 8 MHz**. Using the wrong settings will cause upload failures or runtime issues.
@@ -148,7 +149,7 @@ If no port appears, check that FTDI drivers are properly installed.
     This will make the onboard LED blink, confirming your setup is working!
 
 - **Serial Number:** "RL0XXX" format (e.g., RL000123)
-- **Sensor Type:** Ultrasound (Maxbotix) or Lidar (Garmin)
+- **Sensor Type:** Ultrasound (Maxbotix) or lidar (Garmin)
 - **Telemetry:** Check for XBee cellular modem or LoRa radio
 
 ## Next Steps
@@ -172,7 +173,7 @@ Now that you have Arduino set up, you're ready to program your logger:
 
 - Check FTDI cable orientation (GRN/BLK markings)
 - Ensure sensor is disconnected (white connector)
-- Verify correct board settings (ATmega328P, 3.3V, 8MHz)
+- Verify correct board settings (e.g., ATmega328P, 3.3 V, 8 MHz)
 - Try pressing the reset button on the logger just before uploading
 
 **Problem: Libraries won't install**
