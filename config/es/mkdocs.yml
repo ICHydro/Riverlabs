@@ -7,8 +7,8 @@ repo_name: trowan92/Riverlabs
 repo_url: https://github.com/trowan92/Riverlabs
 edit_uri: edit/docs-update-27.12.25/docs/
 
-docs_dir: "../../docs/es" # Where to find the English markdown files
-site_dir: "../../site/es" # Where to put the English HTML files
+docs_dir: "../../docs/es" # Where to find the Spanish markdown files
+site_dir: "../../site/es" # Where to put the Spanish HTML files
 
 theme:
   name: material
@@ -100,16 +100,34 @@ extra:
 copyright: Copyright &copy; 2025 Riverlabs Ltd
 
 nav:
-  - Inicio:
-    - Resumen: index.md
-    - Especificaciones t&eacute;cnicas: techspec.md
-    - Necesidades de hardware y software: start.md
-  - Programaci&oacute;n del logger:
-    - El ecosistema Arduino: arduino.md
-    - Subir codigo con arduino: upload.md
-  - Almacenamiento de datos y telemetr&iacute;a:
-    - Almacenamiento en tarjeta SD: SDcard.md
-    - El modem XBee 3G: xbee3G.md
-    - Thingsboard: thingsboard.md
-  - Instalaci&oacute;n:
-    - Instalaci&oacute;n: installation.md
+  - Operación:
+    - Inicio Rápido:
+      - Guía de Inicio Rápido:  operation/quick-start/quick-start.md
+      - Configuración de Arduino: operation/quick-start/arduino-setup.md
+      - Lista de Verificación para la Primera Implementación: operation/quick-start/first-deployment-checklist.md
+      - Descarga de Datos: operation/quick-start/data-download.md
+    - Hardware:  
+      - Especificaciones Técnicas: operation/hardware/technical-specifications.md
+      - Guía de Baterías y Alimentación: operation/hardware/battery-power-guide.md
+      - Componentes Internos: operation/hardware/internal-components.md
+      - Mantenimiento: operation/hardware/maintenance.md
+      - Gestión de Datos: operation/hardware/data-handling.md
+    - Solución de Problemas:
+      - Diagramas de Flujo de Diagnóstico: operation/troubleshooting/diagnostic-flowcharts.md
+  - Instalación:
+    - Guía de Montaje: installation/mounting-guide.md
+    - Posicionamiento del Sensor: installation/sensor-positioning.md
+    - Consideraciones Ambientales: installation/environmental-considerations.md
+  - Telemetría:
+    - Guía de Configuración de Red Móvil: telemetry/setup-guide.md
+    - Guía de LoRa / LoRaWAN: telemetry/lora-lorawan-guide.md
+    - Configuración de ThingsBoard: telemetry/thingsboard-configuration.md
+    - Guía de XBee: telemetry/xbee-setup-walkthrough.md
+    - Solución de Problemas de Conexión: telemetry/troubleshooting-connections.md
+  - Solución de Problemas de Conexión:
+    - Configuración de Arduino: programming/arduino-setup.md
+    - Cargando Código: programming/uploading-code.md
+  - Desarrollo:
+    - Detalles de la Instalación: development/installation-details.md
+    - Integración con ThingsBoard: development/thingsboard-integration.md
+    - Configuración de XBee 3G: development/xbee-3g-setup.md      
