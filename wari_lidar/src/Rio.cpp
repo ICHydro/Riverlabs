@@ -78,7 +78,7 @@ int16_t median(int16_t samples[],int m) //calculate the median
 
   if (bitRead(m,0)==1) {  //If the last bit of a number is 1, it's odd. This is equivalent to "TRUE". Also use if m%2!=0.
     return sorted[m/2]; //If the number of data points is odd, return middle number.
-  } else {    
+  } else {
     return (sorted[(m/2)-1]+sorted[m/2])/2; //If the number of data points is even, return avg of the middle two numbers.
   }
 }
@@ -95,7 +95,7 @@ void resetEEPromHeader(int deviceaddress){
 
 void resetEEPromSDMask(int deviceaddress){
     // todo: this can be sped up with a page write (16 pages, as library can do max 30
-  
+
     for(uint16_t i = 0; i < (EEPromSDMaskSize * EEPromPageSize); i++) {
         uint8_t offset = 1 * EEPromPageSize;
         i2c_eeprom_write_byte(deviceaddress, offset + i, 0x00);
@@ -125,7 +125,7 @@ uint8_t CreateEepromSendBuffer(uint16_t start, byte *mask) {
     boolean readmore = true;
     uint8_t count = 0;
     int16_t *dataout;
-  
+
 
     // read a block of bytes from the EEPROM3Gmask that encompasses MAXBIT fits,
 
@@ -135,7 +135,7 @@ uint8_t CreateEepromSendBuffer(uint16_t start, byte *mask) {
         mask[i] = i2c_eeprom_read_byte(EEPROM_ADDR, OFFSET3GMASK + start/8 + i);
     }
     Serial.println("");
-    
+
     // count how may records we'll copy. Note: this can probably be done faster, but works for now.
     // as avr boards do not support the C++ bitset, one potential alternative is to use a uint64_t as bit array and do byteshifting.
 
@@ -181,7 +181,7 @@ uint8_t CreateEepromSendBuffer(uint16_t start, byte *mask) {
 
             uint16_t readsize = (EEPromPageSize > 30) ? 30 : EEPromPageSize;
             i2c_eeprom_read_buffer(EEPROM_ADDR, (i + start + EEPromHeaderSize) * EEPromPageSize, EEPromPage, readsize);
-            if(first) { 
+            if(first) {
                 sprintf(timestamp, "%10lu", ((uint32_t *)EEPromPage)[0] + 946684800);
                 for(k = 0; k < 10; k++) {
                     EEPROM.write(starttime++, timestamp[k]);  // use write instead of put to avoid writing the null character
@@ -220,7 +220,7 @@ uint16_t CreateSendBuffer(uint16_t start, byte *mask2, uint8_t *buffer, uint16_t
 
     byte EEPromPage[EEPromPageSize];
     uint16_t i, j, index;
-    char string1[] = "{\"ts\":"; 
+    char string1[] = "{\"ts\":";
     char string2[] = "000,\"values\":{\"h\":";
     char string3[] = ",\"v\":";
     char string4[] = ",\"t\":";
@@ -235,7 +235,7 @@ uint16_t CreateSendBuffer(uint16_t start, byte *mask2, uint8_t *buffer, uint16_t
 
     memcpy(buffer + bufferSize, string1, 6);
     bufferSize += 6;
-    sprintf((char*) (buffer + bufferSize), "%10lu", ((uint32_t *)EEPromPage)[0] + 946684800);   
+    sprintf((char*) (buffer + bufferSize), "%10lu", ((uint32_t *)EEPromPage)[0] + 946684800);
     bufferSize += 10;
     memcpy(buffer + bufferSize, string2, 19);
     bufferSize += 18;
@@ -258,7 +258,7 @@ void Reset3GBuffer(uint16_t start, byte *oldmask) {
 
   // NOTE: make sure that this is compatible with the procedure followed in CreateEepromSendBuffer
 
-    uint8_t count = 0; 
+    uint8_t count = 0;
     uint16_t i, j, index;
     byte newmask[2 + MAXFIT / 8];                       // Note that this may be different form the old mask if more data were written in the meanwhile!
 
@@ -277,7 +277,7 @@ void Reset3GBuffer(uint16_t start, byte *oldmask) {
         if((oldmask[index] >> j) & 0x1) {
             bitWrite(newmask[index], j, 0);
         }
-    }  
+    }
 
     // Write buffer back to EEPROMSDMask
     for(i = 0; i < (2 + MAXFIT / 8); i++) {
@@ -308,7 +308,7 @@ uint8_t count_ones (uint8_t byte)
 {
     static const uint8_t NIBBLE_LOOKUP [16] =
     {
-        0, 1, 1, 2, 1, 2, 2, 3, 
+        0, 1, 1, 2, 1, 2, 2, 3,
         1, 2, 2, 3, 2, 3, 3, 4
     };
   return NIBBLE_LOOKUP[byte & 0x0F] + NIBBLE_LOOKUP[byte >> 4];
@@ -319,7 +319,7 @@ uint8_t count_ones (uint8_t byte)
 // return -1 if the buffer is empty
 
 int32_t getBufferStartPosition() {
-    byte maskbyte; 
+    byte maskbyte;
     for(uint32_t i = 0; i < (EEProm3GMaskSize * EEPromPageSize); i++) {
         maskbyte = i2c_eeprom_read_byte(EEPROM_ADDR, OFFSET3GMASK + i);
         if(maskbyte != 0) {
@@ -336,7 +336,7 @@ int32_t getBufferStartPosition() {
 // find the last bit in the 3G mask that is not zero
 
 uint32_t getBufferEndPosition() {
-    byte maskbyte; 
+    byte maskbyte;
     for(uint32_t i = (EEProm3GMaskSize * EEPromPageSize); i-- > 0; ) {
         maskbyte = i2c_eeprom_read_byte(EEPROM_ADDR, OFFSET3GMASK + i);
         if(maskbyte != 0) {
@@ -354,7 +354,7 @@ void printDateTime(const RtcDateTime& dt)
 {
   char datestring[20];
 
-  snprintf_P(datestring, 
+  snprintf_P(datestring,
       countof(datestring),
       PSTR("%02u/%02u/%04u %02u:%02u:%02u"),
       dt.Month(),

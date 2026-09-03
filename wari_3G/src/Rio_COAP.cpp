@@ -15,7 +15,7 @@ void CoapPacket::parseMessage(uint8_t *message, uint16_t length) {
     type = (message[0] & 0x30) >> 4;    // use bitmask 00110000 = 0x30 = 48
     tokenlen = (uint8_t) (message[0] & 0x0F);
     code = (uint8_t) message[1];
-    
+
     messageid = 0xFF00 & (message[2] << 8);   // from coap-simple
     messageid |= 0x00FF & message[3];
 

@@ -53,7 +53,7 @@ void checkForRegistrationMessage() {
   if (xbc.getResponse().isAvailable()) {
     // got something
     if (xbc.getResponse().getApiId() == MODEM_STATUS_RESPONSE) {
-      // a modem status message was received, check to see whether it contains value 2, 
+      // a modem status message was received, check to see whether it contains value 2,
       xbc.getResponse().getModemStatusResponse(modemStatusResponse);
       int modemStatus = modemStatusResponse.getStatus();
       Serial.print(F("Modem Status Response = "));
@@ -81,7 +81,7 @@ void checkForRegistrationMessage() {
 //    // should be an AT command respons
 //    if (xbc.getResponse().getApiId() == AT_COMMAND_RESPONSE) {
 //      xbc.getResponse().getAtCommandResponse(atResponse);
-//      
+//
 //      if (atResponse.isOk()) {
 //        Serial.println(atResponse.getValue()[0]);
 //        if (atResponse.getValueLength() == 1) {
@@ -97,7 +97,7 @@ void checkForRegistrationMessage() {
 //          Serial.println(F("Failed to get AI value from AI command"));
 //          MyXBeeStatus.xbcErrorOccurred = true;
 //        }
-//      } 
+//      }
 //      else {
 //        Serial.print(F("Command returned error code: "));
 //        Serial.println(atResponse.getStatus(), HEX);
@@ -105,9 +105,9 @@ void checkForRegistrationMessage() {
 //      }
 //    } else {
 //      printUnexpectedMessage();
-//    }   
+//    }
 //  } else if (xbc.getResponse().isError()) {
-//      Serial.print(F("Error reading packet.  Error code: "));  
+//      Serial.print(F("Error reading packet.  Error code: "));
 //      Serial.println(xbc.getResponse().getErrorCode());
 //      MyXBeeStatus.xbcErrorOccurred = true;
 //  } else {
@@ -212,9 +212,9 @@ bool getAIStatus(Stream &stream, uint8_t *returnvalue) {
   uint8_t assocCmd[] = {'A','I'};
   AtCommandRequest atRequest(assocCmd);
   AtCommandResponse atResponse;
-  
+
   uint8_t status = xbc.sendAndWait(atRequest, 150);
-  
+
   if (status == 0) {
     xbc.getResponse().getAtCommandResponse(atResponse);
     if (atResponse.isOk()) {
@@ -246,7 +246,7 @@ bool getAIStatus(Stream &stream, uint8_t *returnvalue) {
     stream.println(status);
     return(0);
     // TOD); move this out of this function
-    MyXBeeStatus.xbcErrorOccurred = true;        
+    MyXBeeStatus.xbcErrorOccurred = true;
   }
 }
 
@@ -258,9 +258,9 @@ bool getDBStatus(Stream &stream, uint8_t *returnvalue) {
   uint8_t assocCmd[] = {'D','B'};
   AtCommandRequest atRequest(assocCmd, 0, 1);
   AtCommandResponse atResponse;
-  
+
   uint8_t status = xbc.sendAndWait(atRequest, 150);
-  
+
   if (status == 0) {
     xbc.getResponse().getAtCommandResponse(atResponse);
     if (atResponse.isOk()) {
@@ -277,7 +277,7 @@ bool getDBStatus(Stream &stream, uint8_t *returnvalue) {
   } else {
     printSendAndWaitError(stream);
     stream.println(status);
-    return(0);        
+    return(0);
   }
 }
 
@@ -289,9 +289,9 @@ bool getAPN(Stream &stream, uint8_t *returnvalue) {
   uint8_t assocCmd[] = {'A','N'};
   AtCommandRequest atRequest(assocCmd);
   AtCommandResponse atResponse;
-  
+
   uint8_t status = xbc.sendAndWait(atRequest, 150);
-  
+
   if (status == 0) {
     xbc.getResponse().getAtCommandResponse(atResponse);
     if (atResponse.isOk()) {
@@ -309,7 +309,7 @@ bool getAPN(Stream &stream, uint8_t *returnvalue) {
   } else {
     printSendAndWaitError(stream);
     stream.println(status);
-    return(0);        
+    return(0);
   }
 }
 
@@ -317,7 +317,7 @@ bool getAPN(Stream &stream, uint8_t *returnvalue) {
 // Generic callback function for incoming TCP/IP message
 
 void zbIPResponseCb(IPRxResponse& ipResponse, uintptr_t) {
-    // Note that any incoming IP message is considered a success, even if it does not 
+    // Note that any incoming IP message is considered a success, even if it does not
     // contain the complete transmission from the web server.
     // This is not reaslistic as a TCP message can be fragmented across multiple packets.
     //Serial.println(F("Callback - IP4 message received"));
@@ -329,7 +329,7 @@ void zbIPResponseCb(IPRxResponse& ipResponse, uintptr_t) {
 
 // Callback function for incoming NTP message
 // Based on code of the Arduino NTPClient library
- 
+
 void zbIPResponseCb_NTP(IPRxResponse& ipResponse, uintptr_t) {
 
     //#if DEBUG > 1
@@ -338,7 +338,7 @@ void zbIPResponseCb_NTP(IPRxResponse& ipResponse, uintptr_t) {
 
     unsigned long highWord = word(ipResponse.getData()[40], ipResponse.getData()[41]);
     unsigned long lowWord = word(ipResponse.getData()[42], ipResponse.getData()[43]);
-    
+
     // combine the four bytes (two words) into a long integer
     // this is NTP time (seconds since Jan 1 1900):
     unsigned long secsSince1900 = highWord << 16 | lowWord;
@@ -363,7 +363,7 @@ void zbIPResponseCb_NTP(IPRxResponse& ipResponse, uintptr_t) {
 // This one specifically for COAP
 
 void zbIPResponseCb_COAP(IPRxResponse& ipResponse, uintptr_t) {
-    // Note that any incoming IP message is considered a success, even if it does not 
+    // Note that any incoming IP message is considered a success, even if it does not
     // contain the complete transmission from the web server.
     // This is not realistic as a TCP message can be fragmented across multiple packets.
     //Serial.println(F("Callback - IP4 message received"));
@@ -376,12 +376,12 @@ void zbIPResponseCb_COAP(IPRxResponse& ipResponse, uintptr_t) {
     #if DEBUG > 1
         cp.print(Serial);
     #endif
-  
+
    // TODO: process coap response fully
     if(cp.type == 2) {
       //Serial.println(F("COAP acknowledgement received (2)"));
       MyXBeeStatus.CoapSentAcknowledged = true;
-      MyXBeeStatus.ipResponseReceived = 1; 
+      MyXBeeStatus.ipResponseReceived = 1;
     }
     if(cp.type == 0) {
         //Serial.println(F("COAP acknowledgeable message received (type = 0)"));
@@ -389,30 +389,30 @@ void zbIPResponseCb_COAP(IPRxResponse& ipResponse, uintptr_t) {
         uint8_t buffer[5];    // can be small because it is only an acknowledgement.
         uint8_t packetSize;
         CoapPacket packet;
-        
+
         packet.type = COAP_ACK;
         packet.code = 0;
         packet.tokenlen = 0;
         packet.payloadlen = 0;
         packet.messageid = cp.messageid;
         packetSize = packet.createMessage(buffer);
-        
+
         Serial.print(F("Sending acknowledgement: "));
         for(int i = 0; i < packetSize; i++) {
             Serial.print(buffer[i], HEX);
             Serial.print(" ");
         }
         Serial.println("");
-    
+
         MyXBeeStatus.ipRequestSentOk = false;     // reset this
-    
+
         tcpSend(IP, Port, protocol, (uint8_t*)buffer, packetSize);
-    
+
         uint32_t starttime = millis();
-        while(!MyXBeeStatus.ipRequestSentOk && (millis() - starttime < 5000)) {  // wait up to 5 seconds 
+        while(!MyXBeeStatus.ipRequestSentOk && (millis() - starttime < 5000)) {  // wait up to 5 seconds
             xbc.loop();
         }
-    
+
         if(MyXBeeStatus.ipRequestSentOk) {
             Serial.println(F("Sent."));
         } else {
@@ -428,7 +428,7 @@ void zbIPResponseCb_COAP(IPRxResponse& ipResponse, uintptr_t) {
         if(cp.code == 0x43) {
             Serial.println(F("2.03 confirmation received. Transaction finished"));
             MyXBeeStatus.MessageConfirmed = true;
-        }        
+        }
     }
 }
 
@@ -449,7 +449,7 @@ void zbIPResponseCb_MQTT(IPRxResponse& ipResponse, uintptr_t) {
   // Serial.println(type);
 
   // only CONNACK and PUBACK implemented
-  
+
   if(type == 2) {
     if(ipResponse.getDataLength() != 4){
         Serial.println(F("Unexpected data length. Message corrupted?"));
@@ -508,22 +508,22 @@ void zbAtResponseCb(AtCommandResponse& atr, uintptr_t) {
 
     // An At response has to be able to deal with different At commands.
     // Currently only LA, AI, and DB are implemented.
-    
+
     if (atr.getCommand()[0] == 'L' || atr.getCommand()[1] == 'A') {
         if (atr.isOk()) {
             if (atr.getValueLength() == 4) {
                 // The IP address should be 4 bytes
                 Serial.print(F("Callback - IP Address: "));
-              
+
                 for (int i = 0; i < atr.getValueLength(); i++) {
                     Serial.print(atr.getValue()[i], HEX);
                     Serial.print(' ');
                 }
                 Serial.println();
-    
-                IP = (((uint32_t)atr.getValue()[0]) << 24) + 
-                     (((uint32_t)atr.getValue()[1]) << 16) + 
-                     (((uint32_t)atr.getValue()[2]) << 8) + 
+
+                IP = (((uint32_t)atr.getValue()[0]) << 24) +
+                     (((uint32_t)atr.getValue()[1]) << 16) +
+                     (((uint32_t)atr.getValue()[2]) << 8) +
                      atr.getValue()[3];
                 // reset flags
                 // not that a postive LA response is the result of an ip request
@@ -535,7 +535,7 @@ void zbAtResponseCb(AtCommandResponse& atr, uintptr_t) {
             Serial.println(atr.getStatus(), HEX);
             MyXBeeStatus.xbcErrorOccurred = true;
         }
-    } else if(atr.getCommand()[0] == 'A' || atr.getCommand()[1] == 'I') {    
+    } else if(atr.getCommand()[0] == 'A' || atr.getCommand()[1] == 'I') {
         if (atr.isOk()) {
             if (atr.getValueLength() == 1) {
                 Serial.print(F("AI status = "));
@@ -551,7 +551,7 @@ void zbAtResponseCb(AtCommandResponse& atr, uintptr_t) {
         } else {
             Serial.print(F("AI command error: "));
             Serial.println(atr.getStatus(), HEX);
-        } 
+        }
     } else if(atr.getCommand()[0] == 'D' || atr.getCommand()[1] == 'B') {
         if (atr.isOk()) {
             Serial.print(F("Cellular signal strength = "));
@@ -590,13 +590,13 @@ void sendXbeeMessage(uint8_t* buffer, uint16_t bufferSize, char *host, uint8_t h
 
     if (!MyXBeeStatus.xbcErrorOccurred && !MyXBeeStatus.ipResponseReceived) {
         xbc.loop();
-    
+
         if (!MyXBeeStatus.hostIPResolved) {
             // This is the DNS lookup section
             // A request is made to lookup an IP address and response handled in callback function zbAIResponseCb
             if (!MyXBeeStatus.dnsLookupRequested) {
               // Send a lookup request command
-              Serial.println(F("Sending DNS Lookup")); 
+              Serial.println(F("Sending DNS Lookup"));
               sendDNSLookupCommand((char*) host, hostlength);
             }
         } else if (!MyXBeeStatus.ipRequestSent) {
@@ -611,7 +611,7 @@ void sendXbeeMessage(uint8_t* buffer, uint16_t bufferSize, char *host, uint8_t h
           // process incoming IP messages until complete, or host closes the connection.
           // There is nothing to do here as the processing is handled in callback function zbIPResponseCb
         }
-    
+
         // Reset status if successful
         if (!MyXBeeStatus.xbcErrorOccurred && MyXBeeStatus.ipResponseReceived) {
             MyXBeeStatus.ipRequestSent = false;
@@ -633,13 +633,13 @@ void sendXbeeMessage(uint16_t bufferSize, char *host, uint8_t hostlength) {
 
     if (!MyXBeeStatus.xbcErrorOccurred && !MyXBeeStatus.ipResponseReceived) {
         xbc.loop();
-    
+
         if (!MyXBeeStatus.hostIPResolved) {
             // This is the DNS lookup section
             // A request is made to lookup an IP address and response handled in callback function zbLAResponseCb
             if (!MyXBeeStatus.dnsLookupRequested) {
               // Send a lookup request command
-              Serial.println(F("Sending DNS Lookup")); 
+              Serial.println(F("Sending DNS Lookup"));
               sendDNSLookupCommand((char*) host, hostlength);
             }
         } else if (!MyXBeeStatus.ipRequestSent) {
@@ -654,7 +654,7 @@ void sendXbeeMessage(uint16_t bufferSize, char *host, uint8_t hostlength) {
           // process incoming IP messages until complete, or host closes the connection.
           // There is nothing to do here as the processing is handled in callback function zbIPResponseCb
         }
-    
+
         // Reset status if successful
         if (!MyXBeeStatus.xbcErrorOccurred && MyXBeeStatus.ipResponseReceived) {
             MyXBeeStatus.ipRequestSent = false;
@@ -669,7 +669,7 @@ bool setclock_ntp() {
     const char host[] = "pool.ntp.org";
     uint16_t Port = 123;                 // 0x50 = 80; 0x1BB = 443, 0x1633 = 5683 (COAP), 0x75B = 1883 (MQTT), 1337 = NTP
     uint8_t protocol = 0;                         // 0 for UDP, 1 for TCP, 4 for SSL over TCP
-    
+
     uint8_t AIstatus = 255;
     uint32_t timeInMillis = 0;
     uint8_t i = 0;
@@ -704,12 +704,12 @@ bool setclock_ntp() {
             }
         }
 
-        // Reset flats. (Set to true during IP resolution)  
-        MyXBeeStatus.ipResponseReceived = false;               
-    
+        // Reset flats. (Set to true during IP resolution)
+        MyXBeeStatus.ipResponseReceived = false;
+
         byte packetBuffer[48];
         memset(packetBuffer, 0, 48);
-    
+
         packetBuffer[0] = 0b11100011;   // LI, Version, Mode
         packetBuffer[1] = 0;     // Stratum, or type of clock
         packetBuffer[2] = 6;     // Polling Interval
@@ -719,7 +719,7 @@ bool setclock_ntp() {
         packetBuffer[13]  = 0x4E;
         packetBuffer[14]  = 49;
         packetBuffer[15]  = 52;
-    
+
         tcpSend(IP, Port, protocol, packetBuffer, 48);
         timeInMillis = millis();
         while((!MyXBeeStatus.ipResponseReceived) && (millis() - timeInMillis) < 15000) {

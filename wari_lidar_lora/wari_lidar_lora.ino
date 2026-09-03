@@ -3,9 +3,9 @@
  * - LidarLite sensor
  * - Digi Cellular Xbee 3G transmission
  * - Data buffering in EEPROM
- * 
+ *
  * (c) Riverlabs UK except where indicated
- * 
+ *
  * Notes:
  * - By default, debug messages are printed to the Serial terminal.
  *   To change the level of debug output, change the following line in line Rio.h:
@@ -64,7 +64,7 @@ RioLogger myLogger = RioLogger();
 
 //EEPROM stuff
 
-byte EEPromPage[(EEPromPageSize > 30) ? 30 : EEPromPageSize]; 
+byte EEPromPage[(EEPromPageSize > 30) ? 30 : EEPromPageSize];
 boolean flusheeprom = false;
 
 // internal EEPROM is used to create the telemetry buffer
@@ -83,15 +83,15 @@ boolean fileopen = false;
 
 /*************** setup ***************/
 
-void setup () 
+void setup ()
 {
-    
+
     #if DEBUG > 0
         Serial.begin(115200);
     #endif
 
     /* set the pins */
-    
+
     pinMode(WriteLED, OUTPUT);
     pinMode(ErrorLED, OUTPUT);
     digitalWrite(WriteLED, LOW);
@@ -115,16 +115,16 @@ void setup ()
 
     pinMode(LIDARONPIN, OUTPUT);
     digitalWrite(LIDARONPIN, LOW);
- 
+
 
     /* Start clock */
-    
-    Rtc.Begin();    
+
+    Rtc.Begin();
     Rtc.Enable32kHzPin(false);
-    Rtc.SetSquareWavePin(DS3231SquareWavePin_ModeAlarmBoth); 
+    Rtc.SetSquareWavePin(DS3231SquareWavePin_ModeAlarmBoth);
 
     // Alarm 2 set to trigger at the top of the minute
-    
+
     DS3231AlarmTwo alarm2(0, 0, 0, DS3231AlarmTwoControl_OncePerMinute);
     Rtc.SetAlarmTwo(alarm2);
 
@@ -162,10 +162,10 @@ void setup ()
 
     Wire.begin();
 
-      
+
     digitalWrite(WriteLED, HIGH);
 
-    
+
     #ifdef DEBUG
         Serial.println(F("Flushing EEPROM. This will also test SD card"));
     #endif
@@ -179,7 +179,7 @@ void setup ()
         #ifdef DEBUG
             Serial.println(F("Failed to flush EEPROM. SD card missing? Continuing anyway."));
             error(3, ErrorLED);
-        #endif     
+        #endif
     }
 
     digitalWrite(WriteLED, LOW);
@@ -188,11 +188,11 @@ void setup ()
 
 /*************** Main routine ***************/
 
-void loop () 
+void loop ()
 {
 
     /* At the start of the loop, the logger can be in the following states:
-     *  
+     *
      *  - Alarm has gone off while doing something else -> check what action to take
      *  - Logger was waken up by clock                  -> check what action to take
      *  - Telemetry event ongoing. or timeout           -> continue telemetry operation.
@@ -209,7 +209,7 @@ void loop ()
         // This is to avoid that we end up in a state where the alarm may go off before
         // the interrupflag is set to false, in which case the alarm is never switched off and
         // the logger never wakes up again.
-        
+
         flag = Rtc.LatchAlarmsTriggeredFlags();                             // Switches off alarm
         now = Rtc.GetDateTime();
 
@@ -224,12 +224,12 @@ void loop ()
     // if nothing needs to be done, then we can safely sleep until the next alarm.
     // the timeout variable allows sleeping briefly between telemetry attemps
     // (XBee stays awake)
-    
+
     if(!TakeMeasurement) {
 
         #ifdef NOSLEEP
             while(!interruptFlag) {}                                        // wait for alarm if not sleeping
-        #else 
+        #else
             #ifdef DEBUG > 0
                 Serial.print(F("S"));
                 Serial.flush();
@@ -258,7 +258,7 @@ void loop ()
         }
 
     }
-         
+
     /* if it is time for a measurement then do so */
 
     if(TakeMeasurement) {
@@ -282,7 +282,7 @@ void loop ()
         #endif
 
         /*********** store values in EEPROM ***********/
-        
+
         SecondsSince2000 = now.TotalSeconds();
 
         // prepare EEPromPage. Note that we use a 16 byte page here
@@ -292,8 +292,8 @@ void loop ()
         EEPromPage[i++] = SecondsSince2000;
         EEPromPage[i++] = SecondsSince2000 >> 8;
         EEPromPage[i++] = SecondsSince2000 >> 16;
-        EEPromPage[i++] = SecondsSince2000 >> 24; 
-                  
+        EEPromPage[i++] = SecondsSince2000 >> 24;
+
         for(j = 0; j < 2; j++){
             EEPromPage[i++] = ((byte *)&measuredvbat)[j];
         }
@@ -311,15 +311,15 @@ void loop ()
 
         myLogger.write2EEPROM(EEPromPage, sizeof(EEPromPage));
 
-        /******** reset readings *****/    
-          
+        /******** reset readings *****/
+
         for (i = 0; i < NREADINGS; i++){
             readings[i] = -1;
         }
 
 
         /********* flush EEPROM to SD card when full **********/
-            
+
         if(myLogger.eePageAddress >= FLUSHAFTER) {
           flusheeprom = true;
         }

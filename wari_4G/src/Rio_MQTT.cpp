@@ -11,7 +11,7 @@ void MQTT_connect(char *clientid, uint8_t clientidsize, char *username, uint8_t 
     uint8_t s = 0;                                  // buffersize
 
     // create a connection message
-    
+
     buffer[s++] = 0b00010000;                       // control field: 0001 = connect. Flags = 0000 // note: QoS = 1 is set (if desired) at message level
     buffer[s++] = clientidsize + usernamesize + 16; // Remaining length.
     buffer[s++] = 0x00;                             // protocol name length (2 bytes)
@@ -26,14 +26,14 @@ void MQTT_connect(char *clientid, uint8_t clientidsize, char *username, uint8_t 
     buffer[s++] = 0x0F;                             // 15 s
     buffer[s++] = 0x00;                             // clientID length (byte 1)
     buffer[s++] = clientidsize;                     // clientID length (byte 2)
-    for(uint8_t i = 0; i < clientidsize; i++) { 
+    for(uint8_t i = 0; i < clientidsize; i++) {
         buffer[s++] = clientid[i];
     }
     buffer[s++] = 0x00;                             // username length (first byte)
     buffer[s++] = usernamesize;                     // assuming that username fits in second byte
     for(uint8_t i = 0; i < usernamesize; i++) {
         buffer[s++] = username[i];
-    }    
+    }
     buffer[s++] = 0x00;                             // password length(2 bytes)
     buffer[s++] = 0x00;
 
@@ -57,7 +57,7 @@ uint8_t CreateMqttHeader(uint8_t *buffer, uint16_t messageid) {
 
     memcpy(buffer + s, topic, topiclength);
     s = s + topiclength;
-    
+
     buffer[s++] = (messageid >> 8);    // message ID MSB
     buffer[s++] = (messageid & 0xFF);    // message ID LSB
 

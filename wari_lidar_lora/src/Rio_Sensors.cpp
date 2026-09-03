@@ -12,13 +12,13 @@ uint8_t readLidarLite(int16_t* readings, uint8_t nreadings, uint8_t debug, Strea
     memset(readings, 0, nreadings * 2); // readings is an int16_t array, so two bytes per position
 
     digitalWrite(WriteLED, HIGH);
-    digitalWrite(SWITCH5V, HIGH);  
+    digitalWrite(SWITCH5V, HIGH);
     delay(5);
     digitalWrite(Boost5V_on, HIGH);    // capacitor needs only 10ms to charge but values below 30 seem to affect lidar precision.
     delay(30);
     digitalWrite(LIDARONPIN, HIGH);
     delay(30);
-    myLidarLite.begin(0, false);    
+    myLidarLite.begin(0, false);
     reading = myLidarLite.distance();
     i++;
     if(reading > 0) {

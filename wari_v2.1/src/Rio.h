@@ -8,16 +8,16 @@
 
 #define DEBUG 2
 
-#define ErrorLED A2               
+#define ErrorLED A2
 #define WriteLED A2
 #define SD_CS_PIN 10          // for SD card
-#define SDpowerPin A0             
+#define SDpowerPin A0
 #define Boost5V_on 7
 #define MBONPIN 5
 #define MBSerial Serial
 #define LIDARONPIN 5
 #define SWITCH5V 7           // careful: this was pin A3 in older designs. Now set the same as Boost5V_on (7)
-#define CellularSleepPin A1        
+#define CellularSleepPin A1
 #define INTERRUPTPIN 2
 #define VBATPIN A7
 #define DS18S20PIN A3
@@ -29,7 +29,7 @@
 #define FLASH_CS 6
 #define FLASHPAGESIZE 32       // should be the same as EEpromPageSize!!
 
-#define M24512                 // type of EEPROM. M24512 
+#define M24512                 // type of EEPROM. M24512
 #define EEPROM_ADDR 0x51       // EEPROM I2C address: 0x57 for AT24c32 on clock; 0x51 or 81 for chip on PCB (Node_3G, SD boards)
 #define EEPromPageSize 32      // max 32 bytes for the AT24c32, up to 128 bytes for M24512. Can be smaller (e.g., 8, 16)
 #ifdef M24512
@@ -46,7 +46,7 @@
 #define OFFSET3GMASK (1 + EEPromSDMaskSize) * EEPromPageSize    // starting position of 3GMASK in EEPROM
 #define OFFSETSDMASK EEPromPageSize    // starting position of SDMASK in EEPROM
 #define XBEEBUFFERSIZE 100
- 
+
 
 /******** includes *******/
 
