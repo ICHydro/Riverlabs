@@ -2,15 +2,15 @@
 /* some notes:
  * - physical page size is fixed, and you can only write a sequence of several bytes into a single page.
  * However, you can use smaller "pages" that are a divisor of the physical page size (e.g., 8 and 32)
- * 
+ *
  * We use the EEPROM as follows:
  * Header consist of
  *      - 1 page to store various parameters
  *      - "EEPromSDMaskSize" pages to keep track of what data have been written to SD card
- *      - "EEProm3GMaskSize" pages to keep track of what data have been sent via XBee 
+ *      - "EEProm3GMaskSize" pages to keep track of what data have been sent via XBee
  *      - "EEPromMaskSize" pages to keep track of which pages have data stored on them
  * remaining pages are used for measurements
- * 
+ *
  */
 
 #ifndef Rio_EEPROM_h

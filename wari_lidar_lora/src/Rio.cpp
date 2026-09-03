@@ -77,7 +77,7 @@ int16_t median(int16_t samples[],int m) //calculate the median
 
   if (bitRead(m,0)==1) {  //If the last bit of a number is 1, it's odd. This is equivalent to "TRUE". Also use if m%2!=0.
     return sorted[m/2]; //If the number of data points is odd, return middle number.
-  } else {    
+  } else {
     return (sorted[(m/2)-1]+sorted[m/2])/2; //If the number of data points is even, return avg of the middle two numbers.
   }
 }
@@ -93,7 +93,7 @@ void resetEEPromHeader(int deviceaddress){
 
 void resetEEPromSDMask(int deviceaddress){
     // todo: this can be sped up with a page write (16 pages, as library can do max 30
-  
+
     for(uint16_t i = 0; i < (EEPromSDMaskSize * EEPromPageSize); i++) {
         uint8_t offset = 1 * EEPromPageSize;
         i2c_eeprom_write_byte(deviceaddress, offset + i, 0x00);
@@ -102,11 +102,11 @@ void resetEEPromSDMask(int deviceaddress){
 
 
 void formatDateTime(const RtcDateTime& dt) {
-    snprintf_P(datestring, 
+    snprintf_P(datestring,
     countof(datestring),
     PSTR("%04u/%02u/%02u %02u:%02u:%02u"),
     dt.Year(),
-    dt.Month(), 
+    dt.Month(),
     dt.Day(),
     dt.Hour(),
     dt.Minute(),
@@ -117,7 +117,7 @@ void printDateTime(const RtcDateTime& dt)
 {
   char datestring[20];
 
-  snprintf_P(datestring, 
+  snprintf_P(datestring,
       countof(datestring),
       PSTR("%02u/%02u/%04u %02u:%02u:%02u"),
       dt.Month(),

@@ -4,9 +4,9 @@
 void turnOnSPI() {
     // some cards will fail on power-up unless SS is pulled up  ( &  D0/MISO as well? )
     DDRB = DDRB | (1<<DDB5) | (1<<DDB3) | (1<<DDB2); // set SCLK(D13), MOSI(D11) & SS(D10) as OUTPUT
-    // Note: | is an OR operation so  the other pins stay as they were.                (MISO stays as INPUT) 
+    // Note: | is an OR operation so  the other pins stay as they were.                (MISO stays as INPUT)
     PORTB = PORTB & ~(1<<DDB5);  // disable pin 13 SCLK pull-up – leave pull-up in place on the other 3 lines
-    power_spi_enable();                      // enable the SPI clock 
+    power_spi_enable();                      // enable the SPI clock
     SPCR=keep_SPCR;                          // enable SPI peripheral
     delay(10);
 }
@@ -19,13 +19,13 @@ void turnOffSPI() {
     DDRB &= ~((1<<DDB5) | (1<<DDB4) | (1<<DDB3) | (1<<DDB2));   // set All SPI pins to INPUT
     PORTB |= ((1<<DDB5) | (1<<DDB4) | (1<<DDB3) | (1<<DDB2));     // set ALL SPI pins HIGH (~30k pullup)
     LowPower.powerDown(SLEEP_1S, ADC_OFF, BOD_OFF); // wait 1 second before pulling the plug!
-} 
+}
 
 void write2Flash(byte buffer[], uint16_t size, uint32_t start) {
-    
+
     flash.begin();
     flash.powerUp();   // should this not come first?
-    
+
     flash.writeByteArray(start * FLASHPAGESIZE, buffer, size);
     Serial.print(F("Written to Flash page "));
     Serial.print(start);

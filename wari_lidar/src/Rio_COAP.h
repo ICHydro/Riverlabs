@@ -108,7 +108,7 @@ class CoapPacket {
 		uint16_t messageid = 0;
 		uint8_t optionnum = 0;
 		CoapOption options[COAP_MAX_OPTION_NUM];
- 
+
 		void addOption(uint8_t number, uint8_t length, uint8_t *opt_payload);
         void parseMessage(uint8_t *message, uint16_t length);
         uint8_t createMessage(uint8_t *p);

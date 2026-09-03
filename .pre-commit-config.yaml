@@ -1,0 +1,25 @@
+exclude: ^docs/
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: check-merge-conflict
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: pretty-format-json
+        args: [--autofix, --indent, '4', --no-sort]
+  - repo: https://github.com/macisamuele/language-formatters-pre-commit-hooks
+    rev: v2.16.0
+    hooks:
+      - id: pretty-format-yaml
+        args: [--autofix, --indent, '2', --offset, '2']
+  - repo: https://github.com/python-jsonschema/check-jsonschema
+    rev: 0.38.0
+    hooks:
+      - id: check-github-actions
+      - id: check-github-workflows
+  - repo: https://github.com/igorshubovych/markdownlint-cli
+    rev: v0.49.1
+    hooks:
+      - id: markdownlint-fix
