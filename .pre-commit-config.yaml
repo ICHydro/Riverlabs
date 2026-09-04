@@ -23,3 +23,8 @@ repos:
     rev: v0.49.1
     hooks:
       - id: markdownlint-fix
+  - repo: https://github.com/pre-commit/mirrors-clang-format
+    rev: v23.1.0
+    hooks:
+      - id: clang-format
+        files: .*\.(h|cpp)

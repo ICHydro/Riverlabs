@@ -1,7 +1,8 @@
 
 /* some notes:
- * - physical page size is fixed, and you can only write a sequence of several bytes into a single page.
- * However, you can use smaller "pages" that are a divisor of the physical page size (e.g., 8 and 32)
+ * - physical page size is fixed, and you can only write a sequence of several bytes into a single
+ * page. However, you can use smaller "pages" that are a divisor of the physical page size (e.g., 8
+ * and 32)
  *
  * We use the EEPROM as follows:
  * Header consist of
@@ -18,9 +19,9 @@
 
 #include "Rio.h"
 
-void i2c_eeprom_write_byte( int deviceaddress, uint16_t eeaddress, byte data );
-void i2c_eeprom_write_page( int deviceaddress, unsigned int eeaddresspage, byte* data, byte length );
-byte i2c_eeprom_read_byte( int deviceaddress, uint16_t eeaddress );
-void i2c_eeprom_read_buffer( int deviceaddress, unsigned int eeaddress, byte *buffer, int length );
+void i2c_eeprom_write_byte(int deviceaddress, uint16_t eeaddress, byte data);
+void i2c_eeprom_write_page(int deviceaddress, unsigned int eeaddresspage, byte *data, byte length);
+byte i2c_eeprom_read_byte(int deviceaddress, uint16_t eeaddress);
+void i2c_eeprom_read_buffer(int deviceaddress, unsigned int eeaddress, byte *buffer, int length);
 
 #endif
