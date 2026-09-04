@@ -16,7 +16,6 @@ extern char datestring[20];
 extern boolean SDcardOn;
 extern byte keep_SPCR;
 
-
 void turnOnSDcard();
 void turnOffSDcard();
 uint8_t writeEEPROMline(uint16_t);
