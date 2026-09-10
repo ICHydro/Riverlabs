@@ -12,9 +12,9 @@ Most of the configuration of the Cellular XBee is done directly in the Arduino c
 
 The following settings should be set correctly for a proper functioning of the modem:
 
-#### Serial interfacing:
+### Serial interfacing
 
-```
+```text
 BD: 9600
 NB: no parity
 SB: one stop bit
@@ -24,12 +24,11 @@ FT: 681
 AP: API mode with escapes
 ```
 
-#### Sleep commands:
+### Sleep commands
 
-```
+```text
 SM: pin sleep [1]
 ```
-
 
 ## Uploading the code
 
@@ -39,7 +38,7 @@ To minimize component cost, the WMOnode logger does not have a USB connection. I
 
 Follow [these instructions](https://learn.sparkfun.com/tutorials/how-to-install-ftdi-drivers) to install the drivers of the FTDI chip on your computer.
 
-### 2. Get the Arduino IDE 
+### 2. Get the Arduino IDE
 
 You can use either the desktop application or the web editor. Instructions to install the desktop app for various operation systems can be found on the [Arduino website](https://www.arduino.cc/en/Guide/HomePage).
 
@@ -72,6 +71,7 @@ Plug the FTDI cable or breakout board onto the FTDI pins of the WMOnode board. T
 ### 6. Set the board in the Arduino interface
 
 Choose the following board settings in the Arduino IDE (under the "tools" menu):
+
 * Board: Arduino Pro or Pro Mini
 * Processor: Atmega328P (3.3V, 8MHz)
 
@@ -85,7 +85,7 @@ The clock can be set using the example script provided by the RTC library. In th
 
 A nice tutorial of how to use the Serial Monitor in Arduino can be found on [Instructables](https://www.instructables.com/id/HOW-TO-use-the-ARDUINO-SERIAL-MONITOR/).
 
-IMPORTANT NOTE: the Wari loggers are originally programmed in the UTC (GMT) time zone. If you set the clock again, then the clock will be set in the time zone of your computer. 
+IMPORTANT NOTE: the Wari loggers are originally programmed in the UTC (GMT) time zone. If you set the clock again, then the clock will be set in the time zone of your computer.
 
 LESS IMPORTANT NOTE: There is about a 10 second delay between the moment that the code is compiled on your computer, and the moment that your microcontroller will run it. This means that the clock on the logger will also be delayed with about 10s. To avoid this, you can change the code of the DS3231_Simple script to:
 
@@ -97,17 +97,15 @@ You can also adjust this line if you want to program in a different time zone:
 
 in which you replace 'TZ' by the time offset (in hours) between your computer's time and the desired time.
 
-
 ### 7. Upload the logger code
 
-Download and open the "WMOnode.ino" script, and hit the "upload" button. 
+Download and open the "WMOnode.ino" script, and hit the "upload" button.
 
 ## Debugging
 
 For simple debugging, you can use the debug serial pinouts on the board and the FTDI cable. Connect the "GND" pin of the DBG pins on the WMOnode to the black wire of the FTDI cable, and the other pin to the yellow (serial in) wire of the FTDI cable using breadboard jumper wires. Open the Serial Monitor in the Arduino app, set the baud rate to 115200 and reset the board by hitting the reset button. You should now see the debugging information appearing on the monitor.
 
 ## Troubleshooting
-
 
 > when compiling, I get the error "This LowPower library only works on AVR processors"
 
@@ -116,10 +114,6 @@ Make sure that you select the right board, i.e. "Arduino Pro or Pro Mini"
 > When uploading the code, I get the error "programmer is not responding"
 
 Make sure that:
+
 * you have selected the right board in the Arduino IDE;
 * the FTDI cable is properly connected to the board. Mind the pin layout: the green wire should be on the outside and the black wire should be on the side of the SD card slot.
-
-
-
-
-

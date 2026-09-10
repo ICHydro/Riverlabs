@@ -3,9 +3,9 @@
  * - LidarLite sensor
  * - Digi Cellular Xbee 3G/4G transmission
  * - Data buffering in EEPROM
- * 
+ *
  * (c) Riverlabs UK except where indicated
- * 
+ *
  * Notes:
  * - By default, debug messages are printed to the Serial terminal.
  *   To change the level of debug output, change the following line in line Rio.h:
@@ -96,9 +96,9 @@ uint8_t AIstatus;
 uint8_t DB;
 uint16_t messageid = 1;
 
-byte Eeprom3Gmask[2 + MAXFIT / 8];  
+byte Eeprom3Gmask[2 + MAXFIT / 8];
 uint8_t assocCmd[] = {'A','I'};
-AtCommandRequest AIRequest(assocCmd);           
+AtCommandRequest AIRequest(assocCmd);
 
 // other variables
 
@@ -113,7 +113,7 @@ RioLogger myLogger = RioLogger();
 
 //EEPROM stuff
 
-byte EEPromPage[(EEPromPageSize > 30) ? 30 : EEPromPageSize]; 
+byte EEPromPage[(EEPromPageSize > 30) ? 30 : EEPromPageSize];
 boolean flusheeprom = false;
 
 // SD card stuff
@@ -122,15 +122,15 @@ boolean flusheeprom = false;
 
 /*************** setup ***************/
 
-void setup () 
+void setup ()
 {
-    
+
     #if DEBUG > 0
         Serial.begin(115200);
     #endif
 
     /* set the pins */
-    
+
     pinMode(WriteLED, OUTPUT);
     pinMode(ErrorLED, OUTPUT);
     digitalWrite(WriteLED, LOW);
@@ -140,20 +140,20 @@ void setup ()
 
     pinMode(MBONPIN, OUTPUT);
     digitalWrite(MBONPIN, LOW);
-    
+
     #ifdef XBEE_SLEEPPIN
         pinMode(XBEE_SLEEPPIN, INPUT);   // do not set high but keep floating
     #endif
- 
+
 
     /* Start clock */
-    
-    Rtc.Begin();    
+
+    Rtc.Begin();
     Rtc.Enable32kHzPin(false);
-    Rtc.SetSquareWavePin(DS3231SquareWavePin_ModeAlarmBoth); 
+    Rtc.SetSquareWavePin(DS3231SquareWavePin_ModeAlarmBoth);
 
     // Alarm 2 set to trigger at the top of the minute
-    
+
     DS3231AlarmTwo alarm2(0, 0, 0, DS3231AlarmTwoControl_OncePerMinute);
     Rtc.SetAlarmTwo(alarm2);
 
@@ -190,7 +190,7 @@ void setup ()
 
     pinMode(INTERRUPTPIN, INPUT);
     attachInterrupt(digitalPinToInterrupt(INTERRUPTPIN), InterruptServiceRoutine, FALLING);
-    
+
     /* Set up cellular xbee */
     /* XBee needs to be in mode: API with escapes */
 
@@ -204,7 +204,7 @@ void setup ()
     pinMode(XBEE_RESETPIN, INPUT);                        // set by default on input. We should never set this high to avoid a potential short circuit in case xbee sets it low.
 
     xbc.setSerial(XBeeSerial);
-    MyXBeeStatus.reset();    
+    MyXBeeStatus.reset();
     xbc.onModemStatusResponse(zbModemStatusCb);
     xbc.onAtCommandResponse(zbAtResponseCb);
     xbc.onTxStatusResponse(zbTcpSendResponseCb);
@@ -212,14 +212,14 @@ void setup ()
 
     // wait a bit for power to settle and XBee to start up.
     delay(2000);
-    
+
     // check whether we can connect to the XBee:
 
     if(!getAIStatus(Serial, &AIstatus)) {
         #ifdef DEBUG > 0
             Serial.println(F("Error communicating with Xbee. Resetting"));
         #endif
-        pinMode(XBEE_RESETPIN, OUTPUT); 
+        pinMode(XBEE_RESETPIN, OUTPUT);
         digitalWrite(XBEE_RESETPIN, LOW);
         delay(500);
         pinMode(XBEE_RESETPIN, INPUT);
@@ -253,7 +253,7 @@ void setup ()
             uint8_t nettech = 2;        // only for LTE-M / NBIOT
             DOvalue = 0x83;             // enable 2G and 3G fallback for LTE modems
         #endif
-        
+
         AtCommandRequest atRequest1(anCmd, (uint8_t*) APNstring, sizeof(APNstring) - 1);
         AtCommandRequest atRequest2(wrCmd);
         AtCommandRequest atRequest3(acCmd);
@@ -289,7 +289,7 @@ void setup ()
                 digitalWrite(WriteLED, LOW);
              } else {
                 Serial.println(F("Trying again."));                                    // try a second time, just in case
-                if(setclock_ntp()) {                    
+                if(setclock_ntp()) {
                     Serial.print(F("NTP received. Clock is set to: "));
                     RtcDateTime now = Rtc.GetDateTime();
                     printDateTime(now);
@@ -302,7 +302,7 @@ void setup ()
                 }
             }
         #endif
-    }        
+    }
 
     pinMode(XBEE_SLEEPPIN, INPUT);                        // sleeping XBee. Deassert instead of setting high - see above
 
@@ -332,11 +332,11 @@ void setup ()
 
 /*************** Main routine ***************/
 
-void loop () 
+void loop ()
 {
 
     /* At the start of the loop, the logger can be in the following states:
-     *  
+     *
      *  - Alarm has gone off while doing something else -> check what action to take
      *  - Logger was waken up by clock                  -> check what action to take
      *  - Telemetry event ongoing or timeout            -> continue telemetry operation.
@@ -357,7 +357,7 @@ void loop ()
         // This is to avoid that we end up in a state where the alarm may go off before
         // the interrupflag is set to false, in which case the alarm is never switched off and
         // the logger never wakes up again.
-        
+
         flag = Rtc.LatchAlarmsTriggeredFlags();                             // Switches off alarm
         now = Rtc.GetDateTime();
 
@@ -369,7 +369,7 @@ void loop ()
 
         // Check whether it is time for a telemetry event. Wake up xbee already
         // so it can start connecting while doing other things
-        
+
         if (((now.Hour() % SEND_INTERVAL) == 0) && (now.Minute() == 0)) {   // only on the hour itself!
             measuredvbat = analogRead(VBATPIN) * 2 * 3.3 / 1.024;
             startposition = getBufferStartPosition();                       // will return -1 if the buffer is empty
@@ -388,12 +388,12 @@ void loop ()
     // if nothing needs to be done, then we can safely sleep until the next alarm.
     // the timeout variable allows sleeping briefly between telemetry attemps
     // (XBee stays awake)
-    
+
     if((!TakeMeasurement) && (TelemetryAttempts == 0 || timeout)) {
 
         #ifdef NOSLEEP
             while(!interruptFlag) {}                                        // wait for alarm if not sleeping
-        #else 
+        #else
             #ifdef DEBUG > 0
                 Serial.print(F("S"));
                 Serial.flush();
@@ -410,11 +410,11 @@ void loop ()
                 }
             #endif
         #endif
-        
+
         // when woken up:
 
         #ifdef OPTIBOOT
-            // enable watchdog timer. Set at 8 seconds 
+            // enable watchdog timer. Set at 8 seconds
             wdt_enable(WDTO_8S);
         #endif
 
@@ -432,7 +432,7 @@ void loop ()
             waitingMessageTime = 0;
         }
     }
-         
+
     /* if it is time for a measurement then do so */
 
    if(TakeMeasurement) {
@@ -443,7 +443,7 @@ void loop ()
         temp = Rtc.GetTemperature().AsCentiDegC();                // Clock temperature
         Serial.end();
         distance = readMaxBotix(MBSERIALPIN, MBONPIN, NREADINGS, 0); // distance
-        Serial.begin(115200); 
+        Serial.begin(115200);
 
         #ifdef DEBUG > 0
             formatDateTime(now);
@@ -457,7 +457,7 @@ void loop ()
         #endif
 
         /*********** store values in EEPROM ***********/
-        
+
         SecondsSince2000 = now.TotalSeconds();
 
         // prepare EEPromPage. Note that we use a 16 byte page here
@@ -467,8 +467,8 @@ void loop ()
         EEPromPage[i++] = SecondsSince2000;
         EEPromPage[i++] = SecondsSince2000 >> 8;
         EEPromPage[i++] = SecondsSince2000 >> 16;
-        EEPromPage[i++] = SecondsSince2000 >> 24; 
-                  
+        EEPromPage[i++] = SecondsSince2000 >> 24;
+
         for(j = 0; j < 2; j++){
             EEPromPage[i++] = ((byte *)&measuredvbat)[j];
         }
@@ -486,13 +486,13 @@ void loop ()
 
         myLogger.write2EEPROM(EEPromPage, sizeof(EEPromPage));
 
-        /******** reset readings *****/    
-          
+        /******** reset readings *****/
+
         for (i = 0; i < NREADINGS; i++){
             readings[i] = -1;
         }
         #ifdef OPTIBOOT
-            wdt_reset(); 
+            wdt_reset();
         #endif
     }
 
@@ -524,22 +524,22 @@ void loop ()
             #ifdef DEBUG > 0
                 Serial.println(F("Sleeping XBee."));
             #endif
-            
+
             pinMode(XBEE_SLEEPPIN, INPUT);
             TelemetryAttempts = 0;
             MyXBeeStatus.reset();
-            
-            // Reset the logger's writing position when we get to the end of the EEPROM              
+
+            // Reset the logger's writing position when we get to the end of the EEPROM
             // Note that this is a stopgap until proper cycling is implemented.
-            
+
             if(myLogger.eePageAddress >= (MAXPAGENUMBER - EEPromHeaderSize - 300)) {
                 myLogger.eePageAddress = 0;
             }
 
         // if there is anything to send then first wait until the modem is connected
-        
+
         } else if(!MyXBeeStatus.isConnected) {
-          
+
             if (waitingMessageTime > 5000) {             // don't check once connection established to avoid interference between xbee replies.
                 xbc.send(AIRequest);                      // main xbee.loop() takes care of the response.
                 waitingMessageTime = 0;
@@ -553,22 +553,22 @@ void loop ()
         // needs a system to keep track of all sent messages and their status.
         // A transaction is finished if ipRequestSent is reset to false. This happens in th callback functions,
         // but may need to be done manually for tcp messages that do not require a reply (e.g., MQTT disconnect).
-        
+
         } else if(!MyXBeeStatus.ipRequestSent) {
 
             // first resolve the IP address of the server. This is only done once per session
 
             if(!MyXBeeStatus.hostIPResolved) {
-              
+
                 sendDNSLookupCommand((char*) host, sizeof(host) - 1);
                 MyXBeeStatus.ipRequestSent = true;
-               
+
             } else {
 
                 // Note that we need to keep a copy of the relevant part of the EEPROM3Gmask until succesfully sending
                 // to keep track of what records have been sent, because new records may be created
                 // between creating the buffer and sending it.
-                
+
                 #ifdef MQTT
                     if(!MyXBeeStatus.MqttConnected) {
                         MQTT_connect(LoggerID, sizeof(LoggerID), accesstoken, sizeof(accesstoken));
@@ -578,44 +578,44 @@ void loop ()
                         MQTT_send(messageid++);
                     }
                 #endif
-                
+
                 #ifdef COAP
                     if(!MyXBeeStatus.MessageSent) {
                         COAP_send(packet);
                     }
                 #endif
-            } 
-        
+            }
+
         }
 
         // if an IP response is received and processed, then we are ready to send the next packet
-        
+
         if(MyXBeeStatus.ipResponseReceived) {
-          
+
             MyXBeeStatus.ipRequestSent = false;
             MyXBeeStatus.ipRequestSentOk = false;
             MyXBeeStatus.ipResponseReceived = false;
-            
+
         }
 
-        // Once we receive an acknowledgement of successful processing of a data message, 
+        // Once we receive an acknowledgement of successful processing of a data message,
         // the 3G mask can be erased and the startposition reset.
         // this starts the telemetry sequence again from the beginning.
 
         if(MyXBeeStatus.MessageConfirmed) {
-          
+
             MyXBeeStatus.MessageConfirmed = false;
             Reset3GBuffer(startposition);
             startposition = getBufferStartPosition();
             MyXBeeStatus.MessageSent = false;
-            
+
         }
 
         // Lastly, handle potential timeouts and errors
         // TODO: deal with IP communication issues, e.g. lost packages. We probably need more than 1 timer
 
         timeInMillis = millis() - XbeeWakeUpTime;
-        
+
         if(((timeInMillis/1000) > TIMEOUT) || MyXBeeStatus.xbcErrorOccurred) {
             TelemetryAttempts--;
             MyXBeeStatus.reset();

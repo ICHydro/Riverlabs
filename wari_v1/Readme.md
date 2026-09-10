@@ -14,7 +14,7 @@ To minimize component cost, the Wari logger does not have a USB connection. Inst
 
 Follow [these instructions](https://learn.sparkfun.com/tutorials/how-to-install-ftdi-drivers) to install the drivers of the FTDI chip on your computer.
 
-### 2. Get the Arduino IDE 
+### 2. Get the Arduino IDE
 
 You can use either the desktop application or the web editor. Instructions to install the desktop app for various operation systems can be found on the [Arduino website](https://www.arduino.cc/en/Guide/HomePage).
 
@@ -41,6 +41,7 @@ Plug the FTDI cable or breakout board onto the FTDI pins of the Wari board. Mind
 ### 5. Set the board in the Arduino interface
 
 Choose the following board settings in the Arduino IDE (under the "tools" menu):
+
 * Board: Arduino Pro or Pro Mini
 * Processor: Atmega328P (3.3V, 8MHz)
 
@@ -54,7 +55,7 @@ The clock can be set using the example script provided by the RTC library. In th
 
 A nice tutorial of how to use the Serial Monitor in Arduino can be found on [Instructables](https://www.instructables.com/id/HOW-TO-use-the-ARDUINO-SERIAL-MONITOR/).
 
-IMPORTANT NOTE: the Wari loggers are originally programmed in the UTC (GMT) time zone. If you set the clock again, then the clock will be set in the time zone of your computer. 
+IMPORTANT NOTE: the Wari loggers are originally programmed in the UTC (GMT) time zone. If you set the clock again, then the clock will be set in the time zone of your computer.
 
 LESS IMPORTANT NOTE: There is about a 10 second delay between the moment that the code is compiled on your computer, and the moment that your microcontroller will run it. This means that the clock on the logger will also be delayed with about 10s. To avoid this, you can change the code of the DS3231_Simple script to:
 
@@ -65,7 +66,6 @@ You can also adjust this line if you want to program in a different time zone:
 `RtcDateTime compiled = RtcDateTime(__DATE__, __TIME__) - TZ * 3600 + 10;`
 
 in which you replace 'TZ' by the time offset (in hours) between your computer's time and the desired time.
-
 
 ### 7. Upload the logger code
 
@@ -90,11 +90,7 @@ Make sure that you select the right board, i.e. "Arduino Pro or Pro Mini"
 > When uploading the code, I get the error "programmer is not responding"
 
 Make sure that:
+
 * the Maxbotix sensor is disconnected. The sensor and the FTDI cable use the same serial port, and the sensor will interfere with the serial communication between the computer and the Wari if it is connected;
 * you have selected the right board in the Arduino IDE;
 * the FTDI cable is properly connected to the board. Mind the pin layout: the green wire should be on the side that says "GRN", and the black wire should be on the side that says "BLK".
-
-
-
-
-

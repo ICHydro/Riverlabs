@@ -1,29 +1,29 @@
 
 /* ******************************************
- *  
+ *
  * Script to set the logger clock
  *
  * Adaptation of the "DS3231_alarms.ino" example of the "Rtc by Makuna" library
- * 
+ *
  * Wouter Buytaert, Riverlabs
- * 
- * Important notes: 
+ *
+ * Important notes:
  *  - Only run the script once, and do not restart the logger or the clock will be set again
  *  - Open the serial terminal before uploading, because starting the terminal in Arduino resets the CPU
  *  - If you want the clock to run in GMT/UTC, adjust TZ (required for telemetry)
- *  
+ *
  ********************************************/
- 
+
 #define TZ 0                                // time zone offset from UTC in hours
 
 
 #include <Wire.h>
-#include <RtcDS3231.h> 
+#include <RtcDS3231.h>
 #include <avr/io.h>
 #include <avr/interrupt.h>
 RtcDS3231<TwoWire> MyRtc(Wire);
 
-#define RtcSquareWavePin 2 
+#define RtcSquareWavePin 2
 
 #if defined(_SAMD21_)                       // Sparkfun mini (SAMD21) boards use SerialUSB for the Serial Monitor
     #define Serial SerialUSB                // but note that Adafruit boards do not, so set as appropriate
@@ -39,22 +39,22 @@ void InterruptServiceRoutine()
     interruptFlag = true;
 }
 
-void setup () 
+void setup ()
 {
     Serial.begin(115200);
     while(!Serial);
 
     // set the interupt pin to input mode
     pinMode(RtcSquareWavePin, INPUT);
-    
+
     MyRtc.Begin();
 
     RtcDateTime compiled = RtcDateTime(__DATE__, __TIME__) - TZ * 3600 + 12;
     RtcDateTime now = MyRtc.GetDateTime();
     MyRtc.SetDateTime(compiled);
-    
+
     MyRtc.Enable32kHzPin(false);
-    MyRtc.SetSquareWavePin(DS3231SquareWavePin_ModeAlarmTwo); 
+    MyRtc.SetSquareWavePin(DS3231SquareWavePin_ModeAlarmTwo);
 
     // The next code checks if the alarm interrupt works.
 
@@ -62,18 +62,18 @@ void setup ()
     DS3231AlarmTwo alarm2(
             0,
             0,
-            0, 
+            0,
             DS3231AlarmTwoControl_OncePerMinute);
     MyRtc.SetAlarmTwo(alarm2);
 
     // throw away any old alarm state before we ran
     MyRtc.LatchAlarmsTriggeredFlags();
 
-    // setup external interupt 
+    // setup external interupt
     attachInterrupt(digitalPinToInterrupt(RtcSquareWavePin), InterruptServiceRoutine, FALLING);
 }
 
-void loop () 
+void loop ()
 {
 
     RtcDateTime now = MyRtc.GetDateTime();
