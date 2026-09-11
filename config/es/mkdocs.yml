@@ -1,0 +1,136 @@
+site_name: Riverlabs Documentation
+site_url: https://ichydro.github.io/Riverlabs/
+site_author: Riverlabs Ltd
+site_description: Documentation for the Riverlabs suite of environmental sensors
+
+repo_name: ichydro/Riverlabs
+repo_url: https://github.com/ICHydro/Riverlabs
+edit_uri: edit/main/
+
+docs_dir: "../../docs/es" # Where to find the Spanish markdown files
+site_dir: "../../site/es" # Where to put the Spanish HTML files
+
+theme:
+  name: material
+  custom_dir: "../../overrides/"
+  language: es
+  logo: assets/images/riverlabs_white_mono.svg
+  favicon: assets/images/riverlabs_icon.svg
+  palette:
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: blue
+      accent: light blue
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: blue
+      accent: light blue
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.sections
+    - navigation.indexes
+    - navigation.expand
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.action.edit
+    - content.action.view
+  icon:
+    repo: fontawesome/brands/github
+
+plugins:
+  - search:
+      lang: es
+  - tags
+  - redirects:
+      redirect_maps:
+        "index.md": "operation/quick-start/quick-start.md"
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - attr_list
+  - md_in_html
+  - tables
+  - footnotes
+  - toc:
+      permalink: true
+
+extra_css:
+  - assets/stylesheets/extra.css
+
+extra_javascript:
+  - assets/javascripts/extra.js
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/ICHydro
+  alternate:
+    # Switch to English
+    - name: English
+      link: /Riverlabs/en/
+      lang: en
+    # Switch to Spanish
+    - name: Español
+      link: /Riverlabs/es/
+      lang: es
+copyright: Copyright &copy; 2025 Riverlabs Ltd
+
+nav:
+  - Operación:
+    - Inicio Rápido:
+      - Guía de Inicio Rápido:  operation/quick-start/quick-start.md
+      - Configuración de Arduino: operation/quick-start/arduino-setup.md
+      - Lista de Verificación para la Primera Implementación: operation/quick-start/first-deployment-checklist.md
+      - Descarga de Datos: operation/quick-start/data-download.md
+    - Hardware:  
+      - Especificaciones Técnicas: operation/hardware/technical-specifications.md
+      - Guía de Baterías y Alimentación: operation/hardware/battery-power-guide.md
+      - Componentes Internos: operation/hardware/internal-components.md
+      - Mantenimiento: operation/hardware/maintenance.md
+      - Gestión de Datos: operation/hardware/data-handling.md
+    - Solución de Problemas:
+      - Diagramas de Flujo de Diagnóstico: operation/troubleshooting/diagnostic-flowcharts.md
+  - Instalación:
+    - Guía de Montaje: installation/mounting-guide.md
+    - Posicionamiento del Sensor: installation/sensor-positioning.md
+    - Consideraciones Ambientales: installation/environmental-considerations.md
+  - Telemetría:
+    - Guía de Configuración de Red Móvil: telemetry/setup-guide.md
+    - Guía de LoRa / LoRaWAN: telemetry/lora-lorawan-guide.md
+    - Configuración de ThingsBoard: telemetry/thingsboard-configuration.md
+    - Guía de XBee: telemetry/xbee-setup-walkthrough.md
+    - Solución de Problemas de Conexión: telemetry/troubleshooting-connections.md
+  - Programación:
+    - Configuración de Arduino: programming/arduino-setup.md
+    - Cargando Código: programming/uploading-code.md
+  - Desarrollo:
+    - Detalles de la Instalación: development/installation-details.md
+    - Integración con ThingsBoard: development/thingsboard-integration.md
+    - Configuración de XBee 3G: development/xbee-3g-setup.md      
