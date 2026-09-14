@@ -59,7 +59,7 @@ int EZread(Stream &stream) {
   stream.flush();   // Clear cache ready for next reading
   timer = millis(); // use timer to time out after 1 sec.
 
-  while ((stringComplete == false) && ((millis() - timer) < 1000)) {
+  while ((stringComplete == false) && ((millis() - timer) < 1000)) { // NOLINT: loop is not infinite
     if (stream.available()) {
       char rByte = stream.read(); // read serial input for "R" to mark start of data
       if (rByte == 'R') {
