@@ -37,3 +37,6 @@
 # other
 .DS_Store
 venv/
+
+# PlatformIO
+.pio/
