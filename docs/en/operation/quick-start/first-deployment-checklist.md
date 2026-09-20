@@ -1,40 +1,33 @@
 # First Deployment Checklist
 
-!!! success "Pre-Deployment Verification"
-    Complete this checklist before deploying your logger in the field. Taking the time to do this now prevents failed deployments and wasted trips.
+## Purpose
 
-## Overview
+This checklist helps you checking that your logger is ready for deployment.
 
-This comprehensive checklist ensures your logger is fully tested and ready for deployment. Print this page and check off items as you complete them.
+### Where to start
 
----
+To check proper functioning of the logger, press the reset button. There is no risk for data loss or change of any settings; resetting the logger simply restarts its internal software.
 
-## Hardware Preparation
+When the logger (re)starts, it will perform some internal checks such as checking access to the SD card and/or telemetry modem. A successful check will result in a single flash of the red LED. This is typically a short flash (< 1s) but can be longer if the logger finds data in the internal memory and flushes them to the SD card (see the [data handling](../../hardware/data-handling.md) section). When this is finished, pressing reset again will result in a short flash (as all data have already been flushed).
 
-### Battery Installation
+A series of 3x3 flashes indicates an issue.
 
-- Battery fully charged and polarity verified **before** insertion
+No red flash means that the logger does not start up, most likely because of a power issue.
+x
+### Battery and power
+
+- Logger powers on (LED activity observed)
+- Battery fully charged and polarity verified. (See [Battery & Power Guide](../hardware/battery-power-guide.md) for voltage interpretation).
 - CR1220 backup battery installed
 - No loose connections or rattling
+- If using a solar panel, check that it is properly and correctly wired, and that the charging LED lights up under sunlight.
 
-!!! tip "Battery Voltage Check"
-    Use a multimeter to verify battery voltage. See [Battery & Power Guide](../hardware/battery-power-guide.md) for voltage interpretation.
-
-### SD Card
-
-The logger comes with a high-quality microSD card pre-installed.
+### SD Card (if applicable)
 
 - MicroSD card properly seated in slot
+- No error LED patterns (3 x 3 flashes)
 
-!!! warning "Do Not Replace SD Card"
-    The provided microSD card has been tested for reliability. **Do not replace it** unless absolutely necessary. Use the exact brand and spec as supplied.
-
-!!! info "Data Backup Options"
-    - **Flash Memory:** Can be installed and used as an additional backup if required
-    - **EEPROM:** Can sometimes recover lost data in case the SD card is incorrectly installed
-
-### Physical Condition
-
+### Logger enclosure
 
 - Enclosure intact with no cracks or damage
 - Seals and gaskets in good condition
@@ -42,40 +35,7 @@ The logger comes with a high-quality microSD card pre-installed.
 - Sensor clean and undamaged
 - Sensor lens/transducer free of debris
 - All screws and fasteners are tight
-- Silica gel pack present and fresh (should not be off-colour)
-
----
-
-## Software Configuration
-
-### Clock Setup
-
-- Real-time clock set using `set_clock.ino` script
-- Time verified in Serial Monitor
-- UTC timezone used (if telemetry enabled)
-- Clock verified accurate within 1 minute
-
-### Main Script
-
-- Correct script for logger model uploaded
-    - `wari.ino` for Wari Ultrasonic loggers
-    - `wari_lidar.ino` for Wari Lidar loggers
-- Measurement interval configured appropriately
-  ```cpp
-  #define INTERVAL 5  // Your chosen interval in minutes
-  ```
-- Number of readings per measurement set
-  ```cpp
-  #define NREADINGS 10  // Typical value
-  ```
-- EEPROM flush interval configured
-  ```cpp
-  #define FLUSHAFTER 288  // Readings before SD write
-  ```
-- DEBUG mode enabled for initial testing
-  ```cpp
-  #define DEBUG  // Comment out for deployment
-  ```
+- Silica gel pack present and fresh
 
 ### Telemetry (If Applicable)
 
@@ -89,23 +49,19 @@ The logger comes with a high-quality microSD card pre-installed.
 
 See the [Telemetry Setup Guide](../../telemetry/setup-guide.md) for detailed configuration.
 
----
+### Logger output
 
-## Bench Testing
+Logger output can be tested by reading out the SD card, checking the telemetry returns, or attaching a serial cable and observing the serial debugging output. It is advised to run the logger for 30 minutes and collect several readings before taking it out for installation.
 
-### Initial Power-Up
-
-- Logger powers on (LED activity observed)
-- No error LED patterns
-- Serial output shows initialization (if DEBUG enabled)
 - Clock shows correct time
-
-### Sensor Testing
-
 - Sensor measurements returning valid readings
 - Readings consistent and reasonable
-- Accuracy verified by testing at a known distance
 - Multiple readings show low variance
+- LED flashes at expected intervals
+- SD card contains data file
+- Data file readable and properly formatted
+- Sensor values in expected range
+- No missing or corrupted entries
 
 **For Wari Ultrasonic:**
 
@@ -119,30 +75,6 @@ See the [Telemetry Setup Guide](../../telemetry/setup-guide.md) for detailed con
 - Verify angle measurements (if using)
 - Confirm readings from 10 cm to max expected range
 
-### Data Logging
-
-- Run logger for minimum 30 minutes
-- LED flashes at expected intervals (compare to serial output when readings taken)
-- SD card contains data file
-- Data file readable and properly formatted
-- Data file contains correct timestamps
-- Sensor values in expected range
-- No missing or corrupted entries
-
-**Example Expected Data Format:**
-```
-2025/12/27 14:30:00, 1250, 1248, 1252, 1249, 1251, 1250, 1248, 1251, 1249, 1250, 4150
-```
-*Shows date/time, 10 distance readings (mm) and battery voltage (mV)*
-
-### Telemetry Testing (If Enabled)
-
-- Initial connection to network successful
-- Data transmitted to server
-- Data visible on ThingsBoard dashboard
-- Transmission timing as configured
-- Connection LED patterns normal
-- No excessive connection attempts
 
 ## Troubleshooting Quick Reference
 
@@ -161,9 +93,6 @@ If problems arise, see:
 | No SD writes     | SD card failure       | Check card, consider flash memory backup |
 | Clock reset      | No backup battery     | Install CR1220                           |
 | No telemetry     | XBee not configured   | Verify API mode and settings             |
-
-!!! success "Ready for Deployment!"
-    If you've completed all items on this checklist, your logger is ready for reliable field operation. Keep this checklist for future reference and use it for subsequent deployments.
 
 ## Next Steps
 

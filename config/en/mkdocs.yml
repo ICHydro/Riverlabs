@@ -100,37 +100,38 @@ extra:
     - name: Español
       link: /Riverlabs/es/
       lang: es
-copyright: Copyright &copy; 2025 Riverlabs Ltd
+copyright: Copyright &copy; 2026 Riverlabs Ltd
 
 nav:
   - Operation:
     - Quick Start:
       - Quick Start Guide: operation/quick-start/quick-start.md
-      - Arduino Setup: operation/quick-start/arduino-setup.md
-      - First Deployment Checklist: operation/quick-start/first-deployment-checklist.md
       - Data Download: operation/quick-start/data-download.md
+      - Arduino Settings: operation/quick-start/arduino-setup.md
+      - First Deployment Checklist: operation/quick-start/first-deployment-checklist.md
     - Hardware:  
       - Technical Specifications: operation/hardware/technical-specifications.md
       - Battery & Power Guide: operation/hardware/battery-power-guide.md
-      - Internal Components: operation/hardware/internal-components.md
+#      - Internal Components: operation/hardware/internal-components.md
       - Maintenance: operation/hardware/maintenance.md
       - Data Handling: operation/hardware/data-handling.md
     - Troubleshooting:
       - Diagnostic Flowcharts: operation/troubleshooting/diagnostic-flowcharts.md
   - Installation:
-    - Mounting Guide: installation/mounting-guide.md
     - Sensor Positioning: installation/sensor-positioning.md
+    - Mounting Guide: installation/mounting-guide.md
     - Environmental Considerations: installation/environmental-considerations.md
-  - Telemetry:
-    - Cellular Setup Guide: telemetry/setup-guide.md
-    - LoRa / LoRaWAN Guide: telemetry/lora-lorawan-guide.md
-    - ThingsBoard Configuration: telemetry/thingsboard-configuration.md
-    - XBee Setup Walkthrough: telemetry/xbee-setup-walkthrough.md
-    - Troubleshooting Connections: telemetry/troubleshooting-connections.md
   - Programming:
+    - Introduction: programming/intro.md
     - Arduino Setup: programming/arduino-setup.md
     - Uploading Code: programming/uploading-code.md
-  - Development:
-    - Installation Details: development/installation-details.md
-    - ThingsBoard Integration: development/thingsboard-integration.md
-    - XBee 3G Setup: development/xbee-3g-setup.md      
+#  - Telemetry:
+#    - Cellular Setup Guide: telemetry/setup-guide.md
+#    - LoRa / LoRaWAN Guide: telemetry/lora-lorawan-guide.md
+#    - ThingsBoard Configuration: telemetry/thingsboard-configuration.md
+#    - XBee Setup Walkthrough: telemetry/xbee-setup-walkthrough.md
+#    - Troubleshooting Connections: telemetry/troubleshooting-connections.md
+#  - Development:
+#    - Installation Details: development/installation-details.md
+#    - ThingsBoard Integration: development/thingsboard-integration.md
+#    - XBee 3G Setup: development/xbee-3g-setup.md      

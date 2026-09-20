@@ -1,45 +1,20 @@
 # Maintenance Guide
 
-!!! abstract "Overview"
-    Regular maintenance ensures reliable, long-term operation of your Riverlabs logger. This guide covers routine checks, cleaning procedures and preventive maintenance schedules.
-
-## Maintenance Philosophy
-
-**Preventive maintenance is cheaper than reactive repair.**
-
-Regular, systematic checks catch problems before they cause data loss or equipment failure. A 10-minute maintenance visit every 3–6 months prevents days of troubleshooting and potential data gaps.
-
----
+Regular maintenance ensures reliable, long-term operation of your Riverlabs logger. This guide covers suggestions for routine checks, cleaning procedures and preventive maintenance schedules.
 
 ## Maintenance Schedule Overview
 
-### Quick Reference
+Here is a suggested schedule of maintenance. This can be adjusted based on the criticality of the data, the easy (or difficulty) of site access, the local conditions (e.g., accumulation of dirt, or risk of damage), and telemetry (which allows you to check the functioning and data remotely):
 
-| Frequency     | Duration | Tasks                                                                     | Priority |
-|---------------|----------|---------------------------------------------------------------------------|----------|
-| **Monthly**   | 1 min    | Data Review: check data and battery levels, data download as appropriate  | Medium   |
-| **Quarterly** | 5 min    | Basic visual inspection and external cleaning                             | High     |
-| **Annually**  | 20 mins  | External cleaning, silica replacement and battery change recommended      | High     |
+| Suggested Frequency     | Tasks                                                                     | Priority |
+|---------------|---------------------------------------------------------------------------|----------|
+| **Monthly**   | Data Review: check data and battery levels, data download as appropriate  | Medium   |
+| **Quarterly** | Basic visual inspection and external cleaning                             | High     |
+| **Annually**  | External cleaning, silica gel replacement and battery change recommended      | High     |
 
-### Flexible Scheduling
-
-Adjust frequency based on:
-
-- **Deployment criticality** (research vs. operational)
-- **Environmental harshness** (urban vs. extreme conditions)
-- **Accessibility** (easy vs. difficult site visits)
-- **Telemetry availability** (remote vs. manual data retrieval)
-- **Logger age** (new vs. established deployment)
-
----
-
-## Remote Monitoring (Quarterly)
+## Remote Monitoring
 
 ### If Telemetry is Available
-
-**Time Required:**
-
-- 1 minute
 
 **Tasks:**
 
@@ -68,7 +43,7 @@ Adjust frequency based on:
     - No excessive retries
 
 
-!!! danger "Red Flags Requiring Site Visit"
+!!! danger "Indications that a site visit may be required"
     - ⚠️ No data for >48 hours — likely power loss or logger displacement.
     - ⚠️ Battery voltage <3.4 V — power drain
     - ⚠️ Sensor readings stuck or erratic
@@ -81,8 +56,6 @@ If no telemetry, increase frequency of physical site visits (monthly instead of 
 ---
 
 ## Site Inspection (Quarterly or Annually)
-
-### Time Required: 15–30 minutes
 
 ### Visual External Inspection
 
@@ -130,10 +103,6 @@ If accessible and time permits:
 ---
 
 ## Yearly Maintenance
-
-### Time Required:
-
-- 30–60 minutes
 
 ### Pre-Maintenance Checklist
 
@@ -314,7 +283,3 @@ Open enclosure and inspect:
 - 🔧 [Internal Components](internal-components.md): Component-specific maintenance
 - 🚨 [Troubleshooting](../troubleshooting/common-issues.md): Fixing issues found during maintenance
 
----
-
-!!! success "Well-Maintained Logger = Reliable Data"
-    Consistent, documented maintenance is the foundation of long-term successful monitoring. A small investment of time prevents major problems and ensures continuous, high-quality data collection.

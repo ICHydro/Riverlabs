@@ -1,27 +1,28 @@
 # Quick Start Guide
 
-## What You'll Need
+## Introduction
 
-Before you begin, make sure you have:
+If you have a pre-programmed Riverlabs logger, then it is ready to use out of the box. However, if you need to change any of the settings then you will need to reprogram the logger. A common setting to change is the frequency of measurement. Our pre-programmed loggers typically measure at a 5 minute or 15 minute interval. This is suitable for many use cases, but you may wish to set it lower or higher.
 
-- Your Riverlabs logger (ultrasonic or lidar)
-- Main battery (a 14500 or 18650 depending on type)
-- CR1220 coin battery (for RTC backup)
-- MicroSD card 
-- FTDI cable or adapter (for programming)
-- Arduino IDE installed on your computer
+If you are using telemetry and not using the Riverlabs data plaform, then you may need to reprogram the logger to set settings such as the internet address of your data platform, and the authentication credentials of the device.
+
+You may also need to reprogram the logger if the clock has lost the time because the backup coin battery has been removed or has run out. Note that loggers with cellular connection set the time automatically by querying an internet time server and no manual setting is needed. However, for SD-card based loggers it is crucial that the correct time is set using an Arduino sketch.
+
+Although programming a data logger may sound daunting, the [Programming manual](../../../programming/arduino-setup/) guides you through the entire process. We have also written the code in such a way that the most common settings are available at the top of the main sketch and can be set without altering the rest of the code. If you are familiar with Arduino, then the [short guide](../arduino-setup) will set you on your way.
+
+This quick-start guide assumes that the logger is correctly programmed.
 
 ## 1. Identify Your Logger
 
-First, identify which logger model you have. See the [Logger Identification Guide](logger-identification.md) for detailed comparisons.
+First, identify which logger model you have. We have produced many different iteration since we started development, but the last few years we've consolidated the design around our Rio platform, which is quite stable. In the future, we aim to account for any hardware changes in the software, such that we can use a single unified code base.
+
+The main difference between the models is the attached sensor. We mostly use distance sensors to measure water level, such as the maxbotix ultrasound sensor, and the Garmin lidar rangefinder. A comparison between those sensors is provided below. More recently, we have also developed models for soil moisture sensors, rain gauges, and certain water quality parameters.
+
+Another main difference is data handling. Our loggers allow either local data storage on an SD card, or telemetry. While it would be great to do both, unfortunately the processor we use does not have sufficient internal memory to contain the software for both operations. We hope to move to a more modern architecture that will make this possible. In the meanwhile, you will have to settle for one or the other.
 
 <div class="grid cards logger-cards" markdown>
 
--    **Wari Ultrasound Logger**
-
-    ---
-
-    **Ultrasound Distance Sensor**
+-   **Wari Ultrasound Logger**
 
     ![Wari logger](../../assets/images/Wari_v1.jpg){ width="250" }
 
@@ -32,15 +33,10 @@ First, identify which logger model you have. See the [Logger Identification Guid
     **Best for:**
 
     - Water level monitoring
-    - Budget-conscious projects
     - Shorter-range applications
     - Vertical mounting positions
 
--   :material-laser-pointer:{ .lg .middle } **Lidar Logger**
-
-    ---
-
-    **Wari Lidar Logger**
+-   **Wari Lidar Logger**
 
     ![Lidar logger](../../assets/images/WMOnode.jpg){ width="250" }
 
@@ -51,153 +47,103 @@ First, identify which logger model you have. See the [Logger Identification Guid
     **Best for:**
     
     - Long-range measurements
-    - Angled installations (up to 40°)
-    - High-precision applications
-    - Difficult mounting situations
+    - Lower accuracy than ultrasound (1 - 10 cm)
+    - Difficult mounting situations (it allows for angled installations up to 40° from the vertical)
 
 </div>
 
-## 2. Insert Batteries
+## 2. Batteries
 
-!!! danger "Check Polarity First!"
-    Double-check battery orientation before insertion. Match the **+** and **-** markings on the battery with the markings in the battery compartment.
+The wari loggers use two batteries: a large lithium-ion battery that provides the main power, and a small coin battery at the back of the circuit board. The coin cell is typically already installed and should not removed or the clock will lose track of time.
+
+Depending on the logger model, the main battery has either a large 18650 size or a smaller 14500 size (see the [Battery & Power Guide](../hardware/battery-power-guide.md)). Note that 14500 is very similar in size to an AA battery. However, a normal AA battery will not work as that only provides 1.5V. The logger operates on 3.3V, which requires a lithium battery. 
+
+!!! danger "Check Polarity Carefully!"
+    Double-check battery orientation before insertion. Match the **+** and **-** markings on the battery with the markings in the battery compartment. The logger may be damaged if the battery is inserted wrongly.
+
+**Main Battery (usually a 18650 or 14500 size):**
+
+1. Switch off the board
+2. Check you have the right battery 
+3. Verify the polarity (**+**/**-**) and charge
+4. Insert the battery, ensuring the metal clips touch the battery. If they do not touch, then remove the battery and bend the clips slightly and carefully inwards.
 
 **RTC Battery (CR1220):**
 
 !!! tip "Date Preservation" 
-    The coin cell may already be installed. Only replace it if needed to preserve the programmed date. Install the main battery first and switch on.
+    The coin cell may already be installed, and typically lasts several years. If you need to replace, it then keep keep the main battery inserted so it can provide power to the clock and preserve the time. If the clock has reset, then it needs to be set again using the right Arduino sketch.
 
 1. Switch off the board
-2. Locate the small coin battery slot on the PCB (sometimes on the reverse)
+2. Unscrew the circuit board, and locate the small coin battery slot on the back
 3. Insert the CR1220 battery (typically **+** side up)
 4. Press firmly until it clicks into place
 5. If applicable, screw the circuit board back into the enclosure
 
-**Main Battery (ususally a 18650 or 14500):**
+For more details on battery options and operation, see the [Battery & Power Guide](../hardware/battery-power-guide.md)
 
-1. Switch off the board
-2. Check you have the right battery (see the [Battery & Power Guide](../hardware/battery-power-guide.md))
-3. Verify the polarity (**+**/**-**) and charge
-4. Insert the battery, ensuring the metal clips touch the battery
+## 3. SD Card Operation
 
-### 3. Prepare SD Card
+If the logger is programmed to write data to the SD card, then a microSD card needs to be inserted in the slot. Depending on the model, the contacts of the card should face either outward or inward. Refer to the photos for specific guidance.
 
-Your logger may need a microSD card.
+When the logger starts up or is reset, the code will look for an SD card. If the card is not found, then the red LED will flash 3 x 3 times. If this happens, double check that it is properly inserted. If the LED lights up a single time, then the card is found and ready to use.
 
-- Insert the card into the logger's microSD slot
-- Ensure it clicks into place (you should be able to feel this)
+!!! Important "Buffering SD card writes"
+    To preserve energy and minimize wear on the SD card, new data are not written to the card immediately. Instead, they are stored in an internal EEPROM memory chip, and only written at regular intervals (typically once day). This means that if you take out the SD card and read it out, up to 24h of data may be missing. To avoid this, press the reset button *before* taking out the SD card. When the logger starts up or is reset, it will look for unflushed data in the memory chip and flush them to the SD card. During the writing process, the LED will light up. This can take up to 20 seconds.
 
-### 4. Set the Clock
+!!! warning "Do not remove the SD card while data are being written"
+    Do not take out the SD card while the LED lights up and the writing process is ongoing. This may result in data loss and damage the SD card. Wait until the red LED is off.
 
-!!! warning "Important First Step"
-    The clock must be set before first use. Set the clock to **UTC time zone** if using telemetry.
+For more details on reading out data and file formats, see the [Data Download Guide](../data-download)
 
-**Before programming:**
+## 4. Telemetry 
 
-!!! danger "CRITICAL: Disconnect Sensor First"
-    **For Wari Ultrasonic models:** Disconnect the Maxbotix sensor (3-pin connector) from the logger before programming. The sensor and FTDI cable use the same serial port, causing interference that prevents successful code upload. Reconnect the sensor after programming is complete.
+Alternatively, data may be sent via telemetry. Currently, our loggers support two technologies: LoRa/LoRaWAN and cellular transmission. These may need additional components. For LoRaWAN, the board needs to have an appropriate radio module soldered on. Cellular connectivity uses a separate DIGI modem that can be inserted in the dedicated slot (if the pin headers have been soldered on). Both technologies also need an appropriate antenna. Cellular telemetry consumes substantial energy so you will typically also need a solar panel, or the battery will discharge very quickly.
 
-**Clock setting steps:**
+### LoRa/LoRaWAN
 
-1. **Disconnect sensor** (white connector) if using Wari Ultrasonic
-2. Connect the FTDI cable to your logger
-   - Align green wire with "GRN" marking
-   - Align black wire with "BLK" marking
-3. Set power switch to OFF position (powered by FTDI)
-4. Open Arduino IDE
-5. Set board to **MiniCore → ATmega328**
-6. Set clock to **External 8 MHz**
-7. Load the `set_clock.ino` sketch (in repository root)
-8. Upload to the logger
-9. Open Serial Monitor (baud rate: 57600) to verify time
+To use LoRa/LoRaWAN, flash the correct Arduino sketch (see the [Programming manual](../../../programming/arduino-setup/)). If the logger has been preconfigured for LoRaWAN, then you should have received the DevEUI of the device. You can use this to register the device in a LoRaWAN application such as The Things Network. In that case, no further programming is needed.
 
-**The clock only needs to be set once** (unless both batteries are removed).
+### Cellular connectivity
 
-### 5. Firmware Selection by Serial Number
+Cellular connectivity requires a modem, such as the [Digi XBee 3 Global LTE Cat 1](https://www.digi.com/products/embedded-systems/digi-xbee/cellular-modems/digi-xbee-3-global-cellular-cat-1) and a SIM card. If you use Imperial's data management platform, then the logger may already be preconfigured. Otherwise, you will need to reprogram the logger to set settings such as the data platform's internet address, the logger credentials, the APN of the SIM card, and other details of the connection process. These are all explained in detail in the [Telemetry Guide](../../../telemetry).
 
-| Serial Number Range | Sensor      | Telemetry         | Firmware File               |
-|---------------------|-------------|-------------------|-----------------------------|
-| RL000001–RL000277   | Ultrasound  | None              | `wari_v1.ino`               |
-| RL000001–RL000277   | Ultrasound  | 3G Cellular       | `wari_3G.ino`               |
-| RL000278–RL000330   | Ultrasound  | None              | `wari_v2.0.ino`             |
-| RL000278+           | Ultrasound  | 3G Cellular       | `wari_3G_v2.ino`            |
-| RL000331+           | Ultrasound  | None              | `wari_v2.1.ino`             |
-| Any                 | Ultrasound  | 4G LTE-M/NB-IoT   | `wari_4G.ino`               |
-| Any                 | Lidar       | None              | `wari_lidar.ino`            |
-| Any                 | Lidar       | 3G or 4G Cellular | `wari_lidar_cellular.ino`*  |
-| Any                 | Lidar       | LoRa Radio        | `wari_lidar_lora.ino`       |
+!!! Important "Telemetry frequency"
+    The LoRaWAN sketch will send data on every measurement. However, to save battery, the cellular sketch will store data internally and only send a certain intervals. Typically, our loggers are programmed to take measurements every 5 minutes, and send them at the hour. You can set different frequencies in the Arduino sketch, but be aware that very frequent telemetry events may require a bigger solar panel.
 
-*\*Set correct modem type (3G or LTE-M) in compiler definition at top of code*
+## 5. Test Before Deployment
 
-!!! info "Legacy Names"
-    - `wari_lidar.ino` was formerly `WMO_SD.ino`
-    - `wari_lidar_cellular.ino` was formerly `WMOnode.ino`
-    - `wari_lidar_lora.ino` was formerly `WMO_SD_lora.ino`
-
-
-### 6. Upload Main Script
-
-Now upload the main logging script:
-
-!!! warning "Sensor Must Be Disconnected"
-    Keep the sensor disconnected during this step as well (Wari Ultrasonic only).
-
-1. Open the appropriate script in Ardunio IDE
-
-2. Review and adjust settings at the top of the script:
-   ```cpp
-   #define INTERVAL 5             // Measurement interval in minutes
-   #define NREADINGS 10           // Number of sensor readings per measurement
-   #define FLUSHAFTER 288         // Readings before flushing to SD card
-   ```
-3. Upload the script to your logger
-4. **Reconnect the sensor** (white connector) after upload completes
-5. Verify operation via Serial Monitor (if DEBUG is enabled)
-6. Disconnect FTDI cable
-7. Switch power to ON position
-
-!!! success "Upload Complete"
-    When the LED flashes after upload, your logger is programmed and ready. Don't forget to reconnect the sensor!
-
-!!! tip "Battery Considerations"
-    Higher logging frequency = shorter battery life. Start with conservative settings (10–15 minute intervals) for deployments.
-
-### 7. Test Before Deployment
-
-Before taking your logger to the field, perform a bench test:
+Before taking your logger to the field, it is useful to perform a bench test:
 
 - **Sensor reconnected** (Matbotix 3-pin connector plugged in)
 - Power switch in ON position
 - Verify LED flashes during measurements
-- Check that data is being written to SD card
-- Confirm sensor readings are reasonable
+- Check that data is being written to SD card or sent via telemetry
+- Confirm that the sensor readings are reasonable
 - Test for at least 30 minutes to ensure stable operation
 
 See the [First Deployment Checklist](first-deployment-checklist.md) for comprehensive pre-deployment testing.
 
-### 8. Install in Field
+!!! success "Ready to Deploy?"
+    Once you've completed these steps and verified operation, your logger is ready for field deployment. Remember to document your installation location and take photos for future reference!
+
+## 6. Field installation
 
 Your logger is now ready for field deployment! See the [Mounting Guide](../../installation/mounting-guide.md) for detailed installation instructions including:
 
-- Zip tie mounting methods
-- Adhesive mounting techniques
+- Mounting the sensor
 - Sensor positioning and orientation
 - Environmental considerations
 
-## Next Steps
+## 7. Useful resources
 
-- [Logger Identification](logger-identification.md): Compare Wari vs Lidar in detail
-- [First Deployment Checklist](first-deployment-checklist.md): Complete pre-deployment verification
-- [Telemetry Setup](../../telemetry/setup-guide.md): Configure cellular data transmission
-- [Battery & Power Guide](../hardware/battery-power-guide.md): Understand battery life and voltage
+<!-- - [Logger Identification](logger-identification.md): Compare Wari vs Lidar in detail -->
+- [First Deployment Checklist](first-deployment-checklist.md)
+- [Installation manual](../../installation/)
+- [Set up your own telemetry platform](../../telemetry/setup-guide.md)
+- [Understand battery and power characteristics](../hardware/battery-power-guide.md)
 
-## Need Help?
+## 8. Need Help?
 
 - Check [Common Issues and Solutions](../troubleshooting/common-issues.md) for quick solutions
 - Review [Diagnostic Flowcharts](../troubleshooting/diagnostic-flowcharts.md) for systematic troubleshooting
 - Contact support: info@riverlabs.uk
-
----
-
-!!! success "Ready to Deploy?"
-    Once you've completed these steps and verified operation, your logger is ready for field deployment. Remember to document your installation location and take photos for future reference!

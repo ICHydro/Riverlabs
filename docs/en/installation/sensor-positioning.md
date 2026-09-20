@@ -1,45 +1,30 @@
-# Sensor Positioning Guide
+# Sensor Positioning
 
 !!! abstract "Overview"
-    Proper sensor positioning is critical for accurate measurements. This guide provides detailed information on optimal sensor placement, angle considerations and target surface requirements.
+    Proper sensor positioning is critical for accurate measurements. This guide provides detailed information on optimal placement of the most common sensors deployed with the Wari platform.
 
-## Understanding Sensor Types
 
-### Wari (Ultrasound) Beam Characteristics
+## Maxbotix Ultrasonic sensor
 
-The ultrasound sensor emits a conical beam that spreads as distance increases.
+### Installation
 
-**Beam Properties:**
-
-- **Frequency:** 42 kHz ultrasonic pulses
-- **Beam Angle:** Approximately 15° cone
-- **Footprint Growth:** ~26 cm diameter per meter of distance
-- **Reflection:** Requires reflective surface within beam cone
-
-**Distance vs. Footprint:**
-
-| Distance  | Beam Diameter  | Area Coverage  |
-|-----------|----------------|----------------|
-| 0.5 m     | ~13 cm         | 0.013 m²       |
-| 1.0 m     | ~26 cm         | 0.053 m²       |
-| 2.0 m     | ~52 cm         | 0.212 m²       |
-| 3.0 m     | ~80 cm         | 0.502 m²       |
-| 5.0 m     | ~130 cm        | 1.327 m²       |
+The ultrasound sensor emits a conical beam that spreads as distance increases. The specific pattern is described in the [Maxbotix data sheet](https://maxbotix.com/pages/hrxl-maxsonar-wr-datasheet), and reaches a width of up to 60cm. Therefore, we recommend to keep at least 50 cm of distance between the centre of the flight path and any objects:
 
 ![Ultrasound beam pattern](../assets/images/installation_US.png)
 
-*Ultrasound beam spreads in a cone pattern*
+### Reflectivity considerations
 
-### Lidar Beam Characteristics
+Ultrasound distance measurements measure the time of flight of a sound pulse that is emitted by the sensor and reflects on the target object. As different materials and object shapes may affect the reflectivity of the object, they may have an impact on the quality of the measurement. Water has generally a high reflectivity for sound, however, the following processes may influence the readings:
 
-The lidar sensor emits a highly focused laser beam with minimal divergence.
+- Waves and turbulence: these will not affect the reflection itself, but the resulting variations in water level will affect the reading itself. Taking several measurements and averaging them may increase the accuracy
+- Debris: Some types of debris such as soft materials may reduce the reflectivity of the target. Larger pieces of debris may also change the surface of reflection and induce a measurement error.
+- Wind: may affect the water surface by creating waves, but strong wind may also result in pulses getting lost.
 
-**Beam Properties:**
+## Garmin Lidarlite v3HP
 
-- **Wavelength:** 905 nm near-infrared
-- **Beam Divergence:** 8 milliradians (~0.5°)
-- **Spot Size:** Minimal growth with distance
-- **Reflection:** Requires diffuse reflection from target
+### Installation
+
+The lidar sensor emits a highly focused infra-red laser beam with minimal divergence (8 milliradians or ~0.5°). This gives around the following diameter and area characteristics:
 
 **Distance vs. Spot Size:**
 
@@ -51,49 +36,9 @@ The lidar sensor emits a highly focused laser beam with minimal divergence.
 | 20 m     | ~16 cm        | 0.020 m²      |
 | 35 m     | ~28 cm        | 0.062 m²      |
 
+Because of the tight beam, a lidar sensor can also installed at an angle. This reduces the accuracy somewhat (see below) but can be a practical advantage, for example when vertical mounting is impossible, or prevented by concerns over access or safety. Our own tests have shown that angles up to 40° from vertical are feasible.
+
 ![Lidar beam pattern](../assets/images/installation_lidar.png)
-
-*Lidar beam maintains tight focus over distance*
-
----
-
-## Vertical Mounting (Standard Configuration)
-
-
-**Using a Level:**
-
-1. Attach level to logger housing
-2. Adjust until bubble centred
-3. Verify from multiple angles
-4. Secure mounting hardware
-5. Re-check after tightening
-
-**Using Plumb Bob:**
-
-1. Hang plumb line from mounting point
-2. Align sensor axis with string
-3. Verify alignment from 90° perspective
-4. Tighten while maintaining position
-
-!!! tip "Verification Method"
-    After mounting, take measurements at known distance and compare with manual measurement. Difference of >2% suggests misalignment.
-
----
-
-## Angled Mounting (Lidar Only)
-
-### When to Use Angled Mounting
-
-Consider angled mounting when:
-
-- Vertical mounting is physically impossible
-- Bridge/structure geometry requires it
-- Access/safety concerns prevent vertical installation
-
-### Lidar: Angled Mounting Capability
-
-!!! success "Lidar Supports Angled Mounting"
-    Lidar can measure accurately up to 40° from vertical with minimal correction needed.
 
 **Angle Impact on Accuracy:**
 
@@ -105,15 +50,10 @@ Consider angled mounting when:
 | 30°–40°             | <2.5% error     | Maximum recommended        |
 | >40°                | >3% error       | Not recommended            |
 
-**Installation Steps:**
-
-1. **Measure and record angle** using protractor or inclinometer
-2. **Mark angle on logger** for future reference
-3. **Apply angle correction** in data processing:
+When mounted at an angle, the measured distance will of course be different from the vertical distance, which is needed to convert the raw measurement into water depth. The vertical distance can be obtained with the following formula, in which the "angle" is the angle between the flight path and the vertical.
    ```
    Vertical Distance = Measured Distance × cos(angle)
    ```
-4. **Document thoroughly** in installation records
 
 **Example Calculation:**
 
@@ -124,86 +64,19 @@ Vertical distance = 10.5m × 0.906
 Vertical distance = 9.51m
 ```
 
-## Target Surface Considerations
+### Reflectivity considerations
 
-### Water Surfaces
+The reflectivity properties of a lidar sensor are very different from those of an ultrasound sensor. In perfectly still conditions, pure water is highly transparent to infrared light, and reflects very little. This is different for a rough water surface, or the water contains sediment particles or other material that makes it less transparent. A rough water surface also disperses the lidar beam, which makes it more likely that the part of the signal returns to the lidar. This is particularly relevant for applications at an angle, where a perfectly smooth surface may reflect the signal away from the sensor (as a mirror would do).
 
-The condition of the water surface significantly affects measurement reliability.
+Therefore, a lidar sensor will work best in open air conditions, where wind or streamflow creates a rough surface, or on water with some sediment or other content that increases the turbitity. The folowing table provides an overview:
 
-#### Ultrasound on Water
+| Good Conditions              | Poor conditions                             |
+|------------------------------|---------------------------------------------|
+Slightly rough water surface   | Perfectly clear, smooth water (mirror-like) |
+Turbid/sediment-laden water    | Very clean water in calm conditions         |
+Water with suspended particles | Highly transparent water                    |
+Foam or debris on surface      | Dark water with no suspended material       |
 
-**Excellent Conditions:**
-
-- Calm water with light ripples
-- Slightly turbulent water
-- Sediment-laden water
-- Water with foam/debris
-
-**Poor Conditions:**
-
-- Perfectly smooth glass-like surface
-- Heavy turbulence/white water
-- Water surface at angle to beam
-- Surface covered by floating debris
-
-**Optimization Tips:**
-
-- Take multiple readings and average
-- Increase number of readings in turbulent conditions
-- Avoid mounting where wind creates consistent wave patterns
-- Consider measurement timing (calm periods)
-
-#### Lidar on Water
-
-**Excellent Conditions:**
-
-- Slightly rough water surface
-- Turbid/sediment-laden water
-- Water with suspended particles
-- Foam or debris on surface
-
-**Poor Conditions:**
-
-- Perfectly clear, smooth water (mirror-like)
-- Very clean water in calm conditions
-- Highly transparent water
-- Dark water with no suspended material
-
-**Why Smooth/Clear Water is Difficult for Lidar:**
-
-- Specular reflection (mirror-like) reflects beam away
-- Transparent water allows beam to penetrate surface
-- Requires diffuse reflection for reliable measurement
-- Natural water usually has sufficient turbidity
-
-**Optimization:**
-
-- Most natural rivers/streams work well
-- Laboratory/clean water may be problematic
-- Test at site before permanent installation
-- Consider ultrasound for very clean water applications
-
-### Non-Water Surfaces
-
-Both sensors can measure non-water targets:
-
-**Good Targets:**
-
-- Concrete (rough finish)
-- Wood
-- Soil/ground
-- Granular materials
-- Textured surfaces
-
-**Challenging Targets:**
-
-- Smooth metal (specular reflection)
-- Glass or mirrors
-- Highly polished surfaces
-- Transparent materials
-- Very dark, non-reflective materials
-
----
 
 ## Next Steps
 
@@ -212,7 +85,3 @@ Both sensors can measure non-water targets:
 - 🔋 [Battery & Power Guide](../operation/hardware/battery-power-guide.md): Power planning
 - 🔧 [Maintenance](../operation/hardware/maintenance.md): Keep sensor positioned correctly
 
----
-
-!!! success "Optimal Positioning Achieved"
-    With careful attention to positioning, clearances and target considerations, your logger will provide accurate, reliable measurements for years of operation.

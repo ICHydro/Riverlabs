@@ -5,9 +5,9 @@
 
 ## Mounting Methods
 
-Choose the mounting method based on your installation requirements, access to the site and expected deployment duration.
+The Riverlabs loggers are designed to be small to provide flexibility in the way they are installed mounted on a support structure. Depending on the type of installation and requirements (e.g., duration of installation), different approaches can be used. This section provides an overview of some common approach and their advantages and disadvantages. However, these are just examples and can be adapted depending on the specific use-case.
 
-### Comparison of Methods
+### Comparison of Mounting Methods
 
 | Method       | Pros                               | Cons                            | Best For                         | Cost |
 |--------------|------------------------------------|---------------------------------|----------------------------------|------|
@@ -21,28 +21,21 @@ Choose the mounting method based on your installation requirements, access to th
 
 ### Overview
 
-Zip ties provide a quick, non-invasive mounting solution ideal for pipes, railings and temporary installations.
+<!--- add here an example of installation -->
 
-![Zip tie mounting example](../assets/images/mounting-ziptie-sketch.png)<br>
-*Recommended zip tie placement for secure mounting*
+Zip ties provide a quick, non-invasive mounting solution ideal for pipes, railings and temporary installations.
 
 ### Materials Needed
 
 - **UV-resistant zip ties**
     - Length: 300–400 mm, depending on mounting surface
-    - Rating: Outdoor/UV-resistant (black nylon)
-    - Quantity: 4–6 ties per logger
+    - Rating: Outdoor/UV-resistant (black nylon or metal)
 - Cable tie tensioning tool (optional, helps prevent over-tightening)
 - Rubber/foam padding (optional, reduces vibration)
 
-### Recommended Products
-
-!!! tip "Zip Tie Selection"
-    - **Heavy Duty:** HellermannTyton T50R or equivalent
-    - **UV Resistant:** Stainless steel ties for extended outdoor use
-    - **Color:** Black (contains UV inhibitors)
-
 ### Step-by-Step Installation
+
+<!-- this is too much detail for this guide. It's not a protocol. If we want to add get to this level of detail, a video may be much clearer -->
 
 1. **Select Mounting Location**
     - Choose stable, rigid structure (e.g., a pipe, post or railing)
@@ -94,27 +87,15 @@ Zip ties provide a quick, non-invasive mounting solution ideal for pipes, railin
     - ❌ Too few ties (logger can rotate or slip)
     - ❌ Ties in direct sun path (accelerates degradation)
 
-
-### Maintenance
-
-- **Inspect ties every 3–6 months**
-- Replace if showing:
-    - Cracks or brittleness
-    - Discoloration
-    - Loosening
-    - Surface chalking (UV damage)
-- Keep spare ties in field kit
-
 ---
 
 ## Method 2: Adhesive Mounting
 
 ### Overview
 
-Adhesive mounting provides a clean, secure installation for smooth surfaces without drilling. Best for permanent installations where aesthetics matter.
+Adhesive mounting provides a clean, secure installation for smooth surfaces without drilling. This is a permanent method, that may make it difficult to remove the logger. The type of adhesive depends on the material of the support structure.
 
-![Adhesive mounting example](../assets/images/mounting-adhesive-sketch.png)<br>
-*Surface preparation and adhesive application*
+<!--- add here an example of installation -->
 
 ### Suitable Adhesive Types
 
@@ -125,14 +106,9 @@ Adhesive mounting provides a clean, secure installation for smooth surfaces with
 | **Structural Tape**       | Clean, no cure time     | Lower strength       | Smooth metal, plastic (temporary) |
 | **Polyurethane Sealant**  | Flexible, waterproof    | Medium strength      | Surfaces with movement            |
 
-### Recommended Products
-
-- **Sikaflex 291i** (marine adhesive/sealant)
-- **3M 5200 Marine Adhesive** (permanent bond)
-- **Gorilla Heavy Duty Construction Adhesive**
-- **Loctite PL Premium** (interior/exterior)
-
 ### Step-by-Step Installation
+
+<!-- Also here, too much detail. If we want to add get to this level of detail, a video may be much clearer -->
 
 1. **Surface Preparation** (critical!)
     - Clean surface thoroughly
@@ -171,7 +147,10 @@ Adhesive mounting provides a clean, secure installation for smooth surfaces with
     - **Do not stress joint during cure**
     - Avoid temperature extremes during cure
 
+
 ### Surface-Specific Guidance
+
+<!-- convert this into a table for conciseness. Not all content is probably relevant -->
 
 **Concrete/Masonry:**
 
@@ -200,29 +179,11 @@ Adhesive mounting provides a clean, secure installation for smooth surfaces with
 - Construction adhesive or polyurethane
 - Consider pilot holes for supplemental screws
 
-### Removal Guidance
-
-!!! danger "Adhesive Mounting is Semi-Permanent"
-    Removal will likely damage both the logger housing and mounting surface. Plan carefully before using adhesives.
-
-**If removal is necessary:**
-
-   1. Heat adhesive with heat gun (low setting)
-   2. Use thin wire or dental floss to cut through adhesive layer
-   3. Apply solvent to remaining adhesive
-   4. Scrape carefully with plastic scraper
-   5. Sand/clean both surfaces
-
----
-
 ## Method 3: Bracket Mounting
 
 ### Overview
 
 Mechanical brackets provide the most secure mounting, ideal for bridges, buildings, and permanent monitoring stations.
-
-![Bracket mounting example](../assets/images/mounting-bracket-sketch.png)<br>
-*Bracket mounting on bridge structure*
 
 ### Bracket Types
 
@@ -284,39 +245,21 @@ Mechanical brackets provide the most secure mounting, ideal for bridges, buildin
     - Provide strain relief
     - Weatherproof all connections
 
-## Waiver and Disclaimer
+## Permissions and other legal considerations.
 
-!!! danger "Important Legal Notice"
-    **Installation Liability Waiver**
-    
-    By installing Riverlabs logger equipment, you acknowledge:
-    
-    - Installation is at your own risk
-    - Riverlabs Ltd is not responsible for:
-        - Personal injury during installation
-        - Property damage during or after installation
-        - Equipment loss or theft after installation
-        - Failure to obtain necessary permissions
-        - Damage from improper installation
-    - You are responsible for:
-        - Obtaining all necessary permissions and permits
-        - Ensuring installation meets local codes and regulations
-        - Proper maintenance and monitoring of equipment
-        - Safe working practices during installation
-    - Equipment warranty is void if:
-        - Installed improperly
-        - Modified without authorization
-        - Subjected to forces beyond specification
-    
-    **Always:**
+Field installations pose technical challenges, but may also have regulatory and legal implications. Make sure to always obtain permission of landowners, and any applicable permits. This includes local regulations, for example for the use of telemetry and/or certain radio frequencies. For example, the permitted frequencies for LoRaWAN differ in different parts of the world. For example, Europe uses 868 MHz, while the US uses 915 MHz.
+
+Similarly, health and safety are paramount. Working near water often poses a health risk, and ideally by doing a full risk assessment. As such, we stongly encourage to:
 
     - Obtain landowner/authority permission before installing
-    - Follow all safety regulations and guidelines
+    - Follow all local and internional safety regulations and guidelines
     - Use appropriate personal protective equipment
     - Work within your competency level
-    - Consult professionals for complex installations
+    - Seek specialist help for complex installations
 
----
+<!-- think about how to best phrase this. We don't want to make this heavy handed, but it may be necessary in some jurisdictions -->
+
+The authors of this guide do not assume any responsibility for potential damage, injury, or legal consequences of field installations.
 
 ## Next Steps
 

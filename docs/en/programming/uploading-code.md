@@ -1,82 +1,40 @@
-## Uploading the code
 
-### Get the required libraries
+# Programming the Riverlabs loggers
 
-The code uses the following external libraries that need to be installed separately:
+!!! Abstract "Overview"
+    The previous section of this chapter explains how to install the Arduino IDE, the board definitions, and the required libraries. Once you have installed everything, you are ready to connect the logger to a PC and compile and upload the code. This is covered in this section.
 
-* **RTC by Makuna**: Real-time clock control
-* **SoftwareSerial**: Software-based serial communication (cellular models)
-* **SdFat**: SD card file system (use original version by Bill Greiman)
-* **AltSoftSerial**: Alternative software serial (cellular/lidar models only)
-* **Rocketscream LowPower**: Low-power sleep modes
+## Connect the Logger to Your Computer
 
-The first 4 libraries can be installed via the Arduino Library Manager:
+!!! warning "Disconnect Maxbotix Sensor First"
+    Disconnect the Maxbotix ultrasonic sensor from the logger before programming. The sensor and FTDI cable use the same serial port, which will cause interference and prevent successful code upload. Unplug the white connector.
 
-1. Open Arduino IDE
-2. Go to **Sketch → Include Library → Manage Libraries**
-3. Search for each library by name
-4. Click **Install**
+As explained in the previous section the wari loggers do not have an USB port, and will require an FTDI cable or board to connect to the 6-pin header on the side of the PCB. The PCB has markings to indicate the correct orientation: the pin labeled with "GRN" should align with the green wire of the cable, while the pin labeled "BLK" should align with the black wire of the cable.
 
-!!! note "SdFat Version"
-    Use the original SdFat library by Bill Greiman. If multiple versions appear, select the one authored by Bill Greiman.
+<!-- insert picture -->
 
-The **Rocketscream LowPower** library is not available via the Library Manager. You will need to:
-
-1. Download the code from the [Github page](https://github.com/rocketscream/Low-Power)
-2. Extract the ZIP file
-3. Move the folder to your Arduino libraries directory
-4. Restart Arduino IDE
-
-See [Manual Installation](https://www.arduino.cc/en/Guide/Libraries) on the Arduino website for detailed instructions.
-
-### Power considerations
-
-The logger has a power switch, which is labelled "ON (Batt) / OFF (ftdi)". This means that the logger is supplied with power from the battery when on (as you would expect). In the off state, the logger will receive power from the ftdi cable, if one is connected, and otherwise will not have any power.
-
-This makes it possible to program the logger without a battery (as the logger will get power from the ftdi cable), which is convenient. But you can also program the logger when a battery is inserted, either in the OFF position (when the battery is disconnected, and the logger gets power from the ftdi cable) and in the ON position (when the logger will get power from the battery).
-
-This design also makes it impossible to connect the ftdi power and the battery power at the same time, which may damage the battery (as it may be forced with 5 V power from the USB port via the ftdi cable).
-
-### Get an FTDI Cable
-
-To minimize component cost, Riverlabs loggers do not have a USB connection. Instead they use a serial interface that requires a **USB to Serial (TTL level) converter**. The most common tools are:
-
-- **FTDI Cable**: Direct USB connection (e.g., [Sparkfun FTDI Cable](https://www.sparkfun.com/products/9717))
-- **FTDI Breakout Board**: Small board requiring micro-USB cable (e.g., [Sparkfun FTDI Basic](https://www.sparkfun.com/products/9873))
-
-FTDI cables/boards come in **3.3 V** or **5 V** versions. Riverlabs loggers are compatible with both, but **3.3 V is recommended**.
-
-!!! tip "Installing FTDI Drivers"
-    Follow [these instructions](https://learn.sparkfun.com/tutorials/how-to-install-ftdi-drivers) to install the FTDI drivers on your computer.
-
-### Connect the Logger to Your Computer
-
-!!! warning "Disconnect Sensor First"
-    **CRITICAL:** Disconnect the Maxbotix ultrasonic sensor from the logger before programming. The sensor and FTDI cable use the same serial port, which will cause interference and prevent successful code upload. Unplug the white connector.
-
-**Connection Steps:**
-
-1. **Remove or disconnect the battery** (recommended for first-time uploads)
-    - Set power switch to "OFF" position if battery is installed
-   
-2. **Identify FTDI pin orientation** on the logger board:
-    - Look for **"GRN"** and **"BLK"** markings on the board
-    - For cellular/lidar models: Black pin (GND) is on the side of the SD card slot
-
-3. **Connect FTDI cable/board to FTDI pins:**
-    - Green wire → "GRN" side
-    - Black wire → "BLK" side
-    - Yellow wire → RX
-    - Orange wire → TX
-   
-4. **Plug FTDI cable/board into your computer's USB port**
-
-!!! danger "Check Orientation Twice"
+!!! danger "Check Orientation"
     Incorrect FTDI orientation can prevent programming or potentially damage components. Always verify the GRN/BLK markings before connecting.
 
-### Set the Correct Board in the Arduino IDE
+Now connect the cable to an USB port on your computer. If your device recognizes the FTDI chip correctly, it should show up in the Arduino IDE under the menu **Tools → Port**. The port names vary by operating system:
 
-**Board Settings** (under the **Tools** menu):
+- **macOS:** `/dev/cu.usbserial-XXXXXXXX`
+- **Linux:** `/dev/ttyUSB0` or `/dev/ttyACM0`
+- **Windows:** `COM3`, `COM4`, etc.
+
+If no port appears, then there are a couple of things you can check:
+
+- Verify FTDI drivers are installed (only for Windows)
+- Try a different USB port on your computer
+
+For detailed troubleshooting, the [Sparkfun FTDI Guide](https://learn.sparkfun.com/tutorials/how-to-install-ftdi-drivers) provides an in-depth overview of the use of an FTDI cable.
+
+## Select the port and set the board in the Arduino IDE
+
+Make sure the correct port is selected in the menu **Tools → Port**. If other devices are connected to your PC, then several ports may show up, for example 'COM3' and 'COM4'. To identify the correct port, you can unplug the FTDI cable, check the list of ports in the menu, and then plug it in and check again. The COM port to which the FTDI cable is assigned, should disappear and reappear.
+
+Next, the correct board definitions need to be selected in the **Tools** menu:
+
 
 1. **Board:** MiniCore → ATmega328
 2. **Clock:** External 8 MHz
@@ -84,68 +42,34 @@ FTDI cables/boards come in **3.3 V** or **5 V** versions. Riverlabs loggers are 
 4. **Variant:** 328P / 328PA
 5. **Bootloader:** Yes (UART0)
 
+If these settings do not appear in your menu, then you may need to install the Minicore board definitions via the boards manager.
+
 !!! warning "Board Settings are Critical"
     The board MUST be set to **MiniCore → ATmega328** with **Clock: External 8 MHz**. Using the wrong settings can cause upload failures or runtime issues.
 
-!!! info "MiniCore Installation"
-    If you don't see MiniCore in your boards list, you need to install it via the Boards Manager. Add this URL in File → Preferences → Additional Boards Manager URLs:
-    ```
-    https://mcudude.github.io/MiniCore/package_MCUdude_MiniCore_index.json
-    ```
-    Then install MiniCore from Tools → Board → Boards Manager.
-
-**Select the Port:**
-
-1. Go to **Tools → Port**
-2. Select the port that appears after connecting the FTDI cable
-3. Port names vary by operating system:
-    - **macOS:** `/dev/cu.usbserial-XXXXXXXX`
-    - **Linux:** `/dev/ttyUSB0` or `/dev/ttyACM0`
-    - **Windows:** `COM3`, `COM4`, etc.
-
-If no port appears:
-
-- Verify FTDI drivers are installed
-- Try a different USB port on your computer
-- Check FTDI cable connection to logger
-
-For detailed troubleshooting, see the [Sparkfun FTDI Guide](https://learn.sparkfun.com/tutorials/how-to-install-ftdi-drivers).
+## Uploading the Riverlabs code
 
 ### Set the clock
 
-This step is only needed when a new CR1220 coin battery is placed or the battery has been removed. The clock will retain the time as long as the coin battery is in place, even if new code is uploaded.
+This step is only needed if you start with a brand-new board, or when a new CR1220 coin battery is placed or the battery has been removed. The clock will retain the time as long as the coin battery is in place, even if new code is uploaded.
 
-The clock can be set using the example script provided by the RTC library. In the Arduino IDE go to File -> Examples -> Rtc by Makuna -> RS3231_Simple.ino. Open the script. Open a Serial Monitor, set the baud rate to 57600, and hit the "upload" button. If all goes well, the monitor should show the correct time every 10 seconds.
+The clock can be set using the "set_clock.ino" sketch in the Riverlabs repository. Open the serial monitor **before* uploading the sketch to verify that the clock is set correctly. If nothing shows up in the serial monitor, then verify that the baud rate has been set to **115200 baud**. A nice tutorial of how to use the Serial Monitor in Arduino can be found on [Instructables](https://www.instructables.com/id/HOW-TO-use-the-ARDUINO-SERIAL-MONITOR/).
 
-A nice tutorial of how to use the Serial Monitor in Arduino can be found on [Instructables](https://www.instructables.com/id/HOW-TO-use-the-ARDUINO-SERIAL-MONITOR/).
+!!! info "Dealing with different time zones"
+     If you set the clock using this sketch then it will be set to your computer's time zone. You can change this by altering the "TZ' variable in the sketch. Set `TZ` with the time offset from UTC in hours (e.g., `-5` for EST, `+1` for CET). In our research, we have adopted the procedure of always setting the clock in UCT (GMT). We operate loggers in different time zones and this minimizes the risk of confusion. If you have a preprogrammed Riverlabs logger, then it is very likely that the clock will be set in UTC time.
 
-!!! info "Time Zone Note"
-    Riverlabs loggers are originally programmed in **UTC (GMT)** time zone. If you set the clock again, it will be set to your computer's time zone.
+!!! tip "Compensation for Upload Delay"
+    The sketch hardcode you PC's into the code during compilation, and this time is then set to the clock when the code is subsequently run on the logger. There is approximately a **10-second delay** between these steps. This time delay is accounted for in the sketch. As the delay depends on the specific PC, you can finetune the value if you like:
 
-!!! tip "Compensate for Upload Delay"
-    There is approximately a **10-second delay** between when code is compiled and when the microcontroller runs it. This means the clock will be 10 seconds slow.
-    
-    **To compensate**, modify the DS3231_Simple script:
-    
-    ```cpp
-    RtcDateTime compiled = RtcDateTime(__DATE__, __TIME__) + 10;
-    ```
-    
-    **For different time zones**, use this formula:
+Adjusting the time delay compensation can be done in this line of the sketch:
     
     ```cpp
     RtcDateTime compiled = RtcDateTime(__DATE__, __TIME__) - TZ * 3600 + 10;
     ```
-    
-    Replace `TZ` with your time offset in hours (e.g., `-5` for EST, `+1` for CET).
 
-### Upload the Logger Code
+### Uploading the Logger Code
 
-1. **Download the appropriate sketch** for your logger model:
-    - `wari.ino`: Wari Ultrasonic loggers
-    - `wari_lidar.ino`: Wari Lidar loggers
-    - `wari_3G.ino`: Wari with 3G cellular telemetry
-    - `wari_4G.ino`: Wari with 4G cellular telemetry
+1. **Download the appropriate sketch** for your logger model. We are in the process of unifying our logger code, but at this moment, each logger model has its own code. Please refer to the README in the repository to identify the correct code for your model.
 
 2. **Open the sketch** in Arduino IDE
 
@@ -172,38 +96,9 @@ A nice tutorial of how to use the Serial Monitor in Arduino can be found on [Ins
 
 ---
 
-## Debugging with Hardware Serial
+## Troubleshooting with the Hardware Serial
 
-For advanced debugging, you can use the **DBG (debug) pins** on the logger board to monitor serial output without reprogramming.
-
-### Hardware Setup
-
-**What You Need:**
-
-- FTDI cable or breakout board
-- 2× breadboard jumper wires (female-to-female or male-to-female)
-
-**Connection:**
-
-1. Locate the **DBG pins** on the logger board (usually 2-pin header near edge)
-2. Connect using jumper wires:
-    - **DBG GND pin** → **Black wire** of FTDI cable
-    - **DBG TX pin** → **Yellow wire (RX)** of FTDI cable
-3. Leave FTDI cable **not connected** to main FTDI header
-4. Power the logger normally (battery ON)
-
-### Viewing Debug Output
-
-1. Connect FTDI cable to computer
-2. Open Arduino IDE **Serial Monitor** (Tools → Serial Monitor)
-3. Set baud rate to **115200**
-4. Reset the logger by pressing the reset button
-5. Debug information will appear in the monitor
-
-!!! tip "Debug Serial Baud Rate"
-    Debug output uses **115200 baud**. Make sure the Serial Monitor is set to this rate, or you'll see garbled text.
-
-**What You'll See:**
+When operating, the logger sends messages to the serial port during operation. This is useful to check its operation and address any issues. To view these messages, leave the FTDI cable connected to the logger, and open the serial monitoring. Set the baud rate to 115200 baud. When you open the serial monitor, the Arduino IDE will reset the logger, and you will see the debugging output from the start. This is normal behaviour. You will see information including:
 
 - Boot messages
 - Sensor readings
@@ -211,8 +106,6 @@ For advanced debugging, you can use the **DBG (debug) pins** on the logger board
 - SD card status
 - Telemetry transmission logs
 - Error messages
-
-This is invaluable for troubleshooting issues in the field or during development.
 
 ---
 
@@ -278,7 +171,7 @@ This error can occur for any missing library:
 
 ---
 
-### Port Not Showing Up
+### Port Not Showing Up in the tools menu
 
 **Cause:** FTDI drivers not installed or cable not detected.
 

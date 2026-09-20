@@ -3,9 +3,6 @@
 !!! abstract "Overview"
     This guide provides detailed information about the internal components of Riverlabs loggers, their locations, functions and maintenance requirements.
 
-!!! info "PCB Photos Needed"
-    This section will be enhanced with annotated PCB photographs and 3D renderings. Component callouts will be generated using Fusion 360 as suggested.
-
 ## Component Layout
 
 ### Main Components Overview
