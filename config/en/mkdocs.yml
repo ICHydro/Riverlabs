@@ -7,18 +7,18 @@ repo_name: ichydro/Riverlabs
 repo_url: https://github.com/ICHydro/Riverlabs
 edit_uri: edit/main/
 
-docs_dir: "../../docs/en" # Where to find the English markdown files
-site_dir: "../../site/en" # Where to put the English HTML files
+docs_dir: ../../docs/en   # Where to find the English markdown files
+site_dir: ../../site/en   # Where to put the English HTML files
 
 theme:
   name: material
-  custom_dir: "../../overrides/"
+  custom_dir: ../../overrides/
   language: en
   logo: assets/images/riverlabs_white_mono.svg
   favicon: assets/images/riverlabs_icon.svg
   palette:
     # Palette toggle for light mode
-    - media: "(prefers-color-scheme: light)"
+    - media: '(prefers-color-scheme: light)'
       scheme: default
       primary: blue
       accent: light blue
@@ -26,7 +26,7 @@ theme:
         icon: material/brightness-7
         name: Switch to dark mode
     # Palette toggle for dark mode
-    - media: "(prefers-color-scheme: dark)"
+    - media: '(prefers-color-scheme: dark)'
       scheme: slate
       primary: blue
       accent: light blue
@@ -55,7 +55,7 @@ plugins:
   - tags
   - redirects:
       redirect_maps:
-        "index.md": "operation/quick-start/quick-start.md"
+        index.md: operation/quick-start/quick-start.md
 
 markdown_extensions:
   - admonition
@@ -104,27 +104,27 @@ copyright: Copyright &copy; 2026 Riverlabs Ltd
 
 nav:
   - Operation:
-    - Quick Start:
-      - Quick Start Guide: operation/quick-start/quick-start.md
-      - Data Download: operation/quick-start/data-download.md
-      - Arduino Settings: operation/quick-start/arduino-setup.md
-      - First Deployment Checklist: operation/quick-start/first-deployment-checklist.md
-    - Hardware:  
-      - Technical Specifications: operation/hardware/technical-specifications.md
-      - Battery & Power Guide: operation/hardware/battery-power-guide.md
+      - Quick Start:
+          - Quick Start Guide: operation/quick-start/quick-start.md
+          - Data Download: operation/quick-start/data-download.md
+          - Arduino Settings: operation/quick-start/arduino-setup.md
+          - First Deployment Checklist: operation/quick-start/first-deployment-checklist.md
+      - Hardware:
+          - Technical Specifications: operation/hardware/technical-specifications.md
+          - Battery & Power Guide: operation/hardware/battery-power-guide.md
 #      - Internal Components: operation/hardware/internal-components.md
-      - Maintenance: operation/hardware/maintenance.md
-      - Data Handling: operation/hardware/data-handling.md
-    - Troubleshooting:
-      - Diagnostic Flowcharts: operation/troubleshooting/diagnostic-flowcharts.md
+          - Maintenance: operation/hardware/maintenance.md
+          - Data Handling: operation/hardware/data-handling.md
+      - Troubleshooting:
+          - Diagnostic Flowcharts: operation/troubleshooting/diagnostic-flowcharts.md
   - Installation:
-    - Sensor Positioning: installation/sensor-positioning.md
-    - Mounting Guide: installation/mounting-guide.md
-    - Environmental Considerations: installation/environmental-considerations.md
+      - Sensor Positioning: installation/sensor-positioning.md
+      - Mounting Guide: installation/mounting-guide.md
+      - Environmental Considerations: installation/environmental-considerations.md
   - Programming:
-    - Introduction: programming/intro.md
-    - Arduino Setup: programming/arduino-setup.md
-    - Uploading Code: programming/uploading-code.md
+      - Introduction: programming/intro.md
+      - Arduino Setup: programming/arduino-setup.md
+      - Uploading Code: programming/uploading-code.md
 #  - Telemetry:
 #    - Cellular Setup Guide: telemetry/setup-guide.md
 #    - LoRa / LoRaWAN Guide: telemetry/lora-lorawan-guide.md
@@ -134,4 +134,4 @@ nav:
 #  - Development:
 #    - Installation Details: development/installation-details.md
 #    - ThingsBoard Integration: development/thingsboard-integration.md
-#    - XBee 3G Setup: development/xbee-3g-setup.md      
+#    - XBee 3G Setup: development/xbee-3g-setup.md
