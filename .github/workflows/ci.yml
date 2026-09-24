@@ -29,7 +29,7 @@ jobs:
         run: pip install --upgrade platformio
 
       - name: Create compile commands
-        run: pio run -e wari_3G_v2 --target compiledb
+        run: pio run --target compiledb
 
       - uses: ZedThree/clang-tidy-review@v0.23.1
         if: github.event_name == 'pull_request'
@@ -43,4 +43,4 @@ jobs:
         run: exit 1
 
       - name: Build PlatformIO Project
-        run: pio run -e wari_3G_v2
+        run: pio run
