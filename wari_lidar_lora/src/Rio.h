@@ -34,8 +34,8 @@
   16 // max 32 bytes for the AT24c32, up to 128 bytes for M24512. Can be smaller (e.g., 8, 16)
 #ifdef M24512
 #define maxpagenumber                                                                              \
-  65536 / EEPromPageSize // maximum number of pages: 128 for AT24c32, 2048 for M24512 if page
-                         // consists of 32 bytes (256 bits)
+  (65536 / EEPromPageSize) // maximum number of pages: 128 for AT24c32, 2048 for M24512 if page
+                           // consists of 32 bytes (256 bits)
 #endif
 #define EEPromSDMaskSize                                                                           \
   32 // mask to keep track of writeout to SD card in [number of pages].
@@ -53,8 +53,8 @@
      // variables to be transmitted.
      // TODO: can be calculated automatically
 #define OFFSET3GMASK                                                                               \
-  (1 + EEPromSDMaskSize) * EEPromPageSize // starting position of 3GMASK in EEPROM [bytes]
-#define OFFSETSDMASK EEPromPageSize       // starting position of 3GMASK in EEPROM [bytes]
+  ((1 + EEPromSDMaskSize) * EEPromPageSize) // starting position of 3GMASK in EEPROM [bytes]
+#define OFFSETSDMASK EEPromPageSize         // starting position of 3GMASK in EEPROM [bytes]
 
 /******** includes *******/
 
