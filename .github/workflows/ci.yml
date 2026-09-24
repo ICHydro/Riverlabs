@@ -1,0 +1,46 @@
+name: Test and build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+  workflow_call:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/cache@v6
+        with:
+          path: |
+            ~/.cache/pip
+            ~/.platformio/.cache
+          key: pio-${{ hashFiles('platformio.ini') }}
+      - uses: actions/setup-python@v7
+        with:
+          python-version: 3.x
+
+      - name: Install PlatformIO Core
+        run: pip install --upgrade platformio
+
+      - name: Create compile commands
+        run: pio run --target compiledb
+
+      - uses: ZedThree/clang-tidy-review@v0.23.1
+        if: github.event_name == 'pull_request'
+        id: review
+
+      - uses: ZedThree/clang-tidy-review/upload@v0.23.1
+        if: github.event_name == 'pull_request'
+        id: upload-review
+
+      - if: github.event_name == 'pull_request' && steps.review.outputs.total_comments > 0
+        run: exit 1
+
+      - name: Build PlatformIO Project
+        run: pio run
