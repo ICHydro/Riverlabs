@@ -1,0 +1,14 @@
+# .clang-tidy
+Checks: >
+  # Checks to include
+  -*,
+  clang-diagnostic-*,
+  clang-analyzer-*,
+  bugprone-*,
+
+  # Checks to exclude
+  -*,
+  -bugprone-easily-swappable-parameters,
+  -bugprone-narrowing-conversions,
+FormatStyle: LLVM
+WarningsAsErrors: ''

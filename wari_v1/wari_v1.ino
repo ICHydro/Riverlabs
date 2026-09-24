@@ -537,7 +537,7 @@ void loop() {
 
             /*********** store values in EEPROM ***********/
 
-            SecondsSince2000 = uint32_t(now);
+            SecondsSince2000 = uint32_t(now.TotalSeconds());
 
             // prepare EEPromPage
 
