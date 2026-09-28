@@ -18,9 +18,9 @@
 #endif
 #define COAP_DEFAULT_PORT 5683
 
-#define RESPONSE_CODE(class, detail) ((class << 5) | (detail))
+#define RESPONSE_CODE(class, detail) (((class) << 5) | (detail))
 #define COAP_OPTION_DELTA(v, n)                                                                    \
-  (v < 13 ? (*n = (0xFF & v)) : (v <= 0xFF + 13 ? (*n = 13) : (*n = 14)))
+  ((v) < 13 ? (*(n) = (0xFF & (v))) : ((v) <= 0xFF + 13 ? (*(n) = 13) : (*(n) = 14)))
 
 extern uint32_t IP;
 extern uint16_t Port;

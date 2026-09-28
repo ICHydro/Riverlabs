@@ -413,7 +413,7 @@ void zbIPResponseCb_COAP(IPRxResponse &ipResponse, uintptr_t) {
     if (MyXBeeStatus.ipRequestSentOk) {
       Serial.println(F("Sent."));
     } else {
-      // Serial.println(F("Xbee did not (yet) confirm. Assume sent."));
+      ; // Serial.println(F("Xbee did not (yet) confirm. Assume sent."));
     }
   }
 
@@ -487,13 +487,13 @@ void zbModemStatusCb(ModemStatusResponse &mx, uintptr_t) {
   if (modemStatus == 2) {
     // Serial.println(F("Registered with the cellular network"));
     MyXBeeStatus.isRegistered = true;
-  } else if (modemStatus == 3) {
+  } else if (modemStatus == 3) { // NOLINT: silence warning for repeated branch
     // Serial.println(F("Unregistered with the cellular network"));
     MyXBeeStatus.isRegistered = false;
   } else if (modemStatus == 0) {
     // Serial.println(F("Hardware reset or power up"));
     MyXBeeStatus.isRegistered = false;
-  } else if (modemStatus == 0x0E) {
+  } else if (modemStatus == 0x0E) { // NOLINT: silence warning for repeated branch
     // Serial.println(F("Remote Manager connected"));
   } else if (modemStatus == 0x0F) {
     // Serial.println(F("Remote Manager disconnected"));
@@ -547,7 +547,7 @@ void zbAtResponseCb(AtCommandResponse &atr, uintptr_t) {
       Serial.println(atr.getStatus(), HEX);
     }
   } else if (atr.getCommand()[0] == 'D' || atr.getCommand()[1] == 'B') {
-    if (atr.isOk()) {
+    if (atr.isOk()) { // NOLINT: silence warning for identical branches
       Serial.print(F("Cellular signal strength = "));
       Serial.println(atr.getValue()[0]);
     } else {
@@ -639,7 +639,7 @@ void sendXbeeMessage(uint16_t bufferSize, char *host, uint8_t hostlength) {
         Serial.println(F("Sending DNS Lookup"));
         sendDNSLookupCommand((char *)host, hostlength);
       }
-    } else if (!MyXBeeStatus.ipRequestSent) {
+    } else if (!MyXBeeStatus.ipRequestSent) { // NOLINT: silence warning for repeated branch
       // Send the request
       // The response is handled in callback function zbTcpSendResponseCb
       Serial.print(F("Sending TCP request to "));
