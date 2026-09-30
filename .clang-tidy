@@ -1,15 +1,4 @@
-Checks:
-  # Start with no checks.
-  - -*
-
-  # Checks to include.
-  - clang-diagnostic-*
-  - clang-analyzer-*
-  - bugprone-*
-
-  # Checks to exclude.
-  - -bugprone-easily-swappable-parameters
-  - -bugprone-narrowing-conversions
+Checks: -*,clang-diagnostic-*,clang-analyzer-*,bugprone-*,-bugprone-easily-swappable-parameters,-bugprone-narrowing-conversions
 
 FormatStyle: llvm
 WarningsAsErrors: '*'
