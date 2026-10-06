@@ -2,9 +2,9 @@
 
 ## Overview
 
-This is the code repository for the [Riverlabs](https://riverlabs.uk) suite of sensors. The sensors use an Arduino-compatible bootloader, and the recommended programming environment is therefore the Arduino IDE. To get started with Arduino, we refer to the excellent [Arduino documentation](https://www.arduino.cc/en/Guide/HomePage).
+This is the code repository for the [Riverlabs][riverlabs] suite of sensors. The sensors use an Arduino-compatible bootloader, and the recommended programming environment is therefore the Arduino IDE. To get started with Arduino, we refer to the excellent [Arduino documentation][arduino-documentation].
 
-Full documentation and instructions can be found on our [Github Pages site](https://ichydro.github.io/Riverlabs/).
+Full documentation and instructions can be found on our [Github Pages site][github-pages].
 
 ## Sketches
 
@@ -58,6 +58,58 @@ Example code for our Adafruit feather based loggers. This one is for the Lora fe
 
 * 2023/12/14: Updating the docs. Changing the names of the sketches to provide more consistency.
 
+## Developer notes
+
+### Using PlatformIO
+
+PlatformIO is used for development work on this project. We recommend using [VS Code][vscode] with the [PlatformIO IDE extension][platformio-extension].
+
+The `platformio.ini` file contains the configuration details for each sensor environment. To compile for all sensors, use:
+
+```bash
+pio run
+```
+
+To specify a particular sensor, use the environment name defined in `platformio.ini`, for example:
+
+```bash
+pio run -e wari_3G
+```
+
+Static analysis checks (using [`clang-tidy`][clang-tidy]) can be run similarly:
+
+```bash
+pio check -e wari_3G
+```
+
+To add a new sensor, add a new environment to the `platformio.ini` file, specifying the library dependencies, `custom_sensor_dir` (which contains the `.ino` sketch), [`check_src_filters`][check-src-filters] and [`build_src_filter`][build-src-filter]. More information regarding the available `platformio.ini` options can be found in the [documentation][platformio-documentation].
+
+### Pre-commit
+
+Pre-commit hooks are also available for this project. To install and update them, use:
+
+```bash
+pre-commit install
+pre-commit autoupdate
+```
+
+To run the pre-commit hooks on all files, use:
+
+```bash
+pre-commit run --all-files
+```
+
 ## Acknowledgements
 
-Our code is based on numerous libraries, examples, and discussion posts from the Arduino community. We do our best to acknowledge and reference all sources of external code and specific solutions. For any improvements, corrections, and other comments, do not hesitate to [get in touch](https://www.imperial.ac.uk/people/w.buytaert).
+Our code is based on numerous libraries, examples, and discussion posts from the Arduino community. We do our best to acknowledge and reference all sources of external code and specific solutions. For any improvements, corrections, and other comments, do not hesitate to [get in touch][contact].
+
+[riverlabs]: https://riverlabs.uk
+[arduino-documentation]: https://www.arduino.cc/en/Guide/HomePage
+[github-pages]: https://ichydro.github.io/Riverlabs/
+[contact]: https://www.imperial.ac.uk/people/w.buytaert
+[vscode]: https://code.visualstudio.com/
+[platformio-extension]: https://marketplace.visualstudio.com/items?itemName=platformio.platformio-ide
+[clang-tidy]: https://clang.llvm.org/extra/clang-tidy/
+[check-src-filters]: https://docs.platformio.org/en/latest/projectconf/sections/env/options/check/check_src_filters.html
+[build-src-filter]: https://docs.platformio.org/en/latest/projectconf/sections/env/options/build/build_src_filter.html
+[platformio-documentation]: https://docs.platformio.org/en/latest/projectconf/index.html
