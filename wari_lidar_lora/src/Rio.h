@@ -65,6 +65,7 @@
 // #include <AltSoftSerial.h>
 #include <LowPower.h>
 #include <avr/power.h>
+#include <avr/wdt.h>
 
 class RioLogger {
 public:
