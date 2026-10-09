@@ -333,21 +333,19 @@ void zbIPResponseCb_NTP(IPRxResponse &ipResponse, uintptr_t) {
   //     printIPRX(ipResponse, Serial);
   // #endif
 
-  unsigned long highWord = word(ipResponse.getData()[40], ipResponse.getData()[41]);
-  unsigned long lowWord = word(ipResponse.getData()[42], ipResponse.getData()[43]);
+  // seconds between 1900 (NTP epoch) and 2000 (RTC epoch)
+  const uint32_t ntpTo2000 = 2208988800UL + 946684800UL;
+  uint8_t *data = ipResponse.getData();
+  uint32_t secsSince1900 = 0;
 
-  // combine the four bytes (two words) into a long integer
-  // this is NTP time (seconds since Jan 1 1900):
-  unsigned long secsSince1900 = highWord << 16 | lowWord;
+  if (ipResponse.getDataLength() >= 48) {
+    secsSince1900 = (uint32_t)word(data[40], data[41]) << 16 | word(data[42], data[43]);
+  }
 
-  // Discard if first two bits of response (leap indicator) euqals 3
-  // which indicates an error (clock unsyncronised)
-  // In that case secSince1900 tends to be zero.
-  // We also check that, although it is probably not necessary
-
-  if (((ipResponse.getData()[0] >> 6) != 3) || (secsSince1900 == 0)) {
-    uint32_t secsSince2000 = secsSince1900 - 2208988800UL - 946684800UL;
-    Rtc.SetDateTime((RtcDateTime)secsSince2000);
+  // Accept server replies only (mode 4). A leap indicator of 3 means the server clock is
+  // unsynchronised, and its timestamp tends to be zero.
+  if ((secsSince1900 > ntpTo2000) && ((data[0] >> 6) != 3) && ((data[0] & 0x07) == 4)) {
+    Rtc.SetDateTime((RtcDateTime)(secsSince1900 - ntpTo2000));
     MyXBeeStatus.ipResponseReceived = true;
   } else {
 #if DEBUG > 1
