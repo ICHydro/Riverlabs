@@ -238,6 +238,7 @@ bool getAIStatus(Stream &stream, uint8_t *returnvalue) {
       *returnvalue = atResponse.getStatus();
       stream.println(*returnvalue, HEX);
       MyXBeeStatus.xbcErrorOccurred = true;
+      return (0);
     }
   } else {
     printSendAndWaitError(stream);
