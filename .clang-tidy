@@ -1,0 +1,4 @@
+Checks: -*,clang-diagnostic-*,clang-analyzer-*,bugprone-*,-bugprone-easily-swappable-parameters,-bugprone-narrowing-conversions
+
+FormatStyle: llvm
+WarningsAsErrors: '*'

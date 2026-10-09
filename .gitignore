@@ -37,3 +37,7 @@
 # other
 .DS_Store
 venv/
+
+# PlatformIO
+.pio/
+compile_commands.json
