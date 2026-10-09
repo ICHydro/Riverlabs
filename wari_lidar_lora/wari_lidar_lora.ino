@@ -267,8 +267,9 @@ void loop ()
 
         //measuredvbat = analogRead(VBATPIN) * 2 * 3.3 / 1.024;     // Battery voltage
         temp = Rtc.GetTemperature().AsCentiDegC();                // Clock temperature
-        readLidarLite(readings, NREADINGS, DEBUG, Serial);            // Lidar
-        distance = median(readings, NREADINGS);
+        nread = readLidarLite(readings, NREADINGS, DEBUG, Serial);
+        // a failed reading is stored as 0, which would look like water at the sensor
+        distance = (nread > NREADINGS / 2) ? median(readings, nread) : -9999;
 
         #ifdef DEBUG > 0
             formatDateTime(now);
