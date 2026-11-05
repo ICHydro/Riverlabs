@@ -6,14 +6,14 @@
  * Upload by selecting the board "Arduino Pro or Pro Mini"
  * and processor "Atmega 328 P (3.3V, 8 MHz)".
  *
- * By default, the logger takes 10 repeated distance measurements 
+ * By default, the logger takes 10 repeated distance measurements
  * at an interval of 5 minutes (starting at the hour).
  * These are written to the internal EEPROM chip,
- * which is flushed to the SD card every 24 hours. 
+ * which is flushed to the SD card every 24 hours.
  * Edit the #define statements below to alter any of these parameters.
- * 
+ *
  * (c) Riverlabs UK, except for any code copied from other sources.
- * 
+ *
  * Distributed under an MIT licence
  ******************************************/
 
@@ -80,7 +80,7 @@ boolean flusheeprom = false;
 /* Maxbotix readout from the TTL_ArduinoCode_Parsing example on the Arduino forum */
 
 int EZread() {
-  
+
     int result;
     char inData[6];                             //char array to read data into
     int index = 0;
@@ -91,13 +91,13 @@ int EZread() {
     timer = millis();                           // use timer to time out after 1 sec.
 
     while ((stringComplete == false) && ((millis() - timer) < 1000)) {
-        if (MBSerial.available()) {    
+        if (MBSerial.available()) {
             char rByte = MBSerial.read();       // read serial input for "R" to mark start of data
             //Serial.print(rByte);
             if(rByte == 'R') {
                 while (index < 5) {             // read next 4 characters for range from sensor
                     if (MBSerial.available()) {
-                        inData[index] = MBSerial.read();               
+                        inData[index] = MBSerial.read();
                         index++;                // Increment where to write next
                     }
                 }
@@ -115,14 +115,14 @@ int EZread() {
 
 //************* setup *************//
 
-void setup() 
-{ 
-    // reset readings    
-            
+void setup()
+{
+    // reset readings
+
     for (int i=0; i < NREADINGS; i++){
         readings[i] = -1;
     }
-  
+
     // set the pins
     pinMode(INTERRUPTPIN, INPUT);
     pinMode(MBONPIN, OUTPUT);
@@ -144,32 +144,32 @@ void setup()
     pinMode(SWITCH5V, OUTPUT);
     digitalWrite(Boost5V_on, LOW);
     digitalWrite(SWITCH5V, LOW);
-  
+
     // start wire for the EEPROM
     Wire.begin();
-  
+
     // start clock. Note: clock initialization is done in separate script!
-  
+
     Rtc.Begin();
     now = Rtc.GetDateTime();
-      
+
     Rtc.Enable32kHzPin(false);
-    Rtc.SetSquareWavePin(DS3231SquareWavePin_ModeAlarmBoth); 
-  
+    Rtc.SetSquareWavePin(DS3231SquareWavePin_ModeAlarmBoth);
+
     // Alarm 2 set to trigger at the top of the minute
     // (Using alarm 2 with minute resolution - not sure why this is different from alarm 1)
     DS3231AlarmTwo alarm2(0,
                           0,
-                          0, 
+                          0,
                           DS3231AlarmTwoControl_OncePerMinute);
     Rtc.SetAlarmTwo(alarm2);
-  
+
     // throw away any old alarm state
     Rtc.LatchAlarmsTriggeredFlags();
-  
-    // setup external interupt 
+
+    // setup external interupt
     attachInterrupt(digitalPinToInterrupt(INTERRUPTPIN), InterruptServiceRoutine, FALLING);
-    
+
     #ifdef DEBUG
         Serial.begin(115200);
         Serial.print(F("This is Riverlabs Wari v2.1"));
@@ -177,7 +177,7 @@ void setup()
             Serial.print(F(" (optiboot)"));
         #endif
         Serial.print(F(", compiled on "));
-        Serial.println(__DATE__); 
+        Serial.println(__DATE__);
         Serial.print(F("Current time is "));
         formatDateTime(now);
         Serial.print(datestring);
@@ -230,12 +230,12 @@ void loop() {
     #ifdef OPTIBOOT
         wdt_reset();                                                           // Reset the watchdog every cycle
     #endif
-  
+
     // sleep until an interrupt happens, except if the alarm went off while still doing something else...
     // (the alarm goes off every minute, so that is quite likely!)
 
     if(!interruptFlag) {
-    
+
         #ifdef DEBUG
             Serial.println(F("Sleeping"));
             Serial.flush();
@@ -245,12 +245,12 @@ void loop() {
             wdt_disable();
         #endif
 
-        LowPower.powerDown(SLEEP_FOREVER, ADC_OFF, BOD_OFF); 
+        LowPower.powerDown(SLEEP_FOREVER, ADC_OFF, BOD_OFF);
 
         /* if interrupt wakes us up, then we take action: */
 
         #ifdef OPTIBOOT
-            // enable watchdog timer. Set at 8 seconds 
+            // enable watchdog timer. Set at 8 seconds
             wdt_enable(WDTO_8S);
         #endif
 
@@ -260,26 +260,26 @@ void loop() {
     }
 
     if(interruptFlag) {                            // should always be true
-      
+
         interruptFlag = false;                     // reset the flag
 
         flag = Rtc.LatchAlarmsTriggeredFlags();    // Switch off the alarm
 
         now = Rtc.GetDateTime();                   // get the current time from the clock
 
-        if(now.Minute() % INTERVAL == 0) {         // only take measurement if interval threshold is exceeded:         
-        
+        if(now.Minute() % INTERVAL == 0) {         // only take measurement if interval threshold is exceeded:
+
             /************ take a reading **********/
-      
+
             nread = 0;
-            
+
             Serial.end();
 
             MBSerial.begin(9600);
 
             digitalWrite(WriteLED, HIGH);
             digitalWrite(MBONPIN, HIGH);
-            LowPower.powerDown(SLEEP_250MS, ADC_OFF, BOD_OFF);     // for Li-SOCl batteries to minimize power peak. 
+            LowPower.powerDown(SLEEP_250MS, ADC_OFF, BOD_OFF);     // for Li-SOCl batteries to minimize power peak.
             //delay(160);   // wait 160ms for startup and boot message to pass
             digitalWrite(WriteLED, LOW);
 
@@ -290,7 +290,7 @@ void loop() {
             #endif
 
             readstart = millis();
-         
+
             while ((millis() - readstart) <= 1800) {
                 readings[nread] = EZread();
                 if(readings[nread] > -2) {                   // Returning -2 indicates an error
@@ -312,7 +312,7 @@ void loop() {
                 Serial.print(datestring);
                 Serial.print(",");
                 n = 0;
-                while(n < 10) {        
+                while(n < 10) {
                     Serial.print(readings[n]);
                     Serial.print(F(", "));
                     n++;
@@ -344,7 +344,7 @@ void loop() {
             }
 
             // Write page. Note: only write 30 bits because the last 2 bits seem to be used by Wire library
-                
+
             myLogger.write2EEPROM(EEPromPage, sizeof(EEPromPage));
 
             /*********** store values in FLASH ***********/
@@ -367,14 +367,14 @@ void loop() {
                 digitalWrite(FLASHPOWERPIN, LOW);
             #endif
 
-            /******** reset readings *****/    
-          
+            /******** reset readings *****/
+
             for (i = 0; i < NREADINGS; i++){
                 readings[i] = -1;
             }
 
             /********* flush EEPROM to SD card when full **********/
-            
+
             if(myLogger.eePageAddress >= FLUSHAFTER) {
               flusheeprom = true;
             }

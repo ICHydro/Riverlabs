@@ -1284,7 +1284,7 @@ public:
 protected:
 	// declare virtual functions
 	uint8_t getFrameData(uint16_t pos);
-	uint16_t getFrameDataLength();	
+	uint16_t getFrameDataLength();
 	XBeeAddress64 _addr64;
 	uint16_t _addr16;
 	uint8_t _broadcastRadius;
@@ -1451,8 +1451,8 @@ public:
 	void setOption(uint8_t option);
 protected:
 	// declare virtual functions
-	uint8_t getFrameData(uint16_t pos);  
-	uint16_t getFrameDataLength();  
+	uint8_t getFrameData(uint16_t pos);
+	uint16_t getFrameDataLength();
 private:
 	uint32_t _hostIP;
 	uint16_t _port;

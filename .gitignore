@@ -48,8 +48,7 @@ __pycache__/
 .Python
 .venv/
 venv/
-ENV/
-env/
 
-# Jekyll backup
-docs_jekyll_backup/
+# PlatformIO
+.pio/
+compile_commands.json

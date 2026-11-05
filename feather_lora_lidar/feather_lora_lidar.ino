@@ -1,6 +1,6 @@
 /*******************************************************************************
  * Code for the Riverlabs feather lidar lora logger
- * 
+ *
  * Adapted by Riverlabs (Wouter Buytaert)
  * from the ttn-otaa-feather-us915.ino example of the MCCI LoraWAN LMIC library
  *
@@ -118,7 +118,7 @@ int16_t median(int16_t samples[],int m) //calculate the median
 
   if (bitRead(m,0)==1) {  //If the last bit of a number is 1, it's odd. This is equivalent to "TRUE". Also use if m%2!=0.
     return sorted[m/2]; //If the number of data points is odd, return middle number.
-  } else {    
+  } else {
     return (sorted[(m/2)-1]+sorted[m/2])/2; //If the number of data points is even, return avg of the middle two numbers.
   }
 }
@@ -301,13 +301,13 @@ uint8_t readLidarLite(int16_t* readings, uint8_t nreadings, uint8_t debug) {
     memset(readings, 0, nreadings * 2); // readings is an int16_t array, so two bytes per position
 
     digitalWrite(WriteLED, HIGH);
-    digitalWrite(SWITCH5V, HIGH);  
+    digitalWrite(SWITCH5V, HIGH);
     delay(5);
     digitalWrite(Boost5V_on, HIGH);    // capacitor needs only 10ms to charge but values below 30 seem to affect lidar precision.
     delay(30);
     digitalWrite(LIDARONPIN, HIGH);
     delay(30);
-    myLidarLite.begin(0, false);    
+    myLidarLite.begin(0, false);
     reading = myLidarLite.distance();
     i++;
     if(reading > 0) {
