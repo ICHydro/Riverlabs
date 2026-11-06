@@ -1,172 +1,101 @@
-# Lista de Verificación del Primer Despliegue
+# Lista de verificación para la primera instalación
 
-!!! success "Verificación Previa al Despliegue"
-    Complete esta lista de verificación antes de desplegar su registrador en el campo. Tomarse el tiempo para hacerlo ahora evita despliegues fallidos y viajes desperdiciados.
+## Objetivo
 
-## Resumen
+Esta lista te ayuda a comprobar que el registrador está listo para instalarse.
 
-Esta lista de verificación completa asegura que su registrador esté completamente probado y listo para el despliegue. Imprima esta página y marque los elementos a medida que los complete.
+### Por dónde empezar
 
----
+Para comprobar el funcionamiento del registrador, pulsa el botón de reinicio. No hay riesgo de perder datos ni de cambiar ningún ajuste: reiniciar el registrador simplemente vuelve a iniciar su software interno.
 
-## Preparación del Hardware
+Cuando el registrador se inicia o reinicia, realiza algunas comprobaciones internas, como verificar el acceso a la tarjeta SD o al módem de telemetría. Si las comprobaciones se completan correctamente, el LED rojo parpadeará una vez. Normalmente se trata de un destello breve (< 1s), pero puede durar más si el registrador encuentra datos en la memoria interna y los vuelca en la tarjeta SD (consulta la sección de [gestión de datos](../hardware/data-handling.md)). Cuando termina, pulsar de nuevo el botón de reinicio produce un destello breve, porque todos los datos ya se han volcado.
 
-### Instalación de la Batería
+Una secuencia de 3x3 destellos indica que hay un problema.
 
-- Batería completamente cargada y polaridad verificada **antes** de la inserción
-- Batería de respaldo CR1220 instalada
-- Sin conexiones sueltas ni vibración
+Si no se produce ningún destello rojo, el registrador no arranca, probablemente debido a un problema de alimentación.
+x
+### Batería y alimentación
 
-!!! tip "Verificación del Voltaje de la Batería"
-    Use un multímetro para verificar el voltaje de la batería. Consulte la [Guía de Batería y Alimentación](../hardware/battery-power-guide.md) para la interpretación del voltaje.
+- El registrador se enciende (se observa actividad en el LED)
+- La batería está completamente cargada y se ha comprobado la polaridad. (Consulta la [guía de baterías y alimentación](../hardware/battery-power-guide.md) para interpretar la tensión).
+- La pila de respaldo CR1220 está instalada
+- No hay conexiones sueltas ni piezas que se muevan dentro de la carcasa
+- Si se utiliza un panel solar, comprueba que esté correctamente conectado y que el LED de carga se encienda con la luz solar.
 
-### Tarjeta SD
+### Tarjeta SD (si corresponde)
 
-El registrador viene con una tarjeta microSD de alta calidad preinstalada.
+- La tarjeta microSD está bien colocada en la ranura
+- No se observan patrones de error en el LED (3 x 3 destellos)
 
-- Tarjeta MicroSD correctamente insertada en el ranura
+### Carcasa del registrador
 
-!!! warning "No Reemplace la Tarjeta SD"
-    La tarjeta microSD proporcionada ha sido probada para mayor fiabilidad. **No la reemplace** a menos que sea absolutamente necesario. Use la misma marca y especificación que la suministrada.
+- La carcasa está intacta, sin grietas ni daños
+- Las juntas y sellos están en buen estado
+- Los prensaestopas están bien apretados
+- El sensor está limpio y no presenta daños
+- La lente o el transductor del sensor no tiene residuos
+- Todos los tornillos y elementos de fijación están apretados
+- Hay un sobre de gel de sílice en buen estado
 
-!!! info "Opciones de Respaldo de Datos"
-    - **Memoria Flash:** Puede instalarse y usarse como respaldo adicional si es necesario
-    - **EEPROM:** A veces puede recuperar datos perdidos en caso de que la tarjeta SD esté instalada incorrectamente
+### Telemetría (si corresponde)
 
-### Condición Física
+- El módulo XBee está instalado y bien sujeto
+- XBee está configurado en modo API con caracteres de escape
+- La configuración APN de la red es correcta para el proveedor de la SIM
+- Se han introducido las credenciales del dispositivo de ThingsBoard
+- El intervalo de telemetría es adecuado para la duración de la batería
+- Hay una tarjeta SIM instalada con un plan de datos activo
+- La transmisión de prueba se ha realizado correctamente
 
+Consulta la [guía de configuración de telemetría](../../telemetry/setup-guide.md) para obtener instrucciones detalladas.
 
-- Carcasa intacta sin grietas ni daños
-- Sellos y juntas en buen estado
-- Los prensaestopas están apretados
-- Sensor limpio y sin daños
-- Lente/transductor del sensor libre de escombros
-- Todos los tornillos y sujetadores están apretados
-- Paquete de gel de sílice presente y fresco (no debe estar descolorido)
+### Salida del registrador
 
----
+Puedes comprobar la salida del registrador leyendo la tarjeta SD, verificando los datos recibidos por telemetría o conectando un cable serie y observando los mensajes de depuración. Se recomienda dejarlo funcionar durante 30 minutos y recoger varias lecturas antes de llevarlo al lugar de instalación.
 
-## Configuración del Software
-
-### Configuración del Reloj
-
-- Reloj en tiempo real configurado usando el script `set_clock.ino`
-- Hora verificada en el Monitor Serie
-- Zona horaria UTC utilizada (si la telemetría está habilitada)
-- Reloj verificado preciso dentro de 1 minuto
-
-### Script Principal
-
-- Script correcto para el modelo de registrador cargado
-    - `wari.ino` para registradores Wari Ultrasónico
-    - `wari_lidar.ino` para registradores Wari Lidar
-- Intervalo de medición configurado apropiadamente
-  ```cpp
-  #define INTERVAL 5  // Su intervalo elegido en minutos
-  ```
-- Número de lecturas por medición establecido
-  ```cpp
-  #define NREADINGS 10  // Valor típico
-  ```
-- Intervalo de vaciado de EEPROM configurado
-  ```cpp
-  #define FLUSHAFTER 288  // Lecturas antes de escritura en SD
-  ```
-- Modo DEBUG habilitado para pruebas iniciales
-  ```cpp
-  #define DEBUG  // Comentar para el despliegue
-  ```
-
-### Telemetría (Si Aplica)
-
-- Módulo XBee instalado y seguro
-- XBee configurado para modo API con escapes
-- Configuración APN de red correcta para el proveedor de SIM
-- Credenciales del dispositivo ThingsBoard ingresadas
-- Intervalo de telemetría apropiado para la vida de la batería
-- Tarjeta SIM instalada con plan de datos activo
-- Transmisión de prueba exitosa
-
-Consulte la [Guía de Configuración de Telemetría](../../telemetry/setup-guide.md) para configuración detallada.
-
----
-
-## Prueba de Banco
-
-### Encendido Inicial
-
-- El registrador se enciende (se observa actividad del LED)
-- Sin patrones de LED de error
-- La salida serie muestra inicialización (si DEBUG está habilitado)
-- El reloj muestra la hora correcta
-
-### Prueba del Sensor
-
+- El reloj indica la hora correcta
 - Las mediciones del sensor devuelven lecturas válidas
-- Las lecturas son consistentes y razonables
-- La precisión verificada probando a una distancia conocida
-- Múltiples lecturas muestran baja varianza
+- Las lecturas son coherentes y razonables
+- Varias lecturas muestran poca variación
+- El LED parpadea a los intervalos esperados
+- La tarjeta SD contiene un archivo de datos
+- El archivo de datos puede leerse y tiene el formato correcto
+- Los valores del sensor están dentro del rango esperado
+- No faltan registros ni hay entradas dañadas
 
-**Para Wari Ultrasónico:**
+**Para Wari ultrasónico:**
 
 - Probar objetivos a varias distancias (0.5 m, 1 m, 2 m, etc.)
-- Verificar que no hay interferencia de objetos cercanos
-- Verificar que el haz tiene un camino libre
+- Verificar que los objetos cercanos no causen interferencias
+- Comprobar que el haz tenga una trayectoria despejada
 
-**Para Wari Lidar:**
+**Para Wari lidar:**
 
-- Probar en diferentes tipos de superficie
-- Verificar mediciones de ángulo (si se usa)
-- Confirmar lecturas desde 10 cm hasta el rango máximo esperado
+- Probar con distintos tipos de superficie
+- Verificar las mediciones angulares (si se usan)
+- Confirmar las lecturas desde 10 cm hasta el alcance máximo esperado
 
-### Registro de Datos
 
-- Ejecutar el registrador durante un mínimo de 30 minutos
-- El LED parpadea a los intervalos esperados (comparar con la salida serie cuando se toman lecturas)
-- La tarjeta SD contiene el archivo de datos
-- El archivo de datos es legible y está correctamente formateado
-- El archivo de datos contiene marcas de tiempo correctas
-- Los valores del sensor están en el rango esperado
-- Sin entradas faltantes o corruptas
+## Referencia rápida para solucionar problemas
 
-**Ejemplo del Formato de Datos Esperado:**
-```
-2025/12/27 14:30:00, 1250, 1248, 1252, 1249, 1251, 1250, 1248, 1251, 1249, 1250, 4150
-```
-*Muestra fecha/hora, 10 lecturas de distancia (mm) y voltaje de la batería (mV)*
+Si surgen problemas, consulta:
 
-### Prueba de Telemetría (Si Está Habilitada)
+- [Problemas comunes](../troubleshooting/common-issues.md): soluciones rápidas
+- [Diagramas de diagnóstico](../troubleshooting/diagnostic-flowcharts.md): diagnóstico sistemático
+- [Preguntas frecuentes](../troubleshooting/faq.md): respuestas a preguntas habituales
 
-- Conexión inicial a la red exitosa
-- Datos transmitidos al servidor
-- Datos visibles en el panel de ThingsBoard
-- Temporización de transmisión según la configuración
-- Patrones de LED de conexión normales
-- Sin intentos de conexión excesivos
+**Problemas comunes antes de la instalación:**
 
-## Referencia Rápida para la Resolución de Problemas
+| Síntoma                 | Causa probable                  | Solución rápida                                         |
+|------------------------|---------------------------------|---------------------------------------------------------|
+| El LED no se enciende  | Batería agotada o invertida     | Comprobar la tensión y la polaridad                      |
+| Lecturas erráticas     | Sensor obstruido                | Limpiar el sensor y comprobar la trayectoria del haz     |
+| No se escribe en la SD | Fallo de la tarjeta SD          | Comprobar la tarjeta; considerar respaldo en memoria flash |
+| El reloj se reinicia  | Falta la pila de respaldo       | Instalar una CR1220                                      |
+| No hay telemetría      | XBee no está configurado        | Verificar el modo API y los ajustes                      |
 
-Si surgen problemas, consulte:
+## Siguientes pasos
 
-- [Problemas Comunes](../troubleshooting/common-issues.md): Soluciones rápidas
-- [Diagramas de Diagnóstico](../troubleshooting/diagnostic-flowcharts.md): Diagnóstico sistemático
-- [Preguntas Frecuentes](../troubleshooting/faq.md): Preguntas frecuentes
-
-**Problemas Comunes Previos al Despliegue:**
-
-| Síntoma               | Causa Probable           | Solución Rápida                              |
-|-----------------------|--------------------------|----------------------------------------------|
-| Sin actividad de LED  | Batería muerta/invertida | Verificar voltaje y polaridad                |
-| Lecturas erráticas    | Sensor obstruido         | Limpiar sensor, verificar trayecto del haz   |
-| Sin escrituras en SD  | Fallo de tarjeta SD      | Verificar tarjeta, considerar respaldo flash |
-| Reloj reiniciado      | Sin batería de respaldo  | Instalar CR1220                              |
-| Sin telemetría        | XBee no configurado      | Verificar modo API y configuración           |
-
-!!! success "¡Listo para el Despliegue!"
-    Si ha completado todos los elementos de esta lista de verificación, su registrador está listo para una operación de campo confiable. Guarde esta lista para referencia futura y úsela para despliegues posteriores.
-
-## Próximos Pasos
-
-- Proceder a la [Guía de Montaje](../../installation/mounting-guide.md)
-- Configurar monitoreo en [ThingsBoard](../../telemetry/thingsboard-configuration.md)
-- Revisar el [Programa de Mantenimiento](../hardware/maintenance.md)
+- Continúa con la [guía de montaje](../../installation/mounting-guide.md)
+- Configura la supervisión en [ThingsBoard](../../telemetry/thingsboard-configuration.md)
+- Revisa el [programa de mantenimiento](../hardware/maintenance.md)

@@ -1,51 +1,51 @@
-# Preguntas Frecuentes
+# Preguntas frecuentes
 
-!!! abstract "Resumen"
-    Preguntas comunes sobre los registradores Riverlabs respondidas de forma clara y concisa. Desde especificaciones técnicas hasta consejos de despliegue en campo.
+!!! abstract "Descripción general"
+    Respuestas claras y concisas a preguntas habituales sobre los registradores Riverlabs, desde las especificaciones técnicas hasta consejos para su instalación en campo.
 
-## Preguntas Generales
+## Preguntas generales
 
 ### ¿Qué es un registrador Riverlabs?
 
-Un **registrador Riverlabs** es un dispositivo de monitoreo del nivel del agua de código abierto y bajo costo, diseñado para la investigación hidrológica. Usa sensores ultrasónicos o lidar para medir la distancia a la superficie del agua, registrando datos en tarjeta SD y transmitiendo opcionalmente a través de telemetría celular.
+Un **registrador Riverlabs** es un dispositivo de código abierto y bajo coste para medir el nivel del agua, diseñado para la investigación hidrológica. Utiliza sensores ultrasónicos o lidar para medir la distancia hasta la superficie del agua, guarda los datos en una tarjeta SD y, opcionalmente, los transmite mediante telemetría celular.
 
 **Características principales:**
 - Basado en Arduino (ATmega328P)
-- Alimentado por batería (LiPo recargable)
+- Alimentación por batería (LiPo recargable)
 - Almacenamiento de datos en tarjeta SD
 - Telemetría celular opcional (XBee 3G/4G)
 - Carcasa resistente a la intemperie
-- Bajo costo (~$100-300 dependiendo de la configuración)
+- Bajo coste (~100–300 USD según la configuración)
 
 ---
 
-### Wari vs. Lidar - ¿cuál debo elegir?
+### Wari frente a lidar: ¿cuál debo elegir?
 
 **Respuesta rápida:**
 
-| Característica | Wari (Ultrasónico) | Lidar |
-|----------------|---------------------|-------|
-| **Rango** | 0.3m - 5m | 0.05m - 40m |
+| Característica | Wari (ultrasónico) | Lidar |
+|---------|-------------------|-------|
+| **Alcance** | 0.3m - 5m | 0.05m - 40m |
 | **Precisión** | ±10mm | ±25mm |
-| **Vida de la batería** | 30-60 días | 15-30 días |
-| **Costo** | Menor (~$30 sensor) | Mayor (~$150 sensor) |
+| **Autonomía de la batería** | 30-60 días | 15-30 días |
+| **Coste** | Menor (~30 USD por sensor) | Mayor (~150 USD por sensor) |
 | **Sensibilidad a la temperatura** | Sí (compensación integrada) | No |
-| **Funciona en nieve/espuma** | No (absorbido) | Sí |
-| **Mejor para** | Ríos, estanques (objetivos estables) | Rango amplio, nieve, largas distancias |
+| **Funciona con nieve/espuma** | No (absorben la señal) | Sí |
+| **Más adecuado para** | Ríos, estanques (superficies estables) | Amplio rango, nieve, largas distancias |
 
-**Elija Wari si:**
-- El rango del nivel del agua es <5m
-- Presupuesto limitado
-- Se necesita mayor vida de la batería
-- Objetivo de agua líquida estable
+**Elige Wari si:**
+- El rango de nivel del agua es <5m
+- Tienes un presupuesto limitado
+- Necesitas mayor autonomía
+- La superficie del agua es estable
 
-**Elija Lidar si:**
-- Necesita >5m de rango
-- Midiendo a través de nieve o espuma
-- Temperaturas extremas (Lidar no se ve afectado)
-- La precisión es menos crítica (±25mm aceptable)
+**Elige lidar si:**
+- Necesitas un alcance >5m
+- Mides sobre nieve o espuma
+- Hay temperaturas extremas (el lidar no se ve afectado)
+- La precisión es menos crítica (±25mm es aceptable)
 
-Consulte la [Guía de Identificación del Registrador](../quick-start/logger-identification.md) para una comparación detallada.
+Consulta la [guía de identificación del registrador](../quick-start/logger-identification.md) para una comparación detallada.
 
 ---
 
@@ -53,23 +53,23 @@ Consulte la [Guía de Identificación del Registrador](../quick-start/logger-ide
 
 **Sí, con precauciones:**
 
-**Sensor:** Tanto el ultrasónico como el lidar funcionan bien midiendo la distancia *hasta* el agua salada (medición sin contacto).
+**Sensor:** Tanto el ultrasónico como el lidar pueden medir la distancia *hasta* el agua salada (sin contacto).
 
 **Carcasa:**
-- Carcasas de plástico estándar: OK para uso temporal (días-semanas)
-- Para largo plazo (meses): Usar carcasa de grado marino
-- Riesgo: Corrosión por salpicaduras de sal en la electrónica y los conectores
+- Carcasas de plástico estándar: adecuadas temporalmente (días o semanas)
+- A largo plazo (meses): utiliza una carcasa de grado marino
+- Riesgo: corrosión de la electrónica y los conectores por salpicaduras salinas
 
 **Montaje:**
-- Hardware de acero inoxidable (grado 316 marino)
-- Evitar el aluminio (se corroe en agua salada)
+- Elementos de fijación de acero inoxidable (grado marino 316)
+- Evita el aluminio (se corroe en agua salada)
 
 **Mantenimiento:**
-- Enjuagar el registrador con agua dulce después de recuperarlo
-- Verificar si hay corrosión mensualmente
-- Aplicar grasa dieléctrica en los conectores
+- Enjuaga el registrador con agua dulce después de recuperarlo
+- Comprueba mensualmente si hay corrosión
+- Aplica grasa dieléctrica a los conectores
 
-**Recomendación:** Los registradores Riverlabs están diseñados principalmente para agua dulce. Para instalaciones permanentes en agua salada, considere equipos comerciales de grado marino.
+**Recomendación:** Los registradores Riverlabs están diseñados principalmente para agua dulce. Para instalaciones permanentes en agua salada, considera equipos comerciales de grado marino.
 
 ---
 
@@ -80,100 +80,100 @@ Consulte la [Guía de Identificación del Registrador](../quick-start/logger-ide
 **Wari (ultrasónico), solo SD:**
 - Registro cada 15 minutos: 30-60 días
 - Registro cada 5 minutos: 15-30 días
-- Registro cada 1 minuto: 7-10 días
+- Registro cada minuto: 7-10 días
 
 **Lidar, solo SD:**
 - Registro cada 15 minutos: 15-30 días
 - Registro cada 5 minutos: 7-15 días
-- Registro cada 1 minuto: 3-5 días
+- Registro cada minuto: 3-5 días
 
-**Con telemetría (agregar sobrecarga de transmisión):**
-- Transmisión horaria: Reducir en 30-40%
-- Transmisión diaria: Reducir en 10-20%
+**Con telemetría (consumo adicional por transmisión):**
+- Transmisión cada hora: reduce la autonomía un 30-40 %
+- Transmisión diaria: reduce la autonomía un 10-20 %
 
 **Factores:**
-- Capacidad de la batería (2600mAh típico)
+- Capacidad de la batería (2600mAh habitualmente)
 - Temperatura (el frío reduce la capacidad)
 - Antigüedad de la batería (se degrada con el tiempo)
-- Intensidad de la señal de telemetría (señal débil = más energía)
+- Intensidad de la señal de telemetría (una señal débil consume más)
 
-Consulte la [Guía de Batería y Alimentación](../hardware/battery-power-guide.md) para cálculos detallados y consejos de optimización.
+Consulta la [guía de baterías y alimentación](../hardware/battery-power-guide.md) para cálculos detallados y consejos de optimización.
 
 ---
 
-### ¿Puedo agregar energía solar?
+### ¿Puedo añadir alimentación solar?
 
 **Técnicamente sí, pero es complicado:**
 
-**Desafíos:**
-1. **Se necesita controlador de carga** - LiPo requiere perfil de carga específico
-2. **Integración impermeable** - Montaje del panel solar, penetraciones de cableado
-3. **Latitudes del norte** - Solar insuficiente en invierno
-4. **Costo** - Agrega $50-100, acercándose al costo de una solución comercial
+**Dificultades:**
+1. **Se necesita un controlador de carga**: la LiPo requiere un perfil de carga específico
+2. **Integración resistente a la intemperie**: montaje del panel solar y pasos de cables
+3. **Latitudes septentrionales**: la energía solar invernal puede ser insuficiente
+4. **Coste**: añade 50-100 USD y se acerca al precio de una solución comercial
 
 **Recomendación:**
-- Para la mayoría de los usuarios: Solo intercambiar baterías periódicamente (más simple, más económico)
-- Para sitios remotos/inaccesibles: Considerar registradores solares comerciales
-- Si DIY: Usar controlador de carga solar dedicado (p.ej., Adafruit Universal USB), panel de 5-10W
+- Para la mayoría: basta con cambiar las baterías periódicamente (más sencillo y barato)
+- Para lugares remotos o inaccesibles: considera registradores solares comerciales
+- Si lo haces por tu cuenta: usa un controlador de carga solar específico (p. ej., Adafruit Universal USB) y un panel de 5-10W
 
 **Cálculo:**
-- Consumo diario: ~50mAh (Wari, registro de 15 min)
-- Panel solar necesario: ~2-5W (teniendo en cuenta nubes, invierno)
-- Tamaño de la batería: 10,000+ mAh (para reserva invernal)
+- Consumo diario: ~50mAh (Wari, registro cada 15 minutos)
+- Panel solar necesario: ~2-5W (teniendo en cuenta nubes e invierno)
+- Capacidad de la batería: más de 10 000 mAh (reserva para el invierno)
 
 ---
 
 ### ¿Es de código abierto? ¿Puedo modificar el código?
 
-**¡Sí! Totalmente de código abierto:**
+**Sí, es totalmente de código abierto:**
 
 **Licencia:** Licencia MIT (permisiva)
 
 **Código fuente:** https://github.com/ICHydro/Riverlabs
 
-**Puede:**
-- ✅ Usar para cualquier propósito (comercial o no comercial)
-- ✅ Modificar el código para adaptarlo a sus necesidades
-- ✅ Compartir modificaciones
-- ✅ Contribuir mejoras de vuelta al proyecto
+**Puedes:**
+- ✅ Utilizarlo para cualquier fin (comercial o no comercial)
+- ✅ Modificar el código según tus necesidades
+- ✅ Compartir las modificaciones
+- ✅ Contribuir mejoras al proyecto
 
-**Debería:**
-- Incluir la licencia original en los derivados
-- Acreditar a los autores originales
-- Compartir mejoras (ayuda a la comunidad)
+**Deberías:**
+- Incluir la licencia original en las obras derivadas
+- Reconocer a los autores originales
+- Compartir las mejoras (ayuda a la comunidad)
 
-**Modificaciones comunes:**
+**Modificaciones habituales:**
 - Cambiar el intervalo de registro
-- Agregar sensores adicionales (temperatura, humedad)
-- Modificar el formato de datos
-- Implementar programas de sueño personalizados
-- Agregar nuevos protocolos de telemetría
+- Añadir sensores (temperatura, humedad)
+- Modificar el formato de los datos
+- Implementar ciclos de reposo personalizados
+- Añadir protocolos de telemetría
 
 ---
 
-## Preguntas de Hardware
+## Preguntas sobre el hardware
 
-### ¿Puedo comprar registradores preensamblados?
+### ¿Puedo comprar registradores ya montados?
 
-**Estado actual:** Riverlabs es principalmente un proyecto DIY.
+**Situación actual:** Riverlabs es principalmente un proyecto para montar por cuenta propia.
 
 **Opciones:**
 
-1. **Ensamblar usted mismo** (más económico, ~$100-150)
-   - Comprar componentes
-   - Seguir la guía de ensamblaje
+1. **Montarlo tú mismo** (la opción más barata, ~100-150 USD)
+   - Comprar los componentes
+   - Seguir la guía de montaje
    - Se requiere soldadura
 
-2. **Asociaciones universitarias/de investigación** (para proyectos de investigación)
-   - Contacto: ICHydro/desarrolladores originales
-   - Pueden proporcionar unidades ensambladas para investigación colaborativa
+2. **Colaboraciones universitarias o de investigación** (para proyectos de investigación)
+   - Contacto: ICHydro o los desarrolladores originales
+   - Podrían facilitar unidades montadas para investigaciones conjuntas
 
-3. **Alternativas comerciales** (si DIY no es factible)
-   - HOBO Water Level Logger (~$500-1000)
-   - Solinst Levelogger (~$1000-2000)
-   - Sensores Campbell Scientific (~$2000+)
+3. **Alternativas comerciales** (si el montaje propio no es viable)
+   - HOBO Water Level Logger (~500-1000 USD)
+   - Solinst Levelogger (~1000-2000 USD)
+   - Sensores Campbell Scientific (~2000 USD o más)
 
-**Nota:** A medida que el proyecto crece, puede que estén disponibles kits ensamblados. Consulte GitHub para actualizaciones.
+**Nota:** Es posible que haya kits montados en el futuro. Consulta GitHub para conocer las novedades.
 
 ---
 
@@ -181,179 +181,181 @@ Consulte la [Guía de Batería y Alimentación](../hardware/battery-power-guide.
 
 **Configuración mínima de Wari:**
 
-| Componente | Cant | Costo Est. |
-|------------|------|------------|
-| PCB ATmega328P (personalizado) | 1 | $30 |
-| Sensor ultrasónico (MaxBotix MB7389) | 1 | $30 |
-| RTC (DS3231) | 1 | $5 |
-| Módulo de tarjeta SD | 1 | $3 |
-| Batería LiPo (3.7V 2600mAh) | 1 | $10 |
-| Tarjeta SD (8-32GB) | 1 | $10 |
-| Carcasa (impermeable) | 1 | $15 |
-| Programador FTDI | 1 | $10 |
-| Varios (cables, conectores) | - | $10 |
-| **Total** | | **~$123** |
+| Componente | Cant. | Coste aprox. |
+|-----------|-----|-----------|
+| PCB ATmega328P (personalizada) | 1 | 30 USD |
+| Sensor ultrasónico (MaxBotix MB7389) | 1 | 30 USD |
+| RTC (DS3231) | 1 | 5 USD |
+| Módulo de tarjeta SD | 1 | 3 USD |
+| Batería LiPo (3.7V 2600mAh) | 1 | 10 USD |
+| Tarjeta SD (8-32GB) | 1 | 10 USD |
+| Carcasa (impermeable) | 1 | 15 USD |
+| Programador FTDI | 1 | 10 USD |
+| Varios (cables, conectores) | - | 10 USD |
+| **Total** | | **~123 USD** |
 
-**Agregar para telemetría:**
-- Módulo XBee3 Cellular: $70
-- Tarjeta SIM + plan de datos: $2-10/mes
-- Adaptador USB (para configuración): $25
+**Para añadir telemetría:**
+- Módulo celular XBee3: 70 USD
+- Tarjeta SIM + plan de datos: 2-10 USD/mes
+- Adaptador USB (para configuración): 25 USD
+
+Consulta la [lista de piezas] para las especificaciones detalladas de los componentes y los proveedores.
 
 ---
 
-### ¿Puedo usar un sensor diferente?
+### ¿Puedo utilizar otro sensor?
 
-**Sí, con modificaciones del código:**
+**Sí, modificando el código:**
 
 **Sensores ultrasónicos:**
 - MaxBotix MB7389 (predeterminado)
 - Otros modelos MaxBotix (MB7092, MB7360, etc.)
-- HC-SR04 (económico, pero menos fiable)
+- HC-SR04 (barato, pero menos fiable)
 
-**Cambios de código necesarios:**
-- Asignaciones de pines
-- Niveles de voltaje (3.3V vs 5V)
-- Protocolo de comunicación (analógico vs serial vs I2C)
+**Cambios necesarios en el código:**
+- Asignación de pines
+- Niveles de tensión (3.3V frente a 5V)
+- Protocolo de comunicación (analógico, serie o I2C)
 
-**Sensores Lidar:**
+**Sensores lidar:**
 - Garmin LIDAR-Lite v3 (predeterminado)
-- TF-Luna (alternativa más económica)
+- TF-Luna (alternativa más barata)
 - VL53L1X (solo corto alcance)
 
 **Otros sensores de distancia:**
 - Transductores de presión (para uso sumergido)
-- Interruptores de flotador (solo niveles on/off)
+- Interruptores de flotador (solo niveles de encendido/apagado)
 
-**Recomendación:** Use los sensores predeterminados a menos que tenga requisitos específicos. Están bien probados y el código está listo para usar.
+**Recomendación:** Utiliza los sensores predeterminados salvo que tengas necesidades específicas. Están bien probados y el código está listo para usar.
 
 ---
 
-### ¿Qué tarjeta SD debo usar?
+### ¿Qué tarjeta SD debo utilizar?
 
 **Recomendaciones:**
 
-**Capacidad:** 8-32GB (las tarjetas más grandes son un desperdicio de dinero, el registrador no las llenará)
+**Capacidad:** 8-32GB (las tarjetas mayores suponen un gasto innecesario; el registrador no las llenará)
 
-**Marca:** SanDisk, Samsung, Kingston (evitar marcas genéricas, alta tasa de fallos)
+**Marca:** SanDisk, Samsung, Kingston (evita marcas desconocidas, con mayor tasa de fallos)
 
 **Tipo:** SD estándar o microSD con adaptador (NO SDXC)
 
-**Formato:** FAT32 (no exFAT o NTFS)
+**Formato:** FAT32 (no exFAT ni NTFS)
 
-**Cálculo de ejemplo:**
+**Ejemplo de cálculo:**
 - Registro cada 15 minutos
 - 100 bytes por muestra
 - Muestras por día: 96
 - Datos por día: 9.6 KB
 - Tarjeta de 16GB: ~1000 años de datos (!!)
-- Realista: 8GB es suficiente
+- En la práctica: 8GB es más que suficiente
 
-**Evitar:**
-- Tarjetas >32GB (pueden tener exFAT, no FAT32)
-- Ultra alta velocidad (UHS-II) - gasto innecesario para registro
-- Micro SD sin adaptador (difícil de manejar)
+**Evita:**
+- Tarjetas >32GB (pueden utilizar exFAT en vez de FAT32)
+- Tarjetas de velocidad ultralta (UHS-II): gasto innecesario para el registro
+- MicroSD sin adaptador (difícil de manipular)
 
 ---
 
-### ¿Cómo impermeabilizo el registrador?
+### ¿Cómo protejo el registrador del agua?
 
 **Opciones de carcasa:**
 
-**1. Carcasa con clasificación IP67** (recomendado)
-- Ejemplo: Hammond 1554, Bud Industries
-- Tapa sellada con junta
-- Prensaestopas para cables
-- Costo: $15-30
+**1. Carcasa con certificación IP67** (recomendada)
+- Ejemplos: Hammond 1554, Bud Industries
+- Tapa sellada mediante junta
+- Prensaestopas para los cables
+- Coste: 15-30 USD
 
-**2. Impermeabilización DIY**
+**2. Impermeabilización casera**
 - Recipiente de plástico para alimentos (solo a corto plazo)
-- Sellar con silicona
-- Envolver en cinta adhesiva (agrega algo de protección)
-- Costo: $5
+- Sellado con silicona
+- Cinta americana alrededor (añade cierta protección)
+- Coste: 5 USD
 
-**Penetraciones de cables:**
-- Usar prensaestopas (mejor)
-- O: Taladrar orificio, pasar cable, sellar con silicona
-- Alivio de tensión: Atar un nudo dentro de la carcasa (evita el jalón)
+**Entradas de cables:**
+- Utiliza prensaestopas (lo mejor)
+- O bien: perfora un orificio, pasa el cable y séllalo con silicona
+- Alivio de tensión: haz un nudo dentro de la carcasa (evita tirones)
 
 **Prueba:**
-- Sumergir la carcasa en un cubo (¡sin electrónica dentro!)
-- Esperar 1 hora
-- Abrir, verificar si hay entrada de agua
-- Arreglar las fugas antes de desplegar
+- Sumerge la carcasa en un cubo (¡sin componentes electrónicos dentro!)
+- Espera una hora
+- Ábrela y comprueba si ha entrado agua
+- Repara las filtraciones antes del despliegue
 
 **Desecante:**
-- Agregar paquete de gel de sílice dentro de la carcasa
+- Añade una bolsita de gel de sílice dentro de la carcasa
 - Absorbe la humedad (evita la condensación)
-- Reemplazar si está saturado (se vuelve rosa)
+- Sustitúyela si está saturada (se vuelve rosa)
 
-Consulte la [Guía de Instalación](../../installation/mounting-guide.md) para instrucciones detalladas de impermeabilización.
+Consulta la [guía de instalación](../../installation/mounting-guide.md) para instrucciones detalladas de impermeabilización.
 
 ---
 
-### ¿Puedo usar baterías alcalinas en lugar de LiPo?
+### ¿Puedo utilizar pilas alcalinas en lugar de LiPo?
 
-**No recomendado, pero posible con modificaciones:**
+**No se recomienda, pero es posible con modificaciones:**
 
-**Desafíos:**
-1. **Voltaje:** Alcalinas = 1.5V por celda, necesita 2-3 celdas = 3-4.5V (funciona, pero el voltaje cae más rápido)
-2. **Sin recarga:** Solo desechables
-3. **Conector:** Necesita soporte de batería (en lugar de JST para LiPo)
-4. **Cambios de código:** Calibración de lectura del voltaje de la batería
+**Dificultades:**
+1. **Tensión:** cada pila alcalina suministra 1.5V; se necesitan 2-3 pilas = 3-4.5V (funciona, pero la tensión cae más deprisa)
+2. **No recargables:** son desechables
+3. **Conector:** se necesita un portapilas (en lugar del JST de la LiPo)
+4. **Cambios en el código:** calibrar la lectura de la tensión de la batería
 
 **Ventajas:**
-- Ampliamente disponible
-- Sin riesgo de incendio (más seguras que LiPo)
+- Amplia disponibilidad
+- Sin riesgo de incendio (más seguras que las LiPo)
 - Mayor vida útil en almacenamiento
 
-**Recomendación:** Use 3× pilas AA de litio (no alcalinas) si debe evitar LiPo:
+**Recomendación:** Si necesitas evitar las LiPo, utiliza 3 pilas AA de litio (no alcalinas):
 - Energizer Ultimate Lithium
-- 1.5V × 3 = 4.5V nominal
+- 1.5V × 3 = 4.5V nominales
 - Mejor rendimiento en frío que las alcalinas
 - Mayor duración que las alcalinas
 
-**Cambio de código necesario:**
+**Cambio necesario en el código:**
 ```cpp
-// Calibración del divisor de voltaje para 3× AA (4.5V máximo en lugar de 4.2V)
+// Voltage divider calibration for 3× AA (4.5V max instead of 4.2V)
 float batteryVoltage = analogRead(BATTERY_PIN) * (4.5 / 1023.0) * 2.0;
 ```
 
 ---
 
-## Preguntas de Telemetría
+## Preguntas sobre telemetría
 
 ### ¿Necesito telemetría?
 
-**Depende de su caso de uso:**
+**Depende del uso previsto:**
 
-**NECESITA telemetría si:**
-- El sitio es difícil/peligroso de acceder
-- Se requiere monitoreo en tiempo real (alerta de inundación)
-- Múltiples registradores, verificar cada uno es imprácticamente
-- Desea detectar el fallo del registrador rápidamente
+**NECESITAS telemetría si:**
+- El lugar es difícil o peligroso de acceder
+- Se requiere vigilancia en tiempo real (alerta de inundaciones)
+- Hay muchos registradores y no resulta práctico comprobar cada uno
+- Quieres detectar rápidamente fallos del registrador
 
-**NO necesita telemetría si:**
-- Sitio accesible (fácil de visitar mensualmente)
-- Análisis post-evento (no en tiempo real)
-- Presupuesto limitado ($100 vs $200)
-- Sin cobertura celular en el sitio
+**NO necesitas telemetría si:**
+- El lugar es accesible (se puede visitar mensualmente)
+- Vas a analizar los datos después del evento (no en tiempo real)
+- Tienes un presupuesto limitado (100 frente a 200 USD)
+- No hay cobertura celular en el lugar
 
-**Opción de compromiso:** Tarjeta SD + telemetría ocasional
-- El registrador graba en SD (alta frecuencia, confiable)
-- Transmitir subconjunto de datos (resumen horario)
-- Datos de resolución completa en la tarjeta SD
+**Solución intermedia:** tarjeta SD + telemetría ocasional
+- El registrador guarda en SD (alta frecuencia, fiable)
+- Transmite parte de los datos (resumen horario)
+- Los datos con resolución completa permanecen en la tarjeta SD
 
 ---
 
-### ¿Qué operadoras celulares funcionan?
+### ¿Qué operadores celulares son compatibles?
 
-**Requisitos:** Soporte LTE-M o NB-IoT
+**Requisitos:** Compatibilidad con LTE-M o NB-IoT
 
 **Estados Unidos:**
 - ✅ AT&T (mejor cobertura LTE-M)
 - ✅ T-Mobile (LTE-M, en expansión)
 - ✅ Verizon (Cat-M1)
-- ❌ Sprint (fusionado con T-Mobile)
+- ❌ Sprint (fusionada con T-Mobile)
 
 **Europa:**
 - ✅ Vodafone M2M
@@ -366,33 +368,570 @@ float batteryVoltage = analogRead(BATTERY_PIN) * (4.5 / 1023.0) * 2.0;
 - ✅ Vodafone
 - ✅ O2
 
-**Global/Multi-operadora:**
-- ✅ Hologram (itinerancia en múltiples operadoras)
+**Global o multioperador:**
+- ✅ Hologram (itinerancia entre varios operadores)
 - ✅ Twilio Super SIM
 - ✅ 1NCE
 
-**Verificar cobertura:** Use el mapa de cobertura de la operadora para LTE-M/NB-IoT (no LTE regular) en su sitio de despliegue.
+**Comprueba la cobertura:** Consulta el mapa de cobertura LTE-M/NB-IoT del operador (no el de LTE convencional) en el lugar de instalación.
 
 ---
 
-### ¿Cuántos datos usa la telemetría?
+### ¿Cuántos datos utiliza la telemetría?
 
-**Uso típico:**
+**Consumo típico:**
 
 **Por transmisión:**
-- Payload JSON: 50-100 bytes (solo datos)
-- Sobrecarga HTTP: 200-500 bytes (encabezados, handshake)
+- Carga JSON: 50-100 bytes (solo datos)
+- Sobrecarga HTTP: 200-500 bytes (cabeceras, establecimiento de conexión)
 - Total: ~500-600 bytes por transmisión
 
-**Ejemplos de uso mensual:**
+**Ejemplos de consumo mensual:**
 
 | Intervalo | Transmisiones/día | Datos diarios | Datos mensuales |
-|-----------|-------------------|---------------|-----------------|
+|----------|-------------------|------------|--------------|
 | Cada medición (15 min) | 96 | 58 KB | 1.7 MB |
 | Cada hora | 24 | 14 KB | 430 KB |
 | Cada 4 horas | 6 | 3.6 KB | 110 KB |
-| Diario | 1 | 600 bytes | 18 KB |
+| Cada día | 1 | 600 bytes | 18 KB |
 
-**Plan recomendado:** 5-10 MB/mes (con amplio margen)
+**Plan recomendado:** 5-10 MB/mes (con margen suficiente)
 
-**Costo:** ~$2-10/mes dependiendo de la operadora y el plan
+**Coste:** ~2-10 USD/mes según el operador y el plan
+
+---
+
+### ¿Puedo utilizar WiFi en lugar de conexión celular?
+
+**Es posible, pero poco práctico en la mayoría de instalaciones:**
+
+**Dificultades:**
+1. **Alcance:** WiFi está limitado a ~50m (con visión directa)
+   - Pocos lugares de instalación disponen de WiFi
+2. **Consumo:** los módulos WiFi (ESP8266, ESP32) consumen ~70mA continuamente
+   - Reducen considerablemente la autonomía
+3. **Configuración:** se necesita configurar el SSID y la contraseña
+   - Hay que cambiarlos si cambia la red
+
+**Mejores alternativas:**
+- **LoRa/LoRaWAN:** Largo alcance (km), bajo consumo, pero necesita una pasarela
+- **Celular:** Funciona donde haya cobertura
+- **Satélite:** Muy caro, pero con cobertura global
+
+**Recomendación:** Si hay WiFi en el lugar, considera:
+- Alimentación de red eléctrica; entonces WiFi es viable
+- O bien: solo tarjeta SD y recogida manual (más sencillo)
+
+---
+
+### ¿Puede el registrador enviarme avisos por correo electrónico o SMS?
+
+**No directamente, pero sí a través de un servidor:**
+
+**Arquitectura:**
+```
+Logger → XBee → Cellular → ThingsBoard → Email/SMS
+```
+
+**Configuración:**
+1. El registrador envía datos a ThingsBoard (como siempre)
+2. Configura una «Rule Chain» en ThingsBoard
+3. Añade una regla: si se cumple una condición, enviar correo
+4. Ejemplo: si la batería baja de 3.4V, enviar una alerta por correo
+
+**Correo electrónico:** ThingsBoard puede enviarlo directamente (configura SMTP)
+
+**SMS:** Requiere un servicio externo:
+- Twilio (pago por SMS)
+- AWS SNS
+- Otra pasarela de SMS
+
+Consulta la [configuración de ThingsBoard](../../telemetry/thingsboard-configuration.md) para configurar alertas.
+
+**Limitación:** El registrador no puede avisar por sí mismo si pierde alimentación o conexión (un equipo apagado no puede enviar un aviso). ThingsBoard puede alertar si «no se reciben datos en X horas».
+
+---
+
+## Preguntas sobre instalación en campo
+
+### ¿Cómo oriento el sensor?
+
+**Principios generales:**
+
+**1. Apunta a la superficie del agua:**
+- El haz debe llegar al agua (en todo el rango previsto de niveles)
+- Evita orillas, rocas y vegetación
+
+**2. La orientación vertical es ideal:**
+- Apuntar hacia abajo elimina los errores de ángulo
+- Si lo instalas en ángulo, utiliza trigonometría para corregirlo (consulta [posicionamiento del sensor](../../installation/sensor-positioning.md))
+
+**3. Ten en cuenta los cambios de nivel:**
+- Caudal bajo: ¿dónde estará el agua? (no apuntes demasiado alto)
+- Caudal alto: evita que el sensor quede sumergido (instálalo suficientemente alto)
+
+**4. Considera la anchura del haz:**
+- Ultrasónico: cono de ~15-20°
+- Lidar: haz de ~2°
+- Evita que el haz alcance el puente o la estructura
+
+**Prueba:**
+- Toma mediciones en el lugar antes de la instalación definitiva
+- Comprueba todo el rango previsto de niveles del agua
+- Verifica que las lecturas sean razonables
+
+---
+
+### ¿Qué ocurre si el nivel del agua queda fuera del alcance del sensor?
+
+**Dos situaciones:**
+
+**1. Agua demasiado cerca (por debajo de la distancia mínima):**
+- Mínimo del ultrasónico: ~0.3m
+- Mínimo del lidar: ~0.05m
+- **Solución:** Instala el sensor más alto
+
+**2. Agua demasiado lejos (más allá del alcance máximo):**
+- Máximo del ultrasónico: ~5m
+- Máximo del lidar: ~40m
+- **Síntomas:** El registrador muestra el alcance máximo (5000mm o 40000mm)
+- **Solución:** Instala el sensor más bajo o utiliza uno de mayor alcance
+
+**Cómo elegir el alcance:**
+- Determina el rango de niveles del agua: caudal bajo y alto
+- El alcance del sensor debe cubrir desde el nivel bajo hasta el alto, con margen
+- Ejemplo:
+  - Caudal bajo: 2m por debajo del sensor
+  - Caudal alto: 0.5m por debajo del sensor
+  - Alcance necesario: 0.5-2m → utiliza un ultrasónico (rango 0.3-5m)
+
+**Margen de seguridad:** Reserva ±0.5m en cada extremo (no trabajes en los límites absolutos)
+
+---
+
+### ¿Cómo determino la altura de instalación?
+
+**Altura de instalación** = distancia desde el sensor hasta el punto de referencia
+
+**Puntos de referencia habituales:**
+1. **Fondo del cauce** (lecho)
+   - Mide desde el sensor hasta el lecho (punto más bajo previsto)
+   - Profundidad del agua = altura de instalación - lectura del sensor
+
+2. **Referencia topográfica fija** (hito)
+   - Requiere equipo topográfico
+   - Permite obtener una cota absoluta (p. ej., metros sobre el nivel del mar)
+   - La mejor opción para estudios científicos
+
+3. **Referencia arbitraria**
+   - «Parte superior del tablero del puente»
+   - «Nivel del suelo junto al registrador»
+   - Es coherente, pero no se puede trasladar a otras ubicaciones
+
+**Medición:**
+- Utiliza una cinta métrica, un telémetro láser o equipo topográfico
+- Mide cuando el agua esté estable y sea posible medirla
+- Registra la altura de instalación y la fecha
+- Ten en cuenta que el lecho puede cambiar (erosión o sedimentación)
+
+**Documentación:**
+- Dibuja un esquema con el registrador, el sensor, el agua y la referencia
+- Fotografía la instalación con la cinta métrica visible
+- Registra las coordenadas GPS
+
+---
+
+### ¿Puedo instalarlo en invierno o con heladas?
+
+**Sí, pero plantea dificultades:**
+
+**Efectos del frío:**
+
+**1. Reducción de la capacidad de la batería:**
+- 0°C: ~80 % de capacidad
+- -20°C: ~50 % de capacidad
+- **Solución:** Batería más grande o visitas más frecuentes
+
+**2. Riesgo por congelación de la LiPo:**
+- La LiPo se congela a ~-40°C
+- Cargarla a bajas temperaturas es peligroso
+- **Solución:** No la cargues por debajo de 0°C
+
+**3. Hielo en el sensor:**
+- El hielo bloquea los ultrasonidos
+- El lidar puede funcionar a través del hielo (hasta cierto punto)
+- **Solución:** Resistencia calefactora (compleja) o utilizar lidar
+
+**4. Condensación:**
+- Los ciclos de temperatura producen humedad dentro de la carcasa
+- **Solución:** Desecante dentro de una carcasa con certificación IP67
+
+**5. Nieve:**
+- La nieve reciente absorbe los ultrasonidos (el registrador muestra el alcance máximo)
+- El lidar funciona mejor, pero también se ve afectado
+- **Solución:** Para medir bajo el hielo, utiliza un transductor de presión sumergido
+
+**Recomendación para inviernos duros:**
+- Instálalo a finales de otoño (antes de las heladas)
+- Recupéralo a principios de primavera (tras el deshielo)
+- O utiliza una carcasa calefactada y alimentación de red (ya no será una solución de bajo coste)
+
+---
+
+### ¿Con qué frecuencia debo visitar el lugar?
+
+**Depende de:**
+1. Autonomía de la batería (consulta la guía de baterías)
+2. Capacidad de la tarjeta SD (normalmente no es un problema)
+3. Riesgo de pérdida o daños (vandalismo, inundaciones)
+4. Importancia de los datos
+
+**Calendarios habituales:**
+
+**Con telemetría:**
+- Primera visita (tras una semana): verificar que funciona
+- Visitas mensuales: comprobar el estado físico
+- Cambio de batería: cuando la tensión sea <3.5V (supervisión remota)
+
+**Sin telemetría:**
+- Primera visita (tras una semana): verificar que funciona
+- Visitas mensuales: revisar datos y cambiar la tarjeta SD si hace falta
+- Cambio de batería: mensualmente o según la autonomía prevista
+
+**Lugares de alto riesgo:**
+- Visitas semanales al principio
+- Considera un montaje más robusto o medidas de protección
+
+**Lugares remotos:**
+- Planifica según el acceso estacional (puede ser imposible en invierno)
+- Instala en primavera y retira en otoño
+
+---
+
+### ¿Qué hago si roban o pierdo el registrador?
+
+**Prevención:**
+
+**1. Disimúlalo:**
+- Pinta el registrador para integrarlo en el entorno (marrón o verde)
+- Escóndelo tras la vegetación
+- Evita colores llamativos o etiquetas visibles
+
+**2. Montaje seguro:**
+- Cable de seguridad (como un candado de bicicleta)
+- Fíjalo a la estructura con tornillos antimanipulación
+
+**3. Señalización:**
+- Pequeña etiqueta: «Equipo de investigación; por favor, no manipular»
+- Datos de contacto (correo electrónico, no teléfono)
+- Algunas personas la respetarán, aunque también puede llamar la atención
+
+**4. Elección del lugar:**
+- Una propiedad privada (con permiso) es más segura que un espacio público
+- Elige ubicaciones menos visibles
+
+**Recuperación:**
+
+**1. Números de serie:**
+- Anota el ICCID de la SIM, el número de serie del XBee y el ID del registrador
+- Puede ayudar con el seguro o el seguimiento por el operador
+
+**2. Seguro:**
+- Comprueba si el equipo de investigación está cubierto
+- Documenta su valor con facturas
+
+**3. Copias de seguridad:**
+- Con telemetría: los datos están a salvo en ThingsBoard
+- Solo SD: se pierden los datos
+
+**Asumir el riesgo:**
+- El menor coste de los registradores hace que la pérdida sea más asumible
+- Presupuesta una tasa de pérdida del 10 % en proyectos con varios registradores
+
+---
+
+## Preguntas sobre datos y análisis
+
+### ¿En qué formato se guardan los datos?
+
+**CSV (valores separados por comas)**
+
+**Archivo de ejemplo: `2025-12-27.CSV`**
+
+```csv
+Date,Time,Distance_mm,Temperature_C,Battery_V
+2025-12-27,10:00:00,1234,22.5,3.85
+2025-12-27,10:15:00,1256,23.1,3.84
+2025-12-27,10:30:00,1278,23.8,3.84
+```
+
+**Campos:**
+- **Date:** AAAA-MM-DD
+- **Time:** HH:MM:SS (24 horas)
+- **Distance_mm:** Lectura del sensor (milímetros)
+- **Temperature_C:** Temperatura del aire (solo Wari, Celsius)
+- **Battery_V:** Tensión de la batería (voltios)
+
+**Apertura:**
+- Excel/Google Sheets: abre directamente el archivo .CSV
+- Python: `pandas.read_csv()`
+- R: `read.csv()`
+- MATLAB: `readtable()`
+
+---
+
+### ¿Cómo convierto la distancia en profundidad del agua?
+
+**Profundidad del agua = altura de instalación - distancia medida por el sensor**
+
+**Ejemplo:**
+- Registrador montado a 3000mm sobre el lecho
+- El sensor mide 1500mm (distancia a la superficie del agua)
+- Profundidad = 3000mm - 1500mm = 1500mm = 1.5m
+
+**En Excel:**
+```excel
+=($A$1 - B2)
+```
+Donde:
+- A1: altura de instalación (constante)
+- B2: lectura del sensor (esta fila)
+
+**En Python:**
+```python
+import pandas as pd
+df = pd.read_csv('data.csv')
+installation_height = 3000  # mm
+df['water_depth_mm'] = installation_height - df['Distance_mm']
+```
+
+**Unidades:**
+- Mantén unidades coherentes (todo en mm)
+- Para convertir a metros: divide por 1000
+
+---
+
+### ¿Qué precisión tienen los datos?
+
+**Precisión de los sensores:**
+
+**Wari (ultrasónico):**
+- Especificación del fabricante: ±10mm
+- En condiciones reales: ±20-50mm (temperatura, montaje, etc.)
+
+**Lidar:**
+- Especificación del fabricante: ±25mm
+- En condiciones reales: ±30-60mm
+
+**Fuentes de error:**
+1. **Precisión del sensor:** Limitación intrínseca
+2. **Temperatura:** Afecta a la velocidad del sonido (ultrasónico) o al índice de refracción del aire (lidar)
+3. **Movimiento del montaje:** Viento, dilatación térmica
+4. **Ángulo del haz:** Si no es perfectamente vertical
+5. **Superficie objetivo:** Agua turbulenta, espuma, ondas
+6. **Entorno:** Lluvia, nieve, niebla
+
+**Para mejorar la precisión:**
+- Usa Wari cuando se necesite precisión absoluta (<10mm)
+- Monta el sensor verticalmente (elimina el error angular)
+- Fíjalo de forma estable (reduce el movimiento)
+- Busca una superficie tranquila (usa un pozo tranquilizador en aguas turbulentas)
+- Compensa la temperatura (Wari la mide automáticamente)
+
+**Precisión suficiente para:**
+- Vigilancia de inundaciones (cambios de 0.5m)
+- Relaciones nivel-caudal
+- Detección de presencia o ausencia
+
+**No adecuado para:**
+- Topografía de precisión (<1mm)
+- Derechos legales sobre el agua (utiliza equipos certificados)
+
+---
+
+### ¿Puedo sincronizar varios registradores?
+
+**Sincronización horaria:**
+
+**Precisión del RTC:**
+- RTC DS3231: ±2 ppm (partes por millón)
+- Deriva: ~1 minuto al año
+- Suficiente para la mayoría de aplicaciones
+
+**Métodos de sincronización:**
+
+**1. Poner todos los registradores a la misma hora:**
+- Antes de instalarlos, ejecuta la utilidad `set_clock` en todos
+- Usa el ordenador como referencia horaria (sincronízalo mediante NTP)
+- Deriva: <1 minuto al mes (aceptable en la mayoría de casos)
+
+**2. Sincronización mediante GPS (avanzada):**
+- Añade un módulo GPS al registrador
+- Sincroniza el RTC con el GPS diariamente
+- Deriva: <1 segundo
+- Coste: +20-40 USD por registrador
+- Consumo: 20mA adicionales mientras el GPS está activo
+
+**3. Alineación durante el posprocesamiento:**
+- Analiza los datos y localiza un evento común (p. ej., un pico de lluvia)
+- Desplaza las series temporales hasta alinear los eventos
+- Herramientas: R, Python, MATLAB
+
+**Para la mayoría de usuarios:** Basta con el método 1.
+
+---
+
+### ¿Dónde puedo encontrar ejemplos de código?
+
+**Repositorio de GitHub:** https://github.com/ICHydro/Riverlabs
+
+**Sketches principales:**
+- `wari_v2.1/wari_v2.1.ino` - Registrador ultrasónico (versión más reciente)
+- `wari_lidar/wari_lidar.ino` - Registrador lidar
+- `wari_3G/wari_3G.ino` - Con telemetría 3G
+- `wari_4G/wari_4G.ino` - Con telemetría 4G LTE-M
+
+**Utilidades:**
+- `set_clock/set_clock.ino` - Ajuste de la hora del RTC
+- `precip_SD/precip_SD.ino` - Registrador de precipitaciones (otro sensor)
+
+**Bibliotecas utilizadas:**
+- RTClib (Adafruit)
+- SdFat (Bill Greiman)
+- LowPower (Rocket Scream)
+- XBee (Digi)
+- Wire (I2C, integrada)
+
+**Documentación:**
+- Los comentarios del código explican su funcionamiento
+- README.md en cada directorio
+- ¡Este sitio de documentación!
+
+---
+
+## Preguntas rápidas para solucionar problemas
+
+### El registrador no se enciende
+
+→ Consulta [problema 1: el registrador no se enciende](common-issues.md#problema-1-el-registrador-no-se-enciende)
+
+**Comprobación rápida:** ¿Batería >3.3V? ¿Conectada correctamente? ¿Interruptor en ON?
+
+---
+
+### La tarjeta SD indica «corrupta»
+
+→ Consulta [problema 7: tarjeta SD corrupta](common-issues.md#problema-7-la-tarjeta-sd-aparece-corrupta-o-necesita-formateo)
+
+**Solución rápida:** Prueba un programa de recuperación y después formatéala como FAT32.
+
+---
+
+### El sensor siempre indica su alcance máximo
+
+→ Consulta [problema 4: el sensor siempre indica su alcance máximo](common-issues.md#problema-4-el-sensor-ultrasonico-siempre-indica-el-alcance-maximo)
+
+**Comprobación rápida:** ¿Emite clics el sensor? ¿Apunta al objetivo? ¿Está dentro del alcance?
+
+---
+
+### No llegan datos de telemetría
+
+→ Consulta [resolución de problemas de conexión de telemetría](../../telemetry/troubleshooting-connections.md)
+
+**Comprobación rápida:** ¿SIM activa? ¿Buena señal? ¿API Mode = 2? ¿Token correcto?
+
+---
+
+### La batería se agota demasiado rápido
+
+→ Consulta [problema 2: la batería se agota durante la noche](common-issues.md#problema-2-la-bateria-se-agota-durante-la-noche)
+
+**Comprobación rápida:** ¿Entra en reposo el registrador? ¿Intervalo de telemetría razonable? ¿Batería antigua?
+
+---
+
+## Contribuciones y comunidad
+
+### ¿Cómo puedo contribuir?
+
+**Formas de contribuir:**
+
+**1. Mejoras del código:**
+- Corregir errores
+- Añadir funciones
+- Optimizar
+- Enviar solicitudes de incorporación de cambios en GitHub
+
+**2. Documentación:**
+- Corregir errores
+- Añadir ejemplos
+- Traducir a otros idiomas
+
+**3. Diseños de hardware:**
+- Mejorar las PCB
+- Diseñar carcasas (imprimibles en 3D)
+- Proponer soluciones de montaje
+
+**4. Pruebas y comentarios:**
+- Instalar registradores y comunicar problemas
+- Compartir fotos y datos de las instalaciones
+- Redactar casos de estudio
+
+**5. Apoyo a la comunidad:**
+- Responder preguntas en GitHub Issues
+- Compartir tu experiencia
+
+**Para empezar:**
+- Crea una bifurcación del repositorio
+- Haz tus cambios
+- Envía una solicitud de incorporación
+- Coméntalo en el sistema de incidencias
+
+---
+
+### ¿Dónde puedo obtener ayuda?
+
+**Recursos:**
+
+**1. Esta documentación:**
+- Guías completas para la mayoría de situaciones
+- Función de búsqueda (arriba a la derecha)
+
+**2. GitHub Issues:**
+- https://github.com/ICHydro/Riverlabs/issues
+- Busca incidencias existentes (quizá ya haya una respuesta)
+- Crea una incidencia con estos datos:
+  - Configuración del registrador
+  - Descripción del problema
+  - Qué has intentado
+  - Salida del monitor serie
+  - Fotos
+
+**3. Grupo de investigación:**
+- Contacto: grupo ICHydro (si estás vinculado)
+- Colaboraciones académicas
+
+**4. Comunidad:**
+- (En el futuro: foro o chat cuando crezca la comunidad)
+
+**Antes de preguntar:**
+- Lee detenidamente la documentación
+- Sigue los diagramas de diagnóstico
+- Consulta los problemas habituales
+- Reúne información de diagnóstico (registros serie, fotos)
+
+---
+
+## Próximos pasos
+
+- 🚀 [Guía de inicio rápido](../quick-start/quick-start.md) - Empieza ahora
+- 📊 [Diagramas de diagnóstico](diagnostic-flowcharts.md) - Solución visual de problemas
+- 📋 [Problemas habituales](common-issues.md) - Soluciones detalladas
+- 🛠️ [Mantenimiento del hardware](../hardware/maintenance.md) - Mantén el registrador en buen estado
+- 📡 [Configuración de telemetría](../../telemetry/setup-guide.md) - Añade supervisión remota
+
+---
+
+!!! question "¿Todavía tienes preguntas?"
+    Si no encuentras la respuesta aquí, consulta [GitHub Issues](https://github.com/ICHydro/Riverlabs/issues) o crea una nueva incidencia con tu pregunta. ¡La comunidad puede ayudarte!

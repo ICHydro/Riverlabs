@@ -84,4 +84,3 @@ Foam or debris on surface      | Dark water with no suspended material       |
 - 🌡️ [Environmental Considerations](environmental-considerations.md): Site-specific factors
 - 🔋 [Battery & Power Guide](../operation/hardware/battery-power-guide.md): Power planning
 - 🔧 [Maintenance](../operation/hardware/maintenance.md): Keep sensor positioned correctly
-

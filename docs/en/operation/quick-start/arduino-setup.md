@@ -61,7 +61,3 @@ Before uploading code, you must configure the Arduino IDE with the correct board
 - [Arduino Official Documentation](https://www.arduino.cc/en/Guide/HomePage)
 - [Sparkfun FTDI Tutorial](https://learn.sparkfun.com/tutorials/serial-communication)
 - [Common Issues](../troubleshooting/common-issues.md): Programming troubleshooting
-
-
-
-

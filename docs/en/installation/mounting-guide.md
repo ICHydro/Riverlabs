@@ -251,11 +251,11 @@ Field installations pose technical challenges, but may also have regulatory and 
 
 Similarly, health and safety are paramount. Working near water often poses a health risk, and ideally by doing a full risk assessment. As such, we stongly encourage to:
 
-    - Obtain landowner/authority permission before installing
-    - Follow all local and internional safety regulations and guidelines
-    - Use appropriate personal protective equipment
-    - Work within your competency level
-    - Seek specialist help for complex installations
+- Obtain landowner/authority permission before installing
+- Follow all local and internional safety regulations and guidelines
+- Use appropriate personal protective equipment
+- Work within your competency level
+- Seek specialist help for complex installations
 
 <!-- think about how to best phrase this. We don't want to make this heavy handed, but it may be necessary in some jurisdictions -->
 

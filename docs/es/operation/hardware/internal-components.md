@@ -1,49 +1,46 @@
-# Referencia de Componentes Internos
+# Referencia de componentes internos
 
-!!! abstract "Resumen"
-    Esta guía proporciona información detallada sobre los componentes internos de los registradores Riverlabs, sus ubicaciones, funciones y requisitos de mantenimiento.
+!!! abstract "Descripción general"
+    Esta guía ofrece información detallada sobre los componentes internos de los registradores Riverlabs, su ubicación, función y necesidades de mantenimiento.
 
-!!! info "Se Necesitan Fotos del PCB"
-    Esta sección se mejorará con fotografías anotadas del PCB y renderizados 3D. Las llamadas a los componentes se generarán usando Fusion 360 según se sugirió.
+## Distribución de los componentes
 
-## Distribución de Componentes
+### Descripción general de los componentes principales
 
-### Descripción General de los Componentes Principales
-
-El PCB del registrador Riverlabs contiene los siguientes componentes clave:
+La placa de circuito impreso (PCB) del registrador Riverlabs contiene los siguientes componentes principales:
 
 1. **Microcontrolador (CPU)**: Atmel Atmega328P
-2. **Reloj en Tiempo Real (RTC)**: DS3231 RTC de precisión
-3. **Ranura de Tarjeta SD**: Interfaz de tarjeta microSD (opcional)
-4. **Cabezal de Programación FTDI**: Interfaz de programación serie de 6 pines
-5. **Contactos de la Batería Principal**: p.ej., soporte de batería 18650
-6. **Soporte de Batería de Respaldo**: Clip de celda de moneda CR1220
-7. **Regulación de Energía**: Reguladores de voltaje y protección
-8. **Zócalo XBee** (modelos con telemetría): Interfaz del módem celular
-9. **Conector del Sensor**: Conexión al sensor de ultrasonido/lidar
+2. **Reloj de tiempo real (RTC)**: RTC de precisión DS3231
+3. **Ranura para tarjeta SD**: Interfaz para tarjeta microSD (opcional)
+4. **Conector de programación FTDI**: Interfaz de programación serie de 6 pines
+5. **Contactos de la batería principal**: P. ej., portapilas para batería 18650
+6. **Portapilas de la batería de respaldo**: Soporte para pila de botón CR1220
+7. **Regulación de alimentación**: Reguladores de tensión y protección
+8. **Zócalo XBee** (modelos con telemetría): Interfaz para módem celular
+9. **Conector del sensor**: Conexión para sensor ultrasónico o lidar
 10. **Indicadores LED**: Indicación de estado
-11. **EEPROM**: Almacenamiento en búfer de datos externo
+11. **EEPROM**: Almacenamiento temporal externo de datos
 
-![Distribución de componentes del PCB - próximamente](../../assets/images/pcb-layout-annotated.png)<br>
-*Distribución anotada del PCB mostrando las ubicaciones de los componentes*
+![Distribución de componentes de la PCB: próximamente](../../assets/images/pcb-layout-annotated.png)<br>
+*Plano anotado de la PCB que muestra la ubicación de los componentes*
 
 ---
 
-## Detalles de Componentes
+## Detalles de los componentes
 
 ### 1. Microcontrolador (Atmega328P)
 
 **Ubicación:**
 
-- Centro del PCB
-- IC cuadrado con muchos pines
+- Centro de la PCB
+- Circuito integrado cuadrado con numerosos pines
 
 **Función:**
 
-- Procesador principal que ejecuta el cargador de arranque de Arduino
-- Ejecuta el código de registro
+- Procesador principal que ejecuta el gestor de arranque de Arduino
+- Ejecuta el código de registro de datos
 - Controla todos los periféricos
-- Gestiona los estados de energía (sueño/activo)
+- Gestiona los estados de energía (reposo/activación)
 
 **Especificaciones:**
 
@@ -51,183 +48,183 @@ El PCB del registrador Riverlabs contiene los siguientes componentes clave:
 - 32 KB de memoria flash (almacenamiento del programa)
 - 2 KB de SRAM (memoria de trabajo)
 - 1 KB de EEPROM (búfer de datos opcional)
-- Velocidad de reloj de 16 MHz
+- Frecuencia de reloj de 16 MHz
 
-**Serviciable por el Usuario:**
+**¿Puede intervenir el usuario?**
 
-- No — no intente retirar ni reemplazar
+- No: no intente extraerlo ni sustituirlo
 
-### 2. Reloj en Tiempo Real (DS3231)
+### 2. Reloj de tiempo real (DS3231)
 
 **Ubicación:**
 
-- Cerca del soporte de batería de moneda
+- Cerca del portapilas de botón
 
 **Función:**
 
-- Mantiene la hora precisa
-- Genera alarmas de despertar
-- Oscilador de cristal compensado por temperatura
-- Mantiene la hora durante el retiro de la batería principal (si está instalado CR1220)
+- Mantiene la hora con precisión
+- Genera alarmas de activación
+- Oscilador de cristal con compensación de temperatura
+- Conserva la hora al retirar la batería principal (si hay una CR1220 instalada)
 
 **Especificaciones:**
 
 - Precisión: ±2 ppm (±1 minuto/año)
-- Rango de temperatura: -40°C a +85°C
-- Entrada de batería de respaldo para CR1220
+- Intervalo de temperatura: -40°C a +85°C
+- Entrada de alimentación de respaldo para CR1220
 - Interfaz de comunicación I2C
 
 **Mantenimiento:**
 
 - No requiere mantenimiento
 - Alimentado por la batería de respaldo CR1220
-- Mantiene la hora automáticamente
+- Conserva la hora automáticamente
 
-**Resolución de Problemas:**
+**Resolución de problemas:**
 
-- Si el reloj se resetea: Reemplazar la batería CR1220
-- Si el reloj se desvía: Verificar el código para una correcta inicialización del RTC
+- Si el reloj se reinicia: sustituya la batería CR1220
+- Si el reloj se desfasa: compruebe que el código inicialice correctamente el RTC
 
-### 3. Ranura de Tarjeta SD
+### 3. Ranura para tarjeta SD
 
 **Ubicación:**
 
-- Borde del PCB, zócalo metálico con resorte
+- Borde de la PCB; zócalo metálico con resorte
 
 **Función:**
 
-- Almacenamiento de datos local
+- Almacenamiento local de datos
 - Registra todas las mediciones con marcas de tiempo
-- Extraíble para recuperación de datos
+- Tarjeta extraíble para recuperar los datos
 
 **Especificaciones:**
 
-- Interfaz de tarjeta microSD
+- Interfaz para tarjeta microSD
 - Comunicación SPI
 - Admite tarjetas SD y SDHC (hasta 32 GB)
 - Sistema de archivos FAT32
 
 **Mantenimiento:**
 
-- Mantener los contactos limpios
-- Asegurar que la tarjeta encaje en su lugar
-- No forzar la inserción de la tarjeta
-- Verificar regularmente el asiento de la tarjeta
+- Mantenga limpios los contactos
+- Compruebe que la tarjeta encaje correctamente
+- No fuerce la inserción de la tarjeta
+- Compruebe periódicamente que la tarjeta esté bien asentada
 
-**Problemas Comunes:**
+**Problemas frecuentes:**
 
-- Tarjeta no detectada: Volver a insertar la tarjeta y verificar el formateo
-- Errores de escritura: Reemplazar la tarjeta (desgaste)
-- Escrituras lentas: Usar una tarjeta más rápida (Clase 10)
+- No se detecta la tarjeta: vuelva a insertarla y compruebe el formato
+- Errores de escritura: sustituya la tarjeta (desgaste)
+- Escritura lenta: utilice una tarjeta más rápida (clase 10)
 
-### 4. Cabezal de Programación FTDI
+### 4. Conector de programación FTDI
 
 **Ubicación:**
 
 - Fila de 6 pines
-- Generalmente en el borde del PCB
+- Normalmente en el borde de la PCB
 
-**Configuración de Pines:**
+**Configuración de pines:**
 ```
-Lado GRN          Lado BLK
+Lado GRN         Lado BLK
   ↓                  ↓
 [GND][CTS][VCC][TXD][RXD][DTR]
 ```
 
-**Marcas en la Placa:**
+**Marcas en la placa:**
 
 - La marca **"GRN"** indica el lado del cable verde
 - La marca **"BLK"** indica el lado del cable negro
-- En modelos celulares/lidar: El pin negro (GND) está en el lado de la ranura de tarjeta SD
+- En los modelos celulares o lidar: el pin negro (GND) está del lado de la tarjeta SD
 
 **Función:**
 
-- Interfaz de programación serie para carga de código
-- Conectar cable FTDI para programación con Arduino IDE
+- Interfaz de programación serie para cargar código
+- Conexión del cable FTDI para programar desde el IDE de Arduino
 - Comunicación con el monitor serie
-- Configuración del reloj mediante la biblioteca RTC
+- Ajuste del reloj mediante la biblioteca RTC
 
 **Uso:**
 
-- **Orientación del Cable FTDI:** CRÍTICO
+- **Orientación del cable FTDI:** FUNDAMENTAL
     - El cable verde se alinea con la marca "GRN"
     - El cable negro se alinea con la marca "BLK"
-- **Voltaje:** Se admiten cables FTDI de 5 V o 3.3 V (se recomienda 3.3 V)
-- **Auto-reset:** El pin DTR activa el reset automático para la programación
-- **Alimentación:** Puede alimentar el registrador cuando está conectado (ver sección de Interruptor de Alimentación)
+- **Tensión:** admite cables FTDI de 5 V o 3,3 V (se recomiendan 3,3 V)
+- **Reinicio automático:** el pin DTR activa el reinicio automático para programar
+- **Alimentación:** puede alimentar el registrador cuando está conectado (consulte la sección del interruptor de alimentación)
 
 **Protección:**
 
-- El cabezal no está protegido contra polaridad inversa
-- ⚠️ **Verifique siempre la orientación del cable FTDI antes de conectar**
+- El conector no está protegido frente a la inversión de polaridad
+- ⚠️ **Compruebe siempre dos veces la orientación del cable FTDI antes de conectarlo**
 - Una conexión incorrecta puede dañar el registrador o impedir la programación
 
-**Tipos de Cable:**
+**Tipos de cable:**
 
-- [Sparkfun FTDI Cable 3.3 V](https://www.sparkfun.com/products/9717): Conexión USB directa
-- [Sparkfun FTDI Basic Breakout 3.3 V](https://www.sparkfun.com/products/9873): Requiere cable micro-USB
+- [Cable FTDI Sparkfun de 3,3 V](https://www.sparkfun.com/products/9717): Conexión USB directa
+- [Placa adaptadora FTDI Basic de Sparkfun de 3,3 V](https://www.sparkfun.com/products/9873): Requiere un cable micro-USB
 
-### 4b. Pines Serie de Depuración (DBG)
+### 4b. Pines serie de depuración (DBG)
 
 **Ubicación:**
 
-- Cabezal de 2 pines cerca del borde del PCB, etiquetado "DBG"
+- Conector de 2 pines cerca del borde de la PCB, etiquetado "DBG"
 
-**Configuración de Pines:**
+**Configuración de pines:**
 ```
 [GND] [TX]
 ```
 
 **Función:**
 
-- Salida de depuración serie de hardware
-- Monitorear la actividad del registrador en tiempo real sin reprogramar
-- Ver lecturas del sensor, escrituras en SD y estado de telemetría
-- NO requiere conexión al cabezal FTDI principal
+- Salida serie de depuración por hardware
+- Permite supervisar la actividad del registrador en tiempo real sin reprogramarlo
+- Permite ver las lecturas del sensor, las escrituras en la SD y el estado de la telemetría
+- NO requiere conectarse al conector principal FTDI
 
-**Cómo Usar los Pines de Depuración:**
+**Cómo usar los pines de depuración:**
 
-**Configuración de Hardware:**
+**Preparación del hardware:**
 
 1. **Equipo necesario:**
     - Cable FTDI o adaptador USB a serie
-    - 2× cables puente de placa de pruebas hembra a hembra
+    - 2 cables de puente hembra-hembra para placa de pruebas
 
 2. **Conexiones:**
    ```
-   DBG GND del registrador → Cable negro del FTDI (GND)
-   DBG TX del registrador  → Cable amarillo del FTDI (RX/Entrada Serie)
+   Logger DBG GND → FTDI Black wire (GND)
+   Logger DBG TX  → FTDI Yellow wire (RX/Serial In)
    ```
 
-3. **NO conectar:**
-    - FTDI al cabezal principal de programación
-    - Alimentación desde FTDI (el registrador debe estar alimentado por batería)
+3. **NO conecte:**
+    - El FTDI al conector principal de programación
+    - La alimentación del FTDI (el registrador debe alimentarse con batería)
 
 4. **Alimentación:**
     - El registrador debe estar alimentado por batería (interruptor en ON)
 
-**Configuración de Software:**
+**Configuración del software:**
 
-1. Conectar el cable FTDI al ordenador
-2. Abrir el Monitor Serie de Arduino IDE (Herramientas → Monitor Serie)
-3. Establecer la velocidad de baudios en **115200**
-4. Reiniciar el registrador (presionar el botón de reset)
-5. La salida de depuración aparecerá en el Monitor Serie
+1. Conecte el cable FTDI al ordenador
+2. Abra el monitor serie del IDE de Arduino (Tools → Serial Monitor)
+3. Ajuste la velocidad a **115200 baudios**
+4. Reinicie el registrador (pulse el botón de reinicio)
+5. La salida de depuración aparecerá en el monitor serie
 
 **La salida de depuración incluye:**
 
 - Mensajes de arranque e inicialización
 - Marca de tiempo del RTC en cada medición
-- Lecturas del sensor (crudas y procesadas)
-- Estado de escritura en tarjeta SD
-- Estado de conexión de telemetría
+- Lecturas del sensor (brutas y procesadas)
+- Estado de escritura en la tarjeta SD
+- Estado de la conexión de telemetría
 - Registros de comunicación XBee
 - Mensajes de error y advertencias
 
-!!! tip "Esencial para la resolución de problemas"
-    Los pines DBG son invaluables para diagnosticar problemas en campo. Puedes conectarlos mientras el registrador está desplegado para ver qué está ocurriendo sin retirar la tarjeta SD ni reprogramar.
+!!! tip "Esencial para resolver problemas"
+    Los pines DBG son muy útiles para diagnosticar problemas sobre el terreno. Puede conectarlos con el registrador ya instalado para ver qué ocurre sin retirar la tarjeta SD ni reprogramarlo.
 
-**Mensajes de depuración comunes:**
+**Mensajes de depuración habituales:**
 
 ```
 --- Wari Logger Boot ---
@@ -242,11 +239,11 @@ XBee Sleep
 Entering sleep...
 ```
 
-### 5. Contactos de la Batería Principal
+### 5. Contactos de la batería principal
 
 **Ubicación:**
 
-- Contactos con resorte o portapilas
+- Contactos con resorte o portabaterías
 
 **Función:**
 
@@ -256,218 +253,218 @@ Entering sleep...
 
 **Mantenimiento:**
 
-- **Mensual:** Inspeccionar por corrosión
-- **Según sea necesario:** Limpiar con alcohol isopropílico
-- **Verificar:** Tensión adecuada del resorte
-- **Comprobar:** Sin oxidación ni acumulación
+- **Mensualmente:** compruebe si hay corrosión
+- **Cuando sea necesario:** limpie con alcohol isopropílico
+- **Compruebe:** que la tensión del resorte sea adecuada
+- **Verifique:** que no haya oxidación ni depósitos
 
 **Prevención de la corrosión:**
 
-- Capa fina de DeoxIT en los contactos
-- Asegurarse de que los terminales de la batería estén limpios
-- Mantener el compartimento seco
+- Aplique una capa fina de DeoxIT a los contactos
+- Asegúrese de que los terminales de la batería estén limpios
+- Mantenga seco el compartimento
 
-### 6. Portapilas de Respaldo (CR1220)
+### 6. Portapilas de la batería de respaldo (CR1220)
 
 **Ubicación:**
 
-- Soporte circular pequeño cerca del CI RTC
+- Pequeño soporte circular cerca del circuito integrado RTC
 
 **Función:**
 
 - Alimenta el RTC cuando se retira la batería principal
-- Mantiene el registro del tiempo
+- Mantiene la hora
 - No alimenta el registrador
 
 **Instalación:**
 
-- El lado positivo (+) normalmente mira hacia arriba
-- Presionar firmemente hasta que encaje
-- Debe quedar enrasado en el soporte
+- El lado positivo (+) suele quedar hacia arriba
+- Presione firmemente hasta que encaje
+- Debe quedar a ras del soporte
 
 **Vida útil:**
 
-- Típicamente 5–10 años
-- Reemplazar anualmente en aplicaciones críticas
-- Reemplazar si el reloj se reinicia al retirar la batería principal
+- Normalmente de 5 a 10 años
+- Sustitúyala cada año en aplicaciones críticas
+- Sustitúyala si el reloj se reinicia al retirar la batería principal
 
-### 7. Interruptor de Alimentación
+### 7. Interruptor de alimentación
 
 **Ubicación:**
 
-- Borde de la PCB, interruptor deslizante o de palanca
+- Borde de la PCB; interruptor deslizante o de palanca
 
 **Etiqueta:**
 
-- "ON (Batt) / OFF (ftdi)"
+ - "ON (Batt) / OFF (ftdi)"
 
 **Función:**
 
-- Controla la alimentación de la batería principal al registrador
-- Permite la alimentación por FTDI cuando está en OFF
-- Función de seguridad que evita alimentación simultánea por batería + USB
+- Controla la alimentación del registrador desde la batería principal
+- Permite alimentarlo desde el FTDI para programarlo cuando está en OFF
+- Evita que la batería y el USB suministren energía simultáneamente
 
 **Posiciones del interruptor:**
 
-| Posición       | Batería      | Alimentación FTDI | Caso de uso                              |
-|----------------|--------------|-------------------|------------------------------------------|
-| **ON (Batt)**  | Conectada    | Bloqueada         | Operación normal, despliegue en campo    |
-| **OFF (ftdi)** | Desconectada | Habilitada        | Programación mediante cable FTDI         |
+| Posición      | Batería       | Alimentación FTDI | Uso                                |
+|---------------|---------------|-------------------|------------------------------------|
+| **ON (Batt)** | Conectada     | Bloqueada         | Uso normal, despliegue en campo    |
+| **OFF (ftdi)**| Desconectada  | Habilitada        | Programación mediante cable FTDI   |
 
 **Cómo funciona:**
 
-!!! info "Diseño de alimentación inteligente"
-    El interruptor de alimentación está diseñado para evitar conectar accidentalmente tanto la batería como la alimentación USB (mediante FTDI) de forma simultánea, lo que podría dañar la batería o los componentes.
+!!! info "Diseño inteligente de alimentación"
+    El interruptor evita conectar accidentalmente a la vez la alimentación de la batería y la del USB (a través del FTDI), lo que podría dañar la batería o los componentes.
 
-**Posición ON (Batería):**
+**Posición ON (batería):**
 
 - La batería alimenta todo el registrador
-- El registrador funciona con normalidad
-- El cable FTDI puede conectarse igualmente para programar
-- El registrador recibe alimentación de la batería, no del FTDI
-- El LED mostrará operación normal
+- El registrador funciona normalmente
+- El cable FTDI puede permanecer conectado para programar
+- El registrador se alimenta de la batería, no del FTDI
+- El LED indicará el funcionamiento normal
 
 **Posición OFF (FTDI):**
 
-- La batería está desconectada del circuito
-- Si se conecta el cable FTDI: El registrador se alimenta por USB
-- Si no se conecta el FTDI: El registrador no tiene alimentación
-- Conveniente para programar sin batería instalada
-- Evita daños a la batería por la alimentación USB
+- La batería queda desconectada del circuito
+- Si el cable FTDI está conectado: el registrador se alimenta por USB
+- Si el FTDI no está conectado: el registrador no recibe alimentación
+- Facilita la programación sin instalar una batería
+- Evita que la alimentación USB dañe la batería
 
 **Opciones de programación:**
 
-Puedes programar el registrador en tres configuraciones:
+Puede programar el registrador en tres configuraciones:
 
-1. **Interruptor en OFF, sin batería, FTDI conectado**
+1. **Interruptor en OFF, sin batería y con FTDI conectado**
     - La opción más segura para la primera programación
-    - El registrador se alimenta completamente por USB/FTDI
-    - Enfoque más común
+    - El registrador se alimenta por completo desde USB/FTDI
+    - Es la opción más habitual
 
-2. **Interruptor en OFF, batería instalada, FTDI conectado**
-    - Batería desconectada pero presente
-    - El registrador se alimenta por USB/FTDI
-    - La batería permanece segura
+2. **Interruptor en OFF, con batería instalada y FTDI conectado**
+    - La batería está presente, pero desconectada
+    - El registrador se alimenta desde USB/FTDI
+    - La batería permanece protegida
 
-3. **Interruptor en ON, batería instalada, FTDI conectado**
+3. **Interruptor en ON, con batería instalada y FTDI conectado**
     - La batería alimenta el registrador
-    - El FTDI solo proporciona conexión de datos
+    - El FTDI solo proporciona la conexión de datos
     - Útil si el cable FTDI no puede suministrar suficiente corriente
 
 **Buenas prácticas:**
 
-✅ **HACER:**
+✅ **HAGA LO SIGUIENTE:**
 
-- Poner el interruptor en OFF al programar (recomendado)
-- Verificar la posición del interruptor antes de conectar el FTDI
-- Usar el interruptor para apagar completamente el registrador
+- Ponga el interruptor en OFF al programar (recomendado)
+- Compruebe la posición del interruptor antes de conectar el FTDI
+- Utilice el interruptor para apagar completamente el registrador
 
-❌ **NO HACER:**
+❌ **EVITE LO SIGUIENTE:**
 
-- Preocuparse por confusión en la posición del interruptor — el diseño evita daños
-- Dejar el interruptor en ON durante el almacenamiento prolongado (agota la batería)
+- Preocuparse por confundir las posiciones: el diseño evita daños
+- Dejar el interruptor en ON durante un almacenamiento prolongado (agota la batería)
 
 **Resolución de problemas:**
 
-| Problema                         | Verificar                                                     |
-|----------------------------------|---------------------------------------------------------------|
-| Sin alimentación con interruptor en ON  | Batería agotada, comprobar voltaje                     |
-| Sin alimentación con interruptor en OFF | Cable FTDI no conectado o sin pines de datos           |
-| No se puede cargar código        | Probar posición OFF, verificar orientación del FTDI           |
+| Problema                    | Qué comprobar                                         |
+|-----------------------------|------------------------------------------------------|
+| Sin alimentación en ON      | Batería agotada; compruebe la tensión                |
+| Sin alimentación en OFF     | Cable FTDI no conectado o ausencia de pines de datos |
+| No se puede cargar el código| Pruebe OFF; compruebe la orientación del FTDI        |
 
-### 8. Circuito de Regulación de Alimentación
+### 8. Circuito de regulación de alimentación
 
 **Ubicación:**
 
-- Componentes cerca de los contactos de la batería
+- Componentes próximos a los contactos de la batería
 
 **Componentes:**
 
-- Reguladores de tensión (suministro lógico de 3.3 V)
+- Reguladores de tensión (alimentación lógica de 3,3 V)
 - Diodos de protección
-- Condensadores de filtrado
-- CIs de gestión de energía
+- Condensadores para estabilización
+- Circuitos integrados de gestión de energía
 
 **Función:**
 
-- Convierte la batería de 3.7 V al nivel lógico de 3.3 V
-- Suministra alimentación estable a la electrónica
-- Protege contra la polaridad inversa (en algunos modelos)
-- Protección contra sobrecorriente
+- Convierte los 3,7 V de la batería en 3,3 V para la lógica
+- Proporciona alimentación estable a la electrónica
+- Protege contra la inversión de polaridad (en algunos modelos)
+- Protección frente a sobrecorriente
 
-**Reparable por el usuario:**
+**¿Puede intervenir el usuario?**
 
-- No — no modificar
+- No: no lo modifique
 
-### 8. Conector XBee (Solo Modelos con Telemetría)
+### 8. Zócalo XBee (solo modelos con telemetría)
 
 **Ubicación:**
 
-- Conector prominente, normalmente en un extremo de la PCB
+ - Zócalo destacado, a menudo en un extremo de la PCB
 
 **Función:**
 
 - Aloja el módem celular XBee
-- Conector pasante para el módulo XBee
+- Zócalo de inserción para el módulo XBee
 - Pines de alimentación y comunicación
 
 **Instalación del XBee:**
 
-- Alinear la muesca del XBee con el conector
-- Presionar firmemente hasta asentarlo
-- Todos los pines deben estar en el conector
+- Alinee la muesca del XBee con el zócalo
+- Presione firmemente hasta que quede asentado
+- Todos los pines deben entrar en el zócalo
 - No debe moverse
 
 **Extracción:**
 
-- Mover suavemente de lado a lado mientras se tira
-- Nunca tirar de la antena
-- Comprobar si hay pines doblados
+- Muévalo suavemente de lado a lado mientras tira de él
+- Nunca tire de la antena
+- Compruebe si hay pines doblados
 
 **Mantenimiento:**
 
-- Mantener el conector libre de polvo
-- Comprobar si hay pines doblados
-- Asegurarse de que la tarjeta SIM esté instalada en el XBee
+- Mantenga el zócalo libre de polvo
+- Compruebe si hay pines doblados
+- Asegúrese de que la tarjeta SIM esté instalada en el XBee
 
-### 9. Conector del Sensor
+### 9. Conector del sensor
 
 **Ubicación:**
 
-- Conector para el cable del sensor externo
+ - Conector para el cable del sensor externo
 
 **Tipos:**
 
-- **Wari:** Terminal de tornillo de 3–4 pines o JST
-- **Lidar:** Conector JST de 6 pines
+- **Wari:** bornera de tornillo de 3–4 pines o conector JST
+- **Lidar:** conector JST de 6 pines
 
 **Función:**
 
-- Alimentación al sensor
+- Alimentación del sensor
 - Comunicación de datos
 - Referencia de tierra
 
 **Mantenimiento:**
 
-- Comprobar que la conexión esté apretada
-- Inspeccionar por corrosión
-- Verificar que no haya cables rotos
-- Alivio de tensión adecuado
+- Compruebe que la conexión esté firme
+- Inspeccione si hay corrosión
+- Verifique que no haya cables rotos
+- Compruebe que el cable tenga suficiente alivio de tensión
 
 **Configuración de pines (típica):**
 
 **Wari (MB7389):**
 ```
-1. +5V (alimentación)
-2. Salida serie
-3. Entrada serie (a veces sin usar)
+1. +5V (power)
+2. Serial Out
+3. Serial In (sometimes unused)
 4. GND
 ```
 
 **Lidar (Garmin):**
 ```
-1. Habilitación de alimentación
-2. Control de modo
+1. Power Enable
+2. Mode Control
 3. +5V
 4. I2C SDA
 5. I2C SCL
@@ -478,52 +475,52 @@ Puedes programar el registrador en tres configuraciones:
 
 **Ubicación:**
 
-- LEDs de montaje en orificio o superficie
+ - LED de montaje pasante o superficial
 
-**LEDs comunes:**
+**LED habituales:**
 
-| LED            | Color         | Función                    |
-|----------------|---------------|----------------------------|
-| **Alimentación** | Rojo/verde  | Registrador encendido      |
-| **Actividad**  | Amarillo/azul | Medición en curso          |
-| **Error**      | Rojo          | Condición de error         |
-| **Telemetría** | Azul/verde    | Actividad XBee             |
+| LED            | Color         | Función                       |
+|----------------|---------------|-------------------------------|
+| **Alimentación** | Rojo/verde  | Registrador encendido         |
+| **Actividad**  | Amarillo/azul | Medición en curso             |
+| **Error**      | Rojo          | Estado de error               |
+| **Telemetría** | Azul/verde    | Actividad del XBee            |
 
-**Comportamiento de los LEDs:**
+**Comportamiento de los LED:**
 
-**Operación normal:**
+**Funcionamiento normal:**
 
 - Destello breve durante la medición
-- Encendido continuo durante la lectura del sensor
-- Destellos rápidos durante la escritura en SD
+- Luz fija durante la lectura del sensor
+- Destellos rápidos durante la escritura en la SD
 
 **Patrones de error:**
 
-- Parpadeo rápido: Error en la tarjeta SD
-- Encendido continuo: Atascado en estado de error
-- Sin actividad: Problema de alimentación/código
+- Parpadeo rápido: error de la tarjeta SD
+- Luz fija continua: bloqueado en un estado de error
+- Sin actividad: problema de alimentación o código
 
 **Ahorro de energía:**
 
-- LEDs desactivados en modo de despliegue
-- Activar el modo DEBUG para ver actividad
+- Los LED se desactivan en el modo de despliegue
+- Active el modo DEBUG para ver la actividad
 
-### 11. EEPROM Externa (Algunos Modelos)
+### 11. EEPROM externa (algunos modelos)
 
 **Ubicación:**
 
-- CI de 8 pines cerca del slot de la tarjeta SD
+- Circuito integrado de 8 pines cerca de la ranura para tarjeta SD
 
 **Función:**
 
-- Almacenamiento intermedio de datos
-- Guarda las mediciones en memoria antes de escribir en SD
+- Almacenamiento temporal de datos
+- Guarda las mediciones en memoria antes de escribirlas en la SD
 - Prolonga la vida útil de la tarjeta SD
-- Evita la pérdida de datos durante problemas con la SD
+- Evita la pérdida de datos si hay problemas con la SD
 
 **Especificaciones:**
 
-- Típicamente 24LC512 o similar
+- Normalmente 24LC512 o similar
 - Capacidad de 64 KB
 - Interfaz I2C
 - Memoria no volátil
@@ -531,276 +528,275 @@ Puedes programar el registrador en tres configuraciones:
 **Funcionamiento:**
 
 - Las mediciones se escriben primero en la EEPROM
-- Se envían en lote a la tarjeta SD periódicamente
-- Intervalo de volcado configurable por el usuario
+- Se escriben periódicamente en la tarjeta SD en lotes
+- El usuario puede configurar el intervalo de volcado
 
-**Reparable por el usuario:**
+**¿Puede intervenir el usuario?**
 
 - No
 
 ---
 
-## Componentes Adicionales
+## Componentes adicionales
 
 ### Condensadores
 
-**Propósito:**
+**Finalidad:**
 
-- Suavizado del suministro de alimentación
+- Estabilización de la alimentación
 - Filtrado de ruido
 - Circuitos de temporización
 
 **Mantenimiento:**
 
-- No requiere mantenimiento por parte del usuario
+- No requieren mantenimiento por parte del usuario
 
 ### Resistencias
 
-**Propósito:**
+**Finalidad:**
 
-- Pull-up/pull-down en señales
-- Limitación de corriente para LEDs
+- Resistencias de polarización de señales
+- Limitación de corriente para LED
 - Divisores de tensión
 
 **Mantenimiento:**
 
-- No requiere mantenimiento por parte del usuario
+ - No requieren mantenimiento por parte del usuario
 
-### Cristales/Osciladores
+### Cristales/osciladores
 
-**Cristal de 8 MHz (Externo):**
+**Cristal de 8 MHz (externo):**
 
-- Reloj principal para el microcontrolador
-- Determina la precisión del tiempo
+- Reloj principal del microcontrolador
+- Determina la precisión de la temporización
 
 **Mantenimiento:**
 
-- No requiere mantenimiento por parte del usuario
+ - No requiere mantenimiento por parte del usuario
 
 ---
 
-## Versiones de PCB
+## Versiones de la PCB
 
-### Identificar la Versión de tu PCB
+### Cómo identificar la versión de su PCB
 
-**Buscar:**
+**Busque:**
 
 - Número de versión serigrafiado en la PCB (p. ej., "v2.1")
 - Código de fecha
-- Logo/texto de Riverlabs
+- Logotipo o texto de Riverlabs
 
-**Versiones comunes:**
+**Versiones habituales:**
 
-| Versión           | Características              | Notas                       |
-|-------------------|------------------------------|-----------------------------|
-| **Wari v1**       | Registro básico              | Diseño original             |
-| **Wari v2.0**     | + EEPROM, alimentación mejorada | Mayor fiabilidad          |
-| **Wari v2.1**     | + Optimizaciones de telemetría | Producción actual          |
-| **Lidar/WMOnode** | Compatibilidad con sensor Lidar | Amplificador 5V de mayor potencia |
+| Versión           | Características                      | Notas                       |
+|-------------------|--------------------------------------|-----------------------------|
+| **Wari v1**       | Registro básico de datos             | Diseño original             |
+| **Wari v2.0**     | + EEPROM, alimentación mejorada      | Mayor fiabilidad            |
+| **Wari v2.1**     | + Optimización de telemetría         | Producción actual           |
+| **Lidar/WMOnode** | Compatibilidad con sensor lidar      | Elevador de 5 V de mayor potencia |
 
 ---
 
-## Seguridad y Manipulación
+## Seguridad y manipulación
 
-### Protección ESD
+### Protección contra descargas electrostáticas
 
-!!! warning "La electricidad estática puede dañar la electrónica"
+!!! warning "La electricidad estática puede dañar los componentes electrónicos"
     
 **Precauciones:**
 
-- Tocar metal con conexión a tierra antes de manipular la PCB
-- Evitar manipular en condiciones secas
-- Usar pulsera antiestática si está disponible
-- Guardar en bolsa antiestática cuando no esté instalada
+- Toque un objeto metálico conectado a tierra antes de manipular la PCB
+- Evite manipularla en ambientes secos
+- Use una pulsera antiestática si dispone de una
+- Guárdela en una bolsa antiestática cuando no esté instalada
 
-### Manipulación Física
+### Manipulación física
 
-**Hacer:**
+**Haga lo siguiente:**
 
-- ✅ Manipular solo por los bordes
-- ✅ Usar las herramientas adecuadas
-- ✅ Trabajar sobre una superficie no conductora
-- ✅ Mantener alejado de líquidos
+- ✅ Sujétela solo por los bordes
+- ✅ Utilice herramientas adecuadas
+- ✅ Trabaje sobre una superficie no conductora
+- ✅ Manténgala alejada de líquidos
 
-**No hacer:**
+**Evite lo siguiente:**
 
 - ❌ Tocar los pines de los componentes
-- ❌ Aplicar presión sobre los componentes
-- ❌ Exponer a la humedad
-- ❌ Dejar caer o golpear
+- ❌ Presionar los componentes
+- ❌ Exponerla a la humedad
+- ❌ Dejarla caer o golpearla
 
 ### Limpieza
 
 **Si es necesario:**
 
-- Apagar y retirar las baterías
-- Usar alcohol isopropílico al 90%+
-- Cepillo suave (cepillo de dientes o cepillo antiestático)
-- Dejar secar completamente antes de volver a montar
-- No usar agua ni limpiadores
+- Apague el dispositivo y retire las baterías
+- Use alcohol isopropílico de al menos el 90 %
+- Use un cepillo suave (de dientes o antiestático)
+- Deje secar completamente al aire antes de volver a montarlo
+- No use agua ni productos de limpieza
 
 ---
 
-## Prueba de Componentes
+## Pruebas de los componentes
 
-### Inspección Visual
+### Inspección visual
 
-**Comprobar:**
+**Compruebe que:**
 
-- [ ] Sin daños físicos
-- [ ] Sin pines doblados
-- [ ] Sin corrosión
-- [ ] Sin marcas de quemado
-- [ ] Uniones de soldadura intactas
-- [ ] Sin grietas en la PCB
+- [ ] No haya daños físicos
+- [ ] No haya pines doblados
+- [ ] No haya corrosión
+- [ ] No haya marcas de quemaduras
+- [ ] Las soldaduras estén intactas
+- [ ] La PCB no tenga grietas
 
-### Pruebas Funcionales
+### Pruebas funcionales
 
 **Prueba de alimentación:**
 
-1. Instalar batería nueva
-2. Verificar actividad del LED
-3. Comprobar voltaje con multímetro
+1. Instale una batería nueva
+2. Compruebe la actividad del LED
+3. Mida la tensión con un multímetro
 
 **Prueba de comunicación:**
 
-1. Conectar cable FTDI
-2. Abrir el Monitor Serie
-3. Cargar sketch de prueba
-4. Verificar salida serie
+1. Conecte el cable FTDI
+2. Abra el monitor serie
+3. Cargue un programa de prueba
+4. Compruebe la salida serie
 
 **Prueba del sensor:**
 
-1. Conectar el sensor
-2. Ejecutar código de prueba del sensor
-3. Verificar lecturas razonables
-4. Comprobar mensajes de error
+1. Conecte el sensor
+2. Ejecute el código de prueba del sensor
+3. Compruebe que las lecturas sean razonables
+4. Compruebe si hay mensajes de error
 
-**Prueba de tarjeta SD:**
+**Prueba de la tarjeta SD:**
 
-1. Insertar tarjeta formateada
-2. Ejecutar durante varias mediciones
-3. Retirar y leer el archivo de datos
-4. Verificar formato y contenido
+1. Inserte una tarjeta formateada
+2. Ejecute varias mediciones
+3. Retire la tarjeta y lea el archivo de datos
+4. Compruebe el formato y el contenido
 
 **Prueba del RTC:**
 
-1. Configurar el reloj
-2. Retirar la batería principal (con batería de respaldo instalada)
-3. Esperar 1 minuto
-4. Reinstalar la batería principal
-5. Comprobar la hora — debe ser precisa
+1. Ajuste el reloj
+2. Retire la batería principal (con la batería de respaldo instalada)
+3. Espere 1 minuto
+4. Vuelva a instalar la batería principal
+5. Compruebe la hora: debe ser correcta
 
 ---
 
-## Modificaciones y Actualizaciones
+## Modificaciones y actualizaciones
 
-### Actualizaciones de Firmware
+### Actualizaciones del firmware
 
 **Seguras y recomendadas:**
 
-- Cargar nuevo código mediante FTDI
-- Modificar parámetros configurables por el usuario
-- Actualizar a la última versión estable
+- Cargue código nuevo mediante FTDI
+- Modifique los parámetros configurables por el usuario
+- Actualice a la última versión estable
 
 **Procedimiento:**
 
-1. Descargar el nuevo firmware
-2. Verificar compatibilidad con la versión de hardware
-3. Cargar mediante Arduino IDE
-4. Probar exhaustivamente antes del despliegue
+1. Descargue el firmware nuevo
+2. Compruebe su compatibilidad con la versión del hardware
+3. Cárguelo mediante el IDE de Arduino
+4. Pruébelo a fondo antes de instalarlo en campo
 
-### Modificaciones de Hardware
+### Modificaciones del hardware
 
-!!! danger "Las modificaciones de hardware son responsabilidad del usuario"
-    Las modificaciones a la PCB, componentes o circuitos pueden dañar el registrador.
+!!! danger "Las modificaciones del hardware son responsabilidad del usuario"
+    Las modificaciones de la PCB, sus componentes o sus circuitos pueden dañar el registrador.
 
 ---
 
-## Resolución de Problemas de Componentes
+## Resolución de problemas de los componentes
 
-### Por Síntoma
+### Según el síntoma
 
 **Sin alimentación:**
 
-- Comprobar voltaje de la batería
-- Inspeccionar los contactos de la batería (doblar hacia adentro si es necesario)
-- Verificar el LED de alimentación (si está presente)
-- Comprobar cortocircuitos (cable suelto o daño en la PCB)
+- Compruebe la tensión de la batería
+- Inspeccione los contactos de la batería (dóblelos hacia dentro si es necesario)
+- Compruebe el LED de alimentación (si existe)
+- Busque cortocircuitos (cables sueltos o daños en la PCB)
 
 **El reloj se reinicia:**
 
-- Reemplazar la batería de respaldo CR1220 (debe medir 3 VDC)
-- Comprobar el portapilas del RTC
-- Verificar que el código configure correctamente el reloj
+- Sustituya la batería de respaldo CR1220 (debe indicar 3 V CC)
+- Compruebe el portapilas del RTC
+- Verifique que el código ajuste correctamente el reloj
 
-**Errores de tarjeta SD:**
+**Errores de la tarjeta SD:**
 
-- Limpiar los contactos de la tarjeta
-- Probar con una tarjeta diferente
-- Comprobar si hay daños en el slot
+- Limpie los contactos de la tarjeta
+- Pruebe otra tarjeta
+- Compruebe si el zócalo está dañado
 
 **Errores del sensor:**
 
-- Comprobar que el conector esté bien fijado
-- Verificar la continuidad del cable
-- Probar el sensor por separado (en otro registrador funcional si es posible)
-- Comprobar 5 V en el pin de alimentación (solo lidar)
+- Compruebe que el conector esté bien sujeto
+- Verifique la continuidad del cable
+- Pruebe el sensor por separado (en otro registrador que funcione, si es posible)
+- Compruebe que haya 5 V en el pin de alimentación (solo lidar)
 
-**Fallo en la comunicación serie:**
+**Fallo de comunicación serie:**
 
-- Verificar la orientación del cable FTDI
-- Comprobar si hay pines doblados en el cabezal
-- Probar con un cable FTDI diferente
-- Probar con el sketch de Blink simple
+- Compruebe la orientación del cable FTDI
+- Compruebe si hay pines doblados en el conector
+- Pruebe otro cable FTDI
+- Pruebe con un programa sencillo de parpadeo
 
 ---
 
-## Piezas de Repuesto
+## Piezas de repuesto
 
-### Componentes Reemplazables por el Usuario
+### Componentes sustituibles por el usuario
 
-| Componente           | Número de pieza      | Fuente  | Nivel de habilidad |
-|----------------------|----------------------|---------|--------------------|
-| **Batería 18650**    | Ver Guía de batería  | Minorista | Fácil            |
-| **Batería CR1220**   | CR1220               | Minorista | Fácil            |
-| **Tarjeta MicroSD**  | Compatible con FAT32 | Minorista | Fácil            |
-| **Módulo XBee**      | XBee3 Cellular LTE-M | Digi    | Moderado           |
+| Componente            | Número de pieza       | Proveedor       | Dificultad |
+|-----------------------|-----------------------|-----------------|------------|
+| **Batería 18650**     | Consulte la guía de baterías | Comercio | Fácil     |
+| **Batería CR1220**    | CR1220                | Comercio        | Fácil      |
+| **Tarjeta microSD**   | Cualquiera compatible con FAT32 | Comercio | Fácil |
+| **Módulo XBee**       | XBee3 Cellular LTE-M  | Digi            | Moderada   |
 
-### Requieren Reemplazo Profesional
+### Sustitución a cargo de profesionales
 
 - Microcontrolador
-- CI RTC
+- Circuito integrado RTC
 - Reguladores de tensión
 - Cualquier componente de montaje superficial
-- Pistas de PCB dañadas
+- Pistas dañadas de la PCB
 
-**Contactar a Riverlabs para reparaciones:** info@riverlabs.uk
+**Contacte con Riverlabs para reparaciones:** info@riverlabs.uk
 
 ---
 
 ## Documentación
 
-### Esquemático de la PCB
+### Esquema de la PCB
 
-!!! info "Esquemáticos de código abierto"
-    Los esquemáticos completos de la PCB están disponibles en el [repositorio de GitHub](https://github.com/ICHydro/Riverlabs). Contactar info@riverlabs.uk para más detalles.
+!!! info "Esquemas de código abierto"
+    Los esquemas completos de la PCB están disponibles en el [repositorio de GitHub](https://github.com/ICHydro/Riverlabs). Escriba a info@riverlabs.uk para obtener más información.
 
-### Lista de Materiales (BOM)
+### Lista de materiales (BOM)
 
 Las listas completas de componentes están disponibles en la [documentación del repositorio](https://github.com/ICHydro/Riverlabs).
 
 ---
 
-## Próximos Pasos
+## Próximos pasos
 
-- 🔋 [Guía de batería y alimentación](battery-power-guide.md): Detalles del sistema de alimentación
-- 🛠️ [Guía de mantenimiento](maintenance.md): Procedimientos de mantenimiento regular
-- 🚨 [Resolución de problemas](../troubleshooting/common-issues.md): Problemas específicos de componentes
+- 🔋 [Guía de baterías y alimentación](battery-power-guide.md): Detalles del sistema de alimentación
+- 🛠️ [Guía de mantenimiento](maintenance.md): Procedimientos de mantenimiento periódico
+- 🚨 [Resolución de problemas](../troubleshooting/common-issues.md): Problemas de los componentes
 - 💻 [Configuración de Arduino](../quick-start/arduino-setup.md): Programación y firmware
 
 ---
 
 !!! note "Evolución de la PCB"
-    Riverlabs mejora continuamente los diseños de PCB. Aunque las ubicaciones de los componentes pueden variar ligeramente entre versiones, la funcionalidad principal y la programación se mantienen constantes.
-
+    Riverlabs mejora continuamente el diseño de sus PCB. Aunque la ubicación de los componentes puede variar ligeramente entre versiones, las funciones principales y el proceso de programación siguen siendo los mismos.

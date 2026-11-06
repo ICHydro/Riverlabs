@@ -106,31 +106,32 @@ nav:
   - Operación:
       - Inicio Rápido:
           - Guía de Inicio Rápido: operation/quick-start/quick-start.md
+          - Descarga de Datos: operation/quick-start/data-download.md
           - Configuración de Arduino: operation/quick-start/arduino-setup.md
           - Lista de Verificación para la Primera Implementación: operation/quick-start/first-deployment-checklist.md
-          - Descarga de Datos: operation/quick-start/data-download.md
       - Hardware:
           - Especificaciones Técnicas: operation/hardware/technical-specifications.md
           - Guía de Baterías y Alimentación: operation/hardware/battery-power-guide.md
-          - Componentes Internos: operation/hardware/internal-components.md
+          # - Componentes Internos: operation/hardware/internal-components.md
           - Mantenimiento: operation/hardware/maintenance.md
           - Gestión de Datos: operation/hardware/data-handling.md
       - Solución de Problemas:
           - Diagramas de Flujo de Diagnóstico: operation/troubleshooting/diagnostic-flowcharts.md
   - Instalación:
-      - Guía de Montaje: installation/mounting-guide.md
       - Posicionamiento del Sensor: installation/sensor-positioning.md
+      - Guía de Montaje: installation/mounting-guide.md
       - Consideraciones Ambientales: installation/environmental-considerations.md
-  - Telemetría:
-      - Guía de Configuración de Red Móvil: telemetry/setup-guide.md
-      - Guía de LoRa / LoRaWAN: telemetry/lora-lorawan-guide.md
-      - Configuración de ThingsBoard: telemetry/thingsboard-configuration.md
-      - Guía de XBee: telemetry/xbee-setup-walkthrough.md
-      - Solución de Problemas de Conexión: telemetry/troubleshooting-connections.md
   - Programación:
+      - Introducción: programming/intro.md
       - Configuración de Arduino: programming/arduino-setup.md
       - Cargando Código: programming/uploading-code.md
-  - Desarrollo:
-      - Detalles de la Instalación: development/installation-details.md
-      - Integración con ThingsBoard: development/thingsboard-integration.md
-      - Configuración de XBee 3G: development/xbee-3g-setup.md
+  # - Telemetría:
+  #     - Guía de Configuración de Red Móvil: telemetry/setup-guide.md
+  #     - Guía de LoRa / LoRaWAN: telemetry/lora-lorawan-guide.md
+  #     - Configuración de ThingsBoard: telemetry/thingsboard-configuration.md
+  #     - Guía de XBee: telemetry/xbee-setup-walkthrough.md
+  #     - Solución de Problemas de Conexión: telemetry/troubleshooting-connections.md
+  # - Desarrollo:
+  #     - Detalles de la Instalación: development/installation-details.md
+  #     - Integración con ThingsBoard: development/thingsboard-integration.md
+  #     - Configuración de XBee 3G: development/xbee-3g-setup.md

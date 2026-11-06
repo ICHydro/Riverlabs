@@ -1,70 +1,70 @@
-# Guía Paso a Paso de Configuración del XBee
+# Guía paso a paso para configurar XBee
 
-!!! abstract "Resumen"
-    Esta es una guía visual paso a paso para configurar módulos Digi XBee Cellular para registradores Riverlabs. Cubre tanto XBee Studio (recomendado) como XCTU (heredado).
+!!! abstract "Descripción general"
+    Esta guía visual explica paso a paso cómo configurar módulos Digi XBee Cellular para los registradores Riverlabs. Incluye XBee Studio (recomendado) y XCTU (anterior).
     
     **Compatibilidad:** XBee 3G, XBee Cellular LTE-M/NB-IoT y XBee3 Cellular
 
-!!! info "Herramientas de Configuración"
-    La mayoría de la configuración del XBee se realiza directamente en el código de Arduino. Sin embargo, ciertos parámetros deben configurarse manualmente para garantizar una comunicación adecuada entre el registrador y el XBee:
+!!! info "Herramientas de configuración"
+    La mayor parte de la configuración del XBee se realiza directamente en el código Arduino. Sin embargo, algunos parámetros deben ajustarse manualmente para que el registrador y el XBee puedan comunicarse:
     
-    - **Configuración de la interfaz serie** (velocidad de baudios, paridad y tiempos de espera)
-    - **Configuración del modo de sueño** (pin sleep)
-    - **Modo API** (con caracteres escapados)
+    - **Ajustes de la interfaz serie** (velocidad en baudios, paridad y tiempos de espera)
+    - **Modo de suspensión** (control mediante pin)
+    - **Modo API** (con caracteres de escape)
     
-    Puede usar cualquiera de los dos:
+    Puede utilizar cualquiera de estas herramientas:
     
-    - **XBee Studio** (recomendado): Interfaz moderna, mejor para XBee3
-    - **XCTU**: Herramienta heredada, funciona con todos los modelos XBee incluyendo módulos 3G más antiguos
+    - **XBee Studio** (recomendado): interfaz moderna, más adecuada para XBee3
+    - **XCTU**: herramienta anterior, compatible con todos los modelos XBee, incluidos los módulos 3G
     
-    Ambas herramientas son gratuitas en el [sitio web de Digi](https://www.digi.com/products/embedded-systems/digi-xbee/digi-xbee-tools).
+    Ambas se descargan gratuitamente del [sitio web de Digi](https://www.digi.com/products/embedded-systems/digi-xbee/digi-xbee-tools).
 
-## Requisitos Previos
+## Requisitos previos
 
-Antes de comenzar, asegúrese de tener:
+Antes de empezar, compruebe que dispone de:
 
 -  **Módulo XBee Cellular** (3G, LTE-M o NB-IoT)
 -  **Tarjeta SIM activa** (insertada en el XBee)
--  **Adaptador USB** para XBee (XBee Grove Board o similar)
--  **Computadora** (Windows, macOS o Linux)
+-  **Adaptador USB** para el XBee (placa XBee Grove o similar)
+-  **Ordenador** (Windows, macOS o Linux)
 -  **XBee Studio** o **XCTU** instalado
--  **Detalles del APN del operador** (del proveedor de SIM)
+-  **Datos del APN** del operador de la SIM
 
 ---
 
 ## Parte 1: Instalación de XBee Studio
 
-### Descarga e Instalación
+### Descarga e instalación
 
-**1. Navegar al Sitio Web de Digi:**
+**1. Vaya al sitio web de Digi:**
 
 - URL: https://www.digi.com/products/embedded-systems/digi-xbee/digi-xbee-tools/xbee-studio
-- O buscar "XBee Studio download"
+- O busque "XBee Studio download".
 
-**2. Seleccionar su Plataforma:**
+**2. Seleccione su plataforma:**
 
-- Windows (64-bit)
+- Windows (64 bits)
 - macOS
 - Linux
 
-**3. Descargar el Instalador**
+**3. Descargue el instalador.**
 
-**4. Instalar:**
+**4. Instale el programa:**
 
 **Windows:**
 
-- Ejecutar el instalador .exe
-- Aceptar la licencia
-- Elegir el directorio de instalación
-- Instalar los controladores cuando se solicite
-- Finalizar
+- Ejecute el instalador .exe.
+- Acepte la licencia.
+- Elija la carpeta de instalación.
+- Instale los controladores cuando se le solicite.
+- Finalice la instalación.
 
 **macOS:**
 
-- Abrir el archivo .dmg
-- Arrastrar XBee Studio a Aplicaciones
-- Primer inicio: Clic derecho > Abrir (omitir Gatekeeper)
-- Los controladores se instalan automáticamente (puede requerir reinicio)
+- Abra el archivo .dmg.
+- Arrastre XBee Studio a Aplicaciones.
+- En el primer inicio: clic derecho > Abrir (para superar Gatekeeper).
+- Los controladores se instalan automáticamente (quizá deba reiniciar).
 
 
 **Linux:**
@@ -72,73 +72,73 @@ Antes de comenzar, asegúrese de tener:
 # Extraer el archivo
 tar -xzf XBeeStudio-linux-x64.tar.gz
 
-# Ejecutar el instalador o AppImage
+# Ejecutar el instalador o la AppImage
 ./XBeeStudio.AppImage
 
-# Controladores (si es necesario)
+# Controladores (si hacen falta)
 sudo apt-get install libusb-1.0-0
 ```
 
-### Verificar la Instalación
+### Comprobar la instalación
 
-1. Iniciar XBee Studio
-2. Aparece la pantalla de bienvenida
-3. Verificar la versión (Help > About): debe ser 1.4.0+ para soporte celular XBee3
+1. Abra XBee Studio.
+2. Compruebe que aparece la pantalla de bienvenida.
+3. Consulte la versión (Help > About): para XBee3 Cellular debería ser 1.4.0 o posterior.
 
 ---
 
-## Parte 2: Conexión de Hardware
+## Parte 2: Conexión del hardware
 
-### Configuración Física
+### Preparación física
 
-**1. Insertar la Tarjeta SIM (si aún no se ha hecho):**
+**1. Inserte la SIM (si aún no lo ha hecho):**
 
-!!! warning "Apagar Primero"
-    ¡Asegúrese de que el XBee NO esté conectado a la alimentación o USB al insertar/retirar la SIM!
+!!! warning "Desconecte primero la alimentación"
+    ¡El XBee NO debe estar conectado a la alimentación ni al USB cuando inserte o retire la SIM!
 
-- Localizar la ranura de la SIM (parte inferior del XBee)
-- Observar la orientación de la ranura (diagrama en el módulo)
-- Insertar micro-SIM (tamaño 3FF)
-- Empujar hasta que haga clic (a ras con el módulo)
-- Verificar que esté correctamente asentada
+- Localice la ranura SIM (parte inferior del XBee).
+- Observe la orientación indicada en el módulo.
+- Inserte la micro-SIM (tamaño 3FF).
+- Presione hasta que encaje y quede al ras.
+- Compruebe que esté bien asentada.
 
-**2. Montar el XBee en el Adaptador USB:**
+**2. Monte el XBee en el adaptador USB:**
 
-- Alinear los pines cuidadosamente
-- Presionar firmemente hasta que esté asentado
-- Todos los pines deben estar en contacto
-- El módulo se asienta plano contra el adaptador
+- Alinee cuidadosamente los pines.
+- Presione con firmeza hasta asentarlo.
+- Todos los pines deben encajar.
+- El módulo debe quedar plano sobre el adaptador.
 
-**3. Conectar el Cable USB:**
+**3. Conecte el cable USB:**
 
-- Adaptador al puerto USB de la computadora
-- Esperar el reconocimiento del controlador
+- Conecte el adaptador al puerto USB del ordenador.
+- Espere a que se reconozca el controlador.
 
-### Verificación del Controlador
+### Verificación de controladores
 
 **Windows:**
 
-1. Abrir el Administrador de Dispositivos (Win+X > Administrador de Dispositivos)
-2. Expandir "Puertos (COM y LPT)"
-3. Buscar "USB Serial Port (COMx)" — anotar el número COM
-4. Si "Dispositivo Desconocido": reinstalar XBee Studio (incluye controladores)
+1. Abra el Administrador de dispositivos (Win+X > Administrador de dispositivos).
+2. Despliegue "Ports (COM & LPT)".
+3. Busque "USB Serial Port (COMx)" y anote el número COM.
+4. Si aparece "Unknown Device", reinstale XBee Studio (incluye controladores).
 
 **macOS:**
 
-1. Abrir Terminal
-2. Listar dispositivos:
+1. Abra Terminal.
+2. Enumere los dispositivos:
    ```bash
    ls /dev/tty.*
    ```
-3. Buscar `/dev/tty.usbserial-XXXXXXXX`
+3. Busque `/dev/tty.usbserial-XXXXXXXX`.
 
 **Linux:**
 
-1. Verificar el dispositivo:
+1. Compruebe el dispositivo:
    ```bash
    ls /dev/ttyUSB*
    ```
-2. Agregar usuario al grupo dialout (si se deniega el permiso):
+2. Añada su usuario al grupo dialout si no tiene permisos:
    ```bash
    sudo usermod -a -G dialout $USER
    # Cerrar sesión y volver a iniciarla
@@ -146,332 +146,331 @@ sudo apt-get install libusb-1.0-0
 
 ---
 
-## Parte 3: Agregar el XBee a XBee Studio
+## Parte 3: Añadir el XBee a XBee Studio
 
-### Paso 1: Agregar Nuevo Dispositivo
+### Paso 1: Añadir un dispositivo nuevo
 
-**1. Iniciar XBee Studio**
+**1. Abra XBee Studio.**
 
-**2. Ventana Principal:**
+**2. Ventana principal:**
 
-- Panel izquierdo: "Devices" (actualmente vacío)
-- Centro: Mensajes de "Get Started"
-- Derecha: Paneles de información
+- Panel izquierdo: "Devices" (vacío al principio).
+- Centro: indicaciones "Get Started".
+- Derecha: paneles informativos.
 
-**3. Hacer clic en "+ Add Device"** (botón en la parte superior izquierda o central)
+**3. Haga clic en "+ Add Device"** (arriba a la izquierda o en el centro).
 
-**4. Aparece el Diálogo de Conexión**
+**4. Aparecerá el cuadro de conexión.**
 
-### Paso 2: Seleccionar el Método de Conexión
+### Paso 2: Seleccionar la conexión
 
-**En el diálogo "Add Radio":**
+**En el cuadro "Add Radio":**
 
-**Tipo de Conexión:**
+**Tipo de conexión:**
 
-- Seleccionar: **"USB"** (predeterminado)
+- Seleccione **"USB"** (predeterminado).
 
 **Puerto:**
 
-- Windows: Seleccionar **"COM3"** (o su puerto COM del Administrador de Dispositivos)
-- macOS/Linux: Seleccionar **/dev/ttyUSB0** (o su dispositivo)
+- Windows: seleccione **"COM3"** (o el puerto COM que indique el Administrador de dispositivos).
+- macOS/Linux: seleccione **/dev/ttyUSB0** (o el dispositivo correspondiente).
 
-**Velocidad de Baudios:**
+**Velocidad en baudios:**
 
-- Dejar en **"9600"** (o "Auto" si está disponible)
+- Deje **"9600"** (o "Auto" si está disponible).
 
-!!! tip "¿No Puede Ver su Puerto?"
-    - Intentar hacer clic en el botón "Refresh"
-    - Verificar el cable USB (con capacidad de datos, no solo de carga)
-    - Verificar que los controladores estén instalados
-    - Intentar con un puerto USB diferente
+!!! tip "¿No aparece el puerto?"
+    - Haga clic en "Refresh".
+    - Compruebe que el cable USB transmite datos y no solo carga.
+    - Verifique que los controladores estén instalados.
+    - Pruebe otro puerto USB.
 
-**5. Hacer clic en "Add Selected"**
+**5. Haga clic en "Add Selected".**
 
-### Paso 3: Lectura Inicial
+### Paso 3: Primera lectura
 
 **XBee Studio:**
 
-- Se conecta al XBee
-- Lee la versión del firmware
-- Lee la configuración actual
-- Muestra la información del módulo
+- Se conecta al XBee.
+- Lee la versión del firmware.
+- Lee la configuración actual.
+- Muestra información del módulo.
 
 **Debería ver:**
 
-- Dispositivo aparece en el panel izquierdo
-- Detalles del módulo (centro):
-    - Modelo: XB3-C-A2-UT-001 (o similar)
-    - Firmware: Cellular (p.ej., 11415)
-    - Versión de hardware: 1E (o actual)
-- Aparecen las pestañas de configuración
+- El dispositivo en el panel izquierdo.
+- Datos del módulo (centro):
+    - Modelo: XB3-C-A2-UT-001 (o similar).
+    - Firmware: Cellular (p. ej., 11415).
+    - Versión de hardware: 1E (o la actual).
+- Pestañas de configuración.
 
-**Si la conexión falla:**
+**Si falla la conexión:**
 
-- Verificar la selección del puerto COM
-- Verificar la velocidad de baudios (probar Auto o 9600)
-- Asegurar que el XBee esté correctamente asentado
-- Ver la sección de resolución de problemas
+- Revise el puerto COM elegido.
+- Compruebe la velocidad (pruebe Auto o 9600).
+- Verifique que el XBee esté bien encajado.
+- Consulte la sección de solución de problemas.
 
 ---
 
-## Parte 4: Descripción General de las Pestañas de Configuración
+## Parte 4: Pestañas de configuración
 
-### Interfaz Principal de Configuración
+### Interfaz principal
 
-**Panel Izquierdo:**
+**Panel izquierdo:**
 
-- Lista de dispositivos agregados
-- Hacer clic en el dispositivo para seleccionarlo
+- Lista de dispositivos añadidos.
+- Haga clic en uno para seleccionarlo.
 
-**Pestañas del Panel Central:**
+**Pestañas del panel central:**
 
 **1. Radio Configuration**
 
-- La pestaña más importante
-- Todos los ajustes aquí
+- La pestaña más importante.
+- Contiene todos los ajustes.
 
 **2. Cellular Network**
 
-- Estado de la red
-- Intensidad de la señal
-- Diagnósticos de conexión
+- Estado de red.
+- Intensidad de señal.
+- Diagnóstico de conexión.
 
 **3. MicroPython**
 
-- Para programación avanzada (no necesario para el registrador)
+- Programación avanzada (innecesaria para el registrador).
 
 **4. Firmware**
 
-- Actualizar firmware
+- Actualización del firmware.
 
 **5. Terminal**
 
-- Terminal serie para depuración
+- Terminal serie para depuración.
 
 **6. File System**
 
-- Acceder al sistema de archivos del XBee (avanzado)
+- Acceso a los archivos del XBee (avanzado).
 
-### Navegación por la Configuración de Radio
+### Recorrer la configuración de la radio
 
-**Los ajustes están organizados en secciones contraíbles:**
+**Los ajustes se organizan en secciones desplegables:**
 
-- **Addressing** (ID de PAN, direcciones)
-- **Serial Interfacing** (velocidad de baudios, paridad)
+- **Addressing** (ID PAN, direcciones)
+- **Serial Interfacing** (baudios, paridad)
 - **I/O Settings** (configuración de pines)
-- **Networking** (APN, configuración de conexión)
+- **Networking** (APN, conexión)
 - **Security** (TLS, certificados)
 - **RF Interfacing** (ajustes del módem celular)
 - **Sleep Modes** (gestión de energía)
 - **AT Command Options** (modo API)
 
-**Cómo editar:**
+**Cómo editarlos:**
 
-1. Hacer clic en la sección para expandirla
-2. Hacer clic en el nombre del ajuste para editar
-3. Escribir el nuevo valor o seleccionar del desplegable
-4. El ajuste se vuelve **negrita** cuando se modifica
-5. Debe hacer clic en **"Write"** para guardar en el XBee
+1. Haga clic en una sección para desplegarla.
+2. Haga clic en el ajuste que desea cambiar.
+3. Introduzca un valor o elíjalo en la lista.
+4. Los ajustes modificados aparecen en **negrita**.
+5. Haga clic en **"Write"** para guardarlos en el XBee.
 
 ---
 
-## Parte 5: Configuración Esencial
+## Parte 5: Configuración imprescindible
 
-### Descripción General de los Ajustes Requeridos
+### Resumen de los ajustes necesarios
 
-**Objetivo:** Configurar el XBee para:
+**Objetivo:** configurar el XBee para:
 
-1. Conexión de red celular
-2. Comunicación serie con Arduino
-3. Modo API para la transmisión de datos
-4. Modo de sueño para ahorro de energía
+1. Conectarse a la red celular.
+2. Comunicarse por serie con Arduino.
+3. Utilizar el modo API para transmitir datos.
+4. Entrar en suspensión para ahorrar energía.
 
-### Sección 1: Interfaz Serie
+### Sección 1: Interfaz serie
 
-**Expandir la sección "Serial Interfacing"**
+**Despliegue "Serial Interfacing".**
 
-!!! info "Configuraciones Serie Críticas"
-    Estos ajustes DEBEN coincidir exactamente para que el XBee se comunique con el registrador Riverlabs. Estos valores son requeridos por la biblioteca xbee-arduino personalizada usada en el firmware del registrador.
+!!! info "Ajustes serie críticos"
+    Estos ajustes DEBEN coincidir exactamente para que el XBee se comunique con el registrador Riverlabs. Son los valores requeridos por la biblioteca xbee-arduino personalizada que utiliza el firmware.
 
-| Ajuste                     | Parámetro | Valor             | Descripción                  |
-|----------------------------|-----------|-------------------|------------------------------|
-| **Velocidad de Baudios**   | BD        | **9600**          | Debe coincidir con el código Arduino |
-| **Paridad**                | NB        | **0** (Sin Paridad)| Estándar, sin bit de paridad |
-| **Bits de Parada**         | SB        | **1**             | Un bit de parada             |
-| **Timeout de Empaquetado** | RO        | **3**             | Timeout de caracteres (3 ms) |
-| **Entrega de Transmisión** | TD        | **0**             | Deshabilitar estado de entrega |
-| **Umbral de Control de Flujo** | FT   | **681**           | Umbral del búfer UART        |
+| Ajuste | Parámetro | Valor | Descripción |
+|--------|-----------|-------|-------------|
+| **Velocidad en baudios** | BD | **9600** | Debe coincidir con el código Arduino |
+| **Paridad** | NB | **0** (sin paridad) | Estándar |
+| **Bits de parada** | SB | **1** | Un bit de parada |
+| **Tiempo de empaquetado** | RO | **3** | Tiempo entre caracteres (3 ms) |
+| **Entrega de transmisión** | TD | **0** | Desactiva el estado de entrega |
+| **Umbral de control de flujo** | FT | **681** | Umbral del búfer UART |
 
-**Cómo configurar:**
+**Cómo configurarlos:**
 
-1. Hacer clic en "BD (Baud Rate)"
-2. Desplegable: Seleccionar **"9600"**
-3. Establecer RO = **3**
-4. Establecer TD = **0**
-5. Establecer FT = **681** (hexadecimal: 0x2A9)
-6. Verificar NB = 0, SB = 1 (normalmente predeterminados)
-7. No hacer clic en Write todavía (agrupar todos los cambios)
+1. Haga clic en "BD (Baud Rate)".
+2. Seleccione **"9600"**.
+3. Establezca RO = **3**.
+4. Establezca TD = **0**.
+5. Establezca FT = **681** (hexadecimal: 0x2A9).
+6. Compruebe NB = 0 y SB = 1 (valores normalmente predeterminados).
+7. No pulse Write todavía (guarde todos los cambios juntos).
 
-!!! warning "Se Requiere la Biblioteca xbee-arduino Extendida"
-    El código Riverlabs usa una versión extendida de la [biblioteca xbee-arduino](https://github.com/ICHydro/xbee-arduino) con funcionalidad de módem celular. Esta biblioteca personalizada está incluida en los paquetes de código Riverlabs, por lo que no necesita instalarla por separado.
+!!! warning "Se necesita la biblioteca xbee-arduino ampliada"
+    El código Riverlabs utiliza una versión ampliada de la [biblioteca xbee-arduino](https://github.com/ICHydro/xbee-arduino) con funciones de módem celular. Está incluida en los paquetes de código Riverlabs y no necesita instalarla aparte.
 
 ### Sección 2: Red
 
-**Expandir la sección "Network" o "Mobile Network"**
+**Despliegue "Network" o "Mobile Network".**
 
-!!! danger "Ajustes Críticos"
+!!! danger "Ajustes críticos"
     ¡Un APN incorrecto impide la conexión celular!
 
-| Ajuste                  | Parámetro | Valor                   | Descripción       |
-|-------------------------|-----------|-------------------------|-------------------|
-| **Nombre del Punto de Acceso** | AN | **[Su APN del operador]** | Del proveedor de SIM |
-| **Nombre de Usuario APN** | AU    | **[Si es necesario]**   | Normalmente en blanco |
-| **Contraseña APN**      | AV        | **[Si es necesario]**   | Normalmente en blanco |
-| **Tecnología de Red**   | NT        | **0** (LTE-M preferido) | O 1 (NB-IoT)      |
+| Ajuste | Parámetro | Valor | Descripción |
+|--------|-----------|-------|-------------|
+| **Nombre del punto de acceso** | AN | **[APN de su operador]** | Facilitado por el proveedor de SIM |
+| **Usuario del APN** | AU | **[Si se requiere]** | Normalmente vacío |
+| **Contraseña del APN** | AV | **[Si se requiere]** | Normalmente vacía |
+| **Tecnología de red** | NT | **0** (preferencia LTE-M) | O 1 (NB-IoT) |
 
-**APNs Comunes:**
+**APN habituales:**
 
-| Operadora        | APN                       |
-|------------------|---------------------------|
-| AT&T (EE.UU.)    | `m2m.com.attwireless.com` |
-| T-Mobile (EE.UU.)| `iot.t-mobile.com`        |
-| Verizon (EE.UU.) | `vzwinternet`             |
-| Vodafone (UE)    | `iot.vodafone.com`        |
-| Hologram         | `hologram`                |
+| Operador | APN |
+|----------|-----|
+| AT&T (EE. UU.) | `m2m.com.attwireless.com` |
+| T-Mobile (EE. UU.) | `iot.t-mobile.com` |
+| Verizon (EE. UU.) | `vzwinternet` |
+| Vodafone (UE) | `iot.vodafone.com` |
+| Hologram | `hologram` |
 
-**Ejemplo de Configuración:**
+**Ejemplo de configuración:**
 ```
 AN = m2m.com.attwireless.com
-AU = (en blanco)
-AV = (en blanco)
+AU = (vacío)
+AV = (vacío)
 NT = 0
 ```
 
 ### Sección 3: Modo API
 
-**Expandir la sección "AT Command Options" o "API"**
+**Despliegue "AT Command Options" o "API".**
 
-| Ajuste              | Parámetro | Valor | Descripción             |
-|---------------------|-----------|-------|-------------------------|
-| **Habilitar API**   | AP        | **2** | Modo API con escapes    |
-| **Modo de Salida API** | AO     | **0** | Estándar                |
+| Ajuste | Parámetro | Valor | Descripción |
+|--------|-----------|-------|-------------|
+| **Activación de API** | AP | **2** | Modo API con escapes |
+| **Modo de salida API** | AO | **0** | Estándar |
 
-!!! danger "¡El Modo API Debe Ser 2 — Crítico!"
-    El firmware de Riverlabs **requiere el Modo API 2** (modo API con caracteres escapados).
+!!! danger "¡El modo API debe ser 2!"
+    El firmware Riverlabs **requiere el modo API 2** (con caracteres de escape).
     
-    - **Modo 0** (Transparente) = NO funcionará
-    - **Modo 1** (API sin escapes) = NO funcionará  
-    - **Modo 2** (API con escapes) = ✅ **REQUERIDO**
+    - **Modo 0** (transparente) = NO funcionará.
+    - **Modo 1** (API sin escapes) = NO funcionará.  
+    - **Modo 2** (API con escapes) = ✅ **OBLIGATORIO**.
     
-    Usar el modo incorrecto impedirá que el registrador se comunique con el XBee, resultando en la ausencia de datos de telemetría.
+    Con otro modo, el registrador no podrá comunicarse con el XBee y no habrá datos de telemetría.
 
-**Cómo configurar:**
+**Cómo configurarlo:**
 
-1. Hacer clic en "AP (API Enable)"
-2. Desplegable: Seleccionar **"2 - API mode with escaped characters"**
-3. Verificar AO = 0
+1. Haga clic en "AP (API Enable)".
+2. Seleccione **"2 - API mode with escaped characters"**.
+3. Compruebe que AO = 0.
 
-### Sección 4: Modo de Sueño
+### Sección 4: Modo de suspensión
 
-**Expandir la sección "Sleep Modes" o "Power Management"**
+**Despliegue "Sleep Modes" o "Power Management".**
 
-| Ajuste              | Parámetro | Valor | Descripción     |
-|---------------------|-----------|-------|-----------------|
-| **Modo de Sueño**   | SM        | **1** | Pin Sleep [1]   |
-| **Opciones de Sueño**| SO       | **0** | Estándar        |
+| Ajuste | Parámetro | Valor | Descripción |
+|--------|-----------|-------|-------------|
+| **Modo de suspensión** | SM | **1** | Suspensión por pin [1] |
+| **Opciones de suspensión** | SO | **0** | Estándar |
 
-!!! info "Se Requiere el Modo de Sueño Pin"
-    **SM debe configurarse en 1 (Pin Sleep)** para una gestión correcta de la energía con el registrador Riverlabs.
+!!! info "Se requiere suspensión por pin"
+    **SM debe ser 1 (suspensión por pin)** para una gestión adecuada de la energía con el registrador Riverlabs.
 
-**Operación del Pin Sleep:**
+**Funcionamiento:**
 
-- Arduino controla cuándo duerme el XBee a través de un pin de hardware
-- Pin 9 (Sleep_RQ/DTR): 
-    - **Alto** = XBee duerme (bajo consumo)
-    - **Bajo** = XBee se despierta (activo)
-- Ahorra energía significativa entre transmisiones
-- Esencial para una larga vida de la batería
+- Arduino controla mediante un pin cuándo duerme el XBee.
+- Pin 9 (Sleep_RQ/DTR):
+    - **Alto** = XBee dormido (bajo consumo).
+    - **Bajo** = XBee despierto (activo).
+- Reduce considerablemente el consumo entre transmisiones.
+- Es fundamental para una buena autonomía.
 
-**Cómo configurar:**
+**Cómo configurarlo:**
 
-1. Hacer clic en "SM (Sleep Mode)"
-2. Desplegable: Seleccionar **"1 - Pin Sleep [1]"**
-3. Verificar SO = 0
+1. Haga clic en "SM (Sleep Mode)".
+2. Seleccione **"1 - Pin Sleep [1]"**.
+3. Compruebe que SO = 0.
 
-!!! warning "No usar otros modos de suspensión"
-    - **SM = 0** (Desactivado) agotará la batería rápidamente
-    - **SM = 4** (Cyclic Sleep) no funcionará con la lógica de control del registrador
-    - **SM = 5** (Cyclic Sleep with Pin Wake) no es compatible
+!!! warning "No utilice otros modos de suspensión"
+    - **SM = 0** (desactivado) agotará rápidamente la batería.
+    - **SM = 4** (suspensión cíclica) no funciona con la lógica de control del registrador.
+    - **SM = 5** (suspensión cíclica con despertar por pin) no es compatible.
 
-### Sección 5: Configuración Adicional (Opcional pero Recomendada)
+### Sección 5: Otros ajustes (opcionales, pero recomendados)
 
-| Configuración              | Parámetro | Valor              | Descripción          |
-|----------------------------|-----------|--------------------|----------------------|
-| **Guard Time**             | GT        | **3E8** (1000 ms)  | Retardo modo comando |
-| **Flow Control Threshold** | FT        | **681**            | Búfer UART           |
-| **Transmit Options**       | TO        | **0**              | Estándar             |
+| Ajuste | Parámetro | Valor | Descripción |
+|--------|-----------|-------|-------------|
+| **Tiempo de guarda** | GT | **3E8** (1000 ms) | Retardo del modo de comandos |
+| **Umbral de control de flujo** | FT | **681** | Búfer UART |
+| **Opciones de transmisión** | TO | **0** | Estándar |
 
 ---
 
-## Parte 6: Escribir la Configuración
+## Parte 6: Guardar la configuración
 
-### Escritura por lotes
+### Escritura en bloque
 
-**Después de configurar TODAS las opciones anteriores:**
+**Tras configurar TODOS los ajustes anteriores:**
 
-1. **Revisar los cambios:**
-    - Los ajustes modificados aparecen en **negrita**
-    - Verificar que todos los ajustes críticos hayan cambiado
+1. **Revise los cambios:**
+    - Los ajustes modificados aparecen en **negrita**.
+    - Compruebe los valores críticos.
 
-2. **Hacer clic en el botón "Write"** (parte superior de la pestaña Radio Configuration)
-    - El botón suele estar en la barra de herramientas
-    - O: Clic derecho en el dispositivo > "Write Settings"
+2. **Haga clic en "Write"** (parte superior de "Radio Configuration").
+    - Suele estar en la barra de herramientas.
+    - O use clic derecho sobre el dispositivo > "Write Settings".
 
-3. **Esperar a que termine la escritura:**
-    - Indicador de progreso
-    - Mensaje "Write successful"
-    - Los ajustes ya no aparecen en negrita
+3. **Espere a que termine:**
+    - Indicador de progreso.
+    - Mensaje "Write successful".
+    - Los ajustes dejan de aparecer en negrita.
 
-4. **Verificar:**
-    - Hacer clic en el botón "Read" para actualizar
-    - Confirmar que todos los ajustes coinciden con los valores esperados
+4. **Compruébelo:**
+    - Haga clic en "Read" para actualizar.
+    - Verifique que los ajustes coincidan con los valores previstos.
 
-!!! warning "Escribir antes de desconectar"
-    Los cambios NO se guardan hasta hacer clic en Write. Si se desconecta sin escribir, los cambios se pierden.
+!!! warning "Guarde antes de desconectar"
+    Los cambios NO se guardan hasta hacer clic en Write. Si desconecta antes, se perderán.
 
-### Perfil de configuración (Opcional)
+### Perfil de ajustes (opcional)
 
-**Guardar la configuración para uso futuro:**
+**Guarde la configuración para reutilizarla:**
 
-1. **File > Export Profile**
-2. **Guardar como:** `Riverlabs_XBee3_Config.xpro`
-3. **Usar más adelante:**
-    - File > Import Profile
-    - Aplicar a nuevos módulos XBee
-    - Garantiza consistencia en toda la flota
+1. **File > Export Profile**.
+2. **Guárdelo como:** `Riverlabs_XBee3_Config.xpro`.
+3. **Para usarlo después:**
+    - File > Import Profile.
+    - Aplíquelo a nuevos módulos XBee.
+    - Así mantendrá la misma configuración en todos ellos.
 
 ---
 
-## Parte 7: Prueba de Conexión de Red
+## Parte 7: Prueba de conexión a la red
 
-### Usar el Panel de Red Celular
+### Panel Cellular Network
 
-**1. Navegar a la pestaña "Cellular Network"**
+**1. Abra la pestaña "Cellular Network".**
 
-**2. Visualización del estado actual:**
+**2. Estado actual:**
 
-- Registro en red: Not registered / Registered
-- Intensidad de señal (RSSI): valor en dBm
-- Dirección IP: (ninguna) o IP asignada
-- Estado de conexión: Disconnected / Connected
+- Registro en red: no registrado / registrado.
+- Intensidad de señal (RSSI): valor en dBm.
+- Dirección IP: ninguna o dirección asignada.
+- Estado de conexión: desconectado / conectado.
 
-**3. Hacer clic en el botón "Connect to Network"**
+**3. Haga clic en "Connect to Network".**
 
-**4. Esperar la conexión:**
+**4. Espere la conexión:**
 
-- Puede tardar 30–90 segundos
-- Aparecen mensajes de progreso
-- Observar:
+- Puede tardar 30–90 segundos.
+- Aparecerán mensajes de progreso:
     - "Searching for network..."
     - "Network found"
     - "Registering..."
@@ -479,92 +478,92 @@ NT = 0
 
 **5. Indicadores de éxito:**
 
-- ✅ Red registrada: **Sí**
-- ✅ Intensidad de señal: **-90 dBm o mejor** (menos negativo = más fuerte)
-- ✅ Dirección IP: **Asignada** (p. ej., 10.x.x.x)
-- ✅ Estado de conexión: **Connected**
+- ✅ Registro en red: **sí**.
+- ✅ Intensidad de señal: **-90 dBm o mejor** (menos negativo = mayor señal).
+- ✅ Dirección IP: **asignada** (p. ej., 10.x.x.x).
+- ✅ Estado: **conectado**.
 
-**6. Guía de intensidad de señal:**
+**6. Referencia de señal:**
 
-| RSSI (dBm)    | Calidad    | Usabilidad                            |
-|---------------|------------|---------------------------------------|
-| -50 a -70     | Excelente  | Perfecta para uso continuo            |
-| -70 a -90     | Buena      | Fiable para la mayoría de aplicaciones |
-| -90 a -105    | Aceptable  | Usable pero puede tener problemas     |
-| -105 a -115   | Deficiente | Marginal, alta tasa de fallos         |
-| < -115        | Muy mala   | Poco fiable                           |
+| RSSI (dBm) | Calidad | Utilidad |
+|------------|---------|----------|
+| -50 a -70 | Excelente | Perfecta para uso continuo |
+| -70 a -90 | Buena | Fiable para la mayoría de las aplicaciones |
+| -90 a -105 | Regular | Utilizable, pero puede dar problemas |
+| -105 a -115 | Mala | Marginal; muchos fallos |
+| < -115 | Muy mala | Poco fiable |
 
-### Resolución de Problemas de Conexión
+### Problemas de conexión
 
-**"No se encontró red":**
-
-**Causas:**
-
-- SIM no activada
-- Tecnología de red incorrecta (LTE-M vs NB-IoT)
-- Ubicación con señal débil
-
-**Soluciones:**
-
-1. Verificar que la SIM esté activa (contactar al operador)
-2. Intentar cambiar el parámetro NT:
-    - NT=0 (LTE-M)
-    - NT=1 (NB-IoT)
-    - Escribir y reintentar la conexión
-3. Mover a una ventana o al exterior
-4. Comprobar que la antena esté conectada (si es externa)
-
-**"Red encontrada pero registro fallido":**
+**"No network found":**
 
 **Causas:**
 
-- APN incorrecto
-- Problema de autenticación de la SIM
+- SIM sin activar.
+- Tecnología de red incorrecta (LTE-M frente a NB-IoT).
+- Señal insuficiente en el lugar.
 
 **Soluciones:**
 
-1. Verificar la ortografía del APN (¡distingue mayúsculas y minúsculas!)
-2. Comprobar las credenciales AU/AV
-3. Contactar al operador para obtener los detalles del APN
-4. Probar con el APN predeterminado (suele funcionar)
+1. Verifique con el operador que la SIM esté activa.
+2. Cambie el parámetro NT:
+    - NT=0 (LTE-M).
+    - NT=1 (NB-IoT).
+    - Guarde e intente conectarse de nuevo.
+3. Acérquese a una ventana o salga al exterior.
+4. Compruebe la antena externa, si existe.
 
-**"Registrado pero sin dirección IP":**
+**"Network found but registration failed":**
 
 **Causas:**
 
-- Fallo de DHCP
-- Congestión de red
+- APN incorrecto.
+- Problema de autenticación de la SIM.
 
 **Soluciones:**
 
-1. Desconectar y volver a conectar
-2. Esperar 2–3 minutos
-3. Reiniciar el XBee (retirar/reinsertar el USB)
-4. Contactar al operador (posible problema con la cuenta)
+1. Compruebe la escritura del APN (¡distingue mayúsculas y minúsculas!).
+2. Revise las credenciales AU/AV.
+3. Pida al operador los datos del APN.
+4. Pruebe el APN predeterminado (a menudo funciona).
+
+**"Registered but no IP address":**
+
+**Causas:**
+
+- Fallo DHCP.
+- Congestión de la red.
+
+**Soluciones:**
+
+1. Desconecte y vuelva a conectar.
+2. Espere 2–3 minutos.
+3. Reinicie el XBee (desconecte y vuelva a conectar el USB).
+4. Consulte al operador por si hay problemas con la cuenta.
 
 ---
 
-## Parte 8: Prueba de Transmisión de Datos
+## Parte 8: Prueba de transmisión de datos
 
-### Usar la Pestaña Terminal
+### Pestaña Terminal
 
-**Probar HTTP POST** (para verificar la configuración completa):
+**Pruebe un POST HTTP** para verificar la configuración completa:
 
-1. **Navegar a la pestaña "Terminal"**
+1. **Abra la pestaña "Terminal".**
 
-2. **Asegurarse de estar conectado a la red** (del paso anterior)
+2. **Compruebe la conexión a la red** (paso anterior).
 
-3. **Introducir comandos API** (usuarios avanzados):
+3. **Introduzca comandos API** (usuarios avanzados).
 
-**Alternativamente, probar desde Arduino:**
+**Como alternativa, pruebe desde Arduino:**
 
-1. **Retirar el XBee del adaptador USB**
-2. **Instalarlo en el registrador**
-3. **Cargar el sketch de prueba** (o el código de producción)
-4. **Conectar el monitor serie**
-5. **Observar los intentos de transmisión**
+1. **Retire el XBee del adaptador USB.**
+2. **Instálelo en el registrador.**
+3. **Cargue un sketch de prueba** (o el código definitivo).
+4. **Conecte el monitor serie.**
+5. **Observe los intentos de transmisión.**
 
-**Flujo esperado:**
+**Secuencia esperada:**
 ```
 Initializing XBee...
 XBee ready
@@ -578,156 +577,156 @@ Response: 200 OK
 Transmission successful!
 ```
 
-**Si la transmisión falla:**
+**Si falla la transmisión:**
 
-- Ver [Resolución de problemas de conexión](troubleshooting-connections.md)
+- Consulte [Solución de problemas de conexión](troubleshooting-connections.md).
 
 ---
 
-## Parte 9: Finalizar la Configuración
+## Parte 9: Finalizar la configuración
 
-### Prueba de ciclo de alimentación
+### Prueba de reinicio eléctrico
 
-**Verificar que la configuración persiste:**
+**Compruebe que se conserva la configuración:**
 
-1. **Desconectar el USB** (retirar el XBee del adaptador)
-2. **Esperar 10 segundos**
-3. **Volver a conectar el USB** (reinsertar en el adaptador)
-4. **Abrir XBee Studio, añadir el dispositivo**
-5. **Leer la configuración**
-6. **Verificar que todos los ajustes** siguen siendo correctos
+1. **Desconecte el USB** (retire el XBee del adaptador).
+2. **Espere 10 segundos.**
+3. **Reconecte el USB** (reinserte el XBee).
+4. **Abra XBee Studio y añada el dispositivo.**
+5. **Lea la configuración.**
+6. **Compruebe todos los ajustes.**
 
-Si los ajustes se restablecen:
+Si se han restablecido:
 
-- La configuración no se escribió correctamente. Repetir la Parte 6.
+ - La configuración no se guardó correctamente. Repita la parte 6.
 
 ### Etiquetar el módulo XBee
 
-**Documentar la configuración:**
+**Documente la configuración:**
 
-- Usar una etiquetadora o marcador permanente
-- Escribir en el XBee (alejado de la antena):
-    - "Configurado DD/MM/AA"
-    - "Registrador: Wari-001"
-    - APN (si es útil)
-- Evita confusiones con módulos sin configurar
+- Use una etiquetadora o un rotulador permanente.
+- Anote en el XBee (lejos de la antena):
+    - "Configured DD/MM/YY"
+    - "Logger: Wari-001"
+    - El APN (si resulta útil).
+- Evitará confundirlo con módulos sin configurar.
 
-### Instalación en el Registrador
+### Instalación en el registrador
 
-**1. Apagar el registrador** (desconectar la batería)
+**1. Apague el registrador** (desconecte la batería).
 
-**2. Instalar el XBee:**
+**2. Instale el XBee:**
 
-- Alinear el pin 1 (buscar la marca en la PCB)
-- Presionar suave pero firmemente
-- Asegurarse de que todos los pines encajen
-- El módulo debe quedar enrasado
+- Alinee el pin 1 (busque la marca en la PCB).
+- Presione suavemente, pero con firmeza.
+- Compruebe que todos los pines encajen.
+- El módulo debe quedar plano.
 
-**3. Comprobar la antena:**
+**3. Revise la antena:**
 
-- Antena externa: Conectar U.FL o similar
-- Antena PCB interna: Asegurarse de que haya espacio libre (sin contacto con la carcasa)
+- Antena externa: conecte U.FL o equivalente.
+- Antena integrada en la PCB: deje espacio libre (sin contacto con la carcasa).
 
-**4. Volver a conectar la batería**
+**4. Reconecte la batería.**
 
-**5. Probar el arranque:**
+**5. Compruebe el arranque:**
 
-- El registrador arranca
-- El XBee se inicializa
-- Conexión de red en menos de 60 segundos
+- El registrador arranca.
+- El XBee se inicializa.
+- La conexión a la red se establece en 60 segundos.
 
 ---
 
-## Parte 10: Resolución de Problemas
+## Parte 10: Solución de problemas
 
-### XBee Studio No Detecta el Módulo
+### XBee Studio no detecta el módulo
 
-**Síntoma:** No se encuentra el dispositivo al añadirlo
+**Síntoma:** no encuentra el dispositivo al añadirlo.
 
 **Causas y soluciones:**
 
-| Causa                      | Verificar                        | Solución                              |
-|----------------------------|----------------------------------|---------------------------------------|
-| Puerto seleccionado incorrecto | Administrador de dispositivos (Windows) | Seleccionar el puerto COM correcto |
-| Velocidad de baudios incorrecta | Config. anterior cambió BD   | Probar 9600, 115200 o Auto            |
-| Problema de controlador    | Administrador de dispositivos muestra error | Reinstalar XBee Studio, reiniciar |
-| Cable USB defectuoso       | Cable solo de carga              | Usar cable USB con datos              |
-| XBee no bien insertado     | Inspección física                | Reinsertar el XBee en el adaptador    |
-| Problema de alimentación del adaptador | LED en el adaptador   | Probar otro puerto/hub USB            |
+| Causa | Comprobación | Solución |
+|-------|--------------|----------|
+| Puerto incorrecto | Administrador de dispositivos (Windows) | Seleccione el puerto COM correcto |
+| Velocidad incorrecta | Configuración previa de BD | Pruebe 9600, 115200 o Auto |
+| Problema de controlador | Error en el Administrador de dispositivos | Reinstale XBee Studio y reinicie |
+| Cable USB defectuoso | Cable solo de carga | Use un cable USB de datos |
+| XBee mal asentado | Inspección física | Vuelva a encajarlo en el adaptador |
+| Adaptador sin alimentación | LED del adaptador | Pruebe otro puerto USB o concentrador |
 
-### Ajustes No se Guardan
+### No se guardan los ajustes
 
-**Síntoma:** La configuración se restablece tras un ciclo de alimentación
+**Síntoma:** la configuración se restablece tras apagar y encender.
 
 **Causas:**
 
-- No se hizo clic en el botón "Write"
-- La escritura falló (sin mensaje de error)
-- Corrupción del firmware (poco frecuente)
+- No se pulsó "Write".
+- Falló la escritura (sin mostrar error).
+- Firmware dañado (raro).
 
 **Soluciones:**
 
-1. Configurar los ajustes
-2. Hacer clic en "Write"
-3. **Esperar la confirmación**
-4. Hacer clic en "Read" para verificar
-5. Reiniciar el ciclo de alimentación y leer de nuevo
-6. Si sigue restableciendo: Actualizar el firmware (ver a continuación)
+1. Configure los ajustes.
+2. Haga clic en "Write".
+3. **Espere la confirmación.**
+4. Haga clic en "Read" para verificar.
+5. Apague y encienda, y vuelva a leer.
+6. Si se siguen restableciendo, actualice el firmware (véase más abajo).
 
-### Intensidad de Señal Débil
+### Intensidad de señal deficiente
 
-**Síntoma:** RSSI < -105 dBm
+**Síntoma:** RSSI < -105 dBm.
 
 **Soluciones:**
 
 1. **Antena:**
-    - Asegurarse de que esté bien conectada
-    - Probar con antena externa si se usa la interna
-    - Comprobar si hay daños
+    - Compruebe que esté conectada.
+    - Pruebe una externa si utiliza la interna.
+    - Revise posibles daños.
 2. **Ubicación:**
-    - Mover a una ventana
-    - Elevar el dispositivo
-    - Alejarlo de estructuras metálicas
+    - Acérquelo a una ventana.
+    - Eleve el dispositivo.
+    - Aléjelo de estructuras metálicas.
 3. **Red:**
-    - Probar diferente tecnología (NT=0 vs NT=1)
-    - Comprobar el mapa de cobertura del operador
-    - Probar la SIM en un teléfono en la misma ubicación
+    - Pruebe otra tecnología (NT=0 frente a NT=1).
+    - Consulte el mapa de cobertura del operador.
+    - Pruebe la SIM en un teléfono en el mismo lugar.
 
-### Actualización de Firmware
+### Actualización del firmware
 
-**Cuándo es necesario:**
+**Cuándo hacerlo:**
 
-- Correcciones de errores de Digi
-- Nuevas funciones
-- Mejoras de compatibilidad
+- Correcciones de Digi.
+- Nuevas funciones.
+- Mejoras de compatibilidad.
 
 **Cómo actualizar:**
 
-1. **Descargar el firmware:**
+1. **Descargue el firmware:**
     - https://www.digi.com/support/productdetail?pid=5817
-    - Seleccionar XBee3 Cellular LTE-M/NB-IoT
-    - Elegir la última versión (p. ej., 11415 o más reciente)
+    - Seleccione XBee3 Cellular LTE-M/NB-IoT.
+    - Elija la versión más reciente (p. ej., 11415 o posterior).
 
 2. **En XBee Studio:**
-    - Navegar a la pestaña "Firmware"
-    - Hacer clic en "Update Firmware"
-    - Navegar al archivo descargado (.ebin)
-    - Hacer clic en "Update"
-    - Esperar (5–10 minutos, **no desconectar**)
-    - Mensaje de éxito
+    - Abra la pestaña "Firmware".
+    - Haga clic en "Update Firmware".
+    - Seleccione el archivo descargado (.ebin).
+    - Haga clic en "Update".
+    - Espere (5–10 minutos; **no desconecte el módulo**).
+    - Compruebe el mensaje de confirmación.
 
-3. **Verificar:**
-    - Comprobar la versión de firmware (pestaña Radio Configuration)
-    - Reconfigurar los ajustes (la actualización de firmware puede restablecerlos)
+3. **Verifique:**
+    - Compruebe la versión de firmware (pestaña Radio Configuration).
+    - Vuelva a configurar los ajustes (la actualización puede restablecerlos).
 
-## Próximos Pasos
+## Siguientes pasos
 
-- [Configuración de ThingsBoard](thingsboard-configuration.md): Configurar el panel
-- [Resolución de problemas de conexión](troubleshooting-connections.md): Solucionar problemas de telemetría
-- [Guía de configuración de telemetría](setup-guide.md): Resumen completo de la configuración
-- [Guía de batería y alimentación](../operation/hardware/battery-power-guide.md): Optimizar para telemetría
+- [Configuración de ThingsBoard](thingsboard-configuration.md): preparar el panel
+- [Solución de problemas de conexión](troubleshooting-connections.md): resolver problemas de telemetría
+- [Guía de configuración de telemetría](setup-guide.md): visión general de la instalación
+- [Guía de baterías y alimentación](../operation/hardware/battery-power-guide.md): optimizar la telemetría
 
 ---
 
 !!! success "¡XBee configurado!"
-    Tu XBee está ahora correctamente configurado y listo para el despliegue en campo. ¡Guarda el perfil de configuración para futuros módulos!
+    El XBee ya está configurado y listo para instalarlo en campo. Guarde el perfil de configuración para futuros módulos.

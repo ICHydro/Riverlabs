@@ -1,32 +1,32 @@
-# Diagramas de Diagnóstico
+# Diagramas de diagnóstico
 
-!!! abstract "Resumen"
-    Esta página contiene árboles de decisión visuales para diagnosticar problemas comunes en los registradores Riverlabs. Siga el diagrama de flujo desde el síntoma hasta la solución.
+!!! abstract "Descripción general"
+    Esta página contiene árboles de decisión visuales para diagnosticar problemas habituales de los registradores Riverlabs. Sigue cada diagrama desde el síntoma hasta la solución.
 
-## Cómo Usar Estos Diagramas
+## Cómo utilizar estos diagramas
 
-1. **Identifique su síntoma** de la lista siguiente
-2. **Comience desde arriba** del diagrama relevante
-3. **Responda las preguntas sí/no** y siga las flechas
-4. **Llegue a una solución** o al siguiente paso de diagnóstico
-5. **Consulte las referencias** con guías detalladas según sea necesario
+1. **Identifica el síntoma** en la lista siguiente
+2. **Empieza por arriba** en el diagrama correspondiente
+3. **Responde sí o no** y sigue las flechas
+4. **Llega a una solución** o al siguiente paso de diagnóstico
+5. **Consulta las guías detalladas** si es necesario
 
 ---
 
-## Diagrama 1: El Registrador No Registra Datos
+## Diagrama 1: El registrador no guarda datos
 
 ### Síntoma
-El registrador parece encenderse pero no aparecen nuevos datos en la tarjeta SD.
+Parece encenderse, pero no aparecen datos nuevos en la tarjeta SD.
 
 ```mermaid
 flowchart TD
-    A[El Registrador No Registra Datos] --> B{¿El LED parpadea?}
-    B -->|No| C{¿La batería es >3.3 V?}
-    B -->|Sí| D{¿LED de tarjeta SD<br/>o LED de alimentación?}
-    C -->|No| E[Reemplazar batería]
-    C -->|Sí| F[Verificar cableado de alimentación]
-    D -->|LED de tarjeta SD| G[Ir al diagrama<br/>de tarjeta SD]
-    D -->|LED de alimentación| H[El registrador está grabando<br/>verificar la tarjeta]
+    A[El registrador no guarda datos] --> B{¿Parpadea el LED?}
+    B -->|No| C{¿Batería >3.3 V?}
+    B -->|Sí| D{¿LED de SD<br/>o de alimentación?}
+    C -->|No| E[Sustituir batería]
+    C -->|Sí| F[Comprobar conexiones de alimentación]
+    D -->|LED de SD| G[Ir al diagrama<br/>de SD más abajo]
+    D -->|LED de alimentación| H[El registrador guarda datos;<br/>comprobar tarjeta]
     
     style A fill:#dc2626,stroke:#991b1b,stroke-width:2px,color:#fff
     style E fill:#10b981,stroke:#059669,stroke-width:2px,color:#fff
@@ -35,88 +35,88 @@ flowchart TD
     style H fill:#10b981,stroke:#059669,stroke-width:2px,color:#fff
 ```
 
-### Árbol de Decisión Completo
+### Árbol de decisión completo
 
-**INICIO: El registrador no registra datos**
+**INICIO: El registrador no guarda datos**
 
-**P1: ¿Algún LED parpadea cuando el registrador debería estar midiendo?**
+**P1: ¿Parpadea algún LED cuando debería medir?**
 
-- **Sin actividad del LED** → Ir a P2
-- **LED parpadea** → Ir a P5
+- **Ningún LED** → Ve a P2
+- **Un LED parpadea** → Ve a P5
 
-**P2: ¿El voltaje de la batería es >3.3 V?**
+**P2: ¿La tensión de la batería es >3.3 V?**
 
-- Medir con multímetro en los terminales de la batería
-- **No** (<3.3 V) → **SOLUCIÓN: Reemplazar/cargar la batería**
-- **Sí** (≥3.3 V) → Ir a P3
+- Mide con un multímetro en los terminales
+- **No** (<3.3 V) → **SOLUCIÓN: Sustituye o carga la batería**
+- **Sí** (≥3.3 V) → Ve a P3
 
-**P3: ¿El interruptor de alimentación está en ON?**
+**P3: ¿Está el interruptor en ON?**
 
-- Verificar la posición física del interruptor
-- **No** → **SOLUCIÓN: Encender el interruptor de alimentación**
-- **Sí** → Ir a P4
+- Comprueba su posición
+- **No** → **SOLUCIÓN: Enciéndelo**
+- **Sí** → Ve a P4
 
-**P4: ¿Las conexiones de la batería están seguras?**
+**P4: ¿Están bien sujetas las conexiones de la batería?**
 
-- Inspeccionar el conector JST
-- Verificar la polaridad (rojo=+, negro=-)
-- **Suelto/desconectado** → **SOLUCIÓN: Reconectar la batería de forma segura**
-- **Seguro pero sin alimentación** → **SOLUCIÓN: Verificar el circuito de alimentación del PCB o reemplazar el registrador**
+- Revisa el conector JST
+- Comprueba la polaridad (rojo=+, negro=-)
+- **Flojas/desconectadas** → **SOLUCIÓN: Vuelve a conectar la batería**
+- **Firmes, pero sin alimentación** → **SOLUCIÓN: Revisa el circuito de alimentación de la PCB o sustituye el registrador**
 
 **P5: ¿Qué LED parpadea?**
 
-- **LED de tarjeta SD** → El registrador está funcionando, ir a P6
-- **Solo LED de alimentación** → Ir a P7
+- **LED de tarjeta SD** → El registrador funciona; ve a P6
+- **Solo LED de alimentación** → Ve a P7
 
-**P6: ¿La tarjeta SD está insertada?**
+**P6: ¿Está insertada la tarjeta SD?**
 
-- Verificar la presencia física
-- **No** → **SOLUCIÓN: Insertar tarjeta SD formateada**
-- **Sí** → Ir a P8
+- Comprueba físicamente
+- **No** → **SOLUCIÓN: Inserta una tarjeta SD formateada**
+- **Sí** → Ve a P8
 
-**P7: ¿El Monitor Serie muestra mensajes de error?**
+**P7: ¿Aparecen errores en el monitor serie?**
 
-- Conectar el cable FTDI, abrir el Monitor Serie a 115200 baudios
-- **"SD card init failed"** → Ir a P6
-- **"RTC not responding"** → **SOLUCIÓN: Fallo del RTC, verificar las conexiones o reemplazar**
-- **"Sensor timeout"** → Ir a P9
-- **Sin salida serie** → **SOLUCIÓN: Cargar el firmware correcto**
+- Conecta el cable FTDI y abre el monitor a 115200 baudios
+- **«SD card init failed»** → Ve a P6
+- **«RTC not responding»** → **SOLUCIÓN: Comprueba las conexiones del RTC o sustitúyelo**
+- **«Sensor timeout»** → Ve a P9
+- **Sin salida serie** → **SOLUCIÓN: Carga el firmware correcto**
 
-**P8: ¿La tarjeta SD está formateada correctamente?**
+**P8: ¿Tiene la tarjeta SD el formato correcto?**
 
-- Retirar la tarjeta, verificar en la computadora
-- **No formateada / formato incorrecto** → **SOLUCIÓN: Formatear como FAT32, <32GB**
-- **Formateada correctamente** → Ir a P10
+- Retírala y compruébala en el ordenador
+- **Sin formatear/formato incorrecto** → **SOLUCIÓN: Formatea como FAT32, <32GB**
+- **Formato correcto** → Ve a P10
 
-**P9: Problema del sensor - ¿qué tipo de sensor?**
+**P9: ¿Qué tipo de sensor está instalado?**
 
-- **Ultrasónico (Wari)** → **SOLUCIÓN: Verificar las conexiones del cable del sensor, verificar que el sensor esté alimentado (debería hacer clic)**
-- **Lidar** → **SOLUCIÓN: Verificar las conexiones I2C (SDA/SCL), verificar la dirección del sensor 0x62**
+- **Ultrasónico (Wari)** → **SOLUCIÓN: Revisa el cable y comprueba que el sensor recibe alimentación (debería emitir clics)**
+- **Lidar** → **SOLUCIÓN: Comprueba I2C (SDA/SCL) y la dirección 0x62**
 
-**P10: ¿La tarjeta SD tiene un archivo .CSV reciente?**
+**P10: ¿Hay archivos .CSV recientes en la SD?**
 
-- Verificar las fechas de los archivos en la tarjeta
-- **Archivo reciente presente** → ¡El registrador está grabando! Verificar el nombre/ubicación del archivo
-- **Solo archivos antiguos / sin archivos** → Ir a P11
+- Revisa las fechas de los archivos
+- **Archivo reciente** → ¡Sí está registrando! Revisa el nombre y la ubicación
+- **Solo antiguos o ninguno** → Ve a P11
 
-**P11: ¿La hora del RTC está configurada correctamente?**
+**P11: ¿Está bien ajustada la hora del RTC?**
 
-- Verificar el nombre del archivo .CSV (incluye fecha/hora)
-- **Archivos con fecha 2000/01/01** → **SOLUCIÓN: Configurar el RTC con la utilidad `set_clock`**
-- **Archivos con fecha correcta** → **SOLUCIÓN: Verificar el intervalo de medición en el código (podría ser muy largo)**
+- Revisa el nombre del .CSV (incluye la fecha/hora)
+- **Archivos fechados 2000/01/01** → **SOLUCIÓN: Ajusta el RTC con `set_clock`**
+- **Fecha correcta** → **SOLUCIÓN: Comprueba el intervalo de medición en el código (podría ser muy largo)**
 
 ---
 
-## Diagrama 2: Las Lecturas del Sensor Parecen Incorrectas
+## Diagrama 2: Las lecturas del sensor son incorrectas
 
 ### Síntoma
-El registrador graba datos pero los valores son incorrectos, constantes o erráticos.
+El registrador guarda datos, pero los valores son erróneos, constantes o inestables.
 
 ```mermaid
 flowchart TD
-    A[Lecturas del Sensor Incorrectas] --> B{¿Cuál es el<br/>síntoma?}
-    B -->|Siempre igual| C[Sensor congelado]
-    B -->|Cambia lentamente| D[Temp o ensuciamiento]
+    A[Lecturas incorrectas] --> B{¿Cuál es el<br/>síntoma?}
+    B -->|Siempre iguales| C[Sensor bloqueado]
+    B -->|Cambios lentos| D[Temperatura o suciedad]
     B -->|Saltos aleatorios| E[Ruido/EMI]
     B -->|Valores negativos| F[Error de altura<br/>de instalación]
     
@@ -127,109 +127,109 @@ flowchart TD
     style F fill:#3b82f6,stroke:#2563eb,stroke-width:2px,color:#fff
 ```
 
-### Árbol de Decisión Completo
+### Árbol de decisión completo
 
 **INICIO: Las lecturas del sensor parecen incorrectas**
 
 **P1: ¿Cuál es el síntoma?**
 
-- **El valor nunca cambia** → Ir a P2 (sensor congelado)
-- **El valor cambia pero parece incorrecto** → Ir a P6 (calibración/instalación)
-- **Erráticos/saltos aleatorios** → Ir a P9 (ruido/interferencia)
-- **Valores negativos o imposibles** → Ir a P12 (error de configuración)
+- **El valor nunca cambia** → Ve a P2 (sensor bloqueado)
+- **Cambia, pero parece incorrecto** → Ve a P6 (calibración/instalación)
+- **Saltos aleatorios** → Ve a P9 (ruido/interferencias)
+- **Valores negativos o imposibles** → Ve a P12 (configuración)
 
-**P2: SENSOR CONGELADO - ¿El valor cambia en absoluto durante 1 hora?**
+**P2: SENSOR BLOQUEADO: ¿Cambia algo en una hora?**
 
-- Tomar múltiples lecturas
-- **Nunca cambia (p.ej., atascado en 5000 mm)** → Ir a P3
-- **Cambia ligeramente** → Ir a P6
+- Toma varias lecturas
+- **Nunca (p. ej., 5000 mm constantes)** → Ve a P3
+- **Cambia un poco** → Ve a P6
 
 **P3: ¿Cuál es el valor constante?**
 
-- **5000 mm o rango máximo** → **SOLUCIÓN: Tiempo de espera del sensor, sin objetivo detectado**
-    - Verificar: ¿Objetivo en rango? ¿Haz apuntado correctamente? ¿Sensor funcionando?
-- **0 o casi cero** → **SOLUCIÓN: Fallo de hardware del sensor o problema de cableado**
-- **Otro valor constante** → Ir a P4
+- **5000 mm o alcance máximo** → **SOLUCIÓN: Tiempo de espera del sensor; no detecta objetivo**
+    - Comprueba si el objetivo está dentro del alcance, el haz está bien orientado y funciona el sensor
+- **0 o casi 0** → **SOLUCIÓN: Fallo del sensor o del cableado**
+- **Otro valor constante** → Ve a P4
 
-**P4: ¿Tipo de sensor?**
+**P4: ¿Qué sensor es?**
 
-- **Ultrasónico (Wari)** → Ir a P5
-- **Lidar** → **SOLUCIÓN: Fallo de comunicación I2C del Lidar, verificar conexiones**
+- **Ultrasónico (Wari)** → Ve a P5
+- **Lidar** → **SOLUCIÓN: Fallo de comunicación I2C; revisa conexiones**
 
-**P5: DIAGNÓSTICO ULTRASÓNICO**
+**P5: DIAGNÓSTICO DEL ULTRASÓNICO**
 
-- **¿Puede escuchar clics?** (el sensor debería hacer clic en cada medición)
-    - **Sin clics** → **SOLUCIÓN: Sensor sin alimentación, verificar el cable**
-    - **Con clics** → **SOLUCIÓN: El sensor transmite pero sin eco (sin objetivo, orientado incorrectamente o el objetivo es demasiado absorbente)**
+- **¿Oyes clics?** (debería emitirlos en cada medición)
+    - **No** → **SOLUCIÓN: Sensor sin alimentación; comprueba el cable**
+    - **Sí** → **SOLUCIÓN: Transmite, pero no hay eco (sin objetivo, mal orientado o superficie absorbente)**
 
-**P6: INCORRECTO PERO CAMBIANDO - ¿Cuánto están incorrectos los valores?**
+**P6: INCORRECTOS PERO VARIABLES: ¿Cuánto difieren?**
 
-- **Desviado por una cantidad constante** (p.ej., siempre 500 mm demasiado alto) → Ir a P7
-- **Cambia durante días/semanas** → Ir a P8
-- **Valores demasiado altos o bajos** → Ir a P7
+- **Desviación constante** (p. ej., 500 mm de más) → Ve a P7
+- **Cambio durante días/semanas** → Ve a P8
+- **Valores demasiado altos o bajos** → Ve a P7
 
-**P7: ¿La altura de instalación está configurada correctamente?**
+**P7: ¿Es correcta la altura de instalación?**
 
-- Verificar: ¿Los valores tienen sentido físico?
-- **Ejemplo:** Sensor a 3000 mm sobre el agua, lee 1500 mm → profundidad del agua = 3000 - 1500 = 1500 mm
+- Comprueba si los valores tienen sentido físico
+- **Ejemplo:** Sensor a 3000 mm sobre el agua, mide 1500 mm → profundidad = 3000 - 1500 = 1500 mm
     - ¿Coincide con la realidad?
-- **Altura incorrecta en la interpretación de datos** → **SOLUCIÓN: Corregir la altura de instalación en el análisis**
-- **Altura correcta pero los valores siguen siendo incorrectos** → Ir a P8
+- **Altura mal interpretada** → **SOLUCIÓN: Corrige la altura de instalación en el análisis**
+- **Altura correcta, pero valores erróneos** → Ve a P8
 
-**P8: ¿Obstrucción física o ensuciamiento?**
+**P8: ¿Hay obstáculos o suciedad?**
 
-- Inspeccionar la cara del sensor
-- **Telarañas, insectos, suciedad** → **SOLUCIÓN: Limpiar el sensor**
-- **Hielo/escarcha (invierno)** → **SOLUCIÓN: Hielo en el sensor, esperar el deshielo o reubicar**
-- **Vegetación crecida en el trayecto del haz** → **SOLUCIÓN: Podar la vegetación**
-- **Limpio y despejado** → **SOLUCIÓN: El sensor puede estar fallando, reemplazar o verificar la compensación de temperatura (Wari)**
+- Inspecciona la cara frontal
+- **Telarañas, insectos o suciedad** → **SOLUCIÓN: Limpia el sensor**
+- **Hielo/escarcha** → **SOLUCIÓN: Espera al deshielo o cambia su ubicación**
+- **Vegetación en el haz** → **SOLUCIÓN: Pódala**
+- **Todo limpio y despejado** → **SOLUCIÓN: Podría fallar el sensor; sustitúyelo o revisa la compensación de temperatura (Wari)**
 
-**P9: LECTURAS ERRÁTICAS - ¿Hay un patrón en el ruido?**
+**P9: LECTURAS ERRÁTICAS: ¿Hay un patrón?**
 
-- Observar los datos a lo largo del tiempo
-- **Picos aleatorios** → Ir a P10
-- **Patrón regular (p.ej., cada noche)** → Ir a P11
+- Observa los datos a lo largo del tiempo
+- **Picos aleatorios** → Ve a P10
+- **Patrón regular (p. ej., nocturno)** → Ve a P11
 
 **P10: Diagnóstico de picos aleatorios**
 
-- **Picos muy cortos (1–2 muestras)** → **SOLUCIÓN: EMI/ruido eléctrico**
-    - Verificar: ¿Fuente de alimentación limpia? ¿Motores/bombas cercanas?
-    - Arreglo: Agregar condensadores de filtrado, aislar la alimentación, mover el registrador
-- **Picos más largos (minutos–horas)** → **SOLUCIÓN: Interferencia física (pájaro, escombros)**
-    - Arreglo: Revisar la instalación, agregar barreras físicas
+- **Muy breves (1–2 muestras)** → **SOLUCIÓN: EMI/ruido eléctrico**
+    - Comprueba la alimentación y si hay motores o bombas cerca
+    - Añade condensadores de filtrado, aísla la alimentación o mueve el registrador
+- **Más largos (minutos u horas)** → **SOLUCIÓN: Interferencia física (aves o residuos)**
+    - Revisa la instalación y añade barreras
 
-**P11: Diagnóstico de patrón regular**
+**P11: Diagnóstico de patrones regulares**
 
-- **El patrón coincide con el ciclo de temperatura** → **SOLUCIÓN: La temperatura afecta al sensor (normal para ultrasónico)**
-    - Nota: Wari mide la temperatura para compensación, pero no es perfecta
-- **El patrón coincide con la luz solar** → **SOLUCIÓN: Expansión térmica del montaje o la estructura**
-- **El patrón coincide con mareas/lluvia aguas arriba** → ¡Esto es real! No es un error.
+- **Coinciden con la temperatura** → **SOLUCIÓN: Efecto térmico sobre el sensor (habitual en ultrasonidos)**
+    - Wari mide temperatura para compensar, pero no perfectamente
+- **Coinciden con el sol** → **SOLUCIÓN: Dilatación térmica del soporte o estructura**
+- **Coinciden con mareas/lluvia aguas arriba** → ¡Es un cambio real, no un error!
 
 **P12: VALORES NEGATIVOS O IMPOSIBLES**
 
-- **Distancia negativa** → **SOLUCIÓN: Error matemático en el código o el procesamiento de datos**
-    - Verificar: ¿Altura de instalación configurada? ¿Unidades consistentes (mm vs. cm)?
-- **Distancia > altura de instalación** → **SOLUCIÓN: El sensor apunta al suelo/obstrucción en lugar de al agua**
-    - Arreglo: Reorientar el sensor
-- **Distancia > rango máximo del sensor** → **SOLUCIÓN: Objetivo fuera de rango, aumentar la altura o usar lidar**
+- **Distancia negativa** → **SOLUCIÓN: Error matemático en el código o en el procesamiento**
+    - Comprueba la altura de instalación y las unidades (mm frente a cm)
+- **Distancia > altura de instalación** → **SOLUCIÓN: Sensor orientado al suelo u obstáculo; vuelve a apuntarlo al agua**
+    - Corrección: Reorientar el senso
+- **Distancia > alcance máximo del sensor** → **SOLUCIÓN: Objetivo fuera de alcance; aumenta la altura o usa lidar**
 
 ---
 
-## Diagrama 3: Sin Datos de Telemetría
+## Diagrama 3: No llegan datos de telemetría
 
 ### Síntoma
-El registrador graba en la tarjeta SD pero ThingsBoard no recibe datos.
+El registrador guarda en SD, pero ThingsBoard no recibe datos.
 
 ```mermaid
 flowchart TD
-    A[Sin Datos de Telemetría] --> B{¿Funciona la<br/>tarjeta SD?}
-    B -->|No| C[¡Arreglar la SD primero!]
+    A[Sin datos de telemetría] --> B{¿Funciona<br/>la SD?}
+    B -->|No| C[¡Arreglar SD primero!]
     B -->|Sí| D{¿Está instalado<br/>el XBee?}
-    D -->|No| E[Agregar XBee]
-    D -->|Sí| F{¿La SIM está activa?}
+    D -->|No| E[Añadir XBee]
+    D -->|Sí| F{¿SIM activa?}
     F -->|No| G[Activar SIM]
-    F -->|Sí| H[Ir al Diagrama<br/>de Red]
-    C --> I[Listo]
+    F -->|Sí| H[Ir al diagrama<br/>de red]
+    C --> I[Fin]
     E --> I
     
     style A fill:#dc2626,stroke:#991b1b,stroke-width:2px,color:#fff
@@ -240,105 +240,105 @@ flowchart TD
     style I fill:#8b5cf6,stroke:#7c3aed,stroke-width:2px,color:#fff
 ```
 
-### Árbol de Decisión Completo
+### Árbol de decisión completo
 
 **INICIO: No se reciben datos de telemetría**
 
-**P1: ¿El registrador graba datos en la tarjeta SD correctamente?**
+**P1: ¿Guarda correctamente en SD?**
 
-- Verificar: ¿Archivo .CSV reciente con datos?
-- **No** → **SOLUCIÓN: Arreglar primero el registro en la tarjeta SD** (usar el Diagrama 1)
-- **Sí** → Ir a P2
+- ¿Hay un archivo .CSV reciente con datos?
+- **No** → **SOLUCIÓN: Soluciona primero el registro en SD** (diagrama 1)
+- **Sí** → Ve a P2
 
-**P2: ¿El módulo XBee está instalado físicamente?**
+**P2: ¿Está instalado físicamente el XBee?**
 
-- Inspección visual del PCB del registrador
-- **Sin XBee presente** → **SOLUCIÓN: Este registrador no tiene capacidad de telemetría**
-    - Opciones: Agregar módulo XBee, o recuperar manualmente los datos de la tarjeta SD
-- **XBee instalado** → Ir a P3
+- Inspecciona la PCB
+- **No hay XBee** → **SOLUCIÓN: Este registrador no dispone de telemetría**
+    - Añade un módulo XBee o recoge manualmente los datos de la SD
+- **Sí** → Ve a P3
 
-**P3: ¿La tarjeta SIM está insertada en el XBee?**
+**P3: ¿Hay una SIM en el XBee?**
 
-- Verificar: Ranura de SIM en la parte inferior del XBee
-- **Sin SIM** → **SOLUCIÓN: Insertar tarjeta SIM activada** (¡apagar primero!)
-- **SIM presente** → Ir a P4
+- Revisa la ranura inferior del XBee
+- **No** → **SOLUCIÓN: Inserta una SIM activada** (¡apaga primero!)
+- **Sí** → Ve a P4
 
-**P4: ¿La SIM está activada con el operador?**
+**P4: ¿Ha activado la SIM el operador?**
 
-- Prueba: Insertar la SIM en un teléfono, verificar el servicio
-- **Sin servicio en el teléfono** → **SOLUCIÓN: Contactar al operador para activar**
-- **La SIM funciona en el teléfono** → Ir a P5
+- Pruébala en un teléfono
+- **Sin servicio** → **SOLUCIÓN: Pide al operador que la active**
+- **Funciona** → Ve a P5
 
-**P5: ¿El voltaje de la batería es suficiente?**
+**P5: ¿Es suficiente la tensión de la batería?**
 
-- Verificar: Voltaje >3.5 V (la telemetría requiere más energía que solo SD)
-- **<3.5 V** → **SOLUCIÓN: Cargar/reemplazar la batería, volver a probar**
-- **≥3.5 V** → Ir a P6
+- Comprueba >3.5 V (la telemetría consume más que solo SD)
+- **<3.5 V** → **SOLUCIÓN: Carga o cambia la batería y repite la prueba**
+- **≥3.5 V** → Ve a P6
 
-**P6: ¿El Monitor Serie muestra intentos de conexión de red?**
+**P6: ¿Muestra intentos de conexión el monitor serie?**
 
-- Conectar FTDI, verificar la salida de depuración
-- **Sin mención de XBee/red** → Ir a P7
-- **Muestra "Connecting to network..."** → Ir a P8
+- Conecta el FTDI y revisa la salida
+- **No menciona XBee/red** → Ve a P7
+- **«Connecting to network...»** → Ve a P8
 
-**P7: Problema de comunicación del XBee**
+**P7: Problema de comunicación con el XBee**
 
-- **El serie muestra "XBee timeout"** → **SOLUCIÓN: Verificar la conexión física del XBee (pines asentados)**
-- **Sin mensajes del XBee en absoluto** → **SOLUCIÓN: Verificar que el código de Arduino tenga la telemetría habilitada**
+- **«XBee timeout»** → **SOLUCIÓN: Comprueba que todos los pines hagan contacto**
+- **Sin mensajes XBee** → **SOLUCIÓN: Verifica que la telemetría esté activada en el código Arduino**
 
-**P8: ¿Qué estado de red aparece?**
+**P8: ¿Qué indica el estado de red?**
 
-- **"Network registered"** → Ir a P10 (conectado pero fallo de transmisión)
-- **"Searching..."** para siempre → Ir a P9
-- **"Connection failed"** → Ir a P9
+- **«Network registered»** → Ve a P10
+- **«Searching...» indefinidamente** → Ve a P9
+- **«Connection failed»** → Ve a P9
 
-**P9: Fallo de conexión de red**
+**P9: Fallo de conexión a la red**
 
-- Verificar la intensidad de la señal en la ubicación (probar con el teléfono)
-- **Sin señal celular** → **SOLUCIÓN: Mover el registrador a una ubicación con cobertura, o usar una antena externa**
-- **El teléfono tiene señal** → Ir a P11 (problema de configuración del XBee)
+- Comprueba la cobertura en el lugar con un teléfono
+- **Sin señal** → **SOLUCIÓN: Cambia la ubicación o utiliza antena externa**
+- **El teléfono tiene señal** → Ve a P11 (configuración XBee)
 
-**P10: Red conectada pero sin datos**
+**P10: Conectado, pero sin datos**
 
-- ¿El serie muestra: "HTTP POST: 200 OK"?
-- **Sí, muestra 200 OK** → Ir a P13 (servidor recibiendo pero no mostrando)
-- **No, muestra código de error** → Ir a P12 (fallo de transmisión)
-- **Sin intento de transmisión** → **SOLUCIÓN: Verificar la configuración de TELEMETRY_INTERVAL (podría ser demasiado largo)**
+- ¿Muestra «HTTP POST: 200 OK» el monitor serie?
+- **Sí** → Ve a P13 (el servidor recibe, pero no muestra)
+- **Código de error** → Ve a P12
+- **Sin intento de transmisión** → **SOLUCIÓN: Revisa TELEMETRY_INTERVAL (puede ser demasiado largo)**
 
-**P11: Verificación de la configuración del XBee**
+**P11: Comprueba la configuración XBee**
 
-- Conectar el XBee a XBee Studio
-- **¿APN correcto?** → Si no: **SOLUCIÓN: Configurar el APN correcto**
-- **¿Modo API = 2?** → Si no: **SOLUCIÓN: Establecer AP=2** (¡crítico!)
-- **¿Tecnología de red (NT) coincide con el operador?** → Probar NT=0 vs NT=1
-- **Todos los ajustes correctos** → **SOLUCIÓN: Verificar la cuenta del operador (¿plan de datos activo? ¿ICCID registrado?)**
+- Conéctalo a XBee Studio
+- **¿APN correcto?** → Si no: **SOLUCIÓN: Configura el APN correcto**
+- **¿API Mode = 2?** → Si no: **SOLUCIÓN: Ajusta AP=2**
+- **¿Network Technology (NT) coincide con el operador?** → Prueba NT=0 frente a NT=1
+- **Todo correcto** → **SOLUCIÓN: Comprueba el plan de datos y el ICCID con el operador**
 
 **P12: Códigos de error de transmisión**
 
-- **400 Bad Request** → **SOLUCIÓN: Error de formato JSON, verificar el código de Arduino**
-- **401 Unauthorized** → **SOLUCIÓN: Token de acceso incorrecto, verificar en ThingsBoard**
-- **404 Not Found** → **SOLUCIÓN: URL del servidor incorrecta en el código de Arduino**
-- **Timeout** → **SOLUCIÓN: Problema de red, verificar la intensidad de la señal, intentar reducir el tamaño del payload**
+- **400 Bad Request** → **SOLUCIÓN: Revisa el formato JSON del código Arduino**
+- **401 Unauthorized** → **SOLUCIÓN: Verifica el token de acceso en ThingsBoard**
+- **404 Not Found** → **SOLUCIÓN: Comprueba la URL del servidor en el código**
+- **Timeout** → **SOLUCIÓN: Comprueba la señal y reduce el tamaño de los datos**
 
-**P13: El servidor recibe datos pero el panel no los muestra**
+**P13: El servidor recibe datos, pero no aparecen en el panel**
 
-- **Verificar la pestaña "Latest Telemetry"** del dispositivo en ThingsBoard
-    - **Los datos aparecen allí** → **SOLUCIÓN: El widget del panel está mal configurado** (verificar que las claves de datos coincidan)
-    - **Tampoco hay datos allí** → **SOLUCIÓN: Token de dispositivo incorrecto o dispositivo inactivo**
+- Consulta «Latest Telemetry» del dispositivo en ThingsBoard
+    - **Aparecen allí** → **SOLUCIÓN: Corrige el widget (las claves deben coincidir)**
+    - **Tampoco aparecen allí** → **SOLUCIÓN: Token de otro dispositivo o dispositivo inactivo**
 
 ---
 
-## Diagrama 4: La Batería Se Agota Demasiado Rápido
+## Diagrama 4: La batería se agota demasiado rápido
 
 ### Síntoma
-El voltaje de la batería cae más rápido de lo esperado.
+La tensión de la batería baja antes de lo previsto.
 
 ```mermaid
 flowchart TD
-    A[La Batería Se Agota<br/>Demasiado Rápido] --> B{¿Con o sin<br/>telemetría?}
+    A[La batería se agota<br/>demasiado rápido] --> B{¿Con o sin<br/>telemetría?}
     B -->|Sin| C[Intervalo de registro<br/>demasiado corto]
-    B -->|Con| D[Frecuencia de transmisión<br/>demasiado alta]
-    C --> E[Optimizar configuración]
+    B -->|Con| D[Transmisiones<br/>demasiado frecuentes]
+    C --> E[Optimizar ajustes]
     D --> E
     
     style A fill:#dc2626,stroke:#991b1b,stroke-width:2px,color:#fff
@@ -347,101 +347,101 @@ flowchart TD
     style E fill:#10b981,stroke:#059669,stroke-width:2px,color:#fff
 ```
 
-### Árbol de Decisión Completo
+### Árbol de decisión completo
 
 **INICIO: La batería se agota demasiado rápido**
 
-**P1: ¿El registrador tiene telemetría (XBee instalado)?**
+**P1: ¿Tiene XBee instalado?**
 
-- **Sin telemetría** → Ir a P2 (configuración solo con SD)
-- **Con telemetría** → Ir a P6 (configuración de telemetría)
+- **Sin telemetría** → Ve a P2
+- **Con telemetría** → Ve a P6
 
-**P2: REGISTRADOR SOLO SD - ¿Cuál es el intervalo de registro?**
+**P2: SOLO SD: ¿Cuál es el intervalo de registro?**
 
-- Verificar el código: intervalo de medición
-- **<5 minutos** → Ir a P3
-- **≥5 minutos** → Ir a P4
+- Comprueba el intervalo de medición en el código
+- **<5 minutos** → Ve a P3
+- **≥5 minutos** → Ve a P4
 
-**P3: Registro de alta frecuencia**
+**P3: Registro frecuente**
 
-- **¿Necesita mediciones con tanta frecuencia?**
-    - **Sí (p.ej., registro de eventos)** → **SOLUCIÓN: Drenaje alto normal. Usar batería más grande o solar.**
-    - **No** → **SOLUCIÓN: Aumentar el intervalo de registro a 15 minutos**
-- **Vida útil de la batería esperada:**
-    - Intervalo de 1 min: ~7 días
-    - Intervalo de 5 min: ~15 días
-    - Intervalo de 15 min: ~30–60 días
+- **¿Necesitas medir tan a menudo?**
+    - **Sí (p. ej., eventos)** → **SOLUCIÓN: El mayor consumo es normal. Utiliza una batería mayor o energía solar.**
+    - **No** → **SOLUCIÓN: Amplía el intervalo a 15 minutos**
+- **Autonomía prevista:**
+    - 1 minuto: ~7 días
+    - 5 minutos: ~15 días
+    - 15 minutos: ~30–60 días
 
-**P4: Intervalo de registro razonable pero la batería sigue agotándose rápido**
+**P4: Intervalo razonable, pero consumo elevado**
 
 - **¿Tipo de sensor?**
-    - **Lidar** → Ir a P5 (el lidar consume más energía)
-    - **Ultrasónico** → **SOLUCIÓN: Posible componente defectuoso, verificar si hay calor (¿regulador fallando?)**
+    - **Lidar** → Ve a P5 (consume más)
+    - **Ultrasónico** → **SOLUCIÓN: Busca componentes averiados o calientes (regulador defectuoso)**
 
-**P5: Consumo de energía del Lidar**
+**P5: Consumo del lidar**
 
-- **Vida útil esperada de la batería del lidar:** ~15–30 días (registro de 15 min, 3.7 V 2600 mAh)
-- **¿La vida real es mucho más corta (< 1 semana)?**
-    - **SOLUCIÓN: Verificar problemas de firmware (sensor no durmiendo), o cortocircuito de hardware**
-- **Vida 10–15 días** → Normal para lidar
+- **Autonomía prevista:** ~15–30 días (medición cada 15 minutos, 3.7 V 2600 mAh)
+- **¿Dura mucho menos de una semana?**
+    - **SOLUCIÓN: Comprueba si el firmware deja el sensor activo o si hay un cortocircuito**
+- **Dura 10–15 días** → Normal para lidar
 
-**P6: REGISTRADOR CON TELEMETRÍA - ¿Frecuencia de transmisión?**
+**P6: CON TELEMETRÍA: ¿Frecuencia de transmisión?**
 
-- Verificar el código: TELEMETRY_INTERVAL
-- **Cada medición** → **SOLUCIÓN: ¡Demasiado frecuente! Establecer cada 4–12 mediciones**
-- **Cada 4–12 mediciones** → Ir a P7 (razonable, pero verificar otros factores)
-- **Diario o menos** → Ir a P8 (muy poco frecuente, el problema está en otra parte)
+- Comprueba TELEMETRY_INTERVAL
+- **En cada medición** → **SOLUCIÓN: Demasiado frecuente; envía cada 4–12 mediciones**
+- **Cada 4–12 mediciones** → Ve a P7
+- **Una vez al día o menos** → Ve a P8
 
-**P7: Intervalo de telemetría razonable pero agotamiento rápido**
+**P7: Frecuencia razonable, pero consumo alto**
 
-- **Verificar la intensidad de la señal:**
-    - **RSSI < -100 dBm (señal débil)** → **SOLUCIÓN: La señal débil hace que el XBee transmita con mayor potencia**
-        - Arreglo: Antena externa, reubicar el registrador o aumentar el intervalo
-    - **RSSI > -100 dBm (buena señal)** → Ir a P8
+- **Comprueba la intensidad de señal:**
+    - **RSSI < -100 dBm (débil)** → **SOLUCIÓN: El XBee consume más con mala señal**
+        - Usa antena externa, cambia la ubicación o amplía el intervalo
+    - **RSSI > -100 dBm (buena)** → Ve a P8
 
-**P8: Otros consumos de energía**
+**P8: Otras fuentes de consumo**
 
-- **¿El XBee entra en modo de suspensión entre transmisiones?**
-    - Comprobar configuración XBee: SM=1 (suspensión por pin)
-    - **SM=0 (sin suspensión)** → **SOLUCIÓN: Configurar SM=1**
-- **¿Hay fallos de transmisión con reintentos?**
-    - Revisar el registro serie: ¿muchos intentos fallidos?
-    - **Muchos fallos** → **SOLUCIÓN: Corregir problemas de red, reducir los intentos de reintento**
-- **Todas las configuraciones óptimas** → Ir a P9
+- **¿Duerme el XBee entre envíos?**
+    - Comprueba SM=1 (reposo por pin)
+    - **SM=0** → **SOLUCIÓN: Ajusta SM=1**
+- **¿Fallas y reintentos de envío?**
+    - Revisa si hay muchos intentos fallidos en el registro serie
+    - **Sí** → **SOLUCIÓN: Resuelve el problema de red y reduce los reintentos**
+- **Todo optimizado** → Ve a P9
 
-**P9: Comprobación del estado de la batería**
+**P9: Comprueba el estado de la batería**
 
-- **¿La batería es antigua o está dañada?**
-    - ¿Tiene más de 2 años?
-    - ¿La batería se calienta durante la carga?
-    - ¿Capacidad degradada?
-    - **SOLUCIÓN: Reemplazar la batería** (las baterías LiPo se degradan con el tiempo)
-- **Batería nueva y en buen estado** → Ir a P10
+- **¿Vieja o dañada?**
+    - ¿Más de dos años?
+    - ¿Se calienta al cargar?
+    - ¿Ha perdido capacidad?
+    - **SOLUCIÓN: Sustitúyela**
+- **Nueva y en buen estado** → Ve a P10
 
-**P10: Diagnóstico de fallos de hardware**
+**P10: Diagnóstico de hardware**
 
-- **Medir la corriente con un amperímetro:**
-    - Modo de suspensión: Debe ser <1 mA
-    - Activo (midiendo): <50 mA (ultrasónico) o <100 mA (lidar)
+- **Mide la corriente con un amperímetro:**
+    - Reposo: <1 mA
+    - Midiendo: <50 mA (ultrasónico) o <100 mA (lidar)
     - Transmitiendo: ~200 mA
-- **¿La corriente es mucho mayor de lo esperado?**
-    - **SOLUCIÓN: Fallo de hardware (cortocircuito, componente defectuoso)**
-    - Requiere: inspección de la PCB, prueba de componentes o sustitución del registrador
+- **¿Consumo mucho mayor?**
+    - **SOLUCIÓN: Fallo de hardware (cortocircuito o componente defectuoso)**
+    - Inspecciona la PCB, prueba los componentes o sustituye el registrador
 
 ---
 
-## Diagrama de flujo 5: Problemas con la tarjeta SD
+## Diagrama 5: Problemas con la tarjeta SD
 
 ### Síntoma
-La tarjeta SD no se inicializa, los datos están corruptos o hay errores en el sistema de archivos.
+La SD no se inicializa, hay datos corruptos o errores del sistema de archivos.
 
 ```mermaid
 flowchart TD
-    A[Problemas con tarjeta SD] --> B{¿El ordenador puede<br/>leer la tarjeta?}
-    B -->|No| C[Tarjeta defectuosa]
-    B -->|Yes| D{¿La tarjeta es >32GB<br/>o tiene formato incorrecto?}
-    D -->|Yes| E[Formatear como FAT32<br/><32GB]
-    D -->|No| F{¿La tarjeta tiene<br/>protección contra escritura?}
+    A[Problemas con tarjeta SD] --> B{¿Puede el ordenador<br/>leerla?}
+    B -->|No| C[Tarjeta averiada]
+    B -->|Sí| D{¿>32GB o formato<br/>incorrecto?}
+    D -->|Sí| E[Formatear FAT32<br/><32GB]
+    D -->|No| F{¿Protegida<br/>contra escritura?}
     
     style A fill:#dc2626,stroke:#991b1b,stroke-width:2px,color:#fff
     style C fill:#ef4444,stroke:#dc2626,stroke-width:2px,color:#fff
@@ -449,116 +449,116 @@ flowchart TD
     style F fill:#fbbf24,stroke:#f59e0b,stroke-width:2px,color:#000
 ```
 
-### Árbol de decisiones completo
+### Árbol de decisión completo
 
 **INICIO: Problemas con la tarjeta SD**
 
-**P1: ¿Está la tarjeta SD físicamente insertada?**
+**P1: ¿Está insertada?**
 
-- Comprobación visual
-- **No** → **SOLUCIÓN: Insertar la tarjeta SD en el slot hasta que haga clic**
-- **Sí** → Ir a P2
+- Compruébalo visualmente
+- **No** → **SOLUCIÓN: Insértala hasta que encaje**
+- **Sí** → Ve a P2
 
-**P2: ¿Puede el ordenador leer la tarjeta?**
+**P2: ¿Puede leerla el ordenador?**
 
-- Retirar la tarjeta, insertarla en el ordenador (con adaptador si es necesario)
-- **El ordenador no puede leer la tarjeta** → Ir a P3 (tarjeta defectuosa)
-- **El ordenador lee la tarjeta** → Ir a P5 (problema específico del registrador)
+- Retírala y conéctala (con adaptador si hace falta)
+- **No** → Ve a P3
+- **Sí** → Ve a P5 (problema específico del registrador)
 
-**P3: TARJETA DEFECTUOSA - ¿El ordenador solicita formatear?**
+**P3: TARJETA AVERIADA: ¿Pide el ordenador formatearla?**
 
-- **"Disco no inicializado" o similar**
-    - **SOLUCIÓN: Formatear la tarjeta** (FAT32, unidad de asignación de 32 KB)
-    - Si el formato falla → Tarjeta físicamente dañada, reemplazar
-- **El ordenador no detecta la tarjeta en absoluto**
-    - **SOLUCIÓN: Tarjeta muerta, reemplazar**
+- **«Disco no inicializado» o similar**
+    - **SOLUCIÓN: Formatea como FAT32 con unidades de asignación de 32 KB**
+    - Si falla el formateo → daño físico; sustitúyela
+- **El ordenador no la detecta**
+    - **SOLUCIÓN: Tarjeta averiada; sustitúyela**
 
-**P4: Después de formatear, ¿funciona el registrador?**
+**P4: ¿Funciona en el registrador después de formatear?**
 
-- **Sí** → ¡Resuelto! (La tarjeta estaba corrupta)
-- **No** → Ir a P5
+- **Sí** → ¡Resuelto! (estaba corrupta)
+- **No** → Ve a P5
 
-**P5: EL ORDENADOR LEE LA TARJETA - ¿Capacidad de la tarjeta?**
+**P5: EL ORDENADOR LA LEE: ¿Qué capacidad tiene?**
 
-- Comprobar propiedades
-- **>32 GB** → **SOLUCIÓN: Tarjeta demasiado grande, usar ≤32 GB**
-- **≤32 GB** → Ir a P6
+- Comprueba sus propiedades
+- **>32 GB** → **SOLUCIÓN: Utiliza una tarjeta ≤32 GB**
+- **≤32 GB** → Ve a P6
 
-**P6: ¿Formato del sistema de archivos de la tarjeta?**
+**P6: ¿Qué sistema de archivos tiene?**
 
-- Comprobar: FAT32, exFAT, NTFS?
-- **No es FAT32** → **SOLUCIÓN: Formatear como FAT32**
-- **Es FAT32** → Ir a P7
+- Comprueba si es FAT32, exFAT o NTFS
+- **No es FAT32** → **SOLUCIÓN: Formatea como FAT32**
+- **Es FAT32** → Ve a P7
 
-**P7: ¿La tarjeta tiene archivos .CSV existentes?**
+**P7: ¿Contiene archivos .CSV?**
 
-- **Sin archivos** → Ir a P8 (nunca funcionó)
-- **Tiene archivos** → Ir a P9 (funcionaba, ahora paró)
+- **Ninguno** → Ve a P8 (nunca funcionó)
+- **Sí** → Ve a P9 (funcionaba antes)
 
-**P8: NUNCA FUNCIONÓ - ¿La tarjeta tiene protección contra escritura?**
+**P8: NUNCA FUNCIONÓ: ¿Está protegida contra escritura?**
 
-- Comprobar el interruptor físico en el lateral de la tarjeta SD
-- **Interruptor en posición "Lock"** → **SOLUCIÓN: Deslizar el interruptor para desbloquear**
-- **No bloqueado** → Ir a P10 (problema en el slot SD del registrador)
+- Comprueba el interruptor lateral de la tarjeta SD
+- **En «Lock»** → **SOLUCIÓN: Deslízalo a desbloqueado**
+- **Desbloqueada** → Ve a P10 (ranura del registrador)
 
-**P9: FUNCIONABA - ¿Cuándo dejó de funcionar?**
+**P9: FUNCIONABA: ¿Cuándo dejó de hacerlo?**
 
-- Comprobar la fecha del último archivo
-- **Paró cuando la tarjeta estaba llena** → **SOLUCIÓN: Tarjeta llena, eliminar archivos antiguos o usar una tarjeta más grande**
-- **Paró aleatoriamente** → Ir a P11 (corrupción)
+- Revisa la fecha del último archivo
+- **Al llenarse** → **SOLUCIÓN: Descarga y borra archivos o utiliza una tarjeta mayor**
+- **Sin motivo aparente** → Ve a P11 (corrupción)
 
-**P10: Problema en el slot SD del registrador**
+**P10: Problema de la ranura SD**
 
-- **¿La tarjeta SD hace contacto?**
-    - Probar: Reinsertar la tarjeta, asegurarse de que esté completamente encajada
-    - Probar: Una tarjeta diferente (que funcione correctamente)
-    - **Otras tarjetas tampoco funcionan** → **SOLUCIÓN: Fallo de hardware en el slot SD, reparar o reemplazar el registrador**
-    - **Otras tarjetas funcionan** → Tarjeta original incompatible, usar otra marca
+- **¿Hace buen contacto?**
+    - Vuelve a insertar la tarjeta hasta que quede encajada
+    - Prueba otra tarjeta que funcione
+    - **Ninguna funciona** → **SOLUCIÓN: Repara o sustituye la ranura/registrador**
+    - **Otras funcionan** → La original es incompatible; usa otra marca
 
-**P11: Resolución de problemas de corrupción de datos**
+**P11: Diagnóstico de datos corruptos**
 
-- **¿Hay un patrón en la corrupción?**
-    - Después de un evento específico (corte de alimentación, batería agotada, tarjeta retirada con el registrador en marcha)
-- **SOLUCIÓN: Corrupción por apagado incorrecto**
-    - Solución: Apagar siempre el registrador antes de retirar la tarjeta
-    - Prevención: Implementar apagado seguro en el código (volcar buffers, cerrar archivos)
+- **¿Hay un patrón?**
+    - ¿Después de un corte, batería agotada o extracción mientras registraba?
+- **SOLUCIÓN: Corrupción por interrupción inadecuada**
+    - Apaga el registrador antes de retirar la tarjeta
+    - Implementa apagado seguro (escribir búferes y cerrar archivos)
 - **Corrupción aleatoria:**
-    - **SOLUCIÓN: Problema de calidad de la tarjeta, usar SanDisk/Samsung/Kingston (evitar marcas genéricas)**
+    - **SOLUCIÓN: Usa una tarjeta de calidad (SanDisk, Samsung, Kingston)**
 
 ---
 
-## Uso eficaz de estos diagramas de flujo
+## Cómo aprovechar estos diagramas
 
 ### Consejos
 
-1. **Imprimir y plastificar** para uso en campo
-2. **Seguir sistemáticamente**: no saltarse pasos
-3. **Documentar el recorrido**: anotar qué ramas se siguieron
-4. **Consultar** las guías detalladas para las soluciones
-5. **¿Varios problemas?** Usar varios diagramas de flujo
+1. **Imprímelos y plastifícalos** para utilizarlos en campo
+2. **Síguelos en orden** y no omitas pasos
+3. **Documenta la ruta** que has seguido
+4. **Consulta las guías detalladas** para cada solución
+5. **¿Hay varios problemas?** Utiliza varios diagramas
 
-### Cuando los diagramas de flujo no resuelven el problema
+### Si no resuelven el problema
 
-Si has seguido el diagrama de flujo correspondiente y el problema persiste:
+Si has seguido el diagrama adecuado y el problema persiste:
 
-1. **Revisar [Problemas comunes](common-issues.md)**: Síntomas similares con explicaciones detalladas
-2. **Consultar las [FAQ](faq.md)**: Casos especiales y situaciones inusuales
-3. **Contactar con soporte** indicando:
-    - Ruta seguida en el diagrama de flujo
+1. **Consulta [problemas habituales](common-issues.md)**: Síntomas parecidos explicados en detalle
+2. **Lee las [preguntas frecuentes](faq.md)**: Casos poco comunes
+3. **Contacta con soporte** e incluye:
+    - Ruta seguida en el diagrama
     - Resultados del diagnóstico
-    - Registros del Monitor Serie
+    - Registros del monitor serie
     - Fotos del hardware
 
 ---
 
-## Próximos Pasos
+## Próximos pasos
 
-- 📋 [Problemas comunes](common-issues.md): Descripciones detalladas de problemas y soluciones
-- ❓ [FAQ](faq.md): Preguntas frecuentes
-- 🔧 [Mantenimiento de hardware](../hardware/maintenance.md): Mantenimiento preventivo
-- 🚨 [Resolución de problemas de telemetría](../../telemetry/troubleshooting-connections.md): Diagnóstico detallado de telemetría
+- 📋 [Problemas habituales](common-issues.md): Descripciones y soluciones detalladas
+- ❓ [Preguntas frecuentes](faq.md): Respuestas a dudas habituales
+- 🔧 [Mantenimiento del hardware](../hardware/maintenance.md): Mantenimiento preventivo
+- 🚨 [Problemas de telemetría](../../telemetry/troubleshooting-connections.md): Diagnóstico detallado
 
 ---
 
-!!! tip "Resolución de problemas visual"
-    Estos diagramas de flujo proporcionan un camino sistemático desde el síntoma hasta la solución. ¡Téngalos a mano en el campo!
+!!! tip "Diagnóstico visual"
+    Estos diagramas ofrecen un recorrido sistemático desde el síntoma hasta la solución. ¡Tenlos a mano en campo!

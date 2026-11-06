@@ -1,200 +1,149 @@
-# Guía de Inicio Rápido
+# Guía de inicio rápido
 
-## Lo Que Necesitará
+## Introducción
 
-Antes de comenzar, asegúrese de tener:
+Si tienes un registrador Riverlabs preprogramado, estará listo para usar nada más sacarlo de la caja. Sin embargo, si necesitas cambiar algún ajuste, tendrás que volver a programarlo. Uno de los ajustes más habituales es la frecuencia de medición. Nuestros registradores preprogramados suelen medir cada 5 o 15 minutos. Esto resulta adecuado para muchos casos, aunque quizá prefieras un intervalo más corto o más largo.
 
-- Su registrador Riverlabs (ultrasónico o lidar)
-- Batería principal (una 14500 o 18650 según el tipo)
-- Batería de moneda CR1220 (para respaldo del RTC)
-- Tarjeta MicroSD 
-- Cable o adaptador FTDI (para programación)
-- Arduino IDE instalado en su computadora
+Si utilizas telemetría, pero no la plataforma de datos de Riverlabs, es posible que tengas que volver a programar el registrador para configurar, por ejemplo, la dirección de internet de tu plataforma de datos y las credenciales de autenticación del dispositivo.
 
-## 1. Identifique Su Registrador
+También puede ser necesario volver a programar el registrador si el reloj ha perdido la hora porque se ha retirado o agotado la pila de botón de respaldo. Ten en cuenta que los registradores con conexión celular ajustan la hora automáticamente consultando un servidor horario de internet, por lo que no necesitan configuración manual. Sin embargo, para los registradores que utilizan tarjeta SD es fundamental ajustar la hora correcta mediante un programa de Arduino.
 
-Primero, identifique qué modelo de registrador tiene. Consulte la [Guía de Identificación del Registrador](logger-identification.md) para comparaciones detalladas.
+Aunque programar un registrador de datos pueda parecer complicado, el [manual de programación](../../programming/arduino-setup.md) te guía durante todo el proceso. Además, hemos organizado el código para que los ajustes más habituales estén al principio del programa principal y puedas modificarlos sin alterar el resto. Si ya conoces Arduino, la [guía breve](arduino-setup.md) te ayudará a empezar.
+
+Esta guía de inicio rápido presupone que el registrador está programado correctamente.
+
+## 1. Identifica tu registrador
+
+Primero, identifica qué modelo de registrador tienes. Hemos producido numerosas versiones desde que comenzó el desarrollo, pero en los últimos años hemos consolidado el diseño en torno a nuestra plataforma Rio, que es bastante estable. En el futuro, esperamos incorporar las diferencias de hardware al software para poder utilizar una única base de código.
+
+La principal diferencia entre modelos es el sensor conectado. Utilizamos sobre todo sensores de distancia para medir el nivel del agua, como el sensor ultrasónico Maxbotix y el telémetro lidar de Garmin. A continuación se comparan ambos sensores. Más recientemente, también hemos desarrollado modelos para sensores de humedad del suelo, pluviómetros y determinados parámetros de calidad del agua.
+
+Otra diferencia importante es la gestión de los datos. Nuestros registradores permiten almacenar los datos localmente en una tarjeta SD o transmitirlos por telemetría. Aunque sería ideal poder hacer ambas cosas, el procesador que utilizamos no tiene suficiente memoria interna para alojar el software de las dos funciones. Esperamos pasar a una arquitectura más moderna que lo permita. Mientras tanto, tendrás que elegir una de las dos opciones.
 
 <div class="grid cards logger-cards" markdown>
 
--    **Registrador Wari Ultrasónico**
-
-    ---
-
-    **Sensor de Distancia por Ultrasonido**
+-   **Registrador ultrasónico Wari**
 
     ![Registrador Wari](../../assets/images/Wari_v1.jpg){ width="250" }
 
     **Sensor:** Maxbotix MB7389  
-    **Rango:** 0.3 m–5 m  
+    **Alcance:** 0.3 m–5 m  
     **Resolución:** 1 mm  
     **Ángulo del haz:** Amplio (~15°)  
-    **Ideal para:**
+    **Adecuado para:**
 
-    - Monitoreo del nivel del agua
-    - Proyectos con presupuesto limitado
+    - Control del nivel del agua
     - Aplicaciones de corto alcance
-    - Posiciones de montaje vertical
+    - Instalaciones en posición vertical
 
--   :material-laser-pointer:{ .lg .middle } **Registrador Lidar**
+-   **Registrador lidar Wari**
 
-    ---
-
-    **Registrador Wari Lidar**
-
-    ![Registrador Lidar](../../assets/images/WMOnode.jpg){ width="250" }
+    ![Registrador lidar](../../assets/images/WMOnode.jpg){ width="250" }
 
     **Sensor:** Garmin Lidarlite v3HP  
-    **Rango:** 0.05 m–35 m  
+    **Alcance:** 0.05 m–35 m  
     **Resolución:** 1 cm  
     **Ángulo del haz:** Muy estrecho (~0.5°)  
-    **Ideal para:**
+    **Adecuado para:**
     
     - Mediciones de largo alcance
-    - Instalaciones inclinadas (hasta 40°)
-    - Aplicaciones de alta precisión
-    - Situaciones de montaje difíciles
+    - Situaciones en las que se acepta una precisión menor que la del ultrasonido (1 - 10 cm)
+    - Instalaciones difíciles (permite ángulos de hasta 40° respecto a la vertical)
 
 </div>
 
-## 2. Insertar las Baterías
+## 2. Baterías
 
-!!! danger "¡Verifique la Polaridad Primero!"
-    Compruebe dos veces la orientación de la batería antes de insertarla. Haga coincidir las marcas **+** y **-** de la batería con las marcas en el compartimento de la batería.
+Los registradores Wari utilizan dos baterías: una batería grande de ion-litio que proporciona la alimentación principal y una pequeña pila de botón situada detrás de la placa de circuito. La pila de botón suele venir instalada y no debe retirarse, ya que el reloj perdería la hora.
 
-**Batería RTC (CR1220):**
+Según el modelo de registrador, la batería principal es del tamaño 18650 o del tamaño más pequeño 14500 (consulta la [guía de baterías y alimentación](../hardware/battery-power-guide.md)). Ten en cuenta que la 14500 tiene un tamaño muy parecido al de una pila AA. Sin embargo, una pila AA convencional no sirve porque solo proporciona 1.5V. El registrador funciona a 3.3V y necesita una batería de litio.
 
-!!! tip "Preservación de la Fecha" 
-    La celda de moneda puede estar ya instalada. Solo reemplácela si es necesario para preservar la fecha programada. Instale primero la batería principal y enciéndala.
+!!! danger "¡Comprueba bien la polaridad!"
+    Verifica dos veces la orientación de la batería antes de introducirla. Haz coincidir las marcas **+** y **-** de la batería con las del compartimento. Una batería insertada al revés puede dañar el registrador.
 
-1. Apague la placa
-2. Localice el pequeño compartimento de la batería de moneda en el PCB (a veces en la parte trasera)
-3. Inserte la batería CR1220 (normalmente con el lado **+** hacia arriba)
-4. Presione firmemente hasta que encaje en su lugar
-5. Si corresponde, atornille la placa de circuito de nuevo en la carcasa
+**Batería principal (normalmente de tamaño 18650 o 14500):**
 
-**Batería Principal (normalmente una 18650 o 14500):**
+1. Apaga la placa
+2. Comprueba que tienes la batería adecuada
+3. Verifica la polaridad (**+**/**-**) y el nivel de carga
+4. Introduce la batería y asegúrate de que las pinzas metálicas la toquen. Si no hay contacto, saca la batería y dobla las pinzas ligeramente hacia dentro con cuidado.
 
-1. Apague la placa
-2. Verifique que tenga la batería correcta (consulte la [Guía de Batería y Alimentación](../hardware/battery-power-guide.md))
-3. Verifique la polaridad (**+**/**-**) y la carga
-4. Inserte la batería, asegurando que los clips metálicos toquen la batería
+**Pila del RTC (CR1220):**
 
-### 3. Preparar la Tarjeta SD
+!!! tip "Conservación de la fecha"
+    Es posible que la pila de botón ya esté instalada; normalmente dura varios años. Si necesitas sustituirla, deja puesta la batería principal para alimentar el reloj y conservar la hora. Si el reloj se ha reiniciado, tendrás que ajustarlo de nuevo con el programa de Arduino correspondiente.
 
-Su registrador puede necesitar una tarjeta microSD.
+1. Apaga la placa
+2. Desatornilla la placa de circuito y localiza el pequeño alojamiento de la pila de botón en la parte posterior
+3. Introduce la pila CR1220 (normalmente con el lado **+** hacia arriba)
+4. Presiona firmemente hasta que encaje
+5. Si corresponde, vuelve a atornillar la placa de circuito a la carcasa
 
-- Inserte la tarjeta en el ranura microSD del registrador
-- Asegúrese de que encaje en su lugar (debería poder sentirlo)
+Para más detalles sobre las opciones de batería y su funcionamiento, consulta la [guía de baterías y alimentación](../hardware/battery-power-guide.md)
 
-### 4. Configurar el Reloj
+## 3. Uso de la tarjeta SD
 
-!!! warning "Paso Inicial Importante"
-    El reloj debe configurarse antes del primer uso. Configure el reloj en **zona horaria UTC** si utiliza telemetría.
+Si el registrador está programado para guardar datos en la tarjeta SD, debes introducir una tarjeta microSD en la ranura. Según el modelo, los contactos de la tarjeta deben mirar hacia fuera o hacia dentro. Consulta las fotografías para ver la orientación correspondiente.
 
-**Antes de programar:**
+Al encender o reiniciar el registrador, el código buscará una tarjeta SD. Si no encuentra ninguna, el LED rojo parpadeará 3 x 3 veces. En ese caso, comprueba que la tarjeta esté bien insertada. Si el LED se enciende una sola vez, la tarjeta se ha detectado y está lista para utilizarse.
 
-!!! danger "CRÍTICO: Desconectar el Sensor Primero"
-    **Para modelos Wari Ultrasónico:** Desconecte el sensor Maxbotix (conector de 3 pines) del registrador antes de programar. El sensor y el cable FTDI usan el mismo puerto serie, causando interferencias que impiden la carga exitosa del código. Vuelva a conectar el sensor después de que la programación esté completa.
+!!! Important "Almacenamiento temporal antes de escribir en la tarjeta SD"
+    Para ahorrar energía y reducir el desgaste de la tarjeta SD, los nuevos datos no se escriben en ella inmediatamente. Primero se guardan en un chip de memoria EEPROM interno y se escriben en la tarjeta a intervalos regulares (normalmente una vez al día). Por ello, si retiras la tarjeta SD para leerla, pueden faltar hasta 24h de datos. Para evitarlo, pulsa el botón de reinicio *antes* de sacar la tarjeta SD. Al encenderse o reiniciarse, el registrador buscará datos pendientes en el chip de memoria y los volcará en la tarjeta SD. El LED permanecerá encendido durante la escritura, que puede durar hasta 20 segundos.
 
-**Pasos para configurar el reloj:**
+!!! warning "No retires la tarjeta SD mientras se escriben los datos"
+    No saques la tarjeta SD mientras el LED esté encendido y la escritura siga en curso. Podrías perder datos y dañar la tarjeta SD. Espera a que se apague el LED rojo.
 
-1. **Desconectar el sensor** (conector blanco) si usa Wari Ultrasónico
-2. Conecte el cable FTDI a su registrador
-   - Alinee el cable verde con la marca "GRN"
-   - Alinee el cable negro con la marca "BLK"
-3. Coloque el interruptor de alimentación en posición OFF (alimentado por FTDI)
-4. Abra Arduino IDE
-5. Configure la placa en **MiniCore → ATmega328**
-6. Configure el reloj en **External 8 MHz**
-7. Cargue el sketch `set_clock.ino` (en la raíz del repositorio)
-8. Cárguelo en el registrador
-9. Abra el Monitor Serie (velocidad: 57600) para verificar la hora
+Para más detalles sobre la lectura de datos y los formatos de archivo, consulta la [guía de descarga de datos](data-download.md)
 
-**El reloj solo necesita configurarse una vez** (a menos que se retiren ambas baterías).
+## 4. Telemetría
 
-### 5. Selección de Firmware por Número de Serie
+Como alternativa, los datos pueden enviarse mediante telemetría. Actualmente nuestros registradores admiten dos tecnologías: LoRa/LoRaWAN y transmisión celular. Puede que necesites componentes adicionales. Para LoRaWAN, la placa debe tener soldado un módulo de radio adecuado. La conectividad celular utiliza un módem DIGI independiente que se puede insertar en la ranura correspondiente (si se han soldado los conectores de pines). Ambas tecnologías requieren también una antena adecuada. La telemetría celular consume bastante energía, por lo que normalmente necesitarás un panel solar; de lo contrario, la batería se descargará muy rápido.
 
-| Rango de Número de Serie | Sensor      | Telemetría          | Archivo de Firmware         |
-|--------------------------|-------------|---------------------|-----------------------------|
-| RL000001–RL000277        | Ultrasonido | Ninguna             | `wari_v1.ino`               |
-| RL000001–RL000277        | Ultrasonido | 3G Celular          | `wari_3G.ino`               |
-| RL000278–RL000330        | Ultrasonido | Ninguna             | `wari_v2.0.ino`             |
-| RL000278+                | Ultrasonido | 3G Celular          | `wari_3G_v2.ino`            |
-| RL000331+                | Ultrasonido | Ninguna             | `wari_v2.1.ino`             |
-| Cualquiera               | Ultrasonido | 4G LTE-M/NB-IoT     | `wari_4G.ino`               |
-| Cualquiera               | Lidar       | Ninguna             | `wari_lidar.ino`            |
-| Cualquiera               | Lidar       | 3G o 4G Celular     | `wari_lidar_cellular.ino`*  |
-| Cualquiera               | Lidar       | Radio LoRa          | `wari_lidar_lora.ino`       |
+### LoRa/LoRaWAN
 
-*\*Establezca el tipo de módem correcto (3G o LTE-M) en la definición del compilador al inicio del código*
+Para utilizar LoRa/LoRaWAN, carga el programa de Arduino correcto (consulta el [manual de programación](../../programming/arduino-setup.md)). Si el registrador viene preconfigurado para LoRaWAN, deberías haber recibido el DevEUI del dispositivo. Puedes utilizarlo para registrar el dispositivo en una aplicación LoRaWAN como The Things Network. En ese caso, no hace falta programarlo de nuevo.
 
-!!! info "Nombres Legados"
-    - `wari_lidar.ino` fue anteriormente `WMO_SD.ino`
-    - `wari_lidar_cellular.ino` fue anteriormente `WMOnode.ino`
-    - `wari_lidar_lora.ino` fue anteriormente `WMO_SD_lora.ino`
+### Conectividad celular
 
+La conectividad celular necesita un módem, como el [Digi XBee 3 Global LTE Cat 1](https://www.digi.com/products/embedded-systems/digi-xbee/cellular-modems/digi-xbee-3-global-cellular-cat-1), y una tarjeta SIM. Si utilizas la plataforma de gestión de datos de Imperial, es posible que el registrador ya esté preconfigurado. En caso contrario, tendrás que volver a programarlo para establecer la dirección de internet de la plataforma de datos, las credenciales del registrador, el APN de la tarjeta SIM y otros detalles del proceso de conexión. Todo ello se explica en la [guía de telemetría](../../telemetry/setup-guide.md).
 
-### 6. Cargar el Script Principal
+!!! Important "Frecuencia de telemetría"
+    El programa LoRaWAN enviará datos en cada medición. En cambio, para ahorrar batería, el programa celular almacenará los datos internamente y solo los enviará a determinados intervalos. Normalmente, nuestros registradores están programados para medir cada 5 minutos y transmitir los datos cada hora. Puedes ajustar otras frecuencias en el programa de Arduino, pero ten en cuenta que las transmisiones muy frecuentes pueden requerir un panel solar más grande.
 
-Ahora cargue el script de registro principal:
+## 5. Prueba antes de la instalación
 
-!!! warning "El Sensor Debe Estar Desconectado"
-    Mantenga el sensor desconectado durante este paso también (solo Wari Ultrasónico).
+Antes de llevar el registrador al campo, conviene probarlo en una mesa de trabajo:
 
-1. Abra el script apropiado en Arduino IDE
-
-2. Revise y ajuste la configuración al inicio del script:
-   ```cpp
-   #define INTERVAL 5             // Intervalo de medición en minutos
-   #define NREADINGS 10           // Número de lecturas del sensor por medición
-   #define FLUSHAFTER 288         // Lecturas antes de vaciar a la tarjeta SD
-   ```
-3. Cargue el script en su registrador
-4. **Vuelva a conectar el sensor** (conector blanco) después de que la carga se complete
-5. Verifique la operación mediante el Monitor Serie (si DEBUG está habilitado)
-6. Desconecte el cable FTDI
-7. Coloque la alimentación en posición ON
-
-!!! success "Carga Completa"
-    Cuando el LED parpadee después de la carga, su registrador está programado y listo. ¡No olvide volver a conectar el sensor!
-
-!!! tip "Consideraciones sobre la Batería"
-    Mayor frecuencia de registro = menor vida de la batería. Comience con configuraciones conservadoras (intervalos de 10–15 minutos) para las implementaciones.
-
-### 7. Prueba Antes de la Implementación
-
-Antes de llevar su registrador al campo, realice una prueba de banco:
-
-- **Sensor reconectado** (conector de 3 pines Maxbotix conectado)
+- **Sensor reconectado** (conector de 3 pines de Maxbotix enchufado)
 - Interruptor de alimentación en posición ON
-- Verificar que el LED parpadea durante las mediciones
-- Verificar que los datos se están escribiendo en la tarjeta SD
-- Confirmar que las lecturas del sensor son razonables
-- Probar durante al menos 30 minutos para asegurar operación estable
+- Verificar que el LED parpadee durante las mediciones
+- Comprobar que los datos se escriban en la tarjeta SD o se envíen por telemetría
+- Confirmar que las lecturas del sensor sean razonables
+- Probarlo durante al menos 30 minutos para confirmar su funcionamiento estable
 
-Consulte la [Lista de Verificación del Primer Despliegue](first-deployment-checklist.md) para pruebas completas previas al despliegue.
+Consulta la [lista de verificación previa a la primera instalación](first-deployment-checklist.md) para realizar una prueba completa antes del despliegue.
 
-### 8. Instalar en el Campo
+!!! success "¿Listo para instalarlo?"
+    Una vez completados estos pasos y verificado su funcionamiento, el registrador estará listo para instalarse en el campo. Recuerda documentar la ubicación de instalación y tomar fotografías para futuras consultas.
 
-¡Su registrador ya está listo para la implementación en campo! Consulte la [Guía de Montaje](../../installation/mounting-guide.md) para instrucciones detalladas de instalación, incluyendo:
+## 6. Instalación en el campo
 
-- Métodos de montaje con bridas
-- Técnicas de montaje con adhesivo
-- Posicionamiento y orientación del sensor
+¡Tu registrador ya está listo para instalarse en el campo! Consulta la [guía de montaje](../../installation/mounting-guide.md) para ver instrucciones detalladas sobre:
+
+- Montaje del sensor
+- Posición y orientación del sensor
 - Consideraciones ambientales
 
-## Próximos Pasos
+## 7. Recursos útiles
 
-- [Identificación del Registrador](logger-identification.md): Comparar Wari vs Lidar en detalle
-- [Lista de Verificación del Primer Despliegue](first-deployment-checklist.md): Verificación completa previa al despliegue
-- [Configuración de Telemetría](../../telemetry/setup-guide.md): Configurar transmisión de datos celular
-- [Guía de Batería y Alimentación](../hardware/battery-power-guide.md): Comprender la vida de la batería y el voltaje
+<!-- - [Identificación del registrador](logger-identification.md): Comparación detallada entre Wari y lidar -->
+- [Lista de verificación previa a la primera instalación](first-deployment-checklist.md)
+- [Manual de instalación](../../installation/sensor-positioning.md)
+- [Configura tu propia plataforma de telemetría](../../telemetry/setup-guide.md)
+- [Características de las baterías y la alimentación](../hardware/battery-power-guide.md)
 
-## ¿Necesita Ayuda?
+## 8. ¿Necesitas ayuda?
 
-- Consulte [Problemas Comunes y Soluciones](../troubleshooting/common-issues.md) para soluciones rápidas
-- Revise [Diagramas de Diagnóstico](../troubleshooting/diagnostic-flowcharts.md) para resolución sistemática de problemas
-- Contacte soporte: info@riverlabs.uk
-
----
+- Consulta [problemas comunes y soluciones](../troubleshooting/common-issues.md) para encontrar soluciones rápidas
+- Revisa los [diagramas de diagnóstico](../troubleshooting/diagnostic-flowcharts.md) para identificar problemas de forma sistemática
+- Contacta con el servicio de asistencia: info@riverlabs.uk

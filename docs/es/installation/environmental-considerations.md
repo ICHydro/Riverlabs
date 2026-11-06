@@ -1,189 +1,189 @@
-# Consideraciones Ambientales
+# Consideraciones ambientales
 
-!!! abstract "Resumen"
-    Los factores ambientales afectan significativamente el rendimiento y la vida útil del registrador. Esta guía cubre consideraciones climáticas, meteorológicas, de vida silvestre y específicas del sitio para implementaciones exitosas a largo plazo.
+!!! abstract "Descripción general"
+    Los factores ambientales influyen considerablemente en el rendimiento y la vida útil del registrador. Esta guía aborda el tiempo, el clima, la fauna y las características del emplazamiento para favorecer instalaciones duraderas.
 
-## Clima y Condiciones Meteorológicas
+## Clima y condiciones meteorológicas
 
-### Gestión de Temperatura
+### Gestión de la temperatura
 
-#### Rangos de Operación
+#### Rangos de funcionamiento
 
-| Componente              | Mínimo | Máximo | Rango Óptimo   |
-|-------------------------|--------|--------|----------------|
-| **Electrónica/CPU**     | -20°C  | +60°C  | 0°C a +50°C    |
-| **Batería (Descarga)**  | -20°C  | +60°C  | +10°C a +40°C  |
-| **Batería (Carga)**     | 0°C    | +45°C  | +10°C a +35°C  |
-| **Tarjeta SD**          | -25°C  | +85°C  | -10°C a +60°C  |
+| Componente | Mínimo | Máximo | Rango óptimo |
+|------------|--------|--------|--------------|
+| **Electrónica/CPU** | -20°C | +60°C | 0°C a +50°C |
+| **Batería (descarga)** | -20°C | +60°C | +10°C a +40°C |
+| **Batería (carga)** | 0°C | +45°C | +10°C a +35°C |
+| **Tarjeta SD** | -25°C | +85°C | -10°C a +60°C |
 
-#### Consideraciones en Climas Fríos
+#### Consideraciones para climas fríos
 
-**Impacto de las Bajas Temperaturas:**
+**Efectos de las bajas temperaturas:**
 
-- **La capacidad de la batería se reduce** significativamente
-    - A 0°C: ~80% de capacidad
-    - A -10°C: ~60% de capacidad
-    - A -20°C: ~40% de capacidad
-- Riesgo de **condensación** al calentarse
+- **La capacidad de la batería disminuye** considerablemente
+    - A 0°C: ~80 % de capacidad
+    - A -10°C: ~60 % de capacidad
+    - A -20°C: ~40 % de capacidad
+- **Riesgo de condensación** al aumentar la temperatura
 
-**Adaptaciones para Climas Fríos:**
+**Adaptaciones para climas fríos:**
 
-❌ **No hacer:**
+❌ **Evitar:**
 
-- Intentar cargar baterías por debajo de 0°C
-- Usar carga solar en condiciones de helada
-- Esperar vida útil normal de la batería
+- Intentar cargar las baterías por debajo de 0°C
+- Utilizar carga solar en condiciones de congelación
+- Esperar una autonomía normal de la batería
 
-**Impacto de las Altas Temperaturas:**
+**Efectos de las altas temperaturas:**
 
-- **El estrés térmico de la electrónica** reduce la vida útil
+- **El estrés térmico de los componentes electrónicos** reduce su vida útil
 - **La degradación de la batería** se acelera
-- **La ganancia solar** eleva significativamente la temperatura interna
+- **La radiación solar** aumenta considerablemente la temperatura interna
 
-**Adaptaciones para Climas Cálidos:**
+**Adaptaciones para climas cálidos:**
 
 ✅ **Hacer:**
 
 - Instalar protectores solares
-- Reducir la frecuencia de registro para minimizar el tiempo activo
-- Monitorear la salud de la batería con mayor frecuencia
+- Reducir la frecuencia de registro para minimizar el tiempo de funcionamiento activo
+- Comprobar el estado de la batería con mayor frecuencia
 
-❌ **No hacer:**
+❌ **Evitar:**
 
-- Montar en sol directo de la tarde
+- Montar el registrador bajo el sol directo de la tarde
 - Usar carcasas de color oscuro
-- Sellar completamente sin un plan de ventilación
-- Ignorar el hinchamiento de la batería (señal de peligro)
+- Sellar por completo la carcasa sin prever ventilación
+- Ignorar una batería hinchada (señal de peligro)
 
-**Métodos de Protección Solar:**
+**Métodos de protección solar:**
 
 ![Diseño de protector solar](../assets/images/sun-shield-diagram.png)<br>
-*Un protector solar simple reduce la temperatura interna en 15–20°C*
+*Un protector solar sencillo reduce la temperatura interna entre 15 y 20°C*
 
-1. **Protectores Solares:**
+1. **Protectores solares:**
     - Lámina de aluminio o plástico blanco
-    - Montar 5–10 cm por encima del registrador
-    - Permitir circulación de aire por debajo
-    - Inclinar para bloquear el sol de la tarde
-2. **Recubrimiento Reflectante:**
+    - Montarla a 5–10 cm por encima del registrador
+    - Permitir la circulación de aire por debajo
+    - Inclinarla para bloquear el sol de la tarde
+2. **Revestimiento reflectante:**
     - Pintar la carcasa de blanco
     - Usar cinta reflectante
-    - Envolver externamente con papel de aluminio
-3. **Estructuras de Sombra:**
-    - Sombra natural de árboles/estructuras
-    - Toldo construido específicamente
-    - Posicionar en el lado sombreado de la estructura
+    - Envolver el exterior con papel de aluminio
+3. **Estructuras de sombra:**
+    - Sombra natural de árboles o estructuras
+    - Cubierta construida para este fin
+    - Colocar el registrador en el lado sombreado de la estructura
 
-### Precipitación y Humedad
+### Precipitaciones y humedad
 
-#### Lluvia e Infiltración de Agua
+#### Lluvia y entrada de agua
 
-1. **Entradas de Cables**
-    - Verificar que los prensaestopas estén bien apretados
-    - Aplicar sellador de silicona si el montaje está hacia arriba para evitar acumulación
-    - Enrutar los cables hacia abajo (bucle antigoteo)
-2. **Sellos de la Carcasa**
-    - Verificar que la junta esté en buen estado
+1. **Entradas de cables**
+    - Comprobar que los prensaestopas impermeables estén bien apretados
+    - Aplicar sellador de silicona si se montan orientados hacia arriba, para evitar acumulaciones de agua
+    - Guiar los cables hacia abajo (bucle de goteo)
+2. **Juntas de la carcasa**
+    - Comprobar que la junta esté en buen estado
     - Limpiar las superficies de sellado antes de cerrar
-    - Presión uniforme en todos los sujetadores
-3. **Alojamiento del Sensor**
-    - Sin acumulación de agua en el sensor
+    - Aplicar una presión uniforme en todos los elementos de fijación
+3. **Carcasa del sensor**
+    - Evitar que se acumule agua sobre el sensor
 
-**Prevención de Acumulación de Agua:**
+**Prevención de acumulaciones de agua:**
 
-![Diseño de drenaje](../assets/images/drainage-design.png)
+![Diseño del drenaje](../assets/images/drainage-design.png)
 
-- Inclinar la carcasa 5–10° para el escurrimiento
-- Los cables salen por la parte inferior
-- Sin superficies horizontales que recolecten agua
+- Inclinar la carcasa entre 5 y 10° para favorecer la escorrentía
+- Hacer que los cables salgan por la parte inferior
+- Evitar superficies horizontales donde pueda acumularse agua
 
 #### Condensación
 
-**Causas de Condensación:**
+**Causas de la condensación:**
 
-- Ciclos de temperatura (día/noche)
-- Diferencial de humedad (interior/exterior)
-- Carcasa sellada que atrapa la humedad
-- "Respiración" de la carcasa con cambios de presión
+- Variaciones de temperatura (día/noche)
+- Diferencia de humedad entre el interior y el exterior
+- Humedad atrapada en una carcasa sellada
+- Intercambio de aire de la carcasa debido a cambios de presión
 
-**Medidas Anti-Condensación:**
+**Medidas contra la condensación:**
 
-- **Paquetes Desecantes**
-    - Renovar los paquetes de gel de sílice dentro de la carcasa
-    - Reemplazar cada 3–6 meses
-    - El tipo indicador muestra cuándo está saturado (normalmente amarillo fresco, verde usado)
-    - Usar desecante de grado alimenticio (reutilizable)
+- **Bolsas desecantes**
+    - Renovar las bolsas de gel de sílice del interior de la carcasa
+    - Sustituirlas cada 3–6 meses
+    - Las bolsas con indicador muestran cuándo están saturadas (normalmente amarillo si están nuevas y verde si se han usado)
+    - Usar desecante de calidad alimentaria (reutilizable)
 
-## Factores Biológicos
+## Factores biológicos
 
-### Insectos y Arañas
+### Insectos y arañas
 
-**Problemas Comunes:**
+**Problemas habituales:**
 
-- Telarañas sobre el sensor/lente
-- Insectos anidando en la carcasa
-- Telarañas provocando lecturas falsas
+- Telarañas sobre el sensor o la lente
+- Insectos que anidan en la carcasa
+- Telarañas que provocan lecturas falsas
 - Obstrucción de los orificios de drenaje
 
 **Prevención:**
 
-✅ **Barreras Físicas:**
+✅ **Barreras físicas:**
 
-- Malla fina sobre el sensor (no debe afectar el haz)
+- Malla fina sobre el sensor (sin interferir con el haz)
 - Vaselina alrededor de los puntos de entrada
-- Programa de limpieza regular
+- Calendario de limpieza periódica
 
-✅ **Disuasivos Químicos:**
+✅ **Repelentes químicos:**
 
-- Spray repelente de insectos alrededor (no sobre) el sensor
-- Bolitas de algodón con aceite de menta dentro de la carcasa
-- Disuasivo comercial para arañas
-- Reaplicar mensualmente
+- Pulverizar repelente de insectos alrededor del sensor (no sobre él)
+- Colocar bolas de algodón con aceite de menta en la carcasa
+- Usar un repelente comercial para arañas
+- Volver a aplicarlo cada mes
 
-**Específico para Lidar:**
+**Específico para lidar:**
 
-- Las arañas se sienten particularmente atraídas por el lente
-- Inspección semanal en temporada de alta actividad de insectos
-- Cepillo suave o aire comprimido para limpiar
-- Nunca tocar el lente con los dedos
+- Las arañas se sienten especialmente atraídas por la lente
+- Revisarla semanalmente en épocas de abundancia de insectos
+- Limpiarla con un cepillo suave o aire comprimido
+- No tocar nunca la lente con los dedos
 
-### Riesgo de Inundación
+### Riesgo de inundación
 
-**Durante Inundaciones:**
+**Durante una inundación:**
 
 - El registrador puede quedar sumergido
-- Daños por impacto de escombros
-- Sedimentación del sensor
-- Daños en el cable de alimentación
+- Los residuos arrastrados pueden causar daños por impacto
+- Puede acumularse limo en el sensor
+- El cable de alimentación puede sufrir daños
 
-**Protección contra Inundaciones:**
+**Protección frente a inundaciones:**
 
-1. **Altura de Montaje**
-    - Por encima del nivel de inundación centenario si es posible
-    - Documentar el historial de inundaciones del área
-    - Agregar 1 m de margen de seguridad
-    - Marcar la inundación máxima conocida en el soporte
-2. **Protección contra Escombros**
-    - Montar detrás de una estructura si es posible
-    - Deflector de escombros aguas arriba
-    - Jaula protectora alrededor del registrador
-    - Montaje aerodinámico (mínimos puntos de enganche)
-3. **Inspección Post-Inundación**
-    - Verificación visual inmediata
+1. **Altura de montaje**
+    - Por encima del nivel de la crecida de período de retorno de 100 años, si es posible
+    - Documentar el historial de inundaciones de la zona
+    - Añadir un margen de seguridad de 1 m
+    - Marcar en la estructura de montaje el nivel máximo de inundación conocido
+2. **Protección frente a residuos arrastrados**
+    - Montar el registrador detrás de una estructura, si es posible
+    - Instalar un deflector aguas arriba
+    - Colocar una jaula protectora alrededor del registrador
+    - Usar un montaje aerodinámico (con el menor número posible de puntos donde puedan engancharse residuos)
+3. **Inspección después de una inundación**
+    - Realizar una inspección visual inmediata
     - Limpiar el sensor a fondo
-    - Verificar infiltración de agua
-    - Verificar calibración
+    - Comprobar si ha entrado agua
+    - Verificar la calibración
 
 ---
 
-## Próximos Pasos
+## Próximos pasos
 
-- 🔋 [Guía de Batería y Alimentación](../operation/hardware/battery-power-guide.md): Optimizar para su clima
-- 🔧 [Guía de Mantenimiento](../operation/hardware/maintenance.md): Revisiones regulares de factores ambientales
-- 🚨 [Problemas Comunes](../operation/troubleshooting/common-issues.md): Problemas relacionados con el entorno
-- 📞 Contacte soporte: info@riverlabs.uk
+- 🔋 [Guía de baterías y alimentación](../operation/hardware/battery-power-guide.md): Optimizar la alimentación según el clima
+- 🔧 [Guía de mantenimiento](../operation/hardware/maintenance.md): Revisiones periódicas de los factores ambientales
+- 🚨 [Problemas habituales](../operation/troubleshooting/common-issues.md): Problemas relacionados con el entorno
+- 📞 Contactar con el equipo de asistencia: info@riverlabs.uk
 
 ---
 
-!!! success "Implementación Lista para el Entorno"
-    Al considerar y prepararse para los factores ambientales, su implementación del registrador será robusta, confiable y duradera a pesar de las condiciones desafiantes.
+!!! success "Instalación preparada para el entorno"
+    Si se tienen en cuenta los factores ambientales y se adoptan las medidas necesarias, la instalación del registrador será resistente, fiable y duradera incluso en condiciones difíciles.

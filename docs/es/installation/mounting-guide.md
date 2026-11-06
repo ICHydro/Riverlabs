@@ -1,335 +1,278 @@
-# Guía de Montaje
+# Guía de montaje
 
-!!! abstract "Resumen"
-    Esta guía cubre métodos prácticos para instalar registradores Riverlabs en el campo, incluyendo técnicas de montaje, requisitos de posicionamiento y mejores prácticas para implementaciones a largo plazo.
+!!! abstract "Descripción general"
+    Esta guía presenta métodos prácticos para instalar registradores Riverlabs en campo, incluidas técnicas de montaje, requisitos de posicionamiento y buenas prácticas para instalaciones a largo plazo.
 
-## Métodos de Montaje
+## Métodos de montaje
 
-Elija el método de montaje según sus requisitos de instalación, el acceso al sitio y la duración esperada de la implementación.
+Los registradores Riverlabs están diseñados para ser pequeños y ofrecer flexibilidad al montarlos en una estructura de soporte. Según el tipo de instalación y los requisitos (por ejemplo, su duración), pueden emplearse distintos métodos. Esta sección presenta algunos métodos habituales, con sus ventajas y desventajas. Son solo ejemplos y pueden adaptarse a cada caso de uso.
 
-### Comparación de Métodos
+### Comparación de los métodos de montaje
 
-| Método          | Ventajas                                     | Desventajas                              | Mejor Para                               | Costo |
-|-----------------|----------------------------------------------|------------------------------------------|------------------------------------------|-------|
-| **Bridas**      | Rápido, reversible, sin preparación          | Menos seguro, degradación UV             | Temporal, tuberías/barandillas           | £     |
-| **Adhesivo**    | Fuerte, aspecto limpio, sin taladrado        | Permanente, requiere preparación         | Superficies lisas, largo plazo           | ££    |
-| **Soportes**    | Muy seguro, ajustable                        | Requiere taladrado, más visible          | Instalaciones permanentes, puentes       | £££   |
+| Método | Ventajas | Desventajas | Ideal para | Coste |
+|--------|----------|-------------|------------|-------|
+| **Bridas** | Rápidas, desmontables, sin preparación de la superficie | Menos seguras, degradación por UV | Instalaciones temporales, tuberías/barandillas | £ |
+| **Adhesivo** | Fijación fuerte, acabado limpio, sin taladrar | Permanente, requiere preparar la superficie | Superficies lisas, instalaciones a largo plazo | ££ |
+| **Soportes** | Muy seguros, ajustables | Requieren taladrar, más visibles | Instalaciones permanentes, puentes | £££ |
 
 ---
 
-## Método 1: Montaje con Bridas
+## Método 1: montaje con bridas
 
-### Resumen
+### Descripción general
 
-Las bridas proporcionan una solución de montaje rápida y no invasiva, ideal para tuberías, barandillas e instalaciones temporales.
+<!--- añadir aquí un ejemplo de instalación -->
 
-![Ejemplo de montaje con bridas](../assets/images/mounting-ziptie-sketch.png)<br>
-*Colocación recomendada de bridas para un montaje seguro*
+Las bridas ofrecen una solución de montaje rápida y no invasiva, ideal para tuberías, barandillas e instalaciones temporales.
 
-### Materiales Necesarios
+### Materiales necesarios
 
 - **Bridas resistentes a los rayos UV**
-    - Longitud: 300–400 mm, dependiendo de la superficie de montaje
-    - Clasificación: Para exteriores/resistente a UV (nailon negro)
-    - Cantidad: 4–6 bridas por registrador
-- Herramienta tensora para bridas (opcional, ayuda a evitar el apriete excesivo)
-- Relleno de goma/espuma (opcional, reduce la vibración)
+    - Longitud: 300–400 mm, según la superficie de montaje
+    - Tipo: aptas para exteriores/resistentes a los rayos UV (nailon negro o metal)
+- Herramienta tensora para bridas (opcional, ayuda a evitar un apriete excesivo)
+- Almohadilla de goma o espuma (opcional, reduce las vibraciones)
 
-### Productos Recomendados
+### Instalación paso a paso
 
-!!! tip "Selección de Bridas"
-    - **Resistencia Alta:** HellermannTyton T50R o equivalente
-    - **Resistente a UV:** Bridas de acero inoxidable para uso exterior prolongado
-    - **Color:** Negro (contiene inhibidores UV)
+<!-- Este nivel de detalle es excesivo para esta guía. No es un protocolo. Si queremos llegar a este nivel de detalle, quizá un vídeo resulte mucho más claro. -->
 
-### Instalación Paso a Paso
+1. **Elegir el lugar de montaje**
+    - Elegir una estructura estable y rígida (por ejemplo, una tubería, un poste o una barandilla)
+    - Comprobar los requisitos de espacio libre (véase la sección sobre posicionamiento más adelante)
+    - Asegurar que el agua escurra lejos del registrador
 
-1. **Seleccionar el Lugar de Montaje**
-    - Elegir una estructura estable y rígida (p.ej., una tubería, poste o barandilla)
-    - Verificar los requisitos de espacio libre (ver sección de Posicionamiento más abajo)
-    - Asegurar el drenaje alejado del registrador
-
-2. **Preparar la Superficie**
+2. **Preparar la superficie**
     - Limpiar la superficie de montaje
-    - Eliminar los bordes afilados que puedan dañar las bridas
-    - Agregar relleno de espuma si la superficie es rugosa o la vibración es una preocupación
+    - Eliminar cualquier borde afilado que pueda dañar las bridas
+    - Añadir una almohadilla de espuma si la superficie es rugosa o las vibraciones son un problema
 
-3. **Posicionar el Registrador**
-    - Sostener el registrador en su posición final
-    - Verificar la orientación del sensor
-    - Confirmar todos los espacios libres
-    - Tener un asistente que sostenga o use un soporte temporal
+3. **Colocar el registrador**
+    - Sujetar el registrador en su posición definitiva
+    - Comprobar la orientación del sensor
+    - Confirmar que hay suficiente espacio libre en todos los lados
+    - Pedir a otra persona que lo sujete o usar un soporte provisional
 
-4. **Instalar las Bridas**
-    - Usar **mínimo 4 bridas** distribuidas alrededor de la carcasa
+4. **Colocar las bridas**
+    - Usar **un mínimo de 4 bridas** distribuidas alrededor de la carcasa
     - Colocar las bridas en:
         - La parte superior de la carcasa
         - La parte inferior de la carcasa  
-        - 2 bridas en la sección media
-    - Enhebrar las bridas a través de los orificios de montaje en la carcasa
-    - Si no desea abrir la tapa para acceder a los orificios de montaje, envolver alrededor del cuerpo
+        - La parte central (2 bridas)
+    - Pasar las bridas por los orificios de montaje de la carcasa, si los hay
+    - Si no se quiere abrir la tapa para acceder a los orificios de montaje, rodear el cuerpo de la carcasa con las bridas
 
-5. **Tensar las Bridas**
-    - Apretar uniformemente, rotando entre todas las bridas
-    - **NO apretar en exceso** — debe estar firme pero sin aplastar
-    - Prueba: debería poder apenas girar el registrador
-    - Todas las bridas deben compartir la carga igualmente
+5. **Tensar las bridas**
+    - Apretarlas de manera uniforme, alternando entre todas ellas
+    - **NO apretar en exceso**: deben quedar firmes sin aplastar la carcasa
+    - Comprobación: apenas debería poder girarse el registrador
+    - Todas las bridas deben soportar la carga por igual
 
-6. **Alivio de Tensión**
-    - Agregar una brida separada para el cable del sensor (bucle suelto)
-    - Agregar brida para el cable de alimentación (si es solar)
-    - Asegurar que no haya cables bajo tensión
-    - Permitir un ligero movimiento para evitar fatiga
+6. **Aliviar la tensión de los cables**
+    - Añadir una brida independiente para el cable del sensor (dejando un bucle holgado)
+    - Añadir otra para el cable de alimentación (si hay panel solar)
+    - Asegurarse de que ningún cable quede tenso
+    - Permitir un ligero movimiento para evitar la fatiga del cable
 
-7. **Recortar y Asegurar**
-    - Cortar el exceso de longitud de la brida, dejando 2–3 cm
-    - Limar cualquier borde afilado
-    - Opcional: termorretráctil sobre los extremos de las bridas para un aspecto más limpio
+7. **Recortar y asegurar**
+    - Cortar el sobrante de las bridas, dejando 2–3 cm
+    - Limar los bordes afilados
+    - Opcional: cubrir los extremos de las bridas con tubo termorretráctil para un acabado más limpio
 
-### Mejores Prácticas
+### Buenas prácticas
 
-!!! warning "Errores Comunes"
-    - ❌ Usar bridas de interior/no resistentes a UV (fallarán en meses)
-    - ❌ Apretar en exceso (puede agrietar las bridas)
-    - ❌ Pocas bridas (el registrador puede girar o deslizarse)
-    - ❌ Bridas en el camino directo del sol (acelera la degradación)
-
-
-### Mantenimiento
-
-- **Inspeccionar las bridas cada 3–6 meses**
-- Reemplazar si muestran:
-    - Grietas o fragilidad
-    - Decoloración
-    - Aflojamiento
-    - Descamación superficial (daño UV)
-- Mantener bridas de repuesto en el equipo de campo
+!!! warning "Errores habituales"
+    - ❌ Usar bridas de interior o no resistentes a los rayos UV (pueden fallar en cuestión de meses)
+    - ❌ Apretar demasiado (las bridas pueden agrietarse)
+    - ❌ Usar muy pocas bridas (el registrador puede girar o deslizarse)
+    - ❌ Dejar las bridas expuestas directamente al sol (acelera su degradación)
 
 ---
 
-## Método 2: Montaje con Adhesivo
+## Método 2: montaje con adhesivo
 
-### Resumen
+### Descripción general
 
-El montaje con adhesivo proporciona una instalación limpia y segura para superficies lisas sin necesidad de taladrar. Ideal para instalaciones permanentes donde la estética importa.
+El montaje con adhesivo permite una instalación limpia y segura sobre superficies lisas sin necesidad de taladrar. Es un método permanente que puede dificultar la retirada del registrador. El tipo de adhesivo depende del material de la estructura de soporte.
 
-![Ejemplo de montaje con adhesivo](../assets/images/mounting-adhesive-sketch.png)<br>
-*Preparación de la superficie y aplicación del adhesivo*
+<!--- añadir aquí un ejemplo de instalación -->
 
-### Tipos de Adhesivos Adecuados
+### Tipos de adhesivo adecuados
 
-| Tipo de Adhesivo          | Ventajas                       | Desventajas              | Mejor Para                              |
-|---------------------------|--------------------------------|--------------------------|-----------------------------------------|
-| **Epoxi Marino**          | Muy fuerte, impermeable        | Permanente, curado lento | Metal, fibra de vidrio, concreto        |
-| **Adhesivo de Construcción** | Fuerte, rellena huecos      | Puede ser sucio          | Concreto rugoso, mampostería            |
-| **Cinta Estructural**     | Limpio, sin tiempo de curado   | Menor resistencia        | Metal liso, plástico (temporal)         |
-| **Sellador de Poliuretano** | Flexible, impermeable        | Resistencia media        | Superficies con movimiento              |
+| Tipo de adhesivo | Ventajas | Desventajas | Ideal para |
+|------------------|----------|-------------|------------|
+| **Epoxi marino** | Muy resistente, impermeable | Permanente, curado lento | Metal, fibra de vidrio, hormigón |
+| **Adhesivo de construcción** | Resistente, rellena huecos | Puede ensuciar | Hormigón rugoso, mampostería |
+| **Cinta estructural** | Limpia, no requiere curado | Menor resistencia | Metal liso, plástico (temporal) |
+| **Sellador de poliuretano** | Flexible, impermeable | Resistencia media | Superficies con movimiento |
 
-### Productos Recomendados
+### Instalación paso a paso
 
-- **Sikaflex 291i** (adhesivo/sellador marino)
-- **3M 5200 Marine Adhesive** (unión permanente)
-- **Gorilla Heavy Duty Construction Adhesive**
-- **Loctite PL Premium** (interior/exterior)
+<!-- Aquí también hay demasiado detalle. Si queremos llegar a este nivel de detalle, quizá un vídeo resulte mucho más claro. -->
 
-### Instalación Paso a Paso
+1. **Preparar la superficie** (¡fundamental!)
+    - Limpiar bien la superficie
+    - Eliminar toda la suciedad, el aceite, el óxido y la pintura
+    - Usar un disolvente (por ejemplo, alcohol isopropílico o acetona)
+    - Dejar secar por completo
+    - Lijar las superficies lisas con papel de lija de grano 80–120
 
-1. **Preparación de la Superficie** (¡crítico!)
-    - Limpiar la superficie a fondo
-    - Eliminar toda suciedad, aceite, óxido y pintura
-    - Usar solvente (p.ej., alcohol isopropílico o acetona)
-    - Dejar secar completamente
-    - Rugosizar las superficies lisas con papel de lija (grano 80–120)
+2. **Probar el ajuste**
+    - Colocar el registrador sin adhesivo
+    - Marcar con lápiz el lugar de montaje
+    - Comprobar la orientación y el espacio libre
+    - Tomar una foto como referencia
 
-2. **Prueba de Ajuste**
-    - Posicionar el registrador sin adhesivo
-    - Marcar la ubicación de montaje con lápiz
-    - Verificar orientación y espacios libres
-    - Tomar foto de referencia
-
-3. **Aplicar Adhesivo**
+3. **Aplicar el adhesivo**
     - Aplicar adhesivo a la superficie de montaje del registrador
-    - Usar suficiente para asegurar contacto total (~capa de 3–5 mm)
-    - No aplicar en exceso (causa desorden al presionar)
+    - Usar suficiente para garantizar el contacto completo (capa de ~3–5 mm)
+    - No aplicar demasiado (el exceso rebosará al presionar)
     - Trabajar en secciones manejables
 
-4. **Instalar el Registrador**
-    - Presionar firmemente en posición
-    - Alinear con la ubicación marcada
-    - Aplicar presión constante durante 30–60 segundos
-    - Eliminar el adhesivo en exceso inmediatamente con un trapo
+4. **Instalar el registrador**
+    - Presionarlo firmemente hasta colocarlo en su sitio
+    - Alinearlo con la marca
+    - Mantener una presión constante durante 30–60 segundos
+    - Retirar de inmediato el exceso de adhesivo con un paño
 
-5. **Soporte Durante el Curado**
-    - Usar soportes temporales si se monta verticalmente
-    - Fijar con cinta si es necesario
-    - **NO disturbar durante el tiempo de curado**
-    - Seguir el programa de curado del fabricante del adhesivo
+5. **Sujetar durante el curado**
+    - Usar soportes provisionales si se monta verticalmente
+    - Sujetarlo con cinta si es necesario
+    - **NO moverlo durante el curado**
+    - Respetar los tiempos de curado indicados por el fabricante del adhesivo
 
-6. **Tiempo de Curado**
+6. **Tiempo de curado**
     - Curado inicial: 24 horas (mínimo)
-    - Curado completo: 3–7 días (depende del adhesivo)
-    - **No estresar la unión durante el curado**
+    - Curado completo: 3–7 días (según el adhesivo)
+    - **No someter la unión a cargas durante el curado**
     - Evitar temperaturas extremas durante el curado
 
-### Guía Específica por Superficie
 
-**Concreto/Mampostería:**
+### Recomendaciones según la superficie
+
+<!-- convertir esto en una tabla para mayor concisión. Probablemente no todo el contenido sea pertinente -->
+
+**Hormigón/mampostería:**
 
 - Usar adhesivo de construcción o epoxi
 - La superficie debe estar limpia y seca
-- Considerar sujetadores mecánicos para mayor seguridad
+- Considerar fijaciones mecánicas para mayor seguridad
 
 **Metal:**
 
 - Eliminar todo el óxido y la oxidación
-- Aplicar imprimante si es necesario
-- Epoxi marino o adhesivo de poliuretano
-- Rugosizar las superficies metálicas lisas
+- Aplicar imprimación si es necesario
+- Usar epoxi marino o adhesivo de poliuretano
+- Lijar las superficies metálicas lisas
 
-**Plástico/Fibra de vidrio:**
+**Plástico/fibra de vidrio:**
 
-- Limpiar con solvente
-- Un ligero lijado mejora la adherencia
-- Probar primero la compatibilidad del adhesivo
+- Limpiar con disolvente
+- Un lijado ligero mejora la adhesión
+- Comprobar antes la compatibilidad del adhesivo
 - El epoxi de dos componentes funciona bien
 
 **Madera:**
 
-- Debe ser madera tratada/sellada para uso exterior
-- Asegurar que la superficie esté seca (<15% humedad)
-- Adhesivo de construcción o poliuretano
-- Considerar orificios piloto para tornillos suplementarios
+- Para uso exterior, debe estar tratada o sellada
+- Asegurarse de que la superficie esté seca (<15 % de humedad)
+- Usar adhesivo de construcción o poliuretano
+- Considerar orificios guía para tornillos adicionales
 
-### Guía de Desmontaje
+## Método 3: montaje con soporte
 
-!!! danger "El Montaje con Adhesivo es Semipermanente"
-    La remoción probablemente dañará tanto la carcasa del registrador como la superficie de montaje. Planifique cuidadosamente antes de usar adhesivos.
+### Descripción general
 
-**Si la remoción es necesaria:**
+Los soportes mecánicos ofrecen la fijación más segura y son ideales para puentes, edificios y estaciones de monitorización permanentes.
 
-   1. Calentar el adhesivo con pistola de calor (baja potencia)
-   2. Usar hilo fino o hilo dental para cortar a través de la capa de adhesivo
-   3. Aplicar solvente al adhesivo restante
-   4. Raspar cuidadosamente con raspador de plástico
-   5. Lijar/limpiar ambas superficies
+### Tipos de soportes
 
----
-
-## Método 3: Montaje con Soportes
-
-### Resumen
-
-Los soportes mecánicos proporcionan el montaje más seguro, ideal para puentes, edificios y estaciones de monitoreo permanentes.
-
-![Ejemplo de montaje con soporte](../assets/images/mounting-bracket-sketch.png)<br>
-*Montaje con soporte en estructura de puente*
-
-### Tipos de Soportes
-
-**Soporte en L (Simple):**
+**Soporte en L (sencillo):**
 
 - Fijar el registrador a un lado
-- Montar el soporte a la superficie con tornillos/pernos
-- Bueno para superficies planas
-- Fácil ajuste
+- Fijar el soporte a la superficie con pernos o tornillos
+- Adecuado para superficies planas
+- Fácil de ajustar
 
-**Canal en U (Tubería/Poste):**
+**Perfil en U (tubería/poste):**
 
-- Envuelve alrededor de la tubería o poste
-- Asegurar con pernos pasantes
+- Rodea la tubería o el poste
+- Se fija con pernos pasantes
 - Excelente para estructuras redondas
-- Antirrotación
+- Impide la rotación
 
-### Pasos de Instalación
+### Pasos de instalación
 
-1. **Diseñar/Seleccionar el Soporte**
+1. **Diseñar o elegir el soporte**
 
-    - Considerar las dimensiones del registrador
-    - Planificar el enrutamiento de cables
+    - Tener en cuenta las dimensiones del registrador
+    - Planificar el recorrido de los cables
     - Incluir orificios de drenaje
-    - Permitir acceso para desmontaje/mantenimiento
+    - Permitir el acceso para la retirada y el mantenimiento
 
-2. **Marcar los Orificios de Montaje**
+2. **Marcar los orificios de montaje**
 
-    - Posicionar el soporte en su lugar
-    - Usar nivel para asegurar la orientación
-    - Marcar las ubicaciones de los orificios
-    - Verificar las medidas dos veces
+    - Colocar el soporte en su sitio
+    - Usar un nivel para comprobar la orientación
+    - Marcar las posiciones de los orificios
+    - Revisar las medidas
 
-3. **Taladrar Orificios Piloto**
+3. **Taladrar orificios guía**
 
-    - Usar la broca adecuada para el sustrato
-    - Taladrar a la profundidad requerida
-    - Limpiar los orificios de escombros
+    - Usar una broca adecuada para el material de base
+    - Taladrar hasta la profundidad necesaria
+    - Limpiar los restos de los orificios
     - Insertar anclajes si es necesario
 
-4. **Fijar el Soporte a la Superficie**
+4. **Fijar el soporte a la superficie**
 
-    - Instalar los sujetadores sin apretar primero
-    - Verificar la alineación
-    - Apretar en patrón de estrella
-    - Torque según especificación (no apretar en exceso)
+    - Colocar primero las fijaciones sin apretarlas del todo
+    - Comprobar la alineación
+    - Apretar siguiendo un patrón en estrella
+    - Aplicar el par de apriete especificado (sin apretar en exceso)
 
-5. **Montar el Registrador en el Soporte**
+5. **Fijar el registrador al soporte**
 
-    - Posicionar el registrador en el soporte
-    - Instalar el hardware de montaje
+    - Colocar el registrador sobre el soporte
+    - Instalar los elementos de fijación
     - Usar arandelas antivibración
-    - Asegurar sin aplastar la carcasa
+    - Asegurarlo sin aplastar la carcasa
 
-6. **Gestión de Cables**
+6. **Organizar los cables**
 
-    - Enrutar los cables de forma ordenada
+    - Guiar los cables de forma ordenada
     - Usar bridas o clips
-    - Proporcionar alivio de tensión
-    - Impermeabilizar todas las conexiones
+    - Prever alivio de tensión
+    - Proteger todas las conexiones contra la intemperie
 
-## Exención de Responsabilidad
+## Permisos y otras consideraciones legales
 
-!!! danger "Aviso Legal Importante"
-    **Exención de Responsabilidad de Instalación**
-    
-    Al instalar equipos de registrador Riverlabs, usted reconoce:
-    
-    - La instalación es bajo su propio riesgo
-    - Riverlabs Ltd no es responsable de:
-        - Lesiones personales durante la instalación
-        - Daños a la propiedad durante o después de la instalación
-        - Pérdida o robo del equipo después de la instalación
-        - No obtener los permisos necesarios
-        - Daños por instalación incorrecta
-    - Usted es responsable de:
-        - Obtener todos los permisos y autorizaciones necesarios
-        - Asegurarse de que la instalación cumpla con las normativas locales
-        - El mantenimiento y la supervisión adecuados del equipo
-        - Prácticas de trabajo seguras durante la instalación
-    - La garantía del equipo queda anulada si:
-        - Se instala incorrectamente
-        - Se modifica sin autorización
-        - Se somete a fuerzas que superen las especificaciones
-    
-    **Siempre:**
+Las instalaciones en campo plantean desafíos técnicos, pero también pueden tener implicaciones normativas y legales. Hay que obtener siempre el permiso de los propietarios de los terrenos y las autorizaciones aplicables. Esto incluye cumplir las normas locales sobre el uso de telemetría o determinadas frecuencias de radio. Por ejemplo, las frecuencias permitidas para LoRaWAN varían según la región: en Europa se utilizan 868 MHz y en Estados Unidos, 915 MHz.
 
-    - Obtener permiso del propietario/autoridad antes de instalar
-    - Seguir todas las normativas y directrices de seguridad
-    - Usar el equipo de protección personal adecuado
-    - Trabajar dentro de su nivel de competencia
-    - Consultar a profesionales para instalaciones complejas
+La salud y la seguridad también son fundamentales. Trabajar cerca del agua suele conllevar riesgos para la salud, por lo que conviene realizar una evaluación de riesgos completa. Por ello, recomendamos encarecidamente:
 
----
+- Obtener el permiso del propietario o de la autoridad competente antes de instalar
+- Cumplir todas las normas y directrices de seguridad locales e internacionales
+- Usar equipo de protección personal adecuado
+- Trabajar dentro de los límites de la propia capacitación
+- Solicitar ayuda especializada para instalaciones complejas
 
-## Próximos Pasos
+<!-- pensar cómo expresarlo mejor. No queremos darle un tono demasiado severo, pero puede ser necesario en algunas jurisdicciones -->
+
+Los autores de esta guía no asumen responsabilidad alguna por posibles daños, lesiones o consecuencias legales derivados de las instalaciones en campo.
+
+## Próximos pasos
 
 Tras la instalación:
 
-- ✅ Completar la [Lista de verificación del primer despliegue](../operation/quick-start/first-deployment-checklist.md)
-- 📊 Configurar el panel de monitoreo
+- ✅ Completar la [lista de verificación para el primer despliegue](../operation/quick-start/first-deployment-checklist.md)
+- 📊 Configurar el panel de monitorización
 - 📅 Programar visitas de mantenimiento
 - 📝 Archivar la documentación de la instalación
 
-## ¿Necesita ayuda?
+## ¿Necesitas ayuda?
 
-- [Guía de posicionamiento del sensor](sensor-positioning.md): Información detallada sobre el posicionamiento
-- [Consideraciones medioambientales](environmental-considerations.md): Factores climáticos y meteorológicos
-- [Problemas comunes](../operation/troubleshooting/common-issues.md): Resolución de problemas de instalación
-- Contactar con soporte: info@riverlabs.uk
+- [Guía de posicionamiento de sensores](sensor-positioning.md): Información detallada sobre el posicionamiento
+- [Consideraciones ambientales](environmental-considerations.md): Factores meteorológicos y climáticos
+- [Problemas habituales](../operation/troubleshooting/common-issues.md): Resolución de problemas de instalación
+- Contactar con el equipo de asistencia: info@riverlabs.uk

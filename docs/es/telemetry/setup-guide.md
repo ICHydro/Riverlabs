@@ -1,44 +1,44 @@
-# Guía de Configuración de Telemetría
+# Guía de configuración de la telemetría
 
-!!! abstract "Resumen"
-    Esta guía cubre la configuración completa de la telemetría celular usando módulos XBee para la transmisión remota de datos, desde la instalación del hardware hasta la primera transmisión exitosa.
+!!! abstract "Descripción general"
+    Esta guía explica de principio a fin cómo configurar la telemetría celular con módulos XBee para transmitir datos a distancia, desde la instalación del hardware hasta la primera transmisión correcta.
 
-## Resumen
+## Descripción general
 
-Los registradores Riverlabs pueden equiparse con telemetría celular para transmitir datos de forma remota, eliminando la necesidad de visitas frecuentes al sitio y habilitando el monitoreo en tiempo real.
+Los registradores Riverlabs pueden incorporar telemetría celular para transmitir datos a distancia, reducir las visitas al lugar y permitir la supervisión en tiempo real.
 
-**Lo que Necesitará:**
+**Necesitará:**
 
-- Registrador Riverlabs con zócalo XBee (versión de telemetría)
+- Registrador Riverlabs con zócalo XBee (versión con telemetría)
 - Módulo Digi XBee3 Cellular LTE-M/NB-IoT
 - Tarjeta SIM activa con plan de datos
-- Adaptador USB para la configuración del XBee
-- Software XBee Studio (reemplaza a XCTU)
-- Cuenta en ThingsBoard o plataforma IoT compatible
-- Computadora para la configuración
+- Adaptador USB para configurar el XBee
+- Programa XBee Studio (sustituye a XCTU)
+- Cuenta de ThingsBoard o plataforma IoT compatible
+- Ordenador para la configuración
 
-**Tiempo Requerido:** 1–2 horas para la primera configuración
+**Tiempo necesario:** 1–2 horas la primera vez
 
 ---
 
-## Arquitectura del Sistema
+## Arquitectura del sistema
 
-### Cómo Funciona la Telemetría
+### Cómo funciona la telemetría
 
 ```
 ┌─────────────┐
-│  Registrador │ → Recopila datos del sensor
-│  (Arduino)  │    Escribe en la tarjeta SD
+│ Registrador │ → Recoge datos del sensor
+│  (Arduino)  │   Los escribe en la tarjeta SD
 └──────┬──────┘
        │
-       │ UART (Serie)
+       │ UART (serie)
        ↓
 ┌─────────────┐
 │ Módulo XBee │ → Módem celular
-│  (LTE-M)   │    Se conecta a la red
+│  (LTE-M)    │   Se conecta a la red
 └──────┬──────┘
        │
-       │ Red Celular
+       │ Red celular
        ↓
 ┌─────────────┐
 │  Internet   │
@@ -48,80 +48,80 @@ Los registradores Riverlabs pueden equiparse con telemetría celular para transm
        ↓
 ┌─────────────┐
 │ ThingsBoard │ → Plataforma IoT
-│  o Servidor │    Almacena y muestra datos
+│ o servidor  │   Almacena y muestra los datos
 └─────────────┘
 ```
 
-### Flujo de Datos
+### Flujo de datos
 
-1. **El registrador mide** los datos del sensor al intervalo configurado
-2. **Arduino procesa** los datos y los almacena en la tarjeta SD
-3. **Arduino envía** los datos al XBee a través de serie
-4. **XBee se conecta** a la red celular (LTE-M o NB-IoT)
-5. **XBee transmite** los datos al servidor configurado
-6. **El servidor recibe** y almacena los datos
-7. **El panel muestra** los datos al usuario
+1. **El registrador mide** los datos del sensor con la frecuencia configurada.
+2. **Arduino procesa** los datos y los guarda en la tarjeta SD.
+3. **Arduino envía** los datos al XBee mediante la interfaz serie.
+4. **El XBee se conecta** a la red celular (LTE-M o NB-IoT).
+5. **El XBee transmite** los datos al servidor configurado.
+6. **El servidor recibe** y guarda los datos.
+7. **El panel muestra** los datos al usuario.
 
 ---
 
-## Descripción General del Módulo XBee
+## Descripción del módulo XBee
 
 ### XBee3 Cellular LTE-M/NB-IoT
 
 **Especificaciones:**
 
-| Característica   | Especificación                |
-|------------------|-------------------------------|
-| **Tecnología**   | LTE-M (Cat-M1) y NB-IoT       |
-| **Frecuencias**  | Específicas de la región (verificar modelo) |
-| **Alimentación** | Operación 3.3 V–4.3 V         |
-| **Consumo de Corriente** | ~200 mA durante la transmisión |
-| **Factor de Forma** | Through-hole o montaje en superficie |
-| **Protocolos**   | HTTP, HTTPS, CoAP, MQTT       |
-| **SIM**          | Ranura Micro-SIM               |
+| Característica | Especificación |
+|----------------|----------------|
+| **Tecnología** | LTE-M (Cat-M1) y NB-IoT |
+| **Frecuencias** | Dependen de la región (compruebe el modelo) |
+| **Alimentación** | Funcionamiento entre 3,3 y 4,3 V |
+| **Consumo de corriente** | ~200 mA durante la transmisión |
+| **Formato** | Montaje pasante o superficial |
+| **Protocolos** | HTTP, HTTPS, CoAP, MQTT |
+| **SIM** | Ranura para micro-SIM |
 
-**Números de Modelo:**
+**Números de modelo:**
 
-- **XB3-C-A2-UT-001**: LTE-M (EE.UU./Canadá)
+- **XB3-C-A2-UT-001**: LTE-M (EE. UU./Canadá)
 - **XB3-C-A2-EU-001**: LTE-M/NB-IoT (Europa)
-- **Consultar el sitio web de Digi** para su región
+- **Consulte el sitio web de Digi** para su región
 
-### XBee vs. XCTU Heredado
+### XBee Studio frente a XCTU antiguo
 
-!!! info "XBee Studio Reemplaza a XCTU"
-    Digi ha reemplazado XCTU con **XBee Studio** para módulos XBee3. Si tiene documentación más antigua que hace referencia a XCTU, los conceptos son los mismos pero la interfaz está actualizada.
+!!! info "XBee Studio sustituye a XCTU"
+    Digi ha sustituido XCTU por **XBee Studio** para los módulos XBee3. Si su documentación anterior menciona XCTU, los conceptos son los mismos, pero la interfaz ha cambiado.
     
     Descarga: [https://www.digi.com/products/embedded-systems/digi-xbee/digi-xbee-tools/xbee-studio](https://www.digi.com/products/embedded-systems/digi-xbee/digi-xbee-tools/xbee-studio)
 
 ---
 
-## Paso 1: Configuración de la Tarjeta SIM
+## Paso 1: Preparar la tarjeta SIM
 
-### Elección de un Proveedor de Tarjeta SIM
+### Elegir un proveedor de SIM
 
 **Requisitos:**
 
-- Soporte LTE-M o NB-IoT (no todos los operadores lo admiten)
+- Compatibilidad con LTE-M o NB-IoT (no todos los operadores la ofrecen)
 - Plan de datos IoT/M2M
-- Buena cobertura en la ubicación de despliegue
+- Buena cobertura en el lugar de instalación
 - Tarifas de datos razonables
 
-**Proveedores Recomendados (por región):**
+**Proveedores recomendados (por región):**
 
 **Estados Unidos:**
 
 - AT&T IoT DataConnect
 - Verizon ThingSpace
 - T-Mobile IoT
-- Hologram (multi-operadora)
-- Soracom (multi-operadora)
+- Hologram (varios operadores)
+- Soracom (varios operadores)
 
 **Europa:**
 
 - Vodafone M2M
 - Telefonica M2M
-- 1NCE (multi-operadora, específico para IoT)
-- Eseye (multi-operadora)
+- 1NCE (varios operadores; especializado en IoT)
+- Eseye (varios operadores)
 
 **Reino Unido:**
 
@@ -129,252 +129,252 @@ Los registradores Riverlabs pueden equiparse con telemetría celular para transm
 - Vodafone IoT
 - O2 M2M
 
-**Global/Multi-Región:**
+**Global/varias regiones:**
 
 - Hologram
 - Twilio Super SIM
 - 1NCE
 
-### Dimensionamiento del Plan de Datos
+### Dimensionar el plan de datos
 
-**Estimar el Uso de Datos:**
+**Estime el consumo:**
 
-**Datos Típicos por Transmisión:**
+**Datos típicos por transmisión:**
 
 - Datos de medición: ~50–100 bytes
 - Sobrecarga HTTP: ~200–500 bytes
 - Total por transmisión: ~300–600 bytes
-- Factor de seguridad: Usar 1 KB por transmisión
+- Margen de seguridad: calcule 1 KB por transmisión
 
-**Cálculo de Datos Mensuales:**
+**Cálculo de datos mensuales:**
 
 ```
-Ejemplo: Registro cada 15 min, transmisión horaria
-- Mediciones por día: 96 (cada 15 min)
-- Transmisiones por día: 24 (horario)
-- Datos por día: 24 × 1 KB = 24 KB
-- Datos por mes: 24 KB × 30 = 720 KB ≈ 1 MB
+Ejemplo: medición cada 15 minutos y transmisión cada hora
+- Mediciones al día: 96 (cada 15 min)
+- Transmisiones al día: 24 (cada hora)
+- Datos al día: 24 × 1 KB = 24 KB
+- Datos al mes: 24 KB × 30 = 720 KB ≈ 1 MB
 
 Plan recomendado: 5-10 MB/mes
 ```
 
-**Planes Típicos:**
+**Planes habituales:**
 
-- 1 MB/mes: ~$2–5/mes
-- 10 MB/mes: ~$5–10/mes
-- 100 MB/mes: ~$10–15/mes
+- 1 MB/mes: ~$2–5 al mes
+- 10 MB/mes: ~$5–10 al mes
+- 100 MB/mes: ~$10–15 al mes
 
-!!! tip "Comenzar con Poco"
-    Comience con el plan más pequeño. Siempre puede actualizar. La mayoría de los planes IoT no tienen cargos por exceso — simplemente dejan de funcionar.
+!!! tip "Empiece con poco"
+    Comience con el plan más pequeño; siempre puede ampliarlo. Muchos planes IoT no cobran por exceder el límite: simplemente dejan de funcionar.
 
-### Instalación de la Tarjeta SIM
+### Instalación de la tarjeta SIM
 
 **Tipo de SIM:**
 
 - Micro-SIM (3FF)
 
-**Pasos de Instalación:**
+**Pasos:**
 
-1. **Obtener la SIM activada** del proveedor
+1. **Consiga una SIM activada** del proveedor.
 
-2. **Tomar nota de la configuración del APN** (proporcionada por el operador)
-    - Nombre del APN (p.ej., `m2m.com.attwireless.com`)
-    - Nombre de usuario (si es necesario)
-    - Contraseña (si es necesaria)
+2. **Anote los ajustes de APN** facilitados por el operador:
+    - Nombre del APN (p. ej., `m2m.com.attwireless.com`)
+    - Usuario (si se requiere)
+    - Contraseña (si se requiere)
 
-3. **Localizar la ranura de la SIM** en el módulo XBee
-    - Normalmente en la parte inferior
-    - Bandeja con resorte
+3. **Localice la ranura SIM** del módulo XBee:
+    - Normalmente está en la parte inferior.
+    - Puede tener una bandeja con muelle.
 
-4. **Insertar la SIM**
-    - Orientación correcta (esquina con muesca)
-    - Empujar hasta que haga clic
-    - Asegurar que esté completamente asentada
+4. **Inserte la SIM:**
+    - Respete la orientación (esquina recortada).
+    - Presione hasta que encaje.
+    - Compruebe que esté completamente asentada.
 
-5. **Registrar el ICCID** (número de la tarjeta SIM para seguimiento)
+5. **Anote el ICCID** (número de la SIM para identificarla).
 
 ---
 
-## Paso 2: Configuración del XBee
+## Paso 2: Configurar el XBee
 
-### Configuración de Hardware para la Configuración
+### Preparar el hardware
 
-**Necesario:**
+**Necesitará:**
 
-- Módulo XBee con SIM instalada
-- Adaptador USB XBee (p.ej., Digi XBee Grove Development Board o similar)
+- Módulo XBee con la SIM instalada
+- Adaptador USB XBee (p. ej., placa de desarrollo Digi XBee Grove o similar)
 - Cable USB
-- Computadora con XBee Studio instalado
+- Ordenador con XBee Studio instalado
 
 **Conexión:**
 
-1. Insertar el XBee en el adaptador USB
-2. Conectar el adaptador a la computadora a través de USB
-3. Esperar a que se instalen los controladores (Windows)
-4. Anotar el puerto COM o dispositivo (verificar en el Administrador de Dispositivos/Preferencias del Sistema)
+1. Inserte el XBee en el adaptador USB.
+2. Conecte el adaptador al ordenador por USB.
+3. Espere a que se instalen los controladores (Windows).
+4. Anote el puerto COM o el dispositivo (consulte el Administrador de dispositivos o las preferencias del sistema).
 
 ### Configuración de XBee Studio
 
-#### Conexión Inicial
+#### Primera conexión
 
-1. **Iniciar XBee Studio**
-2. **Hacer clic en "Add Device"**
-3. **Seleccionar conexión USB**
-4. **Elegir el puerto COM correcto**
-5. **Hacer clic en "Add Device"**
-6. **XBee Studio lee la configuración del módulo**
+1. **Abra XBee Studio.**
+2. **Haga clic en "Add Device".**
+3. **Seleccione la conexión USB.**
+4. **Elija el puerto COM correcto.**
+5. **Haga clic en "Add Device".**
+6. **XBee Studio leerá la configuración del módulo.**
 
-#### Configuraciones Esenciales
+#### Ajustes imprescindibles
 
-Navegar por las pestañas y configurar lo siguiente:
+Recorra las pestañas y configure lo siguiente:
 
-**1. Configuración de Red**
+**1. Ajustes de red**
 
-| Configuración           | Parámetro              | Valor              | Notas                              |
-|-------------------------|------------------------|--------------------|-------------------------------------|
-| **Red Móvil**           | AN (Access Point Name) | [Su APN del operador] | p.ej., `m2m.com.attwireless.com` |
-| **Nombre de Usuario APN**| AU                    | [Si es necesario]  | Dejar en blanco si no es necesario |
-| **Contraseña APN**      | AV                     | [Si es necesario]  | Dejar en blanco si no es necesario |
-| **Tecnología de Red**   | NT                     | LTE-M (o NB-IoT)   | Coincidir con su SIM               |
+| Ajuste | Parámetro | Valor | Notas |
+|--------|-----------|-------|-------|
+| **Red móvil** | AN (Access Point Name) | [APN de su operador] | p. ej., `m2m.com.attwireless.com` |
+| **Usuario del APN** | AU | [Si se requiere] | Déjelo vacío si no hace falta |
+| **Contraseña del APN** | AV | [Si se requiere] | Déjelo vacío si no hace falta |
+| **Tecnología de red** | NT | LTE-M (o NB-IoT) | Debe corresponder a la SIM |
 
-**2. Configuración Serie**
+**2. Ajustes serie**
 
-| Configuración   | Parámetro | Valor     | Notas                   |
-|-----------------|-----------|-----------|-------------------------|
-| **Velocidad de Baudios** | BD | 9600   | Debe coincidir con el código Arduino |
-| **Paridad**     | NB        | Sin paridad | Estándar               |
-| **Bits de Parada** | SB     | 1         | Estándar                |
-| **Bits de Datos** | --      | 8         | Predeterminado          |
+| Ajuste | Parámetro | Valor | Notas |
+|--------|-----------|-------|-------|
+| **Velocidad en baudios** | BD | 9600 | Debe coincidir con el código Arduino |
+| **Paridad** | NB | Sin paridad | Estándar |
+| **Bits de parada** | SB | 1 | Estándar |
+| **Bits de datos** | -- | 8 | Predeterminado |
 
 **3. Modo API**
 
-| Configuración         | Parámetro | Valor | Notas                  |
-|-----------------------|-----------|-------|------------------------|
-| **Habilitar API**     | AP        | 2     | Modo API con escapes   |
-| **Modo de Salida API**| AO        | 0     | Estándar               |
+| Ajuste | Parámetro | Valor | Notas |
+|--------|-----------|-------|-------|
+| **Activar API** | AP | 2 | Modo API con caracteres de escape |
+| **Modo de salida API** | AO | 0 | Estándar |
 
-!!! danger "El Modo API es Crítico"
-    El firmware del registrador espera **Modo API 2 (con escapes)**. Configurar AP=1 (sin escapes) o AP=0 (transparente) impedirá la comunicación.
+!!! danger "El modo API es imprescindible"
+    El firmware del registrador requiere **modo API 2 (con caracteres de escape)**. AP=1 (sin escapes) o AP=0 (transparente) impedirán la comunicación.
 
-**4. Gestión de Energía**
+**4. Gestión de energía**
 
-| Configuración       | Parámetro | Valor | Notas         |
-|---------------------|-----------|-------|---------------|
-| **Modo de Sueño**   | SM        | 1     | Pin Sleep     |
-| **Opciones de Sueño** | SO      | 0     | Estándar      |
+| Ajuste | Parámetro | Valor | Notas |
+|--------|-----------|-------|-------|
+| **Modo de suspensión** | SM | 1 | Suspensión por pin |
+| **Opciones de suspensión** | SO | 0 | Estándar |
 
-**5. Configuraciones Adicionales**
+**5. Ajustes adicionales**
 
-| Configuración | Parámetro | Valor | Notas                  |
-|---------------|-----------|-------|------------------------|
-| **Timeout**   | RO        | 3     | Timeout de caracteres  |
-| **TD**        | TD        | 0     | Retraso TX             |
-| **FT**        | FT        | 681   | Umbral de control de flujo |
+| Ajuste | Parámetro | Valor | Notas |
+|--------|-----------|-------|-------|
+| **Tiempo de espera** | RO | 3 | Tiempo de espera entre caracteres |
+| **TD** | TD | 0 | Retardo de transmisión |
+| **FT** | FT | 681 | Umbral de control de flujo |
 
-#### Verificar la Configuración
+#### Comprobar la configuración
 
-1. **Hacer clic en "Read" para actualizar la configuración actual**
-2. **Verificar que todos los parámetros coincidan con lo anterior**
-3. **Hacer clic en "Write" para guardar la configuración en el módulo**
-4. **Esperar confirmación**
-5. **Hacer clic en "Read" nuevamente para verificar que la configuración se guardó**
+1. **Haga clic en "Read" para actualizar los ajustes actuales.**
+2. **Compruebe que todos los parámetros coincidan con los anteriores.**
+3. **Haga clic en "Write" para guardarlos en el módulo.**
+4. **Espere la confirmación.**
+5. **Vuelva a hacer clic en "Read" para verificar el guardado.**
 
-### Prueba de Conexión de Red
+### Prueba de conexión a la red
 
-**Probar la Conexión Celular:**
+**Pruebe la conexión celular:**
 
-1. En XBee Studio, navegar a la sección **"Cellular Network"**
-2. Hacer clic en **"Connect to Network"**
-3. Esperar la conexión (puede tardar 30–60 segundos)
-4. Verificar:
-    - Red registrada: Sí
-    - Intensidad de la señal: >-100 dBm (más fuerte es mejor)
+1. En XBee Studio, abra **"Cellular Network"**.
+2. Haga clic en **"Connect to Network"**.
+3. Espere la conexión (puede tardar 30–60 segundos).
+4. Compruebe:
+    - Registrado en la red: sí
+    - Intensidad de señal: >-100 dBm (cuanto menos negativa, mejor)
     - Dirección IP asignada
 
-**Resolución de Problemas de Conexión:**
+**Solución de problemas de conexión:**
 
-| Problema               | Causa Probable              | Solución                              |
-|------------------------|-----------------------------|---------------------------------------|
-| No se encontró red     | SIM inactiva o APN incorrecto | Verificar con el operador, revisar el APN |
-| Señal débil            | Ubicación                   | Moverse cerca de una ventana/lugar más alto |
-| Tiempo de espera de conexión | Incompatibilidad de tecnología de red | Cambiar LTE-M ↔ NB-IoT |
-| Autenticación fallida  | Credenciales de APN incorrectas | Verificar nombre de usuario/contraseña |
+| Problema | Causa probable | Solución |
+|----------|----------------|----------|
+| No encuentra la red | SIM inactiva o APN incorrecto | Consulte al operador y compruebe el APN |
+| Señal débil | Ubicación | Acerque el dispositivo a una ventana o sitúelo más alto |
+| Tiempo de conexión agotado | Tecnología de red incompatible | Cambie entre LTE-M y NB-IoT |
+| Autenticación fallida | Credenciales de APN incorrectas | Compruebe usuario y contraseña |
 
 ---
 
-## Paso 3: Configuración del Código de Arduino
+## Paso 3: Configurar el código Arduino
 
-### Parámetros del Código
+### Parámetros del código
 
-La configuración de telemetría se establece en el sketch de Arduino (p.ej., `wari_3G.ino`).
+La telemetría se configura en el sketch Arduino (p. ej., `wari_3G.ino`).
 
-**Definiciones Clave:**
+**Definiciones principales:**
 
 ```cpp
-// Configuración de Telemetría
+// Configuración de telemetría
 #define TELEMETRY_INTERVAL 12 // Transmitir cada N mediciones
-#define SERVER_URL "http://demo.thingsboard.io/api/v1/[SU_TOKEN]/telemetry"
-// Configuración XBee (debe coincidir con la configuración del XBee)
+#define SERVER_URL "http://demo.thingsboard.io/api/v1/[YOUR_TOKEN]/telemetry"
+// Ajustes XBee (deben coincidir con la configuración del XBee)
 #define XBEE_BAUD 9600
 ```
 
-**Ajustar para su Configuración:**
+**Adáptelos a su instalación:**
 
 1. **TELEMETRY_INTERVAL**
-    - Con qué frecuencia transmitir
-    - Ejemplo: Si se registra cada 15 min, intervalo 4 = transmitir cada hora
-    - Mayor intervalo = mejor vida de la batería
+    - Determina la frecuencia de transmisión.
+    - Ejemplo: con mediciones cada 15 minutos, un intervalo de 4 transmite cada hora.
+    - Un intervalo mayor prolonga la duración de la batería.
 
 2. **SERVER_URL**
-    - Su endpoint de ThingsBoard o servidor
-    - Incluir el token de autenticación en la URL
-    - Consulte [Configuración de ThingsBoard](thingsboard-configuration.md) para detalles
+    - Ruta de ThingsBoard o del servidor.
+    - Incluya el token de autenticación en la URL.
+    - Consulte [Configuración de ThingsBoard](thingsboard-configuration.md).
 
 3. **XBEE_BAUD**
-    - Debe coincidir con la configuración BD del XBee
-    - Predeterminado: 9600
+    - Debe coincidir con BD del XBee.
+    - Valor predeterminado: 9600.
 
-### Cargar el Código
+### Cargar el código
 
-1. **Conectar el registrador** a través del cable FTDI
-2. **Abrir el Arduino IDE**
-3. **Cargar el sketch apropiado**
-    - `wari_3G.ino` para Wari con telemetría
-    - `wari_lidar_cellular.ino` para lidar con telemetría
-4. **Verificar que la configuración** anterior sea correcta
-5. **Compilar** (verificar errores)
-6. **Cargar** en el registrador
-7. **Abrir el Monitor Serie** (115200 baudios si DEBUG está habilitado)
-8. **Verificar los mensajes de inicialización**
+1. **Conecte el registrador** con un cable FTDI.
+2. **Abra el IDE de Arduino.**
+3. **Cargue el sketch adecuado:**
+    - `wari_3G.ino` para Wari con telemetría.
+    - `wari_lidar_cellular.ino` para lidar con telemetría.
+4. **Compruebe los ajustes** anteriores.
+5. **Compile** y compruebe si hay errores.
+6. **Cargue** el código en el registrador.
+7. **Abra el monitor serie** (115200 baudios si DEBUG está activado).
+8. **Compruebe los mensajes** de inicialización.
 
 ---
 
-## Paso 4: Prueba de Integración
+## Paso 4: Pruebas de integración
 
-### Prueba de Banco Antes del Despliegue
+### Prueba en banco antes del despliegue
 
-**Configuración:**
+**Preparación:**
 
-1. Registrador con XBee instalado (tarjeta SIM en su lugar)
-2. Encender con batería cargada
-3. Monitor serie conectado (opcional pero recomendado)
-4. Cerca de una ventana para buena señal celular
+1. Registrador con XBee y SIM instalados.
+2. Batería cargada y dispositivo encendido.
+3. Monitor serie conectado (opcional, pero recomendado).
+4. Cerca de una ventana para mejorar la cobertura.
 
-**Procedimiento de Prueba:**
+**Procedimiento:**
 
-1. **Encender**
-    - El registrador arranca
-    - Inicializa el XBee
-    - El XBee se conecta a la red (observar LED)
+1. **Encienda el dispositivo:**
+    - El registrador arranca.
+    - Inicializa el XBee.
+    - El XBee se conecta a la red (observe el LED).
 
-2. **Esperar la Medición**
-    - El registrador toma medición(es)
-    - Almacena en la tarjeta SD
-    - Prepara el paquete de telemetría
+2. **Espere una medición:**
+    - El registrador toma mediciones.
+    - Las guarda en la tarjeta SD.
+    - Prepara el paquete de telemetría.
 
-3. **Observar la Transmisión**
-    - Actividad LED del XBee (si es visible)
-    - Mensajes de depuración serie (si están habilitados):
+3. **Observe la transmisión:**
+    - Actividad del LED del XBee (si está visible).
+    - Mensajes serie de depuración (si están activados):
         ```
         Connecting to network...
         Network connected
@@ -383,253 +383,253 @@ La configuración de telemetría se establece en el sketch de Arduino (p.ej., `w
         Transmission successful
         ```
 
-4. **Verificar la Recepción**
-    - Verificar el panel de ThingsBoard
-    - Los datos deben aparecer en 1–2 minutos
-    - Verificar la marca de tiempo y los valores
+4. **Compruebe la recepción:**
+    - Revise el panel de ThingsBoard.
+    - Los datos deberían aparecer en 1–2 minutos.
+    - Compruebe fecha, hora y valores.
 
-**Tiempos Esperados:**
+**Tiempos previstos:**
 
-- Arranque: 5–10 segundos
-- Conexión de red: 30–60 segundos (primera vez), 5–15 segundos (posteriores)
-- Transmisión de datos: 5–10 segundos
-- Total: ~1 minuto por transmisión
+- Arranque: 5–10 segundos.
+- Conexión de red: 30–60 segundos (primera vez); 5–15 segundos (posteriores).
+- Transmisión: 5–10 segundos.
+- Total: alrededor de 1 minuto por transmisión.
 
-### Resolución de Problemas de Fallos en las Pruebas
+### Si fallan las pruebas
 
-**Sin conexión de red:**
+**No hay conexión de red:**
 
-- Verificar que la SIM esté activa
-- Verificar la intensidad de la señal (probar cerca de una ventana/exterior)
-- Verificar la configuración del APN
-- Verificar los patrones LED del XBee
+- Compruebe que la SIM esté activa.
+- Compruebe la señal (pruebe cerca de una ventana o fuera).
+- Revise el APN.
+- Observe los patrones del LED del XBee.
 
-**La red se conecta pero no se reciben datos:**
+**La red conecta, pero no llegan datos:**
 
-- Verificar que la URL del servidor sea correcta
-- Verificar el token de autenticación
-- Inspeccionar el Monitor Serie en busca de códigos de error
-- Probar el endpoint del servidor con curl/Postman
+- Compruebe la URL del servidor.
+- Revise el token de autenticación.
+- Busque códigos de error en el monitor serie.
+- Pruebe la ruta del servidor con curl o Postman.
 
-**Datos recibidos pero valores incorrectos:**
+**Llegan datos, pero los valores son incorrectos:**
 
-- Verificar el análisis de datos en el servidor
-- Verificar el formato JSON
-- Comparar con los datos de la tarjeta SD
+- Compruebe cómo procesa los datos el servidor.
+- Revise el formato JSON.
+- Compare con la tarjeta SD.
 
 ---
 
-## Paso 5: Despliegue en Campo
+## Paso 5: Instalación en campo
 
-### Lista de Verificación Previa al Despliegue
+### Lista previa al despliegue
 
-- [ ] Prueba de banco exitosa (3+ transmisiones)
+- [ ] Prueba en banco correcta (3 o más transmisiones)
 - [ ] El servidor recibe y muestra los datos correctamente
 - [ ] Batería completamente cargada
-- [ ] Intensidad de la señal aceptable en el sitio de despliegue (probar con el teléfono)
-- [ ] Intervalo de telemetría apropiado para la vida de la batería
-- [ ] Respaldo de tarjeta SD funcionando (en caso de que la telemetría falle)
-- [ ] Antena segura y correctamente orientada
+- [ ] Señal aceptable en el lugar (pruebe con un teléfono)
+- [ ] Intervalo de telemetría adecuado para la autonomía
+- [ ] Copia en tarjeta SD operativa (si falla la telemetría)
+- [ ] Antena bien sujeta y orientada
 
-### Prueba de Señal en el Sitio
+### Comprobación de la señal en el lugar
 
-Antes de la instalación permanente:
+Antes de la instalación definitiva:
 
-1. **Traer el teléfono con el mismo operador** que la SIM
-2. **Verificar la intensidad de la señal** en la ubicación de instalación
-3. **Considerar la posición de la antena:**
-    - La orientación vertical suele ser mejor
-    - Mayor altura = mejor señal
-    - Alejarse de obstrucciones metálicas
-    - Se prefiere vista despejada del cielo
+1. **Lleve un teléfono del mismo operador** que la SIM.
+2. **Compruebe la señal** en el lugar de instalación.
+3. **Tenga en cuenta la posición de la antena:**
+    - Suele funcionar mejor en vertical.
+    - A mayor altura, mejor señal.
+    - Aléjela de estructuras metálicas.
+    - Es preferible una visión despejada del cielo.
 
-**Requisitos Mínimos de Señal:**
+**Señal mínima requerida:**
 
-- LTE-M/NB-IoT: Mínimo -110 dBm, bueno -90 dBm
-- Las señales más débiles funcionan pero drenan más la batería
+- LTE-M/NB-IoT: -110 dBm como mínimo; -90 dBm es buena señal.
+- Las señales más débiles pueden funcionar, pero agotan la batería antes.
 
-### Verificación Post-Instalación
+### Verificación tras la instalación
 
-**En la Primera Hora:**
+**En la primera hora:**
 
-- [ ] Primera transmisión recibida
+- [ ] Se recibe la primera transmisión
 - [ ] Los datos aparecen en el panel
-- [ ] Valores razonables
+- [ ] Los valores son razonables
 
-**En las Primeras 24 Horas:**
+**En las primeras 24 horas:**
 
-- [ ] Transmisiones regulares ocurriendo
-- [ ] Sin brechas en los datos
-- [ ] Voltaje de la batería estable
-- [ ] Intensidad de la señal consistente
+- [ ] Hay transmisiones periódicas
+- [ ] No hay lagunas de datos
+- [ ] La tensión de la batería es estable
+- [ ] La intensidad de señal es constante
 
-**Primera Semana:**
+**Primera semana:**
 
-- [ ] Revisión diaria de datos
-- [ ] Monitorear la tasa de drenaje de la batería
-- [ ] Observar si hay fallos de transmisión
-- [ ] Ajustar el intervalo si es necesario
+- [ ] Revise los datos cada día
+- [ ] Vigile el ritmo de descarga de la batería
+- [ ] Compruebe si hay fallos de transmisión
+- [ ] Ajuste el intervalo si es necesario
 
 ---
 
-## Consideraciones de Energía
+## Consumo eléctrico
 
-### Presupuesto de Energía de Telemetría
+### Presupuesto energético de la telemetría
 
-**Consumo de Energía del XBee:**
+**Consumo del XBee:**
 
-- Sueño: <1 mA
-- Inactivo conectado: ~10 mA
-- Transmisión: ~200 mA (5–10 segundos)
+- Suspensión: <1 mA.
+- Conectado en reposo: ~10 mA.
+- Transmisión: ~200 mA (5–10 segundos).
 
-**Impacto en la Vida de la Batería:**
+**Efecto en la duración de la batería:**
 
 Sin telemetría (solo SD):
 
-- Wari: ~30–60 días (registro de 15 min)
-- Lidar: ~15–30 días (registro de 15 min)
+- Wari: ~30–60 días (medición cada 15 min).
+- Lidar: ~15–30 días (medición cada 15 min).
 
-Con telemetría (transmisión horaria):
+Con telemetría (transmisión cada hora):
 
-- Wari: ~20–40 días (registro de 15 min)
-- Lidar: ~10–20 días (registro de 15 min)
+- Wari: ~20–40 días (medición cada 15 min).
+- Lidar: ~10–20 días (medición cada 15 min).
 
-**Estrategias de Optimización:**
+**Estrategias de optimización:**
 
-1. **Reducir la frecuencia de transmisión**
-    - Medir cada 15 min, transmitir cada hora
-    - Mejora de 4× la vida de la batería frente a transmitir en cada medición
+1. **Reduzca las transmisiones:**
+    - Mida cada 15 min y transmita cada hora.
+    - Autonomía 4 veces mayor que al transmitir cada medición.
 
-2. **Transmisiones programadas**
-    - Transmitir una o dos veces al día
-    - Ahorro masivo de energía
-    - La tarjeta SD almacena datos a resolución completa
+2. **Programe las transmisiones:**
+    - Envíe datos una o dos veces al día.
+    - Ahorra mucha energía.
+    - La tarjeta SD conserva los datos con resolución completa.
 
-3. **Transmisión adaptativa**
-    - Transmitir con frecuencia durante eventos
-    - Reducir durante condiciones estables
-    - Requiere código más complejo
+3. **Transmisión adaptable:**
+    - Transmita más durante los eventos.
+    - Reduzca la frecuencia cuando las condiciones sean estables.
+    - Requiere un código más complejo.
 
-Consultar la [Guía de batería y alimentación](../operation/hardware/battery-power-guide.md) para cálculos detallados.
+Consulte la [Guía de baterías y alimentación](../operation/hardware/battery-power-guide.md) para obtener cálculos detallados.
 
 ---
 
-## Consideraciones de Seguridad
+## Seguridad
 
-### Seguridad de los Datos
+### Seguridad de los datos
 
-**Seguridad en el transporte:**
+**Seguridad del transporte:**
 
-- Usar HTTPS en lugar de HTTP cuando sea posible
-- ThingsBoard admite TLS
-- Cierta sobrecarga en datos y procesamiento
+- Use HTTPS en lugar de HTTP cuando sea posible.
+- ThingsBoard admite TLS.
+- Puede añadir sobrecarga de datos y procesamiento.
 
 **Autenticación:**
 
-- Tokens de dispositivo (ThingsBoard)
-- Claves de API
-- Nunca codificar credenciales en el código si este es público
+- Tokens de dispositivo (ThingsBoard).
+- Claves API.
+- No incluya credenciales fijas en código público.
 
 **Seguridad de la SIM:**
 
-- Usar APN de IP fija si está disponible
-- Protección con PIN de la SIM
-- Monitorear un uso de datos inusual
+- Use un APN de IP fija si está disponible.
+- Proteja la SIM con PIN.
+- Vigile consumos de datos inusuales.
 
-### Seguridad Física
+### Seguridad física
 
-- El XBee y la antena son objetivos valiosos para el robo
-- Considerar ocultarlos o usar carcasas protectoras
-- Documentar los números de serie para seguimiento
+- El XBee y la antena pueden ser objeto de robo.
+- Considere ocultarlos o utilizar carcasas protectoras.
+- Documente los números de serie.
 
 ---
 
-## Monitoreo y Mantenimiento
+## Supervisión y mantenimiento
 
-### Qué Monitorear
+### Qué supervisar
 
-**Diario (alertas automatizadas):**
+**A diario (alertas automáticas):**
 
 - [ ] Datos recibidos en las últimas 24 horas
-- [ ] Tendencia del voltaje de la batería
-- [ ] Intensidad de la señal
+- [ ] Tendencia de la tensión de la batería
+- [ ] Intensidad de señal
 
-**Semanal:**
+**Cada semana:**
 
-- [ ] Tasa de éxito de transmisión
+- [ ] Porcentaje de transmisiones correctas
 - [ ] Calidad de los datos
-- [ ] Uso de datos de la SIM
+- [ ] Consumo de datos de la SIM
 
-**Mensual:**
+**Cada mes:**
 
 - [ ] Estado de la batería
 - [ ] Datos restantes del plan
-- [ ] Actualizaciones de firmware disponibles
+- [ ] Disponibilidad de actualizaciones de firmware
 
-### Problemas Comunes de Telemetría
+### Problemas habituales de telemetría
 
-Consultar [Resolución de problemas de conexión](troubleshooting-connections.md) para diagnósticos detallados.
+Consulte [Solución de problemas de conexión](troubleshooting-connections.md) para un diagnóstico detallado.
 
 **Referencia rápida:**
 
-| Síntoma               | Verificación rápida             | Solución probable                    |
-|-----------------------|---------------------------------|--------------------------------------|
-| Sin transmisiones     | ¿SIM activa? ¿Señal?            | Comprobar estado del operador, mover el registrador |
-| Intermitente          | ¿Varía la intensidad de señal?  | Mejorar la posición de la antena     |
-| Alto consumo de batería | ¿Transmisión demasiado frecuente? | Reducir la frecuencia             |
-| Datos corruptos       | ¿Problema de análisis en servidor? | Verificar formato JSON            |
+| Síntoma | Comprobación rápida | Solución probable |
+|---------|---------------------|------------------|
+| Sin transmisiones | ¿SIM activa? ¿Hay señal? | Consulte al operador o cambie la ubicación |
+| Transmisiones intermitentes | ¿Varía la señal? | Mejore la posición de la antena |
+| Gran consumo de batería | ¿Se transmite demasiado? | Reduzca la frecuencia |
+| Datos dañados | ¿Falla el procesamiento en el servidor? | Compruebe el formato JSON |
 
 ---
 
-## Plataformas Alternativas
+## Otras plataformas
 
-Aunque esta guía se centra en ThingsBoard, los módulos XBee3 admiten varias plataformas:
+Aunque esta guía se centra en ThingsBoard, los módulos XBee3 admiten diversas plataformas:
 
-- **Brokers MQTT** (Mosquitto, HiveMQ, AWS IoT)
-- **APIs REST HTTP** (servidores personalizados)
+- **Servidores MQTT** (Mosquitto, HiveMQ, AWS IoT)
+- **API REST HTTP** (servidores propios)
 - **Servidores CoAP**
 - **Azure IoT Hub**
 - **AWS IoT Core**
 - **Google Cloud IoT**
 
-Los principios de configuración son similares; consultar la documentación de la plataforma para los endpoints y la autenticación.
+Los principios de configuración son similares; consulte la documentación de cada plataforma para conocer sus rutas y métodos de autenticación.
 
 ---
 
-## Resumen de Costos
+## Resumen de costes
 
-**Costos únicos:**
+**Costes únicos:**
 
-- Módulo XBee3 Cellular: $60–80
-- Adaptador USB para configuración: $20–30
-- Activación de la SIM: $0–20
+- Módulo XBee3 Cellular: $60–80.
+- Adaptador USB para configuración: $20–30.
+- Activación de SIM: $0–20.
 
-**Costos recurrentes:**
+**Costes recurrentes:**
 
-- Plan de datos: $2–15/mes
-- Alojamiento del servidor (si no se usa el nivel gratuito de ThingsBoard): $0–10/mes
+- Plan de datos: $2–15 al mes.
+- Alojamiento del servidor (si no usa la versión gratuita de ThingsBoard): $0–10 al mes.
 
-**Total primer año:**
+**Total del primer año:**
 
-- Hardware: ~$100
-- Servicio: ~$50–180
-- **Total: ~$150–280**
+- Hardware: ~$100.
+- Servicio: ~$50–180.
+- **Total: ~$150–280.**
 
-Comparar con:
+Compárelo con:
 
-- Costos de visitas al sitio (combustible, tiempo)
-- Brechas de datos por visitas poco frecuentes
-- Valor del monitoreo en tiempo real
+- Coste de las visitas al lugar (transporte y tiempo).
+- Lagunas de datos debidas a visitas poco frecuentes.
+- Valor de la supervisión en tiempo real.
 
 ---
 
-## Próximos Pasos
+## Siguientes pasos
 
-- [Configuración de ThingsBoard](thingsboard-configuration.md): Configurar el panel
-- [Guía de configuración de XBee](xbee-setup-walkthrough.md): Guía detallada de XBee Studio con capturas de pantalla
-- [Resolución de problemas de conexión](troubleshooting-connections.md): Solucionar problemas de telemetría
+- [Configuración de ThingsBoard](thingsboard-configuration.md): preparar el panel
+- [Guía paso a paso de XBee](xbee-setup-walkthrough.md): guía detallada de XBee Studio con capturas
+- [Solución de problemas de conexión](troubleshooting-connections.md): resolver problemas de telemetría
 
 ---
 
 !!! success "¡Telemetría configurada!"
-    Con la telemetría celular funcionando, ahora tienes monitoreo remoto en tiempo real de tu registrador. ¡No más visitas al sitio solo para comprobar si está funcionando!
+    Con la telemetría celular en funcionamiento, ya puede supervisar el registrador a distancia y en tiempo real. No tendrá que desplazarse solo para comprobar si funciona.

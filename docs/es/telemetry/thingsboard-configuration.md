@@ -1,176 +1,176 @@
 # Configuración de ThingsBoard
 
-!!! abstract "Resumen"
-    Esta es una guía completa para configurar la plataforma IoT ThingsBoard para la visualización y el monitoreo de datos de Riverlabs, desde la creación de la cuenta hasta los paneles avanzados.
+!!! abstract "Descripción general"
+    Esta guía completa explica cómo configurar la plataforma IoT ThingsBoard para visualizar y supervisar los datos de Riverlabs, desde la creación de la cuenta hasta los paneles avanzados.
 
 ## ¿Qué es ThingsBoard?
 
-[ThingsBoard](https://thingsboard.io/) es una plataforma IoT de código abierto para la gestión de dispositivos, la recopilación de datos y la visualización. Es ideal para los registradores Riverlabs porque:
+[ThingsBoard](https://thingsboard.io/) es una plataforma IoT de código abierto para gestionar dispositivos y recopilar y visualizar datos. Es adecuada para los registradores Riverlabs porque ofrece:
 
-- **Nivel gratuito disponible** (servidor demo)
-- **API HTTP fácil** de integrar
-- **Paneles potentes** con widgets
+- **Versión gratuita** (servidor de demostración)
+- **Integración sencilla mediante API HTTP**
+- **Potentes paneles de control** con widgets
 - **Alertas y notificaciones**
-- **Soporte multi-usuario**
-- **Compatible con dispositivos móviles**
-- **Opción de auto-alojamiento** para usuarios avanzados
+- **Compatibilidad con varios usuarios**
+- **Interfaz apta para móviles**
+- **Opción de alojamiento propio** para usuarios avanzados
 
 ---
 
-## Opciones de Despliegue
+## Opciones de despliegue
 
-### Opción 1: Servidor Demo de ThingsBoard (Recomendado para Pruebas)
+### Opción 1: Servidor de demostración de ThingsBoard (recomendado para pruebas)
 
 **Ventajas:**
 
 - Gratuito
-- Sin configuración necesaria
-- Bueno para evaluación y aprendizaje
+- No requiere configuración previa
+- Adecuado para evaluar y aprender
 - Incluye todas las funciones
 
-**Desventajas:**
+**Inconvenientes:**
 
-- Los datos se eliminan después de la inactividad
+- Los datos se eliminan tras un periodo de inactividad
 - Infraestructura compartida
-- Sin tiempo de actividad garantizado
-- No para despliegues de producción
+- No se garantiza la disponibilidad
+- No es adecuado para despliegues de producción
 
 **URL:** https://demo.thingsboard.io
 
-**Caso de Uso:** Pruebas, aprendizaje y despliegues a corto plazo
+**Uso:** pruebas, aprendizaje y despliegues a corto plazo
 
 ### Opción 2: ThingsBoard Cloud
 
 **Ventajas:**
 
-- Hosting gestionado
-- Tiempo de actividad garantizado
-- Soporte técnico
+- Alojamiento gestionado
+- Disponibilidad garantizada
+- Asistencia técnica
 - Actualizaciones automáticas
-- Listo para producción
+- Preparado para producción
 
-**Desventajas:**
+**Inconvenientes:**
 
 - Cuotas mensuales (~$10–50+)
-- Se requiere suscripción
+- Requiere suscripción
 
 **URL:** https://thingsboard.cloud
 
-**Caso de Uso:** Monitoreo a largo plazo, despliegues críticos y múltiples registradores
+**Uso:** seguimiento a largo plazo, despliegues críticos y varios registradores
 
-### Opción 3: Auto-Alojado
+### Opción 3: Alojamiento propio
 
 **Ventajas:**
 
 - Control total
-- Sin cuotas mensuales (después de la configuración)
-- Privacidad de datos
+- Sin cuotas mensuales tras la instalación
+- Privacidad de los datos
 - Configuración personalizada
 
-**Desventajas:**
+**Inconvenientes:**
 
-- Requiere habilidades de gestión de servidores
-- Costos de infraestructura (AWS/DigitalOcean)
-- Responsabilidad de mantenimiento
-- Gestión de seguridad
+- Requiere conocimientos de administración de servidores
+- Costes de infraestructura (AWS/DigitalOcean)
+- Responsabilidad del mantenimiento
+- Gestión de la seguridad
 
-**Caso de Uso:** Organizaciones con personal de TI, muchos registradores y requisitos personalizados
+**Uso:** organizaciones con personal informático, numerosos registradores y necesidades específicas
 
-!!! tip "Comenzar con el Servidor Demo"
-    Use el servidor demo para aprender ThingsBoard y probar su registrador. Migre a Cloud o auto-alojado una vez que esté seguro de la configuración.
+!!! tip "Empiece por el servidor de demostración"
+    Utilice el servidor de demostración para aprender ThingsBoard y probar su registrador. Migre a Cloud o a un servidor propio cuando domine la configuración.
 
 ---
 
-## Creación de una Cuenta en ThingsBoard
+## Creación de una cuenta de ThingsBoard
 
-### Registro en el Servidor Demo
+### Registro en el servidor de demostración
 
-1. **Navegar a** https://demo.thingsboard.io
-2. **Hacer clic en "Sign Up"** (parte superior derecha)
-3. **Completar el formulario de registro:**
+1. **Vaya a** https://demo.thingsboard.io.
+2. **Haga clic en "Sign Up"** (arriba a la derecha).
+3. **Rellene el formulario:**
     - Dirección de correo electrónico
-    - Nombre y apellido
-    - Contraseña (use una contraseña segura y guárdela en un gestor de contraseñas)
-4. **Revisar el correo electrónico** para el enlace de activación
-5. **Hacer clic en el enlace de activación**
-6. **Iniciar sesión** en ThingsBoard
+    - Nombre y apellidos
+    - Contraseña (elija una robusta y guárdela en un gestor de contraseñas)
+4. **Revise su correo** para encontrar el enlace de activación.
+5. **Haga clic en el enlace de activación.**
+6. **Inicie sesión** en ThingsBoard.
 
-!!! warning "Retención de Datos del Servidor Demo"
-    El servidor demo elimina periódicamente las cuentas inactivas. No usar para despliegues a largo plazo sin acceso regular.
+!!! warning "Conservación de datos en el servidor de demostración"
+    El servidor de demostración elimina periódicamente las cuentas inactivas. No lo utilice para despliegues a largo plazo sin acceder con regularidad.
 
 ### Registro en ThingsBoard Cloud
 
-1. **Navegar a** https://thingsboard.cloud
-2. **Hacer clic en "Try It Free"** o similar
-3. **Completar el registro**
-4. **Seleccionar el plan** (normalmente el nivel gratuito para empezar)
-5. **Confirmar el correo electrónico**
-6. **Iniciar sesión**
+1. **Vaya a** https://thingsboard.cloud.
+2. **Haga clic en "Try It Free"** o una opción equivalente.
+3. **Complete el registro.**
+4. **Elija un plan** (normalmente el gratuito para empezar).
+5. **Confirme su correo electrónico.**
+6. **Inicie sesión.**
 
 ---
 
-## Agregar su Registrador como Dispositivo
+## Añadir el registrador como dispositivo
 
-### Paso 1: Crear Dispositivo
+### Paso 1: Crear el dispositivo
 
-1. **Iniciar sesión en ThingsBoard**
-2. **Navegar a "Devices"** (barra lateral izquierda)
-3. **Hacer clic en "+ Add Device"** (parte superior derecha)
-4. **Completar el formulario del dispositivo:**
-    - **Name:** `Wari-001` (o su ID de registrador)
+1. **Inicie sesión en ThingsBoard.**
+2. **Abra "Devices"** en la barra lateral izquierda.
+3. **Haga clic en "+ Add Device"** (arriba a la derecha).
+4. **Rellene el formulario:**
+    - **Name:** `Wari-001` (o el ID de su registrador)
     - **Label:** `Creek Monitoring - Site A` (ubicación descriptiva)
-    - **Device Profile:** `Default` (o perfil personalizado)
-    - **Gateway:** Dejar sin marcar
-5. **Hacer clic en "Add"**
-6. **¡Dispositivo creado!**
+    - **Device Profile:** `Default` (o un perfil personalizado)
+    - **Gateway:** déjelo desmarcado
+5. **Haga clic en "Add".**
+6. **El dispositivo quedará creado.**
 
-### Paso 2: Obtener el Token de Acceso
+### Paso 2: Obtener el token de acceso
 
 **Después de crear el dispositivo:**
 
-1. **El dispositivo aparece en la lista**
-2. **Hacer clic en el nombre del dispositivo** para abrir los detalles
-3. **Navegar a la pestaña "Credentials"**
-4. **Copiar el "Access Token"** (cadena larga como `A1B2C3D4E5F6G7H8I9J0`)
-5. **Guardar el token** de forma segura (lo necesitará para el código de Arduino)
+1. **El dispositivo aparecerá en la lista.**
+2. **Haga clic en su nombre** para abrir los detalles.
+3. **Abra la pestaña "Credentials".**
+4. **Copie el "Access Token"** (una cadena larga, como `A1B2C3D4E5F6G7H8I9J0`).
+5. **Guarde el token** de forma segura: lo necesitará en el código Arduino.
 
-**Token de Ejemplo:**
+**Ejemplo de token:**
 ```
 A1B2C3D4E5F6G7H8I9J0K1L2M3N4O5P6
 ```
 
-!!! danger "Mantener el Token Seguro"
-    Este token autentica su registrador. Cualquiera que lo tenga puede enviar datos como su dispositivo. ¡No compartir públicamente!
+!!! danger "Proteja el token"
+    Este token autentica el registrador. Cualquiera que lo conozca podrá enviar datos como si fuera su dispositivo. No lo publique.
 
-### Paso 3: Configurar el Código de Arduino
+### Paso 3: Configurar el código Arduino
 
-**Actualizar su sketch de Arduino** (p.ej., `wari_3G.ino`):
+**Actualice el sketch Arduino** (p. ej., `wari_3G.ino`):
 
 ```cpp
-// Anterior:
+// Antes:
 #define SERVER_URL "http://demo.thingsboard.io/api/v1/PASTE_TOKEN_HERE/telemetry"
 
-// Nuevo (con su token):
+// Después (con su token):
 #define SERVER_URL "http://demo.thingsboard.io/api/v1/A1B2C3D4E5F6G7H8I9J0K1L2M3N4O5P6/telemetry"
 ```
 
 **Para ThingsBoard Cloud:**
 ```cpp
-#define SERVER_URL "https://thingsboard.cloud/api/v1/SU_TOKEN/telemetry"
+#define SERVER_URL "https://thingsboard.cloud/api/v1/YOUR_TOKEN/telemetry"
 ```
 
-**Para Auto-Alojado:**
+**Para un servidor propio:**
 ```cpp
-#define SERVER_URL "http://su-servidor.com/api/v1/SU_TOKEN/telemetry"
+#define SERVER_URL "http://your-server.com/api/v1/YOUR_TOKEN/telemetry"
 ```
 
-### Paso 4: Probar la Conexión
+### Paso 4: Probar la conexión
 
-**Prueba Manual con curl** (opcional):
+**Prueba manual con curl** (opcional):
 
 ```bash
 curl -X POST \
-  http://demo.thingsboard.io/api/v1/SU_TOKEN/telemetry \
+  http://demo.thingsboard.io/api/v1/YOUR_TOKEN/telemetry \
   -H 'Content-Type: application/json' \
   -d '{"temperature":22.5, "distance_mm":1234}'
 ```
@@ -180,25 +180,25 @@ curl -X POST \
 {}
 ```
 
-¡Respuesta JSON vacía = éxito!
+Una respuesta JSON vacía indica que la petición se realizó correctamente.
 
 **En ThingsBoard:**
 
-1. Navegar al dispositivo
-2. Hacer clic en la pestaña "Latest Telemetry"
-3. Los valores deben aparecer
+1. Abra el dispositivo.
+2. Haga clic en la pestaña "Latest Telemetry".
+3. Deberían aparecer los valores.
 
-**Si no aparecen datos:** Verificar el token, la URL y la conectividad de red.
+**Si no aparecen datos:** compruebe el token, la URL y la conexión de red.
 
 ---
 
-## Comprensión de la Estructura de Datos
+## Estructura de los datos
 
 ### Formato JSON
 
 Los registradores Riverlabs envían datos en formato JSON:
 
-**Ejemplo Wari (Ultrasónico):**
+**Ejemplo de Wari (ultrasonidos):**
 ```json
 {
   "distance_mm": 1234,
@@ -208,7 +208,7 @@ Los registradores Riverlabs envían datos en formato JSON:
 }
 ```
 
-**Ejemplo Lidar:**
+**Ejemplo de lidar:**
 ```json
 {
   "distance_mm": 2456,
@@ -218,177 +218,177 @@ Los registradores Riverlabs envían datos en formato JSON:
 }
 ```
 
-### Claves de Telemetría
+### Claves de telemetría
 
-| Clave             | Tipo    | Descripción                     | Unidades              |
-|-------------------|---------|---------------------------------|-----------------------|
-| `distance_mm`     | Entero  | Distancia sensor-agua           | Milímetros            |
-| `temperature_C`   | Flotante| Temperatura del aire (solo Wari)| Celsius               |
-| `battery_V`       | Flotante| Voltaje de la batería           | Voltios               |
-| `signal_strength` | Entero  | Calidad de señal lidar          | Arbitrario (0–100)    |
-| `timestamp`       | Entero  | Marca de tiempo Unix            | Segundos desde epoch  |
+| Clave | Tipo | Descripción | Unidades |
+|-------|------|-------------|----------|
+| `distance_mm` | Entero | Distancia entre el sensor y el agua | Milímetros |
+| `temperature_C` | Decimal | Temperatura del aire (solo Wari) | Grados Celsius |
+| `battery_V` | Decimal | Tensión de la batería | Voltios |
+| `signal_strength` | Entero | Calidad de la señal lidar | Escala arbitraria (0–100) |
+| `timestamp` | Entero | Marca de tiempo Unix | Segundos desde la época Unix |
 
 **ThingsBoard almacena:**
 
-- **Telemetría:** Datos de series temporales (p.ej., distancia, temperatura, etc.)
-- **Atributos:** Datos estáticos (modelo del dispositivo, ubicación y fecha de instalación)
+- **Telemetría:** series temporales (distancia, temperatura, etc.).
+- **Atributos:** datos estáticos (modelo, ubicación y fecha de instalación).
 
 ---
 
-## Creación de su Primer Panel
+## Creación de su primer panel de control
 
-### Paso 1: Crear Panel
+### Paso 1: Crear el panel
 
-1. **Navegar a "Dashboards"** (barra lateral izquierda)
-2. **Hacer clic en "+ Add Dashboard"** (parte superior derecha)
-3. **Ingresar el título del panel:** `Logger Monitoring - Site A`
-4. **Hacer clic en "Add"**
-5. **Panel creado** (actualmente vacío)
+1. **Abra "Dashboards"** en la barra lateral.
+2. **Haga clic en "+ Add Dashboard"** (arriba a la derecha).
+3. **Introduzca el título:** `Logger Monitoring - Site A`.
+4. **Haga clic en "Add".**
+5. **Se creará un panel vacío.**
 
-### Paso 2: Agregar Widgets
+### Paso 2: Añadir widgets
 
-**Abrir el panel en modo de edición:**
+**Abra el panel en modo de edición:**
 
-1. Hacer clic en el nombre del panel para abrirlo
-2. Hacer clic en el **icono de lápiz** (modo de edición, parte superior derecha)
+1. Haga clic en el nombre del panel.
+2. Haga clic en el **icono del lápiz** (arriba a la derecha).
 
-**Agregar su primer widget:**
+**Añada el primer widget:**
 
-1. **Hacer clic en "+ Add Widget"** (centro o parte inferior derecha)
-2. **Seleccionar el paquete de widgets:** `Charts` (o `Gauges`, `Cards`, etc.)
-3. **Seleccionar el tipo de widget:** `Timeseries Line Chart`
-4. **Configurar la fuente de datos:**
+1. **Haga clic en "+ Add Widget"** (centro o abajo a la derecha).
+2. **Elija el grupo:** `Charts` (o `Gauges`, `Cards`, etc.).
+3. **Elija el tipo:** `Timeseries Line Chart`.
+4. **Configure la fuente de datos:**
     - **Type:** `Entity`
-    - **Entity:** Seleccionar su dispositivo
-    - **Data keys:** Marcar `distance_mm`, `battery_V`
-5. **Configurar la apariencia:**
-    - **Title:** `Nivel de Agua y Batería`
-    - **Time window:** Últimos 7 días
-    - **Colores de línea:** Azul (distancia), Rojo (batería)
-6. **Hacer clic en "Add"**
-7. **El widget aparece en el panel**
+    - **Entity:** seleccione su dispositivo
+    - **Data keys:** marque `distance_mm` y `battery_V`
+5. **Configure el aspecto:**
+    - **Title:** `Water Level & Battery`
+    - **Time window:** últimos 7 días
+    - **Line colors:** azul (distancia) y rojo (batería)
+6. **Haga clic en "Add".**
+7. **El widget aparecerá en el panel.**
 
 **Cambiar tamaño y posición:**
 
-- Arrastrar el widget para moverlo
-- Arrastrar los bordes/esquinas para cambiar el tamaño
-- Agregar más widgets
+- Arrastre el widget para moverlo.
+- Arrastre los bordes o las esquinas para redimensionarlo.
+- Añada más widgets.
 
-### Paso 3: Widgets Adicionales Útiles
+### Paso 3: Otros widgets útiles
 
-**1. Tarjeta de Distancia Actual**
+**1. Tarjeta de distancia actual**
 
-- **Paquete:** `Cards`
+- **Grupo:** `Cards`
 - **Tipo:** `Simple Card`
 - **Clave de datos:** `distance_mm`
-- **Título:** `Distancia Actual`
-- **Muestra:** Último valor grande y claro
+- **Título:** `Current Distance`
+- **Muestra:** el último valor de forma destacada
 
-**2. Medidor de Batería**
+**2. Indicador de batería**
 
-- **Paquete:** `Gauges`
+- **Grupo:** `Gauges`
 - **Tipo:** `Radial Gauge`
 - **Clave de datos:** `battery_V`
 - **Valor mínimo:** 3.0
 - **Valor máximo:** 4.2
-- **Rangos de color:**
-    - 3.0–3.3: Rojo (crítico)
-    - 3.3–3.6: Naranja (bajo)
-    - 3.6–4.2: Verde (bueno)
+- **Intervalos de color:**
+    - 3.0–3.3: rojo (crítico)
+    - 3.3–3.6: naranja (bajo)
+    - 3.6–4.2: verde (bien)
 
-**3. Gráfico de Temperatura** (solo Wari)
+**3. Gráfico de temperatura** (solo Wari)
 
-- **Paquete:** `Charts`
+- **Grupo:** `Charts`
 - **Tipo:** `Timeseries Line Chart`
 - **Clave de datos:** `temperature_C`
-- **Ventana de tiempo:** Últimas 24 horas
+- **Ventana temporal:** últimas 24 horas
 
-**4. Tarjeta de Estado del Dispositivo**
+**4. Tarjeta de estado del dispositivo**
 
-- **Paquete:** `Cards`
+- **Grupo:** `Cards`
 - **Tipo:** `Entity Table`
-- **Muestra:** Última actividad, atributos y estado
+- **Muestra:** última actividad, atributos y estado
 
-### Paso 4: Guardar el Panel
+### Paso 4: Guardar el panel
 
-1. **Hacer clic en el ícono de verificación** (parte superior derecha) para salir del modo de edición
-2. **El panel se guarda** automáticamente
-3. **Compartir o marcar** la URL para acceso rápido
+1. **Haga clic en la marca de verificación** (arriba a la derecha) para salir del modo de edición.
+2. **El panel se guarda** automáticamente.
+3. **Comparta o guarde en favoritos** su URL para acceder rápidamente.
 
 ---
 
-## Configuración Avanzada de Widgets
+## Configuración avanzada de widgets
 
-### Personalización de Ventanas de Tiempo
+### Personalización de las ventanas temporales
 
-**Ventana Fija:**
+**Ventana fija:**
 
 - Última hora
 - Últimas 24 horas
 - Últimos 7 días
-- Rango personalizado
+- Intervalo personalizado
 
-**Ejemplo:** Mostrar solo horas de trabajo
+**Ejemplo:** mostrar únicamente el horario laboral.
 
-- Configurar: 8:00 AM–6:00 PM
-- Útil para registradores alimentados por energía solar
+- Configuración: de 8:00 a. m. a 6:00 p. m.
+- Útil para registradores solares.
 
-### Agregar Umbrales
+### Añadir umbrales
 
-**Niveles de Alarma en Gráficos:**
+**Líneas de alarma en los gráficos:**
 
-1. Editar widget (ícono de lápiz)
-2. Navegar a la pestaña "Advanced"
-3. Agregar **líneas de umbral:**
-    - **Advertencia de agua alta:** 500 mm (línea roja)
-    - **Advertencia de agua baja:** 2000 mm (línea naranja)
+1. Edite el widget (icono del lápiz).
+2. Abra la pestaña "Advanced".
+3. Añada **líneas de umbral:**
+    - **Aviso de nivel alto de agua:** 500 mm (línea roja)
+    - **Aviso de nivel bajo de agua:** 2000 mm (línea naranja)
     - **Batería crítica:** 3.3 V (línea roja)
 
-### Agregación de Datos
+### Agregación de datos
 
-**Para períodos de tiempo largos** (meses), agregar datos:
+**Para intervalos largos** (meses), agregue los datos:
 
-- **Ninguna:** Mostrar todos los puntos (lento para conjuntos de datos grandes)
-- **Promedio:** Promedios diarios/horarios
-- **Mín/Máx:** Mostrar extremos
-- **Suma:** Total durante el período
+- **None:** mostrar todos los puntos (lento si hay muchos datos).
+- **Average:** promedios diarios u horarios.
+- **Min/Max:** mostrar extremos.
+- **Sum:** total del periodo.
 
-**Ejemplo:** Nivel máximo diario del agua
+**Ejemplo:** nivel máximo diario del agua.
 
 - Agregación: `Max`
-- Intervalo: `1 día`
+- Intervalo: `1 day`
 
-### Campos Calculados
+### Campos calculados
 
-**Derivar nuevos valores de la telemetría:**
+**Obtener valores nuevos de la telemetría:**
 
-**Profundidad del Agua** (altura de instalación - distancia):
+**Profundidad del agua** (altura de instalación menos distancia):
 
-1. Agregar atributo del dispositivo: `install_height_mm = 3000`
-2. Usar widget con cálculo:
+1. Añada el atributo del dispositivo: `install_height_mm = 3000`.
+2. Utilice un widget con el cálculo:
    ```
    ${install_height_mm} - ${distance_mm}
    ```
 
-**Porcentaje de Batería:**
+**Porcentaje de batería:**
 
-Estimar % del voltaje:
+Estime el porcentaje a partir de la tensión:
 ```
 (${battery_V} - 3.0) / (4.2 - 3.0) * 100
 ```
 
 ---
 
-## Alarmas y Notificaciones
+## Alarmas y notificaciones
 
-### Creación de Reglas de Alarma
+### Creación de reglas de alarma
 
-1. **Navegar al dispositivo**
-2. **Hacer clic en la pestaña "Alarms"**
-3. **Hacer clic en "+ Add Alarm Rule"**
-4. **Configurar la regla:**
+1. **Abra el dispositivo.**
+2. **Haga clic en la pestaña "Alarms".**
+3. **Haga clic en "+ Add Alarm Rule".**
+4. **Configure la regla:**
 
-**Ejemplo: Alerta de Batería Baja**
+**Ejemplo: alerta de batería baja**
 
 - **Name:** `Low Battery Warning`
 - **Type:** `battery_low`
@@ -397,10 +397,10 @@ Estimar % del voltaje:
   ```
   $[battery_V] < 3.4
   ```
-- **Schedule:** Siempre activo
-- **Action:** Crear alarma
+- **Schedule:** siempre activa
+- **Action:** crear alarma
 
-**Ejemplo: Alerta de Agua Alta**
+**Ejemplo: alerta de nivel alto de agua**
 
 - **Name:** `Flood Warning`
 - **Type:** `high_water`
@@ -409,47 +409,47 @@ Estimar % del voltaje:
   ```
   $[distance_mm] < 500
   ```
-  (Asumiendo 500mm = umbral de agua alta)
+  (Suponiendo que 500 mm sea el umbral de nivel alto.)
 
-### Configuración de Notificaciones
+### Configuración de notificaciones
 
-**Notificaciones por Correo Electrónico:**
+**Notificaciones por correo electrónico:**
 
-1. **Navegar a "Rule Chains"** (barra lateral izquierda)
-2. **Abrir "Root Rule Chain"**
-3. **Agregar nodo "Send Email"**
-4. **Configurar los ajustes SMTP:**
+1. **Abra "Rule Chains"** en la barra lateral.
+2. **Abra "Root Rule Chain".**
+3. **Añada un nodo "Send Email".**
+4. **Configure SMTP:**
     - Servidor (Gmail, SendGrid, etc.)
     - Credenciales
-    - Direcciones de destinatarios
-5. **Conectar nodos de alarma** al nodo de correo electrónico
+    - Direcciones de los destinatarios
+5. **Conecte los nodos de alarma** al nodo de correo.
 
-**Notificaciones SMS** (a través de servicio de terceros):
+**Notificaciones SMS** (mediante terceros):
 
-- Integrar con Twilio, AWS SNS
-- Requiere ThingsBoard Cloud o auto-alojado
-- Configurar en Rule Chain
+- Integre Twilio o AWS SNS.
+- Requiere ThingsBoard Cloud o alojamiento propio.
+- Configúrelo en la cadena de reglas.
 
-**Alarmas en el Panel:**
+**Alarmas en el panel:**
 
-- Agregar widget de "Alarms" al panel
-- Muestra alarmas activas con colores de severidad
-- Hacer clic para reconocer/borrar
+- Añada el widget "Alarms" al panel.
+- Muestra alarmas activas con colores según la gravedad.
+- Haga clic para reconocerlas o cerrarlas.
 
 ---
 
-## Exportación de Datos
+## Exportación de datos
 
-### Exportación de Datos Históricos
+### Exportar datos históricos
 
-1. **Navegar al dispositivo**
-2. **Hacer clic en la pestaña "Latest Telemetry"**
-3. **Seleccionar el rango de fechas**
-4. **Hacer clic en el ícono de exportar** (parte superior derecha)
-5. **Elegir el formato:**
+1. **Abra el dispositivo.**
+2. **Haga clic en la pestaña "Latest Telemetry".**
+3. **Seleccione el intervalo de fechas.**
+4. **Haga clic en el icono de exportación** (arriba a la derecha).
+5. **Elija el formato:**
     - CSV (compatible con Excel)
     - JSON (para procesamiento)
-6. **Descargar el archivo**
+6. **Descargue el archivo.**
 
 **Formato CSV:**
 ```csv
@@ -459,260 +459,260 @@ Timestamp,distance_mm,battery_V,temperature_C
 ...
 ```
 
-### Acceso a Datos por API
+### Acceso a los datos mediante API
 
 **Para acceso programático:**
 
 ```bash
 curl -X GET \
-  'http://demo.thingsboard.io/api/plugins/telemetry/DEVICE/SU_DEVICE_ID/values/timeseries?keys=distance_mm,battery_V&startTs=1703520000000&endTs=1703606400000' \
-  -H 'X-Authorization: Bearer SU_TOKEN_JWT'
+  'http://demo.thingsboard.io/api/plugins/telemetry/DEVICE/YOUR_DEVICE_ID/values/timeseries?keys=distance_mm,battery_V&startTs=1703520000000&endTs=1703606400000' \
+  -H 'X-Authorization: Bearer YOUR_JWT_TOKEN'
 ```
 
-**Token JWT:** Obtener desde el perfil de usuario > Configuración de seguridad
+**Token JWT:** obténgalo en el perfil de usuario > ajustes de seguridad.
 
 ---
 
-## Gestión de Múltiples Dispositivos
+## Gestión de varios dispositivos
 
-### Agregar Múltiples Registradores
+### Añadir varios registradores
 
-**Repetir para cada registrador:**
+**Repita para cada registrador:**
 
-1. Agregar dispositivo (nombre único: `Wari-001`, `Wari-002`, etc.)
-2. Obtener el token de acceso
-3. Configurar Arduino con el token respectivo
-4. Desplegar
+1. Añada el dispositivo (nombre único: `Wari-001`, `Wari-002`, etc.).
+2. Obtenga el token de acceso.
+3. Configure Arduino con el token correspondiente.
+4. Despliéguelo.
 
-### Grupos de Dispositivos
+### Grupos de dispositivos
 
-**Organizar por ubicación o tipo:**
+**Organice por ubicación o tipo:**
 
-1. **Navegar a "Entity Groups"**
-2. **Crear grupo:** `Creek Monitoring Sites`
-3. **Agregar dispositivos** al grupo
-4. **Filtrar paneles** por grupo
+1. **Abra "Entity Groups".**
+2. **Cree el grupo:** `Creek Monitoring Sites`.
+3. **Añada dispositivos** al grupo.
+4. **Filtre los paneles** por grupo.
 
-### Panel de Flota
+### Panel del conjunto de dispositivos
 
-**Crear un panel de resumen:**
+**Cree un panel general:**
 
-1. **Agregar widget de "Devices"**
-2. **Tipo de entidad:** Grupo de dispositivos
-3. **Seleccionar grupo:** `Creek Monitoring Sites`
-4. **Columnas:** Nombre, Última actividad, Batería, Última distancia
-5. **Reglas de color:** Resaltar dispositivos con batería baja o sin conexión
+1. **Añada el widget "Devices".**
+2. **Entity type:** grupo de dispositivos.
+3. **Seleccione el grupo:** `Creek Monitoring Sites`.
+4. **Columnas:** nombre, última actividad, batería y última distancia.
+5. **Reglas de color:** destaque dispositivos con batería baja o desconectados.
 
-**Ejemplo de diseño:**
+**Ejemplo de disposición:**
 
-| Dispositivo | Ubicación | Última vez visto | Batería | Distancia | Estado              |
-|-------------|-----------|------------------|---------|-----------|---------------------|
-| Wari-001    | Sitio A   | hace 2 min       | 3.85 V  | 1234 mm   | 🟢 OK               |
-| Wari-002    | Sitio B   | hace 17 min      | 3.45 V  | 2456 mm   | 🟡 Batería baja     |
-| Lidar-001   | Sitio C   | hace 3 horas     | 3.12 V  | --        | 🔴 Sin conexión     |
+| Dispositivo | Ubicación | Última actividad | Batería | Distancia | Estado |
+|-------------|-----------|------------------|---------|-----------|--------|
+| Wari-001 | Sitio A | Hace 2 min | 3.85 V | 1234 mm | 🟢 Bien |
+| Wari-002 | Sitio B | Hace 17 min | 3.45 V | 2456 mm | 🟡 Batería baja |
+| Lidar-001 | Sitio C | Hace 3 horas | 3.12 V | -- | 🔴 Desconectado |
 
 ---
 
-## Gestión de Usuarios
+## Gestión de usuarios
 
-### Agregar Usuarios (Solo Cloud/Autoalojado)
+### Añadir usuarios (solo Cloud o alojamiento propio)
 
-El servidor de demostración no admite múltiples usuarios.
+El servidor de demostración no admite varios usuarios.
 
-**En Cloud/Autoalojado:**
+**En Cloud o en una instalación propia:**
 
-1. **Navegar a "Users"** (barra lateral izquierda)
-2. **Hacer clic en "+ Add User"**
-3. **Completar formulario:**
-    - Correo electrónico, nombre
+1. **Abra "Users"** en la barra lateral.
+2. **Haga clic en "+ Add User".**
+3. **Rellene el formulario:**
+    - Correo electrónico y nombre
     - Rol (Customer, Tenant, etc.)
-4. **Asignar permisos:**
-    - Solo lectura (para partes interesadas)
-    - Acceso completo (para técnicos)
-5. **Enviar correo** de activación
+4. **Asigne permisos:**
+    - Solo lectura (para otras partes interesadas)
+    - Acceso completo (para personal técnico)
+5. **Envíe el correo** de activación.
 
-### Compartir Paneles
+### Compartir paneles
 
 **Enlace público** (solo lectura):
 
-1. Abrir el panel
-2. Hacer clic en el icono **"Share"** (arriba a la derecha)
-3. Activar **"Public"**
-4. Copiar el enlace
-5. Compartir la URL con las partes interesadas
+1. Abra el panel.
+2. Haga clic en el icono **"Share"** (arriba a la derecha).
+3. Active **"Public"**.
+4. Copie el enlace.
+5. Comparta la URL con las partes interesadas.
 
-**Ventajas:** Fácil de compartir, no requiere inicio de sesión  
-**Desventajas:** Cualquier persona con el enlace puede ver los datos
+**Ventaja:** compartir es fácil; no requiere inicio de sesión.  
+**Inconveniente:** cualquier persona con el enlace puede verlo.
 
 ---
 
-## Aplicación Móvil de ThingsBoard
+## Aplicación móvil ThingsBoard
 
-### Instalación de la Aplicación
+### Instalación de la aplicación
 
 **iOS:**
 
-- App Store: Buscar "ThingsBoard Live"
-- O: https://apps.apple.com/app/thingsboard-live
+- App Store: busque "ThingsBoard Live".
+- O visite https://apps.apple.com/app/thingsboard-live.
 
 **Android:**
 
-- Google Play: Buscar "ThingsBoard Live"
-- O: https://play.google.com/store/apps/details?id=org.thingsboard.demo.app
+- Google Play: busque "ThingsBoard Live".
+- O visite https://play.google.com/store/apps/details?id=org.thingsboard.demo.app.
 
-### Configuración de la Aplicación
+### Configuración de la aplicación
 
-1. **Abrir la aplicación**
-2. **Seleccionar servidor:**
-    - Demo: `demo.thingsboard.io`
+1. **Abra la aplicación.**
+2. **Elija el servidor:**
+    - Demostración: `demo.thingsboard.io`
     - Cloud: `thingsboard.cloud`
-    - Personalizado: URL de tu servidor
-3. **Iniciar sesión** con las credenciales
-4. Los **paneles** aparecen en la pantalla de inicio
-5. **Tocar para ver** datos en tiempo real
+    - Personalizado: URL de su servidor
+3. **Inicie sesión** con sus credenciales.
+4. **Los paneles** aparecerán en la pantalla de inicio.
+5. **Tóquelos** para consultar los datos en tiempo real.
 
 **Funciones móviles:**
 
 - Ver paneles
-- Revisar alarmas
+- Consultar alarmas
 - Exportar datos
-- Notificaciones push (si está configurado)
+- Recibir notificaciones push (si están configuradas)
 
 ---
 
-## Solución de Problemas
+## Solución de problemas
 
-### No Aparecen Datos
+### No aparecen datos
 
-**Lista de verificación:**
+**Lista de comprobación:**
 
-1. **Verificar que el registrador esté enviando datos**
-    - Revisar el Monitor Serial para "HTTP 200 OK"
-    - Verificar que la tarjeta SD tenga datos recientes
-2. **Comprobar el token de acceso** en el código de Arduino
-3. **Verificar la URL del servidor** que coincida con la instancia de ThingsBoard
-4. **Probar con curl** (solicitud POST manual)
-5. **Revisar la pestaña "Latest Telemetry"** del dispositivo (no solo el panel)
-6. **Inspeccionar la conectividad de red** (¿XBee registrado?)
+1. **Compruebe que el registrador envía datos:**
+    - Busque "HTTP 200 OK" en el monitor serie.
+    - Compruebe que la tarjeta SD contiene datos recientes.
+2. **Compruebe el token de acceso** en el código Arduino.
+3. **Compruebe que la URL** corresponde a la instancia de ThingsBoard.
+4. **Pruebe con curl** (petición POST manual).
+5. **Compruebe la pestaña "Latest Telemetry"** del dispositivo, no solo el panel.
+6. **Revise la conectividad** (¿está registrado el XBee?).
 
-### Los Datos Aparecen pero el Panel Está en Blanco
+### Aparecen datos, pero el panel está vacío
 
-1. **Revisar la configuración del widget:**
-    - ¿Está seleccionado el dispositivo correcto?
-    - ¿Las claves de datos coinciden con las claves de telemetría?
-    - ¿La ventana de tiempo incluye el período de datos?
-2. **Actualizar el panel** (F5)
-3. **Revisar la consola del navegador** para ver errores
+1. **Revise la configuración del widget:**
+    - ¿Se seleccionó el dispositivo correcto?
+    - ¿Coinciden las claves con las de telemetría?
+    - ¿Incluye la ventana temporal el periodo de los datos?
+2. **Actualice el panel** (F5).
+3. **Compruebe la consola del navegador** para detectar errores.
 
-### Las Alarmas No Se Activan
+### Las alarmas no se activan
 
-1. **Verificar la sintaxis de la condición** de la regla de alarma
-2. **Comprobar que los valores de telemetría** cumplan la condición
-3. **Asegurarse de que la alarma esté limpia** (no se volverá a activar si ya está activa)
-4. **Probar con datos manuales** (POST con curl con valores que activen la alarma)
+1. **Revise la sintaxis** de la condición de la regla.
+2. **Compruebe que los valores** cumplen la condición.
+3. **Verifique que la alarma anterior se haya cerrado** (una alarma ya activa no vuelve a dispararse).
+4. **Pruebe con datos manuales** (POST con curl y valores que activen la alarma).
 
-### Datos Retrasados
+### Los datos llegan con retraso
 
-- ThingsBoard procesa datos rápidamente (generalmente < 1 segundo)
-- El retraso suele estar en la transmisión (tiempo de conexión XBee)
-- Revisar la tasa de actualización del widget (intervalo de actualización automática)
+- ThingsBoard suele procesarlos rápidamente (normalmente en menos de un segundo).
+- El retraso suele deberse a la transmisión (tiempo de conexión del XBee).
+- Compruebe la frecuencia de actualización automática del widget.
 
 ---
 
-## Buenas Prácticas
+## Buenas prácticas
 
-### Diseño del Panel
+### Diseño del panel
 
-**Hacer:**
+**Haga lo siguiente:**
 
-- Usar títulos de widgets claros
-- Mostrar las métricas clave de forma prominente
-- Codificar por colores según gravedad (rojo = malo, verde = bueno)
-- Incluir contexto temporal (última actualización)
-- Agrupar datos relacionados
+- Utilice títulos claros para los widgets.
+- Destaque las métricas principales.
+- Asigne colores según la gravedad (rojo = problema, verde = correcto).
+- Indique cuándo se actualizaron los datos por última vez.
+- Agrupe datos relacionados.
 
-**No hacer:**
+**Evite:**
 
-- Sobrecargar con demasiados widgets
-- Usar escalas engañosas
-- Olvidar a los usuarios móviles (probar en el teléfono)
+- Saturar el panel con demasiados widgets.
+- Utilizar escalas engañosas.
+- Olvidar a los usuarios móviles (pruebe en un teléfono).
 
-### Gestión de Datos
+### Gestión de datos
 
-- **Exportar datos regularmente** (copia de seguridad en caso de problemas con la cuenta)
-- **Documentar atributos del dispositivo** (ubicación de instalación, altura, etc.)
-- **Usar nombres coherentes** (Wari-001, no "registrador en el arroyo")
-- **Revisar alarmas semanalmente** (ajustar umbrales según la experiencia)
+- **Exporte datos periódicamente** como copia de seguridad ante problemas con la cuenta.
+- **Documente los atributos del dispositivo** (ubicación, altura de instalación, etc.).
+- **Use nombres coherentes** (`Wari-001`, no "logger at creek").
+- **Revise las alarmas semanalmente** y ajuste los umbrales según la experiencia.
 
 ### Seguridad
 
-- **Usar HTTPS** para ThingsBoard Cloud/autoalojado
-- **Rotar tokens de acceso** si se ven comprometidos
-- **Limitar el uso compartido de paneles públicos** a datos no sensibles
-- **Usar contraseñas seguras**
-- **Activar 2FA** si está disponible (Cloud/autoalojado)
+- **Utilice HTTPS** en ThingsBoard Cloud o en una instalación propia.
+- **Rote los tokens de acceso** si se ven comprometidos.
+- **Limite los paneles públicos** a datos no sensibles.
+- **Utilice contraseñas robustas.**
+- **Active 2FA** si está disponible (Cloud o alojamiento propio).
 
 ---
 
-## Consideraciones de Costo
+## Costes
 
-### Servidor de Demostración
+### Servidor de demostración
 
-- **Costo:** Gratuito
-- **Límites:** Retención de datos, sin SLA, eliminación periódica
-- **Ideal para:** Pruebas, educación
+- **Coste:** gratuito.
+- **Límites:** conservación de datos, ausencia de SLA y eliminación periódica.
+- **Adecuado para:** pruebas y formación.
 
 ### ThingsBoard Cloud
 
-- **Nivel gratuito:** 
+- **Plan gratuito:**
     - 1 dispositivo
-    - Paneles limitados
+    - Número limitado de paneles
     - Soporte comunitario
-- **Planes de pago:** ~$10–50+/mes
+- **Planes de pago:** ~$10–50+ al mes.
     - Más dispositivos
     - Funciones avanzadas
-    - Soporte técnico
+    - Asistencia técnica
     - SLA
 
-### Autoalojado
-- **Infraestructura:** $5–20+/mes (DigitalOcean, AWS)
-- **Tiempo de configuración:** 4–8 horas (primera vez)
-- **Mantenimiento:** Continuo
-- **Ideal para:** Organizaciones con recursos de TI
+### Alojamiento propio
+- **Infraestructura:** $5–20+ al mes (DigitalOcean, AWS).
+- **Tiempo de instalación:** 4–8 horas (primera vez).
+- **Mantenimiento:** continuo.
+- **Adecuado para:** organizaciones con recursos informáticos.
 
 ---
 
 ## Alternativas a ThingsBoard
 
-Si ThingsBoard no se adapta a tus necesidades:
+Si ThingsBoard no responde a sus necesidades:
 
 **Código abierto:**
 
-- **Grafana + InfluxDB:** Popular, potente, curva de aprendizaje pronunciada
-- **Node-RED:** Programación de flujos visual, flexible
-- **Emoncms:** Enfocado en monitoreo de energía
+- **Grafana + InfluxDB:** popular y potente, pero difícil de aprender.
+- **Node-RED:** programación visual de flujos, flexible.
+- **Emoncms:** centrado en la supervisión energética.
 
-**Comercial:**
+**Comerciales:**
 
-- **Losant:** Plataforma IoT empresarial
-- **Ubidots:** Fácil de usar, precios moderados
-- **TagoIO:** Bueno para prototipos
+- **Losant:** plataforma IoT empresarial.
+- **Ubidots:** fácil de usar; precio moderado.
+- **TagoIO:** adecuada para prototipos.
 
-**DIY:**
+**Desarrollo propio:**
 
-- Servidor personalizado con PHP/Python + MySQL
-- Google Sheets (mediante IFTTT o script personalizado)
+- Servidor personalizado con PHP/Python + MySQL.
+- Google Sheets (mediante IFTTT o un script personalizado).
 
 ---
 
-## Próximos Pasos
+## Siguientes pasos
 
-- [Guía de configuración de XBee](xbee-setup-walkthrough.md): Configuración detallada de XBee
-- [Solución de problemas de conexión](troubleshooting-connections.md): Resolver problemas de telemetría
-- [Documentación de ThingsBoard](https://thingsboard.io/docs/): Documentación oficial para funciones avanzadas
-- [Guía de batería y alimentación](../operation/hardware/battery-power-guide.md): Monitorear el estado de la batería
+- [Guía paso a paso de XBee](xbee-setup-walkthrough.md): configuración detallada del XBee
+- [Solución de problemas de conexión](troubleshooting-connections.md): resolver problemas de telemetría
+- [Documentación de ThingsBoard](https://thingsboard.io/docs/): documentación oficial sobre funciones avanzadas
+- [Guía de baterías y alimentación](../operation/hardware/battery-power-guide.md): supervisar el estado de la batería
 
 ---
 
 !!! success "¡Panel listo!"
-    Tu panel de ThingsBoard está ahora configurado y mostrando datos en tiempo real. ¡Compruébalo diariamente durante la primera semana para asegurarte de que funciona de manera estable!
+    El panel de ThingsBoard ya está configurado y muestra datos en tiempo real. Compruébelo cada día durante la primera semana para asegurarse de que funciona de forma estable.

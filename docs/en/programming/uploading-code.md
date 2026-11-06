@@ -1,4 +1,3 @@
-
 # Programming the Riverlabs loggers
 
 !!! Abstract "Overview"

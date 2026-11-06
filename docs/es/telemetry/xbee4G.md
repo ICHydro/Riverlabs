@@ -1,84 +1,84 @@
 ---
-title: Configuración y resolución de problemas del módem XBee 4G LTE
+title: Configuración y solución de problemas del módem Xbee 4G LTE
 tags:
 keywords: 
-last_updated: 1 febrero 2026
-summary: "Guía de configuración y resolución de problemas para módems DIGI XBee 4G LTE con integración de ThingsBoard"
+last_updated: 1 de febrero de 2026
+summary: "Guía de configuración y solución de problemas de los módems DIGI XBee 4G LTE con integración en ThingsBoard"
 sidebar: home_sidebar
 permalink: xbee4G.html
 ---
 
-## Resumen
+## Descripción general
 
-Los módems DIGI XBee 4G LTE proporcionan conectividad celular utilizando redes LTE Cat 1. Esta guía cubre la configuración para su uso con registradores Riverlabs e integración con ThingsBoard Cloud.
+Los módems DIGI XBee 4G LTE proporcionan conectividad celular mediante redes LTE Cat 1. Esta guía explica cómo configurarlos para utilizarlos con registradores Riverlabs e integrarlos con ThingsBoard Cloud.
 
-## Configuraciones Clave
+## Ajustes principales
 
-### Interfaz Serie
+### Interfaz serie
 
 ```
 BD: 9600
 NB: sin paridad
 SB: un bit de parada
-AP: modo API con escapes
+AP: modo API con caracteres de escape
 ```
 
-### Configuración de Red
+### Configuración de red
 
 ```
-AN: APN (específico de la red, p.ej., "eapn1.net")
-CP: Perfil del Operador (0 = Auto)
-N#: Tecnología de Red (2 = LTE Cat 1)
+AN: APN (específico de la red; p. ej., "eapn1.net")
+CP: perfil del operador (0 = automático)
+N#: tecnología de red (2 = LTE Cat 1)
 ```
 
-### Comandos de Sueño
+### Comandos de suspensión
 
 ```
-SM: pin sleep [1]
+SM: suspensión por pin [1]
 ```
 
 ## Integración con ThingsBoard Cloud
 
-### Selección del Protocolo
+### Selección del protocolo
 
-ThingsBoard Cloud admite múltiples protocolos para la ingesta de datos:
+ThingsBoard Cloud admite varios protocolos para recibir datos:
 
-#### HTTP (Recomendado)
+#### HTTP (recomendado)
 - **Puerto**: 80
 - **Protocolo**: TCP (1)
-- **Host**: `thingsboard.cloud`
-- **Endpoint**: `/api/v1/{ACCESS_TOKEN}/telemetry`
+- **Servidor**: `thingsboard.cloud`
+- **Ruta**: `/api/v1/{ACCESS_TOKEN}/telemetry`
 - **Content-Type**: `application/json`
 
 **Configuración en el código:**
 ```cpp
-//#define COAP                    // Comentar para usar HTTP
+//#define COAP                    // Mantener comentado para usar HTTP
 #define HOST "thingsboard.cloud"
 const uint16_t Port = 0x50;     // Puerto 80
 uint8_t protocol = 1;           // TCP
 ```
 
-#### CoAPS (CoAP Seguro)
+#### CoAPS (CoAP seguro)
 - **Puerto**: 5684
 - **Protocolo**: SSL sobre TCP (4)
-- **Host**: `coap.thingsboard.cloud`
-- **Nota**: Requiere soporte DTLS - **no recomendado** para XBee 4G ya que el SSL estándar sobre TCP no es compatible con el requisito DTLS de CoAP
+- **Servidor**: `coap.thingsboard.cloud`
+- **Nota**: requiere compatibilidad con DTLS; **no se recomienda** para XBee 4G, ya que SSL estándar sobre TCP no es compatible con el requisito DTLS de CoAP.
 
 **Configuración en el código:**
 ```cpp
-#define COAP                           // Habilitar CoAP
+#define COAP                           // Activar CoAP
 #define HOST "coap.thingsboard.cloud"
 const uint16_t Port = 0x1634;          // Puerto 5684
 uint8_t protocol = 4;                  // SSL sobre TCP
 ```
 
-#### CoAP Plano (No Compatible con ThingsBoard Cloud)
+#### CoAP sin cifrar (no admitido por ThingsBoard Cloud)
 - **Puerto**: 5683 (UDP)
-- **Nota**: ThingsBoard Cloud **no** admite CoAP plano sin cifrado
+- **Nota**: ThingsBoard Cloud **no** admite CoAP sin cifrado.
 
-### Probar la Conexión
+### Prueba de la conexión
 
-Pruebe su configuración de ThingsBoard con curl:
+Pruebe la configuración de ThingsBoard con curl:
 
 ```bash
 curl -v -X POST http://thingsboard.cloud/api/v1/{ACCESS_TOKEN}/telemetry \
@@ -86,92 +86,92 @@ curl -v -X POST http://thingsboard.cloud/api/v1/{ACCESS_TOKEN}/telemetry \
   --data "{temperature:25}"
 ```
 
-Reemplace `{ACCESS_TOKEN}` con el token de acceso de su dispositivo en ThingsBoard.
+Sustituya `{ACCESS_TOKEN}` por el token de acceso de su dispositivo en ThingsBoard.
 
-## Resolución de Problemas
+## Solución de problemas
 
-### Códigos de Estado AI
+### Códigos de estado AI
 
-El comando AI (Association Indication) del XBee devuelve el estado de la conexión celular:
+El comando AI (indicación de asociación) del XBee devuelve el estado de la conexión celular:
 
 | Código | Estado | Significado |
 |--------|--------|-------------|
-| 0x00 | Conectado | ✅ Conectado a internet - listo para enviar datos |
-| 0x22 | Registrando | Registrándose en la red celular |
-| 0x23 | Conectando | Conectándose a internet |
-| 0x25 | Denegado | Registro denegado por la red |
-| 0xFF | Inicializando | Módem inicializándose o escaneando redes |
+| 0x00 | Conectado | ✅ Conectado a internet; listo para enviar datos |
+| 0x22 | Registrándose | Registrándose en la red celular |
+| 0x23 | Conectándose | Conectándose a internet |
+| 0x25 | Rechazado | La red ha rechazado el registro |
+| 0xFF | Inicializándose | El módem se está inicializando o buscando redes |
 
-**Monitorear el estado AI:**
+**Supervisar el estado AI:**
 ```cpp
 Serial.print(F("AI status = "));
 Serial.println(AIstatus, HEX);
 ```
 
-### Problemas Comunes
+### Problemas habituales
 
-#### El dispositivo se conecta pero no aparecen datos en ThingsBoard
+#### El dispositivo se conecta, pero no aparecen datos en ThingsBoard
 
 **Síntomas:**
 - Estado AI = 0 (conectado)
-- Dirección IP recibida correctamente
-- Sin errores en la salida serie
-- Sin datos en el panel de ThingsBoard
+- Dirección IP obtenida correctamente
+- No hay errores en la salida serie
+- No aparecen datos en el panel de ThingsBoard
 
 **Posibles causas:**
 
-1. **Combinación incorrecta de protocolo/puerto**
-   - CoAP definido pero usando puerto HTTP (80)
-   - Modo HTTP pero usando puerto CoAP (5683 o 5684)
-   - Protocolo SSL (4) usado con CoAP plano
+1. **Combinación incorrecta de protocolo y puerto**
+   - COAP definido, pero se utiliza el puerto HTTP (80)
+   - Modo HTTP, pero se utiliza un puerto CoAP (5683 o 5684)
+   - Protocolo SSL (4) utilizado con CoAP sin cifrar
 
-2. **Nombre de host incorrecto**
-   - Usando `thingsboard.cloud` para CoAPS (debería ser `coap.thingsboard.cloud`)
-   - Usando `coap.thingsboard.cloud` para HTTP (debería ser `thingsboard.cloud`)
+2. **Nombre de servidor incorrecto**
+   - Se usa `thingsboard.cloud` para CoAPS (debería ser `coap.thingsboard.cloud`)
+   - Se usa `coap.thingsboard.cloud` para HTTP (debería ser `thingsboard.cloud`)
 
 3. **Token de acceso incorrecto**
-   - Verificar que el token coincida con su dispositivo en ThingsBoard
-   - Verificar si hay espacios adicionales o caracteres
+   - Compruebe que el token corresponde a su dispositivo en ThingsBoard
+   - Compruebe que no haya espacios ni caracteres adicionales
 
 **Solución:**
-- Usar el modo HTTP (recomendado) con la configuración adecuada
-- Verificar que los tres parámetros coincidan: HOST, Puerto y protocolo
+- Utilice el modo HTTP (recomendado) con la configuración adecuada
+- Compruebe que coincidan los tres parámetros: HOST, Port y protocol
 
-#### Tiempos de espera de conexión
+#### La conexión agota el tiempo de espera
 
 **Síntomas:**
 - "Timeout or error. Trying again next wakeup."
-- Mensaje enviado pero sin respuesta
+- El mensaje se envía, pero no se recibe respuesta
 
 **Posibles causas:**
 - Congestión de la red
 - Protocolo incorrecto para el puerto
-- Cortafuegos bloqueando las conexiones
+- Cortafuegos que bloquea las conexiones
 
 **Solución:**
-- Aumentar el valor de `TIMEOUT` en la configuración
-- Verificar que el protocolo coincida con los requisitos del endpoint
-- Verificar la configuración del APN para su operador
+- Aumente el valor de `TIMEOUT` en la configuración
+- Compruebe que el protocolo corresponde a los requisitos de la ruta de acceso
+- Revise los ajustes de APN de su operador
 
-#### Fallo en la búsqueda DNS
+#### Falla la resolución DNS
 
 **Síntomas:**
-- Aparece "Sending DNS Lookup" pero no se recibe ninguna dirección IP
-- Sin mensaje "Callback - IP Address"
+- Aparece "Sending DNS Lookup", pero no se recibe ninguna dirección IP
+- No aparece el mensaje "Callback - IP Address"
 
 **Posibles causas:**
-- APN no configurado correctamente
+- APN mal configurado
 - La red no permite consultas DNS
-- Problema de firmware del XBee
+- Problema con el firmware del XBee
 
 **Solución:**
-- Verificar que la configuración del APN coincida con su operador
-- Intentar codificar la dirección IP en lugar del nombre de host (no recomendado para producción)
-- Actualizar el firmware del XBee
+- Compruebe que el APN coincide con el de su operador
+- Pruebe a especificar la dirección IP directamente en lugar del nombre de servidor (no recomendado para producción)
+- Actualice el firmware del XBee
 
-### Monitorear el Estado de la Conexión
+### Supervisión del estado de conexión
 
-Agregar salida de depuración para rastrear el progreso de la conexión:
+Añada mensajes de depuración para seguir el progreso de la conexión:
 
 ```cpp
 #ifdef DEBUG > 0
@@ -182,9 +182,9 @@ Agregar salida de depuración para rastrear el progreso de la conexión:
 #endif
 ```
 
-## Formato de Datos
+## Formato de datos
 
-### Payload JSON para HTTP
+### Carga JSON de HTTP
 
 ```json
 {
@@ -198,27 +198,27 @@ Agregar salida de depuración para rastrear el progreso de la conexión:
 ```
 
 Donde:
-- `ts`: Marca de tiempo en milisegundos desde el epoch
-- `h`: Medición de altura/distancia
-- `v`: Voltaje de la batería (en centivoltios)
-- `t`: Temperatura (en centígrados Celsius)
+- `ts`: marca de tiempo en milisegundos desde la época Unix
+- `h`: medición de altura o distancia
+- `v`: tensión de la batería (en centivoltios)
+- `t`: temperatura (en centésimas de grado Celsius)
 
-### Payload CoAP
+### Carga de CoAP
 
-CoAP usa el mismo formato JSON pero encapsulado en la estructura de mensajes CoAP con opciones para la ruta de la API.
+CoAP utiliza el mismo formato JSON, pero encapsulado en la estructura de mensajes CoAP con opciones para la ruta de la API.
 
-## Mejores Prácticas
+## Buenas prácticas
 
-1. **Comenzar con HTTP** - Es más simple y confiable para las pruebas iniciales
-2. **Monitorear el estado AI** - Siempre verificar el estado de la conexión antes de enviar datos
-3. **Usar la salida de depuración** - Habilitar la depuración completa (`DEBUG 2`) durante el desarrollo
-4. **Probar primero con curl** - Verificar que su endpoint de ThingsBoard funcione antes de probar con hardware
-5. **Verificar la configuración de tiempo de espera** - Permitir suficiente tiempo para la conexión celular (predeterminado 600s)
-6. **Verificar el APN** - El APN incorrecto es el error de configuración más común
+1. **Empiece con HTTP**: es más sencillo y fiable para las primeras pruebas.
+2. **Supervise el estado AI**: compruebe siempre la conexión antes de enviar datos.
+3. **Utilice los mensajes de depuración**: active la depuración completa (`DEBUG 2`) durante el desarrollo.
+4. **Pruebe primero con curl**: compruebe que la ruta de ThingsBoard funciona antes de probar el hardware.
+5. **Revise los tiempos de espera**: conceda tiempo suficiente para la conexión celular (600 s por defecto).
+6. **Compruebe el APN**: un APN incorrecto es el error de configuración más habitual.
 
 ## Referencias
 
-- [Página del Producto DIGI XBee 4G LTE](https://www.digi.com/products/embedded-systems/digi-xbee/cellular-modems/xbee-cellular-lte-cat-1)
-- [API HTTP de Dispositivo ThingsBoard](https://thingsboard.io/docs/reference/http-api/)
-- [API CoAP de Dispositivo ThingsBoard](https://thingsboard.io/docs/reference/coap-api/)
-- [Referencia de Comandos API XBee](https://www.digi.com/resources/documentation/digidocs/90001477/references)
+- [Página del producto DIGI XBee 4G LTE](https://www.digi.com/products/embedded-systems/digi-xbee/cellular-modems/xbee-cellular-lte-cat-1)
+- [API HTTP para dispositivos de ThingsBoard](https://thingsboard.io/docs/reference/http-api/)
+- [API CoAP para dispositivos de ThingsBoard](https://thingsboard.io/docs/reference/coap-api/)
+- [Referencia de comandos de la API de XBee](https://www.digi.com/resources/documentation/digidocs/90001477/references)

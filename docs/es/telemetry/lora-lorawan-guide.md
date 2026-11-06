@@ -1,115 +1,115 @@
-# Guía de Configuración LoRa / LoRaWAN
+# Guía de configuración de LoRa / LoRaWAN
 
-!!! abstract "Resumen"
-    Esta guía explica cómo configurar su dispositivo LoRaWAN usando la biblioteca MCCI LMIC y conectarlo a The Things Network (TTN). Cubre el formato de EUI, la optimización del payload, las políticas de uso de TTN y las mejores prácticas.
+!!! abstract "Descripción general"
+    Esta guía explica cómo configurar su dispositivo LoRaWAN con la biblioteca MCCI LMIC y conectarlo a The Things Network (TTN). Incluye el formato de los EUI, la optimización de las cargas útiles, las políticas de uso de TTN y las buenas prácticas.
 
 ## ¿Qué es LoRaWAN?
 
-**LoRaWAN** (Long Range Wide Area Network) es un protocolo inalámbrico de bajo consumo y largo alcance diseñado para dispositivos IoT. Es ideal para sensores alimentados por batería que necesitan enviar pequeñas cantidades de datos a largas distancias.
+**LoRaWAN** (red de área amplia de largo alcance) es un protocolo inalámbrico de bajo consumo y largo alcance diseñado para dispositivos IoT. Es ideal para sensores alimentados por batería que envían pequeñas cantidades de datos a grandes distancias.
 
-**Características Clave:**
+**Características principales:**
 
-- **Alcance:** Hasta 10–15 km en línea visual, 2–5 km en áreas urbanas
-- **Energía:** Consumo de energía extremadamente bajo (años con batería)
-- **Tasa de Datos:** Baja (0.3–50 kbps según el factor de dispersión)
-- **Frecuencia:** Bandas ISM sin licencia (868 MHz en UE, 915 MHz en EE.UU.)
-- **Infraestructura:** Requiere gateway conectado al servidor de red
+- **Alcance:** hasta 10–15 km con línea de visión; 2–5 km en zonas urbanas
+- **Consumo:** extremadamente bajo (años con batería)
+- **Velocidad de datos:** baja (0,3–50 kbps según el factor de dispersión)
+- **Frecuencia:** bandas ISM sin licencia (868 MHz en la UE, 915 MHz en EE. UU.)
+- **Infraestructura:** requiere una pasarela conectada al servidor de red
 
-**LoRa vs. Celular:**
+**LoRa frente a la red celular:**
 
-| Característica | LoRaWAN                                   | Celular (3G/4G)                  |
-|----------------|-------------------------------------------|----------------------------------|
-| **Alcance**    | 2–15 km                                   | Dependiente de la operadora      |
-| **Energía**    | Ultra-bajo                                | Mayor                            |
-| **Costo**      | Gateway necesario, sin cuotas SIM         | Cuotas mensuales de SIM          |
-| **Tasa de Datos** | Muy baja (bytes/minuto)               | Alta (MB/s)                      |
-| **Latencia**   | Mayor                                     | Menor                            |
-| **Mejor Para** | Actualizaciones poco frecuentes, vida crítica de la batería | Datos en tiempo real, actualizaciones frecuentes |
+| Característica | LoRaWAN | Red celular (3G/4G) |
+|---------------|---------|---------------------|
+| **Alcance** | 2–15 km | Depende del operador |
+| **Consumo** | Muy bajo | Mayor |
+| **Coste** | Requiere pasarela; sin cuotas de SIM | Cuotas mensuales de SIM |
+| **Velocidad de datos** | Muy baja (bytes/minuto) | Alta (MB/s) |
+| **Latencia** | Mayor | Menor |
+| **Adecuado para** | Actualizaciones poco frecuentes; autonomía prioritaria | Datos en tiempo real; actualizaciones frecuentes |
 
 ---
 
-## Arquitectura del Sistema
+## Arquitectura del sistema
 
-### Componentes Necesarios
+### Componentes necesarios
 
-1. **Dispositivo Final (Registrador)**: Su registrador Riverlabs con radio LoRa
-2. **Gateway**: Recibe señales LoRa y las reenvía al servidor de red
-3. **Servidor de Red**: The Things Network (TTN) u otra red LoRaWAN
-4. **Servidor de Aplicaciones**: Su panel de control/base de datos (p.ej., ThingsBoard)
+1. **Dispositivo final (registrador)**: registrador Riverlabs con radio LoRa
+2. **Pasarela**: recibe las señales LoRa y las reenvía al servidor de red
+3. **Servidor de red**: The Things Network (TTN) u otra red LoRaWAN
+4. **Servidor de aplicaciones**: panel de control o base de datos (p. ej., ThingsBoard)
 
-### Flujo de Datos
+### Flujo de datos
 
 ```
-Registrador (LoRa) → Gateway → Servidor de Red TTN → Servidor de Aplicaciones → Panel
+Registrador (LoRa) → Pasarela → Servidor de red TTN → Servidor de aplicaciones → Panel de control
 ```
 
-**Cómo Funciona:**
+**Funcionamiento:**
 
-1. El registrador envía un paquete de radio LoRa (cifrado)
-2. El/los gateway(s) cercano(s) reciben el paquete
-3. El gateway reenvía a TTN a través de internet
-4. TTN descifra, valida y enruta a su aplicación
-5. Su aplicación procesa y muestra los datos
+1. El registrador envía un paquete de radio LoRa cifrado.
+2. Una o varias pasarelas cercanas reciben el paquete.
+3. La pasarela lo reenvía a TTN por internet.
+4. TTN lo descifra, valida y dirige a su aplicación.
+5. La aplicación procesa y muestra los datos.
 
 ---
 
 ## Configuración de The Things Network (TTN)
 
-### Paso 1: Crear Cuenta en TTN
+### Paso 1: Crear una cuenta de TTN
 
-1. Ir a [The Things Network Console](https://console.thethingsnetwork.org/)
-2. Crear cuenta gratuita
-3. Seleccionar su región (p.ej., EU868 o US915)
+1. Vaya a la [consola de The Things Network](https://console.thethingsnetwork.org/).
+2. Cree una cuenta gratuita.
+3. Seleccione su región (p. ej., EU868 o US915).
 
-### Paso 2: Registrar Gateway
+### Paso 2: Registrar una pasarela
 
-Si tiene su propio gateway:
+Si dispone de una pasarela propia:
 
-1. **Hacer clic en "Gateways" → "Add Gateway"**
-2. **ID del Gateway:** Identificador único para su gateway
-3. **EUI del Gateway:** EUI de hardware (normalmente en la etiqueta del gateway)
-4. **Plan de Frecuencia:** Coincidir con su región (p.ej., Europe 863-870 MHz SF9)
-5. **Router:** Automático
+1. **Haga clic en "Gateways" → "Add Gateway".**
+2. **Gateway ID:** identificador único de la pasarela.
+3. **Gateway EUI:** EUI del hardware (normalmente figura en la etiqueta).
+4. **Frequency Plan:** debe corresponder a su región (p. ej., Europa 863-870 MHz SF9).
+5. **Router:** automático.
 
-**Opciones de Gateway:**
+**Opciones de pasarela:**
 
-- **Comercial:** Dragino LPS8, Mikrotik wAP LoRa, gateways RAK Wireless
-- **DIY:** Raspberry Pi + tarjeta concentradora LoRa
-- **Público:** Usar gateways de la comunidad (verificar [TTN Mapper](https://ttnmapper.org/) para cobertura)
+- **Comercial:** Dragino LPS8, Mikrotik wAP LoRa, pasarelas RAK Wireless
+- **Montaje propio:** Raspberry Pi + tarjeta concentradora LoRa
+- **Pública:** pasarelas comunitarias (consulte la cobertura en [TTN Mapper](https://ttnmapper.org/))
 
-### Paso 3: Registrar Aplicación
+### Paso 3: Registrar una aplicación
 
-1. **Hacer clic en "Applications" → "Add Application"**
-2. **ID de Aplicación:** Nombre descriptivo (p.ej., `river-monitoring`)
-3. **Descripción:** Opcional
-4. **Handler:** Automático
+1. **Haga clic en "Applications" → "Add Application".**
+2. **Application ID:** nombre descriptivo (p. ej., `river-monitoring`).
+3. **Description:** opcional.
+4. **Handler:** automático.
 
-### Paso 4: Registrar Dispositivo Final
+### Paso 4: Registrar un dispositivo final
 
-1. **En su aplicación, hacer clic en "Register Device"**
-2. **ID del Dispositivo:** Nombre único (p.ej., `wari-logger-001`)
-3. **EUI del Dispositivo (DevEUI):** Identificador único para su dispositivo
-    - Normalmente preprogramado en el módulo LoRa
-    - O generar uno en TTN
-4. **Clave de Aplicación (AppKey):** Generada por TTN (para activación OTAA)
-5. **Método de Activación:** OTAA (Over-The-Air Activation) recomendado
+1. **En su aplicación, haga clic en "Register Device".**
+2. **Device ID:** nombre único (p. ej., `wari-logger-001`).
+3. **Device EUI (DevEUI):** identificador único del dispositivo.
+    - Suele venir preprogramado en el módulo LoRa.
+    - También puede generarse en TTN.
+4. **Application Key (AppKey):** generada por TTN para la activación OTAA.
+5. **Activation Method:** se recomienda OTAA (activación inalámbrica).
 
 ---
 
-## Requisitos de Formato EUI y Clave
+## Requisitos de formato de EUI y claves
 
-!!! danger "Crítico: El Orden de Bytes Importa"
-    La consola TTN usa el formato **MSB primero** (Byte Más Significativo primero), mientras que la biblioteca MCCI LMIC espera **LSB primero** (Byte Menos Significativo primero) para la mayoría de los identificadores. Obtener esto incorrectamente impide que su dispositivo se una a la red.
+!!! danger "Importante: el orden de los bytes importa"
+    La consola de TTN emplea el formato **MSB primero** (byte más significativo primero), mientras que la biblioteca MCCI LMIC espera **LSB primero** (byte menos significativo primero) para la mayoría de los identificadores. Un orden incorrecto impedirá que el dispositivo se una a la red.
 
-### Tabla de Comparación de Formatos
+### Comparación de formatos
 
-| Campo              | Formato en Consola TTN | Formato en Código LMIC | Notas                      |
-|--------------------|-----------------------|------------------------|----------------------------|
-| **DevEUI**         | MSB                   | LSB (invertido)        | ID único del dispositivo   |
-| **AppEUI/JoinEUI** | MSB                   | LSB (invertido)        | ID de aplicación/servidor  |
-| **AppKey**         | MSB                   | MSB (mismo orden)      | Clave de cifrado de app    |
+| Campo | Formato en la consola TTN | Formato en el código LMIC | Notas |
+|-------|---------------------------|--------------------------|-------|
+| **DevEUI** | MSB | LSB (invertido) | Identificador único del dispositivo |
+| **AppEUI/JoinEUI** | MSB | LSB (invertido) | Identificador de aplicación o servidor de unión |
+| **AppKey** | MSB | MSB (mismo orden) | Clave de cifrado de la aplicación |
 
-### Ejemplo de Conversión
+### Ejemplo de conversión
 
 **Consola TTN (MSB):**
 ```
@@ -118,7 +118,7 @@ AppEUI:  88 77 66 55 44 33 22 11
 AppKey:  00 11 22 33 44 55 66 77 88 99 AA BB CC DD EE FF
 ```
 
-**Código LMIC (nota: DevEUI y AppEUI invertidos):**
+**Código LMIC (observe que DevEUI y AppEUI están invertidos):**
 ```cpp
 // DevEUI - INVERTIDO (LSB)
 static const u1_t PROGMEM DEVEUI[8] = { 
@@ -137,182 +137,182 @@ static const u1_t PROGMEM APPKEY[16] = {
 };
 ```
 
-!!! tip "Inversión Fácil de Bytes"
-    Puede invertir los bytes manualmente, o copiar los valores de TTN en orden inverso. Algunos desarrolladores encuentran más fácil ingresar los valores de la consola TTN en orden inverso para que coincidan con su código.
+!!! tip "Cómo invertir los bytes fácilmente"
+    Puede invertir los bytes manualmente o copiarlos de TTN en orden inverso. A algunos desarrolladores les resulta más sencillo introducir los valores de la consola TTN al revés para que coincidan con el código.
 
 ---
 
 ## Configuración de RX2
 
-Las configuraciones de RX2 (Ventana de Recepción 2) deben coincidir entre su dispositivo y TTN.
+Los ajustes de RX2 (segunda ventana de recepción) deben coincidir entre el dispositivo y TTN.
 
-**TTN EU868 Predeterminado:**
+**Valores predeterminados de TTN EU868:**
 
 - **Frecuencia:** 869.525 MHz
-- **Factor de Dispersión:** SF9
-- **Ancho de Banda:** 125 kHz
+- **Factor de dispersión:** SF9
+- **Ancho de banda:** 125 kHz
 
-**En Código LMIC:**
+**En el código LMIC:**
 ```cpp
 LMIC_setupChannel(0, 868100000, DR_RANGE_MAP(DR_SF12, DR_SF7), BAND_CENTI);
-// ... configurar otros canales ...
-LMIC.dn2Dr = DR_SF9;  // Tasa de datos RX2
+// ... configurar los demás canales ...
+LMIC.dn2Dr = DR_SF9;  // Velocidad de datos de RX2
 ```
 
-**Verificar en TTN:**
+**Verificación en TTN:**
 
-1. Ir a la configuración del dispositivo
-2. Verificar la sección "Network Layer"
-3. Confirmar la frecuencia y la tasa de datos de RX2
+1. Vaya a la configuración del dispositivo.
+2. Consulte la sección "Network Layer".
+3. Confirme la frecuencia y la velocidad de datos de RX2.
 
 ---
 
-## Política de Uso Justo de TTN
+## Política de uso justo de TTN
 
-!!! warning "Límites de Tiempo en el Aire"
-    TTN es una red gratuita de la comunidad con límites de **uso justo**:
+!!! warning "Límites de tiempo de transmisión"
+    TTN es una red comunitaria gratuita con límites de **uso justo**:
     
-    - **~30 segundos de tiempo en el aire por día** por dispositivo
-    - **10 mensajes descendentes por día** (mensajes del servidor al dispositivo)
+    - **Unos 30 segundos de tiempo de transmisión al día** por dispositivo
+    - **10 mensajes descendentes al día** (del servidor al dispositivo)
     
-    Exceder los límites puede resultar en que su dispositivo sea limitado o bloqueado.
+    Superar estos límites puede provocar restricciones o el bloqueo del dispositivo.
 
-### Cálculo del Tiempo en el Aire
+### Cálculo del tiempo de transmisión
 
-El tiempo en el aire depende de:
+Depende de:
 
-1. **Tamaño del payload** (bytes)
-2. **Factor de Dispersión** (SF7–SF12)
-3. **Ancho de Banda** (generalmente 125 kHz)
+1. **Tamaño de la carga útil** (bytes)
+2. **Factor de dispersión** (SF7–SF12)
+3. **Ancho de banda** (normalmente 125 kHz)
 
-**Tiempos en el Aire de Ejemplo:**
+**Ejemplos de tiempo de transmisión:**
 
-| Payload  | SF7    | SF9    | SF12    |
-|----------|--------|--------|---------|
-| 10 bytes | 41 ms  | 165 ms | 1318 ms |
-| 20 bytes | 72 ms  | 288 ms | 2302 ms |
+| Carga útil | SF7 | SF9 | SF12 |
+|------------|-----|-----|------|
+| 10 bytes | 41 ms | 165 ms | 1318 ms |
+| 20 bytes | 72 ms | 288 ms | 2302 ms |
 | 51 bytes | 154 ms | 616 ms | 4916 ms |
 
-**Máximo de Mensajes por Día:**
+**Número máximo de mensajes al día:**
 
-| SF   | Payload de 10 bytes | Payload de 20 bytes |
-|------|---------------------|---------------------|
-| SF7  | ~730 mensajes       | ~416 mensajes       |
-| SF9  | ~182 mensajes       | ~104 mensajes       |
-| SF12 | ~23 mensajes        | ~13 mensajes        |
+| SF | Carga de 10 bytes | Carga de 20 bytes |
+|----|-------------------|-------------------|
+| SF7 | ~730 mensajes | ~416 mensajes |
+| SF9 | ~182 mensajes | ~104 mensajes |
+| SF12 | ~23 mensajes | ~13 mensajes |
 
-!!! tip "Mantenerse Dentro de los Límites"
-    - Usar SF7–SF9 cuando sea posible (menor SF = menor tiempo en el aire)
-    - Mantener los payloads pequeños (10–20 bytes típico)
-    - Evitar los uplinks confirmados (duplican el tiempo en el aire)
-    - Transmitir con una frecuencia horaria o menor
+!!! tip "Respete los límites"
+    - Utilice SF7–SF9 cuando sea posible (un SF menor reduce el tiempo de transmisión).
+    - Mantenga pequeñas las cargas útiles (normalmente 10–20 bytes).
+    - Evite los mensajes ascendentes confirmados (duplican el tiempo de transmisión).
+    - Envíe datos cada hora o con menor frecuencia.
 
 ---
 
-## Selección del Factor de Dispersión
+## Selección del factor de dispersión
 
-El **Factor de Dispersión (SF)** controla el equilibrio entre alcance, tasa de datos y tiempo en el aire.
+El **factor de dispersión (SF)** determina el equilibrio entre alcance, velocidad de datos y tiempo de transmisión.
 
-| Nivel SF | Alcance | Tasa de Datos   | Tiempo en el Aire | Mejor Para                               |
-|----------|---------|-----------------|-------------------|------------------------------------------|
-| **SF7**  | Corto   | Rápido (5.5 kbps) | Muy bajo        | Cerca del gateway, actualizaciones frecuentes |
-| **SF8**  | Medio   | Medio           | Bajo              | Equilibrado                              |
-| **SF9**  | Bueno   | Moderado        | Moderado          | Buen equilibrio alcance/tiempo en el aire |
-| **SF10** | Largo   | Lento           | Alto              | Ubicaciones difíciles                    |
-| **SF12** | Máximo  | Muy lento       | Muy alto          | Último recurso, actualizaciones raras    |
+| Nivel SF | Alcance | Velocidad de datos | Tiempo de transmisión | Adecuado para |
+|----------|---------|--------------------|-----------------------|---------------|
+| **SF7** | Corto | Rápida (5,5 kbps) | Muy bajo | Cerca de la pasarela; actualizaciones frecuentes |
+| **SF8** | Medio | Media | Bajo | Uso equilibrado |
+| **SF9** | Bueno | Moderada | Moderado | Buen equilibrio entre alcance y tiempo de transmisión |
+| **SF10** | Largo | Lenta | Alto | Ubicaciones difíciles |
+| **SF12** | Máximo | Muy lenta | Muy alto | Último recurso; actualizaciones poco frecuentes |
 
-**LMIC Ajusta Automáticamente el SF:**
-La biblioteca MCCI LMIC usa Adaptive Data Rate (ADR), que ajusta automáticamente el SF según la calidad de la señal. Comience con SF9–SF10, y deje que TTN optimice.
+**LMIC ajusta SF automáticamente:**
+La biblioteca MCCI LMIC utiliza la velocidad de datos adaptable (ADR), que ajusta automáticamente el SF según la calidad de la señal. Empiece con SF9–SF10 y deje que TTN optimice los ajustes.
 
-**Control Manual del SF:**
+**Control manual de SF:**
 ```cpp
-// Deshabilitar ADR y establecer SF fijo
+// Desactivar ADR y fijar el SF
 LMIC_setAdrMode(0);
-LMIC_setDrTxpow(DR_SF9, 14);  // SF9, potencia de transmisión de 14dBm
+LMIC_setDrTxpow(DR_SF9, 14);  // SF9, potencia de transmisión de 14 dBm
 ```
 
 ---
 
-## Optimización del Payload
+## Optimización de la carga útil
 
-!!! success "Mantener los Payloads Pequeños"
-    Payloads más pequeños = menor tiempo en el aire = más mensajes por día = mejor vida de la batería.
+!!! success "Mantenga pequeñas las cargas útiles"
+    Cargas más pequeñas = menos tiempo de transmisión = más mensajes al día = mayor duración de la batería.
 
-### Tamaños de Payload Recomendados
+### Tamaños de carga recomendados
 
-| Factor de Dispersión | Payload Máximo | Payload Recomendado |
-|----------------------|----------------|---------------------|
-| SF7                  | 51 bytes       | 20–30 bytes         |
-| SF9                  | 51 bytes       | 15–20 bytes         |
-| SF12                 | 51 bytes       | 10–15 bytes         |
+| Factor de dispersión | Carga máxima | Carga recomendada |
+|----------------------|--------------|-------------------|
+| SF7 | 51 bytes | 20–30 bytes |
+| SF9 | 51 bytes | 15–20 bytes |
+| SF12 | 51 bytes | 10–15 bytes |
 
-### Técnicas de Optimización
+### Técnicas de optimización
 
-**1. Usar Enteros en Lugar de Flotantes**
+**1. Usar enteros en lugar de números de coma flotante**
 
 ```cpp
-// Malo: 4 bytes por flotante
+// Ineficiente: 4 bytes por float
 float distance = 1234.56;
 payload[0-3] = distance;  // 4 bytes
 
-// Bueno: 2 bytes por entero
+// Eficiente: 2 bytes por entero
 uint16_t distance_mm = 1234;  // milímetros
 payload[0] = distance_mm >> 8;
 payload[1] = distance_mm & 0xFF;  // 2 bytes
 ```
 
-**2. Escalar Valores**
+**2. Escalar valores**
 
 ```cpp
-// Distancia en mm, voltaje en mV
-uint16_t distance_mm = 1234;  // Rango 0-65535 mm
-uint16_t voltage_mv = 3700;   // Rango 0-65535 mV
+// Distancia en mm, tensión en mV
+uint16_t distance_mm = 1234;  // intervalo de 0-65535 mm
+uint16_t voltage_mv = 3700;   // intervalo de 0-65535 mV
 
-// Empaquetar en 4 bytes en total
+// Empaquetar en un total de 4 bytes
 payload[0] = distance_mm >> 8;
 payload[1] = distance_mm & 0xFF;
 payload[2] = voltage_mv >> 8;
 payload[3] = voltage_mv & 0xFF;
 ```
 
-**3. Codificación Delta (Avanzado)**
+**3. Codificación diferencial (avanzado)**
 
-Solo enviar el *cambio* desde la última transmisión:
+Enviar únicamente el *cambio* desde la última transmisión:
 
 ```cpp
 static uint16_t last_distance = 0;
 int16_t delta = current_distance - last_distance;
-// Enviar delta (2 bytes) en lugar del valor completo
+// Enviar delta (2 bytes) en vez del valor completo
 last_distance = current_distance;
 ```
 
-## Decodificador de Payload de TTN
+## Decodificador de cargas útiles de TTN
 
-Crear una función de decodificador en TTN para convertir el payload binario a JSON:
+Cree una función decodificadora en TTN para convertir la carga binaria a JSON:
 
-**En la Consola TTN:**
+**En la consola de TTN:**
 
-1. Ir a su aplicación
-2. Hacer clic en "Payload Formatters"
-3. Seleccionar "Custom JavaScript formatter"
-4. Pegar la función de decodificador:
+1. Vaya a su aplicación.
+2. Haga clic en "Payload Formatters".
+3. Seleccione "Custom JavaScript formatter".
+4. Pegue la función:
 
 ```javascript
 function Decoder(bytes, port) {
   var decoded = {};
   
-  // Bytes 0-1: Distancia en mm
+  // Bytes 0-1: distancia en mm
   decoded.distance_mm = (bytes[0] << 8) | bytes[1];
   
-  // Bytes 2-3: Batería en mV
+  // Bytes 2-3: batería en mV
   decoded.battery_mv = (bytes[2] << 8) | bytes[3];
   decoded.battery_v = decoded.battery_mv / 1000.0;
   
-  // Bytes 4-7: Marca de tiempo
+  // Bytes 4-7: marca de tiempo
   decoded.timestamp = (bytes[4] << 24) | (bytes[5] << 16) | 
                       (bytes[6] << 8) | bytes[7];
   
-  // Byte 8: Temperatura (desplazada por 40)
+  // Byte 8: temperatura (con desplazamiento de 40)
   decoded.temperature_c = bytes[8] - 40;
   
   
@@ -322,52 +322,52 @@ function Decoder(bytes, port) {
 
 ---
 
-## Resolución de Problemas de LoRaWAN
+## Solución de problemas de LoRaWAN
 
-### El Dispositivo No Se Une a la Red
+### El dispositivo no se une a la red
 
-**Verificar:**
+**Compruebe:**
 
-1. **Orden de bytes del EUI**: ¡El problema más común! Verificar que DevEUI y AppEUI estén invertidos
-2. **AppKey coincide**: Debe ser idéntico en el dispositivo y TTN
-3. **Gateway en línea**: Verificar el estado del gateway en TTN
-4. **Plan de frecuencia**: El dispositivo y el gateway deben usar la misma región
-5. **Antena conectada**: El dispositivo necesita antena conectada
+1. **Orden de bytes del EUI**: ¡es el problema más habitual! Compruebe que DevEUI y AppEUI estén invertidos.
+2. **Coincidencia de AppKey**: debe ser idéntica en el dispositivo y TTN.
+3. **Pasarela conectada**: compruebe su estado en TTN.
+4. **Plan de frecuencias**: dispositivo y pasarela deben utilizar la misma región.
+5. **Antena conectada**: el dispositivo necesita la antena instalada.
 
-### Alcance Deficiente / Problemas de Conectividad
-
-**Soluciones:**
-
-- Usar SF más alto (SF10–SF12)
-- Mejorar la colocación de la antena (vertical, elevada, línea visual clara)
-- Verificar la cobertura del gateway en [TTN Mapper](https://ttnmapper.org/)
-- Reducir los obstáculos (edificios, árboles) entre el dispositivo y el gateway
-
-### Uso Justo Excedido
-
-**Síntomas:** Los mensajes dejan de pasar después de haber funcionado inicialmente
+### Alcance o conectividad deficientes
 
 **Soluciones:**
 
-- Reducir la frecuencia de transmisión
-- Disminuir el tamaño del payload
-- Bajar el SF (SF7–SF9)
-- Deshabilitar los uplinks confirmados
+- Utilice un SF más alto (SF10–SF12).
+- Mejore la ubicación de la antena (vertical, elevada y con línea de visión despejada).
+- Compruebe la cobertura de la pasarela en [TTN Mapper](https://ttnmapper.org/).
+- Reduzca los obstáculos (edificios, árboles) entre el dispositivo y la pasarela.
+
+### Se ha superado el límite de uso justo
+
+**Síntomas:** los mensajes dejan de llegar después de funcionar inicialmente.
+
+**Soluciones:**
+
+- Reduzca la frecuencia de transmisión.
+- Disminuya el tamaño de la carga útil.
+- Reduzca el SF (SF7–SF9).
+- Desactive los mensajes ascendentes confirmados.
 
 ---
 
-## Próximos Pasos
+## Siguientes pasos
 
-- [Configuración de ThingsBoard](thingsboard-configuration.md): Configurar el panel de control para datos LoRaWAN
-- [Guía de Batería y Alimentación](../operation/hardware/battery-power-guide.md): Optimizar el consumo de energía LoRa
-- [Configuración de Arduino](../operation/quick-start/arduino-setup.md): Programar su registrador LoRa
+- [Configuración de ThingsBoard](thingsboard-configuration.md): configurar el panel para los datos LoRaWAN
+- [Guía de baterías y alimentación](../operation/hardware/battery-power-guide.md): optimizar el consumo de LoRa
+- [Configuración de Arduino](../operation/quick-start/arduino-setup.md): programar el registrador LoRa
 
 ---
 
 ## Recursos
 
-- [The Things Network Console](https://console.thethingsnetwork.org/)
-- [Mapa de Cobertura TTN](https://ttnmapper.org/)
+- [Consola de The Things Network](https://console.thethingsnetwork.org/)
+- [Mapa de cobertura de TTN](https://ttnmapper.org/)
 - [Biblioteca MCCI LMIC](https://github.com/mcci-catena/arduino-lmic)
-- [Calculadora de Tiempo en el Aire LoRaWAN](https://www.thethingsnetwork.org/airtime-calculator)
-- [Política de Uso Justo de TTN](https://www.thethingsnetwork.org/docs/lorawan/duty-cycle/)
+- [Calculadora de tiempo de transmisión LoRaWAN](https://www.thethingsnetwork.org/airtime-calculator)
+- [Política de uso justo de TTN](https://www.thethingsnetwork.org/docs/lorawan/duty-cycle/)

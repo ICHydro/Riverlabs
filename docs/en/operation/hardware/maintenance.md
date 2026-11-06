@@ -275,11 +275,9 @@ Open enclosure and inspect:
 - **Solution:** Check XBee, SIM card, signal, settings
 - **Prevention:** Monitor telemetry health remotely
 
-
 ## Next Steps
 
 - 📖 [First Deployment Checklist](../quick-start/first-deployment-checklist.md): Initial setup verification
 - 🔋 [Battery & Power Guide](battery-power-guide.md): Battery health monitoring
 - 🔧 [Internal Components](internal-components.md): Component-specific maintenance
 - 🚨 [Troubleshooting](../troubleshooting/common-issues.md): Fixing issues found during maintenance
-
