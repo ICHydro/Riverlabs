@@ -36,6 +36,17 @@
 
 # other
 .DS_Store
+
+# MkDocs
+site/
+.cache/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+.venv/
 venv/
 
 # PlatformIO
