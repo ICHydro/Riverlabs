@@ -8,7 +8,7 @@ This checklist helps you checking that your logger is ready for deployment.
 
 To check proper functioning of the logger, press the reset button. There is no risk for data loss or change of any settings; resetting the logger simply restarts its internal software.
 
-When the logger (re)starts, it will perform some internal checks such as checking access to the SD card and/or telemetry modem. A successful check will result in a single flash of the red LED. This is typically a short flash (< 1s) but can be longer if the logger finds data in the internal memory and flushes them to the SD card (see the [data handling](../../hardware/data-handling.md) section). When this is finished, pressing reset again will result in a short flash (as all data have already been flushed).
+When the logger (re)starts, it will perform some internal checks such as checking access to the SD card and/or telemetry modem. A successful check will result in a single flash of the red LED. This is typically a short flash (< 1s) but can be longer if the logger finds data in the internal memory and flushes them to the SD card (see the [data handling](../hardware/data-handling.md) section). When this is finished, pressing reset again will result in a short flash (as all data have already been flushed).
 
 A series of 3x3 flashes indicates an issue.
 

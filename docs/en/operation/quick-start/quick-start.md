@@ -8,7 +8,7 @@ If you are using telemetry and not using the Riverlabs data plaform, then you ma
 
 You may also need to reprogram the logger if the clock has lost the time because the backup coin battery has been removed or has run out. Note that loggers with cellular connection set the time automatically by querying an internet time server and no manual setting is needed. However, for SD-card based loggers it is crucial that the correct time is set using an Arduino sketch.
 
-Although programming a data logger may sound daunting, the [Programming manual](../../../programming/arduino-setup/) guides you through the entire process. We have also written the code in such a way that the most common settings are available at the top of the main sketch and can be set without altering the rest of the code. If you are familiar with Arduino, then the [short guide](../arduino-setup) will set you on your way.
+Although programming a data logger may sound daunting, the [Programming manual](../../programming/arduino-setup.md) guides you through the entire process. We have also written the code in such a way that the most common settings are available at the top of the main sketch and can be set without altering the rest of the code. If you are familiar with Arduino, then the [short guide](arduino-setup.md) will set you on your way.
 
 This quick-start guide assumes that the logger is correctly programmed.
 
@@ -93,7 +93,7 @@ When the logger starts up or is reset, the code will look for an SD card. If the
 !!! warning "Do not remove the SD card while data are being written"
     Do not take out the SD card while the LED lights up and the writing process is ongoing. This may result in data loss and damage the SD card. Wait until the red LED is off.
 
-For more details on reading out data and file formats, see the [Data Download Guide](../data-download)
+For more details on reading out data and file formats, see the [Data Download Guide](data-download.md)
 
 ## 4. Telemetry 
 
@@ -101,11 +101,11 @@ Alternatively, data may be sent via telemetry. Currently, our loggers support tw
 
 ### LoRa/LoRaWAN
 
-To use LoRa/LoRaWAN, flash the correct Arduino sketch (see the [Programming manual](../../../programming/arduino-setup/)). If the logger has been preconfigured for LoRaWAN, then you should have received the DevEUI of the device. You can use this to register the device in a LoRaWAN application such as The Things Network. In that case, no further programming is needed.
+To use LoRa/LoRaWAN, flash the correct Arduino sketch (see the [Programming manual](../../programming/arduino-setup.md)). If the logger has been preconfigured for LoRaWAN, then you should have received the DevEUI of the device. You can use this to register the device in a LoRaWAN application such as The Things Network. In that case, no further programming is needed.
 
 ### Cellular connectivity
 
-Cellular connectivity requires a modem, such as the [Digi XBee 3 Global LTE Cat 1](https://www.digi.com/products/embedded-systems/digi-xbee/cellular-modems/digi-xbee-3-global-cellular-cat-1) and a SIM card. If you use Imperial's data management platform, then the logger may already be preconfigured. Otherwise, you will need to reprogram the logger to set settings such as the data platform's internet address, the logger credentials, the APN of the SIM card, and other details of the connection process. These are all explained in detail in the [Telemetry Guide](../../../telemetry).
+Cellular connectivity requires a modem, such as the [Digi XBee 3 Global LTE Cat 1](https://www.digi.com/products/embedded-systems/digi-xbee/cellular-modems/digi-xbee-3-global-cellular-cat-1) and a SIM card. If you use Imperial's data management platform, then the logger may already be preconfigured. Otherwise, you will need to reprogram the logger to set settings such as the data platform's internet address, the logger credentials, the APN of the SIM card, and other details of the connection process. These are all explained in detail in the [Telemetry Guide](../../telemetry/setup-guide.md).
 
 !!! Important "Telemetry frequency"
     The LoRaWAN sketch will send data on every measurement. However, to save battery, the cellular sketch will store data internally and only send a certain intervals. Typically, our loggers are programmed to take measurements every 5 minutes, and send them at the hour. You can set different frequencies in the Arduino sketch, but be aware that very frequent telemetry events may require a bigger solar panel.
@@ -138,7 +138,7 @@ Your logger is now ready for field deployment! See the [Mounting Guide](../../in
 
 <!-- - [Logger Identification](logger-identification.md): Compare Wari vs Lidar in detail -->
 - [First Deployment Checklist](first-deployment-checklist.md)
-- [Installation manual](../../installation/)
+- [Installation manual](../../installation/sensor-positioning.md)
 - [Set up your own telemetry platform](../../telemetry/setup-guide.md)
 - [Understand battery and power characteristics](../hardware/battery-power-guide.md)
 

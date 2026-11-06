@@ -15,7 +15,7 @@ We hope to provide more details on how to use PlatformIO in this guide, but for 
 
 One of the main advantages of urboot and similar bootloaders is that you do not need an expensive hardware programmer to program the CPU. Instead, you can connect the board directly to an USB port. That is, if the CPU has built-in USB functionality. That is not the case for the Atmega328 CPU that the Riverlabs logger use, and therefore you will still need one piece of hardware, which is a USB to Serial converter, also known as an FTDI cable:
 
-![FTDI Cable Connection](../../assets/images/FTDICable.png)<br>
+![FTDI Cable Connection](../assets/images/FTDICable.png)<br>
 *FTDI cable showing the 6-pin connector with colour-coded wires*
 
 Some examples of cables and breakout boards are the following:
