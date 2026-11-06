@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - docs-update-27.12.25 # TODO: remove
   workflow_dispatch:
 
 permissions:
