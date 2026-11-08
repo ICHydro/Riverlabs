@@ -1,11 +1,11 @@
 # Problemas habituales y soluciones
 
 !!! abstract "Descripción general"
-    Referencia completa de los problemas más frecuentes de los registradores Riverlabs. Organizada por síntoma → causa → solución para facilitar el diagnóstico.
+    Esta pagina provee una referencia de los problemas más frecuentes de los registradores Riverlabs. Organizada por síntoma → causa → solución para facilitar el diagnóstico.
 
 ## Cómo utilizar esta guía
 
-1. **Busca entre los síntomas** el que corresponda a tu problema
+1. **Busca entre los síntomas** el que corresponda a su problema
 2. **Lee las causas probables** para comprenderlo
 3. **Sigue los pasos de la solución** para resolverlo
 4. **Consulta «Verificado por»** para confirmar su validez en situaciones reales
@@ -67,7 +67,7 @@ Cada problema incluye:
 - Si hay daños: reparación profesional o sustitución del registrador
 
 **⚙️ Prevención:**
-- Supervisa la tensión y sustituye la batería antes de que baje de 3.3V
+- Supervisa el voltaje y sustituye la batería antes de que baje de 3.3V
 - Utiliza conectores JST (polarizados, evitan invertir la conexión)
 - Protege el registrador de los golpes (buena carcasa)
 - Evita cortocircuitar la batería (causa daños permanentes)
@@ -102,7 +102,7 @@ digitalWrite(XBEE_SLEEP_PIN, HIGH); // Sleep XBee when not transmitting
 
 **Paso 2: Mide el consumo de corriente**
 
-- Necesitas un multímetro con medición de corriente (modo mA)
+- Necesita el uso de un multímetro con medición de corriente (modo mA)
 - Desconecta la batería y conecta el amperímetro en serie
 - Enciende el registrador
 - Observa la corriente:
@@ -144,18 +144,18 @@ Si tiene XBee:
 - O indica un 80 % durante días y se apaga de repente
 
 **🔍 Causas probables:**
-1. **Curva de tensión de LiPo** (descarga no lineal)
+1. **Curva de tensión de Li-ion** (descarga no lineal)
 2. **Temperaturas bajas** (caída de tensión)
 3. **Batería vieja** (pérdida de capacidad)
 4. **Error al medir la tensión** (imprecisión del ADC)
 
 **✅ Solución:**
 
-**Comprende la descarga de LiPo:**
+**Comprende la descarga de Li-ion:**
 ```
-LiPo batteries hold voltage until near end of life:
+Li-ion batteries hold voltage until near end of life:
 
-Voltage   Approximate Remaining %
+Voltaje   Carga remanente %
 4.2V      100%
 4.0V      80%
 3.9V      60%
@@ -164,8 +164,8 @@ Voltage   Approximate Remaining %
 3.6V      20%
 3.5V      10%
 3.4V      5%
-3.3V      1% (emergency, retrieve logger!)
-<3.3V     Damage risk
+3.3V      1%
+<3.3V     Riesgo de da&ntilde;o
 ```
 
 **Nota:** El porcentaje no es lineal y depende de la temperatura y la carga.
@@ -192,7 +192,7 @@ El frío causa una caída temporal de tensión:
 
 **Paso 3: Envejecimiento de la batería**
 
-Las LiPo se degradan con el tiempo:
+Las Li-ion se degradan con el tiempo:
 
 - Nueva: capacidad total de 2600 mAh
 - 1 año: ~90 % (2340 mAh)
@@ -214,7 +214,7 @@ Solución: sustituye las baterías anualmente en aplicaciones críticas
 ### Problema 4: El sensor ultrasónico siempre indica el alcance máximo
 
 **🔴 Síntoma:**
-- Wari siempre mide 5000mm (o el alcance máximo)
+- Sensor siempre mide 5000mm (o el alcance máximo)
 - El valor no cambia ni al mover el sensor
 
 **🔍 Causas probables:**
@@ -378,6 +378,8 @@ Soluciones:
 - c) Añade una ferrita al cable
 - d) Apantalla el cable cerca de fuentes intensas de radiofrecuencia
 
+<!--- WB: this needs review in the code. I think that the lidar values are returned in cm, not mm. It may also have implications for other parts of the code.
+
 **Paso 3: Error de código: desbordamiento**
 ```cpp
 // Bad code (potential overflow):
@@ -389,6 +391,9 @@ unsigned int distance = lidar.read(); // unsigned = 0 to 65535
 // Or:
 long distance = lidar.read(); // long = much larger range
 ```
+-->
+
+<!-- WB: Has this ever happened? Typically, measurements will not happen during a telemetry event. In any case, this is very advanced as very few users will alter the PCB in this way. If our designs are susceptible to such interference then it will be up to us to improve the design.
 
 **Paso 4: Interferencia del XBee**
 
@@ -400,19 +405,17 @@ Si los negativos coinciden con la telemetría:
     - b) Mide antes de transmitir (no durante)
     - c) Añade resistencias de pull-up I2C (mejoran la integridad de la señal)
 
-**Paso 5: Filtra durante el posprocesamiento**
+-->
+
+**Paso 3: Filtra durante el posprocesamiento**
 
 Como último recurso (si no es práctico corregir el hardware):
 
 - Elimina los valores negativos al analizar los datos
 - Interpola: sustituye los negativos por el promedio de valores vecinos
-- Ejemplo en Python:
-  ```python
-  df['distance'] = df['distance'].clip(lower=0)
-  ```
 
 **⚙️ Prevención:**
-- Utiliza tipos de datos adecuados (unsigned int para distancias)
+- Utiliza codigo adecuado
 - Añade resistencias de pull-up I2C al diseño
 - Prueba I2C antes de instalarlo (lee el sensor 1000 veces en un bucle y comprueba errores)
 
@@ -484,6 +487,9 @@ After formatting:
 - File corrupted again? → Card failing, replace
 ```
 
+<!-- This is really up to us to make sure that the code is as robust as possible. Ideally, we should not expect users to have to alter the code to solve problems
+
+
 **Paso 4: Evita futuras corrupciones**
 ```
 Code improvements:
@@ -501,6 +507,8 @@ Code improvements:
      enterEmergencyShutdown();
    }
 ```
+
+-->
 
 **⚙️ Prevención:**
 - No extraigas la tarjeta SD mientras el registrador escribe datos
@@ -564,6 +572,7 @@ Example bad CSV (missing delimiters):
 Date,Time,Distance_mm,Temp_C,Battery_V
 2025-12-2710:00:001234,22.5,3.85
 ```
+<!-- Also here, suggesting users to edit code may open a can of worms. We should probably keep this content separate and make clear that it is only for users that develop their own code. It should not be needed as a solution to users that use our own code 
 
 **Paso 3: Corrige el código si es necesario**
 ```cpp
@@ -580,6 +589,7 @@ dataFile.print("\"");
 dataFile.print(dataString);
 dataFile.print("\"");
 ```
+-->
 
 **Paso 4: Recupera los datos parciales**
 ```
@@ -678,7 +688,7 @@ If file partially corrupted:
 ### Problema 10: La telemetría funciona de forma intermitente
 
 **🔴 Síntoma:**
-- Algunas transmisiones funcionan (200 OK)
+- Algunas transmisiones funcionan
 - Otras fallan (tiempo de espera o código de error)
 - Tasa de éxito: 50-80 %
 
@@ -691,42 +701,41 @@ If file partially corrupted:
 **✅ Solución:**
 
 **Paso 1: Analiza las correlaciones**
-```
-Look for patterns in failures:
 
-By time of day?
-- Failures at night: Network congestion (everyone home, using network)
-- Failures during day: Possible but less common
-- Random: Signal strength issue
+Busca patrones en los fallos:
 
-By battery voltage?
-- Failures increase as voltage drops: Power issue
-- No correlation: Network issue
+¿Por la hora del día?
+- Fallos nocturnos: congestión de red (todos en casa, usando red)
+- Fallos durante el día: Posibles pero menos comunes
+- Aleatorio: Problema de intensidad de señal
 
-By temperature?
-- Failures in cold: Battery voltage sag in cold
-- No correlation: Other issue
-```
+¿Por voltaje de batería?
+- Las fallas aumentan a medida que baja el voltaje: Problema de potencia
+- Sin correlación: Problema de red
+
+¿Por temperatura?
+- Fallos en frío: caída de voltaje en la batería en frío
+- Sin correlación: Otro problema
+
 
 **Paso 2: Comprueba la intensidad de señal**
-```
-If possible (XBee Studio or serial debug):
-- Check RSSI during successful vs. failed transmissions
-- RSSI < -100 dBm: Weak signal, high failure rate
-  - Solution: External antenna, relocate logger higher/clearer location
-- RSSI > -95 dBm but still failures: Not signal strength, go to Step 3
-```
+
+Si es posible (depuración en XBee Studio o en serie):
+- Comprobar RSSI durante transmisiones exitosas o fallidas
+- RSSI menor a -100 dBm: Señal débil, alta tasa de fallo
+- Solución: antena externa, reubicar el registrador más arriba/ubicación más clara
+- RSSI > -95 dBm pero aún fallos: No fuerza de señal, pasar al Paso 3
+
 
 **Paso 3: Inspecciona la antena**
-```
-- Inspect antenna connection (if external)
-- U.FL connector seated properly? (tiny, fragile)
-- Antenna wire damaged? (check for kinks, breaks)
-- Internal PCB antenna: Clearance OK? (no contact with enclosure/metal)
-- Solution: Re-seat connector, replace antenna if damaged
-```
 
-**Paso 4: Añade reintentos**
+- Inspeccionar la conexión de la antena (si es externa)
+- ¿Conector U.FL bien colocado? (pequeño, frágil)
+- ¿Cable de antena dañado? (revisa si hay dobladuras, roturas)
+- Antena interna de la PCB: ¿Espacio libre? (Sin contacto con la carcasa/metal)
+- Solución: volver a colocar el conector, cambiar la antena si está dañado
+
+**Paso 4: Añade reintentos en el codigo**
 ```cpp
 // In Arduino code:
 bool sendData() {
@@ -743,13 +752,13 @@ bool sendData() {
 ```
 
 **Paso 5: Cambia el horario de transmisión**
-```
-If failures correlate with peak hours:
-- Shift transmission time:
-  - Instead of every hour on the hour (09:00, 10:00, 11:00)
-  - Offset: Random minute (09:17, 10:42, 11:23)
-  - Reduces network congestion (not everyone transmitting simultaneously)
-```
+
+Si los fallos se correlacionan con las horas punta:
+- Tiempo de transmisión de marcha:
+- En lugar de cada hora en punto (09:00, 10:00, 11:00)
+- Desplazamiento: Minuto aleatorio (09:17, 10:42, 11:23)
+- Reduce la congestión de la red (no todos transmiten simultáneamente)
+
 
 **⚙️ Prevención:**
 - Instala el equipo donde haya buena señal (prueba primero con un teléfono)
@@ -779,20 +788,20 @@ If failures correlate with peak hours:
 **✅ Solución:**
 
 **Paso 1: Desconecta el sensor (CRÍTICO para Wari ultrasónico)**
-```
-⚠️ THE MOST COMMON CAUSE ⚠️
 
-For Wari Ultrasonic loggers with Maxbotix sensor:
-- Unplug the WHITE CONNECTOR from the logger
-- The sensor and FTDI use the same serial port
-- Sensor causes interference preventing upload
-- After upload completes, reconnect the sensor
+⚠️ CAUSA MAS PROBABLE ⚠️
 
-This does NOT apply to Lidar models.
-```
+Para registradores ultrasónicos Wari con sensor Maxbotix:
+- Desconectar el CONECTOR BLANCO del registrador
+- El sensor y FTDI utilizan el mismo puerto serie
+- El sensor causa interferencias que impiden la subida
+- Una vez completada la subida, reconecta el sensor
+
+Esto NO se aplica a los modelos Lidar.
+
 
 **Paso 2: Comprueba la orientación del FTDI**
-```
+
 Check board markings:
 - Green wire → "GRN" marking
 - Black wire → "BLK" marking
@@ -802,37 +811,37 @@ If reversed:
 - Disconnect immediately
 - Rotate 180°
 - Reconnect firmly
-```
+
 
 **Paso 3: Comprueba la configuración de Arduino IDE**
-```
+
 Tools → Board → MiniCore: "ATmega328"
 Tools → Clock: "External 8 MHz"
 
 NOT: "Arduino Pro or Pro Mini"  ← Old/Wrong!
-```
+
 
 **Paso 4: Comprueba la alimentación**
-```
+
 - Power switch to OFF (powered by FTDI)
 - Or battery installed and switch ON
 - LED should briefly light when reset button pressed
-```
+
 
 **Paso 5: Vuelve a insertar el cable FTDI**
-```
+
 - Disconnect FTDI from logger
 - Check all pins aligned
 - Press firmly onto header
 - Should sit flush
-```
+
 
 **Paso 6: Prueba otro puerto USB**
-```
+
 - Some USB ports provide insufficient current
 - Try USB 2.0 port (more reliable than USB 3.0)
 - Avoid USB hubs
-```
+
 
 **⚙️ Prevención:**
 - **Desconecta siempre el sensor antes de programar** (Wari ultrasónico)
@@ -857,14 +866,14 @@ NOT: "Arduino Pro or Pro Mini"  ← Old/Wrong!
 **✅ Solución:**
 
 **Paso 1: Cierra el monitor serie**
-```
+
 - In Arduino IDE: Close Serial Monitor window
 - Wait 2 seconds
 - Retry upload
-```
+
 
 **Paso 2: Busca otros programas**
-```
+
 Windows:
 - Ctrl+Shift+Esc (Task Manager)
 - Look for: PuTTY, Coolterm, Serial Monitor, Python scripts
@@ -878,22 +887,22 @@ Mac:
 Linux:
 - ps aux | grep tty
 - kill [PID]
-```
+
 
 **Paso 3: Desconecta y vuelve a conectar**
-```
+
 - Unplug FTDI cable
 - Wait 5 seconds
 - Reconnect
 - Retry upload
-```
+
 
 **Paso 4: Reinicia Arduino IDE**
-```
+
 - Close Arduino IDE completely
 - Reopen
 - Retry upload
-```
+
 
 **Paso 5: Reinicia el ordenador** (si nada más funciona)
 

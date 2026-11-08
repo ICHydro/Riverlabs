@@ -1,7 +1,7 @@
 # Guía de configuración de LoRa / LoRaWAN
 
 !!! abstract "Descripción general"
-    Esta guía explica cómo configurar su dispositivo LoRaWAN con la biblioteca MCCI LMIC y conectarlo a The Things Network (TTN). Incluye el formato de los EUI, la optimización de las cargas útiles, las políticas de uso de TTN y las buenas prácticas.
+    Esta pagina explica cómo configurar su dispositivo LoRaWAN con la biblioteca MCCI LMIC y conectarlo a The Things Network (TTN). Incluye el formato de los EUI, la optimización de las cargas útiles, las políticas de uso de TTN y las buenas prácticas.
 
 ## ¿Qué es LoRaWAN?
 
@@ -11,13 +11,13 @@
 
 - **Alcance:** hasta 10–15 km con línea de visión; 2–5 km en zonas urbanas
 - **Consumo:** extremadamente bajo (años con batería)
-- **Velocidad de datos:** baja (0,3–50 kbps según el factor de dispersión)
+- **Velocidad de datos:** baja (0.3–50 kbps según el factor de dispersión)
 - **Frecuencia:** bandas ISM sin licencia (868 MHz en la UE, 915 MHz en EE. UU.)
 - **Infraestructura:** requiere una pasarela conectada al servidor de red
 
 **LoRa frente a la red celular:**
 
-| Característica | LoRaWAN | Red celular (3G/4G) |
+| Característica | LoRaWAN | Red celular |
 |---------------|---------|---------------------|
 | **Alcance** | 2–15 km | Depende del operador |
 | **Consumo** | Muy bajo | Mayor |
@@ -40,7 +40,7 @@
 ### Flujo de datos
 
 ```
-Registrador (LoRa) → Pasarela → Servidor de red TTN → Servidor de aplicaciones → Panel de control
+Registrador (LoRa) → Gateway → Servidor de red TTN → Servidor de aplicaciones
 ```
 
 **Funcionamiento:**

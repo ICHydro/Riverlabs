@@ -13,10 +13,10 @@ Cuando el registrador se inicia o reinicia, realiza algunas comprobaciones inter
 Una secuencia de 3x3 destellos indica que hay un problema.
 
 Si no se produce ningún destello rojo, el registrador no arranca, probablemente debido a un problema de alimentación.
-x
+
 ### Batería y alimentación
 
-- El registrador se enciende (se observa actividad en el LED)
+- El registrador se prende (se observa actividad en el LED)
 - La batería está completamente cargada y se ha comprobado la polaridad. (Consulta la [guía de baterías y alimentación](../hardware/battery-power-guide.md) para interpretar la tensión).
 - La pila de respaldo CR1220 está instalada
 - No hay conexiones sueltas ni piezas que se muevan dentro de la carcasa
@@ -88,7 +88,7 @@ Si surgen problemas, consulta:
 
 | Síntoma                 | Causa probable                  | Solución rápida                                         |
 |------------------------|---------------------------------|---------------------------------------------------------|
-| El LED no se enciende  | Batería agotada o invertida     | Comprobar la tensión y la polaridad                      |
+| El LED no se prende  | Batería agotada o invertida     | Comprobar la tensión y la polaridad                      |
 | Lecturas erráticas     | Sensor obstruido                | Limpiar el sensor y comprobar la trayectoria del haz     |
 | No se escribe en la SD | Fallo de la tarjeta SD          | Comprobar la tarjeta; considerar respaldo en memoria flash |
 | El reloj se reinicia  | Falta la pila de respaldo       | Instalar una CR1220                                      |

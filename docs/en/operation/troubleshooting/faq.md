@@ -1,7 +1,7 @@
 # Frequently Asked Questions
 
 !!! abstract "Overview"
-    Common questions about Riverlabs loggers answered clearly and concisely. From technical specs to field deployment tips.
+    This page answers common questions about Riverlabs loggers.
 
 ## General Questions
 
@@ -10,20 +10,20 @@
 A **Riverlabs logger** is an open-source, low-cost water level monitoring device designed for hydrological research. It uses ultrasonic or lidar sensors to measure distance to water surface, recording data to SD card and optionally transmitting via cellular telemetry.
 
 **Key features:**
-- Arduino-based (ATmega328P)
-- Battery-powered (rechargeable LiPo)
+- open hardware design
+- Battery-powered (rechargeable Li-ion)
 - SD card data storage
-- Optional cellular telemetry (XBee 3G/4G)
+- Optional telemetry via cellular connection or LoRaWAN
 - Weatherproof enclosure
 - Low cost (~$100-300 depending on configuration)
 
 ---
 
-### Wari vs. Lidar - which should I choose?
+### Ultrasound vs. Lidar - which should I choose?
 
 **Quick answer:**
 
-| Feature | Wari (Ultrasonic) | Lidar |
+| Feature | Ultrasonic | Lidar |
 |---------|-------------------|-------|
 | **Range** | 0.3m - 5m | 0.05m - 40m |
 | **Accuracy** | ±10mm | ±25mm |
@@ -33,7 +33,7 @@ A **Riverlabs logger** is an open-source, low-cost water level monitoring device
 | **Works in snow/foam** | No (absorbed) | Yes |
 | **Best for** | Rivers, ponds (stable targets) | Wide range, snow, long distances |
 
-**Choose Wari if:**
+**Choose Ultrasonic if:**
 - Water level range <5m
 - Budget-constrained
 - Longer battery life needed
@@ -49,35 +49,11 @@ See [Logger Identification Guide](../quick-start/logger-identification.md) for d
 
 ---
 
-### Can I use Riverlabs loggers in saltwater?
-
-**Yes, with precautions:**
-
-**Sensor:** Both ultrasonic and lidar work fine measuring distance *to* saltwater (non-contact measurement).
-
-**Enclosure:**
-- Standard plastic enclosures: OK for temporary (days-weeks)
-- For long-term (months): Use marine-grade enclosure
-- Risk: Salt spray corrosion of electronics and connectors
-
-**Mounting:**
-- Stainless steel hardware (316 marine grade)
-- Avoid aluminum (corrodes in saltwater)
-
-**Maintenance:**
-- Rinse logger with freshwater after retrieval
-- Check for corrosion monthly
-- Apply dielectric grease to connectors
-
-**Recommendation:** Riverlabs loggers are primarily designed for freshwater. For permanent saltwater installations, consider commercial marine-grade equipment.
-
----
-
 ### How long does the battery last?
 
 **It depends on configuration:**
 
-**Wari (ultrasonic), SD-only:**
+**ultrasonic, SD-only:**
 - 15-minute logging: 30-60 days
 - 5-minute logging: 15-30 days
 - 1-minute logging: 7-10 days
@@ -103,23 +79,7 @@ See [Battery & Power Guide](../hardware/battery-power-guide.md) for detailed cal
 
 ### Can I add solar power?
 
-**Technically yes, but complicated:**
-
-**Challenges:**
-1. **Charge controller needed** - LiPo requires specific charging profile
-2. **Weatherproof integration** - Solar panel mounting, wiring penetrations
-3. **Northern latitudes** - Winter solar insufficient
-4. **Cost** - Adds $50-100, approaching cost of commercial solution
-
-**Recommendation:**
-- For most users: Just swap batteries periodically (simpler, cheaper)
-- For remote/inaccessible sites: Consider commercial solar-powered loggers
-- If DIY: Use dedicated solar charge controller (e.g., Adafruit Universal USB), 5-10W panel
-
-**Calculation:**
-- Daily consumption: ~50mAh (Wari, 15-min logging)
-- Solar panel needed: ~2-5W (accounting for clouds, winter)
-- Battery size: 10,000+ mAh (for winter reserve)
+The wari model contains a solar charging circuit, which is activated or deactivated at assembly. We do not recommend users to change this setting. If the solar panel of a logger with active charging circuit is too small, then it can be replaced by a larger solar panel, as long as the output voltage of the panel is **6V**.
 
 ---
 
@@ -152,56 +112,6 @@ See [Battery & Power Guide](../hardware/battery-power-guide.md) for detailed cal
 ---
 
 ## Hardware Questions
-
-### Can I buy pre-assembled loggers?
-
-**Current status:** Riverlabs is primarily a DIY project.
-
-**Options:**
-
-1. **Assemble yourself** (cheapest, ~$100-150)
-   - Purchase components
-   - Follow assembly guide
-   - Solder required
-
-2. **University/research partnerships** (for research projects)
-   - Contact: ICHydro/original developers
-   - May provide assembled units for collaborative research
-
-3. **Commercial alternatives** (if DIY not feasible)
-   - HOBO Water Level Logger (~$500-1000)
-   - Solinst Levelogger (~$1000-2000)
-   - Campbell Scientific sensors (~$2000+)
-
-**Note:** As the project grows, assembled kits may become available. Check GitHub for updates.
-
----
-
-### What components do I need?
-
-**Minimum Wari configuration:**
-
-| Component | Qty | Est. Cost |
-|-----------|-----|-----------|
-| ATmega328P PCB (custom) | 1 | $30 |
-| Ultrasonic sensor (MaxBotix MB7389) | 1 | $30 |
-| RTC (DS3231) | 1 | $5 |
-| SD card module | 1 | $3 |
-| LiPo battery (3.7V 2600mAh) | 1 | $10 |
-| SD card (8-32GB) | 1 | $10 |
-| Enclosure (waterproof) | 1 | $15 |
-| FTDI programmer | 1 | $10 |
-| Misc (wires, connectors) | - | $10 |
-| **Total** | | **~$123** |
-
-**Add for telemetry:**
-- XBee3 Cellular module: $70
-- SIM card + data plan: $2-10/month
-- USB adapter (for configuration): $25
-
-See [parts list] for detailed component specifications and suppliers.
-
----
 
 ### Can I use a different sensor?
 
@@ -293,91 +203,9 @@ See [Installation Guide](../../installation/mounting-guide.md) for detailed wate
 
 ---
 
-### Can I use alkaline batteries instead of LiPo?
-
-**Not recommended, but possible with modifications:**
-
-**Challenges:**
-1. **Voltage:** Alkaline = 1.5V per cell, need 2-3 cells = 3-4.5V (works, but voltage drops faster)
-2. **No recharging:** Disposable only
-3. **Connector:** Need battery holder (instead of JST for LiPo)
-4. **Code changes:** Battery voltage reading calibration
-
-**Advantages:**
-- Widely available
-- No fire risk (safer than LiPo)
-- Longer shelf life
-
-**Recommendation:** Use 3× AA lithium (not alkaline) if you must avoid LiPo:
-- Energizer Ultimate Lithium
-- 1.5V × 3 = 4.5V nominal
-- Better cold performance than alkaline
-- Longer life than alkaline
-
-**Code change needed:**
-```cpp
-// Voltage divider calibration for 3× AA (4.5V max instead of 4.2V)
-float batteryVoltage = analogRead(BATTERY_PIN) * (4.5 / 1023.0) * 2.0;
-```
-
----
-
 ## Telemetry Questions
 
-### Do I need telemetry?
-
-**Depends on your use case:**
-
-**You NEED telemetry if:**
-- Site is difficult/dangerous to access
-- Real-time monitoring required (flood warning)
-- Multiple loggers, checking each is impractical
-- Want to detect logger failure quickly
-
-**You DON'T need telemetry if:**
-- Accessible site (easy to visit monthly)
-- Post-event analysis (not real-time)
-- Budget-constrained ($100 vs $200)
-- No cellular coverage at site
-
-**Compromise option:** SD card + occasional telemetry
-- Logger records to SD (high frequency, reliable)
-- Transmit subset of data (hourly summary)
-- Full resolution data on SD card
-
----
-
-### What cellular carriers work?
-
-**Requirements:** LTE-M or NB-IoT support
-
-**United States:**
-- ✅ AT&T (best LTE-M coverage)
-- ✅ T-Mobile (LTE-M, expanding)
-- ✅ Verizon (Cat-M1)
-- ❌ Sprint (merged with T-Mobile)
-
-**Europe:**
-- ✅ Vodafone M2M
-- ✅ Telefonica
-- ✅ Deutsche Telekom
-- ✅ Orange
-
-**United Kingdom:**
-- ✅ EE
-- ✅ Vodafone
-- ✅ O2
-
-**Global/Multi-carrier:**
-- ✅ Hologram (roaming across multiple carriers)
-- ✅ Twilio Super SIM
-- ✅ 1NCE
-
-**Check coverage:** Use carrier's coverage map for LTE-M/NB-IoT (not regular LTE) at your deployment site.
-
----
-
-### How much data does telemetry use?
+### What is the data usage of telemetry?
 
 **Typical usage:**
 
@@ -398,57 +226,6 @@ float batteryVoltage = analogRead(BATTERY_PIN) * (4.5 / 1023.0) * 2.0;
 **Recommended plan:** 5-10 MB/month (plenty of headroom)
 
 **Cost:** ~$2-10/month depending on carrier and plan
-
----
-
-### Can I use WiFi instead of cellular?
-
-**Possible, but impractical for most deployments:**
-
-**Challenges:**
-1. **Range:** WiFi limited to ~50m (line of sight)
-   - Deployment sites rarely have WiFi
-2. **Power:** WiFi modules (ESP8266, ESP32) draw ~70mA continuously
-   - Reduces battery life significantly
-3. **Configuration:** Need SSID/password setup
-   - Changes if network changes
-
-**Better alternatives:**
-- **LoRa/LoRaWAN:** Long range (km), low power, but requires gateway
-- **Cellular:** Works anywhere with coverage
-- **Satellite:** Very expensive, but global
-
-**Recommendation:** If WiFi available at site, consider:
-- Mains power (plug in), then WiFi is feasible
-- Or: SD card only, retrieve manually (simpler)
-
----
-
-### Can the logger send me email/SMS alerts?
-
-**Not directly from logger, but via server:**
-
-**Architecture:**
-```
-Logger → XBee → Cellular → ThingsBoard → Email/SMS
-```
-
-**Setup:**
-1. Logger sends data to ThingsBoard (as normal)
-2. Configure ThingsBoard "Rule Chain"
-3. Add rule: If (condition), then (send email)
-4. Example: If (battery < 3.4V), send email alert
-
-**Email:** ThingsBoard can send directly (configure SMTP)
-
-**SMS:** Requires third-party service:
-- Twilio (pay per SMS)
-- AWS SNS
-- Other SMS gateway
-
-See [ThingsBoard Configuration](../../telemetry/thingsboard-configuration.md) for alert setup instructions.
-
-**Limitation:** Logger can't proactively alert if it loses power or connection (dead logger can't send "I'm dead" message). ThingsBoard can alert on "no data received in X hours."
 
 ---
 
@@ -479,33 +256,6 @@ See [ThingsBoard Configuration](../../telemetry/thingsboard-configuration.md) fo
 - Take measurements at deployment site (pre-install)
 - Walk through expected water level range
 - Verify readings make sense
-
----
-
-### What if water level exceeds sensor range?
-
-**Two scenarios:**
-
-**1. Water too close (closer than minimum range):**
-- Ultrasonic minimum: ~0.3m
-- Lidar minimum: ~0.05m
-- **Solution:** Mount sensor higher
-
-**2. Water too far (beyond maximum range):**
-- Ultrasonic maximum: ~5m
-- Lidar maximum: ~40m
-- **Symptoms:** Logger reads max range (5000mm or 40000mm)
-- **Solution:** Mount sensor lower, or use longer-range sensor
-
-**Designing for range:**
-- Determine water level range: Low flow and high flow
-- Choose sensor range: Must cover low to high + margin
-- Example:
-  - Low flow: 2m below sensor
-  - High flow: 0.5m below sensor
-  - Range needed: 0.5-2m → Use ultrasonic (0.3-5m range)
-
-**Safety margin:** ±0.5m buffer on each end (don't use absolute limits)
 
 ---
 
@@ -552,7 +302,7 @@ See [ThingsBoard Configuration](../../telemetry/thingsboard-configuration.md) fo
 - -20°C: ~50% capacity
 - **Solution:** Larger battery, or retrieve more frequently
 
-**2. LiPo freezing risk:**
+**2. Li-ion freezing risk:**
 - LiPo freezes at ~-40°C
 - At low temperatures, charging dangerous
 - **Solution:** Don't charge below 0°C

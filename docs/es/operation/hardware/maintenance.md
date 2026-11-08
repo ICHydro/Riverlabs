@@ -28,7 +28,7 @@ El siguiente plan de mantenimiento es orientativo. Puede ajustarse según la imp
 
     - La tendencia de la tensión es estable o la esperada
     - No hay caídas bruscas
-    - Está por encima de 3,5 V (planifique una visita si se acerca a este nivel de descarga)
+    - Está por encima de 3.5 V (planifique una visita si se acerca a este nivel de descarga)
 
 3. **Examinar las lecturas del sensor**
 
@@ -45,13 +45,13 @@ El siguiente plan de mantenimiento es orientativo. Puede ajustarse según la imp
 
 !!! danger "Señales de que puede ser necesaria una visita al lugar"
     - ⚠️ No se reciben datos durante más de 48 horas: posible pérdida de alimentación o desplazamiento del registrador.
-    - ⚠️ Tensión de la batería <3,4 V: descarga de la batería
+    - ⚠️ Tensión de la batería <3.4 V: descarga de la batería
     - ⚠️ Lecturas del sensor bloqueadas o erráticas
     - ⚠️ Pérdida de la señal de telemetría
 
 ### Sin telemetría
 
-Si no hay telemetría, aumente la frecuencia de las visitas presenciales (mensuales en vez de trimestrales).
+Si no hay telemetría, se sugiere visitas presenciales más frecuentes (ej. mensuales).
 
 ---
 
@@ -188,7 +188,7 @@ Abra la carcasa e inspeccione:
 
 2. **Comprobación del reloj**
 
-    - La hora es correcta (dentro de un margen de 1 minuto)
+    - La hora es correcta
     - La fecha es correcta
     - Si no lo es: vuelva a ajustarlo con el programa `set_clock.ino`
 

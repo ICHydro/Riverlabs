@@ -1,6 +1,6 @@
 # Descarga de datos
 
-Esta guía te acompaña en el proceso de descargar por primera vez los datos de tu registrador Riverlabs.
+Esta guía le acompaña en el proceso de descargar los datos del registrador Riverlabs.
 
 ## Antes de empezar
 

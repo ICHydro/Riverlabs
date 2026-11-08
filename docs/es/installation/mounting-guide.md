@@ -1,7 +1,7 @@
 # Guía de montaje
 
 !!! abstract "Descripción general"
-    Esta guía presenta métodos prácticos para instalar registradores Riverlabs en campo, incluidas técnicas de montaje, requisitos de posicionamiento y buenas prácticas para instalaciones a largo plazo.
+    Esta guía presenta métodos prácticos para la instalación de registradores Riverlabs en campo, incluidas técnicas de montaje, requisitos de posicionamiento y buenas prácticas para instalaciones a largo plazo.
 
 ## Métodos de montaje
 
@@ -11,9 +11,9 @@ Los registradores Riverlabs están diseñados para ser pequeños y ofrecer flexi
 
 | Método | Ventajas | Desventajas | Ideal para | Coste |
 |--------|----------|-------------|------------|-------|
-| **Bridas** | Rápidas, desmontables, sin preparación de la superficie | Menos seguras, degradación por UV | Instalaciones temporales, tuberías/barandillas | £ |
-| **Adhesivo** | Fijación fuerte, acabado limpio, sin taladrar | Permanente, requiere preparar la superficie | Superficies lisas, instalaciones a largo plazo | ££ |
-| **Soportes** | Muy seguros, ajustables | Requieren taladrar, más visibles | Instalaciones permanentes, puentes | £££ |
+| **Bridas** | Rápidas, desmontables, sin preparación de la superficie | Menos seguras, degradación por UV | Instalaciones temporales, tuberías/barandillas | $ |
+| **Adhesivo** | Fijación fuerte, acabado limpio, sin taladrar | Permanente, requiere preparar la superficie | Superficies lisas, instalaciones a largo plazo | $$ |
+| **Soportes** | Muy seguros, ajustables | Requieren taladrar, más visibles | Instalaciones permanentes, puentes | $$$ |
 
 ---
 
@@ -183,7 +183,7 @@ El montaje con adhesivo permite una instalación limpia y segura sobre superfici
 
 ### Descripción general
 
-Los soportes mecánicos ofrecen la fijación más segura y son ideales para puentes, edificios y estaciones de monitorización permanentes.
+Los soportes mecánicos ofrecen la fijación más segura y son ideales para puentes, edificios y estaciones de monitoreo permanentes.
 
 ### Tipos de soportes
 
@@ -247,7 +247,7 @@ Los soportes mecánicos ofrecen la fijación más segura y son ideales para puen
 
 ## Permisos y otras consideraciones legales
 
-Las instalaciones en campo plantean desafíos técnicos, pero también pueden tener implicaciones normativas y legales. Hay que obtener siempre el permiso de los propietarios de los terrenos y las autorizaciones aplicables. Esto incluye cumplir las normas locales sobre el uso de telemetría o determinadas frecuencias de radio. Por ejemplo, las frecuencias permitidas para LoRaWAN varían según la región: en Europa se utilizan 868 MHz y en Estados Unidos, 915 MHz.
+Las instalaciones en campo plantean desafíos técnicos, pero también pueden tener implicaciones normativas y legales. Hay que obtener siempre el permiso de los propietarios de los terrenos y las autorizaciones aplicables. Esto incluye cumplir las normas locales sobre el uso de telemetría o determinadas frecuencias de radio. Por ejemplo, las frecuencias permitidas para LoRaWAN varían según la región: en Europa se utilizan 868 MHz y en Estados Unidos y Sudamerica, 915 MHz.
 
 La salud y la seguridad también son fundamentales. Trabajar cerca del agua suele conllevar riesgos para la salud, por lo que conviene realizar una evaluación de riesgos completa. Por ello, recomendamos encarecidamente:
 
@@ -263,7 +263,7 @@ Los autores de esta guía no asumen responsabilidad alguna por posibles daños, 
 
 ## Próximos pasos
 
-Tras la instalación:
+Despues de la instalación:
 
 - ✅ Completar la [lista de verificación para el primer despliegue](../operation/quick-start/first-deployment-checklist.md)
 - 📊 Configurar el panel de monitorización

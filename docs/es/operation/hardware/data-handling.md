@@ -1,8 +1,8 @@
 ## Funcionamiento de la ranura para tarjeta SD
 
-Algunos registradores Riverlabs incluyen una ranura para tarjeta SD destinada al almacenamiento local de datos. Es necesaria cuando el registrador se instala sin telemetría.
+Algunos registradores Riverlabs incluyen una ranura para tarjeta SD para el almacenamiento local de datos. Es necesaria cuando el registrador se instala sin telemetría.
 
-El registrador contiene un chip EEPROM de 512 kbit, que utiliza como búfer interno para almacenar las lecturas, reducir el número de escrituras en la tarjeta SD y optimizar el consumo de energía. La frecuencia con la que los datos se vuelcan de la EEPROM a la tarjeta SD puede configurarse en el código modificando la siguiente línea:
+Ademas, el registrador contiene un chip EEPROM de 512 kbit, que utiliza como búfer interno para almacenar las lecturas, reducir el número de escrituras en la tarjeta SD y optimizar el consumo de energía. La frecuencia con la que los datos se vuelcan de la EEPROM a la tarjeta SD puede configurarse en el código modificando la siguiente línea:
 
 `#define FLUSHAFTER 288`
 
@@ -10,7 +10,7 @@ El valor predeterminado equivale a un volcado diario cuando el intervalo entre m
 
 El registrador también vuelca el contenido de la EEPROM al reiniciarse. Por tanto, pulsar el botón de reinicio antes de extraer la tarjeta SD garantiza que todos los datos más recientes se escriban en ella. El LED se encenderá durante el proceso de volcado, que puede durar varios segundos según la cantidad de datos que haya que transferir.
 
-En algunas variantes de la placa también puede instalarse un chip de memoria flash para hacer copias de respaldo de los datos (especialmente útil para registradores con telemetría). Se activa en el firmware mediante:
+Algunos modelos también cuentan con un chip de memoria flash para hacer copias de respaldo de los datos (especialmente útil para registradores con telemetría). Se activa en el firmware mediante:
 
 `#define FLASH`
 

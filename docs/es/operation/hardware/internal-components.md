@@ -1,7 +1,7 @@
 # Referencia de componentes internos
 
 !!! abstract "Descripción general"
-    Esta guía ofrece información detallada sobre los componentes internos de los registradores Riverlabs, su ubicación, función y necesidades de mantenimiento.
+    Esta pagina ofrece información detallada sobre los componentes internos de los registradores Riverlabs, su ubicación, función y necesidades de mantenimiento. No es conocimiento necesario para la operación de los equipos, pero puede ser util en el caso de reparaciones o alteraciones.
 
 ## Distribución de los componentes
 
@@ -48,11 +48,7 @@ La placa de circuito impreso (PCB) del registrador Riverlabs contiene los siguie
 - 32 KB de memoria flash (almacenamiento del programa)
 - 2 KB de SRAM (memoria de trabajo)
 - 1 KB de EEPROM (búfer de datos opcional)
-- Frecuencia de reloj de 16 MHz
-
-**¿Puede intervenir el usuario?**
-
-- No: no intente extraerlo ni sustituirlo
+- Frecuencia de reloj de 16 MHz (pero operado a 8 MHz)
 
 ### 2. Reloj de tiempo real (DS3231)
 
@@ -380,21 +376,17 @@ Puede programar el registrador en tres configuraciones:
 
 **Componentes:**
 
-- Reguladores de tensión (alimentación lógica de 3,3 V)
+- Reguladores de tensión (alimentación lógica de 3.3 V)
 - Diodos de protección
 - Condensadores para estabilización
 - Circuitos integrados de gestión de energía
 
 **Función:**
 
-- Convierte los 3,7 V de la batería en 3,3 V para la lógica
+- Convierte los 3.7 V de la batería en 3.3 V para la lógica
 - Proporciona alimentación estable a la electrónica
 - Protege contra la inversión de polaridad (en algunos modelos)
 - Protección frente a sobrecorriente
-
-**¿Puede intervenir el usuario?**
-
-- No: no lo modifique
 
 ### 8. Zócalo XBee (solo modelos con telemetría)
 
@@ -530,10 +522,6 @@ Puede programar el registrador en tres configuraciones:
 - Las mediciones se escriben primero en la EEPROM
 - Se escriben periódicamente en la tarjeta SD en lotes
 - El usuario puede configurar el intervalo de volcado
-
-**¿Puede intervenir el usuario?**
-
-- No
 
 ---
 
@@ -762,7 +750,7 @@ Puede programar el registrador en tres configuraciones:
 | **Batería 18650**     | Consulte la guía de baterías | Comercio | Fácil     |
 | **Batería CR1220**    | CR1220                | Comercio        | Fácil      |
 | **Tarjeta microSD**   | Cualquiera compatible con FAT32 | Comercio | Fácil |
-| **Módulo XBee**       | XBee3 Cellular LTE-M  | Digi            | Moderada   |
+| **Módulo XBee**       | XBee3 Cellular        | Digi            | Moderada   |
 
 ### Sustitución a cargo de profesionales
 
@@ -781,11 +769,11 @@ Puede programar el registrador en tres configuraciones:
 ### Esquema de la PCB
 
 !!! info "Esquemas de código abierto"
-    Los esquemas completos de la PCB están disponibles en el [repositorio de GitHub](https://github.com/ICHydro/Riverlabs). Escriba a info@riverlabs.uk para obtener más información.
+    Escriba a info@riverlabs.uk para obtener más información.
 
 ### Lista de materiales (BOM)
 
-Las listas completas de componentes están disponibles en la [documentación del repositorio](https://github.com/ICHydro/Riverlabs).
+Escriba a info@riverlabs.uk para obtener más información.
 
 ---
 

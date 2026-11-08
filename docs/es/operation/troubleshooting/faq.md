@@ -1,7 +1,7 @@
 # Preguntas frecuentes
 
 !!! abstract "Descripción general"
-    Respuestas claras y concisas a preguntas habituales sobre los registradores Riverlabs, desde las especificaciones técnicas hasta consejos para su instalación en campo.
+    Respuestas a preguntas habituales sobre los registradores Riverlabs.
 
 ## Preguntas generales
 
@@ -10,16 +10,15 @@
 Un **registrador Riverlabs** es un dispositivo de código abierto y bajo coste para medir el nivel del agua, diseñado para la investigación hidrológica. Utiliza sensores ultrasónicos o lidar para medir la distancia hasta la superficie del agua, guarda los datos en una tarjeta SD y, opcionalmente, los transmite mediante telemetría celular.
 
 **Características principales:**
-- Basado en Arduino (ATmega328P)
-- Alimentación por batería (LiPo recargable)
+- Basado en dise&ntilde;os electronicos abiertos
+- Alimentación por batería (Li-ion recargable)
 - Almacenamiento de datos en tarjeta SD
-- Telemetría celular opcional (XBee 3G/4G)
+- Telemetría celular opcional (LTE / LoRaWAN)
 - Carcasa resistente a la intemperie
-- Bajo coste (~100–300 USD según la configuración)
 
 ---
 
-### Wari frente a lidar: ¿cuál debo elegir?
+### Medición de distancia ultrasonica o lidar: ¿cuál debo elegir?
 
 **Respuesta rápida:**
 
@@ -33,7 +32,7 @@ Un **registrador Riverlabs** es un dispositivo de código abierto y bajo coste p
 | **Funciona con nieve/espuma** | No (absorben la señal) | Sí |
 | **Más adecuado para** | Ríos, estanques (superficies estables) | Amplio rango, nieve, largas distancias |
 
-**Elige Wari si:**
+**Elige ultrasónico si:**
 - El rango de nivel del agua es <5m
 - Tienes un presupuesto limitado
 - Necesitas mayor autonomía
@@ -69,8 +68,6 @@ Consulta la [guía de identificación del registrador](../quick-start/logger-ide
 - Comprueba mensualmente si hay corrosión
 - Aplica grasa dieléctrica a los conectores
 
-**Recomendación:** Los registradores Riverlabs están diseñados principalmente para agua dulce. Para instalaciones permanentes en agua salada, considera equipos comerciales de grado marino.
-
 ---
 
 ### ¿Cuánto dura la batería?
@@ -103,23 +100,7 @@ Consulta la [guía de baterías y alimentación](../hardware/battery-power-guide
 
 ### ¿Puedo añadir alimentación solar?
 
-**Técnicamente sí, pero es complicado:**
-
-**Dificultades:**
-1. **Se necesita un controlador de carga**: la LiPo requiere un perfil de carga específico
-2. **Integración resistente a la intemperie**: montaje del panel solar y pasos de cables
-3. **Latitudes septentrionales**: la energía solar invernal puede ser insuficiente
-4. **Coste**: añade 50-100 USD y se acerca al precio de una solución comercial
-
-**Recomendación:**
-- Para la mayoría: basta con cambiar las baterías periódicamente (más sencillo y barato)
-- Para lugares remotos o inaccesibles: considera registradores solares comerciales
-- Si lo haces por tu cuenta: usa un controlador de carga solar específico (p. ej., Adafruit Universal USB) y un panel de 5-10W
-
-**Cálculo:**
-- Consumo diario: ~50mAh (Wari, registro cada 15 minutos)
-- Panel solar necesario: ~2-5W (teniendo en cuenta nubes e invierno)
-- Capacidad de la batería: más de 10 000 mAh (reserva para el invierno)
+El modelo wari cuenta con circuito electronico para carga solar, y esta activado o desactivado durante el ensamblaje. No se recomienda la activació por el usuario. Si la alimentación del panel solar original no es suficiente, se puede cambiar por otro panel mas grande, mientras que el voltaje del panel es de **6V**.
 
 ---
 
@@ -148,58 +129,6 @@ Consulta la [guía de baterías y alimentación](../hardware/battery-power-guide
 - Modificar el formato de los datos
 - Implementar ciclos de reposo personalizados
 - Añadir protocolos de telemetría
-
----
-
-## Preguntas sobre el hardware
-
-### ¿Puedo comprar registradores ya montados?
-
-**Situación actual:** Riverlabs es principalmente un proyecto para montar por cuenta propia.
-
-**Opciones:**
-
-1. **Montarlo tú mismo** (la opción más barata, ~100-150 USD)
-   - Comprar los componentes
-   - Seguir la guía de montaje
-   - Se requiere soldadura
-
-2. **Colaboraciones universitarias o de investigación** (para proyectos de investigación)
-   - Contacto: ICHydro o los desarrolladores originales
-   - Podrían facilitar unidades montadas para investigaciones conjuntas
-
-3. **Alternativas comerciales** (si el montaje propio no es viable)
-   - HOBO Water Level Logger (~500-1000 USD)
-   - Solinst Levelogger (~1000-2000 USD)
-   - Sensores Campbell Scientific (~2000 USD o más)
-
-**Nota:** Es posible que haya kits montados en el futuro. Consulta GitHub para conocer las novedades.
-
----
-
-### ¿Qué componentes necesito?
-
-**Configuración mínima de Wari:**
-
-| Componente | Cant. | Coste aprox. |
-|-----------|-----|-----------|
-| PCB ATmega328P (personalizada) | 1 | 30 USD |
-| Sensor ultrasónico (MaxBotix MB7389) | 1 | 30 USD |
-| RTC (DS3231) | 1 | 5 USD |
-| Módulo de tarjeta SD | 1 | 3 USD |
-| Batería LiPo (3.7V 2600mAh) | 1 | 10 USD |
-| Tarjeta SD (8-32GB) | 1 | 10 USD |
-| Carcasa (impermeable) | 1 | 15 USD |
-| Programador FTDI | 1 | 10 USD |
-| Varios (cables, conectores) | - | 10 USD |
-| **Total** | | **~123 USD** |
-
-**Para añadir telemetría:**
-- Módulo celular XBee3: 70 USD
-- Tarjeta SIM + plan de datos: 2-10 USD/mes
-- Adaptador USB (para configuración): 25 USD
-
-Consulta la [lista de piezas] para las especificaciones detalladas de los componentes y los proveedores.
 
 ---
 
@@ -293,35 +222,6 @@ Consulta la [guía de instalación](../../installation/mounting-guide.md) para i
 
 ---
 
-### ¿Puedo utilizar pilas alcalinas en lugar de LiPo?
-
-**No se recomienda, pero es posible con modificaciones:**
-
-**Dificultades:**
-1. **Tensión:** cada pila alcalina suministra 1.5V; se necesitan 2-3 pilas = 3-4.5V (funciona, pero la tensión cae más deprisa)
-2. **No recargables:** son desechables
-3. **Conector:** se necesita un portapilas (en lugar del JST de la LiPo)
-4. **Cambios en el código:** calibrar la lectura de la tensión de la batería
-
-**Ventajas:**
-- Amplia disponibilidad
-- Sin riesgo de incendio (más seguras que las LiPo)
-- Mayor vida útil en almacenamiento
-
-**Recomendación:** Si necesitas evitar las LiPo, utiliza 3 pilas AA de litio (no alcalinas):
-- Energizer Ultimate Lithium
-- 1.5V × 3 = 4.5V nominales
-- Mejor rendimiento en frío que las alcalinas
-- Mayor duración que las alcalinas
-
-**Cambio necesario en el código:**
-```cpp
-// Voltage divider calibration for 3× AA (4.5V max instead of 4.2V)
-float batteryVoltage = analogRead(BATTERY_PIN) * (4.5 / 1023.0) * 2.0;
-```
-
----
-
 ## Preguntas sobre telemetría
 
 ### ¿Necesito telemetría?
@@ -347,36 +247,6 @@ float batteryVoltage = analogRead(BATTERY_PIN) * (4.5 / 1023.0) * 2.0;
 
 ---
 
-### ¿Qué operadores celulares son compatibles?
-
-**Requisitos:** Compatibilidad con LTE-M o NB-IoT
-
-**Estados Unidos:**
-- ✅ AT&T (mejor cobertura LTE-M)
-- ✅ T-Mobile (LTE-M, en expansión)
-- ✅ Verizon (Cat-M1)
-- ❌ Sprint (fusionada con T-Mobile)
-
-**Europa:**
-- ✅ Vodafone M2M
-- ✅ Telefonica
-- ✅ Deutsche Telekom
-- ✅ Orange
-
-**Reino Unido:**
-- ✅ EE
-- ✅ Vodafone
-- ✅ O2
-
-**Global o multioperador:**
-- ✅ Hologram (itinerancia entre varios operadores)
-- ✅ Twilio Super SIM
-- ✅ 1NCE
-
-**Comprueba la cobertura:** Consulta el mapa de cobertura LTE-M/NB-IoT del operador (no el de LTE convencional) en el lugar de instalación.
-
----
-
 ### ¿Cuántos datos utiliza la telemetría?
 
 **Consumo típico:**
@@ -396,59 +266,6 @@ float batteryVoltage = analogRead(BATTERY_PIN) * (4.5 / 1023.0) * 2.0;
 | Cada día | 1 | 600 bytes | 18 KB |
 
 **Plan recomendado:** 5-10 MB/mes (con margen suficiente)
-
-**Coste:** ~2-10 USD/mes según el operador y el plan
-
----
-
-### ¿Puedo utilizar WiFi en lugar de conexión celular?
-
-**Es posible, pero poco práctico en la mayoría de instalaciones:**
-
-**Dificultades:**
-1. **Alcance:** WiFi está limitado a ~50m (con visión directa)
-   - Pocos lugares de instalación disponen de WiFi
-2. **Consumo:** los módulos WiFi (ESP8266, ESP32) consumen ~70mA continuamente
-   - Reducen considerablemente la autonomía
-3. **Configuración:** se necesita configurar el SSID y la contraseña
-   - Hay que cambiarlos si cambia la red
-
-**Mejores alternativas:**
-- **LoRa/LoRaWAN:** Largo alcance (km), bajo consumo, pero necesita una pasarela
-- **Celular:** Funciona donde haya cobertura
-- **Satélite:** Muy caro, pero con cobertura global
-
-**Recomendación:** Si hay WiFi en el lugar, considera:
-- Alimentación de red eléctrica; entonces WiFi es viable
-- O bien: solo tarjeta SD y recogida manual (más sencillo)
-
----
-
-### ¿Puede el registrador enviarme avisos por correo electrónico o SMS?
-
-**No directamente, pero sí a través de un servidor:**
-
-**Arquitectura:**
-```
-Logger → XBee → Cellular → ThingsBoard → Email/SMS
-```
-
-**Configuración:**
-1. El registrador envía datos a ThingsBoard (como siempre)
-2. Configura una «Rule Chain» en ThingsBoard
-3. Añade una regla: si se cumple una condición, enviar correo
-4. Ejemplo: si la batería baja de 3.4V, enviar una alerta por correo
-
-**Correo electrónico:** ThingsBoard puede enviarlo directamente (configura SMTP)
-
-**SMS:** Requiere un servicio externo:
-- Twilio (pago por SMS)
-- AWS SNS
-- Otra pasarela de SMS
-
-Consulta la [configuración de ThingsBoard](../../telemetry/thingsboard-configuration.md) para configurar alertas.
-
-**Limitación:** El registrador no puede avisar por sí mismo si pierde alimentación o conexión (un equipo apagado no puede enviar un aviso). ThingsBoard puede alertar si «no se reciben datos en X horas».
 
 ---
 
@@ -717,7 +534,7 @@ df['water_depth_mm'] = installation_height - df['Distance_mm']
 
 **Wari (ultrasónico):**
 - Especificación del fabricante: ±10mm
-- En condiciones reales: ±20-50mm (temperatura, montaje, etc.)
+- En condiciones reales: ±20mm
 
 **Lidar:**
 - Especificación del fabricante: ±25mm
@@ -749,38 +566,6 @@ df['water_depth_mm'] = installation_height - df['Distance_mm']
 
 ---
 
-### ¿Puedo sincronizar varios registradores?
-
-**Sincronización horaria:**
-
-**Precisión del RTC:**
-- RTC DS3231: ±2 ppm (partes por millón)
-- Deriva: ~1 minuto al año
-- Suficiente para la mayoría de aplicaciones
-
-**Métodos de sincronización:**
-
-**1. Poner todos los registradores a la misma hora:**
-- Antes de instalarlos, ejecuta la utilidad `set_clock` en todos
-- Usa el ordenador como referencia horaria (sincronízalo mediante NTP)
-- Deriva: <1 minuto al mes (aceptable en la mayoría de casos)
-
-**2. Sincronización mediante GPS (avanzada):**
-- Añade un módulo GPS al registrador
-- Sincroniza el RTC con el GPS diariamente
-- Deriva: <1 segundo
-- Coste: +20-40 USD por registrador
-- Consumo: 20mA adicionales mientras el GPS está activo
-
-**3. Alineación durante el posprocesamiento:**
-- Analiza los datos y localiza un evento común (p. ej., un pico de lluvia)
-- Desplaza las series temporales hasta alinear los eventos
-- Herramientas: R, Python, MATLAB
-
-**Para la mayoría de usuarios:** Basta con el método 1.
-
----
-
 ### ¿Dónde puedo encontrar ejemplos de código?
 
 **Repositorio de GitHub:** https://github.com/ICHydro/Riverlabs
@@ -793,7 +578,6 @@ df['water_depth_mm'] = installation_height - df['Distance_mm']
 
 **Utilidades:**
 - `set_clock/set_clock.ino` - Ajuste de la hora del RTC
-- `precip_SD/precip_SD.ino` - Registrador de precipitaciones (otro sensor)
 
 **Bibliotecas utilizadas:**
 - RTClib (Adafruit)

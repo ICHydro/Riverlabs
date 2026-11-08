@@ -102,7 +102,7 @@ flowchart TD
 **P11: ¿Está bien ajustada la hora del RTC?**
 
 - Revisa el nombre del .CSV (incluye la fecha/hora)
-- **Archivos fechados 2000/01/01** → **SOLUCIÓN: Ajusta el RTC con `set_clock`**
+- **Archivos fechados 2000/01/01** → **SOLUCIÓN: Ajusta el RTC con `set_clock.ino`**
 - **Fecha correcta** → **SOLUCIÓN: Comprueba el intervalo de medición en el código (podría ser muy largo)**
 
 ---

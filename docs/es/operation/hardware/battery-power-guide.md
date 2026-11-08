@@ -1,11 +1,11 @@
 # Guía de baterías y alimentación
 
 !!! abstract "Descripción general"
-    Comprender el comportamiento de las baterías y la gestión de energía es esencial para lograr instalaciones fiables sobre el terreno. Esta guía trata la elección de baterías y la interpretación de su tensión.
+    El manejo energético es uno e los desafíos mas grandes del monitoreo automatizada en campo. Esta guía trata la elección de baterías y la interpretación de su voltaje y comportamiento.
 
 ## Descripción general del sistema de baterías
 
-Los registradores Riverlabs utilizan un sistema de dos baterías para la alimentación y la conservación de la hora.
+Los registradores Riverlabs utilizan un sistema de dos baterías. La bateria principal sirve para la alimentación del sistema. Una peque$ntilde;a bateria tipo reloj garantiza  conservación de la hora cuando la bateria principal no esta instalada.
 
 ![Comparación de tipos de baterías](../../assets/images/Battery_Types.png)
 *Tamaños de batería 18650 y 14500, con opciones de composición LiPo y LiFePO4*
@@ -13,18 +13,18 @@ Los registradores Riverlabs utilizan un sistema de dos baterías para la aliment
 
 ### Alimentación principal: batería 18650 o 14500
 
-Los registradores Riverlabs admiten dos tamaños de batería y dos tipos de composición:
+Dependiendo del modelo, los registradores Riverlabs usan uno de dos tamaños de batería. Dientro de cada tama&ntilde;o, existen diferentes tipos de composición quimica que se puede elejir dependiendo de sus necesidades y la disponibilidad local. 
 
 | Tipo de batería | Composición                              | Tensión nominal | Capacidad      | Dimensiones   | Notas                                           |
 |-----------------|------------------------------------------|-----------------|----------------|---------------|-------------------------------------------------|
-| **18650**       | LiPo (polímero de litio)                  | 3.7 V           | 2000–3000 mAh  | 18 mm × 65 mm | La más común; gran capacidad                    |
+| **18650**       | Li-ion (polímero de litio)                  | 3.7 V           | 2000–3000 mAh  | 18 mm × 65 mm | La más común; gran capacidad                    |
 | **18650**       | LiFePO4 (fosfato de hierro y litio)       | 3.2 V           | 1500–2000 mAh  | 18 mm × 65 mm | Más segura, mayor vida útil, menor tensión      |
-| **14500**       | LiPo (polímero de litio)                  | 3.7 V           | 600–800 mAh    | 14 mm × 50 mm | Más pequeña; menor capacidad                    |
+| **14500**       | Li-ion (polímero de litio)                  | 3.7 V           | 600–800 mAh    | 14 mm × 50 mm | Más pequeña; menor capacidad                    |
 | **14500**       | LiFePO4 (fosfato de hierro y litio)       | 3.2 V           | 400–600 mAh    | 14 mm × 50 mm | Más segura; menor tamaño                        |
 
 **Comparación de composiciones:**
 
-| Característica              | LiPo (3.7 V)                         | LiFePO4 (3.2 V)                        |
+| Característica              | Li-ion (3.7 V)                       | LiFePO4 (3.2 V)                        |
 |-----------------------------|--------------------------------------|----------------------------------------|
 | **Intervalo de tensión**    | 4.2 V (cargada)–3.0 V (agotada)       | 3.65 V (cargada)–2.5 V (agotada).       |
 | **Densidad energética**     | Mayor                                | Menor                                  |
@@ -34,7 +34,7 @@ Los registradores Riverlabs admiten dos tamaños de batería y dos tipos de comp
 | **Coste**                   | Menor                                | Ligeramente mayor                      |
 | **Más adecuada para**       | Máxima autonomía                     | Fiabilidad a largo plazo y seguridad   |
 
-**Información de seguridad fundamental:**
+**Información de seguridad importante:**
 
 !!! danger "Seguridad de las baterías"
     - ⚠️ Nunca utilice baterías dañadas o abolladas
@@ -52,14 +52,14 @@ Los registradores Riverlabs admiten dos tamaños de batería y dos tipos de comp
 - **Tensión nominal:** 3.0 V
 - **Capacidad:** ~40 mAh
 - **Finalidad:** respaldo exclusivo del reloj de tiempo real
-- **Vida útil:** normalmente de 5 a 10 años
+- **Vida útil:** normalmente de 5 a 10 años. Nota: cuando la bateria principal esta insertada, el reloj recibe poder de la batería principal y la batería de respalda no se descarga.
 
 **Función:**
 
 - Mantiene la hora del reloj cuando se retira la batería principal
 - NO alimenta el registrador ni el sensor
 - El registrador funciona sin ella (pero pierde la hora)
-- Es esencial para aplicaciones de telemetría (hora UTC)
+- Aplicaciones de telemetría obtienen la hora de in servidor del internet, y el uso de la bateria de respaldo no es necesario
 
 ---
 
@@ -240,7 +240,7 @@ La tensión de la batería indica la capacidad restante, pero los intervalos de 
 </table>
 
 !!! info "Curva de descarga más plana"
-    Las baterías LiFePO4 mantienen la tensión más estable durante la descarga. Se mantienen alrededor de 3,2–3,3 V durante la mayor parte de su capacidad y después caen rápidamente al agotarse.
+    Las baterías LiFePO4 mantienen la tensión más estable durante la descarga. Se mantienen alrededor de 3.2–3.3 V durante la mayor parte de su capacidad y después caen rápidamente al agotarse.
 
 ### Lectura de la tensión de la batería
 
@@ -248,7 +248,7 @@ La tensión de la batería indica la capacidad restante, pero los intervalos de 
 
 - La tensión se registra en cada medición
 - Normalmente figura en la última columna del archivo de datos
-- Se expresa en milivoltios (p. ej., 3850 = 3,85 V)
+- Se expresa en milivoltios (p. ej., 3850 = 3.85 V)
 
 **Ejemplo de línea de datos:**
 ```
@@ -263,7 +263,7 @@ La tensión de la batería indica la capacidad restante, pero los intervalos de 
 2. Acceda a los terminales de la batería (puede requerir abrir el registrador)
 3. Coloque la punta roja en el terminal +
 4. Coloque la punta negra en el terminal -
-5. Lea la tensión (debería indicar 3,0–4,2 V)
+5. Lea la tensión (debería indicar 3.0–4.2 V)
 
 !!! tip "Caída de tensión durante la medición"
     La tensión desciende brevemente durante una medición activa debido a la elevada demanda de corriente. La tensión registrada suele medirse durante el reposo (lo que permite estimar la capacidad con mayor precisión).
@@ -277,15 +277,17 @@ La tensión de la batería indica la capacidad restante, pero los intervalos de 
 
 ### Especificaciones del panel solar
 
+!!! danger "Quimica de la bateria"
+    El circuio de carga por panel solar solo es compaitble con baterías Li-Ion de 3.7 V
+
 **Configuración solar habitual:**
 
 - Panel: 5–10 W, 6 V
-- Controlador de carga: compatible con iones de litio de 3,7 V
 - Cable: resistente a la intemperie, con alivio de tensión
 - Montaje: ajustable según el ángulo del sol
 
 !!! warning "Limitaciones de la carga solar"
-    - Solo carga por encima de 0°C
+    - Solo carga por encima de 0°C (desactivación automatica debajo de 0°C
     - Requiere buena exposición al sol; no es adecuada para lugares con mucha sombra
     - Puede no ser suficiente para compensar el consumo de la telemetría
 
@@ -297,7 +299,7 @@ La tensión de la batería indica la capacidad restante, pero los intervalos de 
 
 **Condiciones óptimas de almacenamiento:**
 
-- **Tensión:** 3,7–3,8 V para LiPo (50 % de carga) o 3,2–3,3 V para LiFePO4
+- **Voltaje:** 3.7–3.8 V para LiPo (50 % de carga) o 3.2–3.3 V para LiFePO4
 - **Temperatura:** 15–20°C
 - **Humedad:** <60%
 - **Lugar:** fresco, seco y alejado de objetos metálicos
@@ -323,8 +325,8 @@ La tensión de la batería indica la capacidad restante, pero los intervalos de 
 !!! warning "Revise las baterías almacenadas"
     Las baterías almacenadas deben revisarse cada 3–6 meses.
     
-    - **LiPo:** recargue hasta 3,7–3,8 V si la tensión es inferior a 3,4 V
-    - **LiFePO4:** recargue hasta 3,2–3,3 V si la tensión es inferior a 2,9 V
+    - **Li-Ion:** recargue hasta 3.7–3.8. V si la tensión es inferior a 3.4 V
+    - **LiFePO4:** recargue hasta 3.2–3.3 V si la tensión es inferior a 2.9 V
 
 ### Eliminación
 
@@ -346,7 +348,7 @@ La tensión de la batería indica la capacidad restante, pero los intervalos de 
 
 **Compruebe:**
 
-1. Tensión de la batería >3,3 V
+1. Tensión de la batería >3.3 V
 2. Polaridad correcta de la batería
 3. Contactos de la batería limpios y con buen contacto
 4. Ausencia de daños físicos en el registrador
@@ -387,4 +389,4 @@ La tensión de la batería indica la capacidad restante, pero los intervalos de 
 ---
 
 !!! success "Gestión de energía dominada"
-    Con una selección, supervisión y optimización adecuadas de las baterías, sus registradores pueden funcionar de forma fiable durante semanas o meses con una sola carga.
+    Con una selección, supervisión y optimización adecuadas de las baterías, sus registradores pueden funcionar de forma fiable durante varios a&ntilde;os con una sola carga.

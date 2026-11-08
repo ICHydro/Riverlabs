@@ -1,7 +1,7 @@
 # Guía de configuración de la telemetría
 
 !!! abstract "Descripción general"
-    Esta guía explica de principio a fin cómo configurar la telemetría celular con módulos XBee para transmitir datos a distancia, desde la instalación del hardware hasta la primera transmisión correcta.
+    Esta pagina explica de principio a fin cómo configurar la telemetría celular con módulos XBee para transmitir datos a distancia, desde la instalación del hardware hasta la primera transmisión correcta.
 
 ## Descripción general
 
@@ -44,7 +44,7 @@ Los registradores Riverlabs pueden incorporar telemetría celular para transmiti
 │  Internet   │
 └──────┬──────┘
        │
-       │ HTTP/CoAP
+       │ MQTT
        ↓
 ┌─────────────┐
 │ ThingsBoard │ → Plataforma IoT
@@ -101,39 +101,8 @@ Los registradores Riverlabs pueden incorporar telemetría celular para transmiti
 
 **Requisitos:**
 
-- Compatibilidad con LTE-M o NB-IoT (no todos los operadores la ofrecen)
-- Plan de datos IoT/M2M
 - Buena cobertura en el lugar de instalación
 - Tarifas de datos razonables
-
-**Proveedores recomendados (por región):**
-
-**Estados Unidos:**
-
-- AT&T IoT DataConnect
-- Verizon ThingSpace
-- T-Mobile IoT
-- Hologram (varios operadores)
-- Soracom (varios operadores)
-
-**Europa:**
-
-- Vodafone M2M
-- Telefonica M2M
-- 1NCE (varios operadores; especializado en IoT)
-- Eseye (varios operadores)
-
-**Reino Unido:**
-
-- EE M2M
-- Vodafone IoT
-- O2 M2M
-
-**Global/varias regiones:**
-
-- Hologram
-- Twilio Super SIM
-- 1NCE
 
 ### Dimensionar el plan de datos
 

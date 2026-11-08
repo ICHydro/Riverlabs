@@ -16,6 +16,8 @@
 | **Batería (carga)** | 0°C | +45°C | +10°C a +35°C |
 | **Tarjeta SD** | -25°C | +85°C | -10°C a +60°C |
 
+Las versiones del Wari con panel solar tienen un circuito interno que desactiva la carga debajo de 0°C.
+
 #### Consideraciones para climas fríos
 
 **Efectos de las bajas temperaturas:**
@@ -25,14 +27,6 @@
     - A -10°C: ~60 % de capacidad
     - A -20°C: ~40 % de capacidad
 - **Riesgo de condensación** al aumentar la temperatura
-
-**Adaptaciones para climas fríos:**
-
-❌ **Evitar:**
-
-- Intentar cargar las baterías por debajo de 0°C
-- Utilizar carga solar en condiciones de congelación
-- Esperar una autonomía normal de la batería
 
 **Efectos de las altas temperaturas:**
 
@@ -44,16 +38,15 @@
 
 ✅ **Hacer:**
 
-- Instalar protectores solares
-- Reducir la frecuencia de registro para minimizar el tiempo de funcionamiento activo
+- Instalar protección contra la radiación solar.
 - Comprobar el estado de la batería con mayor frecuencia
+- Facilitar ventilación
 
 ❌ **Evitar:**
 
 - Montar el registrador bajo el sol directo de la tarde
-- Usar carcasas de color oscuro
-- Sellar por completo la carcasa sin prever ventilación
-- Ignorar una batería hinchada (señal de peligro)
+- Usar cajas de color oscuro
+- Sellar por completo la caja sin prever ventilación
 
 **Métodos de protección solar:**
 
@@ -89,11 +82,11 @@
 3. **Carcasa del sensor**
     - Evitar que se acumule agua sobre el sensor
 
-**Prevención de acumulaciones de agua:**
+**Prevención de acumulacion de agua:**
 
 ![Diseño del drenaje](../assets/images/drainage-design.png)
 
-- Inclinar la carcasa entre 5 y 10° para favorecer la escorrentía
+- Inclinar la caja entre 5 y 10° para favorecer la escorrentía
 - Hacer que los cables salgan por la parte inferior
 - Evitar superficies horizontales donde pueda acumularse agua
 
@@ -103,15 +96,14 @@
 
 - Variaciones de temperatura (día/noche)
 - Diferencia de humedad entre el interior y el exterior
-- Humedad atrapada en una carcasa sellada
-- Intercambio de aire de la carcasa debido a cambios de presión
+- Humedad atrapada en una caja sellada
+- Intercambio de aire de la caja debido a cambios de presión
 
 **Medidas contra la condensación:**
 
 - **Bolsas desecantes**
-    - Renovar las bolsas de gel de sílice del interior de la carcasa
-    - Sustituirlas cada 3–6 meses
-    - Las bolsas con indicador muestran cuándo están saturadas (normalmente amarillo si están nuevas y verde si se han usado)
+    - Usar bolsas de gel de sílice del interior de la caja
+    - Renovarlas regularmente. Las bolsas con indicador muestran cuándo están saturadas (típicamente amarillo si están nuevas y verde si se han usado)
     - Usar desecante de calidad alimentaria (reutilizable)
 
 ## Factores biológicos
@@ -121,8 +113,8 @@
 **Problemas habituales:**
 
 - Telarañas sobre el sensor o la lente
-- Insectos que anidan en la carcasa
-- Telarañas que provocan lecturas falsas
+- Insectos que anidan en la caja
+- Telarañas o insectos que provocan lecturas falsas
 - Obstrucción de los orificios de drenaje
 
 **Prevención:**

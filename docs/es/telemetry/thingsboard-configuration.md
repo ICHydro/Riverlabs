@@ -1,7 +1,7 @@
 # Configuración de ThingsBoard
 
 !!! abstract "Descripción general"
-    Esta guía completa explica cómo configurar la plataforma IoT ThingsBoard para visualizar y supervisar los datos de Riverlabs, desde la creación de la cuenta hasta los paneles avanzados.
+    Esta página explica cómo configurar la plataforma IoT ThingsBoard para visualizar y supervisar los datos de Riverlabs, desde la creación de la cuenta hasta los paneles avanzados.
 
 ## ¿Qué es ThingsBoard?
 

@@ -1,8 +1,8 @@
 ### Descripción general
 
-La plataforma de registradores Wari es compatible con muchos sensores. No obstante, las configuraciones más habituales utilizan sensores de distancia para medir sin contacto el nivel del agua en ríos y lagos. Utilizamos sensores ultrasónicos (principalmente el Maxbotix MB7389) para mediciones de corto alcance (hasta 5 m) y lidar (Garmin Lidarlite) para mediciones de mayor alcance (hasta 40 m). El sensor lidar tiene la ventaja adicional de poder instalarse inclinado respecto de la vertical, aunque es menos preciso.
+La plataforma de registradores Riverlabs es compatible con muchos sensores. No obstante, las configuraciones más habituales utilizan sensores de distancia para medir sin contacto el nivel del agua en ríos y lagos. Utilizamos sensores ultrasónicos (principalmente el Maxbotix MB7389) para mediciones de corto alcance (hasta 5 m) y lidar (Garmin Lidarlite) para mediciones de mayor alcance (hasta 40 m). El sensor lidar tiene la ventaja adicional de poder instalarse inclinado respecto de la vertical, aunque es menos preciso.
 
-Hemos utilizado satisfactoriamente registradores Wari con otros sensores, como sensores de humedad del suelo, sensores de calidad del agua y pluviómetros de balancín. Algunos requieren ajustes o módulos electrónicos adicionales. No se tratan expresamente en esta guía, pero, si le interesan, póngase en contacto con nosotros. A medida que maduren nuestros diseños, esperamos incluirlos aquí.
+Hemos utilizado satisfactoriamente registradores Riverlabs con otros sensores, como humedad del suelo, calidad del agua y pluviómetros de balancín. Algunos requieren ajustes o módulos electrónicos adicionales. No se tratan expresamente en esta guía, pero si le interesan, póngase en contacto con nosotros. A medida que maduren nuestros diseños, esperamos incluirlos aquí.
 
 A continuación se resumen las principales características de los modelos ultrasónico y lidar:
 
@@ -28,7 +28,7 @@ A continuación se resumen las principales características de los modelos ultra
 
 ### Cómo encontrar el número de modelo
 
-La designación del modelo suele aparecer en una etiqueta en el lateral de la carcasa, aunque también puede estar en el interior.
+La designación del modelo aparece en una etiqueta en el lateral de la carcasa, aunque también puede estar en el interior.
 
 **Busque:**
 
@@ -41,16 +41,16 @@ La designación del modelo suele aparecer en una etiqueta en el lateral de la ca
 | Intervalo de números de serie | Sensor       | Telemetría          | Archivo de firmware        |
 |-------------------------------|--------------|---------------------|----------------------------|
 | RL000001–RL000277             | Ultrasonidos | Ninguna             | `wari_v1.ino`              |
-| RL000001–RL000277             | Ultrasonidos | Celular 3G          | `wari_3G.ino`              |
+| RL000001–RL000277             | Ultrasonidos | Celular 3G/LTE      | `wari_3G.ino`              |
 | RL000278–RL000330             | Ultrasonidos | Ninguna             | `wari_v2.0.ino`            |
-| RL000278+                     | Ultrasonidos | Celular 3G          | `wari_3G_v2.ino`           |
+| RL000278+                     | Ultrasonidos | Celular 3G/LTE      | `wari_3G_v2.ino`           |
 | RL000331+                     | Ultrasonidos | Ninguna             | `wari_v2.1.ino`            |
-| Cualquiera                    | Ultrasonidos | 4G LTE-M/NB-IoT     | `wari_4G.ino`              |
+| Cualquiera                    | Ultrasonidos | LTE-M/NB-IoT        | `wari_4G.ino`              |
 | Cualquiera                    | Lidar        | Ninguna             | `wari_lidar.ino`           |
-| Cualquiera                    | Lidar        | Celular 3G o 4G     | `wari_lidar_cellular.ino`* |
+| Cualquiera                    | Lidar        | Celular             | `wari_lidar_cellular.ino`* |
 | Cualquiera                    | Lidar        | Radio LoRa          | `wari_lidar_lora.ino`      |
 
-**\*** Establezca el tipo de módem correcto (3G o LTE-M) en la definición del compilador situada al principio del código
+**\*** Establezca el tipo de módem correcto (3G, LTE-M/NB-IoT, o LTE) en la definición del compilador situada al principio del código
 
 !!! info "Nombres anteriores"
     Si lleva tiempo utilizando nuestro repositorio de GitHub, quizá haya observado algunos cambios de nombre. Para evitar confusiones:

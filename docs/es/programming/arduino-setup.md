@@ -2,8 +2,8 @@
  
 ## El IDE de Arduino
 
-!!! tip "¿Es tu primera vez con Arduino?"
-    Si quieres saber más sobre Arduino, el [sitio web de Arduino](https://www.arduino.cc/en/Guide/Environment) ofrece excelentes tutoriales y documentación. Aunque puedes realizar muchos de sus ejemplos con los registradores Riverlabs, estos no siempre siguen los diseños estándar, por ejemplo, en lo que respecta al LED y las comunicaciones. Por eso, para aprender y experimentar, puede ser útil comprar una de las muchas placas Arduino disponibles a través de proveedores como [Arduino.cc](https://www.arduino.cc/en/Main/Products), Sparkfun o Adafruit.
+!!! tip "¿Es su primera vez con Arduino?"
+    Si quiere saber más sobre Arduino, el [sitio web de Arduino](https://www.arduino.cc/en/Guide/Environment) ofrece excelentes tutoriales y documentación. Aunque puedes realizar muchos de sus ejemplos con los registradores Riverlabs, estos no siempre siguen los diseños estándar, por ejemplo, en lo que respecta al LED y las comunicaciones. Por eso, para aprender y experimentar, puede ser útil comprar una de las muchas placas Arduino disponibles a través de proveedores como [Arduino.cc](https://www.arduino.cc/en/Main/Products), Sparkfun o Adafruit.
 
 Para instalar el IDE de Arduino, sigue las [instrucciones](https://www.arduino.cc/en/software/#ide) del sitio web de Arduino.
 

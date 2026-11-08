@@ -1,7 +1,7 @@
 # Posicionamiento de sensores
 
 !!! abstract "Descripción general"
-    El posicionamiento adecuado de los sensores es fundamental para obtener mediciones precisas. Esta guía ofrece información detallada sobre la ubicación óptima de los sensores más habituales de la plataforma Wari.
+    El posicionamiento adecuado de los sensores es fundamental para obtener mediciones precisas. Esta guía ofrece información detallada sobre la ubicación óptima de los sensores más habituales de la plataforma Riverlabs.
 
 
 ## Sensor ultrasónico Maxbotix
@@ -14,7 +14,7 @@ El sensor ultrasónico emite un haz cónico que se ensancha a medida que aumenta
 
 ### Consideraciones sobre la reflectividad
 
-Las mediciones ultrasónicas de distancia se basan en el tiempo de vuelo de un pulso sonoro emitido por el sensor y reflejado por el objeto de destino. Como los materiales y las formas de los objetos pueden afectar a su reflectividad, también pueden influir en la calidad de la medición. Por lo general, el agua refleja bien el sonido, pero los siguientes factores pueden afectar a las lecturas:
+Las mediciones ultrasónicas de distancia se basan en el tiempo de vuelo de un pulso sónico emitido por el sensor y reflejado por el objeto de destino. Como los materiales y las formas de los objetos pueden afectar a su reflectividad, también pueden influir en la calidad de la medición. Por lo general, el agua refleja bien el sonido, pero los siguientes factores pueden afectar a las lecturas:
 
 - Oleaje y turbulencia: no afectan a la reflexión en sí, pero las variaciones resultantes del nivel del agua sí afectan a la lectura. Tomar varias mediciones y calcular su promedio puede aumentar la precisión.
 - Residuos flotantes: algunos, como los materiales blandos, pueden reducir la reflectividad del objetivo. Los fragmentos de mayor tamaño también pueden modificar la superficie reflectante y provocar errores de medición.

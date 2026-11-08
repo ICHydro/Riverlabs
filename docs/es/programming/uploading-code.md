@@ -1,7 +1,7 @@
 # Programación de los registradores Riverlabs
 
 !!! Abstract "Resumen"
-    En la sección anterior de este capítulo se explica cómo instalar el IDE de Arduino, las definiciones de placa y las bibliotecas necesarias. Una vez instalado todo, puedes conectar el registrador a un ordenador y compilar y cargar el código. Esta sección explica cómo hacerlo.
+    En la sección anterior de este capítulo se explica cómo instalar el IDE de Arduino, las definiciones de placa y las bibliotecas necesarias. Una vez instalado todo, se puede conectar el registrador a un ordenador y compilar y cargar el código. Esta sección explica cómo hacerlo.
 
 ## Conectar el registrador al ordenador
 

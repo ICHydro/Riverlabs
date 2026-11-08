@@ -20,11 +20,11 @@ SM: suspensión mediante pin [1]
 
 ## Radios XBee
 
-Los registradores WMOnode vienen equipados con un zócalo para XBee, que puede utilizarse con radios compatibles con DIGI XBee.
+Los registradores Wari vienen equipados con un zócalo para XBee, que puede utilizarse con radios compatibles con DIGI XBee.
 
 Los Digi XBee son una serie de dispositivos de radio populares para aplicaciones integradas. La gama XBee abarca numerosas tecnologías y protocolos de radio diferentes, como Zigbee. Esto proporciona una gran flexibilidad a la hora de diseñar soluciones de red para aplicaciones específicas, tanto para redes extensas como locales, y para actualizar dispositivos. Además de ser equipos extremadamente sólidos y fiables, se integran fácilmente con Arduino gracias a la biblioteca xbee-arduino. Hemos ampliado la [biblioteca original](https://github.com/andrewrapp/xbee-arduino) con la funcionalidad necesaria para interactuar con los módems celulares más recientes, que utilizan una versión ligeramente ampliada de la API original. Nuestra versión está disponible en nuestra [página de GitHub](https://github.com/ICHydro/xbee-arduino), pero también está incluida en el paquete WMOnode de esta página de GitHub, por lo que no es necesario instalarla por separado.
 
-Para la telemetría a través de la red celular, utilizamos el [DIGI XBee Cellular 3G](https://www.digi.com/products/embedded-systems/digi-xbee/cellular-modems/digi-xbee-cellular-3g). Digi también ofrece soluciones 4G, pero estas dependen de los protocolos LTE-M o NB-IoT, que todavía no son muy comunes. Sin embargo, la actualización debería ser sencilla; esta guía se centra en el módem 3G.
+Para la telemetría a través de la red celular, utilizamos el [DIGI XBee Cellular](https://www.digi.com/products/embedded-systems/digi-xbee/cellular-modems/digi-xbee-cellular). Existen versiones con los protocolos especializados LTE-M o NB-IoT, tanto como una versión LTE que es compatible con la mayoria de las redes 4G y 5G.
 
 La mayor parte de la configuración del XBee Cellular se realiza directamente en el código de Arduino. Sin embargo, es necesario configurar algunos parámetros manualmente para garantizar que el registrador pueda comunicarse con el XBee. La forma más sencilla de hacerlo es mediante el [software XCTU gratuito de DIGI](https://www.digi.com/products/embedded-systems/digi-xbee/digi-xbee-tools/xctu). Aquí ofrecemos una breve descripción general, pero para consultar toda la funcionalidad del software XCTU, recomendamos utilizar el [manual original](https://www.digi.com/products/embedded-systems/digi-xbee/digi-xbee-tools/xctu).
 

@@ -2,19 +2,19 @@
 
 ## Introducción
 
-Si tienes un registrador Riverlabs preprogramado, estará listo para usar nada más sacarlo de la caja. Sin embargo, si necesitas cambiar algún ajuste, tendrás que volver a programarlo. Uno de los ajustes más habituales es la frecuencia de medición. Nuestros registradores preprogramados suelen medir cada 5 o 15 minutos. Esto resulta adecuado para muchos casos, aunque quizá prefieras un intervalo más corto o más largo.
+Si tiene un registrador Riverlabs preprogramado, estará listo para usar sin necesidad de configuración o programación. Sin embargo, si necesita cambiar algún aspecto de la configuración, tendrá que volver a programarlo. Por ejemplo, uno de los ajustes más habituales es la frecuencia de medición. Nuestros registradores preprogramados miden cada 5 o 15 minutos. Esto resulta adecuado para muchos casos, aunque quizá se prefiere un intervalo más corto o más largo.
 
-Si utilizas telemetría, pero no la plataforma de datos de Riverlabs, es posible que tengas que volver a programar el registrador para configurar, por ejemplo, la dirección de internet de tu plataforma de datos y las credenciales de autenticación del dispositivo.
+Si se utiliza telemetría, pero no la plataforma de datos de Riverlabs, hay que volver a programar el registrador para configurar, por ejemplo, la dirección de internet de la plataforma de datos y las credenciales de autenticación del dispositivo.
 
-También puede ser necesario volver a programar el registrador si el reloj ha perdido la hora porque se ha retirado o agotado la pila de botón de respaldo. Ten en cuenta que los registradores con conexión celular ajustan la hora automáticamente consultando un servidor horario de internet, por lo que no necesitan configuración manual. Sin embargo, para los registradores que utilizan tarjeta SD es fundamental ajustar la hora correcta mediante un programa de Arduino.
+También puede ser necesario volver a programar el registrador si el reloj ha perdido la hora por haberse retirado o agotado la pila de botón de respaldo. THay que tener en cuenta que los registradores con conexión celular ajustan la hora automáticamente consultando un servidor horario de internet, por lo que no necesitan configuración manual. Sin embargo, para los registradores que utilizan tarjeta SD es fundamental ajustar la hora correcta mediante un programa de Arduino.
 
-Aunque programar un registrador de datos pueda parecer complicado, el [manual de programación](../../programming/arduino-setup.md) te guía durante todo el proceso. Además, hemos organizado el código para que los ajustes más habituales estén al principio del programa principal y puedas modificarlos sin alterar el resto. Si ya conoces Arduino, la [guía breve](arduino-setup.md) te ayudará a empezar.
+Aunque la programación de un registrador de datos pueda parecer complicado, el [manual de programación](../../programming/arduino-setup.md) le guía durante todo el proceso. Además, hemos organizado el código para que los ajustes más habituales estén al principio del programa principal y puedas modificarlos sin alterar el resto. Si ya conoces Arduino, la [guía breve](arduino-setup.md) ayudará a empezar.
 
 Esta guía de inicio rápido presupone que el registrador está programado correctamente.
 
 ## 1. Identifica tu registrador
 
-Primero, identifica qué modelo de registrador tienes. Hemos producido numerosas versiones desde que comenzó el desarrollo, pero en los últimos años hemos consolidado el diseño en torno a nuestra plataforma Rio, que es bastante estable. En el futuro, esperamos incorporar las diferencias de hardware al software para poder utilizar una única base de código.
+Primero, identifica su modelo de registrador. Hemos producido numerosas versiones desde que comenzó el desarrollo, pero en los últimos años hemos consolidado el diseño en torno a nuestra plataforma Rio, que es bastante estable. En el futuro, esperamos incorporar las diferencias de hardware al software para poder utilizar una única base de código.
 
 La principal diferencia entre modelos es el sensor conectado. Utilizamos sobre todo sensores de distancia para medir el nivel del agua, como el sensor ultrasónico Maxbotix y el telémetro lidar de Garmin. A continuación se comparan ambos sensores. Más recientemente, también hemos desarrollado modelos para sensores de humedad del suelo, pluviómetros y determinados parámetros de calidad del agua.
 
