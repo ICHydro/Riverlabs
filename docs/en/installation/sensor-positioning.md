@@ -30,7 +30,7 @@ The lidar sensor emits a highly focused infra-red laser beam with minimal diverg
 
 | Distance | Spot Diameter | Area Coverage |
 |----------|---------------|---------------|
-| 1 m      | ~0.8 cm       | 0.0005 m²     |
+| 1 m      | ~0.8 cm       | 0.00005 m²     |
 | 5 m      | ~4 cm         | 0.0013 m²     |
 | 10 m     | ~8 cm         | 0.005 m²      |
 | 20 m     | ~16 cm        | 0.020 m²      |
