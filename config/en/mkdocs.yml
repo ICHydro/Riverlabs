@@ -107,10 +107,10 @@ copyright: Copyright &copy; 2026 Riverlabs Ltd
 nav:
   - Operation:
       - Quick Start:
-          - "1. Setup Guide (start here)": operation/quick-start/setup-guide.md
-          - "2. Settings Explained & FAQ": operation/quick-start/settings-explained.md
-          - "3. First Deployment Checklist": operation/quick-start/first-deployment-checklist.md
-          - "4. Data Download": operation/quick-start/data-download.md
+          - 1. Setup Guide (start here): operation/quick-start/setup-guide.md
+          - 2. Settings Explained & FAQ: operation/quick-start/settings-explained.md
+          - 3. First Deployment Checklist: operation/quick-start/first-deployment-checklist.md
+          - 4. Data Download: operation/quick-start/data-download.md
           - Logger Models Overview: operation/quick-start/quick-start.md
           - Arduino Settings (short version): operation/quick-start/arduino-setup.md
       - Hardware:
