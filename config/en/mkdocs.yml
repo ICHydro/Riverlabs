@@ -125,6 +125,7 @@ nav:
       - Introduction: programming/intro.md
       - Arduino Setup: programming/arduino-setup.md
       - Uploading Code: programming/uploading-code.md
+      - PlatformIO, Backup and Restore: programming/advanced.md
 #  - Telemetry:
 #    - Cellular Setup Guide: telemetry/setup-guide.md
 #    - LoRa / LoRaWAN Guide: telemetry/lora-lorawan-guide.md

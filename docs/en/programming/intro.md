@@ -7,13 +7,11 @@
 
 For most users, we recommend using the Arduino IDE to program Riverlabs loggers. [Arduino](https://www.arduino.cc/) is a fantastic [open source hardware](https://en.wikipedia.org/wiki/Open-source_hardware) ecosystem, and the [Arduino IDE](https://www.arduino.cc/en/software) is a user-friendly software development environment to write and compile computer code that runs on embedded processors such as those that power the Riverlabs loggers. 
 
-If you do not like the Arduino IDE or find it too limited, then we recommend using [PlatformIO](https://platformio.org/), which is compatible with many advanced IDEs such as VSCode, Atom, and even Emacs. Just make sure that you install [MiniCore for PlatformIO](https://github.com/MCUdude/MiniCore/blob/master/PlatformIO.md), as this is the bootloader and Arduino core that the Riverlabs loggers use.
-
-We hope to provide more details on how to use PlatformIO in this guide, but for now the documentation follows the use of the Arduino IDE.
+If you do not like the Arduino IDE or find it too limited, then we recommend using [PlatformIO](https://platformio.org/), which is compatible with many advanced IDEs such as VSCode, Atom, and even Emacs. The repository already contains a `platformio.ini` with one environment for each logger sketch (not for `set_clock`), so no extra setup is needed. See [PlatformIO, Backup and Restore](advanced.md).
 
 ## Hardware requirements
 
-One of the main advantages of urboot and similar bootloaders is that you do not need an expensive hardware programmer to program the CPU. Instead, you can connect the board directly to an USB port. That is, if the CPU has built-in USB functionality. That is not the case for the Atmega328 CPU that the Riverlabs logger use, and therefore you will still need one piece of hardware, which is a USB to Serial converter, also known as an FTDI cable:
+One of the main advantages of a bootloader (the logger we tested uses Optiboot) is that you do not need an expensive hardware programmer to program the CPU. Instead, you can connect the board directly to an USB port. That is, if the CPU has built-in USB functionality. That is not the case for the Atmega328 CPU that the Riverlabs logger use, and therefore you will still need one piece of hardware, which is a USB to Serial converter, also known as an FTDI cable:
 
 ![FTDI Cable Connection](../assets/images/FTDICable.png)<br>
 *FTDI cable showing the 6-pin connector with colour-coded wires*
