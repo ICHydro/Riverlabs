@@ -2,7 +2,7 @@
 
 Esta versión del Wari utiliza un sensor ultrasónico de distancia de la marca Maxbotix, con un alcance teórico máximo de 5&nbsp;m. Sin embargo, en la práctica el alcance puede ser ligeramente inferior, especialmente en superficies de baja reflectividad. La mayoría de las superficies de agua reflejan bien la se&ntilde;al, pero se recomienda dejar un margen de aproximadamente 0,5&nbsp;m.
 
-Aunque los sensores ultrasónicos pueden medir en ángulo, hacerlo puede provocar errores debido a la divergencia del cono de la señal ultrasónica. Esta divergencia también implica que el sensor debe instalarse a una distancia suficiente de otros obstáculos que puedan reflejar la señal, como la orilla del río. Las especificaciones técnicas del sensor proporcionan más detalles, pero, en general, recomendamos una distancia horizontal mínima de 0,2&nbsp;m entre la trayectoria de propagación de la señal y cualquier obstáculo:
+Aunque los sensores ultrasónicos pueden medir en ángulo, hacerlo puede provocar errores debido a la divergencia del cono de la señal ultrasónica. Esta divergencia también implica que el sensor debe instalarse a una distancia suficiente de otros obstáculos que puedan reflejar la señal, como la orilla del río. Las especificaciones técnicas del sensor proporcionan más detalles, pero, en general, recomendamos una distancia horizontal mínima de 0,2&nbsp;m entre la trayectoria de propagación de la se&ntilde;al y cualquier obstáculo:
 
 ![Esquema de instalación ultrasónica](../assets/images/installation_US.png "Instalación del Wari con sensor ultrasónico")
 
