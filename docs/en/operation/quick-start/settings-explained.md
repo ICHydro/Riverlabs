@@ -184,17 +184,20 @@ Everything is the same, with `HOST` set to your server's address. Two things to 
 ??? question "What do all these letters mean? (SWSWSW...)"
     `S` is printed just before the logger goes to sleep, and `W` when it wakes up. The clock wakes it every minute, so you see `SW` once a minute. This is normal.
 
-??? question "It keeps showing \"AI status = FF\". What do I do?"
-    `FF` means the modem is still starting up. On our test logger, `FF` showed for the first 15 to 30 seconds, and then it connected normally. The logger checks every 3 seconds for up to 3 minutes. `wari_3G` and `wari_3G_v2` then print "Trying again." and try for another 3 minutes.
+??? question "It keeps showing \"AI status = FF\" or \"AI status = 22\". What do I do?"
+    `FF` means the modem is starting up, and `22` means it is looking for a mobile network to join. On our test logger, `FF` showed for the first 15 to 30 seconds, then `22` for a few seconds, and then it connected. The logger checks every 3 seconds for up to 3 minutes. `wari_3G` and `wari_3G_v2` then print "Trying again." and try for another 3 minutes.
 
-    If it stays on `FF`:
+    **Changing the APN does not fix this.** The modem only uses the APN after it has joined a network (status `23`). If it stays on `FF` or `22`, look at the power, the SIM, the antenna and the network type instead. Check these in order:
 
-    1. **Use the battery.** Run the logger on a charged battery with the switch on **ON**. The Riverlabs instructions say the FTDI cable does not give enough power for sending. You can keep the cable plugged in to watch the messages.
-    2. **Check the SIM and antenna.** Switch OFF, then check the SIM is pushed fully into the XBee the right way round, and the antenna is connected.
-    3. **Check the modem type.** If the label on the XBee says LTE-M or NB-IoT, use the `wari_4G` sketch, not `wari_3G_v2`.
-    4. **Check that the modem answers.** If an error line appears before the "AI status" lines, the logger could not talk to the modem at all, and `FF` is just the starting value. Switch OFF and push the XBee firmly into its socket.
+    1. **Use the battery.** Run the logger on a charged battery with the switch on **ON**. The Riverlabs instructions say the FTDI cable does not give enough power for the modem. You can keep the cable plugged in to watch the messages.
+    2. **Check the SIM and antenna.** Switch OFF, then check the SIM is pushed fully into the XBee the right way round, and the antenna is connected. The SIM must be activated and have no PIN lock (see [Does the SIM card need anything special?](#questions-about-the-hardware)).
+    3. **Check the sketch matches the modem.** If the label on the XBee says 3G, use `wari_3G` or `wari_3G_v2`. If it says LTE-M or NB-IoT, use `wari_4G`.
+    4. **3G modem?** Many countries, including the UK, have switched off 3G. A 3G modem stays on `22` where there is no 3G network.
+    5. **`wari_4G`?** The sketch makes the modem use **NB-IoT only, on bands 8 and 20**. If your SIM or the local network only offers LTE-M, or NB-IoT on other bands, the modem stays on `22`. Ask your SIM company which network types and bands it supports where you are.
+    6. **Check the signal.** Try near a window or outside. Indoors, NB-IoT and LTE-M signals can be weak.
+    7. **Check that the modem answers.** If an error line appears before the "AI status" lines, the logger could not talk to the modem at all, and `FF` is just the starting value. Switch OFF and push the XBee firmly into its socket.
 
-    If the "This is Riverlabs..." start-up message keeps coming back, the logger is restarting. Check the power first (point 1) and that the modem is fitted (point 4).
+    If the "This is Riverlabs..." start-up message keeps coming back, the logger is restarting. Check the power first (point 1) and that the modem is fitted (point 7).
 
 ??? question "What do the 'AI status' numbers mean?"
     The modem reports its progress while connecting. The logger prints this as "AI status". These are the most common values for Digi XBee cellular modems:
