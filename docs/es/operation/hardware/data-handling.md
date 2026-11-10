@@ -2,7 +2,7 @@
 
 Algunos registradores Riverlabs incluyen una ranura para tarjeta SD para el almacenamiento local de datos. Es necesaria cuando el registrador se instala sin telemetría.
 
-Ademas, el registrador contiene un chip EEPROM de 512 kbit, que utiliza como búfer interno para almacenar las lecturas, reducir el número de escrituras en la tarjeta SD y optimizar el consumo de energía. La frecuencia con la que los datos se vuelcan de la EEPROM a la tarjeta SD puede configurarse en el código modificando la siguiente línea:
+Además, el registrador contiene un chip EEPROM de 512 kbit, que utiliza como búfer interno para almacenar las lecturas, reducir el número de escrituras en la tarjeta SD y optimizar el consumo de energía. La frecuencia con la que los datos se vuelcan de la EEPROM a la tarjeta SD puede configurarse en el código modificando la siguiente línea:
 
 `#define FLUSHAFTER 288`
 
@@ -79,8 +79,8 @@ La tarjeta SD está formateada en el formato estándar FAT. Puede utilizarse cua
 Cada línea representa un período de medición. Las columnas son, respectivamente:
 
 - **Columna 1**: fecha y hora en formato YYYY/MM/DD HH:MM:SS
-- **Columnas 2–11**: mediciones brutas de distancia (mm).
-- **Columna 12**: tensión de la batería (mV). Una batería completamente cargada suele estar en torno a 4200&nbsp;mV. El registrador se apaga cuando la tensión baja de aproximadamente 3500&nbsp;mV.
-- **Columna 13**: temperatura del registrador en centésimas de grado Celsius (por ejemplo, 1950 = 19,50&deg;C).
+- **Columnas 2–11**: mediciones brutas de distancia (mm)
+- **Columna 12**: tensión de la batería (mV). Una batería completamente cargada suele estar en torno a 4200&nbsp;mV. El registrador se apaga cuando la tensión baja de aproximadamente 3500&nbsp;mV
+- **Columna 13**: temperatura del registrador en centésimas de grado Celsius (por ejemplo, 1950 = 19,50&deg;C)
 
 El registrador funciona sin una tarjeta SD insertada. Sin embargo, los datos de la memoria interna se sobrescribirán cuando esta se llene.
