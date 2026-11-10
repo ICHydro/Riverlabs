@@ -88,7 +88,7 @@ The settings are at the top of each sketch, in lines that start with `#define`. 
 #define OPTIBOOT          // leave this on: it turns on the watchdog
 ```
 
-**Cellular loggers** (for example `wari_3G_v2` and `wari_4G`):
+**Cellular loggers** (`wari_3G_v2`; `wari_4G` is outdated):
 
 ```cpp
 #define READ_INTERVAL 5            // minutes between readings
@@ -98,8 +98,7 @@ The settings are at the top of each sketch, in lines that start with `#define`. 
 #define LOGGERID "RL000XXX"
 #define APN ""                     // your SIM card's APN, if it needs one
 #define NTP                        // set the clock from the internet at start-up
-//#define LTE                      // leave off: for LTE-M / NB-IoT modems use wari_4G
-                                   // (switching LTE on in wari_3G_v2 currently fails to compile)
+//#define LTE                      // leave off: switching it on currently fails to compile
 #define OPTIBOOT                   // leave this on
 ```
 

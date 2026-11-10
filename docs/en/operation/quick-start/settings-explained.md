@@ -54,7 +54,7 @@ Everything is the same, with `HOST` set to your server's address. Two things to 
 | Setting | What it does | Default | Change it? |
 |---|---|---|---|
 | `MQTT` | Chooses how data is sent: MQTT or COAP. ThingsBoard and riverflow.io use MQTT. | on | **No.** |
-| `LTE` | In `wari_3G_v2` only: sets the modem up for an LTE modem instead of 3G. | off | **No.** At the moment, switching it on makes the sketch fail to compile (`'atRequest6' was not declared`). For an LTE-M or NB-IoT modem, use the `wari_4G` sketch instead. |
+| `LTE` | In `wari_3G_v2` only: sets the modem up for an LTE modem instead of 3G. | off | **No.** At the moment, switching it on makes the sketch fail to compile (`'atRequest6' was not declared`). Riverlabs recommends `wari_3G_v2` as it is for cellular loggers. |
 | `XBEE4G` | Sets the sketch up for a 4G (LTE-M or NB-IoT) modem. | on in `wari_4G`; off in `wari_lidar_cellular` and `wari_3G` | In `wari_lidar_cellular`, switch it on if your lidar logger has a 4G modem. Leave it alone in the others. |
 | `READ_INTERVAL` | Minutes between readings. | 5 | If you want. Use a number that divides 60 evenly: 1, 2, 3, 4, 5, 6, 10, 12, 15, 20, 30 or 60. The logger measures when the minute on the clock divides evenly by this number, so a value like 7 gives uneven gaps. |
 | `SEND_INTERVAL` | Hours between sends. Sending always happens at minute 0 of the hour. | 1 | If you want. Use a number that divides 24 evenly: 1, 2, 3, 4, 6, 8, 12 or 24. Sending less often saves battery. |
@@ -89,7 +89,7 @@ Everything is the same, with `HOST` set to your server's address. Two things to 
     For a cellular logger, yes, in most cases. You may also want to change `READ_INTERVAL` or `SEND_INTERVAL`. Leave everything else as it is.
 
 ??? question "What should the APN be?"
-    It depends on the SIM card, not on the logger. The SIM company publishes it, usually on a page called "APN settings". If Riverlabs gave you the SIM, use the APN they gave you with it.
+    It depends on the SIM card, not on the logger. The SIM company publishes it, usually on a page called "APN settings". Hologram SIMs use `hologram`. If Riverlabs gave you the SIM, use the APN they gave you with it.
 
 ??? question "Can I leave the APN empty?"
     Sometimes. With an empty APN, some SIM cards still connect. If the logger never connects (the "AI status" never reaches 0), put in the APN from your SIM company.
@@ -104,7 +104,7 @@ Everything is the same, with `HOST` set to your server's address. Two things to 
     No. The token tells the server which device the data belongs to. Two loggers with the same token would mix their data into one device. Make a separate device, with its own token, for each logger.
 
 ??? question "My modem is LTE-M or NB-IoT. Do I switch on LTE?"
-    No. The `LTE` switch in `wari_3G_v2` currently stops the sketch compiling. Use the `wari_4G` sketch instead, but note that it tells the modem to use **NB-IoT only**, on frequency bands 8 and 20 (common in Europe). If your SIM or network only offers LTE-M, or uses other bands, ask Riverlabs first. For a lidar logger, use `wari_lidar_cellular` and switch on `XBEE4G`.
+    No. The `LTE` switch in `wari_3G_v2` currently stops the sketch compiling. Use `wari_3G_v2` as it is. Do not use `wari_4G`: Riverlabs says it is outdated. For a lidar logger, use `wari_lidar_cellular` and switch on `XBEE4G`.
 
 ??? question "How do I know if my logger uses the Optiboot bootloader?"
     There is no simple test from the Serial Monitor. The word `(optiboot)` in the first start-up line, for example `This is Riverlabs Wari_3G_v2 (optiboot)`, only means the sketch was built with the `OPTIBOOT` setting on. It does not prove which bootloader is on the chip. Our test logger had Optiboot 8.0. If you are unsure, ask Riverlabs.
@@ -168,7 +168,7 @@ Everything is the same, with `HOST` set to your server's address. Two things to 
     - It must work on the network type of your modem (3G, LTE-M or NB-IoT) in the country where you install the logger.
 
 ??? question "My 3G logger will not connect any more."
-    Many countries, including the UK, have switched off their 3G networks. A 3G modem cannot connect where there is no 3G network. You need an LTE-M or NB-IoT modem and the `wari_4G` sketch.
+    Many countries, including the UK, have switched off their 3G networks. A 3G modem cannot connect where there is no 3G network. You need an LTE-M or NB-IoT modem. Ask Riverlabs which one to use.
 
 ??? question "Does the antenna matter?"
     Yes. Connect the antenna **before** you switch on, and make sure it is pushed fully onto its connector. A modem without an antenna will not get a signal.
@@ -185,20 +185,21 @@ Everything is the same, with `HOST` set to your server's address. Two things to 
     `S` is printed just before the logger goes to sleep, and `W` when it wakes up. The clock wakes it every minute, so you see `SW` once a minute. This is normal.
 
 ??? question "It keeps showing \"AI status = FF\" or \"AI status = 22\". What do I do?"
-    `FF` means the modem is starting up, and `22` means it is looking for a mobile network to join. On our test logger, `FF` showed for the first 15 to 30 seconds, then `22` for a few seconds, and then it connected. The logger checks every 3 seconds for up to 3 minutes. `wari_3G` and `wari_3G_v2` then print "Trying again." and try for another 3 minutes.
+    `FF` means the modem is starting up, and `22` means it is trying to join the mobile network. On our test logger, `FF` showed for the first 15 to 30 seconds, then `22` for a few seconds, and then it connected. The logger checks every 3 seconds for up to 3 minutes. `wari_3G` and `wari_3G_v2` then print "Trying again." and try for another 3 minutes.
 
-    **Changing the APN does not fix this.** The modem only uses the APN after it has joined a network (status `23`). If it stays on `FF` or `22`, look at the power, the SIM, the antenna and the network type instead. Check these in order:
+    A **wrong APN** is a common reason for staying on `22`. Check these in order:
 
     1. **Use the battery.** Run the logger on a charged battery with the switch on **ON**. The Riverlabs instructions say the FTDI cable does not give enough power for the modem. You can keep the cable plugged in to watch the messages.
-    2. **Check the SIM and antenna.** Switch OFF, then check the SIM is pushed fully into the XBee the right way round, and the antenna is connected. The SIM must be activated and have no PIN lock (see [Does the SIM card need anything special?](#questions-about-the-hardware)).
-    3. **Check the sketch matches the modem.** If the label on the XBee says 3G, use `wari_3G` or `wari_3G_v2`. If it says LTE-M or NB-IoT, use `wari_4G`.
-    4. **3G modem?** Many countries, including the UK, have switched off 3G. A 3G modem stays on `22` where there is no 3G network.
-    5. **`wari_4G`?** The sketch makes the modem use **NB-IoT only, on bands 8 and 20**. If your SIM or the local network only offers LTE-M, or NB-IoT on other bands, the modem stays on `22`. Ask your SIM company which network types and bands it supports where you are.
-    6. **Ever uploaded `wari_4G` to this logger?** It saves the NB-IoT setting in the XBee's own memory, so it stays after you upload another sketch. `wari_3G_v2` only writes the APN and does not undo it. To undo it, open the XBee in Digi's XCTU program, set **CP** (carrier profile) to `0` and **N#** (network technology) to `0`, and click **Write**. We have not tested this reset on a logger yet.
-    7. **Check the signal.** Try near a window or outside. Indoors, NB-IoT and LTE-M signals can be weak.
-    8. **Check that the modem answers.** If an error line appears before the "AI status" lines, the logger could not talk to the modem at all, and `FF` is just the starting value. Switch OFF and push the XBee firmly into its socket.
+    2. **Check the APN.** It must match the SIM card. Hologram SIMs use `hologram`. If Riverlabs gave you the SIM, ask them which APN it needs.
+    3. **Check the SIM is activated.** A SIM that was never activated stays on `22`. If the SIM came from Riverlabs, send them the number printed on it so they can check. The SIM must also have no PIN lock.
+    4. **Check the SIM and antenna are fitted.** Switch OFF, then check the SIM is pushed fully into the XBee the right way round, and the antenna is pushed on firmly.
+    5. **Use `wari_3G_v2`.** Riverlabs says `wari_4G` is outdated. Use `wari_3G_v2` for cellular loggers.
+    6. **Ever uploaded `wari_4G` to this logger?** It sets the modem to **NB-IoT only, on bands 8 and 20**, and saves this in the XBee's own memory, so it stays after you upload another sketch. `wari_3G_v2` does not undo it. If your SIM or network does not offer NB-IoT on those bands, the modem stays on `22`. To undo it, open the XBee in Digi's XCTU program, set **CP** (carrier profile) to `0` and **N#** (network technology) to `0`, and click **Write**. We have not tested this reset on a logger yet.
+    7. **3G modem?** Many countries, including the UK, have switched off 3G. A 3G modem stays on `22` where there is no 3G network.
+    8. **Check the signal.** Try near a window or outside. Indoors, the signal can be weak.
+    9. **Check that the modem answers.** If an error line appears before the "AI status" lines, the logger could not talk to the modem at all, and `FF` is just the starting value. Switch OFF and push the XBee firmly into its socket.
 
-    If the "This is Riverlabs..." start-up message keeps coming back, the logger is restarting. Check the power first (point 1) and that the modem is fitted (point 8).
+    If the "This is Riverlabs..." start-up message keeps coming back, the logger is restarting. Check the power first (point 1) and that the modem is fitted (point 9).
 
 ??? question "What do the 'AI status' numbers mean?"
     The modem reports its progress while connecting. The logger prints this as "AI status". These are the most common values for Digi XBee cellular modems:
@@ -212,7 +213,7 @@ Everything is the same, with `HOST` set to your server's address. Two things to 
     | `24` | A problem inside the modem (Digi says it may be faulty or need new firmware). Switch off and on again. If it stays, contact Riverlabs. |
     | `25` | The network refused the SIM. Check the SIM is activated and allowed on this network. |
 
-    The numbers are hexadecimal, as Digi writes them. On our test logger it usually went from `FF` to `22` to `0` (sometimes with `23` in between), reaching `0` 20 to 40 seconds after start-up. If it stays on `22`, the modem cannot get onto the network (signal, SIM or antenna). If it stays on `23`, check the APN.
+    The numbers are hexadecimal, as Digi writes them. On our test logger it usually went from `FF` to `22` to `0` (sometimes with `23` in between), reaching `0` 20 to 40 seconds after start-up. If it stays on `22`, the modem cannot join the network: check the APN, that the SIM is activated, the signal and the antenna. If it stays on `23`, check the APN.
 
 ??? question "I see nothing at all in the Serial Monitor."
     Check that the baud rate is 115200, that the FTDI plug has the green wire on GRN, and that the logger has power (switch OFF with the cable in, or ON with a charged battery). Then press RESET.

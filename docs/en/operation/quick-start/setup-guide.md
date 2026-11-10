@@ -127,15 +127,15 @@ The serial number starts with `RL` and is printed on the logger.
 
 [![Which sketch do I upload?](../../assets/images/setup/02-which-sketch.svg)](../../assets/images/setup/02-which-sketch.svg){ title="Click to open full size" }
 
-**3G or 4G modem?** Read the label on the XBee. "3G" means `wari_3G` or `wari_3G_v2`. "LTE-M" or "NB-IoT" means `wari_4G`.
+**Cellular logger?** Use `wari_3G_v2`, whatever the label on the XBee says.
 
-!!! warning "`wari_4G` is set up for NB-IoT only"
-    The sketch tells the modem to use **NB-IoT only**, on frequency bands 8 and 20 (common in Europe). If your SIM or network only offers LTE-M, or uses other bands, it will not connect as it is. Ask Riverlabs before you upload. Many countries, including the UK, have switched off their 3G networks, so a 3G modem may no longer connect at all.
+!!! warning "Do not use `wari_4G`"
+    Riverlabs says `wari_4G` is outdated. It also causes two problems:
 
-    The sketch also **saves** this setting in the XBee's own memory. It stays even after you upload a different sketch, such as `wari_3G_v2`. So do not try `wari_4G` "just to see" on a logger that works with another sketch.
+    - It sets the modem to **NB-IoT only**, on frequency bands 8 and 20, and **saves** this in the XBee's own memory. The setting stays after you upload a different sketch, and the modem may then never connect.
+    - On our `wari_3G_v2` test board, it read the distance as **-1** every time, because it switches the sensor on in a different way.
 
-!!! warning "Fitting a 4G modem to a `wari_3G_v2` board?"
-    The `wari_4G` sketch switches the sensor on in a different way. On our `wari_3G_v2` test board, `wari_4G` read the distance as **-1** every time. If you see this, ask Riverlabs before you go further.
+    Many countries, including the UK, have switched off their 3G networks, so an XBee that only does 3G may no longer connect at all. Ask Riverlabs if you are not sure which modem you have.
 
 ---
 
@@ -200,7 +200,7 @@ SD loggers work with the settings as they are. Some SD sketches have a `LOGGERID
 
 ### 8.4 Leave everything else alone
 
-- **LTE-M or NB-IoT modem?** Use the `wari_4G` sketch (NB-IoT only, see [step 6](#6-pick-the-right-sketch)). Do not switch on `LTE` in `wari_3G_v2` (at the moment that stops it compiling). In `wari_lidar_cellular`, switch on `XBEE4G` instead.
+- **LTE-M or NB-IoT modem?** Still use `wari_3G_v2`, and leave `LTE` switched off (at the moment switching it on stops the sketch compiling). Do not use `wari_4G` (see [step 6](#6-pick-the-right-sketch)). For a lidar logger with a 4G modem, use `wari_lidar_cellular` and switch on `XBEE4G`.
 - **Do not change** `NREADINGS`, `TIMEOUT`, `MQTT`, `NTP`, `FLASH`, `OPTIBOOT` or `DEBUG`, or anything below the settings block.
 - **Brand-new XBee modem** (not supplied with the logger)? It needs a one-time setup with Digi's XCTU program: API mode 2, plus a few other settings listed in the sketch's `Readme.md` file. See the [XBee Setup Walkthrough](../../telemetry/xbee-setup-walkthrough.md).
 
