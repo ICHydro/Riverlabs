@@ -1,0 +1,2332 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation for the Riverlabs suite of environmental sensors">
+      
+      
+        <meta name="author" content="Riverlabs Ltd">
+      
+      
+        <link rel="canonical" href="https://ichydro.github.io/Riverlabs/operation/troubleshooting/faq/">
+      
+      
+      
+      
+        
+          <link rel="alternate" href="/Riverlabs/en/" hreflang="en">
+        
+          <link rel="alternate" href="/Riverlabs/es/" hreflang="es">
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/riverlabs_icon.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+    
+    
+      
+        <title>Frequently Asked Questions - Riverlabs Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="light-blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#frequently-asked-questions" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Riverlabs Documentation" class="md-header__button md-logo" aria-label="Riverlabs Documentation" data-md-component="logo">
+      
+  <img src="../../../assets/images/riverlabs_white_mono.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Riverlabs Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Frequently Asked Questions
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="light-blue"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="light-blue"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Select language">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="/Riverlabs/en/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="/Riverlabs/es/" hreflang="es" class="md-select__link">
+              Español
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/ICHydro/Riverlabs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ichydro/Riverlabs
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../quick-start/quick-start/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Operation
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../installation/sensor-positioning/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Installation
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../programming/intro/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Programming
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Riverlabs Documentation" class="md-nav__button md-logo" aria-label="Riverlabs Documentation" data-md-component="logo">
+      
+  <img src="../../../assets/images/riverlabs_white_mono.svg" alt="logo">
+
+    </a>
+    Riverlabs Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ICHydro/Riverlabs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ichydro/Riverlabs
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operation
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Operation
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_1" id="__nav_1_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quick Start
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Quick Start
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../quick-start/quick-start/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quick Start Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../quick-start/data-download/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Download
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../quick-start/arduino-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arduino Settings
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../quick-start/first-deployment-checklist/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    First Deployment Checklist
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_2" id="__nav_1_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hardware
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Hardware
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hardware/technical-specifications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Technical Specifications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hardware/battery-power-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Battery & Power Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hardware/maintenance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Maintenance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hardware/data-handling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Handling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_3" id="__nav_1_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Troubleshooting
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../diagnostic-flowcharts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Diagnostic Flowcharts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Installation
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../installation/sensor-positioning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sensor Positioning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../installation/mounting-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mounting Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../installation/environmental-considerations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Environmental Considerations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Programming
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Programming
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/arduino-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arduino Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/uploading-code/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Uploading Code
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#general-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        General Questions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="General Questions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-a-riverlabs-logger" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What is a Riverlabs logger?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ultrasound-vs-lidar-which-should-i-choose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ultrasound vs. Lidar - which should I choose?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-long-does-the-battery-last" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How long does the battery last?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#can-i-add-solar-power" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Can I add solar power?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#is-it-open-source-can-i-modify-the-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Is it open source? Can I modify the code?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hardware-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hardware Questions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Hardware Questions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#can-i-use-a-different-sensor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Can I use a different sensor?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-sd-card-should-i-use" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What SD card should I use?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-do-i-waterproof-the-logger" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How do I waterproof the logger?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#telemetry-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Telemetry Questions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Telemetry Questions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-the-data-usage-of-telemetry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What is the data usage of telemetry?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#field-deployment-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Field Deployment Questions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Field Deployment Questions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-do-i-aim-the-sensor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How do I aim the sensor?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-do-i-know-what-installation-height-to-use" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How do I know what installation height to use?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#can-i-deploy-in-winterfreezing-conditions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Can I deploy in winter/freezing conditions?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-often-should-i-visit-the-site" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How often should I visit the site?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-if-my-logger-is-stolen-or-lost" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What if my logger is stolen or lost?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-and-analysis-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data and Analysis Questions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Data and Analysis Questions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-format-is-the-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What format is the data?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-do-i-convert-distance-to-water-depth" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How do I convert distance to water depth?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-accurate-is-the-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How accurate is the data?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#can-i-synchronize-multiple-loggers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Can I synchronize multiple loggers?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#where-can-i-find-example-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where can I find example code?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting-questions-quick-hits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting Questions (Quick Hits)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting Questions (Quick Hits)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#logger-wont-turn-on" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Logger won't turn on
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sd-card-says-corrupt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SD card says "corrupt"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sensor-reads-max-range-always" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sensor reads max range always
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#no-telemetry-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        No telemetry data
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#battery-drains-too-fast" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Battery drains too fast
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contributing-and-community" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contributing and Community
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Contributing and Community">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-can-i-contribute" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How can I contribute?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#where-can-i-get-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where can I get help?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next Steps
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/ICHydro/Riverlabs/edit/main/operation/troubleshooting/faq.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+    
+      
+    
+    <a href="https://github.com/ICHydro/Riverlabs/raw/main/operation/troubleshooting/faq.md" title="View source of this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
+    </a>
+  
+
+
+<h1 id="frequently-asked-questions">Frequently Asked Questions<a class="headerlink" href="#frequently-asked-questions" title="Permanent link">&para;</a></h1>
+<div class="admonition abstract">
+<p class="admonition-title">Overview</p>
+<p>This page answers common questions about Riverlabs loggers.</p>
+</div>
+<h2 id="general-questions">General Questions<a class="headerlink" href="#general-questions" title="Permanent link">&para;</a></h2>
+<h3 id="what-is-a-riverlabs-logger">What is a Riverlabs logger?<a class="headerlink" href="#what-is-a-riverlabs-logger" title="Permanent link">&para;</a></h3>
+<p>A <strong>Riverlabs logger</strong> is an open-source, low-cost water level monitoring device designed for hydrological research. It uses ultrasonic or lidar sensors to measure distance to water surface, recording data to SD card and optionally transmitting via cellular telemetry.</p>
+<p><strong>Key features:</strong>
+- open hardware design
+- Battery-powered (rechargeable Li-ion)
+- SD card data storage
+- Optional telemetry via cellular connection or LoRaWAN
+- Weatherproof enclosure
+- Low cost (~$100-300 depending on configuration)</p>
+<hr />
+<h3 id="ultrasound-vs-lidar-which-should-i-choose">Ultrasound vs. Lidar - which should I choose?<a class="headerlink" href="#ultrasound-vs-lidar-which-should-i-choose" title="Permanent link">&para;</a></h3>
+<p><strong>Quick answer:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Ultrasonic</th>
+<th>Lidar</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Range</strong></td>
+<td>0.3m - 5m</td>
+<td>0.05m - 40m</td>
+</tr>
+<tr>
+<td><strong>Accuracy</strong></td>
+<td>±10mm</td>
+<td>±25mm</td>
+</tr>
+<tr>
+<td><strong>Battery life</strong></td>
+<td>30-60 days</td>
+<td>15-30 days</td>
+</tr>
+<tr>
+<td><strong>Cost</strong></td>
+<td>Lower (~$30 sensor)</td>
+<td>Higher (~$150 sensor)</td>
+</tr>
+<tr>
+<td><strong>Temperature sensitivity</strong></td>
+<td>Yes (built-in compensation)</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>Works in snow/foam</strong></td>
+<td>No (absorbed)</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><strong>Best for</strong></td>
+<td>Rivers, ponds (stable targets)</td>
+<td>Wide range, snow, long distances</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Choose Ultrasonic if:</strong>
+- Water level range &lt;5m
+- Budget-constrained
+- Longer battery life needed
+- Stable liquid water target</p>
+<p><strong>Choose Lidar if:</strong>
+- Need &gt;5m range
+- Measuring through snow or foam
+- Temperature extremes (Lidar unaffected)
+- Accuracy less critical (±25mm acceptable)</p>
+<p>See <a href="../quick-start/logger-identification.md">Logger Identification Guide</a> for detailed comparison.</p>
+<hr />
+<h3 id="how-long-does-the-battery-last">How long does the battery last?<a class="headerlink" href="#how-long-does-the-battery-last" title="Permanent link">&para;</a></h3>
+<p><strong>It depends on configuration:</strong></p>
+<p><strong>ultrasonic, SD-only:</strong>
+- 15-minute logging: 30-60 days
+- 5-minute logging: 15-30 days
+- 1-minute logging: 7-10 days</p>
+<p><strong>Lidar, SD-only:</strong>
+- 15-minute logging: 15-30 days
+- 5-minute logging: 7-15 days
+- 1-minute logging: 3-5 days</p>
+<p><strong>With telemetry (add transmission overhead):</strong>
+- Hourly transmission: Reduce by 30-40%
+- Daily transmission: Reduce by 10-20%</p>
+<p><strong>Factors:</strong>
+- Battery capacity (2600mAh typical)
+- Temperature (cold reduces capacity)
+- Battery age (degrades over time)
+- Telemetry signal strength (weak signal = more power)</p>
+<p>See <a href="../../hardware/battery-power-guide/">Battery &amp; Power Guide</a> for detailed calculations and optimization tips.</p>
+<hr />
+<h3 id="can-i-add-solar-power">Can I add solar power?<a class="headerlink" href="#can-i-add-solar-power" title="Permanent link">&para;</a></h3>
+<p>The wari model contains a solar charging circuit, which is activated or deactivated at assembly. We do not recommend users to change this setting. If the solar panel of a logger with active charging circuit is too small, then it can be replaced by a larger solar panel, as long as the output voltage of the panel is <strong>6V</strong>.</p>
+<hr />
+<h3 id="is-it-open-source-can-i-modify-the-code">Is it open source? Can I modify the code?<a class="headerlink" href="#is-it-open-source-can-i-modify-the-code" title="Permanent link">&para;</a></h3>
+<p><strong>Yes! Fully open source:</strong></p>
+<p><strong>License:</strong> MIT License (permissive)</p>
+<p><strong>Source code:</strong> https://github.com/ICHydro/Riverlabs</p>
+<p><strong>You can:</strong>
+- ✅ Use for any purpose (commercial or non-commercial)
+- ✅ Modify code to fit your needs
+- ✅ Share modifications
+- ✅ Contribute improvements back to project</p>
+<p><strong>You should:</strong>
+- Include original license in derivatives
+- Credit original authors
+- Share improvements (helps community)</p>
+<p><strong>Common modifications:</strong>
+- Change logging interval
+- Add additional sensors (temperature, humidity)
+- Modify data format
+- Implement custom sleep schedules
+- Add new telemetry protocols</p>
+<hr />
+<h2 id="hardware-questions">Hardware Questions<a class="headerlink" href="#hardware-questions" title="Permanent link">&para;</a></h2>
+<h3 id="can-i-use-a-different-sensor">Can I use a different sensor?<a class="headerlink" href="#can-i-use-a-different-sensor" title="Permanent link">&para;</a></h3>
+<p><strong>Yes, with code modifications:</strong></p>
+<p><strong>Ultrasonic sensors:</strong>
+- MaxBotix MB7389 (default)
+- Other MaxBotix models (MB7092, MB7360, etc.)
+- HC-SR04 (cheap, but less reliable)</p>
+<p><strong>Code changes needed:</strong>
+- Pin assignments
+- Voltage levels (3.3V vs 5V)
+- Communication protocol (analog vs serial vs I2C)</p>
+<p><strong>Lidar sensors:</strong>
+- Garmin LIDAR-Lite v3 (default)
+- TF-Luna (cheaper alternative)
+- VL53L1X (short range only)</p>
+<p><strong>Other distance sensors:</strong>
+- Pressure transducers (for submerged use)
+- Float switches (on/off levels only)</p>
+<p><strong>Recommendation:</strong> Stick with default sensors unless you have specific requirements. They're well-tested and code is ready to use.</p>
+<hr />
+<h3 id="what-sd-card-should-i-use">What SD card should I use?<a class="headerlink" href="#what-sd-card-should-i-use" title="Permanent link">&para;</a></h3>
+<p><strong>Recommendations:</strong></p>
+<p><strong>Capacity:</strong> 8-32GB (larger cards waste money, logger won't fill them)</p>
+<p><strong>Brand:</strong> SanDisk, Samsung, Kingston (avoid off-brand, high failure rate)</p>
+<p><strong>Type:</strong> Standard SD or microSD with adapter (NOT SDXC)</p>
+<p><strong>Format:</strong> FAT32 (not exFAT or NTFS)</p>
+<p><strong>Example calculation:</strong>
+- 15-minute logging
+- 100 bytes per sample
+- Samples per day: 96
+- Data per day: 9.6 KB
+- 16GB card: ~1000 years of data (!!)
+- Realistic: 8GB is plenty</p>
+<p><strong>Avoid:</strong>
+- Cards &gt;32GB (may have exFAT, not FAT32)
+- Ultra-high-speed (UHS-II) - waste of money for logging
+- Micro SD without adapter (hard to handle)</p>
+<hr />
+<h3 id="how-do-i-waterproof-the-logger">How do I waterproof the logger?<a class="headerlink" href="#how-do-i-waterproof-the-logger" title="Permanent link">&para;</a></h3>
+<p><strong>Enclosure options:</strong></p>
+<p><strong>1. IP67-rated enclosure</strong> (recommended)
+- Example: Hammond 1554, Bud Industries
+- Gasket-sealed lid
+- Cable glands for wires
+- Cost: $15-30</p>
+<p><strong>2. DIY waterproofing</strong>
+- Plastic food container (short-term only)
+- Seal with silicone caulk
+- Wrap in duct tape (adds some protection)
+- Cost: $5</p>
+<p><strong>Cable penetrations:</strong>
+- Use cable glands (best)
+- Or: Drill hole, route cable, seal with silicone
+- Strain relief: Tie knot inside enclosure (prevents pull-out)</p>
+<p><strong>Testing:</strong>
+- Submerge enclosure in bucket (no electronics inside!)
+- Wait 1 hour
+- Open, check for water entry
+- Fix leaks before deploying</p>
+<p><strong>Desiccant:</strong>
+- Add silica gel packet inside enclosure
+- Absorbs moisture (prevents condensation)
+- Replace if saturated (turns pink)</p>
+<p>See <a href="../../../installation/mounting-guide/">Installation Guide</a> for detailed waterproofing instructions.</p>
+<hr />
+<h2 id="telemetry-questions">Telemetry Questions<a class="headerlink" href="#telemetry-questions" title="Permanent link">&para;</a></h2>
+<h3 id="what-is-the-data-usage-of-telemetry">What is the data usage of telemetry?<a class="headerlink" href="#what-is-the-data-usage-of-telemetry" title="Permanent link">&para;</a></h3>
+<p><strong>Typical usage:</strong></p>
+<p><strong>Per transmission:</strong>
+- JSON payload: 50-100 bytes (data only)
+- HTTP overhead: 200-500 bytes (headers, handshake)
+- Total: ~500-600 bytes per transmission</p>
+<p><strong>Monthly usage examples:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Interval</th>
+<th>Transmissions/day</th>
+<th>Daily data</th>
+<th>Monthly data</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Every measurement (15 min)</td>
+<td>96</td>
+<td>58 KB</td>
+<td>1.7 MB</td>
+</tr>
+<tr>
+<td>Hourly</td>
+<td>24</td>
+<td>14 KB</td>
+<td>430 KB</td>
+</tr>
+<tr>
+<td>Every 4 hours</td>
+<td>6</td>
+<td>3.6 KB</td>
+<td>110 KB</td>
+</tr>
+<tr>
+<td>Daily</td>
+<td>1</td>
+<td>600 bytes</td>
+<td>18 KB</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Recommended plan:</strong> 5-10 MB/month (plenty of headroom)</p>
+<p><strong>Cost:</strong> ~$2-10/month depending on carrier and plan</p>
+<hr />
+<h2 id="field-deployment-questions">Field Deployment Questions<a class="headerlink" href="#field-deployment-questions" title="Permanent link">&para;</a></h2>
+<h3 id="how-do-i-aim-the-sensor">How do I aim the sensor?<a class="headerlink" href="#how-do-i-aim-the-sensor" title="Permanent link">&para;</a></h3>
+<p><strong>General principles:</strong></p>
+<p><strong>1. Target the water surface:</strong>
+- Beam should hit water (or expected water level range)
+- Avoid banks, rocks, vegetation</p>
+<p><strong>2. Vertical is ideal:</strong>
+- Straight down eliminates angle errors
+- If angled: Use trigonometry to correct (see <a href="../../../installation/sensor-positioning/">Sensor Positioning</a>)</p>
+<p><strong>3. Account for level changes:</strong>
+- Low flow: Where will water be? (don't aim too high)
+- High flow: Ensure sensor not submerged (mount high enough)</p>
+<p><strong>4. Beam width considerations:</strong>
+- Ultrasonic: ~15-20° cone
+- Lidar: ~2° beam
+- Ensure beam doesn't clip bridge/structure</p>
+<p><strong>Testing:</strong>
+- Take measurements at deployment site (pre-install)
+- Walk through expected water level range
+- Verify readings make sense</p>
+<hr />
+<h3 id="how-do-i-know-what-installation-height-to-use">How do I know what installation height to use?<a class="headerlink" href="#how-do-i-know-what-installation-height-to-use" title="Permanent link">&para;</a></h3>
+<p><strong>Installation height</strong> = Distance from sensor to datum (reference point)</p>
+<p><strong>Common datums:</strong>
+1. <strong>Bottom of channel</strong> (streambed)
+   - Measure: From sensor to streambed (lowest expected point)
+   - Water depth = Installation height - Sensor reading</p>
+<ol>
+<li><strong>Fixed benchmark</strong> (survey monument)</li>
+<li>Requires surveying equipment</li>
+<li>Enables absolute elevation (e.g., meters above sea level)</li>
+<li>
+<p>Best for scientific studies</p>
+</li>
+<li>
+<p><strong>Arbitrary reference</strong></p>
+</li>
+<li>"Top of bridge deck"</li>
+<li>"Ground level at logger"</li>
+<li>Consistent but not transferable to other locations</li>
+</ol>
+<p><strong>Measurement:</strong>
+- Use tape measure, laser rangefinder, or survey equipment
+- Measure when water is stable and measurable
+- Record: Installation height and date
+- Note: Streambed can change (erosion/deposition)</p>
+<p><strong>Documentation:</strong>
+- Draw sketch showing logger, sensor, water, datum
+- Photograph installation with tape measure visible
+- GPS coordinates</p>
+<hr />
+<h3 id="can-i-deploy-in-winterfreezing-conditions">Can I deploy in winter/freezing conditions?<a class="headerlink" href="#can-i-deploy-in-winterfreezing-conditions" title="Permanent link">&para;</a></h3>
+<p><strong>Yes, with challenges:</strong></p>
+<p><strong>Cold temperature effects:</strong></p>
+<p><strong>1. Battery capacity reduction:</strong>
+- 0°C: ~80% capacity
+- -20°C: ~50% capacity
+- <strong>Solution:</strong> Larger battery, or retrieve more frequently</p>
+<p><strong>2. Li-ion freezing risk:</strong>
+- LiPo freezes at ~-40°C
+- At low temperatures, charging dangerous
+- <strong>Solution:</strong> Don't charge below 0°C</p>
+<p><strong>3. Ice on sensor:</strong>
+- Ice blocks ultrasound
+- Lidar works through ice (to some extent)
+- <strong>Solution:</strong> Heating element (complex), or use Lidar</p>
+<p><strong>4. Condensation:</strong>
+- Temperature cycles cause moisture in enclosure
+- <strong>Solution:</strong> Desiccant inside enclosure, IP67-rated enclosure</p>
+<p><strong>5. Snow:</strong>
+- Ultrasonic absorbed by fresh snow (logger reads max range)
+- Lidar works better but still affected
+- <strong>Solution:</strong> Mount sensor to measure below ice (submerged pressure transducer)</p>
+<p><strong>Recommendation for harsh winter:</strong>
+- Deploy late fall (before freeze)
+- Retrieve early spring (after thaw)
+- Or: Use heated enclosure + mains power (no longer low-cost)</p>
+<hr />
+<h3 id="how-often-should-i-visit-the-site">How often should I visit the site?<a class="headerlink" href="#how-often-should-i-visit-the-site" title="Permanent link">&para;</a></h3>
+<p><strong>Depends on:</strong>
+1. Battery life (see battery guide)
+2. SD card capacity (non-issue for most)
+3. Risk of logger loss/damage (vandalism, flooding)
+4. Data criticality</p>
+<p><strong>Typical schedules:</strong></p>
+<p><strong>With telemetry:</strong>
+- Initial visit (1 week): Verify working
+- Monthly visits: Check physical condition
+- Battery swap: When voltage &lt;3.5V (remotely monitored)</p>
+<p><strong>Without telemetry:</strong>
+- Initial visit (1 week): Verify working
+- Monthly visits: Check data, swap SD card if needed
+- Battery swap: Monthly or based on expected life</p>
+<p><strong>High-risk sites:</strong>
+- Weekly visits initially
+- Consider more robust mounting or protective measures</p>
+<p><strong>Remote sites:</strong>
+- Plan for seasonal access (winter may be inaccessible)
+- Deploy in spring, retrieve in fall</p>
+<hr />
+<h3 id="what-if-my-logger-is-stolen-or-lost">What if my logger is stolen or lost?<a class="headerlink" href="#what-if-my-logger-is-stolen-or-lost" title="Permanent link">&para;</a></h3>
+<p><strong>Prevention:</strong></p>
+<p><strong>1. Conceal:</strong>
+- Paint logger to match surroundings (brown/green)
+- Hide behind vegetation
+- Don't use bright colors or labels</p>
+<p><strong>2. Secure mounting:</strong>
+- Security cable (bike lock style)
+- Bolt to structure with tamper-resistant screws</p>
+<p><strong>3. Signage:</strong>
+- Small label: "Research equipment, please do not disturb"
+- Contact info (email, not phone)
+- Some people will respect, but may attract attention</p>
+<p><strong>4. Location choice:</strong>
+- Private property (with permission) safer than public
+- Less visible locations</p>
+<p><strong>Recovery:</strong></p>
+<p><strong>1. Serial numbers:</strong>
+- Record SIM ICCID, XBee serial number, logger ID
+- May help with insurance or carrier tracking</p>
+<p><strong>2. Insurance:</strong>
+- Check if research equipment covered
+- Document value with receipts</p>
+<p><strong>3. Backup data:</strong>
+- If telemetry: Data safe on ThingsBoard
+- If SD-only: Lost data (ouch)</p>
+<p><strong>Acceptance:</strong>
+- Low-cost loggers = lower risk (easier to accept loss)
+- Budget for 10% loss rate on multi-logger deployments</p>
+<hr />
+<h2 id="data-and-analysis-questions">Data and Analysis Questions<a class="headerlink" href="#data-and-analysis-questions" title="Permanent link">&para;</a></h2>
+<h3 id="what-format-is-the-data">What format is the data?<a class="headerlink" href="#what-format-is-the-data" title="Permanent link">&para;</a></h3>
+<p><strong>CSV (Comma-Separated Values)</strong></p>
+<p><strong>Example file: <code>2025-12-27.CSV</code></strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Date,Time,Distance_mm,Temperature_C,Battery_V
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>2025-12-27,10:00:00,1234,22.5,3.85
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>2025-12-27,10:15:00,1256,23.1,3.84
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>2025-12-27,10:30:00,1278,23.8,3.84
+</code></pre></div>
+<p><strong>Fields:</strong>
+- <strong>Date:</strong> YYYY-MM-DD
+- <strong>Time:</strong> HH:MM:SS (24-hour)
+- <strong>Distance_mm:</strong> Sensor reading (millimeters)
+- <strong>Temperature_C:</strong> Air temperature (Wari only, Celsius)
+- <strong>Battery_V:</strong> Battery voltage (volts)</p>
+<p><strong>Opening:</strong>
+- Excel/Google Sheets: Directly open .CSV
+- Python: <code>pandas.read_csv()</code>
+- R: <code>read.csv()</code>
+- MATLAB: <code>readtable()</code></p>
+<hr />
+<h3 id="how-do-i-convert-distance-to-water-depth">How do I convert distance to water depth?<a class="headerlink" href="#how-do-i-convert-distance-to-water-depth" title="Permanent link">&para;</a></h3>
+<p><strong>Water depth = Installation height - Sensor distance</strong></p>
+<p><strong>Example:</strong>
+- Logger mounted 3000mm above streambed
+- Sensor reads 1500mm (distance to water surface)
+- Water depth = 3000mm - 1500mm = 1500mm = 1.5m</p>
+<p><strong>In Excel:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>=($A$1 - B2)
+</code></pre></div>
+Where:
+- A1: Installation height (constant)
+- B2: Sensor reading (this row)</p>
+<p><strong>In Python:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'data.csv'</span><span class="p">)</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">installation_height</span> <span class="o">=</span> <span class="mi">3000</span>  <span class="c1"># mm</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="n">df</span><span class="p">[</span><span class="s1">'water_depth_mm'</span><span class="p">]</span> <span class="o">=</span> <span class="n">installation_height</span> <span class="o">-</span> <span class="n">df</span><span class="p">[</span><span class="s1">'Distance_mm'</span><span class="p">]</span>
+</code></pre></div></p>
+<p><strong>Units:</strong>
+- Keep consistent (mm throughout)
+- Convert to meters: Divide by 1000</p>
+<hr />
+<h3 id="how-accurate-is-the-data">How accurate is the data?<a class="headerlink" href="#how-accurate-is-the-data" title="Permanent link">&para;</a></h3>
+<p><strong>Sensor accuracy:</strong></p>
+<p><strong>Wari (ultrasonic):</strong>
+- Manufacturer spec: ±10mm
+- Real-world: ±20-50mm (accounting for temperature, mounting, etc.)</p>
+<p><strong>Lidar:</strong>
+- Manufacturer spec: ±25mm
+- Real-world: ±30-60mm</p>
+<p><strong>Sources of error:</strong>
+1. <strong>Sensor precision:</strong> Inherent limitation
+2. <strong>Temperature:</strong> Affects speed of sound (ultrasonic) or air refractive index (lidar)
+3. <strong>Mounting movement:</strong> Wind, thermal expansion
+4. <strong>Beam angle:</strong> If not perfectly vertical
+5. <strong>Target surface:</strong> Turbulent water, foam, ripples
+6. <strong>Environmental:</strong> Rain, snow, fog</p>
+<p><strong>Improving accuracy:</strong>
+- Use Wari for absolute accuracy (&lt;10mm)
+- Vertical mounting (eliminates angle error)
+- Stable mounting (minimize movement)
+- Smooth target surface (use stilling well in turbulent conditions)
+- Temperature compensation (Wari measures temp automatically)</p>
+<p><strong>Good enough for:</strong>
+- Flood monitoring (0.5m changes)
+- Stage-discharge relationships
+- Presence/absence detection</p>
+<p><strong>Not suitable for:</strong>
+- Precision surveying (&lt;1mm)
+- Legal water rights (use certified equipment)</p>
+<hr />
+<h3 id="can-i-synchronize-multiple-loggers">Can I synchronize multiple loggers?<a class="headerlink" href="#can-i-synchronize-multiple-loggers" title="Permanent link">&para;</a></h3>
+<p><strong>Time synchronization:</strong></p>
+<p><strong>RTC accuracy:</strong>
+- DS3231 RTC: ±2 ppm (parts per million)
+- Drift: ~1 minute per year
+- Sufficient for most applications</p>
+<p><strong>Synchronization methods:</strong></p>
+<p><strong>1. Set all loggers same time:</strong>
+- Before deployment, run <code>set_clock</code> utility on all
+- Use computer as time reference (sync computer with NTP)
+- Drift: &lt;1 minute per month (acceptable for most)</p>
+<p><strong>2. GPS time synchronization (advanced):</strong>
+- Add GPS module to logger
+- Sync RTC to GPS time daily
+- Drift: &lt;1 second
+- Cost: +$20-40 per logger
+- Power: Additional 20mA when GPS active</p>
+<p><strong>3. Post-processing alignment:</strong>
+- Analyze data, find common event (e.g., rainfall spike)
+- Shift time series to align events
+- Software tools: R, Python, MATLAB</p>
+<p><strong>For most users:</strong> Method 1 is sufficient.</p>
+<hr />
+<h3 id="where-can-i-find-example-code">Where can I find example code?<a class="headerlink" href="#where-can-i-find-example-code" title="Permanent link">&para;</a></h3>
+<p><strong>GitHub repository:</strong> https://github.com/ICHydro/Riverlabs</p>
+<p><strong>Main sketches:</strong>
+- <code>wari_v2.1/wari_v2.1.ino</code> - Ultrasonic logger (latest)
+- <code>wari_lidar/wari_lidar.ino</code> - Lidar logger
+- <code>wari_3G/wari_3G.ino</code> - With 3G telemetry
+- <code>wari_4G/wari_4G.ino</code> - With 4G LTE-M telemetry</p>
+<p><strong>Utilities:</strong>
+- <code>set_clock/set_clock.ino</code> - RTC time setting
+- <code>precip_SD/precip_SD.ino</code> - Precipitation logger (different sensor)</p>
+<p><strong>Libraries used:</strong>
+- RTClib (Adafruit)
+- SdFat (Bill Greiman)
+- LowPower (Rocket Scream)
+- XBee (Digi)
+- Wire (I2C, built-in)</p>
+<p><strong>Documentation:</strong>
+- Code comments explain functionality
+- README.md in each directory
+- This documentation site!</p>
+<hr />
+<h2 id="troubleshooting-questions-quick-hits">Troubleshooting Questions (Quick Hits)<a class="headerlink" href="#troubleshooting-questions-quick-hits" title="Permanent link">&para;</a></h2>
+<h3 id="logger-wont-turn-on">Logger won't turn on<a class="headerlink" href="#logger-wont-turn-on" title="Permanent link">&para;</a></h3>
+<p>→ See <a href="../common-issues/#issue-1-logger-wont-power-on">Issue 1: Logger Won't Power On</a></p>
+<p><strong>Quick check:</strong> Battery &gt;3.3V? Connected correctly? Power switch ON?</p>
+<hr />
+<h3 id="sd-card-says-corrupt">SD card says "corrupt"<a class="headerlink" href="#sd-card-says-corrupt" title="Permanent link">&para;</a></h3>
+<p>→ See <a href="../common-issues/#issue-7-sd-card-shows-corrupt-or-needs-formatting">Issue 7: SD Card Corrupt</a></p>
+<p><strong>Quick fix:</strong> Try recovery software, then format as FAT32.</p>
+<hr />
+<h3 id="sensor-reads-max-range-always">Sensor reads max range always<a class="headerlink" href="#sensor-reads-max-range-always" title="Permanent link">&para;</a></h3>
+<p>→ See <a href="../common-issues/#issue-4-ultrasonic-sensor-reads-max-range-constantly">Issue 4: Sensor Reads Max Range</a></p>
+<p><strong>Quick check:</strong> Sensor clicking? Aimed at target? Target in range?</p>
+<hr />
+<h3 id="no-telemetry-data">No telemetry data<a class="headerlink" href="#no-telemetry-data" title="Permanent link">&para;</a></h3>
+<p>→ See <a href="../../../telemetry/troubleshooting-connections/">Troubleshooting Telemetry Connections</a></p>
+<p><strong>Quick check:</strong> SIM active? Signal OK? API Mode = 2? Token correct?</p>
+<hr />
+<h3 id="battery-drains-too-fast">Battery drains too fast<a class="headerlink" href="#battery-drains-too-fast" title="Permanent link">&para;</a></h3>
+<p>→ See <a href="../common-issues/#issue-2-battery-drains-overnight">Issue 2: Battery Drains Overnight</a></p>
+<p><strong>Quick check:</strong> Logger sleeping? Telemetry interval reasonable? Battery old?</p>
+<hr />
+<h2 id="contributing-and-community">Contributing and Community<a class="headerlink" href="#contributing-and-community" title="Permanent link">&para;</a></h2>
+<h3 id="how-can-i-contribute">How can I contribute?<a class="headerlink" href="#how-can-i-contribute" title="Permanent link">&para;</a></h3>
+<p><strong>Ways to contribute:</strong></p>
+<p><strong>1. Code improvements:</strong>
+- Bug fixes
+- New features
+- Optimizations
+- Submit pull requests on GitHub</p>
+<p><strong>2. Documentation:</strong>
+- Correct errors
+- Add examples
+- Translate to other languages</p>
+<p><strong>3. Hardware designs:</strong>
+- PCB improvements
+- Enclosure designs (3D printable)
+- Mounting solutions</p>
+<p><strong>4. Testing and feedback:</strong>
+- Deploy loggers, report issues
+- Share deployment photos and data
+- Write deployment case studies</p>
+<p><strong>5. Support community:</strong>
+- Answer questions on GitHub Issues
+- Share your experience</p>
+<p><strong>Getting started:</strong>
+- Fork repository
+- Make changes
+- Submit pull request
+- Discuss in issue tracker</p>
+<hr />
+<h3 id="where-can-i-get-help">Where can I get help?<a class="headerlink" href="#where-can-i-get-help" title="Permanent link">&para;</a></h3>
+<p><strong>Resources:</strong></p>
+<p><strong>1. This documentation:</strong>
+- Comprehensive guides for most scenarios
+- Search function (top right)</p>
+<p><strong>2. GitHub Issues:</strong>
+- https://github.com/ICHydro/Riverlabs/issues
+- Search existing issues (maybe already answered)
+- Create new issue with details:
+  - Logger configuration
+  - Problem description
+  - What you've tried
+  - Serial Monitor output
+  - Photos</p>
+<p><strong>3. Research group:</strong>
+- Contact: ICHydro group (if affiliated)
+- Academic collaborations</p>
+<p><strong>4. Community:</strong>
+- (Future: Forum or chat once community grows)</p>
+<p><strong>Before asking:</strong>
+- Read documentation thoroughly
+- Try diagnostic flowcharts
+- Check common issues
+- Gather diagnostic info (serial logs, photos)</p>
+<hr />
+<h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
+<ul>
+<li>🚀 <a href="../../quick-start/quick-start/">Quick Start Guide</a> - Get started now</li>
+<li>📊 <a href="../diagnostic-flowcharts/">Diagnostic Flowcharts</a> - Visual troubleshooting</li>
+<li>📋 <a href="../common-issues/">Common Issues</a> - Detailed problem solutions</li>
+<li>🛠️ <a href="../../hardware/maintenance/">Hardware Maintenance</a> - Keep logger healthy</li>
+<li>📡 <a href="../../../telemetry/setup-guide/">Telemetry Setup</a> - Add remote monitoring</li>
+</ul>
+<hr />
+<div class="admonition question">
+<p class="admonition-title">Still Have Questions?</p>
+<p>If your question isn't answered here, check the <a href="https://github.com/ICHydro/Riverlabs/issues">GitHub Issues</a> or create a new issue with your question. The community is here to help!</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Riverlabs Ltd
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/ICHydro" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.sections", "navigation.indexes", "navigation.expand", "navigation.top", "search.suggest", "search.highlight", "content.code.copy", "content.action.edit", "content.action.view"], "search": "../../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+        <script src="../../../assets/javascripts/extra.js"></script>
+      
+    
+  </body>
+</html>

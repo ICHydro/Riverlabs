@@ -1,0 +1,2719 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation for the Riverlabs suite of environmental sensors">
+      
+      
+        <meta name="author" content="Riverlabs Ltd">
+      
+      
+        <link rel="canonical" href="https://ichydro.github.io/Riverlabs/operation/hardware/internal-components/">
+      
+      
+      
+      
+        
+          <link rel="alternate" href="/Riverlabs/en/" hreflang="en">
+        
+          <link rel="alternate" href="/Riverlabs/es/" hreflang="es">
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/riverlabs_icon.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+    
+    
+      
+        <title>Referencia de componentes internos - Riverlabs Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="light-blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#referencia-de-componentes-internos" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="../../.." title="Riverlabs Documentation" class="md-header__button md-logo" aria-label="Riverlabs Documentation" data-md-component="logo">
+      
+  <img src="../../../assets/images/riverlabs_white_mono.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Riverlabs Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Referencia de componentes internos
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="light-blue"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="light-blue"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Seleccionar idioma">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="/Riverlabs/en/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="/Riverlabs/es/" hreflang="es" class="md-select__link">
+              Español
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/ICHydro/Riverlabs" title="Ir al repositorio" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ichydro/Riverlabs
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Pestañas" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../quick-start/quick-start/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Operación
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../installation/sensor-positioning/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Instalación
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../programming/intro/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Programación
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Riverlabs Documentation" class="md-nav__button md-logo" aria-label="Riverlabs Documentation" data-md-component="logo">
+      
+  <img src="../../../assets/images/riverlabs_white_mono.svg" alt="logo">
+
+    </a>
+    Riverlabs Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ICHydro/Riverlabs" title="Ir al repositorio" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ichydro/Riverlabs
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operación
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Operación
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_1" id="__nav_1_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio Rápido
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Inicio Rápido
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../quick-start/quick-start/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guía de Inicio Rápido
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../quick-start/data-download/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Descarga de Datos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../quick-start/arduino-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuración de Arduino
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../quick-start/first-deployment-checklist/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lista de Verificación para la Primera Implementación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_2" id="__nav_1_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hardware
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Hardware
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../technical-specifications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Especificaciones Técnicas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../battery-power-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guía de Baterías y Alimentación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../maintenance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mantenimiento
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data-handling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gestión de Datos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_3" id="__nav_1_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Solución de Problemas
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Solución de Problemas
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../troubleshooting/diagnostic-flowcharts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Diagramas de Flujo de Diagnóstico
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Instalación
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Instalación
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../installation/sensor-positioning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Posicionamiento del Sensor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../installation/mounting-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guía de Montaje
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../installation/environmental-considerations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Consideraciones Ambientales
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Programación
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Programación
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introducción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/arduino-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuración de Arduino
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/uploading-code/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cargando Código
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#distribucion-de-los-componentes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Distribución de los componentes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Distribución de los componentes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#descripcion-general-de-los-componentes-principales" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Descripción general de los componentes principales
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#detalles-de-los-componentes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Detalles de los componentes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Detalles de los componentes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-microcontrolador-atmega328p" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Microcontrolador (Atmega328P)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-reloj-de-tiempo-real-ds3231" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Reloj de tiempo real (DS3231)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-ranura-para-tarjeta-sd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Ranura para tarjeta SD
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-conector-de-programacion-ftdi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Conector de programación FTDI
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4b-pines-serie-de-depuracion-dbg" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4b. Pines serie de depuración (DBG)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-contactos-de-la-bateria-principal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Contactos de la batería principal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-portapilas-de-la-bateria-de-respaldo-cr1220" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Portapilas de la batería de respaldo (CR1220)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-interruptor-de-alimentacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Interruptor de alimentación
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-circuito-de-regulacion-de-alimentacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Circuito de regulación de alimentación
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-zocalo-xbee-solo-modelos-con-telemetria" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Zócalo XBee (solo modelos con telemetría)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-conector-del-sensor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Conector del sensor
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10-indicadores-led" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Indicadores LED
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#11-eeprom-externa-algunos-modelos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. EEPROM externa (algunos modelos)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#componentes-adicionales" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Componentes adicionales
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Componentes adicionales">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#condensadores" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Condensadores
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resistencias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resistencias
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cristalesosciladores" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cristales/osciladores
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#versiones-de-la-pcb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Versiones de la PCB
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Versiones de la PCB">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#como-identificar-la-version-de-su-pcb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cómo identificar la versión de su PCB
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#seguridad-y-manipulacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Seguridad y manipulación
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Seguridad y manipulación">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#proteccion-contra-descargas-electrostaticas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Protección contra descargas electrostáticas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#manipulacion-fisica" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Manipulación física
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#limpieza" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Limpieza
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pruebas-de-los-componentes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pruebas de los componentes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Pruebas de los componentes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#inspeccion-visual" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inspección visual
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pruebas-funcionales" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pruebas funcionales
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#modificaciones-y-actualizaciones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modificaciones y actualizaciones
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Modificaciones y actualizaciones">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#actualizaciones-del-firmware" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Actualizaciones del firmware
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modificaciones-del-hardware" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modificaciones del hardware
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resolucion-de-problemas-de-los-componentes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resolución de problemas de los componentes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Resolución de problemas de los componentes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#segun-el-sintoma" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Según el síntoma
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#piezas-de-repuesto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Piezas de repuesto
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Piezas de repuesto">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#componentes-sustituibles-por-el-usuario" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Componentes sustituibles por el usuario
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sustitucion-a-cargo-de-profesionales" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sustitución a cargo de profesionales
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentación
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Documentación">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#esquema-de-la-pcb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Esquema de la PCB
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lista-de-materiales-bom" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lista de materiales (BOM)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#proximos-pasos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Próximos pasos
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/ICHydro/Riverlabs/edit/main/operation/hardware/internal-components.md" title="Editar esta página" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+    
+      
+    
+    <a href="https://github.com/ICHydro/Riverlabs/raw/main/operation/hardware/internal-components.md" title="Ver código fuente de esta página" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
+    </a>
+  
+
+
+<h1 id="referencia-de-componentes-internos">Referencia de componentes internos<a class="headerlink" href="#referencia-de-componentes-internos" title="Permanent link">&para;</a></h1>
+<div class="admonition abstract">
+<p class="admonition-title">Descripción general</p>
+<p>Esta pagina ofrece información detallada sobre los componentes internos de los registradores Riverlabs, su ubicación, función y necesidades de mantenimiento. No es conocimiento necesario para la operación de los equipos, pero puede ser util en el caso de reparaciones o alteraciones.</p>
+</div>
+<h2 id="distribucion-de-los-componentes">Distribución de los componentes<a class="headerlink" href="#distribucion-de-los-componentes" title="Permanent link">&para;</a></h2>
+<h3 id="descripcion-general-de-los-componentes-principales">Descripción general de los componentes principales<a class="headerlink" href="#descripcion-general-de-los-componentes-principales" title="Permanent link">&para;</a></h3>
+<p>La placa de circuito impreso (PCB) del registrador Riverlabs contiene los siguientes componentes principales:</p>
+<ol>
+<li><strong>Microcontrolador (CPU)</strong>: Atmel Atmega328P</li>
+<li><strong>Reloj de tiempo real (RTC)</strong>: RTC de precisión DS3231</li>
+<li><strong>Ranura para tarjeta SD</strong>: Interfaz para tarjeta microSD (opcional)</li>
+<li><strong>Conector de programación FTDI</strong>: Interfaz de programación serie de 6 pines</li>
+<li><strong>Contactos de la batería principal</strong>: P. ej., portapilas para batería 18650</li>
+<li><strong>Portapilas de la batería de respaldo</strong>: Soporte para pila de botón CR1220</li>
+<li><strong>Regulación de alimentación</strong>: Reguladores de tensión y protección</li>
+<li><strong>Zócalo XBee</strong> (modelos con telemetría): Interfaz para módem celular</li>
+<li><strong>Conector del sensor</strong>: Conexión para sensor ultrasónico o lidar</li>
+<li><strong>Indicadores LED</strong>: Indicación de estado</li>
+<li><strong>EEPROM</strong>: Almacenamiento temporal externo de datos</li>
+</ol>
+<p><img alt="Distribución de componentes de la PCB: próximamente" src="../../assets/images/pcb-layout-annotated.png" /><br>
+<em>Plano anotado de la PCB que muestra la ubicación de los componentes</em></p>
+<hr />
+<h2 id="detalles-de-los-componentes">Detalles de los componentes<a class="headerlink" href="#detalles-de-los-componentes" title="Permanent link">&para;</a></h2>
+<h3 id="1-microcontrolador-atmega328p">1. Microcontrolador (Atmega328P)<a class="headerlink" href="#1-microcontrolador-atmega328p" title="Permanent link">&para;</a></h3>
+<p><strong>Ubicación:</strong></p>
+<ul>
+<li>Centro de la PCB</li>
+<li>Circuito integrado cuadrado con numerosos pines</li>
+</ul>
+<p><strong>Función:</strong></p>
+<ul>
+<li>Procesador principal que ejecuta el gestor de arranque de Arduino</li>
+<li>Ejecuta el código de registro de datos</li>
+<li>Controla todos los periféricos</li>
+<li>Gestiona los estados de energía (reposo/activación)</li>
+</ul>
+<p><strong>Especificaciones:</strong></p>
+<ul>
+<li>Arquitectura AVR de 8 bits</li>
+<li>32 KB de memoria flash (almacenamiento del programa)</li>
+<li>2 KB de SRAM (memoria de trabajo)</li>
+<li>1 KB de EEPROM (búfer de datos opcional)</li>
+<li>Frecuencia de reloj de 16 MHz (pero operado a 8 MHz)</li>
+</ul>
+<h3 id="2-reloj-de-tiempo-real-ds3231">2. Reloj de tiempo real (DS3231)<a class="headerlink" href="#2-reloj-de-tiempo-real-ds3231" title="Permanent link">&para;</a></h3>
+<p><strong>Ubicación:</strong></p>
+<ul>
+<li>Cerca del portapilas de botón</li>
+</ul>
+<p><strong>Función:</strong></p>
+<ul>
+<li>Mantiene la hora con precisión</li>
+<li>Genera alarmas de activación</li>
+<li>Oscilador de cristal con compensación de temperatura</li>
+<li>Conserva la hora al retirar la batería principal (si hay una CR1220 instalada)</li>
+</ul>
+<p><strong>Especificaciones:</strong></p>
+<ul>
+<li>Precisión: ±2 ppm (±1 minuto/año)</li>
+<li>Intervalo de temperatura: -40°C a +85°C</li>
+<li>Entrada de alimentación de respaldo para CR1220</li>
+<li>Interfaz de comunicación I2C</li>
+</ul>
+<p><strong>Mantenimiento:</strong></p>
+<ul>
+<li>No requiere mantenimiento</li>
+<li>Alimentado por la batería de respaldo CR1220</li>
+<li>Conserva la hora automáticamente</li>
+</ul>
+<p><strong>Resolución de problemas:</strong></p>
+<ul>
+<li>Si el reloj se reinicia: sustituya la batería CR1220</li>
+<li>Si el reloj se desfasa: compruebe que el código inicialice correctamente el RTC</li>
+</ul>
+<h3 id="3-ranura-para-tarjeta-sd">3. Ranura para tarjeta SD<a class="headerlink" href="#3-ranura-para-tarjeta-sd" title="Permanent link">&para;</a></h3>
+<p><strong>Ubicación:</strong></p>
+<ul>
+<li>Borde de la PCB; zócalo metálico con resorte</li>
+</ul>
+<p><strong>Función:</strong></p>
+<ul>
+<li>Almacenamiento local de datos</li>
+<li>Registra todas las mediciones con marcas de tiempo</li>
+<li>Tarjeta extraíble para recuperar los datos</li>
+</ul>
+<p><strong>Especificaciones:</strong></p>
+<ul>
+<li>Interfaz para tarjeta microSD</li>
+<li>Comunicación SPI</li>
+<li>Admite tarjetas SD y SDHC (hasta 32 GB)</li>
+<li>Sistema de archivos FAT32</li>
+</ul>
+<p><strong>Mantenimiento:</strong></p>
+<ul>
+<li>Mantenga limpios los contactos</li>
+<li>Compruebe que la tarjeta encaje correctamente</li>
+<li>No fuerce la inserción de la tarjeta</li>
+<li>Compruebe periódicamente que la tarjeta esté bien asentada</li>
+</ul>
+<p><strong>Problemas frecuentes:</strong></p>
+<ul>
+<li>No se detecta la tarjeta: vuelva a insertarla y compruebe el formato</li>
+<li>Errores de escritura: sustituya la tarjeta (desgaste)</li>
+<li>Escritura lenta: utilice una tarjeta más rápida (clase 10)</li>
+</ul>
+<h3 id="4-conector-de-programacion-ftdi">4. Conector de programación FTDI<a class="headerlink" href="#4-conector-de-programacion-ftdi" title="Permanent link">&para;</a></h3>
+<p><strong>Ubicación:</strong></p>
+<ul>
+<li>Fila de 6 pines</li>
+<li>Normalmente en el borde de la PCB</li>
+</ul>
+<p><strong>Configuración de pines:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Lado GRN         Lado BLK
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>  ↓                  ↓
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>[GND][CTS][VCC][TXD][RXD][DTR]
+</code></pre></div></p>
+<p><strong>Marcas en la placa:</strong></p>
+<ul>
+<li>La marca <strong>"GRN"</strong> indica el lado del cable verde</li>
+<li>La marca <strong>"BLK"</strong> indica el lado del cable negro</li>
+<li>En los modelos celulares o lidar: el pin negro (GND) está del lado de la tarjeta SD</li>
+</ul>
+<p><strong>Función:</strong></p>
+<ul>
+<li>Interfaz de programación serie para cargar código</li>
+<li>Conexión del cable FTDI para programar desde el IDE de Arduino</li>
+<li>Comunicación con el monitor serie</li>
+<li>Ajuste del reloj mediante la biblioteca RTC</li>
+</ul>
+<p><strong>Uso:</strong></p>
+<ul>
+<li><strong>Orientación del cable FTDI:</strong> FUNDAMENTAL<ul>
+<li>El cable verde se alinea con la marca "GRN"</li>
+<li>El cable negro se alinea con la marca "BLK"</li>
+</ul>
+</li>
+<li><strong>Tensión:</strong> admite cables FTDI de 5 V o 3,3 V (se recomiendan 3,3 V)</li>
+<li><strong>Reinicio automático:</strong> el pin DTR activa el reinicio automático para programar</li>
+<li><strong>Alimentación:</strong> puede alimentar el registrador cuando está conectado (consulte la sección del interruptor de alimentación)</li>
+</ul>
+<p><strong>Protección:</strong></p>
+<ul>
+<li>El conector no está protegido frente a la inversión de polaridad</li>
+<li>⚠️ <strong>Compruebe siempre dos veces la orientación del cable FTDI antes de conectarlo</strong></li>
+<li>Una conexión incorrecta puede dañar el registrador o impedir la programación</li>
+</ul>
+<p><strong>Tipos de cable:</strong></p>
+<ul>
+<li><a href="https://www.sparkfun.com/products/9717">Cable FTDI Sparkfun de 3,3 V</a>: Conexión USB directa</li>
+<li><a href="https://www.sparkfun.com/products/9873">Placa adaptadora FTDI Basic de Sparkfun de 3,3 V</a>: Requiere un cable micro-USB</li>
+</ul>
+<h3 id="4b-pines-serie-de-depuracion-dbg">4b. Pines serie de depuración (DBG)<a class="headerlink" href="#4b-pines-serie-de-depuracion-dbg" title="Permanent link">&para;</a></h3>
+<p><strong>Ubicación:</strong></p>
+<ul>
+<li>Conector de 2 pines cerca del borde de la PCB, etiquetado "DBG"</li>
+</ul>
+<p><strong>Configuración de pines:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[GND] [TX]
+</code></pre></div></p>
+<p><strong>Función:</strong></p>
+<ul>
+<li>Salida serie de depuración por hardware</li>
+<li>Permite supervisar la actividad del registrador en tiempo real sin reprogramarlo</li>
+<li>Permite ver las lecturas del sensor, las escrituras en la SD y el estado de la telemetría</li>
+<li>NO requiere conectarse al conector principal FTDI</li>
+</ul>
+<p><strong>Cómo usar los pines de depuración:</strong></p>
+<p><strong>Preparación del hardware:</strong></p>
+<ol>
+<li>
+<p><strong>Equipo necesario:</strong></p>
+<ul>
+<li>Cable FTDI o adaptador USB a serie</li>
+<li>2 cables de puente hembra-hembra para placa de pruebas</li>
+</ul>
+</li>
+<li>
+<p><strong>Conexiones:</strong>
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>Logger DBG GND → FTDI Black wire (GND)
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>Logger DBG TX  → FTDI Yellow wire (RX/Serial In)
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>NO conecte:</strong></p>
+<ul>
+<li>El FTDI al conector principal de programación</li>
+<li>La alimentación del FTDI (el registrador debe alimentarse con batería)</li>
+</ul>
+</li>
+<li>
+<p><strong>Alimentación:</strong></p>
+<ul>
+<li>El registrador debe estar alimentado por batería (interruptor en ON)</li>
+</ul>
+</li>
+</ol>
+<p><strong>Configuración del software:</strong></p>
+<ol>
+<li>Conecte el cable FTDI al ordenador</li>
+<li>Abra el monitor serie del IDE de Arduino (Tools → Serial Monitor)</li>
+<li>Ajuste la velocidad a <strong>115200 baudios</strong></li>
+<li>Reinicie el registrador (pulse el botón de reinicio)</li>
+<li>La salida de depuración aparecerá en el monitor serie</li>
+</ol>
+<p><strong>La salida de depuración incluye:</strong></p>
+<ul>
+<li>Mensajes de arranque e inicialización</li>
+<li>Marca de tiempo del RTC en cada medición</li>
+<li>Lecturas del sensor (brutas y procesadas)</li>
+<li>Estado de escritura en la tarjeta SD</li>
+<li>Estado de la conexión de telemetría</li>
+<li>Registros de comunicación XBee</li>
+<li>Mensajes de error y advertencias</li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">Esencial para resolver problemas</p>
+<p>Los pines DBG son muy útiles para diagnosticar problemas sobre el terreno. Puede conectarlos con el registrador ya instalado para ver qué ocurre sin retirar la tarjeta SD ni reprogramarlo.</p>
+</div>
+<p><strong>Mensajes de depuración habituales:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>--- Wari Logger Boot ---
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>RTC Init: OK
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>SD Card Init: OK
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>Time: 2026-01-03 14:35:22
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>Sensor: 1.234m
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>SD Write: OK
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>XBee Wake
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>TX: Data sent
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>XBee Sleep
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>Entering sleep...
+</code></pre></div>
+<h3 id="5-contactos-de-la-bateria-principal">5. Contactos de la batería principal<a class="headerlink" href="#5-contactos-de-la-bateria-principal" title="Permanent link">&para;</a></h3>
+<p><strong>Ubicación:</strong></p>
+<ul>
+<li>Contactos con resorte o portabaterías</li>
+</ul>
+<p><strong>Función:</strong></p>
+<ul>
+<li>Conexión de alimentación principal</li>
+<li>Interfaz para batería 18650</li>
+<li>Terminales positivo y negativo</li>
+</ul>
+<p><strong>Mantenimiento:</strong></p>
+<ul>
+<li><strong>Mensualmente:</strong> compruebe si hay corrosión</li>
+<li><strong>Cuando sea necesario:</strong> limpie con alcohol isopropílico</li>
+<li><strong>Compruebe:</strong> que la tensión del resorte sea adecuada</li>
+<li><strong>Verifique:</strong> que no haya oxidación ni depósitos</li>
+</ul>
+<p><strong>Prevención de la corrosión:</strong></p>
+<ul>
+<li>Aplique una capa fina de DeoxIT a los contactos</li>
+<li>Asegúrese de que los terminales de la batería estén limpios</li>
+<li>Mantenga seco el compartimento</li>
+</ul>
+<h3 id="6-portapilas-de-la-bateria-de-respaldo-cr1220">6. Portapilas de la batería de respaldo (CR1220)<a class="headerlink" href="#6-portapilas-de-la-bateria-de-respaldo-cr1220" title="Permanent link">&para;</a></h3>
+<p><strong>Ubicación:</strong></p>
+<ul>
+<li>Pequeño soporte circular cerca del circuito integrado RTC</li>
+</ul>
+<p><strong>Función:</strong></p>
+<ul>
+<li>Alimenta el RTC cuando se retira la batería principal</li>
+<li>Mantiene la hora</li>
+<li>No alimenta el registrador</li>
+</ul>
+<p><strong>Instalación:</strong></p>
+<ul>
+<li>El lado positivo (+) suele quedar hacia arriba</li>
+<li>Presione firmemente hasta que encaje</li>
+<li>Debe quedar a ras del soporte</li>
+</ul>
+<p><strong>Vida útil:</strong></p>
+<ul>
+<li>Normalmente de 5 a 10 años</li>
+<li>Sustitúyala cada año en aplicaciones críticas</li>
+<li>Sustitúyala si el reloj se reinicia al retirar la batería principal</li>
+</ul>
+<h3 id="7-interruptor-de-alimentacion">7. Interruptor de alimentación<a class="headerlink" href="#7-interruptor-de-alimentacion" title="Permanent link">&para;</a></h3>
+<p><strong>Ubicación:</strong></p>
+<ul>
+<li>Borde de la PCB; interruptor deslizante o de palanca</li>
+</ul>
+<p><strong>Etiqueta:</strong></p>
+<ul>
+<li>"ON (Batt) / OFF (ftdi)"</li>
+</ul>
+<p><strong>Función:</strong></p>
+<ul>
+<li>Controla la alimentación del registrador desde la batería principal</li>
+<li>Permite alimentarlo desde el FTDI para programarlo cuando está en OFF</li>
+<li>Evita que la batería y el USB suministren energía simultáneamente</li>
+</ul>
+<p><strong>Posiciones del interruptor:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Posición</th>
+<th>Batería</th>
+<th>Alimentación FTDI</th>
+<th>Uso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ON (Batt)</strong></td>
+<td>Conectada</td>
+<td>Bloqueada</td>
+<td>Uso normal, despliegue en campo</td>
+</tr>
+<tr>
+<td><strong>OFF (ftdi)</strong></td>
+<td>Desconectada</td>
+<td>Habilitada</td>
+<td>Programación mediante cable FTDI</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Cómo funciona:</strong></p>
+<div class="admonition info">
+<p class="admonition-title">Diseño inteligente de alimentación</p>
+<p>El interruptor evita conectar accidentalmente a la vez la alimentación de la batería y la del USB (a través del FTDI), lo que podría dañar la batería o los componentes.</p>
+</div>
+<p><strong>Posición ON (batería):</strong></p>
+<ul>
+<li>La batería alimenta todo el registrador</li>
+<li>El registrador funciona normalmente</li>
+<li>El cable FTDI puede permanecer conectado para programar</li>
+<li>El registrador se alimenta de la batería, no del FTDI</li>
+<li>El LED indicará el funcionamiento normal</li>
+</ul>
+<p><strong>Posición OFF (FTDI):</strong></p>
+<ul>
+<li>La batería queda desconectada del circuito</li>
+<li>Si el cable FTDI está conectado: el registrador se alimenta por USB</li>
+<li>Si el FTDI no está conectado: el registrador no recibe alimentación</li>
+<li>Facilita la programación sin instalar una batería</li>
+<li>Evita que la alimentación USB dañe la batería</li>
+</ul>
+<p><strong>Opciones de programación:</strong></p>
+<p>Puede programar el registrador en tres configuraciones:</p>
+<ol>
+<li>
+<p><strong>Interruptor en OFF, sin batería y con FTDI conectado</strong></p>
+<ul>
+<li>La opción más segura para la primera programación</li>
+<li>El registrador se alimenta por completo desde USB/FTDI</li>
+<li>Es la opción más habitual</li>
+</ul>
+</li>
+<li>
+<p><strong>Interruptor en OFF, con batería instalada y FTDI conectado</strong></p>
+<ul>
+<li>La batería está presente, pero desconectada</li>
+<li>El registrador se alimenta desde USB/FTDI</li>
+<li>La batería permanece protegida</li>
+</ul>
+</li>
+<li>
+<p><strong>Interruptor en ON, con batería instalada y FTDI conectado</strong></p>
+<ul>
+<li>La batería alimenta el registrador</li>
+<li>El FTDI solo proporciona la conexión de datos</li>
+<li>Útil si el cable FTDI no puede suministrar suficiente corriente</li>
+</ul>
+</li>
+</ol>
+<p><strong>Buenas prácticas:</strong></p>
+<p>✅ <strong>HAGA LO SIGUIENTE:</strong></p>
+<ul>
+<li>Ponga el interruptor en OFF al programar (recomendado)</li>
+<li>Compruebe la posición del interruptor antes de conectar el FTDI</li>
+<li>Utilice el interruptor para apagar completamente el registrador</li>
+</ul>
+<p>❌ <strong>EVITE LO SIGUIENTE:</strong></p>
+<ul>
+<li>Preocuparse por confundir las posiciones: el diseño evita daños</li>
+<li>Dejar el interruptor en ON durante un almacenamiento prolongado (agota la batería)</li>
+</ul>
+<p><strong>Resolución de problemas:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Problema</th>
+<th>Qué comprobar</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sin alimentación en ON</td>
+<td>Batería agotada; compruebe la tensión</td>
+</tr>
+<tr>
+<td>Sin alimentación en OFF</td>
+<td>Cable FTDI no conectado o ausencia de pines de datos</td>
+</tr>
+<tr>
+<td>No se puede cargar el código</td>
+<td>Pruebe OFF; compruebe la orientación del FTDI</td>
+</tr>
+</tbody>
+</table>
+<h3 id="8-circuito-de-regulacion-de-alimentacion">8. Circuito de regulación de alimentación<a class="headerlink" href="#8-circuito-de-regulacion-de-alimentacion" title="Permanent link">&para;</a></h3>
+<p><strong>Ubicación:</strong></p>
+<ul>
+<li>Componentes próximos a los contactos de la batería</li>
+</ul>
+<p><strong>Componentes:</strong></p>
+<ul>
+<li>Reguladores de tensión (alimentación lógica de 3.3 V)</li>
+<li>Diodos de protección</li>
+<li>Condensadores para estabilización</li>
+<li>Circuitos integrados de gestión de energía</li>
+</ul>
+<p><strong>Función:</strong></p>
+<ul>
+<li>Convierte los 3.7 V de la batería en 3.3 V para la lógica</li>
+<li>Proporciona alimentación estable a la electrónica</li>
+<li>Protege contra la inversión de polaridad (en algunos modelos)</li>
+<li>Protección frente a sobrecorriente</li>
+</ul>
+<h3 id="8-zocalo-xbee-solo-modelos-con-telemetria">8. Zócalo XBee (solo modelos con telemetría)<a class="headerlink" href="#8-zocalo-xbee-solo-modelos-con-telemetria" title="Permanent link">&para;</a></h3>
+<p><strong>Ubicación:</strong></p>
+<ul>
+<li>Zócalo destacado, a menudo en un extremo de la PCB</li>
+</ul>
+<p><strong>Función:</strong></p>
+<ul>
+<li>Aloja el módem celular XBee</li>
+<li>Zócalo de inserción para el módulo XBee</li>
+<li>Pines de alimentación y comunicación</li>
+</ul>
+<p><strong>Instalación del XBee:</strong></p>
+<ul>
+<li>Alinee la muesca del XBee con el zócalo</li>
+<li>Presione firmemente hasta que quede asentado</li>
+<li>Todos los pines deben entrar en el zócalo</li>
+<li>No debe moverse</li>
+</ul>
+<p><strong>Extracción:</strong></p>
+<ul>
+<li>Muévalo suavemente de lado a lado mientras tira de él</li>
+<li>Nunca tire de la antena</li>
+<li>Compruebe si hay pines doblados</li>
+</ul>
+<p><strong>Mantenimiento:</strong></p>
+<ul>
+<li>Mantenga el zócalo libre de polvo</li>
+<li>Compruebe si hay pines doblados</li>
+<li>Asegúrese de que la tarjeta SIM esté instalada en el XBee</li>
+</ul>
+<h3 id="9-conector-del-sensor">9. Conector del sensor<a class="headerlink" href="#9-conector-del-sensor" title="Permanent link">&para;</a></h3>
+<p><strong>Ubicación:</strong></p>
+<ul>
+<li>Conector para el cable del sensor externo</li>
+</ul>
+<p><strong>Tipos:</strong></p>
+<ul>
+<li><strong>Wari:</strong> bornera de tornillo de 3–4 pines o conector JST</li>
+<li><strong>Lidar:</strong> conector JST de 6 pines</li>
+</ul>
+<p><strong>Función:</strong></p>
+<ul>
+<li>Alimentación del sensor</li>
+<li>Comunicación de datos</li>
+<li>Referencia de tierra</li>
+</ul>
+<p><strong>Mantenimiento:</strong></p>
+<ul>
+<li>Compruebe que la conexión esté firme</li>
+<li>Inspeccione si hay corrosión</li>
+<li>Verifique que no haya cables rotos</li>
+<li>Compruebe que el cable tenga suficiente alivio de tensión</li>
+</ul>
+<p><strong>Configuración de pines (típica):</strong></p>
+<p><strong>Wari (MB7389):</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>1. +5V (power)
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>2. Serial Out
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>3. Serial In (sometimes unused)
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>4. GND
+</code></pre></div></p>
+<p><strong>Lidar (Garmin):</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>1. Power Enable
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>2. Mode Control
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>3. +5V
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>4. I2C SDA
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>5. I2C SCL
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>6. GND
+</code></pre></div></p>
+<h3 id="10-indicadores-led">10. Indicadores LED<a class="headerlink" href="#10-indicadores-led" title="Permanent link">&para;</a></h3>
+<p><strong>Ubicación:</strong></p>
+<ul>
+<li>LED de montaje pasante o superficial</li>
+</ul>
+<p><strong>LED habituales:</strong></p>
+<table>
+<thead>
+<tr>
+<th>LED</th>
+<th>Color</th>
+<th>Función</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Alimentación</strong></td>
+<td>Rojo/verde</td>
+<td>Registrador encendido</td>
+</tr>
+<tr>
+<td><strong>Actividad</strong></td>
+<td>Amarillo/azul</td>
+<td>Medición en curso</td>
+</tr>
+<tr>
+<td><strong>Error</strong></td>
+<td>Rojo</td>
+<td>Estado de error</td>
+</tr>
+<tr>
+<td><strong>Telemetría</strong></td>
+<td>Azul/verde</td>
+<td>Actividad del XBee</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Comportamiento de los LED:</strong></p>
+<p><strong>Funcionamiento normal:</strong></p>
+<ul>
+<li>Destello breve durante la medición</li>
+<li>Luz fija durante la lectura del sensor</li>
+<li>Destellos rápidos durante la escritura en la SD</li>
+</ul>
+<p><strong>Patrones de error:</strong></p>
+<ul>
+<li>Parpadeo rápido: error de la tarjeta SD</li>
+<li>Luz fija continua: bloqueado en un estado de error</li>
+<li>Sin actividad: problema de alimentación o código</li>
+</ul>
+<p><strong>Ahorro de energía:</strong></p>
+<ul>
+<li>Los LED se desactivan en el modo de despliegue</li>
+<li>Active el modo DEBUG para ver la actividad</li>
+</ul>
+<h3 id="11-eeprom-externa-algunos-modelos">11. EEPROM externa (algunos modelos)<a class="headerlink" href="#11-eeprom-externa-algunos-modelos" title="Permanent link">&para;</a></h3>
+<p><strong>Ubicación:</strong></p>
+<ul>
+<li>Circuito integrado de 8 pines cerca de la ranura para tarjeta SD</li>
+</ul>
+<p><strong>Función:</strong></p>
+<ul>
+<li>Almacenamiento temporal de datos</li>
+<li>Guarda las mediciones en memoria antes de escribirlas en la SD</li>
+<li>Prolonga la vida útil de la tarjeta SD</li>
+<li>Evita la pérdida de datos si hay problemas con la SD</li>
+</ul>
+<p><strong>Especificaciones:</strong></p>
+<ul>
+<li>Normalmente 24LC512 o similar</li>
+<li>Capacidad de 64 KB</li>
+<li>Interfaz I2C</li>
+<li>Memoria no volátil</li>
+</ul>
+<p><strong>Funcionamiento:</strong></p>
+<ul>
+<li>Las mediciones se escriben primero en la EEPROM</li>
+<li>Se escriben periódicamente en la tarjeta SD en lotes</li>
+<li>El usuario puede configurar el intervalo de volcado</li>
+</ul>
+<hr />
+<h2 id="componentes-adicionales">Componentes adicionales<a class="headerlink" href="#componentes-adicionales" title="Permanent link">&para;</a></h2>
+<h3 id="condensadores">Condensadores<a class="headerlink" href="#condensadores" title="Permanent link">&para;</a></h3>
+<p><strong>Finalidad:</strong></p>
+<ul>
+<li>Estabilización de la alimentación</li>
+<li>Filtrado de ruido</li>
+<li>Circuitos de temporización</li>
+</ul>
+<p><strong>Mantenimiento:</strong></p>
+<ul>
+<li>No requieren mantenimiento por parte del usuario</li>
+</ul>
+<h3 id="resistencias">Resistencias<a class="headerlink" href="#resistencias" title="Permanent link">&para;</a></h3>
+<p><strong>Finalidad:</strong></p>
+<ul>
+<li>Resistencias de polarización de señales</li>
+<li>Limitación de corriente para LED</li>
+<li>Divisores de tensión</li>
+</ul>
+<p><strong>Mantenimiento:</strong></p>
+<ul>
+<li>No requieren mantenimiento por parte del usuario</li>
+</ul>
+<h3 id="cristalesosciladores">Cristales/osciladores<a class="headerlink" href="#cristalesosciladores" title="Permanent link">&para;</a></h3>
+<p><strong>Cristal de 8 MHz (externo):</strong></p>
+<ul>
+<li>Reloj principal del microcontrolador</li>
+<li>Determina la precisión de la temporización</li>
+</ul>
+<p><strong>Mantenimiento:</strong></p>
+<ul>
+<li>No requiere mantenimiento por parte del usuario</li>
+</ul>
+<hr />
+<h2 id="versiones-de-la-pcb">Versiones de la PCB<a class="headerlink" href="#versiones-de-la-pcb" title="Permanent link">&para;</a></h2>
+<h3 id="como-identificar-la-version-de-su-pcb">Cómo identificar la versión de su PCB<a class="headerlink" href="#como-identificar-la-version-de-su-pcb" title="Permanent link">&para;</a></h3>
+<p><strong>Busque:</strong></p>
+<ul>
+<li>Número de versión serigrafiado en la PCB (p. ej., "v2.1")</li>
+<li>Código de fecha</li>
+<li>Logotipo o texto de Riverlabs</li>
+</ul>
+<p><strong>Versiones habituales:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Versión</th>
+<th>Características</th>
+<th>Notas</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Wari v1</strong></td>
+<td>Registro básico de datos</td>
+<td>Diseño original</td>
+</tr>
+<tr>
+<td><strong>Wari v2.0</strong></td>
+<td>+ EEPROM, alimentación mejorada</td>
+<td>Mayor fiabilidad</td>
+</tr>
+<tr>
+<td><strong>Wari v2.1</strong></td>
+<td>+ Optimización de telemetría</td>
+<td>Producción actual</td>
+</tr>
+<tr>
+<td><strong>Lidar/WMOnode</strong></td>
+<td>Compatibilidad con sensor lidar</td>
+<td>Elevador de 5 V de mayor potencia</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="seguridad-y-manipulacion">Seguridad y manipulación<a class="headerlink" href="#seguridad-y-manipulacion" title="Permanent link">&para;</a></h2>
+<h3 id="proteccion-contra-descargas-electrostaticas">Protección contra descargas electrostáticas<a class="headerlink" href="#proteccion-contra-descargas-electrostaticas" title="Permanent link">&para;</a></h3>
+<div class="admonition warning">
+<p class="admonition-title">La electricidad estática puede dañar los componentes electrónicos</p>
+</div>
+<p><strong>Precauciones:</strong></p>
+<ul>
+<li>Toque un objeto metálico conectado a tierra antes de manipular la PCB</li>
+<li>Evite manipularla en ambientes secos</li>
+<li>Use una pulsera antiestática si dispone de una</li>
+<li>Guárdela en una bolsa antiestática cuando no esté instalada</li>
+</ul>
+<h3 id="manipulacion-fisica">Manipulación física<a class="headerlink" href="#manipulacion-fisica" title="Permanent link">&para;</a></h3>
+<p><strong>Haga lo siguiente:</strong></p>
+<ul>
+<li>✅ Sujétela solo por los bordes</li>
+<li>✅ Utilice herramientas adecuadas</li>
+<li>✅ Trabaje sobre una superficie no conductora</li>
+<li>✅ Manténgala alejada de líquidos</li>
+</ul>
+<p><strong>Evite lo siguiente:</strong></p>
+<ul>
+<li>❌ Tocar los pines de los componentes</li>
+<li>❌ Presionar los componentes</li>
+<li>❌ Exponerla a la humedad</li>
+<li>❌ Dejarla caer o golpearla</li>
+</ul>
+<h3 id="limpieza">Limpieza<a class="headerlink" href="#limpieza" title="Permanent link">&para;</a></h3>
+<p><strong>Si es necesario:</strong></p>
+<ul>
+<li>Apague el dispositivo y retire las baterías</li>
+<li>Use alcohol isopropílico de al menos el 90 %</li>
+<li>Use un cepillo suave (de dientes o antiestático)</li>
+<li>Deje secar completamente al aire antes de volver a montarlo</li>
+<li>No use agua ni productos de limpieza</li>
+</ul>
+<hr />
+<h2 id="pruebas-de-los-componentes">Pruebas de los componentes<a class="headerlink" href="#pruebas-de-los-componentes" title="Permanent link">&para;</a></h2>
+<h3 id="inspeccion-visual">Inspección visual<a class="headerlink" href="#inspeccion-visual" title="Permanent link">&para;</a></h3>
+<p><strong>Compruebe que:</strong></p>
+<ul>
+<li>[ ] No haya daños físicos</li>
+<li>[ ] No haya pines doblados</li>
+<li>[ ] No haya corrosión</li>
+<li>[ ] No haya marcas de quemaduras</li>
+<li>[ ] Las soldaduras estén intactas</li>
+<li>[ ] La PCB no tenga grietas</li>
+</ul>
+<h3 id="pruebas-funcionales">Pruebas funcionales<a class="headerlink" href="#pruebas-funcionales" title="Permanent link">&para;</a></h3>
+<p><strong>Prueba de alimentación:</strong></p>
+<ol>
+<li>Instale una batería nueva</li>
+<li>Compruebe la actividad del LED</li>
+<li>Mida la tensión con un multímetro</li>
+</ol>
+<p><strong>Prueba de comunicación:</strong></p>
+<ol>
+<li>Conecte el cable FTDI</li>
+<li>Abra el monitor serie</li>
+<li>Cargue un programa de prueba</li>
+<li>Compruebe la salida serie</li>
+</ol>
+<p><strong>Prueba del sensor:</strong></p>
+<ol>
+<li>Conecte el sensor</li>
+<li>Ejecute el código de prueba del sensor</li>
+<li>Compruebe que las lecturas sean razonables</li>
+<li>Compruebe si hay mensajes de error</li>
+</ol>
+<p><strong>Prueba de la tarjeta SD:</strong></p>
+<ol>
+<li>Inserte una tarjeta formateada</li>
+<li>Ejecute varias mediciones</li>
+<li>Retire la tarjeta y lea el archivo de datos</li>
+<li>Compruebe el formato y el contenido</li>
+</ol>
+<p><strong>Prueba del RTC:</strong></p>
+<ol>
+<li>Ajuste el reloj</li>
+<li>Retire la batería principal (con la batería de respaldo instalada)</li>
+<li>Espere 1 minuto</li>
+<li>Vuelva a instalar la batería principal</li>
+<li>Compruebe la hora: debe ser correcta</li>
+</ol>
+<hr />
+<h2 id="modificaciones-y-actualizaciones">Modificaciones y actualizaciones<a class="headerlink" href="#modificaciones-y-actualizaciones" title="Permanent link">&para;</a></h2>
+<h3 id="actualizaciones-del-firmware">Actualizaciones del firmware<a class="headerlink" href="#actualizaciones-del-firmware" title="Permanent link">&para;</a></h3>
+<p><strong>Seguras y recomendadas:</strong></p>
+<ul>
+<li>Cargue código nuevo mediante FTDI</li>
+<li>Modifique los parámetros configurables por el usuario</li>
+<li>Actualice a la última versión estable</li>
+</ul>
+<p><strong>Procedimiento:</strong></p>
+<ol>
+<li>Descargue el firmware nuevo</li>
+<li>Compruebe su compatibilidad con la versión del hardware</li>
+<li>Cárguelo mediante el IDE de Arduino</li>
+<li>Pruébelo a fondo antes de instalarlo en campo</li>
+</ol>
+<h3 id="modificaciones-del-hardware">Modificaciones del hardware<a class="headerlink" href="#modificaciones-del-hardware" title="Permanent link">&para;</a></h3>
+<div class="admonition danger">
+<p class="admonition-title">Las modificaciones del hardware son responsabilidad del usuario</p>
+<p>Las modificaciones de la PCB, sus componentes o sus circuitos pueden dañar el registrador.</p>
+</div>
+<hr />
+<h2 id="resolucion-de-problemas-de-los-componentes">Resolución de problemas de los componentes<a class="headerlink" href="#resolucion-de-problemas-de-los-componentes" title="Permanent link">&para;</a></h2>
+<h3 id="segun-el-sintoma">Según el síntoma<a class="headerlink" href="#segun-el-sintoma" title="Permanent link">&para;</a></h3>
+<p><strong>Sin alimentación:</strong></p>
+<ul>
+<li>Compruebe la tensión de la batería</li>
+<li>Inspeccione los contactos de la batería (dóblelos hacia dentro si es necesario)</li>
+<li>Compruebe el LED de alimentación (si existe)</li>
+<li>Busque cortocircuitos (cables sueltos o daños en la PCB)</li>
+</ul>
+<p><strong>El reloj se reinicia:</strong></p>
+<ul>
+<li>Sustituya la batería de respaldo CR1220 (debe indicar 3 V CC)</li>
+<li>Compruebe el portapilas del RTC</li>
+<li>Verifique que el código ajuste correctamente el reloj</li>
+</ul>
+<p><strong>Errores de la tarjeta SD:</strong></p>
+<ul>
+<li>Limpie los contactos de la tarjeta</li>
+<li>Pruebe otra tarjeta</li>
+<li>Compruebe si el zócalo está dañado</li>
+</ul>
+<p><strong>Errores del sensor:</strong></p>
+<ul>
+<li>Compruebe que el conector esté bien sujeto</li>
+<li>Verifique la continuidad del cable</li>
+<li>Pruebe el sensor por separado (en otro registrador que funcione, si es posible)</li>
+<li>Compruebe que haya 5 V en el pin de alimentación (solo lidar)</li>
+</ul>
+<p><strong>Fallo de comunicación serie:</strong></p>
+<ul>
+<li>Compruebe la orientación del cable FTDI</li>
+<li>Compruebe si hay pines doblados en el conector</li>
+<li>Pruebe otro cable FTDI</li>
+<li>Pruebe con un programa sencillo de parpadeo</li>
+</ul>
+<hr />
+<h2 id="piezas-de-repuesto">Piezas de repuesto<a class="headerlink" href="#piezas-de-repuesto" title="Permanent link">&para;</a></h2>
+<h3 id="componentes-sustituibles-por-el-usuario">Componentes sustituibles por el usuario<a class="headerlink" href="#componentes-sustituibles-por-el-usuario" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Componente</th>
+<th>Número de pieza</th>
+<th>Proveedor</th>
+<th>Dificultad</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Batería 18650</strong></td>
+<td>Consulte la guía de baterías</td>
+<td>Comercio</td>
+<td>Fácil</td>
+</tr>
+<tr>
+<td><strong>Batería CR1220</strong></td>
+<td>CR1220</td>
+<td>Comercio</td>
+<td>Fácil</td>
+</tr>
+<tr>
+<td><strong>Tarjeta microSD</strong></td>
+<td>Cualquiera compatible con FAT32</td>
+<td>Comercio</td>
+<td>Fácil</td>
+</tr>
+<tr>
+<td><strong>Módulo XBee</strong></td>
+<td>XBee3 Cellular</td>
+<td>Digi</td>
+<td>Moderada</td>
+</tr>
+</tbody>
+</table>
+<h3 id="sustitucion-a-cargo-de-profesionales">Sustitución a cargo de profesionales<a class="headerlink" href="#sustitucion-a-cargo-de-profesionales" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Microcontrolador</li>
+<li>Circuito integrado RTC</li>
+<li>Reguladores de tensión</li>
+<li>Cualquier componente de montaje superficial</li>
+<li>Pistas dañadas de la PCB</li>
+</ul>
+<p><strong>Contacte con Riverlabs para reparaciones:</strong> info@riverlabs.uk</p>
+<hr />
+<h2 id="documentacion">Documentación<a class="headerlink" href="#documentacion" title="Permanent link">&para;</a></h2>
+<h3 id="esquema-de-la-pcb">Esquema de la PCB<a class="headerlink" href="#esquema-de-la-pcb" title="Permanent link">&para;</a></h3>
+<div class="admonition info">
+<p class="admonition-title">Esquemas de código abierto</p>
+<p>Escriba a info@riverlabs.uk para obtener más información.</p>
+</div>
+<h3 id="lista-de-materiales-bom">Lista de materiales (BOM)<a class="headerlink" href="#lista-de-materiales-bom" title="Permanent link">&para;</a></h3>
+<p>Escriba a info@riverlabs.uk para obtener más información.</p>
+<hr />
+<h2 id="proximos-pasos">Próximos pasos<a class="headerlink" href="#proximos-pasos" title="Permanent link">&para;</a></h2>
+<ul>
+<li>🔋 <a href="../battery-power-guide/">Guía de baterías y alimentación</a>: Detalles del sistema de alimentación</li>
+<li>🛠️ <a href="../maintenance/">Guía de mantenimiento</a>: Procedimientos de mantenimiento periódico</li>
+<li>🚨 <a href="../../troubleshooting/common-issues/">Resolución de problemas</a>: Problemas de los componentes</li>
+<li>💻 <a href="../../quick-start/arduino-setup/">Configuración de Arduino</a>: Programación y firmware</li>
+</ul>
+<hr />
+<div class="admonition note">
+<p class="admonition-title">Evolución de la PCB</p>
+<p>Riverlabs mejora continuamente el diseño de sus PCB. Aunque la ubicación de los componentes puede variar ligeramente entre versiones, las funciones principales y el proceso de programación siguen siendo los mismos.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Volver al principio
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Riverlabs Ltd
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/ICHydro" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.sections", "navigation.indexes", "navigation.expand", "navigation.top", "search.suggest", "search.highlight", "content.code.copy", "content.action.edit", "content.action.view"], "search": "../../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+        <script src="../../../assets/javascripts/extra.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,2740 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation for the Riverlabs suite of environmental sensors">
+      
+      
+        <meta name="author" content="Riverlabs Ltd">
+      
+      
+        <link rel="canonical" href="https://ichydro.github.io/Riverlabs/operation/troubleshooting/common-issues/">
+      
+      
+      
+      
+        
+          <link rel="alternate" href="/Riverlabs/en/" hreflang="en">
+        
+          <link rel="alternate" href="/Riverlabs/es/" hreflang="es">
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/riverlabs_icon.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+    
+    
+      
+        <title>Problemas habituales y soluciones - Riverlabs Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="light-blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#problemas-habituales-y-soluciones" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="../../.." title="Riverlabs Documentation" class="md-header__button md-logo" aria-label="Riverlabs Documentation" data-md-component="logo">
+      
+  <img src="../../../assets/images/riverlabs_white_mono.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Riverlabs Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Problemas habituales y soluciones
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="light-blue"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="light-blue"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Seleccionar idioma">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="/Riverlabs/en/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="/Riverlabs/es/" hreflang="es" class="md-select__link">
+              Español
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/ICHydro/Riverlabs" title="Ir al repositorio" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ichydro/Riverlabs
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Pestañas" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../quick-start/quick-start/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Operación
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../installation/sensor-positioning/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Instalación
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../programming/intro/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Programación
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Riverlabs Documentation" class="md-nav__button md-logo" aria-label="Riverlabs Documentation" data-md-component="logo">
+      
+  <img src="../../../assets/images/riverlabs_white_mono.svg" alt="logo">
+
+    </a>
+    Riverlabs Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ICHydro/Riverlabs" title="Ir al repositorio" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ichydro/Riverlabs
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operación
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Operación
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_1" id="__nav_1_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio Rápido
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Inicio Rápido
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../quick-start/quick-start/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guía de Inicio Rápido
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../quick-start/data-download/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Descarga de Datos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../quick-start/arduino-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuración de Arduino
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../quick-start/first-deployment-checklist/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lista de Verificación para la Primera Implementación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_2" id="__nav_1_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hardware
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Hardware
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hardware/technical-specifications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Especificaciones Técnicas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hardware/battery-power-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guía de Baterías y Alimentación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hardware/maintenance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mantenimiento
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hardware/data-handling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gestión de Datos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_3" id="__nav_1_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Solución de Problemas
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Solución de Problemas
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../diagnostic-flowcharts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Diagramas de Flujo de Diagnóstico
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Instalación
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Instalación
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../installation/sensor-positioning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Posicionamiento del Sensor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../installation/mounting-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guía de Montaje
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../installation/environmental-considerations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Consideraciones Ambientales
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Programación
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Programación
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introducción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/arduino-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuración de Arduino
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/uploading-code/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cargando Código
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#como-utilizar-esta-guia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cómo utilizar esta guía
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#categoria-alimentacion-y-bateria" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Categoría: alimentación y batería
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Categoría: alimentación y batería">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#problema-1-el-registrador-no-se-enciende" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problema 1: El registrador no se enciende
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problema-2-la-bateria-se-agota-durante-la-noche" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problema 2: La batería se agota durante la noche
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problema-3-el-porcentaje-de-bateria-parece-incorrecto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problema 3: El porcentaje de batería parece incorrecto
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#categoria-sensor-y-calidad-de-los-datos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Categoría: sensor y calidad de los datos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Categoría: sensor y calidad de los datos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#problema-4-el-sensor-ultrasonico-siempre-indica-el-alcance-maximo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problema 4: El sensor ultrasónico siempre indica el alcance máximo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problema-5-las-lecturas-de-distancia-derivan-con-el-tiempo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problema 5: Las lecturas de distancia derivan con el tiempo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problema-6-el-lidar-devuelve-valores-negativos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problema 6: El lidar devuelve valores negativos
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#categoria-tarjeta-sd-y-registro-de-datos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Categoría: tarjeta SD y registro de datos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Categoría: tarjeta SD y registro de datos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#problema-7-la-tarjeta-sd-aparece-corrupta-o-necesita-formateo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problema 7: La tarjeta SD aparece "corrupta" o "necesita formateo"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problema-8-el-csv-contiene-caracteres-extranos-o-formato-incorrecto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problema 8: El CSV contiene caracteres extraños o formato incorrecto
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#categoria-telemetria" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Categoría: telemetría
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Categoría: telemetría">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#problema-9-thingsboard-solo-muestra-datos-antiguos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problema 9: ThingsBoard solo muestra datos antiguos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problema-10-la-telemetria-funciona-de-forma-intermitente" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problema 10: La telemetría funciona de forma intermitente
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#categoria-arduino-y-firmware" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Categoría: Arduino y firmware
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Categoría: Arduino y firmware">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#problema-11-fallo-de-carga-programmer-is-not-responding-o-avrdude-stk500_getsync" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problema 11: Fallo de carga «programmer is not responding» o «avrdude: stk500_getsync()»
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problema-12-fallo-de-carga-serial-port-already-in-use" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problema 12: Fallo de carga «Serial Port Already in Use»
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problema-13-el-sketch-compila-pero-el-registrador-no-hace-nada" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problema 13: El sketch compila, pero el registrador no hace nada
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problema-14-errores-de-compilacion-faltan-bibliotecas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problema 14: Errores de compilación: faltan bibliotecas
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tabla-de-consulta-rapida" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tabla de consulta rápida
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sigues-sin-resolverlo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Sigues sin resolverlo?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#proximos-pasos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Próximos pasos
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/ICHydro/Riverlabs/edit/main/operation/troubleshooting/common-issues.md" title="Editar esta página" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+    
+      
+    
+    <a href="https://github.com/ICHydro/Riverlabs/raw/main/operation/troubleshooting/common-issues.md" title="Ver código fuente de esta página" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
+    </a>
+  
+
+
+<h1 id="problemas-habituales-y-soluciones">Problemas habituales y soluciones<a class="headerlink" href="#problemas-habituales-y-soluciones" title="Permanent link">&para;</a></h1>
+<div class="admonition abstract">
+<p class="admonition-title">Descripción general</p>
+<p>Esta pagina provee una referencia de los problemas más frecuentes de los registradores Riverlabs. Organizada por síntoma → causa → solución para facilitar el diagnóstico.</p>
+</div>
+<h2 id="como-utilizar-esta-guia">Cómo utilizar esta guía<a class="headerlink" href="#como-utilizar-esta-guia" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>Busca entre los síntomas</strong> el que corresponda a su problema</li>
+<li><strong>Lee las causas probables</strong> para comprenderlo</li>
+<li><strong>Sigue los pasos de la solución</strong> para resolverlo</li>
+<li><strong>Consulta «Verificado por»</strong> para confirmar su validez en situaciones reales</li>
+</ol>
+<p>Cada problema incluye:
+- 🔴 <strong>Síntoma</strong> - Lo que observas
+- 🔍 <strong>Causa probable</strong> - Por qué ocurre
+- ✅ <strong>Solución</strong> - Cómo resolverlo
+- ⚙️ <strong>Prevención</strong> - Cómo evitarlo en el futuro</p>
+<hr />
+<h2 id="categoria-alimentacion-y-bateria">Categoría: alimentación y batería<a class="headerlink" href="#categoria-alimentacion-y-bateria" title="Permanent link">&para;</a></h2>
+<h3 id="problema-1-el-registrador-no-se-enciende">Problema 1: El registrador no se enciende<a class="headerlink" href="#problema-1-el-registrador-no-se-enciende" title="Permanent link">&para;</a></h3>
+<p><strong>🔴 Síntoma:</strong>
+- No hay actividad LED con el interruptor en ON
+- El registrador parece completamente apagado
+- No hay salida serie</p>
+<p><strong>🔍 Causas probables:</strong>
+1. <strong>Batería completamente descargada</strong> (&lt;2.5V)
+2. <strong>Batería desconectada</strong> o mal contacto
+3. <strong>Polaridad invertida</strong> (batería colocada al revés)
+4. <strong>Interruptor averiado</strong> (fallo mecánico)
+5. <strong>PCB dañada</strong> (fallo de componente o pista)</p>
+<p><strong>✅ Solución:</strong></p>
+<p><strong>Paso 1: Comprueba la tensión de la batería</strong></p>
+<ul>
+<li>Desconecta la batería del registrador</li>
+<li>Mide con un multímetro: punta roja al cable rojo, negra al negro</li>
+<li>Lectura:<ul>
+<li>3.7-4.2V: batería correcta → el problema está en el registrador (ve al paso 3)</li>
+<li>2.5-3.5V: batería descargada → cárgala o sustitúyela y repite la prueba</li>
+<li>&lt;2.5V: batería agotada → sustitúyela (probablemente no admita carga)</li>
+<li>0V: no hay batería o está totalmente averiada → sustitúyela</li>
+</ul>
+</li>
+</ul>
+<p><strong>Paso 2: Inspecciona el conector de la batería</strong></p>
+<ul>
+<li>¿Está bien insertado el conector JST?</li>
+<li>¿Hacen contacto los pines? (muévelo con cuidado: ¿se enciende de forma intermitente?)</li>
+<li>¿Es correcta la polaridad? (cable rojo a + en la PCB; negro a -)</li>
+<li>Si está al revés: ¡DESCONÉCTALA INMEDIATAMENTE! Busca daños (componentes quemados, olor)</li>
+</ul>
+<p><strong>Paso 3: Prueba el interruptor</strong></p>
+<ul>
+<li>Acciónalo varias veces (los contactos pueden estar sucios)</li>
+<li>Si puedes, puentea temporalmente los terminales para probarlo</li>
+<li>Si está roto, desuél­dalo y sustitúyelo o déjalo puenteado permanentemente</li>
+</ul>
+<p><strong>Paso 4: Comprueba si la PCB está dañada</strong></p>
+<ul>
+<li>Inspección visual: ¿componentes quemados? ¿pistas rotas?</li>
+<li>Olor: ¿huele a componentes quemados?</li>
+<li>¿Se calienta el regulador de tensión con la batería conectada? (fallo del regulador)</li>
+<li>Si hay daños: reparación profesional o sustitución del registrador</li>
+</ul>
+<p><strong>⚙️ Prevención:</strong>
+- Supervisa el voltaje y sustituye la batería antes de que baje de 3.3V
+- Utiliza conectores JST (polarizados, evitan invertir la conexión)
+- Protege el registrador de los golpes (buena carcasa)
+- Evita cortocircuitar la batería (causa daños permanentes)</p>
+<hr />
+<h3 id="problema-2-la-bateria-se-agota-durante-la-noche">Problema 2: La batería se agota durante la noche<a class="headerlink" href="#problema-2-la-bateria-se-agota-durante-la-noche" title="Permanent link">&para;</a></h3>
+<p><strong>🔴 Síntoma:</strong>
+- La batería se instala totalmente cargada por la tarde
+- A la mañana siguiente está agotada o muy baja
+- El registrador puede haber guardado unas pocas muestras o ninguna</p>
+<p><strong>🔍 Causas probables:</strong>
+1. <strong>No funciona el modo reposo</strong> (el registrador trabaja continuamente)
+2. <strong>La telemetría se queda intentando conectarse</strong> (el XBee nunca entra en reposo)
+3. <strong>Error del firmware</strong> (nunca activa el reposo)
+4. <strong>Cortocircuito</strong> (fallo de hardware)</p>
+<p><strong>✅ Solución:</strong></p>
+<p><strong>Paso 1: Comprueba el modo reposo en el código</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1">// In main loop, should have:</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="n">LowPower</span><span class="p">.</span><span class="n">powerDown</span><span class="p">(</span><span class="n">SLEEP_8S</span><span class="p">,</span><span class="w"> </span><span class="n">ADC_OFF</span><span class="p">,</span><span class="w"> </span><span class="n">BOD_OFF</span><span class="p">);</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="c1">// Or similar sleep command</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="c1">// For XBee:</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="n">pinMode</span><span class="p">(</span><span class="n">XBEE_SLEEP_PIN</span><span class="p">,</span><span class="w"> </span><span class="n">OUTPUT</span><span class="p">);</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="n">digitalWrite</span><span class="p">(</span><span class="n">XBEE_SLEEP_PIN</span><span class="p">,</span><span class="w"> </span><span class="n">HIGH</span><span class="p">);</span><span class="w"> </span><span class="c1">// Sleep XBee when not transmitting</span>
+</code></pre></div></p>
+<p><strong>Paso 2: Mide el consumo de corriente</strong></p>
+<ul>
+<li>Necesita el uso de un multímetro con medición de corriente (modo mA)</li>
+<li>Desconecta la batería y conecta el amperímetro en serie</li>
+<li>Enciende el registrador</li>
+<li>Observa la corriente:<ul>
+<li>Reposo: &lt;1 mA (bien)</li>
+<li>Activo/midiendo: 50-100 mA (normal, brevemente)</li>
+<li>
+<blockquote>
+<p>50 mA continuos: ¡no entra en reposo!</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>Paso 3: Comprueba la salida serie de depuración</strong></p>
+<ul>
+<li>Conecta el cable FTDI</li>
+<li>Abre el monitor serie</li>
+<li>Comprueba si hay:<ul>
+<li>Mensajes «Entering sleep»; si no aparecen, no se activa el reposo</li>
+<li>«XBee timeout» o similar; puede estar esperando al XBee</li>
+<li>Salida continua; debería ser periódica</li>
+</ul>
+</li>
+</ul>
+<p><strong>Paso 4: Aísla la telemetría</strong></p>
+<p>Si tiene XBee:</p>
+<ul>
+<li>Retira el módulo XBee</li>
+<li>Prueba durante una noche registrando solo en SD</li>
+<li>Si la batería dura: problema de configuración del XBee (SM no configurado para reposo por pin)</li>
+<li>Si sigue agotándose: problema en el código o hardware del registrador</li>
+</ul>
+<p><strong>⚙️ Prevención:</strong>
+- Prueba la autonomía en banco durante una noche antes de instalarlo
+- Activa la depuración para comprobar el reposo
+- Configura el reposo por pin del XBee (SM=1)
+- Mide el consumo con un amperímetro durante el desarrollo</p>
+<hr />
+<h3 id="problema-3-el-porcentaje-de-bateria-parece-incorrecto">Problema 3: El porcentaje de batería parece incorrecto<a class="headerlink" href="#problema-3-el-porcentaje-de-bateria-parece-incorrecto" title="Permanent link">&para;</a></h3>
+<p><strong>🔴 Síntoma:</strong>
+- El registrador indica un 50 % de batería
+- La siguiente lectura indica un 10 % o batería agotada
+- O indica un 80 % durante días y se apaga de repente</p>
+<p><strong>🔍 Causas probables:</strong>
+1. <strong>Curva de tensión de Li-ion</strong> (descarga no lineal)
+2. <strong>Temperaturas bajas</strong> (caída de tensión)
+3. <strong>Batería vieja</strong> (pérdida de capacidad)
+4. <strong>Error al medir la tensión</strong> (imprecisión del ADC)</p>
+<p><strong>✅ Solución:</strong></p>
+<p><strong>Comprende la descarga de Li-ion:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Li-ion batteries hold voltage until near end of life:
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>Voltaje   Carga remanente %
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>4.2V      100%
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>4.0V      80%
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>3.9V      60%
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>3.8V      40%
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>3.7V      30%
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>3.6V      20%
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>3.5V      10%
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>3.4V      5%
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>3.3V      1%
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>&lt;3.3V     Riesgo de da&amp;ntilde;o
+</code></pre></div></p>
+<p><strong>Nota:</strong> El porcentaje no es lineal y depende de la temperatura y la carga.</p>
+<p><strong>Paso 1: Utiliza umbrales de tensión, no porcentajes</strong></p>
+<p>En lugar de: «Batería al 50 %»
+Utiliza: «Tensión de la batería: 3.7V» (más preciso)</p>
+<p>Umbrales de alerta:</p>
+<ul>
+<li>3.5V: planifica la retirada durante la semana siguiente</li>
+<li>3.4V: recógelo en un plazo de dos días</li>
+<li>3.3V: recógelo inmediatamente (puede dejar de transmitir)</li>
+</ul>
+<p><strong>Paso 2: Considera la temperatura</strong></p>
+<p>El frío causa una caída temporal de tensión:</p>
+<ul>
+<li>Puede medirse 3.5V a 0°C</li>
+<li>La capacidad real podría ser mayor (al calentarse recupera tensión)</li>
+<li>No te alarmes por una única lectura baja con frío</li>
+<li>Retira el registrador si varias lecturas consecutivas son &lt;3.4V</li>
+</ul>
+<p><strong>Paso 3: Envejecimiento de la batería</strong></p>
+<p>Las Li-ion se degradan con el tiempo:</p>
+<ul>
+<li>Nueva: capacidad total de 2600 mAh</li>
+<li>1 año: ~90 % (2340 mAh)</li>
+<li>2 años: ~80 % (2080 mAh)</li>
+<li>3 años o más: &lt;70 %; sustitúyela</li>
+</ul>
+<p>Solución: sustituye las baterías anualmente en aplicaciones críticas</p>
+<p><strong>⚙️ Prevención:</strong>
+- Configura alertas por tensión, no por porcentaje
+- Sustituye las baterías cada año
+- Recoge los registradores antes de llegar a una tensión crítica
+- Almacena correctamente las baterías de repuesto (40-60 % de carga, lugar fresco)</p>
+<hr />
+<h2 id="categoria-sensor-y-calidad-de-los-datos">Categoría: sensor y calidad de los datos<a class="headerlink" href="#categoria-sensor-y-calidad-de-los-datos" title="Permanent link">&para;</a></h2>
+<h3 id="problema-4-el-sensor-ultrasonico-siempre-indica-el-alcance-maximo">Problema 4: El sensor ultrasónico siempre indica el alcance máximo<a class="headerlink" href="#problema-4-el-sensor-ultrasonico-siempre-indica-el-alcance-maximo" title="Permanent link">&para;</a></h3>
+<p><strong>🔴 Síntoma:</strong>
+- Sensor siempre mide 5000mm (o el alcance máximo)
+- El valor no cambia ni al mover el sensor</p>
+<p><strong>🔍 Causas probables:</strong>
+1. <strong>No vuelve el eco</strong> (no hay objetivo o absorbe demasiado)
+2. <strong>Sensor sin alimentación</strong> (cable desconectado)
+3. <strong>Sensor mal orientado</strong> (apunta al cielo o al suelo)
+4. <strong>Sensor averiado</strong> (poco frecuente)</p>
+<p><strong>✅ Solución:</strong></p>
+<p><strong>Paso 1: Escucha si el sensor emite clics</strong></p>
+<ul>
+<li>Enciende el registrador</li>
+<li>Acerca con cuidado el sensor al oído, sin tocar su cara frontal</li>
+<li>Deberías oír un «tic» o «clic» en cada medición (cada 15 segundos o según tu intervalo)</li>
+<li>Si hace clics: recibe alimentación y transmite → ve al paso 2</li>
+<li>Si no: no recibe alimentación → ve al paso 3</li>
+</ul>
+<p><strong>Paso 2: Recibe alimentación, pero no hay eco</strong></p>
+<p>Posibles causas:</p>
+<ol>
+<li>
+<p>No hay objetivo en la trayectoria del haz</p>
+<ul>
+<li>Demasiado lejos: acércalo o usa lidar</li>
+<li>Apunta al cielo: oriéntalo hacia el objetivo</li>
+</ul>
+</li>
+<li>
+<p>El objetivo absorbe demasiado</p>
+<ul>
+<li>Nieve reciente: muy absorbente</li>
+<li>Espuma: absorbe los ultrasonidos</li>
+<li>Solución: espera a que se derrita la nieve o utiliza lidar</li>
+</ul>
+</li>
+<li>
+<p>El haz no alcanza un objetivo pequeño</p>
+<ul>
+<li>Haz ultrasónico: cono de ~15-20°</li>
+<li>Objetivo pequeño (p. ej., arroyo estrecho): puede no alcanzarlo</li>
+<li>Solución: apunta con más cuidado o utiliza un sensor de haz más ancho</li>
+</ul>
+</li>
+</ol>
+<p><strong>Paso 3: Sensor sin alimentación</strong></p>
+<ul>
+<li>Desconecta el cable del sensor</li>
+<li>Comprueba la continuidad:<ul>
+<li>Entre los pines del cable y el conector: resistencia &lt;1Ω</li>
+<li>¿Cable aplastado, cortado o corroído? Sustitúyelo</li>
+</ul>
+</li>
+<li>Comprueba el conector de la PCB:<ul>
+<li>¿Soldaduras intactas? (inspección visual)</li>
+<li>¿Hacen contacto los pines? Vuelve a insertar el cable</li>
+</ul>
+</li>
+<li>Comprueba con el multímetro:<ul>
+<li>Mide la tensión en el conector del sensor mientras el registrador está activo</li>
+<li>Debería haber 5V o 12V (según el modelo de sensor)</li>
+<li>Si no hay tensión: fallo del circuito de alimentación de la PCB</li>
+</ul>
+</li>
+</ul>
+<p><strong>Paso 4: Sustituye el sensor</strong></p>
+<p>Si nada funciona:</p>
+<ul>
+<li>Podría haber fallado internamente (raro, pero posible)</li>
+<li>Prueba con un sensor que funcione</li>
+<li>Si el nuevo funciona: el original está averiado</li>
+<li>Si ambos indican el máximo: el problema es de orientación, objetivo o entorno</li>
+</ul>
+<p><strong>⚙️ Prevención:</strong>
+- Orienta cuidadosamente el sensor al instalarlo (prueba antes de irte)
+- Protege el cable (fíjalo y evita puntos de aplastamiento)
+- Elige un sensor adecuado al objetivo (lidar para nieve o espuma)
+- Mantén limpia la cara del sensor</p>
+<hr />
+<h3 id="problema-5-las-lecturas-de-distancia-derivan-con-el-tiempo">Problema 5: Las lecturas de distancia derivan con el tiempo<a class="headerlink" href="#problema-5-las-lecturas-de-distancia-derivan-con-el-tiempo" title="Permanent link">&para;</a></h3>
+<p><strong>🔴 Síntoma:</strong>
+- Las distancias cambian 50-200mm a lo largo de varios días
+- El nivel real del agua está estable (verificado visualmente)
+- Hay una deriva lenta, no saltos bruscos</p>
+<p><strong>🔍 Causas probables:</strong>
+1. <strong>Cambios de temperatura</strong> (el montaje se dilata o contrae)
+2. <strong>Crecimiento de vegetación</strong> (obstruye el haz)
+3. <strong>Montaje flojo</strong> (tornillos, bridas)
+4. <strong>Deriva de calibración</strong> (rara)</p>
+<p><strong>✅ Solución:</strong></p>
+<p><strong>Paso 1: Comprueba la correlación con la temperatura</strong></p>
+<ul>
+<li>Representa distancia frente a temperatura a lo largo del tiempo</li>
+<li>Si hay una fuerte correlación (la distancia aumenta con la temperatura):<ul>
+<li>Causa: la estructura de montaje se dilata con el calor</li>
+<li>Ejemplo: un soporte metálico se calienta al sol, se dilata y el sensor desciende 5mm</li>
+<li>Solución:<ul>
+<li>a) Aceptar la variación natural (±50mm suele ser aceptable)</li>
+<li>b) Utilizar un montaje térmicamente estable (menos metal)</li>
+<li>c) Compensar la temperatura al procesar los datos</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>Paso 2: Inspecciona el montaje</strong></p>
+<ul>
+<li>Revisa visualmente la instalación</li>
+<li>Comprueba:<ul>
+<li>¿Bridas tensas? (pueden aflojarse)</li>
+<li>¿Tornillos y pernos apretados?</li>
+<li>¿Soporte doblado o desplazado?</li>
+</ul>
+</li>
+<li>Solución: vuelve a apretar y refuerza el montaje</li>
+</ul>
+<p><strong>Paso 3: Busca vegetación</strong></p>
+<ul>
+<li>Inspecciona la trayectoria del haz</li>
+<li>¿Ha crecido vegetación (hierba, maleza, ramas)?<ul>
+<li>¿Hojas nuevas en primavera?</li>
+<li>¿Algas en la superficie objetivo?</li>
+</ul>
+</li>
+<li>Solución: poda la vegetación y limpia el objetivo</li>
+<li>Prevención: deja despejada la trayectoria y prevé el crecimiento estacional</li>
+</ul>
+<p><strong>Paso 4: Comprueba la calibración</strong></p>
+<p>No suele hacer falta, pero puedes verificarla:</p>
+<ul>
+<li>Mide una distancia conocida con una cinta (p. ej., 2000mm)</li>
+<li>Sitúa un objetivo a esa distancia</li>
+<li>La lectura debería coincidir con ±50mm</li>
+<li>Si difiere &gt;100mm: quizá debas sustituir el sensor</li>
+</ul>
+<p><strong>⚙️ Prevención:</strong>
+- Utiliza materiales de montaje térmicamente estables
+- Mantén despejado el haz (poda trimestral)
+- Asegura el montaje con fijaciones redundantes
+- Ten en cuenta la dilatación estacional al analizar los datos</p>
+<hr />
+<h3 id="problema-6-el-lidar-devuelve-valores-negativos">Problema 6: El lidar devuelve valores negativos<a class="headerlink" href="#problema-6-el-lidar-devuelve-valores-negativos" title="Permanent link">&para;</a></h3>
+<p><strong>🔴 Síntoma:</strong>
+- A veces registra distancias negativas (p. ej., -150mm)
+- La mayoría de las lecturas son positivas y correctas</p>
+<p><strong>🔍 Causas probables:</strong>
+1. <strong>Error de comunicación I2C</strong> (datos corruptos)
+2. <strong>Tiempo de espera interpretado como negativo</strong> (error de código)
+3. <strong>Desbordamiento de entero</strong> (error matemático)</p>
+<p><strong>✅ Solución:</strong></p>
+<p><strong>Paso 1: Busca un patrón</strong></p>
+<ul>
+<li>¿Cuándo aparecen los negativos?<ul>
+<li>Al azar: error I2C (paso 2)</li>
+<li>Todas las lecturas a partir de cierto valor: desbordamiento (paso 3)</li>
+<li>Durante o después de transmitir: interferencia del XBee en I2C (paso 4)</li>
+</ul>
+</li>
+</ul>
+<p><strong>Paso 2: Fiabilidad de la comunicación I2C</strong></p>
+<p>I2C es sensible a:</p>
+<ul>
+<li>Longitud de cables (mantén &lt;30cm)</li>
+<li>Interferencias electromagnéticas cercanas</li>
+<li>Conexiones flojas</li>
+</ul>
+<p>Soluciones:</p>
+<ul>
+<li>a) Añade resistencias de pull-up (2.2kΩ o 4.7kΩ en SDA y SCL)</li>
+<li>b) Acorta los cables I2C</li>
+<li>c) Añade una ferrita al cable</li>
+<li>d) Apantalla el cable cerca de fuentes intensas de radiofrecuencia</li>
+</ul>
+<!--- WB: this needs review in the code. I think that the lidar values are returned in cm, not mm. It may also have implications for other parts of the code.
+
+**Paso 3: Error de código: desbordamiento**
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1">// Bad code (potential overflow):</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="kt">int</span><span class="w"> </span><span class="n">distance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lidar</span><span class="p">.</span><span class="n">read</span><span class="p">();</span><span class="w"> </span><span class="c1">// int = -32768 to 32767</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="c1">// If actual distance &gt; 32767mm, overflows to negative</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="c1">// Good code:</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">distance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lidar</span><span class="p">.</span><span class="n">read</span><span class="p">();</span><span class="w"> </span><span class="c1">// unsigned = 0 to 65535</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="c1">// Or:</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="kt">long</span><span class="w"> </span><span class="n">distance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lidar</span><span class="p">.</span><span class="n">read</span><span class="p">();</span><span class="w"> </span><span class="c1">// long = much larger range</span>
+</code></pre></div>
+-->
+
+<!-- WB: Has this ever happened? Typically, measurements will not happen during a telemetry event. In any case, this is very advanced as very few users will alter the PCB in this way. If our designs are susceptible to such interference then it will be up to us to improve the design.
+
+**Paso 4: Interferencia del XBee**
+
+Si los negativos coinciden con la telemetría:
+
+- La transmisión del XBee puede generar interferencias electromagnéticas
+- Solución:
+    - a) Separa los cables I2C de la antena XBee
+    - b) Mide antes de transmitir (no durante)
+    - c) Añade resistencias de pull-up I2C (mejoran la integridad de la señal)
+
+-->
+
+<p><strong>Paso 3: Filtra durante el posprocesamiento</strong></p>
+<p>Como último recurso (si no es práctico corregir el hardware):</p>
+<ul>
+<li>Elimina los valores negativos al analizar los datos</li>
+<li>Interpola: sustituye los negativos por el promedio de valores vecinos</li>
+</ul>
+<p><strong>⚙️ Prevención:</strong>
+- Utiliza codigo adecuado
+- Añade resistencias de pull-up I2C al diseño
+- Prueba I2C antes de instalarlo (lee el sensor 1000 veces en un bucle y comprueba errores)</p>
+<hr />
+<h2 id="categoria-tarjeta-sd-y-registro-de-datos">Categoría: tarjeta SD y registro de datos<a class="headerlink" href="#categoria-tarjeta-sd-y-registro-de-datos" title="Permanent link">&para;</a></h2>
+<h3 id="problema-7-la-tarjeta-sd-aparece-corrupta-o-necesita-formateo">Problema 7: La tarjeta SD aparece "corrupta" o "necesita formateo"<a class="headerlink" href="#problema-7-la-tarjeta-sd-aparece-corrupta-o-necesita-formateo" title="Permanent link">&para;</a></h3>
+<p><strong>🔴 Síntoma:</strong>
+- Retiras la tarjeta SD y la conectas al ordenador
+- Windows indica «El disco necesita formatearse» o «Corrupto»
+- Los archivos no se pueden leer</p>
+<p><strong>🔍 Causas probables:</strong>
+1. <strong>Apagado inadecuado</strong> (tarjeta o alimentación retiradas durante una escritura)
+2. <strong>Batería agotada durante la escritura</strong> (archivo no cerrado)
+3. <strong>Mala calidad de la tarjeta SD</strong>
+4. <strong>Corrupción del sistema de archivos</strong> (error de código)</p>
+<p><strong>✅ Solución:</strong></p>
+<p><strong>Paso 1: Intenta recuperar los datos</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>Before formatting, try recovery:
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>Windows:
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>- Right-click drive → Properties → Tools → Check
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>- Let Windows scan and repair
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>Mac:
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>- Disk Utility → First Aid → Run
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>Linux:
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>- fsck command
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>Recovery software (if above fails):
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>- Recuva (free, Windows)
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>- PhotoRec (free, multi-platform)
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>- DiskDigger (free/paid)
+</code></pre></div></p>
+<p><strong>Paso 2: Formatea correctamente</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>If recovery fails or you don't need data:
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>Windows:
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>- Right-click drive → Format
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>- File system: FAT32
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>- Allocation unit size: 32 kilobytes
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>- Quick Format: Unchecked (full format tests for bad sectors)
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>Mac:
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>- Disk Utility → Erase
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>- Format: MS-DOS (FAT)
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>- Scheme: Master Boot Record
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>Linux:
+<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>sudo mkfs.vfat -F 32 -S 512 -s 64 /dev/sdX1
+</code></pre></div></p>
+<p><strong>Paso 3: Prueba la tarjeta</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>After formatting:
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>- Copy test file to card
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>- Verify file readable
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>- Remove and re-insert
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>- File still there? → Card OK
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>- File corrupted again? → Card failing, replace
+</code></pre></div></p>
+<!-- This is really up to us to make sure that the code is as robust as possible. Ideally, we should not expect users to have to alter the code to solve problems
+
+
+**Paso 4: Evita futuras corrupciones**
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>Code improvements:
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>1. Flush data after each write:
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>   dataFile.flush(); // Forces write to disk
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>2. Close file before sleep:
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>   dataFile.close();
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>   // Sleep
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>   dataFile = SD.open("data.csv", FILE_WRITE);
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>3. Add battery-low check:
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>   if(battery &lt; 3.3) {
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>     dataFile.close();
+<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>     enterEmergencyShutdown();
+<a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>   }
+</code></pre></div>
+
+-->
+
+<p><strong>⚙️ Prevención:</strong>
+- No extraigas la tarjeta SD mientras el registrador escribe datos
+- Comprueba que la batería tiene carga suficiente antes de instalarlo
+- Utiliza tarjetas de calidad (SanDisk, Samsung, Kingston)
+- Ejecuta flush() o close() regularmente en el código
+- Retira los registradores antes de que la batería alcance un nivel crítico</p>
+<hr />
+<h3 id="problema-8-el-csv-contiene-caracteres-extranos-o-formato-incorrecto">Problema 8: El CSV contiene caracteres extraños o formato incorrecto<a class="headerlink" href="#problema-8-el-csv-contiene-caracteres-extranos-o-formato-incorrecto" title="Permanent link">&para;</a></h3>
+<p><strong>🔴 Síntoma:</strong>
+- Abres el CSV en Excel o Numbers
+- Aparecen símbolos como <code>Ã</code>, <code>Â</code>, <code>â€™</code>
+- Las columnas están desalineadas
+- Los datos parecen corruptos</p>
+<p><strong>🔍 Causas probables:</strong>
+1. <strong>Codificación de caracteres incompatible</strong> (UTF-8 frente a ASCII)
+2. <strong>Separador incorrecto</strong> (coma frente a punto y coma)
+3. <strong>Comillas dentro de los datos</strong> (interrumpen el análisis CSV)
+4. <strong>Líneas incompletas</strong> (corte de alimentación durante la escritura)</p>
+<p><strong>✅ Solución:</strong></p>
+<p><strong>Paso 1: Prueba otra codificación</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>Excel (Windows):
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>- Open Excel (don't double-click CSV)
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>- Data → From Text/CSV
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>- File Origin: UTF-8
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>- Delimiter: Comma
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>- Import
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>Excel (Mac):
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>- Similar: Data → Get External Data → Import Text File
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>- Select encoding: UTF-8 or Western (ASCII)
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>
+<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>LibreOffice/OpenOffice:
+<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>- Opens CSV with import dialog automatically
+<a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>- Character set: Unicode (UTF-8)
+<a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a>- Separated by: Comma
+</code></pre></div></p>
+<p><strong>Paso 2: Inspecciona el archivo sin procesar</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>Use text editor (Notepad++, Sublime, VS Code):
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>- Open CSV as plain text
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>- Look for:
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>  - Proper line endings (should be LF or CRLF)
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>  - Consistent delimiters (all commas? all semicolons?)
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>  - Any binary characters (� symbols)
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>Example good CSV:
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>Date,Time,Distance_mm,Temp_C,Battery_V
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>2025-12-27,10:00:00,1234,22.5,3.85
+<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>2025-12-27,10:15:00,1256,23.1,3.84
+<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>
+<a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a>Example bad CSV (missing delimiters):
+<a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a>Date,Time,Distance_mm,Temp_C,Battery_V
+<a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a>2025-12-2710:00:001234,22.5,3.85
+</code></pre></div></p>
+<!-- Also here, suggesting users to edit code may open a can of worms. We should probably keep this content separate and make clear that it is only for users that develop their own code. It should not be needed as a solution to users that use our own code 
+
+**Paso 3: Corrige el código si es necesario**
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1">// Ensure consistent delimiters:</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="n">dataFile</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="n">year</span><span class="p">);</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="n">dataFile</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">","</span><span class="p">);</span><span class="w">  </span><span class="c1">// Not "," sometimes and ";" other times</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="n">dataFile</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="n">month</span><span class="p">);</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="n">dataFile</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">","</span><span class="p">);</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="c1">// etc.</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="c1">// Handle special characters:</span>
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="c1">// If data might contain commas, use quotes:</span>
+<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="n">dataFile</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">"</span><span class="se">\"</span><span class="s">"</span><span class="p">);</span>
+<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="n">dataFile</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="n">dataString</span><span class="p">);</span>
+<a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a><span class="n">dataFile</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">"</span><span class="se">\"</span><span class="s">"</span><span class="p">);</span>
+</code></pre></div>
+-->
+
+<p><strong>Paso 4: Recupera los datos parciales</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>If file partially corrupted:
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>- Identify good rows vs. bad
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>- Manually fix or delete bad rows
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>- Or: Script to clean (Python pandas, etc.)
+</code></pre></div></p>
+<p><strong>⚙️ Prevención:</strong>
+- Escribe una fila de cabecera al iniciar por primera vez
+- Utiliza separadores coherentes (la coma es habitual)
+- Prueba la lectura de CSV con datos de ejemplo antes de instalarlo
+- Vacía regularmente el búfer del archivo para completar las escrituras</p>
+<hr />
+<h2 id="categoria-telemetria">Categoría: telemetría<a class="headerlink" href="#categoria-telemetria" title="Permanent link">&para;</a></h2>
+<h3 id="problema-9-thingsboard-solo-muestra-datos-antiguos">Problema 9: ThingsBoard solo muestra datos antiguos<a class="headerlink" href="#problema-9-thingsboard-solo-muestra-datos-antiguos" title="Permanent link">&para;</a></h3>
+<p><strong>🔴 Síntoma:</strong>
+- Hay datos en el panel de ThingsBoard
+- Los datos más recientes tienen horas o días
+- El registrador sigue funcionando (la SD contiene datos actuales)</p>
+<p><strong>🔍 Causas probables:</strong>
+1. <strong>Pérdida de red</strong> (fuera de cobertura)
+2. <strong>SIM desactivada</strong> (impago o problema del operador)
+3. <strong>Batería demasiado baja</strong> (telemetría desactivada)
+4. <strong>Fallo del XBee</strong> (hardware o configuración)</p>
+<p><strong>✅ Solución:</strong></p>
+<p><strong>Paso 1: Comprueba los datos recientes en la SD</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>- Retrieve logger (or analyze last data on ThingsBoard)
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>- SD card shows recent measurements?
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>  - Yes: Logger working, telemetry failed → Go to Step 2
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>  - No: Logger stopped completely → See Flowchart 1 (Logger Won't Record)
+</code></pre></div></p>
+<p><strong>Paso 2: Comprueba la tensión de la batería</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>- Check voltage in latest SD card data
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>- Voltage &lt;3.5V?
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>  - Yes: Battery too low for reliable telemetry
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>  - Solution: Replace battery, retest
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>- Voltage &gt;3.5V?
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>  - Telemetry failure for other reason → Go to Step 3
+</code></pre></div></p>
+<p><strong>Paso 3: Prueba la tarjeta SIM</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>- Remove SIM from XBee
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>- Insert in phone (adapter if needed)
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>- Does phone get service?
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>  - No service: SIM deactivated
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>    - Solution: Contact carrier, reactivate, verify payment
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>  - Has service: SIM works → Go to Step 4
+</code></pre></div></p>
+<p><strong>Paso 4: Comprueba la señal en el lugar</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>- Using phone (same carrier as SIM):
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>  - Test signal strength at logger location
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>  - Coverage adequate?
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>    - No coverage: Site moved out of coverage (tree fell, logger relocated?)
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>      - Solution: Move logger, or use external antenna
+<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>    - Coverage OK: XBee issue → Go to Step 5
+</code></pre></div></p>
+<p><strong>Paso 5: Revisa la configuración del XBee</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>- Remove XBee, connect to XBee Studio
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>- Read configuration
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>- Critical settings:
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>  - AP = 2? (if not, set to 2)
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>  - AN = correct APN? (verify with carrier)
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>  - SM = 1? (pin sleep)
+<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>- Test connection in XBee Studio (Cellular Network tab)
+<a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>  - Can connect? XBee works
+<a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a>    - Solution: Re-install in logger, check Arduino code
+<a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a>  - Can't connect? Network issue or XBee failure
+<a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a>    - Solution: Update firmware, or replace XBee
+</code></pre></div></p>
+<p><strong>⚙️ Prevención:</strong>
+- Configura avisos en ThingsBoard (sin datos durante &gt;2 veces el intervalo esperado)
+- Supervisa la tensión de forma remota
+- Mantén la renovación automática del plan SIM
+- Comprueba la señal antes de instalarlo</p>
+<hr />
+<h3 id="problema-10-la-telemetria-funciona-de-forma-intermitente">Problema 10: La telemetría funciona de forma intermitente<a class="headerlink" href="#problema-10-la-telemetria-funciona-de-forma-intermitente" title="Permanent link">&para;</a></h3>
+<p><strong>🔴 Síntoma:</strong>
+- Algunas transmisiones funcionan
+- Otras fallan (tiempo de espera o código de error)
+- Tasa de éxito: 50-80 %</p>
+<p><strong>🔍 Causas probables:</strong>
+1. <strong>Señal débil</strong> (cobertura marginal)
+2. <strong>Congestión de red</strong> (horas punta)
+3. <strong>Problema de antena</strong> (conexión floja o daño)
+4. <strong>Problema de alimentación</strong> (caída de tensión durante la transmisión)</p>
+<p><strong>✅ Solución:</strong></p>
+<p><strong>Paso 1: Analiza las correlaciones</strong></p>
+<p>Busca patrones en los fallos:</p>
+<p>¿Por la hora del día?
+- Fallos nocturnos: congestión de red (todos en casa, usando red)
+- Fallos durante el día: Posibles pero menos comunes
+- Aleatorio: Problema de intensidad de señal</p>
+<p>¿Por voltaje de batería?
+- Las fallas aumentan a medida que baja el voltaje: Problema de potencia
+- Sin correlación: Problema de red</p>
+<p>¿Por temperatura?
+- Fallos en frío: caída de voltaje en la batería en frío
+- Sin correlación: Otro problema</p>
+<p><strong>Paso 2: Comprueba la intensidad de señal</strong></p>
+<p>Si es posible (depuración en XBee Studio o en serie):
+- Comprobar RSSI durante transmisiones exitosas o fallidas
+- RSSI menor a -100 dBm: Señal débil, alta tasa de fallo
+- Solución: antena externa, reubicar el registrador más arriba/ubicación más clara
+- RSSI &gt; -95 dBm pero aún fallos: No fuerza de señal, pasar al Paso 3</p>
+<p><strong>Paso 3: Inspecciona la antena</strong></p>
+<ul>
+<li>Inspeccionar la conexión de la antena (si es externa)</li>
+<li>¿Conector U.FL bien colocado? (pequeño, frágil)</li>
+<li>¿Cable de antena dañado? (revisa si hay dobladuras, roturas)</li>
+<li>Antena interna de la PCB: ¿Espacio libre? (Sin contacto con la carcasa/metal)</li>
+<li>Solución: volver a colocar el conector, cambiar la antena si está dañado</li>
+</ul>
+<p><strong>Paso 4: Añade reintentos en el codigo</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="c1">// In Arduino code:</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="kt">bool</span><span class="w"> </span><span class="nf">sendData</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">attempts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="w">  </span><span class="k">while</span><span class="p">(</span><span class="n">attempts</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">transmitXBee</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a><span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span><span class="w"> </span><span class="c1">// Success</span>
+<a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a><span class="w">    </span><span class="n">delay</span><span class="p">(</span><span class="mi">30000</span><span class="p">);</span><span class="w"> </span><span class="c1">// Wait 30 seconds</span>
+<a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a><span class="w">    </span><span class="n">attempts</span><span class="o">++</span><span class="p">;</span>
+<a id="__codelineno-16-10" name="__codelineno-16-10" href="#__codelineno-16-10"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-16-11" name="__codelineno-16-11" href="#__codelineno-16-11"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span><span class="w"> </span><span class="c1">// Failed after 3 attempts</span>
+<a id="__codelineno-16-12" name="__codelineno-16-12" href="#__codelineno-16-12"></a><span class="p">}</span>
+</code></pre></div></p>
+<p><strong>Paso 5: Cambia el horario de transmisión</strong></p>
+<p>Si los fallos se correlacionan con las horas punta:
+- Tiempo de transmisión de marcha:
+- En lugar de cada hora en punto (09:00, 10:00, 11:00)
+- Desplazamiento: Minuto aleatorio (09:17, 10:42, 11:23)
+- Reduce la congestión de la red (no todos transmiten simultáneamente)</p>
+<p><strong>⚙️ Prevención:</strong>
+- Instala el equipo donde haya buena señal (prueba primero con un teléfono)
+- Utiliza una antena externa si la cobertura es limitada
+- Implementa reintentos con espera exponencial
+- Supervisa la tasa de éxito en ThingsBoard (debería ser &gt;90 %)</p>
+<hr />
+<h2 id="categoria-arduino-y-firmware">Categoría: Arduino y firmware<a class="headerlink" href="#categoria-arduino-y-firmware" title="Permanent link">&para;</a></h2>
+<h3 id="problema-11-fallo-de-carga-programmer-is-not-responding-o-avrdude-stk500_getsync">Problema 11: Fallo de carga «programmer is not responding» o «avrdude: stk500_getsync()»<a class="headerlink" href="#problema-11-fallo-de-carga-programmer-is-not-responding-o-avrdude-stk500_getsync" title="Permanent link">&para;</a></h3>
+<p><strong>🔴 Síntoma:</strong>
+- Intentas cargar un sketch
+- Arduino IDE muestra «programmer is not responding» u otro error avrdude
+- La carga falla al 0 % o durante la comunicación</p>
+<p><strong>🔍 Causas probables:</strong>
+1. <strong>Sensor conectado durante la carga</strong> (CRÍTICO: el más frecuente en Wari ultrasónico)
+2. <strong>Cable FTDI invertido</strong> (verde/negro intercambiados)
+3. <strong>Configuración de placa incorrecta</strong> (no MiniCore ATmega328)
+4. <strong>Configuración de reloj incorrecta</strong> (no External 8 MHz)
+5. <strong>Cable FTDI mal colocado</strong>
+6. <strong>Problema de alimentación</strong> (insuficiente o inexistente)</p>
+<p><strong>✅ Solución:</strong></p>
+<p><strong>Paso 1: Desconecta el sensor (CRÍTICO para Wari ultrasónico)</strong></p>
+<p>⚠️ CAUSA MAS PROBABLE ⚠️</p>
+<p>Para registradores ultrasónicos Wari con sensor Maxbotix:
+- Desconectar el CONECTOR BLANCO del registrador
+- El sensor y FTDI utilizan el mismo puerto serie
+- El sensor causa interferencias que impiden la subida
+- Una vez completada la subida, reconecta el sensor</p>
+<p>Esto NO se aplica a los modelos Lidar.</p>
+<p><strong>Paso 2: Comprueba la orientación del FTDI</strong></p>
+<p>Check board markings:
+- Green wire → "GRN" marking
+- Black wire → "BLK" marking
+- On cellular/lidar: Black wire on SD card side</p>
+<p>If reversed:
+- Disconnect immediately
+- Rotate 180°
+- Reconnect firmly</p>
+<p><strong>Paso 3: Comprueba la configuración de Arduino IDE</strong></p>
+<p>Tools → Board → MiniCore: "ATmega328"
+Tools → Clock: "External 8 MHz"</p>
+<p>NOT: "Arduino Pro or Pro Mini"  ← Old/Wrong!</p>
+<p><strong>Paso 4: Comprueba la alimentación</strong></p>
+<ul>
+<li>Power switch to OFF (powered by FTDI)</li>
+<li>Or battery installed and switch ON</li>
+<li>LED should briefly light when reset button pressed</li>
+</ul>
+<p><strong>Paso 5: Vuelve a insertar el cable FTDI</strong></p>
+<ul>
+<li>Disconnect FTDI from logger</li>
+<li>Check all pins aligned</li>
+<li>Press firmly onto header</li>
+<li>Should sit flush</li>
+</ul>
+<p><strong>Paso 6: Prueba otro puerto USB</strong></p>
+<ul>
+<li>Some USB ports provide insufficient current</li>
+<li>Try USB 2.0 port (more reliable than USB 3.0)</li>
+<li>Avoid USB hubs</li>
+</ul>
+<p><strong>⚙️ Prevención:</strong>
+- <strong>Desconecta siempre el sensor antes de programar</strong> (Wari ultrasónico)
+- Marca la orientación en el cable FTDI
+- Revisa los ajustes de la placa antes de cada carga
+- Ten a mano la lista de conexiones FTDI</p>
+<hr />
+<h3 id="problema-12-fallo-de-carga-serial-port-already-in-use">Problema 12: Fallo de carga «Serial Port Already in Use»<a class="headerlink" href="#problema-12-fallo-de-carga-serial-port-already-in-use" title="Permanent link">&para;</a></h3>
+<p><strong>🔴 Síntoma:</strong>
+- Intentas cargar un sketch
+- Arduino IDE indica «Serial port busy» o «Access denied»</p>
+<p><strong>🔍 Causas probables:</strong>
+1. <strong>Monitor serie abierto</strong> (bloquea el puerto)
+2. <strong>Otro programa utiliza el puerto</strong> (PuTTY, Coolterm, etc.)
+3. <strong>Carga anterior sin terminar</strong> (puerto bloqueado)
+4. <strong>Problema del controlador</strong> (Windows)</p>
+<p><strong>✅ Solución:</strong></p>
+<p><strong>Paso 1: Cierra el monitor serie</strong></p>
+<ul>
+<li>In Arduino IDE: Close Serial Monitor window</li>
+<li>Wait 2 seconds</li>
+<li>Retry upload</li>
+</ul>
+<p><strong>Paso 2: Busca otros programas</strong></p>
+<p>Windows:
+- Ctrl+Shift+Esc (Task Manager)
+- Look for: PuTTY, Coolterm, Serial Monitor, Python scripts
+- End task</p>
+<p>Mac:
+- Activity Monitor
+- Search for serial terminal programs
+- Quit</p>
+<p>Linux:
+- ps aux | grep tty
+- kill [PID]</p>
+<p><strong>Paso 3: Desconecta y vuelve a conectar</strong></p>
+<ul>
+<li>Unplug FTDI cable</li>
+<li>Wait 5 seconds</li>
+<li>Reconnect</li>
+<li>Retry upload</li>
+</ul>
+<p><strong>Paso 4: Reinicia Arduino IDE</strong></p>
+<ul>
+<li>Close Arduino IDE completely</li>
+<li>Reopen</li>
+<li>Retry upload</li>
+</ul>
+<p><strong>Paso 5: Reinicia el ordenador</strong> (si nada más funciona)</p>
+<p><strong>⚙️ Prevención:</strong>
+- Cierra el monitor serie antes de subir código
+- No uses varios programas serie a la vez
+- Desconecta el FTDI cuando termines</p>
+<hr />
+<h3 id="problema-13-el-sketch-compila-pero-el-registrador-no-hace-nada">Problema 13: El sketch compila, pero el registrador no hace nada<a class="headerlink" href="#problema-13-el-sketch-compila-pero-el-registrador-no-hace-nada" title="Permanent link">&para;</a></h3>
+<p><strong>🔴 Síntoma:</strong>
+- La carga termina correctamente (100 %, «Done uploading»)
+- El LED parpadea una vez al encender
+- Después no registra, no se ilumina y no hay salida serie</p>
+<p><strong>🔍 Causas probables:</strong>
+1. <strong>Placa equivocada</strong> (compilación para otro microcontrolador)
+2. <strong>Bootloader corrupto</strong> (raro)
+3. <strong>Reloj mal configurado</strong> (el código se ejecuta con tiempos incorrectos)
+4. <strong>Bucle infinito en setup()</strong> (el código se bloquea)</p>
+<p><strong>✅ Solución:</strong></p>
+<p><strong>Paso 1: Comprueba la selección de placa</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>Arduino IDE:
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>- Tools → Board → MiniCore: Should be "ATmega328"
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>- Tools → Clock: Should be "External 8 MHz"
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>- If wrong: Select correct, re-upload
+</code></pre></div></p>
+<p><strong>Paso 2: Prueba un programa sencillo de parpadeo</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="c1">// Upload simplest possible code to verify functionality:</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="kt">void</span><span class="w"> </span><span class="nf">setup</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="w">  </span><span class="n">pinMode</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span><span class="w"> </span><span class="n">OUTPUT</span><span class="p">);</span><span class="w"> </span><span class="c1">// Or whatever pin has LED</span>
+<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="p">}</span>
+<a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>
+<a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a><span class="kt">void</span><span class="w"> </span><span class="nf">loop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a><span class="w">  </span><span class="n">digitalWrite</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span><span class="w"> </span><span class="n">HIGH</span><span class="p">);</span>
+<a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a><span class="w">  </span><span class="n">delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
+<a id="__codelineno-18-9" name="__codelineno-18-9" href="#__codelineno-18-9"></a><span class="w">  </span><span class="n">digitalWrite</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span><span class="w"> </span><span class="n">LOW</span><span class="p">);</span>
+<a id="__codelineno-18-10" name="__codelineno-18-10" href="#__codelineno-18-10"></a><span class="w">  </span><span class="n">delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
+<a id="__codelineno-18-11" name="__codelineno-18-11" href="#__codelineno-18-11"></a><span class="p">}</span>
+<a id="__codelineno-18-12" name="__codelineno-18-12" href="#__codelineno-18-12"></a>
+<a id="__codelineno-18-13" name="__codelineno-18-13" href="#__codelineno-18-13"></a><span class="c1">// Should blink every second</span>
+<a id="__codelineno-18-14" name="__codelineno-18-14" href="#__codelineno-18-14"></a><span class="c1">// If doesn't blink: Hardware or bootloader issue</span>
+<a id="__codelineno-18-15" name="__codelineno-18-15" href="#__codelineno-18-15"></a><span class="c1">// If blinks: Logger is OK, issue is in main code</span>
+</code></pre></div></p>
+<p><strong>Paso 3: Activa la salida serie de depuración</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">setup</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="mi">115200</span><span class="p">);</span>
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">"Logger starting..."</span><span class="p">);</span>
+<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">"Initializing RTC..."</span><span class="p">);</span>
+<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a><span class="w">  </span><span class="c1">// etc.</span>
+<a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a><span class="p">}</span>
+<a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a>
+<a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a><span class="c1">// Connect Serial Monitor, check for output</span>
+<a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a><span class="c1">// No output: Serial initialization issue or bootloader problem</span>
+<a id="__codelineno-19-10" name="__codelineno-19-10" href="#__codelineno-19-10"></a><span class="c1">// Has output: Follow debug messages to find where code fails</span>
+</code></pre></div></p>
+<p><strong>Paso 4: Busca bucles infinitos</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="c1">// Common mistake:</span>
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="kt">void</span><span class="w"> </span><span class="nf">setup</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="w">  </span><span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">rtc</span><span class="p">.</span><span class="n">begin</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="w">    </span><span class="c1">// Stuck here forever if RTC not connected!</span>
+<a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a><span class="w">    </span><span class="n">delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
+<a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a><span class="p">}</span>
+<a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a>
+<a id="__codelineno-20-9" name="__codelineno-20-9" href="#__codelineno-20-9"></a><span class="c1">// Better:</span>
+<a id="__codelineno-20-10" name="__codelineno-20-10" href="#__codelineno-20-10"></a><span class="kt">void</span><span class="w"> </span><span class="nf">setup</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-20-11" name="__codelineno-20-11" href="#__codelineno-20-11"></a><span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">attempts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-20-12" name="__codelineno-20-12" href="#__codelineno-20-12"></a><span class="w">  </span><span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">rtc</span><span class="p">.</span><span class="n">begin</span><span class="p">()</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">attempts</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">10</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-20-13" name="__codelineno-20-13" href="#__codelineno-20-13"></a><span class="w">    </span><span class="n">delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
+<a id="__codelineno-20-14" name="__codelineno-20-14" href="#__codelineno-20-14"></a><span class="w">    </span><span class="n">attempts</span><span class="o">++</span><span class="p">;</span>
+<a id="__codelineno-20-15" name="__codelineno-20-15" href="#__codelineno-20-15"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-20-16" name="__codelineno-20-16" href="#__codelineno-20-16"></a><span class="w">  </span><span class="k">if</span><span class="p">(</span><span class="n">attempts</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">10</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-20-17" name="__codelineno-20-17" href="#__codelineno-20-17"></a><span class="w">    </span><span class="c1">// RTC failed, but continue with default time</span>
+<a id="__codelineno-20-18" name="__codelineno-20-18" href="#__codelineno-20-18"></a><span class="w">    </span><span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">"RTC failed"</span><span class="p">);</span>
+<a id="__codelineno-20-19" name="__codelineno-20-19" href="#__codelineno-20-19"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-20-20" name="__codelineno-20-20" href="#__codelineno-20-20"></a><span class="p">}</span>
+</code></pre></div></p>
+<p><strong>Paso 5: Graba el bootloader</strong> (si el hardware funciona, pero el código no)
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>Requires:
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>- Another Arduino as ISP programmer
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>- Or: AVR ISP programmer
+<a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>
+<a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>Process:
+<a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a>- Arduino IDE → File → Examples → ArduinoISP
+<a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a>- Upload ArduinoISP to programmer Arduino
+<a id="__codelineno-21-8" name="__codelineno-21-8" href="#__codelineno-21-8"></a>- Connect programmer to target logger (ISP header)
+<a id="__codelineno-21-9" name="__codelineno-21-9" href="#__codelineno-21-9"></a>- Tools → Programmer → Arduino as ISP
+<a id="__codelineno-21-10" name="__codelineno-21-10" href="#__codelineno-21-10"></a>- Tools → Burn Bootloader
+<a id="__codelineno-21-11" name="__codelineno-21-11" href="#__codelineno-21-11"></a>- Wait for completion
+<a id="__codelineno-21-12" name="__codelineno-21-12" href="#__codelineno-21-12"></a>- Re-upload your sketch
+</code></pre></div></p>
+<p><strong>⚙️ Prevención:</strong>
+- Comprueba la selección de placa antes de subir el código
+- Prueba primero con un sketch sencillo y conocido
+- Añade salida serie de depuración durante el desarrollo
+- Evita los bucles infinitos (usa tiempos de espera)</p>
+<hr />
+<h3 id="problema-14-errores-de-compilacion-faltan-bibliotecas">Problema 14: Errores de compilación: faltan bibliotecas<a class="headerlink" href="#problema-14-errores-de-compilacion-faltan-bibliotecas" title="Permanent link">&para;</a></h3>
+<p><strong>🔴 Síntoma:</strong>
+- Arduino IDE muestra errores en rojo
+- Mensaje: <code>fatal error: [LibraryName].h: No such file or directory</code>
+- Ejemplos:
+  - <code>SdFat.h: No such file or directory</code>
+  - <code>LowPower.h: No such file or directory</code>
+  - <code>RtcDS3231.h: No such file or directory</code>
+  - <code>AltSoftSerial.h: No such file or directory</code></p>
+<p><strong>🔍 Causas probables:</strong>
+1. <strong>Biblioteca necesaria no instalada</strong>
+2. <strong>Está instalada, pero Arduino no la encuentra</strong>
+3. <strong>Versión incorrecta de la biblioteca</strong>
+4. <strong>Nombre de carpeta incorrecto</strong></p>
+<p><strong>✅ Solución:</strong></p>
+<p><strong>Paso 1: Instala mediante el gestor de bibliotecas</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>Arduino IDE:
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>1. Sketch → Include Library → Manage Libraries
+<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>2. Search for library name (e.g., "SdFat")
+<a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>3. Find correct library:
+<a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a>   - "RTC" by Makuna
+<a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a>   - "SdFat" by Bill Greiman  
+<a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a>   - "AltSoftSerial" by Paul Stoffregen
+<a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a>4. Click Install
+<a id="__codelineno-22-9" name="__codelineno-22-9" href="#__codelineno-22-9"></a>5. Wait for installation
+<a id="__codelineno-22-10" name="__codelineno-22-10" href="#__codelineno-22-10"></a>6. Restart Arduino IDE
+<a id="__codelineno-22-11" name="__codelineno-22-11" href="#__codelineno-22-11"></a>7. Retry compilation
+</code></pre></div></p>
+<p><strong>Paso 2: Instalación manual (Rocketscream LowPower)</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>The LowPower library requires manual installation:
+<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>
+<a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>1. Go to https://github.com/rocketscream/Low-Power
+<a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a>2. Click Code → Download ZIP
+<a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a>3. Extract ZIP file
+<a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a>4. Rename folder to "Low-Power" (if needed)
+<a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a>5. Move folder to Arduino libraries directory:
+<a id="__codelineno-23-8" name="__codelineno-23-8" href="#__codelineno-23-8"></a>   - Windows: Documents\Arduino\libraries\
+<a id="__codelineno-23-9" name="__codelineno-23-9" href="#__codelineno-23-9"></a>   - Mac: ~/Documents/Arduino/libraries/
+<a id="__codelineno-23-10" name="__codelineno-23-10" href="#__codelineno-23-10"></a>   - Linux: ~/Arduino/libraries/
+<a id="__codelineno-23-11" name="__codelineno-23-11" href="#__codelineno-23-11"></a>6. Restart Arduino IDE
+<a id="__codelineno-23-12" name="__codelineno-23-12" href="#__codelineno-23-12"></a>7. Verify: Sketch → Include Library → Low-Power should appear
+</code></pre></div></p>
+<p><strong>Paso 3: Comprueba la estructura de carpetas</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>Correct structure:
+<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>Arduino/libraries/Low-Power/
+<a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>  ├── LowPower.h
+<a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a>  ├── LowPower.cpp
+<a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a>  └── examples/
+<a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a>
+<a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a>Wrong structure (won't work):
+<a id="__codelineno-24-8" name="__codelineno-24-8" href="#__codelineno-24-8"></a>Arduino/libraries/Low-Power-master/Low-Power/
+<a id="__codelineno-24-9" name="__codelineno-24-9" href="#__codelineno-24-9"></a>  └── ...
+<a id="__codelineno-24-10" name="__codelineno-24-10" href="#__codelineno-24-10"></a>
+<a id="__codelineno-24-11" name="__codelineno-24-11" href="#__codelineno-24-11"></a>Fix: Move inner folder up one level
+</code></pre></div></p>
+<p><strong>Paso 4: Comprueba la compatibilidad</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>Error: "This LowPower library only works on AVR processors"
+<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>
+<a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>Solution:
+<a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a>- Board must be: MiniCore → ATmega328
+<a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a>- Clock must be: External 8 MHz
+<a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a>- NOT: Arduino Uno, Mega, or other non-AVR boards
+</code></pre></div></p>
+<p><strong>Bibliotecas necesarias para los registradores Riverlabs:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Biblioteca</th>
+<th>Autor</th>
+<th>Instalación</th>
+<th>Uso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RTC</td>
+<td>Makuna</td>
+<td>Gestor de bibliotecas</td>
+<td>Reloj en tiempo real</td>
+</tr>
+<tr>
+<td>SdFat</td>
+<td>Bill Greiman</td>
+<td>Gestor de bibliotecas</td>
+<td>Acceso a tarjeta SD</td>
+</tr>
+<tr>
+<td>Rocketscream LowPower</td>
+<td>Rocketscream</td>
+<td>Manual (GitHub)</td>
+<td>Modos de reposo</td>
+</tr>
+<tr>
+<td>SoftwareSerial</td>
+<td>Arduino</td>
+<td>Integrada</td>
+<td>Modelos celulares</td>
+</tr>
+<tr>
+<td>AltSoftSerial</td>
+<td>Paul Stoffregen</td>
+<td>Gestor de bibliotecas</td>
+<td>Modelos celulares</td>
+</tr>
+</tbody>
+</table>
+<p><strong>⚙️ Prevención:</strong>
+- Instala todas las bibliotecas antes de la primera compilación
+- Manténlas actualizadas, pero prueba el código tras actualizarlas
+- Documenta las versiones que funcionan
+- Conserva copias de seguridad de esas versiones</p>
+<hr />
+<h2 id="tabla-de-consulta-rapida">Tabla de consulta rápida<a class="headerlink" href="#tabla-de-consulta-rapida" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Síntoma</th>
+<th>Causa más probable</th>
+<th>Solución rápida</th>
+<th>Referencia</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>No se enciende</td>
+<td>Batería agotada</td>
+<td>Sustituye la batería</td>
+<td>Problema 1</td>
+</tr>
+<tr>
+<td>Batería agotada en una noche</td>
+<td>No entra en reposo</td>
+<td>Revisa el código de reposo</td>
+<td>Problema 2</td>
+</tr>
+<tr>
+<td>Alcance máximo</td>
+<td>No hay objetivo o está mal orientado</td>
+<td>Reorienta el sensor</td>
+<td>Problema 4</td>
+</tr>
+<tr>
+<td>Deriva de distancia</td>
+<td>Dilatación térmica</td>
+<td>Acéptala o compénsala</td>
+<td>Problema 5</td>
+</tr>
+<tr>
+<td>Lidar con valores negativos</td>
+<td>Error I2C</td>
+<td>Añade resistencias de pull-up</td>
+<td>Problema 6</td>
+</tr>
+<tr>
+<td>SD corrupta</td>
+<td>Apagado incorrecto</td>
+<td>Recupera datos y formatea</td>
+<td>Problema 7</td>
+</tr>
+<tr>
+<td>Caracteres extraños en CSV</td>
+<td>Codificación incompatible</td>
+<td>Importa como UTF-8</td>
+<td>Problema 8</td>
+</tr>
+<tr>
+<td>Datos antiguos en ThingsBoard</td>
+<td>Problema de red o SIM</td>
+<td>Revisa señal y SIM</td>
+<td>Problema 9</td>
+</tr>
+<tr>
+<td>Telemetría intermitente</td>
+<td>Señal débil</td>
+<td>Antena externa</td>
+<td>Problema 10</td>
+</tr>
+<tr>
+<td>Fallo de carga «not responding»</td>
+<td>Sensor conectado</td>
+<td>Desconecta el sensor</td>
+<td>Problema 11</td>
+</tr>
+<tr>
+<td>Puerto serie ocupado</td>
+<td>Monitor serie abierto</td>
+<td>Cierra el monitor</td>
+<td>Problema 12</td>
+</tr>
+<tr>
+<td>Carga correcta, sin funcionamiento</td>
+<td>Placa equivocada</td>
+<td>Revisa la configuración</td>
+<td>Problema 13</td>
+</tr>
+<tr>
+<td>Falta una biblioteca</td>
+<td>No está instalada</td>
+<td>Instálala</td>
+<td>Problema 14</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="sigues-sin-resolverlo">¿Sigues sin resolverlo?<a class="headerlink" href="#sigues-sin-resolverlo" title="Permanent link">&para;</a></h2>
+<p>Si tu problema no aparece aquí:</p>
+<ol>
+<li><strong>Consulta los <a href="../diagnostic-flowcharts/">diagramas de diagnóstico</a></strong> - Rutas visuales de diagnóstico</li>
+<li><strong>Revisa las <a href="../faq/">preguntas frecuentes</a></strong> - Casos poco comunes</li>
+<li><strong>Busca en GitHub Issues</strong> - Puede que alguien haya tenido el mismo problema</li>
+<li><strong>Contacta con soporte</strong> - Incluye síntomas, pruebas realizadas y registros serie</li>
+</ol>
+<hr />
+<h2 id="proximos-pasos">Próximos pasos<a class="headerlink" href="#proximos-pasos" title="Permanent link">&para;</a></h2>
+<ul>
+<li>📊 <a href="../diagnostic-flowcharts/">Diagramas de diagnóstico</a> - Árboles visuales</li>
+<li>❓ <a href="../faq/">Preguntas frecuentes</a> - Respuestas a preguntas habituales</li>
+<li>🔧 <a href="../../hardware/maintenance/">Guía de mantenimiento</a> - Mantenimiento preventivo</li>
+<li>📞 Soporte - <a href="https://github.com/ICHydro/Riverlabs/issues">GitHub Issues</a></li>
+</ul>
+<hr />
+<div class="admonition success">
+<p class="admonition-title">La mayoría de los problemas son sencillos</p>
+<p>El 80 % se debe a batería baja, tarjeta SD sin formatear o XBee mal configurado. ¡Comprueba primero lo básico!</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Volver al principio
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Riverlabs Ltd
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/ICHydro" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.sections", "navigation.indexes", "navigation.expand", "navigation.top", "search.suggest", "search.highlight", "content.code.copy", "content.action.edit", "content.action.view"], "search": "../../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+        <script src="../../../assets/javascripts/extra.js"></script>
+      
+    
+  </body>
+</html>

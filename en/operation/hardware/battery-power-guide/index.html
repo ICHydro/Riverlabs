@@ -1,0 +1,2374 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation for the Riverlabs suite of environmental sensors">
+      
+      
+        <meta name="author" content="Riverlabs Ltd">
+      
+      
+        <link rel="canonical" href="https://ichydro.github.io/Riverlabs/operation/hardware/battery-power-guide/">
+      
+      
+        <link rel="prev" href="../technical-specifications/">
+      
+      
+        <link rel="next" href="../maintenance/">
+      
+      
+        
+          <link rel="alternate" href="/Riverlabs/en/" hreflang="en">
+        
+          <link rel="alternate" href="/Riverlabs/es/" hreflang="es">
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/riverlabs_icon.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+    
+    
+      
+        <title>Battery & Power Guide - Riverlabs Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="light-blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#battery-power-guide" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Riverlabs Documentation" class="md-header__button md-logo" aria-label="Riverlabs Documentation" data-md-component="logo">
+      
+  <img src="../../../assets/images/riverlabs_white_mono.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Riverlabs Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Battery & Power Guide
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="light-blue"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="light-blue"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Select language">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="/Riverlabs/en/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="/Riverlabs/es/" hreflang="es" class="md-select__link">
+              Español
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/ICHydro/Riverlabs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ichydro/Riverlabs
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../quick-start/quick-start/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Operation
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../installation/sensor-positioning/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Installation
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../programming/intro/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Programming
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Riverlabs Documentation" class="md-nav__button md-logo" aria-label="Riverlabs Documentation" data-md-component="logo">
+      
+  <img src="../../../assets/images/riverlabs_white_mono.svg" alt="logo">
+
+    </a>
+    Riverlabs Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ICHydro/Riverlabs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ichydro/Riverlabs
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operation
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Operation
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_1" id="__nav_1_1_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quick Start
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Quick Start
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../quick-start/quick-start/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quick Start Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../quick-start/data-download/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Download
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../quick-start/arduino-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arduino Settings
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../quick-start/first-deployment-checklist/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    First Deployment Checklist
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_1_2" id="__nav_1_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hardware
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Hardware
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../technical-specifications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Technical Specifications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Battery & Power Guide
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Battery & Power Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#battery-system-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Battery System Overview
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Battery System Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#main-power-18650-or-14500-battery" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Main Power: 18650 or 14500 Battery
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#backup-battery-cr1220-coin-cell" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Backup Battery: CR1220 Coin Cell
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#battery-voltage-interpretation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Battery Voltage Interpretation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Battery Voltage Interpretation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#voltage-vs-state-of-charge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Voltage vs. State of Charge
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Voltage vs. State of Charge">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lipo-37-v-nominal-batteries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LiPo (3.7 V Nominal) Batteries
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lifepo4-32-v-nominal-batteries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LiFePO4 (3.2 V Nominal) Batteries
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reading-battery-voltage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reading Battery Voltage
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solar-charging" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Solar Charging
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Solar Charging">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#solar-panel-specifications" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Solar Panel Specifications
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#battery-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Battery Storage
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Battery Storage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#long-term-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Long-Term Storage
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#disposal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Disposal
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting-power-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting Power Issues
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting Power Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#logger-wont-power-on" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Logger Won't Power On
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rapid-battery-drain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rapid Battery Drain
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#voltage-reading-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Voltage Reading Errors
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next Steps
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../maintenance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Maintenance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data-handling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Handling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_3" id="__nav_1_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Troubleshooting
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../troubleshooting/diagnostic-flowcharts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Diagnostic Flowcharts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Installation
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../installation/sensor-positioning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sensor Positioning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../installation/mounting-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mounting Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../installation/environmental-considerations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Environmental Considerations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Programming
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Programming
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/arduino-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arduino Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../programming/uploading-code/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Uploading Code
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#battery-system-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Battery System Overview
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Battery System Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#main-power-18650-or-14500-battery" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Main Power: 18650 or 14500 Battery
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#backup-battery-cr1220-coin-cell" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Backup Battery: CR1220 Coin Cell
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#battery-voltage-interpretation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Battery Voltage Interpretation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Battery Voltage Interpretation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#voltage-vs-state-of-charge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Voltage vs. State of Charge
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Voltage vs. State of Charge">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lipo-37-v-nominal-batteries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LiPo (3.7 V Nominal) Batteries
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lifepo4-32-v-nominal-batteries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LiFePO4 (3.2 V Nominal) Batteries
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reading-battery-voltage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reading Battery Voltage
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solar-charging" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Solar Charging
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Solar Charging">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#solar-panel-specifications" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Solar Panel Specifications
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#battery-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Battery Storage
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Battery Storage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#long-term-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Long-Term Storage
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#disposal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Disposal
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting-power-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting Power Issues
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting Power Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#logger-wont-power-on" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Logger Won't Power On
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rapid-battery-drain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rapid Battery Drain
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#voltage-reading-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Voltage Reading Errors
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next Steps
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/ICHydro/Riverlabs/edit/main/operation/hardware/battery-power-guide.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+    
+      
+    
+    <a href="https://github.com/ICHydro/Riverlabs/raw/main/operation/hardware/battery-power-guide.md" title="View source of this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
+    </a>
+  
+
+
+<h1 id="battery-power-guide">Battery &amp; Power Guide<a class="headerlink" href="#battery-power-guide" title="Permanent link">&para;</a></h1>
+<div class="admonition abstract">
+<p class="admonition-title">Overview</p>
+<p>Understanding battery behavior and power management is essential for reliable field deployments. This guide covers battery selection and voltage interpretation.</p>
+</div>
+<h2 id="battery-system-overview">Battery System Overview<a class="headerlink" href="#battery-system-overview" title="Permanent link">&para;</a></h2>
+<p>Riverlabs loggers use a dual-battery system for power and timekeeping.</p>
+<p><img alt="Battery types comparison" src="../../../assets/images/Battery_Types.png" />
+<em>18650 and 14500 battery sizes with LiPo and LiFePO4 chemistry options</em></p>
+<h3 id="main-power-18650-or-14500-battery">Main Power: 18650 or 14500 Battery<a class="headerlink" href="#main-power-18650-or-14500-battery" title="Permanent link">&para;</a></h3>
+<p>Riverlabs loggers support two battery sizes with two chemistry options:</p>
+<table>
+<thead>
+<tr>
+<th>Battery Type</th>
+<th>Chemistry</th>
+<th>Nominal Voltage</th>
+<th>Capacity</th>
+<th>Form Factor</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>18650</strong></td>
+<td>LiPo (Lithium Polymer)</td>
+<td>3.7 V</td>
+<td>2000–3000 mAh</td>
+<td>18 mm × 65 mm</td>
+<td>Most common, high capacity</td>
+</tr>
+<tr>
+<td><strong>18650</strong></td>
+<td>LiFePO4 (Lithium Iron Phosphate)</td>
+<td>3.2 V</td>
+<td>1500–2000 mAh</td>
+<td>18 mm × 65 mm</td>
+<td>Safer, longer cycle life, lower voltage</td>
+</tr>
+<tr>
+<td><strong>14500</strong></td>
+<td>LiPo (Lithium Polymer)</td>
+<td>3.7 V</td>
+<td>600–800 mAh</td>
+<td>14 mm × 50 mm</td>
+<td>Smaller, lower capacity</td>
+</tr>
+<tr>
+<td><strong>14500</strong></td>
+<td>LiFePO4 (Lithium Iron Phosphate)</td>
+<td>3.2 V</td>
+<td>400–600 mAh</td>
+<td>14 mm × 50 mm</td>
+<td>Safer, smaller form factor</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Chemistry Comparison:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>LiPo (3.7 V)</th>
+<th>LiFePO4 (3.2 V)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Voltage Range</strong></td>
+<td>4.2 V (full)–3.0 V (empty)</td>
+<td>3.65 V (full)–2.5 V (empty).</td>
+</tr>
+<tr>
+<td><strong>Energy Density</strong></td>
+<td>Higher</td>
+<td>Lower</td>
+</tr>
+<tr>
+<td><strong>Safety</strong></td>
+<td>Good (with protection)</td>
+<td>Excellent (very stable)</td>
+</tr>
+<tr>
+<td><strong>Cycle Life</strong></td>
+<td>300–500 cycles</td>
+<td>2000+ cycles</td>
+</tr>
+<tr>
+<td><strong>Temperature Tolerance</strong></td>
+<td>-20°C to 60°C</td>
+<td>-20°C to 60°C</td>
+</tr>
+<tr>
+<td><strong>Cost</strong></td>
+<td>Lower</td>
+<td>Slightly higher</td>
+</tr>
+<tr>
+<td><strong>Best For</strong></td>
+<td>Maximum runtime</td>
+<td>Long-term reliability, safety</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Critical Safety Information:</strong></p>
+<div class="admonition danger">
+<p class="admonition-title">Battery Safety</p>
+<ul>
+<li>⚠️ Never use damaged or dented batteries</li>
+<li>⚠️ Check polarity before insertion</li>
+<li>⚠️ Do not charge below 0°C</li>
+<li>⚠️ Do not expose to heat &gt;60°C</li>
+<li>⚠️ Replace if swollen or leaking</li>
+<li>⚠️ Dispose of properly (battery recycling)</li>
+</ul>
+</div>
+<h3 id="backup-battery-cr1220-coin-cell">Backup Battery: CR1220 Coin Cell<a class="headerlink" href="#backup-battery-cr1220-coin-cell" title="Permanent link">&para;</a></h3>
+<p><strong>Specifications:</strong></p>
+<ul>
+<li><strong>Type:</strong> CR1220 Lithium coin cell (non-rechargeable)</li>
+<li><strong>Nominal Voltage:</strong> 3.0 V</li>
+<li><strong>Capacity:</strong> ~40 mAh</li>
+<li><strong>Purpose:</strong> Real-time clock backup only</li>
+<li><strong>Lifespan:</strong> 5–10 years typical</li>
+</ul>
+<p><strong>Function:</strong></p>
+<ul>
+<li>Maintains clock time when main battery removed</li>
+<li>Does NOT power logger or sensor</li>
+<li>Logger operates without it (but loses time)</li>
+<li>Essential for telemetry applications (UTC time)</li>
+</ul>
+<hr />
+<h2 id="battery-voltage-interpretation">Battery Voltage Interpretation<a class="headerlink" href="#battery-voltage-interpretation" title="Permanent link">&para;</a></h2>
+<p>Understanding battery voltage helps predict remaining life and identify issues.</p>
+<h3 id="voltage-vs-state-of-charge">Voltage vs. State of Charge<a class="headerlink" href="#voltage-vs-state-of-charge" title="Permanent link">&para;</a></h3>
+<p>Battery voltage indicates remaining capacity, but the voltage ranges differ between LiPo and LiFePO4:</p>
+<h4 id="lipo-37-v-nominal-batteries">LiPo (3.7 V Nominal) Batteries<a class="headerlink" href="#lipo-37-v-nominal-batteries" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Voltage</th>
+<th>State of Charge</th>
+<th>Status</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr style="background-color: #22c55e; color: white;">
+<td><strong>4.20 V</strong></td>
+<td>100%</td>
+<td>Fresh/Fully Charged</td>
+<td>Optimal</td>
+</tr>
+<tr style="background-color: #4ade80; color: white;">
+<td><strong>4.10 V</strong></td>
+<td>~95%</td>
+<td>Excellent</td>
+<td>Normal operation</td>
+</tr>
+<tr style="background-color: #86efac;">
+<td><strong>4.00 V</strong></td>
+<td>~85%</td>
+<td>Very Good</td>
+<td>Normal operation</td>
+</tr>
+<tr style="background-color: #bbf7d0;">
+<td><strong>3.90 V</strong></td>
+<td>~75%</td>
+<td>Good</td>
+<td>Normal operation</td>
+</tr>
+<tr style="background-color: #d9f99d;">
+<td><strong>3.80 V</strong></td>
+<td>~60%</td>
+<td>Fair</td>
+<td>Monitor</td>
+</tr>
+<tr style="background-color: #fde047;">
+<td><strong>3.70 V</strong></td>
+<td>~45%</td>
+<td>Nominal</td>
+<td>Plan replacement</td>
+</tr>
+<tr style="background-color: #fbbf24;">
+<td><strong>3.60 V</strong></td>
+<td>~30%</td>
+<td>Low</td>
+<td>Replace soon</td>
+</tr>
+<tr style="background-color: #fb923c;">
+<td><strong>3.50 V</strong></td>
+<td>~20%</td>
+<td>Very Low</td>
+<td>Replace immediately</td>
+</tr>
+<tr style="background-color: #f97316; color: white;">
+<td><strong>3.40 V</strong></td>
+<td>~10%</td>
+<td>Critical</td>
+<td><strong>Replace now</strong></td>
+</tr>
+<tr style="background-color: #dc2626; color: white;">
+<td><strong>3.30 V</strong></td>
+<td>~5%</td>
+<td>Emergency</td>
+<td><strong>Imminent failure</strong></td>
+</tr>
+<tr style="background-color: #991b1b; color: white;">
+<td><strong>3.00 V</strong></td>
+<td>0%</td>
+<td>Depleted</td>
+<td>Logger may stop</td>
+</tr>
+<tr style="background-color: #000000; color: white;">
+<td><strong>&lt;3.00 V</strong></td>
+<td>Over-discharged</td>
+<td>Damaged</td>
+<td>Battery may be ruined</td>
+</tr>
+</tbody>
+</table>
+
+<h4 id="lifepo4-32-v-nominal-batteries">LiFePO4 (3.2 V Nominal) Batteries<a class="headerlink" href="#lifepo4-32-v-nominal-batteries" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Voltage</th>
+<th>State of Charge</th>
+<th>Status</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr style="background-color: #22c55e; color: white;">
+<td><strong>3.65 V</strong></td>
+<td>100%</td>
+<td>Fresh/Fully Charged</td>
+<td>Optimal</td>
+</tr>
+<tr style="background-color: #4ade80; color: white;">
+<td><strong>3.40 V</strong></td>
+<td>~95%</td>
+<td>Excellent</td>
+<td>Normal operation</td>
+</tr>
+<tr style="background-color: #86efac;">
+<td><strong>3.30 V</strong></td>
+<td>~75%</td>
+<td>Very Good</td>
+<td>Normal operation</td>
+</tr>
+<tr style="background-color: #bbf7d0;">
+<td><strong>3.25 V</strong></td>
+<td>~50%</td>
+<td>Good</td>
+<td>Normal operation</td>
+</tr>
+<tr style="background-color: #d9f99d;">
+<td><strong>3.20 V</strong></td>
+<td>~40%</td>
+<td>Fair</td>
+<td>Monitor</td>
+</tr>
+<tr style="background-color: #fbbf24;">
+<td><strong>3.10 V</strong></td>
+<td>~20%</td>
+<td>Low</td>
+<td>Replace soon</td>
+</tr>
+<tr style="background-color: #fb923c;">
+<td><strong>3.00 V</strong></td>
+<td>~10%</td>
+<td>Very Low</td>
+<td>Replace immediately</td>
+</tr>
+<tr style="background-color: #f97316; color: white;">
+<td><strong>2.90 V</strong></td>
+<td>~5%</td>
+<td>Critical</td>
+<td><strong>Replace now</strong></td>
+</tr>
+<tr style="background-color: #dc2626; color: white;">
+<td><strong>2.70 V</strong></td>
+<td>~2%</td>
+<td>Emergency</td>
+<td><strong>Imminent failure</strong></td>
+</tr>
+<tr style="background-color: #991b1b; color: white;">
+<td><strong>2.50 V</strong></td>
+<td>0%</td>
+<td>Depleted</td>
+<td>Logger will stop</td>
+</tr>
+<tr style="background-color: #000000; color: white;">
+<td><strong>&lt;2.50 V</strong></td>
+<td>Over-discharged</td>
+<td>Damaged</td>
+<td>Battery may be ruined</td>
+</tr>
+</tbody>
+</table>
+
+<div class="admonition info">
+<p class="admonition-title">Flatter Discharge Curve</p>
+<p>LiFePO4 batteries maintain voltage more consistently throughout discharge. They stay around 3.2–3.3 V for most of their capacity, then drop quickly when depleted.</p>
+</div>
+<h3 id="reading-battery-voltage">Reading Battery Voltage<a class="headerlink" href="#reading-battery-voltage" title="Permanent link">&para;</a></h3>
+<p><strong>From Logger Data:</strong></p>
+<ul>
+<li>Voltage recorded with each measurement</li>
+<li>Typically last column in data file</li>
+<li>Value in millivolts (e.g., 3850 = 3.85 V)</li>
+</ul>
+<p><strong>Example Data Line:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>2025/12/27 14:30:00, 1250, 1248, 1252, 1249, 1251, 1250, 1248, 1251, 1249, 1250, 3850
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>                                                                                      ^^^^
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>                                                                                Battery voltage (mV)
+</code></pre></div></p>
+<p><strong>With Multimeter:</strong></p>
+<ol>
+<li>Set multimeter to DC voltage</li>
+<li>Access battery terminals (may require opening logger)</li>
+<li>Red probe to + terminal</li>
+<li>Black probe to - terminal</li>
+<li>Read voltage (should show 3.0–4.2 V)</li>
+</ol>
+<div class="admonition tip">
+<p class="admonition-title">Voltage Sag During Measurement</p>
+<p>Voltage drops briefly during active measurement due to high current draw. The logged voltage is typically measured during sleep (more accurate for capacity estimation).</p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">First Reading May Be Low</p>
+<p>On some loggers, the first voltage reading after power-on may appear lower than subsequent readings. This occurs because the measurement circuit capacitors have not fully charged yet. Subsequent readings will show the correct voltage once the circuit has stabilized (typically after the second or third measurement).</p>
+</div>
+<hr />
+<h2 id="solar-charging">Solar Charging<a class="headerlink" href="#solar-charging" title="Permanent link">&para;</a></h2>
+<h3 id="solar-panel-specifications">Solar Panel Specifications<a class="headerlink" href="#solar-panel-specifications" title="Permanent link">&para;</a></h3>
+<p><strong>Typical Solar Setup:</strong></p>
+<ul>
+<li>Panel: 5–10 W, 6 V</li>
+<li>Charge Controller: 3.7 V Li-ion compatible</li>
+<li>Cable: Weatherproof, strain relief</li>
+<li>Mounting: Adjustable for sun angle</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Solar Charging Limitations</p>
+<ul>
+<li>Only charges above 0°C</li>
+<li>Requires good sun exposure, not suitable for heavily shaded locations</li>
+<li>May not keep up with telemetry use</li>
+</ul>
+</div>
+<hr />
+<h2 id="battery-storage">Battery Storage<a class="headerlink" href="#battery-storage" title="Permanent link">&para;</a></h2>
+<h3 id="long-term-storage">Long-Term Storage<a class="headerlink" href="#long-term-storage" title="Permanent link">&para;</a></h3>
+<p><strong>Optimal Storage Conditions:</strong></p>
+<ul>
+<li><strong>Voltage:</strong> 3.7–3.8 V for LiPo (50% charge) or 3.2–3.3 V for LiFePO4</li>
+<li><strong>Temperature:</strong> 15–20°C</li>
+<li><strong>Humidity:</strong> &lt;60%</li>
+<li><strong>Location:</strong> Cool, dry, away from metal objects</li>
+</ul>
+<p><strong>Storage Duration:</strong></p>
+<p><strong>LiPo Batteries:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Voltage at Storage</th>
+<th>Time to Self-Discharge to 3.0 V</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>4.2 V (full)</td>
+<td>~12–18 months</td>
+</tr>
+<tr>
+<td>3.8 V (50%)</td>
+<td>18–24 months</td>
+</tr>
+<tr>
+<td>3.4 V (low)</td>
+<td>6–12 months</td>
+</tr>
+</tbody>
+</table>
+<p><strong>LiFePO4 Batteries:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Voltage at Storage</th>
+<th>Time to Self-Discharge to 2.5 V</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>3.65 V (full)</td>
+<td>~18–24 months</td>
+</tr>
+<tr>
+<td>3.2 V (50%)</td>
+<td>24–36 months</td>
+</tr>
+<tr>
+<td>2.9 V (low)</td>
+<td>12–18 months</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">Check Stored Batteries</p>
+<p>Batteries in storage should be checked every 3–6 months. </p>
+<ul>
+<li><strong>LiPo:</strong> Recharge to 3.7–3.8 V if below 3.4 V</li>
+<li><strong>LiFePO4:</strong> Recharge to 3.2–3.3 V if below 2.9 V</li>
+</ul>
+</div>
+<h3 id="disposal">Disposal<a class="headerlink" href="#disposal" title="Permanent link">&para;</a></h3>
+<p><strong>Never throw batteries in regular trash!</strong></p>
+<p><strong>Proper Disposal:</strong></p>
+<ol>
+<li>Discharge to &lt;3.0 V (use in logger until depleted)</li>
+<li>Tape terminals with electrical tape</li>
+<li>Take to battery recycling center</li>
+<li>Many retailers accept 18650 batteries for recycling</li>
+<li>Check local hazardous waste facilities</li>
+</ol>
+<hr />
+<h2 id="troubleshooting-power-issues">Troubleshooting Power Issues<a class="headerlink" href="#troubleshooting-power-issues" title="Permanent link">&para;</a></h2>
+<h3 id="logger-wont-power-on">Logger Won't Power On<a class="headerlink" href="#logger-wont-power-on" title="Permanent link">&para;</a></h3>
+<p><strong>Check:</strong></p>
+<ol>
+<li>Battery voltage &gt;3.3 V</li>
+<li>Battery polarity correct</li>
+<li>Battery contacts clean and making contact</li>
+<li>No physical damage to logger</li>
+<li>Try known-good battery</li>
+</ol>
+<h3 id="rapid-battery-drain">Rapid Battery Drain<a class="headerlink" href="#rapid-battery-drain" title="Permanent link">&para;</a></h3>
+<p><strong>Possible Causes:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Likely Cause</th>
+<th>Solution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>New battery drains in days</td>
+<td>Excessive telemetry or failure to enter sleep mode</td>
+<td>Reduce telemetry frequency and re-upload firmware</td>
+</tr>
+<tr>
+<td>Gradual worsening</td>
+<td>Battery aging</td>
+<td>Replace battery</td>
+</tr>
+</tbody>
+</table>
+<h3 id="voltage-reading-errors">Voltage Reading Errors<a class="headerlink" href="#voltage-reading-errors" title="Permanent link">&para;</a></h3>
+<p><strong>Inconsistent Voltage Readings:</strong></p>
+<ul>
+<li>Poor contact: Clean terminals</li>
+<li>Code issue: Re-upload firmware</li>
+<li>Battery dying: Replace</li>
+</ul>
+<p><strong>No Voltage Logged:</strong></p>
+<ul>
+<li>Check data file format</li>
+<li>Verify voltage measurement in code</li>
+<li>Test ADC with multimeter</li>
+</ul>
+<hr />
+<h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../internal-components/">Internal Components</a>: Understanding your logger's hardware</li>
+<li><a href="../maintenance/">Maintenance Guide</a>: Regular upkeep procedures</li>
+<li><a href="../../../telemetry/thingsboard-configuration/">ThingsBoard</a>: Monitor battery voltage remotely</li>
+<li><a href="../../troubleshooting/common-issues/">Troubleshooting</a>: Power-related issues</li>
+</ul>
+<hr />
+<div class="admonition success">
+<p class="admonition-title">Power Management Mastered</p>
+<p>With proper battery selection, monitoring and optimization, your logger deployments can achieve reliable operation for weeks to months on a single battery charge.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Riverlabs Ltd
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/ICHydro" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.sections", "navigation.indexes", "navigation.expand", "navigation.top", "search.suggest", "search.highlight", "content.code.copy", "content.action.edit", "content.action.view"], "search": "../../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+        <script src="../../../assets/javascripts/extra.js"></script>
+      
+    
+  </body>
+</html>

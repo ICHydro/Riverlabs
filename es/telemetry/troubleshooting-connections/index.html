@@ -1,0 +1,2841 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation for the Riverlabs suite of environmental sensors">
+      
+      
+        <meta name="author" content="Riverlabs Ltd">
+      
+      
+        <link rel="canonical" href="https://ichydro.github.io/Riverlabs/telemetry/troubleshooting-connections/">
+      
+      
+      
+      
+        
+          <link rel="alternate" href="/Riverlabs/en/" hreflang="en">
+        
+          <link rel="alternate" href="/Riverlabs/es/" hreflang="es">
+        
+      
+      
+      <link rel="icon" href="../../assets/images/riverlabs_icon.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+    
+    
+      
+        <title>Solución de problemas de conexión de telemetría - Riverlabs Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="light-blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#solucion-de-problemas-de-conexion-de-telemetria" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="../.." title="Riverlabs Documentation" class="md-header__button md-logo" aria-label="Riverlabs Documentation" data-md-component="logo">
+      
+  <img src="../../assets/images/riverlabs_white_mono.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Riverlabs Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Solución de problemas de conexión de telemetría
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="light-blue"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="light-blue"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Seleccionar idioma">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="/Riverlabs/en/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="/Riverlabs/es/" hreflang="es" class="md-select__link">
+              Español
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/ICHydro/Riverlabs" title="Ir al repositorio" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ichydro/Riverlabs
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Pestañas" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../operation/quick-start/quick-start/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Operación
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../installation/sensor-positioning/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Instalación
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../programming/intro/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Programación
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Riverlabs Documentation" class="md-nav__button md-logo" aria-label="Riverlabs Documentation" data-md-component="logo">
+      
+  <img src="../../assets/images/riverlabs_white_mono.svg" alt="logo">
+
+    </a>
+    Riverlabs Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ICHydro/Riverlabs" title="Ir al repositorio" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ichydro/Riverlabs
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operación
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Operación
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_1" id="__nav_1_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio Rápido
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Inicio Rápido
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../operation/quick-start/quick-start/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guía de Inicio Rápido
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../operation/quick-start/data-download/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Descarga de Datos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../operation/quick-start/arduino-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuración de Arduino
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../operation/quick-start/first-deployment-checklist/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lista de Verificación para la Primera Implementación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_2" id="__nav_1_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hardware
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Hardware
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../operation/hardware/technical-specifications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Especificaciones Técnicas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../operation/hardware/battery-power-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guía de Baterías y Alimentación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../operation/hardware/maintenance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mantenimiento
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../operation/hardware/data-handling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gestión de Datos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_3" id="__nav_1_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Solución de Problemas
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Solución de Problemas
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../operation/troubleshooting/diagnostic-flowcharts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Diagramas de Flujo de Diagnóstico
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Instalación
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Instalación
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/sensor-positioning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Posicionamiento del Sensor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/mounting-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guía de Montaje
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/environmental-considerations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Consideraciones Ambientales
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Programación
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Programación
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introducción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/arduino-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuración de Arduino
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/uploading-code/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cargando Código
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#descripcion-general-del-diagnostico" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Descripción general del diagnóstico
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Descripción general del diagnóstico">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#metodo-de-diagnostico" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Método de diagnóstico
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lista-rapida-de-diagnostico" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lista rápida de diagnóstico
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sintomas-y-soluciones-habituales" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Síntomas y soluciones habituales
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Síntomas y soluciones habituales">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sintoma-1-el-registrador-nunca-transmite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Síntoma 1: El registrador nunca transmite
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Síntoma 1: El registrador nunca transmite">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#capa-1-comprobar-el-hardware" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Capa 1: Comprobar el hardware
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#capa-2-red-celular" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Capa 2: Red celular
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#capa-3-configuracion-del-xbee" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Capa 3: Configuración del XBee
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#capa-4-codigo-arduino" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Capa 4: Código Arduino
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sintoma-2-transmisiones-intermitentes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Síntoma 2: Transmisiones intermitentes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Síntoma 2: Transmisiones intermitentes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#causa-1-variaciones-de-la-senal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Causa 1: Variaciones de la señal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#causa-2-congestion-de-la-red" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Causa 2: Congestión de la red
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#causa-3-problemas-de-alimentacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Causa 3: Problemas de alimentación
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#causa-4-tiempo-de-espera-del-servidor-agotado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Causa 4: Tiempo de espera del servidor agotado
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sintoma-3-aparecen-datos-pero-los-valores-son-incorrectos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Síntoma 3: Aparecen datos, pero los valores son incorrectos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Síntoma 3: Aparecen datos, pero los valores son incorrectos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#causa-1-error-de-formato-json" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Causa 1: Error de formato JSON
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#causa-2-procesamiento-en-el-servidor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Causa 2: Procesamiento en el servidor
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#causa-3-marcas-de-tiempo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Causa 3: Marcas de tiempo
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sintoma-4-costes-de-datos-elevados" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Síntoma 4: Costes de datos elevados
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Síntoma 4: Costes de datos elevados">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#causa-1-transmisiones-demasiado-frecuentes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Causa 1: Transmisiones demasiado frecuentes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#causa-2-reintentos-tras-fallos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Causa 2: Reintentos tras fallos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#causa-3-datos-innecesarios-en-la-carga" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Causa 3: Datos innecesarios en la carga
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#diagnostico-avanzado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagnóstico avanzado
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Diagnóstico avanzado">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#depuracion-con-el-monitor-serie" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Depuración con el monitor serie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#diagnostico-de-red-en-xbee-studio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagnóstico de red en XBee Studio
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#captura-de-paquetes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Captura de paquetes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#referencia-de-codigos-de-error" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Referencia de códigos de error
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Referencia de códigos de error">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#codigos-de-error-del-xbee" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Códigos de error del XBee
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#codigos-de-respuesta-http" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Códigos de respuesta HTTP
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#errores-de-la-biblioteca-xbee-arduino" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Errores de la biblioteca XBee Arduino
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mantenimiento-preventivo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mantenimiento preventivo
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mantenimiento preventivo">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#comprobaciones-periodicas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comprobaciones periódicas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optimizacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optimización
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#escalado-del-problema" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Escalado del problema
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Escalado del problema">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cuando-contactar-con-soporte" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cuándo contactar con soporte
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recursos-de-soporte" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recursos de soporte
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#casos-practicos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Casos prácticos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Casos prácticos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#caso-1-fallos-intermitentes-durante-la-noche" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Caso 1: Fallos intermitentes durante la noche
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#caso-2-llegan-datos-pero-con-fechas-incorrectas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Caso 2: Llegan datos, pero con fechas incorrectas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#caso-3-descarga-rapida-de-la-bateria" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Caso 3: Descarga rápida de la batería
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#referencia-rapida-diagrama-de-diagnostico" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Referencia rápida: diagrama de diagnóstico
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#siguientes-pasos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Siguientes pasos
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/ICHydro/Riverlabs/edit/main/telemetry/troubleshooting-connections.md" title="Editar esta página" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+    
+      
+    
+    <a href="https://github.com/ICHydro/Riverlabs/raw/main/telemetry/troubleshooting-connections.md" title="Ver código fuente de esta página" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
+    </a>
+  
+
+
+<h1 id="solucion-de-problemas-de-conexion-de-telemetria">Solución de problemas de conexión de telemetría<a class="headerlink" href="#solucion-de-problemas-de-conexion-de-telemetria" title="Permanent link">&para;</a></h1>
+<div class="admonition abstract">
+<p class="admonition-title">Descripción general</p>
+<p>Esta guía de diagnóstico ayuda a resolver problemas de telemetría celular, desde la ausencia de conexión hasta fallos intermitentes, mediante comprobaciones sistemáticas.</p>
+</div>
+<h2 id="descripcion-general-del-diagnostico">Descripción general del diagnóstico<a class="headerlink" href="#descripcion-general-del-diagnostico" title="Permanent link">&para;</a></h2>
+<h3 id="metodo-de-diagnostico">Método de diagnóstico<a class="headerlink" href="#metodo-de-diagnostico" title="Permanent link">&para;</a></h3>
+<p>Cuando falla la telemetría, el problema puede estar en distintas capas:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>┌──────────────────┐
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>│  ThingsBoard     │ ← Problemas del panel o servidor
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>├──────────────────┤
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>│  Internet        │ ← Enrutamiento, DNS y cortafuegos
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>├──────────────────┤
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>│  Red celular     │ ← Señal, APN y registro
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>├──────────────────┤
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>│  Módulo XBee     │ ← Configuración y firmware
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>├──────────────────┤
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>│ Registrador/Arduino│ ← Código y comunicación serie
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>├──────────────────┤
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>│ Alimentación/hardware│ ← Batería y conexiones
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>└──────────────────┘
+</code></pre></div>
+<p><strong>Procedimiento sistemático:</strong></p>
+<ol>
+<li>Identifique el síntoma.</li>
+<li>Aísle la capa afectada.</li>
+<li>Pruebe el componente concreto.</li>
+<li>Aplique la corrección.</li>
+<li>Compruebe el resultado.</li>
+</ol>
+<hr />
+<h2 id="lista-rapida-de-diagnostico">Lista rápida de diagnóstico<a class="headerlink" href="#lista-rapida-de-diagnostico" title="Permanent link">&para;</a></h2>
+<p><strong>Empiece aquí:</strong></p>
+<ul>
+<li><strong>Alimentación:</strong> ¿batería &gt;3,3 V?</li>
+<li><strong>Hardware:</strong> ¿XBee bien encajado?</li>
+<li><strong>SIM:</strong> ¿activa e insertada correctamente?</li>
+<li><strong>Señal:</strong> ¿RSSI superior a -105 dBm?</li>
+<li><strong>Configuración:</strong> ¿modo API = 2?</li>
+<li><strong>Red:</strong> ¿APN correcto?</li>
+<li><strong>Servidor:</strong> ¿dispositivo activo en ThingsBoard?</li>
+<li><strong>Código:</strong> ¿token de acceso correcto?</li>
+</ul>
+<p><strong>Si todo está correcto y el fallo continúa:</strong> siga con el diagnóstico detallado.</p>
+<hr />
+<h2 id="sintomas-y-soluciones-habituales">Síntomas y soluciones habituales<a class="headerlink" href="#sintomas-y-soluciones-habituales" title="Permanent link">&para;</a></h2>
+<h3 id="sintoma-1-el-registrador-nunca-transmite">Síntoma 1: El registrador nunca transmite<a class="headerlink" href="#sintoma-1-el-registrador-nunca-transmite" title="Permanent link">&para;</a></h3>
+<p><strong>Observaciones:</strong></p>
+<ul>
+<li>No hay conexión de red.</li>
+<li>El LED del XBee nunca parpadea (si se ve).</li>
+<li>Monitor serie: "Network connection failed".</li>
+</ul>
+<h4 id="capa-1-comprobar-el-hardware">Capa 1: Comprobar el hardware<a class="headerlink" href="#capa-1-comprobar-el-hardware" title="Permanent link">&para;</a></h4>
+<p><strong>1. Tensión de la batería</strong></p>
+<p>La tensión baja provoca fallos en el XBee:</p>
+<table>
+<thead>
+<tr>
+<th>Tensión</th>
+<th>Estado</th>
+<th>Acción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&gt;3.8 V</td>
+<td>Buena</td>
+<td>Continúe el diagnóstico</td>
+</tr>
+<tr>
+<td>3.5–3.8 V</td>
+<td>Marginal</td>
+<td>Cargue o sustituya y repita la prueba</td>
+</tr>
+<tr>
+<td>&lt;3.5 V</td>
+<td>Demasiado baja</td>
+<td>Sustituya la batería</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Cómo comprobarla:</strong></p>
+<ul>
+<li>Mídala con un multímetro.</li>
+<li>O consúltela en el monitor serie.</li>
+<li>O en ThingsBoard (si se cargaron manualmente los datos de la SD).</li>
+</ul>
+<p><strong>2. Instalación física del XBee</strong></p>
+<ul>
+<li>Retírelo e inspecciónelo:<ul>
+<li>¿Están rectos los pines?</li>
+<li>¿Entran todos en el zócalo de la PCB?</li>
+<li>¿Hay pines doblados o ausentes?</li>
+</ul>
+</li>
+<li>Vuelva a encajarlo con firmeza.</li>
+<li>Inspeccione las soldaduras si lo montó usted mismo.</li>
+</ul>
+<p><strong>3. Tarjeta SIM</strong></p>
+<ul>
+<li>Retírela.</li>
+<li>Compruebe si está dañada.</li>
+<li>Verifique la orientación.</li>
+<li>Vuelva a insertarla hasta que encaje.</li>
+<li>Confirme su activación con el operador.</li>
+</ul>
+<h4 id="capa-2-red-celular">Capa 2: Red celular<a class="headerlink" href="#capa-2-red-celular" title="Permanent link">&para;</a></h4>
+<p><strong>1. Intensidad de señal</strong></p>
+<p><strong>Pruebe otra ubicación:</strong></p>
+<ul>
+<li>Acerque el registrador a una ventana.</li>
+<li>Elévelo si es posible.</li>
+<li>Aléjelo de estructuras metálicas.</li>
+<li>Pruebe con un teléfono del mismo operador en el mismo sitio.</li>
+</ul>
+<p><strong>Señal esperada en el teléfono:</strong></p>
+<ul>
+<li>2 barras o más: debería funcionar.</li>
+<li>1 barra: marginal.</li>
+<li>0 barras: no funcionará.</li>
+</ul>
+<p><strong>2. Tecnología de red incompatible</strong></p>
+<p>Algunos operadores solo admiten LTE-M O NB-IoT:</p>
+<p><strong>Pruebe ambas:</strong></p>
+<ol>
+<li>Conecte el XBee a XBee Studio.</li>
+<li>Lea la configuración.</li>
+<li>Consulte el valor actual de NT.</li>
+<li>Cambie al otro:<ul>
+<li>Si NT=0 (LTE-M), cambie a NT=1 (NB-IoT).</li>
+<li>Si NT=1 (NB-IoT), cambie a NT=0 (LTE-M).</li>
+</ul>
+</li>
+<li>Guarde la configuración.</li>
+<li>Repita la prueba de conexión.</li>
+</ol>
+<p><strong>3. Configuración de APN</strong></p>
+<p><strong>Compruebe el APN:</strong></p>
+<ol>
+<li>Consulte al operador de la SIM.</li>
+<li>Confirme el nombre exacto (¡distingue mayúsculas y minúsculas!).</li>
+<li>Confirme usuario y contraseña (normalmente vacíos).</li>
+<li>Reconfigure el XBee si es necesario.</li>
+</ol>
+<p><strong>Errores habituales:</strong></p>
+<ul>
+<li>Erratas en el APN.</li>
+<li>Espacios adicionales.</li>
+<li>Mayúsculas o minúsculas incorrectas.</li>
+</ul>
+<p><strong>APN habituales:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Operador</th>
+<th>APN correcto</th>
+<th>Error habitual</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AT&amp;T</td>
+<td><code>m2m.com.attwireless.com</code></td>
+<td><code>attwireless.com</code> (incorrecto)</td>
+</tr>
+<tr>
+<td>T-Mobile</td>
+<td><code>iot.t-mobile.com</code></td>
+<td><code>epc.tmobile.com</code> (consumo, no IoT)</td>
+</tr>
+<tr>
+<td>Verizon</td>
+<td><code>vzwinternet</code></td>
+<td><code>vzwm2m</code> (antiguo)</td>
+</tr>
+<tr>
+<td>Hologram</td>
+<td><code>hologram</code></td>
+<td><code>hologram.io</code> (incorrecto)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="capa-3-configuracion-del-xbee">Capa 3: Configuración del XBee<a class="headerlink" href="#capa-3-configuracion-del-xbee" title="Permanent link">&para;</a></h4>
+<p><strong>Ajustes críticos:</strong></p>
+<ol>
+<li>Conéctelo a XBee Studio.</li>
+<li>Lea la configuración.</li>
+<li>Compruebe:</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>Parámetro</th>
+<th>Valor necesario</th>
+<th>Si no coincide</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AP</td>
+<td>2</td>
+<td><strong>CRÍTICO</strong>: debe ser 2</td>
+</tr>
+<tr>
+<td>BD</td>
+<td>9600</td>
+<td>Debe coincidir con Arduino</td>
+</tr>
+<tr>
+<td>AN</td>
+<td>[Su APN]</td>
+<td>Consulte al operador</td>
+</tr>
+<tr>
+<td>SM</td>
+<td>1</td>
+<td>Para ahorrar energía</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Si alguno es incorrecto:</strong></p>
+<ul>
+<li>Corríjalo en XBee Studio.</li>
+<li><strong>Haga clic en Write.</strong></li>
+<li>Pulse Read para verificar.</li>
+<li>Reinicie eléctricamente el XBee.</li>
+<li>Vuelva a probar.</li>
+</ul>
+<h4 id="capa-4-codigo-arduino">Capa 4: Código Arduino<a class="headerlink" href="#capa-4-codigo-arduino" title="Permanent link">&para;</a></h4>
+<p><strong>1. Inicialización del XBee</strong></p>
+<p><strong>Salida del monitor serie</strong> (si DEBUG está activado):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">Initializing</span><span class="w"> </span><span class="n">XBee</span><span class="p">...</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">XBee</span><span class="w"> </span><span class="n">ready</span><span class="w">           </span><span class="c1">// ← Debería aparecer</span>
+</code></pre></div>
+<p><strong>Si aparece "XBee timeout" o similar:</strong></p>
+<ul>
+<li>Compruebe la conexión serie (pines TX/RX).</li>
+<li>Compruebe que la velocidad coincide (9600).</li>
+<li>Compruebe la presencia del XBee.</li>
+</ul>
+<p><strong>2. Lógica de conexión de red</strong></p>
+<p><strong>Mensajes de depuración esperados:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">Connecting</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">network</span><span class="p">...</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">Network</span><span class="w"> </span><span class="n">status</span><span class="o">:</span><span class="w"> </span><span class="mh">0x00</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">Waiting</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">network</span><span class="p">...</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="n">Network</span><span class="w"> </span><span class="n">registered</span><span class="o">!</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="n">IP</span><span class="w"> </span><span class="n">address</span><span class="w"> </span><span class="n">obtained</span>
+</code></pre></div></p>
+<p><strong>Si se queda en "Waiting for network":</strong></p>
+<ul>
+<li>Problema de red (véase capa 2).</li>
+<li>Configuración del XBee (véase capa 3).</li>
+</ul>
+<hr />
+<h3 id="sintoma-2-transmisiones-intermitentes">Síntoma 2: Transmisiones intermitentes<a class="headerlink" href="#sintoma-2-transmisiones-intermitentes" title="Permanent link">&para;</a></h3>
+<p><strong>Observaciones:</strong></p>
+<ul>
+<li>A veces funciona y otras falla.</li>
+<li>"Success rate: 60–80%".</li>
+<li>Lagunas aleatorias en ThingsBoard.</li>
+</ul>
+<h4 id="causa-1-variaciones-de-la-senal">Causa 1: Variaciones de la señal<a class="headerlink" href="#causa-1-variaciones-de-la-senal" title="Permanent link">&para;</a></h4>
+<p><strong>Diagnóstico:</strong></p>
+<ul>
+<li>Compare el RSSI de los fallos con el de las transmisiones correctas.</li>
+<li>Busque patrones horarios (p. ej., congestión por la tarde).</li>
+</ul>
+<p><strong>Soluciones:</strong></p>
+<ol>
+<li>
+<p><strong>Mejore la posición de la antena:</strong></p>
+<ul>
+<li>Sitúela más alta.</li>
+<li>Aléjela de obstáculos.</li>
+<li>Use una antena externa si tiene una interna.</li>
+</ul>
+</li>
+<li>
+<p><strong>Añada reintentos</strong> (modificación del código):
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kt">int</span><span class="w"> </span><span class="n">retries</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kt">bool</span><span class="w"> </span><span class="n">success</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="k">while</span><span class="p">(</span><span class="n">retries</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">!</span><span class="n">success</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">  </span><span class="n">success</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sendData</span><span class="p">();</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">  </span><span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">success</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">    </span><span class="n">delay</span><span class="p">(</span><span class="mi">30000</span><span class="p">);</span><span class="w"> </span><span class="c1">// Esperar 30 s</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">    </span><span class="n">retries</span><span class="o">--</span><span class="p">;</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="p">}</span>
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Aumente los tiempos de espera</strong> de la comunicación XBee.</p>
+</li>
+</ol>
+<h4 id="causa-2-congestion-de-la-red">Causa 2: Congestión de la red<a class="headerlink" href="#causa-2-congestion-de-la-red" title="Permanent link">&para;</a></h4>
+<p><strong>LTE-M/NB-IoT son recursos compartidos:</strong></p>
+<ul>
+<li>Horas punta: más congestión.</li>
+<li>Eventos: posible saturación temporal de antenas.</li>
+</ul>
+<p><strong>Soluciones:</strong></p>
+<ol>
+<li><strong>Escalone las transmisiones</strong> de los distintos registradores.</li>
+<li><strong>Evite horas punta</strong> si puede (programe entre las 2 y las 5 de la mañana).</li>
+<li><strong>Aumente el intervalo</strong> entre transmisiones.</li>
+</ol>
+<h4 id="causa-3-problemas-de-alimentacion">Causa 3: Problemas de alimentación<a class="headerlink" href="#causa-3-problemas-de-alimentacion" title="Permanent link">&para;</a></h4>
+<p><strong>Caída de tensión durante la transmisión:</strong></p>
+<p>El XBee consume ~200 mA al transmitir. Si la batería está débil:</p>
+<p><strong>Síntomas:</strong></p>
+<ul>
+<li>Fallan más transmisiones al descargarse la batería.</li>
+<li>El porcentaje de éxito sigue la tensión.</li>
+</ul>
+<p><strong>Solución:</strong></p>
+<ol>
+<li>Sustituya antes la batería (no espere a 3,3 V).</li>
+<li>Use una batería de más capacidad.</li>
+<li>Reduzca las transmisiones.</li>
+</ol>
+<p><strong>Código de diagnóstico</strong> (comprobar la tensión antes de transmitir):
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kt">float</span><span class="w"> </span><span class="n">voltage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">readBatteryVoltage</span><span class="p">();</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="k">if</span><span class="p">(</span><span class="n">voltage</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mf">3.5</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">  </span><span class="c1">// Omitir la telemetría: tensión insuficiente</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">"Battery too low for telemetry"</span><span class="p">);</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">  </span><span class="k">return</span><span class="p">;</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="p">}</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="c1">// Continuar con la transmisión</span>
+</code></pre></div></p>
+<h4 id="causa-4-tiempo-de-espera-del-servidor-agotado">Causa 4: Tiempo de espera del servidor agotado<a class="headerlink" href="#causa-4-tiempo-de-espera-del-servidor-agotado" title="Permanent link">&para;</a></h4>
+<p><strong>Problemas de ThingsBoard o del servidor:</strong></p>
+<p><strong>Compruebe la disponibilidad:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># Desde el ordenador</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">  </span>http://demo.thingsboard.io/api/v1/YOUR_TOKEN/telemetry<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">  </span>-H<span class="w"> </span><span class="s1">'Content-Type: application/json'</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">  </span>-d<span class="w"> </span><span class="s1">'{"test":123}'</span>
+</code></pre></div>
+<p><strong>Esperado:</strong> <code>{}</code> (JSON vacío = éxito).</p>
+<p><strong>Si hay tiempo agotado o error:</strong></p>
+<ul>
+<li>ThingsBoard podría estar caído (consulte su página de estado).</li>
+<li>Problema de enrutamiento.</li>
+<li>Cortafuegos que bloquea la conexión.</li>
+</ul>
+<p><strong>Solución:</strong></p>
+<ul>
+<li>Espere y vuelva a intentarlo.</li>
+<li>Use otro servidor (Cloud en lugar de Demo).</li>
+</ul>
+<hr />
+<h3 id="sintoma-3-aparecen-datos-pero-los-valores-son-incorrectos">Síntoma 3: Aparecen datos, pero los valores son incorrectos<a class="headerlink" href="#sintoma-3-aparecen-datos-pero-los-valores-son-incorrectos" title="Permanent link">&para;</a></h3>
+<p><strong>Observaciones:</strong></p>
+<ul>
+<li>ThingsBoard muestra datos.</li>
+<li>Los valores son incorrectos, nulos o ilegibles.</li>
+</ul>
+<h4 id="causa-1-error-de-formato-json">Causa 1: Error de formato JSON<a class="headerlink" href="#causa-1-error-de-formato-json" title="Permanent link">&para;</a></h4>
+<p><strong>El registrador envía:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="p">{</span><span class="nt">"distance_mm"</span><span class="p">:</span><span class="mi">1234</span><span class="p">,</span><span class="nt">"battery_V"</span><span class="p">:</span><span class="mf">3.85</span><span class="p">}</span>
+</code></pre></div></p>
+<p><strong>Las claves en ThingsBoard deben coincidir:</strong></p>
+<ul>
+<li>Distinguen mayúsculas: <code>distance_mm</code> ≠ <code>Distance_MM</code>.</li>
+<li>La ortografía importa.</li>
+</ul>
+<p><strong>Diagnóstico:</strong></p>
+<ol>
+<li>
+<p>Revise el código Arduino:
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="n">String</span><span class="w"> </span><span class="n">json</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"{</span><span class="se">\"</span><span class="s">distance_mm</span><span class="se">\"</span><span class="s">:"</span><span class="p">;</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="n">json</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">distance</span><span class="p">;</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="n">json</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="s">",</span><span class="se">\"</span><span class="s">battery_V</span><span class="se">\"</span><span class="s">:"</span><span class="p">;</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="n">json</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">voltage</span><span class="p">;</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="n">json</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="s">"}"</span><span class="p">;</span>
+</code></pre></div></p>
+</li>
+<li>
+<p>Compruebe los nombres de las claves en los widgets de ThingsBoard.</p>
+</li>
+</ol>
+<p><strong>Solución:</strong></p>
+<ul>
+<li>Corrija las claves en el código o en el panel.</li>
+<li>Mantenga una nomenclatura coherente.</li>
+</ul>
+<h4 id="causa-2-procesamiento-en-el-servidor">Causa 2: Procesamiento en el servidor<a class="headerlink" href="#causa-2-procesamiento-en-el-servidor" title="Permanent link">&para;</a></h4>
+<p><strong>ThingsBoard interpreta los tipos de datos:</strong></p>
+<p><strong>Ejemplo:</strong></p>
+<ul>
+<li>Enviado como texto: <code>"distance_mm":"1234"</code>.</li>
+<li>Se esperaba un entero: <code>"distance_mm":1234</code>.</li>
+</ul>
+<p><strong>Solución:</strong></p>
+<ul>
+<li>Elimine las comillas de los valores numéricos en el código.</li>
+<li>Compruebe que <code>String(value)</code> no añada comillas.</li>
+</ul>
+<h4 id="causa-3-marcas-de-tiempo">Causa 3: Marcas de tiempo<a class="headerlink" href="#causa-3-marcas-de-tiempo" title="Permanent link">&para;</a></h4>
+<p><strong>Si las fechas son incorrectas:</strong></p>
+<p><strong>El registrador no envía una marca:</strong></p>
+<ul>
+<li>ThingsBoard utiliza la hora del servidor (normalmente correcta).</li>
+</ul>
+<p><strong>El registrador envía una marca:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="p">{</span><span class="nt">"distance_mm"</span><span class="p">:</span><span class="mi">1234</span><span class="p">,</span><span class="nt">"ts"</span><span class="p">:</span><span class="mi">1703688000000</span><span class="p">}</span>
+</code></pre></div></p>
+<p><strong>Problema:</strong> formato de época incorrecto.</p>
+<ul>
+<li>ThingsBoard espera milisegundos.</li>
+<li>El registrador envía segundos.</li>
+</ul>
+<p><strong>Solución:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kt">long</span><span class="w"> </span><span class="n">timestamp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rtc</span><span class="p">.</span><span class="n">now</span><span class="p">().</span><span class="n">unixtime</span><span class="p">()</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">1000L</span><span class="p">;</span><span class="w"> </span><span class="c1">// Convertir a milisegundos</span>
+</code></pre></div></p>
+<hr />
+<h3 id="sintoma-4-costes-de-datos-elevados">Síntoma 4: Costes de datos elevados<a class="headerlink" href="#sintoma-4-costes-de-datos-elevados" title="Permanent link">&para;</a></h3>
+<p><strong>Observaciones:</strong></p>
+<ul>
+<li>El consumo de datos de la SIM supera lo esperado.</li>
+<li>Se agota el plan.</li>
+</ul>
+<h4 id="causa-1-transmisiones-demasiado-frecuentes">Causa 1: Transmisiones demasiado frecuentes<a class="headerlink" href="#causa-1-transmisiones-demasiado-frecuentes" title="Permanent link">&para;</a></h4>
+<p><strong>Calcule el consumo esperado:</strong></p>
+<ul>
+<li>Tamaño de una transmisión: ~500 bytes (0,5 KB).</li>
+<li>Transmisiones al día: 24 (cada hora).</li>
+<li>Consumo diario: 24 × 0,5 = 12 KB.</li>
+<li>Mensual: 12 KB × 30 = 360 KB.</li>
+</ul>
+<p><strong>Si el consumo real es mucho mayor:</strong></p>
+<ul>
+<li>Compruebe el intervalo de transmisión en el código.</li>
+<li>Verifique que no transmita cada medición.</li>
+</ul>
+<p><strong>Solución:</strong></p>
+<ul>
+<li>Aumente <code>TELEMETRY_INTERVAL</code> en el código.</li>
+<li>Equilibre la actualidad de los datos y el coste.</li>
+</ul>
+<h4 id="causa-2-reintentos-tras-fallos">Causa 2: Reintentos tras fallos<a class="headerlink" href="#causa-2-reintentos-tras-fallos" title="Permanent link">&para;</a></h4>
+<p><strong>Cada intento consume más datos:</strong></p>
+<ul>
+<li>Una transmisión fallida aún genera consumo.</li>
+<li>Reintentar duplica los datos.</li>
+<li>Muchos reintentos multiplican el coste.</li>
+</ul>
+<p><strong>Solución:</strong></p>
+<ol>
+<li>Corrija la causa principal (señal o configuración).</li>
+<li>Limite los reintentos a 3.</li>
+<li>Añada esperas crecientes entre intentos.</li>
+</ol>
+<h4 id="causa-3-datos-innecesarios-en-la-carga">Causa 3: Datos innecesarios en la carga<a class="headerlink" href="#causa-3-datos-innecesarios-en-la-carga" title="Permanent link">&para;</a></h4>
+<p><strong>Reduzca el tamaño del JSON:</strong></p>
+<p><strong>Detallado (ineficiente):</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="p">{</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">  </span><span class="nt">"sensor_distance_millimeters"</span><span class="p">:</span><span class="w"> </span><span class="mi">1234</span><span class="p">,</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">  </span><span class="nt">"battery_voltage_volts"</span><span class="p">:</span><span class="w"> </span><span class="mf">3.85</span><span class="p">,</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">  </span><span class="nt">"temperature_celsius"</span><span class="p">:</span><span class="w"> </span><span class="mf">22.5</span><span class="p">,</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="w">  </span><span class="nt">"signal_strength_dbm"</span><span class="p">:</span><span class="w"> </span><span class="mi">-85</span><span class="p">,</span>
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="w">  </span><span class="nt">"logger_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Wari-001"</span><span class="p">,</span>
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="w">  </span><span class="nt">"firmware_version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.2.3"</span>
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="p">}</span>
+</code></pre></div>
+Tamaño: ~150 bytes.</p>
+<p><strong>Compacto (eficiente):</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="p">{</span><span class="nt">"d"</span><span class="p">:</span><span class="mi">1234</span><span class="p">,</span><span class="nt">"b"</span><span class="p">:</span><span class="mf">3.85</span><span class="p">,</span><span class="nt">"t"</span><span class="p">:</span><span class="mf">22.5</span><span class="p">}</span>
+</code></pre></div>
+Tamaño: ~30 bytes.</p>
+<p><strong>¡Ahorro de datos de 5 veces!</strong></p>
+<p><strong>Equilibrio:</strong> claves compactas frente a legibilidad.</p>
+<hr />
+<h2 id="diagnostico-avanzado">Diagnóstico avanzado<a class="headerlink" href="#diagnostico-avanzado" title="Permanent link">&para;</a></h2>
+<h3 id="depuracion-con-el-monitor-serie">Depuración con el monitor serie<a class="headerlink" href="#depuracion-con-el-monitor-serie" title="Permanent link">&para;</a></h3>
+<p><strong>Active la salida de depuración en Arduino:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="cp">#define DEBUG 1</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="cp">#if DEBUG</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="w">  </span><span class="cp">#define DEBUG_PRINT(x) Serial.print(x)</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="w">  </span><span class="cp">#define DEBUG_PRINTLN(x) Serial.println(x)</span>
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="cp">#else</span>
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="w">  </span><span class="cp">#define DEBUG_PRINT(x)</span>
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="w">  </span><span class="cp">#define DEBUG_PRINTLN(x)</span>
+<a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a><span class="cp">#endif</span>
+</code></pre></div>
+<p><strong>Salida esperada:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>[INIT] Starting Riverlabs Logger v2.1
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>[INIT] RTC initialized
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>[INIT] SD card OK
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>[INIT] XBee initializing...
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>[XBEE] Baud: 9600, API Mode
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>[XBEE] Waiting for network...
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>[XBEE] Network registered (30s)
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>[XBEE] RSSI: -85 dBm
+<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>[XBEE] IP: 10.123.45.67
+<a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a>[SENSOR] Distance: 1234 mm, Temp: 22.5 C
+<a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a>[DATA] JSON: {"distance_mm":1234,"battery_V":3.85}
+<a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a>[XBEE] Sending to ThingsBoard...
+<a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a>[XBEE] HTTP POST: 200 OK
+<a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a>[XBEE] Transmission successful (8.5s)
+<a id="__codelineno-13-15" name="__codelineno-13-15" href="#__codelineno-13-15"></a>[POWER] Entering sleep mode
+</code></pre></div></p>
+<p><strong>Indicadores clave:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Mensaje</th>
+<th>Significado</th>
+<th>Si falta</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>XBee initializing...</code></td>
+<td>Funciona la comunicación serie</td>
+<td>Revise las conexiones</td>
+</tr>
+<tr>
+<td><code>Network registered</code></td>
+<td>Conectado a la red celular</td>
+<td>Revise SIM, APN y señal</td>
+</tr>
+<tr>
+<td><code>RSSI: -XX dBm</code></td>
+<td>Se conoce la intensidad de señal</td>
+<td>Problema de comunicación XBee</td>
+</tr>
+<tr>
+<td><code>HTTP POST: 200 OK</code></td>
+<td>El servidor recibió datos</td>
+<td>Revise URL y token</td>
+</tr>
+</tbody>
+</table>
+<h3 id="diagnostico-de-red-en-xbee-studio">Diagnóstico de red en XBee Studio<a class="headerlink" href="#diagnostico-de-red-en-xbee-studio" title="Permanent link">&para;</a></h3>
+<p><strong>1. Conecte el XBee a XBee Studio.</strong></p>
+<p><strong>2. Abra la pestaña "Cellular Network".</strong></p>
+<p><strong>3. Consulte el estado:</strong></p>
+<ul>
+<li>
+<p><strong>Registro:</strong></p>
+<ul>
+<li>No registrado: sin red.</li>
+<li>Registrado (red propia): correcto.</li>
+<li>Registrado (itinerancia): podría funcionar (revise el plan de SIM).</li>
+<li>Buscando: aún no la encuentra.</li>
+</ul>
+</li>
+<li>
+<p><strong>Señal:</strong></p>
+<ul>
+<li>Valor numérico RSSI.</li>
+<li>Barras de calidad (0–5).</li>
+</ul>
+</li>
+<li>
+<p><strong>Dirección IP:</strong></p>
+<ul>
+<li>Asignada: conectado a la red.</li>
+<li>Vacía: DHCP fallido o sin registro.</li>
+</ul>
+</li>
+<li>
+<p><strong>Consumo de datos:</strong></p>
+<ul>
+<li>Algunos módulos lo registran.</li>
+<li>Compárelo con el plan de SIM.</li>
+</ul>
+</li>
+</ul>
+<p><strong>4. Prueba de conexión:</strong></p>
+<ul>
+<li>Haga clic en "Ping" o "Test Connection".</li>
+<li>Enviará una prueba al servidor de Digi.</li>
+<li>Verificará la conexión completa.</li>
+</ul>
+<p><strong>5. Comandos de diagnóstico (avanzado):</strong></p>
+<p>Terminal de XBee Studio:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>AI      // Indicación de asociación (0 = conectado)
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>DB      // Intensidad de señal
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>CI      // Estado del protocolo
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>MY      // Dirección IP
+</code></pre></div></p>
+<h3 id="captura-de-paquetes">Captura de paquetes<a class="headerlink" href="#captura-de-paquetes" title="Permanent link">&para;</a></h3>
+<p><strong>Para depuración avanzada:</strong></p>
+<p><strong>1. Instale Wireshark</strong> en el ordenador.</p>
+<p><strong>2. Capture el tráfico HTTP:</strong></p>
+<ul>
+<li>Conecte el XBee al ordenador.</li>
+<li>Ejecute el código del registrador.</li>
+<li>Wireshark captura el tráfico HTTP saliente.</li>
+</ul>
+<p><strong>3. Inspeccione los paquetes:</strong></p>
+<ul>
+<li>Detalles de la petición POST.</li>
+<li>Cabeceras.</li>
+<li>Carga útil.</li>
+<li>Respuesta del servidor.</li>
+</ul>
+<p><strong>Útil para:</strong>
+- Comprobar el formato JSON.
+- Revisar las cabeceras de autenticación.
+- Ver los errores reales del servidor.</p>
+<hr />
+<h2 id="referencia-de-codigos-de-error">Referencia de códigos de error<a class="headerlink" href="#referencia-de-codigos-de-error" title="Permanent link">&para;</a></h2>
+<h3 id="codigos-de-error-del-xbee">Códigos de error del XBee<a class="headerlink" href="#codigos-de-error-del-xbee" title="Permanent link">&para;</a></h3>
+<p><strong>Parámetro AI (indicación de asociación):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Código</th>
+<th>Significado</th>
+<th>Acción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0x00</td>
+<td>Conectado</td>
+<td>Correcto</td>
+</tr>
+<tr>
+<td>0x22</td>
+<td>Registrándose en la red</td>
+<td>Espere</td>
+</tr>
+<tr>
+<td>0x23</td>
+<td>Conectándose a internet</td>
+<td>Espere</td>
+</tr>
+<tr>
+<td>0x24</td>
+<td>Modo de derivación activo</td>
+<td>Revise la configuración</td>
+</tr>
+<tr>
+<td>0x25</td>
+<td>Inicializándose</td>
+<td>Espere o reinicie eléctricamente</td>
+</tr>
+<tr>
+<td>0x2A</td>
+<td>Modo avión</td>
+<td>Desactive el modo avión</td>
+</tr>
+<tr>
+<td>0x2F</td>
+<td>Apagado</td>
+<td>Revise SM</td>
+</tr>
+</tbody>
+</table>
+<h3 id="codigos-de-respuesta-http">Códigos de respuesta HTTP<a class="headerlink" href="#codigos-de-respuesta-http" title="Permanent link">&para;</a></h3>
+<p><strong>De ThingsBoard o del servidor:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Código</th>
+<th>Significado</th>
+<th>Solución</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td>Correcto</td>
+<td>Ninguna</td>
+</tr>
+<tr>
+<td>400</td>
+<td>Petición incorrecta</td>
+<td>Compruebe el JSON</td>
+</tr>
+<tr>
+<td>401</td>
+<td>No autorizado</td>
+<td>Compruebe el token</td>
+</tr>
+<tr>
+<td>404</td>
+<td>No encontrado</td>
+<td>Revise la URL</td>
+</tr>
+<tr>
+<td>429</td>
+<td>Demasiadas peticiones</td>
+<td>Reduzca la frecuencia</td>
+</tr>
+<tr>
+<td>500</td>
+<td>Error del servidor</td>
+<td>Espere a ThingsBoard</td>
+</tr>
+<tr>
+<td>503</td>
+<td>Servicio no disponible</td>
+<td>Espere a que vuelva el servidor</td>
+</tr>
+</tbody>
+</table>
+<h3 id="errores-de-la-biblioteca-xbee-arduino">Errores de la biblioteca XBee Arduino<a class="headerlink" href="#errores-de-la-biblioteca-xbee-arduino" title="Permanent link">&para;</a></h3>
+<p><strong>Si usa la biblioteca XBee Arduino:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Error</th>
+<th>Significado</th>
+<th>Solución</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>XBEE_TIMEOUT</td>
+<td>No hay respuesta</td>
+<td>Revise conexiones y velocidad en baudios</td>
+</tr>
+<tr>
+<td>XBEE_INVALID_RESPONSE</td>
+<td>Datos dañados</td>
+<td>Compruebe el modo API (debe ser 2)</td>
+</tr>
+<tr>
+<td>XBEE_TX_FAILURE</td>
+<td>Fallo de transmisión</td>
+<td>Problema de red</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="mantenimiento-preventivo">Mantenimiento preventivo<a class="headerlink" href="#mantenimiento-preventivo" title="Permanent link">&para;</a></h2>
+<h3 id="comprobaciones-periodicas">Comprobaciones periódicas<a class="headerlink" href="#comprobaciones-periodicas" title="Permanent link">&para;</a></h3>
+<p><strong>Cada semana:</strong></p>
+<ul>
+<li>Revise la tendencia de tensión de la batería.</li>
+<li>Compruebe que más del 90 % de transmisiones tengan éxito.</li>
+<li>Revise que la intensidad de señal sea estable.</li>
+</ul>
+<p><strong>Cada mes:</strong></p>
+<ul>
+<li>Compare el consumo de la SIM con el plan.</li>
+<li>Inspeccione el XBee (corrosión, etc.).</li>
+<li>Compruebe si el firmware está actualizado.</li>
+</ul>
+<p><strong>Cada trimestre:</strong></p>
+<ul>
+<li>Pruebe la recogida y reconfiguración del registrador.</li>
+<li>Limpie las conexiones de la antena.</li>
+<li>Revise y actualice las rutas del servidor si hace falta.</li>
+</ul>
+<h3 id="optimizacion">Optimización<a class="headerlink" href="#optimizacion" title="Permanent link">&para;</a></h3>
+<p><strong>Para maximizar la fiabilidad:</strong></p>
+<ol>
+<li>
+<p><strong>Señal:</strong></p>
+<ul>
+<li>Use una antena externa en zonas de cobertura marginal.</li>
+<li>Eleve el registrador si es posible.</li>
+</ul>
+</li>
+<li>
+<p><strong>Alimentación:</strong></p>
+<ul>
+<li>Dimensione la batería para el doble de las transmisiones previstas.</li>
+<li>Vigile la tensión y sustitúyala antes de que se agote.</li>
+</ul>
+</li>
+<li>
+<p><strong>Intervalo de transmisión:</strong></p>
+<ul>
+<li>Equilibre actualidad y autonomía.</li>
+<li>Transmita más durante eventos y menos en condiciones estables.</li>
+</ul>
+</li>
+<li>
+<p><strong>Reintentos:</strong></p>
+<ul>
+<li>Máximo de 3.</li>
+<li>Esperas crecientes (5 s, 30 s, 60 s).</li>
+<li>Registre los fallos en la tarjeta SD.</li>
+</ul>
+</li>
+<li>
+<p><strong>Supervisión:</strong></p>
+<ul>
+<li>Configure alertas en ThingsBoard.</li>
+<li>Correo si no llegan datos durante el doble del intervalo esperado.</li>
+<li>Correo si la batería baja de 3,5 V.</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h2 id="escalado-del-problema">Escalado del problema<a class="headerlink" href="#escalado-del-problema" title="Permanent link">&para;</a></h2>
+<h3 id="cuando-contactar-con-soporte">Cuándo contactar con soporte<a class="headerlink" href="#cuando-contactar-con-soporte" title="Permanent link">&para;</a></h3>
+<p><strong>Si, después de todas las comprobaciones:</strong>
+- Sigue sin haber conexión.
+- Los fallos son constantes.
+- El comportamiento no tiene explicación.</p>
+<p><strong>Reúna esta información antes de contactar:</strong></p>
+<ol>
+<li>
+<p><strong>Datos del registrador:</strong></p>
+<ul>
+<li>Modelo (Wari, Lidar).</li>
+<li>Versión del firmware.</li>
+<li>ID del registrador.</li>
+</ul>
+</li>
+<li>
+<p><strong>Datos del XBee:</strong></p>
+<ul>
+<li>Modelo (XB3-C-A2-XX-001).</li>
+<li>Versión del firmware.</li>
+<li>Configuración (exporte el perfil).</li>
+</ul>
+</li>
+<li>
+<p><strong>SIM/operador:</strong></p>
+<ul>
+<li>Nombre del operador.</li>
+<li>Detalles del plan.</li>
+<li>APN.</li>
+</ul>
+</li>
+<li>
+<p><strong>Síntomas:</strong></p>
+<ul>
+<li>Mensajes de error concretos.</li>
+<li>Registros del monitor serie.</li>
+<li>Capturas de ThingsBoard.</li>
+</ul>
+</li>
+<li>
+<p><strong>Diagnóstico realizado:</strong></p>
+<ul>
+<li>Pruebas efectuadas.</li>
+<li>Resultados.</li>
+</ul>
+</li>
+</ol>
+<h3 id="recursos-de-soporte">Recursos de soporte<a class="headerlink" href="#recursos-de-soporte" title="Permanent link">&para;</a></h3>
+<p><strong>Riverlabs/ICHydro:</strong></p>
+<ul>
+<li>Incidencias GitHub: https://github.com/ICHydro/Riverlabs/issues</li>
+<li>Correo: si el proyecto lo facilita.</li>
+</ul>
+<p><strong>Soporte Digi (XBee):</strong></p>
+<ul>
+<li>Foros: https://www.digi.com/support/forum</li>
+<li>Soporte técnico: para problemas específicos de XBee.</li>
+</ul>
+<p><strong>ThingsBoard:</strong></p>
+<ul>
+<li>Comunidad: https://groups.google.com/forum/#!forum/thingsboard</li>
+<li>Soporte profesional: planes de pago.</li>
+</ul>
+<p><strong>Operador de la SIM:</strong></p>
+<ul>
+<li>Consulte a su proveedor por problemas de red.</li>
+</ul>
+<hr />
+<h2 id="casos-practicos">Casos prácticos<a class="headerlink" href="#casos-practicos" title="Permanent link">&para;</a></h2>
+<h3 id="caso-1-fallos-intermitentes-durante-la-noche">Caso 1: Fallos intermitentes durante la noche<a class="headerlink" href="#caso-1-fallos-intermitentes-durante-la-noche" title="Permanent link">&para;</a></h3>
+<p><strong>Síntomas:</strong></p>
+<ul>
+<li>Las transmisiones funcionan de día (8:00–18:00).</li>
+<li>Fallan de noche (18:00–8:00).</li>
+</ul>
+<p><strong>Investigación:</strong></p>
+<ul>
+<li>Señal igual de día y de noche.</li>
+<li>Batería suficiente.</li>
+<li>100 % de éxito durante el día, 0 % de noche.</li>
+</ul>
+<p><strong>Causa:</strong></p>
+<ul>
+<li>Cambio de antena del operador.</li>
+<li>La antena nocturna tenía otra configuración.</li>
+</ul>
+<p><strong>Solución:</strong></p>
+<ul>
+<li>Se contactó con el operador.</li>
+<li>Se actualizó la configuración de la antena.</li>
+<li>Éxito superior al 95 % a cualquier hora.</li>
+</ul>
+<h3 id="caso-2-llegan-datos-pero-con-fechas-incorrectas">Caso 2: Llegan datos, pero con fechas incorrectas<a class="headerlink" href="#caso-2-llegan-datos-pero-con-fechas-incorrectas" title="Permanent link">&para;</a></h3>
+<p><strong>Síntomas:</strong></p>
+<ul>
+<li>ThingsBoard recibe los datos.</li>
+<li>Las marcas de tiempo indican 1970 (época cero).</li>
+</ul>
+<p><strong>Causa:</strong></p>
+<ul>
+<li>No se ajustó el RTC del registrador.</li>
+<li>Envía timestamp:0.</li>
+</ul>
+<p><strong>Solución:</strong></p>
+<ul>
+<li>Ajustar el RTC con <code>set_clock</code>.</li>
+<li>O eliminar la marca de tiempo de la carga (ThingsBoard usará la hora del servidor).</li>
+</ul>
+<h3 id="caso-3-descarga-rapida-de-la-bateria">Caso 3: Descarga rápida de la batería<a class="headerlink" href="#caso-3-descarga-rapida-de-la-bateria" title="Permanent link">&para;</a></h3>
+<p><strong>Síntomas:</strong></p>
+<ul>
+<li>La batería dura 5 días en lugar de los 30 previstos.</li>
+<li>La telemetría funciona.</li>
+</ul>
+<p><strong>Investigación:</strong></p>
+<ul>
+<li>Transmite cada medición (demasiado frecuente).</li>
+<li>El XBee no entra correctamente en suspensión.</li>
+</ul>
+<p><strong>Causa:</strong></p>
+<ul>
+<li>Modo de suspensión mal configurado.</li>
+<li>SM no estaba en suspensión por pin.</li>
+</ul>
+<p><strong>Solución:</strong></p>
+<ul>
+<li>Configurar XBee: SM=1 (suspensión por pin).</li>
+<li>Aumentar TELEMETRY_INTERVAL a 12 (una transmisión cada 12 mediciones).</li>
+<li>Ahora la batería dura 35 días.</li>
+</ul>
+<hr />
+<h2 id="referencia-rapida-diagrama-de-diagnostico">Referencia rápida: diagrama de diagnóstico<a class="headerlink" href="#referencia-rapida-diagrama-de-diagnostico" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>¿El registrador no transmite?
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>├─ ¿Alimentación &gt;3,3 V? ──No──&gt; Sustituir batería
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>│   └─Sí
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>├─ ¿XBee bien encajado? ──No──&gt; Volver a insertarlo
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>│   └─Sí
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>├─ ¿SIM activa? ──No──&gt; Consultar al operador
+<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>│   └─Sí
+<a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>├─ ¿Señal &gt;-105 dBm? ──No──&gt; Cambiar de lugar o usar antena externa
+<a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a>│   └─Sí
+<a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a>├─ ¿Modo API = 2? ──No──&gt; Reconfigurar XBee (¡crítico!)
+<a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a>│   └─Sí
+<a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a>├─ ¿APN correcto? ──No──&gt; Consultar al operador y reconfigurar
+<a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a>│   └─Sí
+<a id="__codelineno-15-14" name="__codelineno-15-14" href="#__codelineno-15-14"></a>├─ ¿Registrado en la red? ──No──&gt; Probar NT=0/1 y comprobar SIM
+<a id="__codelineno-15-15" name="__codelineno-15-15" href="#__codelineno-15-15"></a>│   └─Sí
+<a id="__codelineno-15-16" name="__codelineno-15-16" href="#__codelineno-15-16"></a>├─ ¿URL del servidor correcta? ──No──&gt; Corregir código Arduino
+<a id="__codelineno-15-17" name="__codelineno-15-17" href="#__codelineno-15-17"></a>│   └─Sí
+<a id="__codelineno-15-18" name="__codelineno-15-18" href="#__codelineno-15-18"></a>├─ ¿Token válido? ──No──&gt; Obtener otro y actualizar código
+<a id="__codelineno-15-19" name="__codelineno-15-19" href="#__codelineno-15-19"></a>│   └─Sí
+<a id="__codelineno-15-20" name="__codelineno-15-20" href="#__codelineno-15-20"></a>└─ Contactar con soporte y enviar el registro de diagnóstico
+</code></pre></div>
+<hr />
+<h2 id="siguientes-pasos">Siguientes pasos<a class="headerlink" href="#siguientes-pasos" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../setup-guide/">Guía de configuración de telemetría</a>: visión general</li>
+<li><a href="../xbee-setup-walkthrough/">Guía paso a paso de XBee</a>: configuración detallada</li>
+<li><a href="../thingsboard-configuration/">Configuración de ThingsBoard</a>: preparar el panel</li>
+<li><a href="../../operation/hardware/battery-power-guide/">Guía de baterías y alimentación</a>: optimizar el consumo</li>
+</ul>
+<hr />
+<div class="admonition tip">
+<p class="admonition-title">El método sistemático funciona</p>
+<p>La mayoría de los problemas de telemetría se deben a un APN incorrecto, señal insuficiente o errores de configuración. Siga los pasos en orden para encontrar la causa.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Volver al principio
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Riverlabs Ltd
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/ICHydro" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.sections", "navigation.indexes", "navigation.expand", "navigation.top", "search.suggest", "search.highlight", "content.code.copy", "content.action.edit", "content.action.view"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+        <script src="../../assets/javascripts/extra.js"></script>
+      
+    
+  </body>
+</html>

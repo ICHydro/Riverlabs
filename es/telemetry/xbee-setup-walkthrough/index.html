@@ -1,0 +1,2761 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation for the Riverlabs suite of environmental sensors">
+      
+      
+        <meta name="author" content="Riverlabs Ltd">
+      
+      
+        <link rel="canonical" href="https://ichydro.github.io/Riverlabs/telemetry/xbee-setup-walkthrough/">
+      
+      
+      
+      
+        
+          <link rel="alternate" href="/Riverlabs/en/" hreflang="en">
+        
+          <link rel="alternate" href="/Riverlabs/es/" hreflang="es">
+        
+      
+      
+      <link rel="icon" href="../../assets/images/riverlabs_icon.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+    
+    
+      
+        <title>Guía paso a paso para configurar XBee - Riverlabs Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="light-blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#guia-paso-a-paso-para-configurar-xbee" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="../.." title="Riverlabs Documentation" class="md-header__button md-logo" aria-label="Riverlabs Documentation" data-md-component="logo">
+      
+  <img src="../../assets/images/riverlabs_white_mono.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Riverlabs Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Guía paso a paso para configurar XBee
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="light-blue"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="light-blue"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Seleccionar idioma">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="/Riverlabs/en/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="/Riverlabs/es/" hreflang="es" class="md-select__link">
+              Español
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/ICHydro/Riverlabs" title="Ir al repositorio" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ichydro/Riverlabs
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Pestañas" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../operation/quick-start/quick-start/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Operación
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../installation/sensor-positioning/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Instalación
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../programming/intro/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Programación
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Riverlabs Documentation" class="md-nav__button md-logo" aria-label="Riverlabs Documentation" data-md-component="logo">
+      
+  <img src="../../assets/images/riverlabs_white_mono.svg" alt="logo">
+
+    </a>
+    Riverlabs Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ICHydro/Riverlabs" title="Ir al repositorio" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ichydro/Riverlabs
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operación
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Operación
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_1" id="__nav_1_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio Rápido
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Inicio Rápido
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../operation/quick-start/quick-start/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guía de Inicio Rápido
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../operation/quick-start/data-download/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Descarga de Datos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../operation/quick-start/arduino-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuración de Arduino
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../operation/quick-start/first-deployment-checklist/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lista de Verificación para la Primera Implementación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_2" id="__nav_1_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hardware
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Hardware
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../operation/hardware/technical-specifications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Especificaciones Técnicas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../operation/hardware/battery-power-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guía de Baterías y Alimentación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../operation/hardware/maintenance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mantenimiento
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../operation/hardware/data-handling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gestión de Datos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_3" id="__nav_1_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Solución de Problemas
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Solución de Problemas
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../operation/troubleshooting/diagnostic-flowcharts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Diagramas de Flujo de Diagnóstico
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Instalación
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Instalación
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/sensor-positioning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Posicionamiento del Sensor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/mounting-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guía de Montaje
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/environmental-considerations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Consideraciones Ambientales
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Programación
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Programación
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introducción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/arduino-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuración de Arduino
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/uploading-code/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cargando Código
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#requisitos-previos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Requisitos previos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-1-instalacion-de-xbee-studio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parte 1: Instalación de XBee Studio
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Parte 1: Instalación de XBee Studio">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#descarga-e-instalacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Descarga e instalación
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comprobar-la-instalacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comprobar la instalación
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-2-conexion-del-hardware" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parte 2: Conexión del hardware
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Parte 2: Conexión del hardware">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#preparacion-fisica" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Preparación física
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verificacion-de-controladores" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verificación de controladores
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-3-anadir-el-xbee-a-xbee-studio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parte 3: Añadir el XBee a XBee Studio
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Parte 3: Añadir el XBee a XBee Studio">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#paso-1-anadir-un-dispositivo-nuevo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 1: Añadir un dispositivo nuevo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paso-2-seleccionar-la-conexion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 2: Seleccionar la conexión
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paso-3-primera-lectura" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 3: Primera lectura
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-4-pestanas-de-configuracion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parte 4: Pestañas de configuración
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Parte 4: Pestañas de configuración">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#interfaz-principal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interfaz principal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recorrer-la-configuracion-de-la-radio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recorrer la configuración de la radio
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-5-configuracion-imprescindible" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parte 5: Configuración imprescindible
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Parte 5: Configuración imprescindible">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#resumen-de-los-ajustes-necesarios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resumen de los ajustes necesarios
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#seccion-1-interfaz-serie" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sección 1: Interfaz serie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#seccion-2-red" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sección 2: Red
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#seccion-3-modo-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sección 3: Modo API
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#seccion-4-modo-de-suspension" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sección 4: Modo de suspensión
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#seccion-5-otros-ajustes-opcionales-pero-recomendados" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sección 5: Otros ajustes (opcionales, pero recomendados)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-6-guardar-la-configuracion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parte 6: Guardar la configuración
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Parte 6: Guardar la configuración">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#escritura-en-bloque" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Escritura en bloque
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#perfil-de-ajustes-opcional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Perfil de ajustes (opcional)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-7-prueba-de-conexion-a-la-red" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parte 7: Prueba de conexión a la red
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Parte 7: Prueba de conexión a la red">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#panel-cellular-network" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Panel Cellular Network
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problemas-de-conexion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problemas de conexión
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-8-prueba-de-transmision-de-datos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parte 8: Prueba de transmisión de datos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Parte 8: Prueba de transmisión de datos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pestana-terminal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pestaña Terminal
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-9-finalizar-la-configuracion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parte 9: Finalizar la configuración
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Parte 9: Finalizar la configuración">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prueba-de-reinicio-electrico" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prueba de reinicio eléctrico
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etiquetar-el-modulo-xbee" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Etiquetar el módulo XBee
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#instalacion-en-el-registrador" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Instalación en el registrador
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-10-solucion-de-problemas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parte 10: Solución de problemas
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Parte 10: Solución de problemas">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#xbee-studio-no-detecta-el-modulo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        XBee Studio no detecta el módulo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#no-se-guardan-los-ajustes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        No se guardan los ajustes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#intensidad-de-senal-deficiente" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intensidad de señal deficiente
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#actualizacion-del-firmware" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Actualización del firmware
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#siguientes-pasos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Siguientes pasos
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/ICHydro/Riverlabs/edit/main/telemetry/xbee-setup-walkthrough.md" title="Editar esta página" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+    
+      
+    
+    <a href="https://github.com/ICHydro/Riverlabs/raw/main/telemetry/xbee-setup-walkthrough.md" title="Ver código fuente de esta página" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
+    </a>
+  
+
+
+<h1 id="guia-paso-a-paso-para-configurar-xbee">Guía paso a paso para configurar XBee<a class="headerlink" href="#guia-paso-a-paso-para-configurar-xbee" title="Permanent link">&para;</a></h1>
+<div class="admonition abstract">
+<p class="admonition-title">Descripción general</p>
+<p>Esta guía visual explica paso a paso cómo configurar módulos Digi XBee Cellular para los registradores Riverlabs. Incluye XBee Studio (recomendado) y XCTU (anterior).</p>
+<p><strong>Compatibilidad:</strong> XBee 3G, XBee Cellular LTE-M/NB-IoT y XBee3 Cellular</p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">Herramientas de configuración</p>
+<p>La mayor parte de la configuración del XBee se realiza directamente en el código Arduino. Sin embargo, algunos parámetros deben ajustarse manualmente para que el registrador y el XBee puedan comunicarse:</p>
+<ul>
+<li><strong>Ajustes de la interfaz serie</strong> (velocidad en baudios, paridad y tiempos de espera)</li>
+<li><strong>Modo de suspensión</strong> (control mediante pin)</li>
+<li><strong>Modo API</strong> (con caracteres de escape)</li>
+</ul>
+<p>Puede utilizar cualquiera de estas herramientas:</p>
+<ul>
+<li><strong>XBee Studio</strong> (recomendado): interfaz moderna, más adecuada para XBee3</li>
+<li><strong>XCTU</strong>: herramienta anterior, compatible con todos los modelos XBee, incluidos los módulos 3G</li>
+</ul>
+<p>Ambas se descargan gratuitamente del <a href="https://www.digi.com/products/embedded-systems/digi-xbee/digi-xbee-tools">sitio web de Digi</a>.</p>
+</div>
+<h2 id="requisitos-previos">Requisitos previos<a class="headerlink" href="#requisitos-previos" title="Permanent link">&para;</a></h2>
+<p>Antes de empezar, compruebe que dispone de:</p>
+<ul>
+<li><strong>Módulo XBee Cellular</strong> (3G, LTE-M o NB-IoT)</li>
+<li><strong>Tarjeta SIM activa</strong> (insertada en el XBee)</li>
+<li><strong>Adaptador USB</strong> para el XBee (placa XBee Grove o similar)</li>
+<li><strong>Ordenador</strong> (Windows, macOS o Linux)</li>
+<li><strong>XBee Studio</strong> o <strong>XCTU</strong> instalado</li>
+<li><strong>Datos del APN</strong> del operador de la SIM</li>
+</ul>
+<hr />
+<h2 id="parte-1-instalacion-de-xbee-studio">Parte 1: Instalación de XBee Studio<a class="headerlink" href="#parte-1-instalacion-de-xbee-studio" title="Permanent link">&para;</a></h2>
+<h3 id="descarga-e-instalacion">Descarga e instalación<a class="headerlink" href="#descarga-e-instalacion" title="Permanent link">&para;</a></h3>
+<p><strong>1. Vaya al sitio web de Digi:</strong></p>
+<ul>
+<li>URL: https://www.digi.com/products/embedded-systems/digi-xbee/digi-xbee-tools/xbee-studio</li>
+<li>O busque "XBee Studio download".</li>
+</ul>
+<p><strong>2. Seleccione su plataforma:</strong></p>
+<ul>
+<li>Windows (64 bits)</li>
+<li>macOS</li>
+<li>Linux</li>
+</ul>
+<p><strong>3. Descargue el instalador.</strong></p>
+<p><strong>4. Instale el programa:</strong></p>
+<p><strong>Windows:</strong></p>
+<ul>
+<li>Ejecute el instalador .exe.</li>
+<li>Acepte la licencia.</li>
+<li>Elija la carpeta de instalación.</li>
+<li>Instale los controladores cuando se le solicite.</li>
+<li>Finalice la instalación.</li>
+</ul>
+<p><strong>macOS:</strong></p>
+<ul>
+<li>Abra el archivo .dmg.</li>
+<li>Arrastre XBee Studio a Aplicaciones.</li>
+<li>En el primer inicio: clic derecho &gt; Abrir (para superar Gatekeeper).</li>
+<li>Los controladores se instalan automáticamente (quizá deba reiniciar).</li>
+</ul>
+<p><strong>Linux:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Extraer el archivo</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>tar<span class="w"> </span>-xzf<span class="w"> </span>XBeeStudio-linux-x64.tar.gz
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1"># Ejecutar el instalador o la AppImage</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>./XBeeStudio.AppImage
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="c1"># Controladores (si hacen falta)</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>libusb-1.0-0
+</code></pre></div></p>
+<h3 id="comprobar-la-instalacion">Comprobar la instalación<a class="headerlink" href="#comprobar-la-instalacion" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Abra XBee Studio.</li>
+<li>Compruebe que aparece la pantalla de bienvenida.</li>
+<li>Consulte la versión (Help &gt; About): para XBee3 Cellular debería ser 1.4.0 o posterior.</li>
+</ol>
+<hr />
+<h2 id="parte-2-conexion-del-hardware">Parte 2: Conexión del hardware<a class="headerlink" href="#parte-2-conexion-del-hardware" title="Permanent link">&para;</a></h2>
+<h3 id="preparacion-fisica">Preparación física<a class="headerlink" href="#preparacion-fisica" title="Permanent link">&para;</a></h3>
+<p><strong>1. Inserte la SIM (si aún no lo ha hecho):</strong></p>
+<div class="admonition warning">
+<p class="admonition-title">Desconecte primero la alimentación</p>
+<p>¡El XBee NO debe estar conectado a la alimentación ni al USB cuando inserte o retire la SIM!</p>
+</div>
+<ul>
+<li>Localice la ranura SIM (parte inferior del XBee).</li>
+<li>Observe la orientación indicada en el módulo.</li>
+<li>Inserte la micro-SIM (tamaño 3FF).</li>
+<li>Presione hasta que encaje y quede al ras.</li>
+<li>Compruebe que esté bien asentada.</li>
+</ul>
+<p><strong>2. Monte el XBee en el adaptador USB:</strong></p>
+<ul>
+<li>Alinee cuidadosamente los pines.</li>
+<li>Presione con firmeza hasta asentarlo.</li>
+<li>Todos los pines deben encajar.</li>
+<li>El módulo debe quedar plano sobre el adaptador.</li>
+</ul>
+<p><strong>3. Conecte el cable USB:</strong></p>
+<ul>
+<li>Conecte el adaptador al puerto USB del ordenador.</li>
+<li>Espere a que se reconozca el controlador.</li>
+</ul>
+<h3 id="verificacion-de-controladores">Verificación de controladores<a class="headerlink" href="#verificacion-de-controladores" title="Permanent link">&para;</a></h3>
+<p><strong>Windows:</strong></p>
+<ol>
+<li>Abra el Administrador de dispositivos (Win+X &gt; Administrador de dispositivos).</li>
+<li>Despliegue "Ports (COM &amp; LPT)".</li>
+<li>Busque "USB Serial Port (COMx)" y anote el número COM.</li>
+<li>Si aparece "Unknown Device", reinstale XBee Studio (incluye controladores).</li>
+</ol>
+<p><strong>macOS:</strong></p>
+<ol>
+<li>Abra Terminal.</li>
+<li>Enumere los dispositivos:
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>ls<span class="w"> </span>/dev/tty.*
+</code></pre></div></li>
+<li>Busque <code>/dev/tty.usbserial-XXXXXXXX</code>.</li>
+</ol>
+<p><strong>Linux:</strong></p>
+<ol>
+<li>Compruebe el dispositivo:
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>ls<span class="w"> </span>/dev/ttyUSB*
+</code></pre></div></li>
+<li>Añada su usuario al grupo dialout si no tiene permisos:
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>sudo<span class="w"> </span>usermod<span class="w"> </span>-a<span class="w"> </span>-G<span class="w"> </span>dialout<span class="w"> </span><span class="nv">$USER</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="c1"># Cerrar sesión y volver a iniciarla</span>
+</code></pre></div></li>
+</ol>
+<hr />
+<h2 id="parte-3-anadir-el-xbee-a-xbee-studio">Parte 3: Añadir el XBee a XBee Studio<a class="headerlink" href="#parte-3-anadir-el-xbee-a-xbee-studio" title="Permanent link">&para;</a></h2>
+<h3 id="paso-1-anadir-un-dispositivo-nuevo">Paso 1: Añadir un dispositivo nuevo<a class="headerlink" href="#paso-1-anadir-un-dispositivo-nuevo" title="Permanent link">&para;</a></h3>
+<p><strong>1. Abra XBee Studio.</strong></p>
+<p><strong>2. Ventana principal:</strong></p>
+<ul>
+<li>Panel izquierdo: "Devices" (vacío al principio).</li>
+<li>Centro: indicaciones "Get Started".</li>
+<li>Derecha: paneles informativos.</li>
+</ul>
+<p><strong>3. Haga clic en "+ Add Device"</strong> (arriba a la izquierda o en el centro).</p>
+<p><strong>4. Aparecerá el cuadro de conexión.</strong></p>
+<h3 id="paso-2-seleccionar-la-conexion">Paso 2: Seleccionar la conexión<a class="headerlink" href="#paso-2-seleccionar-la-conexion" title="Permanent link">&para;</a></h3>
+<p><strong>En el cuadro "Add Radio":</strong></p>
+<p><strong>Tipo de conexión:</strong></p>
+<ul>
+<li>Seleccione <strong>"USB"</strong> (predeterminado).</li>
+</ul>
+<p><strong>Puerto:</strong></p>
+<ul>
+<li>Windows: seleccione <strong>"COM3"</strong> (o el puerto COM que indique el Administrador de dispositivos).</li>
+<li>macOS/Linux: seleccione <strong>/dev/ttyUSB0</strong> (o el dispositivo correspondiente).</li>
+</ul>
+<p><strong>Velocidad en baudios:</strong></p>
+<ul>
+<li>Deje <strong>"9600"</strong> (o "Auto" si está disponible).</li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">¿No aparece el puerto?</p>
+<ul>
+<li>Haga clic en "Refresh".</li>
+<li>Compruebe que el cable USB transmite datos y no solo carga.</li>
+<li>Verifique que los controladores estén instalados.</li>
+<li>Pruebe otro puerto USB.</li>
+</ul>
+</div>
+<p><strong>5. Haga clic en "Add Selected".</strong></p>
+<h3 id="paso-3-primera-lectura">Paso 3: Primera lectura<a class="headerlink" href="#paso-3-primera-lectura" title="Permanent link">&para;</a></h3>
+<p><strong>XBee Studio:</strong></p>
+<ul>
+<li>Se conecta al XBee.</li>
+<li>Lee la versión del firmware.</li>
+<li>Lee la configuración actual.</li>
+<li>Muestra información del módulo.</li>
+</ul>
+<p><strong>Debería ver:</strong></p>
+<ul>
+<li>El dispositivo en el panel izquierdo.</li>
+<li>Datos del módulo (centro):<ul>
+<li>Modelo: XB3-C-A2-UT-001 (o similar).</li>
+<li>Firmware: Cellular (p. ej., 11415).</li>
+<li>Versión de hardware: 1E (o la actual).</li>
+</ul>
+</li>
+<li>Pestañas de configuración.</li>
+</ul>
+<p><strong>Si falla la conexión:</strong></p>
+<ul>
+<li>Revise el puerto COM elegido.</li>
+<li>Compruebe la velocidad (pruebe Auto o 9600).</li>
+<li>Verifique que el XBee esté bien encajado.</li>
+<li>Consulte la sección de solución de problemas.</li>
+</ul>
+<hr />
+<h2 id="parte-4-pestanas-de-configuracion">Parte 4: Pestañas de configuración<a class="headerlink" href="#parte-4-pestanas-de-configuracion" title="Permanent link">&para;</a></h2>
+<h3 id="interfaz-principal">Interfaz principal<a class="headerlink" href="#interfaz-principal" title="Permanent link">&para;</a></h3>
+<p><strong>Panel izquierdo:</strong></p>
+<ul>
+<li>Lista de dispositivos añadidos.</li>
+<li>Haga clic en uno para seleccionarlo.</li>
+</ul>
+<p><strong>Pestañas del panel central:</strong></p>
+<p><strong>1. Radio Configuration</strong></p>
+<ul>
+<li>La pestaña más importante.</li>
+<li>Contiene todos los ajustes.</li>
+</ul>
+<p><strong>2. Cellular Network</strong></p>
+<ul>
+<li>Estado de red.</li>
+<li>Intensidad de señal.</li>
+<li>Diagnóstico de conexión.</li>
+</ul>
+<p><strong>3. MicroPython</strong></p>
+<ul>
+<li>Programación avanzada (innecesaria para el registrador).</li>
+</ul>
+<p><strong>4. Firmware</strong></p>
+<ul>
+<li>Actualización del firmware.</li>
+</ul>
+<p><strong>5. Terminal</strong></p>
+<ul>
+<li>Terminal serie para depuración.</li>
+</ul>
+<p><strong>6. File System</strong></p>
+<ul>
+<li>Acceso a los archivos del XBee (avanzado).</li>
+</ul>
+<h3 id="recorrer-la-configuracion-de-la-radio">Recorrer la configuración de la radio<a class="headerlink" href="#recorrer-la-configuracion-de-la-radio" title="Permanent link">&para;</a></h3>
+<p><strong>Los ajustes se organizan en secciones desplegables:</strong></p>
+<ul>
+<li><strong>Addressing</strong> (ID PAN, direcciones)</li>
+<li><strong>Serial Interfacing</strong> (baudios, paridad)</li>
+<li><strong>I/O Settings</strong> (configuración de pines)</li>
+<li><strong>Networking</strong> (APN, conexión)</li>
+<li><strong>Security</strong> (TLS, certificados)</li>
+<li><strong>RF Interfacing</strong> (ajustes del módem celular)</li>
+<li><strong>Sleep Modes</strong> (gestión de energía)</li>
+<li><strong>AT Command Options</strong> (modo API)</li>
+</ul>
+<p><strong>Cómo editarlos:</strong></p>
+<ol>
+<li>Haga clic en una sección para desplegarla.</li>
+<li>Haga clic en el ajuste que desea cambiar.</li>
+<li>Introduzca un valor o elíjalo en la lista.</li>
+<li>Los ajustes modificados aparecen en <strong>negrita</strong>.</li>
+<li>Haga clic en <strong>"Write"</strong> para guardarlos en el XBee.</li>
+</ol>
+<hr />
+<h2 id="parte-5-configuracion-imprescindible">Parte 5: Configuración imprescindible<a class="headerlink" href="#parte-5-configuracion-imprescindible" title="Permanent link">&para;</a></h2>
+<h3 id="resumen-de-los-ajustes-necesarios">Resumen de los ajustes necesarios<a class="headerlink" href="#resumen-de-los-ajustes-necesarios" title="Permanent link">&para;</a></h3>
+<p><strong>Objetivo:</strong> configurar el XBee para:</p>
+<ol>
+<li>Conectarse a la red celular.</li>
+<li>Comunicarse por serie con Arduino.</li>
+<li>Utilizar el modo API para transmitir datos.</li>
+<li>Entrar en suspensión para ahorrar energía.</li>
+</ol>
+<h3 id="seccion-1-interfaz-serie">Sección 1: Interfaz serie<a class="headerlink" href="#seccion-1-interfaz-serie" title="Permanent link">&para;</a></h3>
+<p><strong>Despliegue "Serial Interfacing".</strong></p>
+<div class="admonition info">
+<p class="admonition-title">Ajustes serie críticos</p>
+<p>Estos ajustes DEBEN coincidir exactamente para que el XBee se comunique con el registrador Riverlabs. Son los valores requeridos por la biblioteca xbee-arduino personalizada que utiliza el firmware.</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Ajuste</th>
+<th>Parámetro</th>
+<th>Valor</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Velocidad en baudios</strong></td>
+<td>BD</td>
+<td><strong>9600</strong></td>
+<td>Debe coincidir con el código Arduino</td>
+</tr>
+<tr>
+<td><strong>Paridad</strong></td>
+<td>NB</td>
+<td><strong>0</strong> (sin paridad)</td>
+<td>Estándar</td>
+</tr>
+<tr>
+<td><strong>Bits de parada</strong></td>
+<td>SB</td>
+<td><strong>1</strong></td>
+<td>Un bit de parada</td>
+</tr>
+<tr>
+<td><strong>Tiempo de empaquetado</strong></td>
+<td>RO</td>
+<td><strong>3</strong></td>
+<td>Tiempo entre caracteres (3 ms)</td>
+</tr>
+<tr>
+<td><strong>Entrega de transmisión</strong></td>
+<td>TD</td>
+<td><strong>0</strong></td>
+<td>Desactiva el estado de entrega</td>
+</tr>
+<tr>
+<td><strong>Umbral de control de flujo</strong></td>
+<td>FT</td>
+<td><strong>681</strong></td>
+<td>Umbral del búfer UART</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Cómo configurarlos:</strong></p>
+<ol>
+<li>Haga clic en "BD (Baud Rate)".</li>
+<li>Seleccione <strong>"9600"</strong>.</li>
+<li>Establezca RO = <strong>3</strong>.</li>
+<li>Establezca TD = <strong>0</strong>.</li>
+<li>Establezca FT = <strong>681</strong> (hexadecimal: 0x2A9).</li>
+<li>Compruebe NB = 0 y SB = 1 (valores normalmente predeterminados).</li>
+<li>No pulse Write todavía (guarde todos los cambios juntos).</li>
+</ol>
+<div class="admonition warning">
+<p class="admonition-title">Se necesita la biblioteca xbee-arduino ampliada</p>
+<p>El código Riverlabs utiliza una versión ampliada de la <a href="https://github.com/ICHydro/xbee-arduino">biblioteca xbee-arduino</a> con funciones de módem celular. Está incluida en los paquetes de código Riverlabs y no necesita instalarla aparte.</p>
+</div>
+<h3 id="seccion-2-red">Sección 2: Red<a class="headerlink" href="#seccion-2-red" title="Permanent link">&para;</a></h3>
+<p><strong>Despliegue "Network" o "Mobile Network".</strong></p>
+<div class="admonition danger">
+<p class="admonition-title">Ajustes críticos</p>
+<p>¡Un APN incorrecto impide la conexión celular!</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Ajuste</th>
+<th>Parámetro</th>
+<th>Valor</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Nombre del punto de acceso</strong></td>
+<td>AN</td>
+<td><strong>[APN de su operador]</strong></td>
+<td>Facilitado por el proveedor de SIM</td>
+</tr>
+<tr>
+<td><strong>Usuario del APN</strong></td>
+<td>AU</td>
+<td><strong>[Si se requiere]</strong></td>
+<td>Normalmente vacío</td>
+</tr>
+<tr>
+<td><strong>Contraseña del APN</strong></td>
+<td>AV</td>
+<td><strong>[Si se requiere]</strong></td>
+<td>Normalmente vacía</td>
+</tr>
+<tr>
+<td><strong>Tecnología de red</strong></td>
+<td>NT</td>
+<td><strong>0</strong> (preferencia LTE-M)</td>
+<td>O 1 (NB-IoT)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>APN habituales:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Operador</th>
+<th>APN</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AT&amp;T (EE. UU.)</td>
+<td><code>m2m.com.attwireless.com</code></td>
+</tr>
+<tr>
+<td>T-Mobile (EE. UU.)</td>
+<td><code>iot.t-mobile.com</code></td>
+</tr>
+<tr>
+<td>Verizon (EE. UU.)</td>
+<td><code>vzwinternet</code></td>
+</tr>
+<tr>
+<td>Vodafone (UE)</td>
+<td><code>iot.vodafone.com</code></td>
+</tr>
+<tr>
+<td>Hologram</td>
+<td><code>hologram</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Ejemplo de configuración:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>AN = m2m.com.attwireless.com
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>AU = (vacío)
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>AV = (vacío)
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>NT = 0
+</code></pre></div></p>
+<h3 id="seccion-3-modo-api">Sección 3: Modo API<a class="headerlink" href="#seccion-3-modo-api" title="Permanent link">&para;</a></h3>
+<p><strong>Despliegue "AT Command Options" o "API".</strong></p>
+<table>
+<thead>
+<tr>
+<th>Ajuste</th>
+<th>Parámetro</th>
+<th>Valor</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Activación de API</strong></td>
+<td>AP</td>
+<td><strong>2</strong></td>
+<td>Modo API con escapes</td>
+</tr>
+<tr>
+<td><strong>Modo de salida API</strong></td>
+<td>AO</td>
+<td><strong>0</strong></td>
+<td>Estándar</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition danger">
+<p class="admonition-title">¡El modo API debe ser 2!</p>
+<p>El firmware Riverlabs <strong>requiere el modo API 2</strong> (con caracteres de escape).</p>
+<ul>
+<li><strong>Modo 0</strong> (transparente) = NO funcionará.</li>
+<li><strong>Modo 1</strong> (API sin escapes) = NO funcionará.  </li>
+<li><strong>Modo 2</strong> (API con escapes) = ✅ <strong>OBLIGATORIO</strong>.</li>
+</ul>
+<p>Con otro modo, el registrador no podrá comunicarse con el XBee y no habrá datos de telemetría.</p>
+</div>
+<p><strong>Cómo configurarlo:</strong></p>
+<ol>
+<li>Haga clic en "AP (API Enable)".</li>
+<li>Seleccione <strong>"2 - API mode with escaped characters"</strong>.</li>
+<li>Compruebe que AO = 0.</li>
+</ol>
+<h3 id="seccion-4-modo-de-suspension">Sección 4: Modo de suspensión<a class="headerlink" href="#seccion-4-modo-de-suspension" title="Permanent link">&para;</a></h3>
+<p><strong>Despliegue "Sleep Modes" o "Power Management".</strong></p>
+<table>
+<thead>
+<tr>
+<th>Ajuste</th>
+<th>Parámetro</th>
+<th>Valor</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Modo de suspensión</strong></td>
+<td>SM</td>
+<td><strong>1</strong></td>
+<td>Suspensión por pin [1]</td>
+</tr>
+<tr>
+<td><strong>Opciones de suspensión</strong></td>
+<td>SO</td>
+<td><strong>0</strong></td>
+<td>Estándar</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition info">
+<p class="admonition-title">Se requiere suspensión por pin</p>
+<p><strong>SM debe ser 1 (suspensión por pin)</strong> para una gestión adecuada de la energía con el registrador Riverlabs.</p>
+</div>
+<p><strong>Funcionamiento:</strong></p>
+<ul>
+<li>Arduino controla mediante un pin cuándo duerme el XBee.</li>
+<li>Pin 9 (Sleep_RQ/DTR):<ul>
+<li><strong>Alto</strong> = XBee dormido (bajo consumo).</li>
+<li><strong>Bajo</strong> = XBee despierto (activo).</li>
+</ul>
+</li>
+<li>Reduce considerablemente el consumo entre transmisiones.</li>
+<li>Es fundamental para una buena autonomía.</li>
+</ul>
+<p><strong>Cómo configurarlo:</strong></p>
+<ol>
+<li>Haga clic en "SM (Sleep Mode)".</li>
+<li>Seleccione <strong>"1 - Pin Sleep [1]"</strong>.</li>
+<li>Compruebe que SO = 0.</li>
+</ol>
+<div class="admonition warning">
+<p class="admonition-title">No utilice otros modos de suspensión</p>
+<ul>
+<li><strong>SM = 0</strong> (desactivado) agotará rápidamente la batería.</li>
+<li><strong>SM = 4</strong> (suspensión cíclica) no funciona con la lógica de control del registrador.</li>
+<li><strong>SM = 5</strong> (suspensión cíclica con despertar por pin) no es compatible.</li>
+</ul>
+</div>
+<h3 id="seccion-5-otros-ajustes-opcionales-pero-recomendados">Sección 5: Otros ajustes (opcionales, pero recomendados)<a class="headerlink" href="#seccion-5-otros-ajustes-opcionales-pero-recomendados" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Ajuste</th>
+<th>Parámetro</th>
+<th>Valor</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Tiempo de guarda</strong></td>
+<td>GT</td>
+<td><strong>3E8</strong> (1000 ms)</td>
+<td>Retardo del modo de comandos</td>
+</tr>
+<tr>
+<td><strong>Umbral de control de flujo</strong></td>
+<td>FT</td>
+<td><strong>681</strong></td>
+<td>Búfer UART</td>
+</tr>
+<tr>
+<td><strong>Opciones de transmisión</strong></td>
+<td>TO</td>
+<td><strong>0</strong></td>
+<td>Estándar</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="parte-6-guardar-la-configuracion">Parte 6: Guardar la configuración<a class="headerlink" href="#parte-6-guardar-la-configuracion" title="Permanent link">&para;</a></h2>
+<h3 id="escritura-en-bloque">Escritura en bloque<a class="headerlink" href="#escritura-en-bloque" title="Permanent link">&para;</a></h3>
+<p><strong>Tras configurar TODOS los ajustes anteriores:</strong></p>
+<ol>
+<li>
+<p><strong>Revise los cambios:</strong></p>
+<ul>
+<li>Los ajustes modificados aparecen en <strong>negrita</strong>.</li>
+<li>Compruebe los valores críticos.</li>
+</ul>
+</li>
+<li>
+<p><strong>Haga clic en "Write"</strong> (parte superior de "Radio Configuration").</p>
+<ul>
+<li>Suele estar en la barra de herramientas.</li>
+<li>O use clic derecho sobre el dispositivo &gt; "Write Settings".</li>
+</ul>
+</li>
+<li>
+<p><strong>Espere a que termine:</strong></p>
+<ul>
+<li>Indicador de progreso.</li>
+<li>Mensaje "Write successful".</li>
+<li>Los ajustes dejan de aparecer en negrita.</li>
+</ul>
+</li>
+<li>
+<p><strong>Compruébelo:</strong></p>
+<ul>
+<li>Haga clic en "Read" para actualizar.</li>
+<li>Verifique que los ajustes coincidan con los valores previstos.</li>
+</ul>
+</li>
+</ol>
+<div class="admonition warning">
+<p class="admonition-title">Guarde antes de desconectar</p>
+<p>Los cambios NO se guardan hasta hacer clic en Write. Si desconecta antes, se perderán.</p>
+</div>
+<h3 id="perfil-de-ajustes-opcional">Perfil de ajustes (opcional)<a class="headerlink" href="#perfil-de-ajustes-opcional" title="Permanent link">&para;</a></h3>
+<p><strong>Guarde la configuración para reutilizarla:</strong></p>
+<ol>
+<li><strong>File &gt; Export Profile</strong>.</li>
+<li><strong>Guárdelo como:</strong> <code>Riverlabs_XBee3_Config.xpro</code>.</li>
+<li><strong>Para usarlo después:</strong><ul>
+<li>File &gt; Import Profile.</li>
+<li>Aplíquelo a nuevos módulos XBee.</li>
+<li>Así mantendrá la misma configuración en todos ellos.</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h2 id="parte-7-prueba-de-conexion-a-la-red">Parte 7: Prueba de conexión a la red<a class="headerlink" href="#parte-7-prueba-de-conexion-a-la-red" title="Permanent link">&para;</a></h2>
+<h3 id="panel-cellular-network">Panel Cellular Network<a class="headerlink" href="#panel-cellular-network" title="Permanent link">&para;</a></h3>
+<p><strong>1. Abra la pestaña "Cellular Network".</strong></p>
+<p><strong>2. Estado actual:</strong></p>
+<ul>
+<li>Registro en red: no registrado / registrado.</li>
+<li>Intensidad de señal (RSSI): valor en dBm.</li>
+<li>Dirección IP: ninguna o dirección asignada.</li>
+<li>Estado de conexión: desconectado / conectado.</li>
+</ul>
+<p><strong>3. Haga clic en "Connect to Network".</strong></p>
+<p><strong>4. Espere la conexión:</strong></p>
+<ul>
+<li>Puede tardar 30–90 segundos.</li>
+<li>Aparecerán mensajes de progreso:<ul>
+<li>"Searching for network..."</li>
+<li>"Network found"</li>
+<li>"Registering..."</li>
+<li>"Connected"</li>
+</ul>
+</li>
+</ul>
+<p><strong>5. Indicadores de éxito:</strong></p>
+<ul>
+<li>✅ Registro en red: <strong>sí</strong>.</li>
+<li>✅ Intensidad de señal: <strong>-90 dBm o mejor</strong> (menos negativo = mayor señal).</li>
+<li>✅ Dirección IP: <strong>asignada</strong> (p. ej., 10.x.x.x).</li>
+<li>✅ Estado: <strong>conectado</strong>.</li>
+</ul>
+<p><strong>6. Referencia de señal:</strong></p>
+<table>
+<thead>
+<tr>
+<th>RSSI (dBm)</th>
+<th>Calidad</th>
+<th>Utilidad</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-50 a -70</td>
+<td>Excelente</td>
+<td>Perfecta para uso continuo</td>
+</tr>
+<tr>
+<td>-70 a -90</td>
+<td>Buena</td>
+<td>Fiable para la mayoría de las aplicaciones</td>
+</tr>
+<tr>
+<td>-90 a -105</td>
+<td>Regular</td>
+<td>Utilizable, pero puede dar problemas</td>
+</tr>
+<tr>
+<td>-105 a -115</td>
+<td>Mala</td>
+<td>Marginal; muchos fallos</td>
+</tr>
+<tr>
+<td>&lt; -115</td>
+<td>Muy mala</td>
+<td>Poco fiable</td>
+</tr>
+</tbody>
+</table>
+<h3 id="problemas-de-conexion">Problemas de conexión<a class="headerlink" href="#problemas-de-conexion" title="Permanent link">&para;</a></h3>
+<p><strong>"No network found":</strong></p>
+<p><strong>Causas:</strong></p>
+<ul>
+<li>SIM sin activar.</li>
+<li>Tecnología de red incorrecta (LTE-M frente a NB-IoT).</li>
+<li>Señal insuficiente en el lugar.</li>
+</ul>
+<p><strong>Soluciones:</strong></p>
+<ol>
+<li>Verifique con el operador que la SIM esté activa.</li>
+<li>Cambie el parámetro NT:<ul>
+<li>NT=0 (LTE-M).</li>
+<li>NT=1 (NB-IoT).</li>
+<li>Guarde e intente conectarse de nuevo.</li>
+</ul>
+</li>
+<li>Acérquese a una ventana o salga al exterior.</li>
+<li>Compruebe la antena externa, si existe.</li>
+</ol>
+<p><strong>"Network found but registration failed":</strong></p>
+<p><strong>Causas:</strong></p>
+<ul>
+<li>APN incorrecto.</li>
+<li>Problema de autenticación de la SIM.</li>
+</ul>
+<p><strong>Soluciones:</strong></p>
+<ol>
+<li>Compruebe la escritura del APN (¡distingue mayúsculas y minúsculas!).</li>
+<li>Revise las credenciales AU/AV.</li>
+<li>Pida al operador los datos del APN.</li>
+<li>Pruebe el APN predeterminado (a menudo funciona).</li>
+</ol>
+<p><strong>"Registered but no IP address":</strong></p>
+<p><strong>Causas:</strong></p>
+<ul>
+<li>Fallo DHCP.</li>
+<li>Congestión de la red.</li>
+</ul>
+<p><strong>Soluciones:</strong></p>
+<ol>
+<li>Desconecte y vuelva a conectar.</li>
+<li>Espere 2–3 minutos.</li>
+<li>Reinicie el XBee (desconecte y vuelva a conectar el USB).</li>
+<li>Consulte al operador por si hay problemas con la cuenta.</li>
+</ol>
+<hr />
+<h2 id="parte-8-prueba-de-transmision-de-datos">Parte 8: Prueba de transmisión de datos<a class="headerlink" href="#parte-8-prueba-de-transmision-de-datos" title="Permanent link">&para;</a></h2>
+<h3 id="pestana-terminal">Pestaña Terminal<a class="headerlink" href="#pestana-terminal" title="Permanent link">&para;</a></h3>
+<p><strong>Pruebe un POST HTTP</strong> para verificar la configuración completa:</p>
+<ol>
+<li>
+<p><strong>Abra la pestaña "Terminal".</strong></p>
+</li>
+<li>
+<p><strong>Compruebe la conexión a la red</strong> (paso anterior).</p>
+</li>
+<li>
+<p><strong>Introduzca comandos API</strong> (usuarios avanzados).</p>
+</li>
+</ol>
+<p><strong>Como alternativa, pruebe desde Arduino:</strong></p>
+<ol>
+<li><strong>Retire el XBee del adaptador USB.</strong></li>
+<li><strong>Instálelo en el registrador.</strong></li>
+<li><strong>Cargue un sketch de prueba</strong> (o el código definitivo).</li>
+<li><strong>Conecte el monitor serie.</strong></li>
+<li><strong>Observe los intentos de transmisión.</strong></li>
+</ol>
+<p><strong>Secuencia esperada:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>Initializing XBee...
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>XBee ready
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>Connecting to network...
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>Network connected
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>Reading sensor...
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>Distance: 1234 mm
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>Preparing HTTP request...
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>Sending to ThingsBoard...
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>Response: 200 OK
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>Transmission successful!
+</code></pre></div></p>
+<p><strong>Si falla la transmisión:</strong></p>
+<ul>
+<li>Consulte <a href="../troubleshooting-connections/">Solución de problemas de conexión</a>.</li>
+</ul>
+<hr />
+<h2 id="parte-9-finalizar-la-configuracion">Parte 9: Finalizar la configuración<a class="headerlink" href="#parte-9-finalizar-la-configuracion" title="Permanent link">&para;</a></h2>
+<h3 id="prueba-de-reinicio-electrico">Prueba de reinicio eléctrico<a class="headerlink" href="#prueba-de-reinicio-electrico" title="Permanent link">&para;</a></h3>
+<p><strong>Compruebe que se conserva la configuración:</strong></p>
+<ol>
+<li><strong>Desconecte el USB</strong> (retire el XBee del adaptador).</li>
+<li><strong>Espere 10 segundos.</strong></li>
+<li><strong>Reconecte el USB</strong> (reinserte el XBee).</li>
+<li><strong>Abra XBee Studio y añada el dispositivo.</strong></li>
+<li><strong>Lea la configuración.</strong></li>
+<li><strong>Compruebe todos los ajustes.</strong></li>
+</ol>
+<p>Si se han restablecido:</p>
+<ul>
+<li>La configuración no se guardó correctamente. Repita la parte 6.</li>
+</ul>
+<h3 id="etiquetar-el-modulo-xbee">Etiquetar el módulo XBee<a class="headerlink" href="#etiquetar-el-modulo-xbee" title="Permanent link">&para;</a></h3>
+<p><strong>Documente la configuración:</strong></p>
+<ul>
+<li>Use una etiquetadora o un rotulador permanente.</li>
+<li>Anote en el XBee (lejos de la antena):<ul>
+<li>"Configured DD/MM/YY"</li>
+<li>"Logger: Wari-001"</li>
+<li>El APN (si resulta útil).</li>
+</ul>
+</li>
+<li>Evitará confundirlo con módulos sin configurar.</li>
+</ul>
+<h3 id="instalacion-en-el-registrador">Instalación en el registrador<a class="headerlink" href="#instalacion-en-el-registrador" title="Permanent link">&para;</a></h3>
+<p><strong>1. Apague el registrador</strong> (desconecte la batería).</p>
+<p><strong>2. Instale el XBee:</strong></p>
+<ul>
+<li>Alinee el pin 1 (busque la marca en la PCB).</li>
+<li>Presione suavemente, pero con firmeza.</li>
+<li>Compruebe que todos los pines encajen.</li>
+<li>El módulo debe quedar plano.</li>
+</ul>
+<p><strong>3. Revise la antena:</strong></p>
+<ul>
+<li>Antena externa: conecte U.FL o equivalente.</li>
+<li>Antena integrada en la PCB: deje espacio libre (sin contacto con la carcasa).</li>
+</ul>
+<p><strong>4. Reconecte la batería.</strong></p>
+<p><strong>5. Compruebe el arranque:</strong></p>
+<ul>
+<li>El registrador arranca.</li>
+<li>El XBee se inicializa.</li>
+<li>La conexión a la red se establece en 60 segundos.</li>
+</ul>
+<hr />
+<h2 id="parte-10-solucion-de-problemas">Parte 10: Solución de problemas<a class="headerlink" href="#parte-10-solucion-de-problemas" title="Permanent link">&para;</a></h2>
+<h3 id="xbee-studio-no-detecta-el-modulo">XBee Studio no detecta el módulo<a class="headerlink" href="#xbee-studio-no-detecta-el-modulo" title="Permanent link">&para;</a></h3>
+<p><strong>Síntoma:</strong> no encuentra el dispositivo al añadirlo.</p>
+<p><strong>Causas y soluciones:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Causa</th>
+<th>Comprobación</th>
+<th>Solución</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Puerto incorrecto</td>
+<td>Administrador de dispositivos (Windows)</td>
+<td>Seleccione el puerto COM correcto</td>
+</tr>
+<tr>
+<td>Velocidad incorrecta</td>
+<td>Configuración previa de BD</td>
+<td>Pruebe 9600, 115200 o Auto</td>
+</tr>
+<tr>
+<td>Problema de controlador</td>
+<td>Error en el Administrador de dispositivos</td>
+<td>Reinstale XBee Studio y reinicie</td>
+</tr>
+<tr>
+<td>Cable USB defectuoso</td>
+<td>Cable solo de carga</td>
+<td>Use un cable USB de datos</td>
+</tr>
+<tr>
+<td>XBee mal asentado</td>
+<td>Inspección física</td>
+<td>Vuelva a encajarlo en el adaptador</td>
+</tr>
+<tr>
+<td>Adaptador sin alimentación</td>
+<td>LED del adaptador</td>
+<td>Pruebe otro puerto USB o concentrador</td>
+</tr>
+</tbody>
+</table>
+<h3 id="no-se-guardan-los-ajustes">No se guardan los ajustes<a class="headerlink" href="#no-se-guardan-los-ajustes" title="Permanent link">&para;</a></h3>
+<p><strong>Síntoma:</strong> la configuración se restablece tras apagar y encender.</p>
+<p><strong>Causas:</strong></p>
+<ul>
+<li>No se pulsó "Write".</li>
+<li>Falló la escritura (sin mostrar error).</li>
+<li>Firmware dañado (raro).</li>
+</ul>
+<p><strong>Soluciones:</strong></p>
+<ol>
+<li>Configure los ajustes.</li>
+<li>Haga clic en "Write".</li>
+<li><strong>Espere la confirmación.</strong></li>
+<li>Haga clic en "Read" para verificar.</li>
+<li>Apague y encienda, y vuelva a leer.</li>
+<li>Si se siguen restableciendo, actualice el firmware (véase más abajo).</li>
+</ol>
+<h3 id="intensidad-de-senal-deficiente">Intensidad de señal deficiente<a class="headerlink" href="#intensidad-de-senal-deficiente" title="Permanent link">&para;</a></h3>
+<p><strong>Síntoma:</strong> RSSI &lt; -105 dBm.</p>
+<p><strong>Soluciones:</strong></p>
+<ol>
+<li><strong>Antena:</strong><ul>
+<li>Compruebe que esté conectada.</li>
+<li>Pruebe una externa si utiliza la interna.</li>
+<li>Revise posibles daños.</li>
+</ul>
+</li>
+<li><strong>Ubicación:</strong><ul>
+<li>Acérquelo a una ventana.</li>
+<li>Eleve el dispositivo.</li>
+<li>Aléjelo de estructuras metálicas.</li>
+</ul>
+</li>
+<li><strong>Red:</strong><ul>
+<li>Pruebe otra tecnología (NT=0 frente a NT=1).</li>
+<li>Consulte el mapa de cobertura del operador.</li>
+<li>Pruebe la SIM en un teléfono en el mismo lugar.</li>
+</ul>
+</li>
+</ol>
+<h3 id="actualizacion-del-firmware">Actualización del firmware<a class="headerlink" href="#actualizacion-del-firmware" title="Permanent link">&para;</a></h3>
+<p><strong>Cuándo hacerlo:</strong></p>
+<ul>
+<li>Correcciones de Digi.</li>
+<li>Nuevas funciones.</li>
+<li>Mejoras de compatibilidad.</li>
+</ul>
+<p><strong>Cómo actualizar:</strong></p>
+<ol>
+<li>
+<p><strong>Descargue el firmware:</strong></p>
+<ul>
+<li>https://www.digi.com/support/productdetail?pid=5817</li>
+<li>Seleccione XBee3 Cellular LTE-M/NB-IoT.</li>
+<li>Elija la versión más reciente (p. ej., 11415 o posterior).</li>
+</ul>
+</li>
+<li>
+<p><strong>En XBee Studio:</strong></p>
+<ul>
+<li>Abra la pestaña "Firmware".</li>
+<li>Haga clic en "Update Firmware".</li>
+<li>Seleccione el archivo descargado (.ebin).</li>
+<li>Haga clic en "Update".</li>
+<li>Espere (5–10 minutos; <strong>no desconecte el módulo</strong>).</li>
+<li>Compruebe el mensaje de confirmación.</li>
+</ul>
+</li>
+<li>
+<p><strong>Verifique:</strong></p>
+<ul>
+<li>Compruebe la versión de firmware (pestaña Radio Configuration).</li>
+<li>Vuelva a configurar los ajustes (la actualización puede restablecerlos).</li>
+</ul>
+</li>
+</ol>
+<h2 id="siguientes-pasos">Siguientes pasos<a class="headerlink" href="#siguientes-pasos" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../thingsboard-configuration/">Configuración de ThingsBoard</a>: preparar el panel</li>
+<li><a href="../troubleshooting-connections/">Solución de problemas de conexión</a>: resolver problemas de telemetría</li>
+<li><a href="../setup-guide/">Guía de configuración de telemetría</a>: visión general de la instalación</li>
+<li><a href="../../operation/hardware/battery-power-guide/">Guía de baterías y alimentación</a>: optimizar la telemetría</li>
+</ul>
+<hr />
+<div class="admonition success">
+<p class="admonition-title">¡XBee configurado!</p>
+<p>El XBee ya está configurado y listo para instalarlo en campo. Guarde el perfil de configuración para futuros módulos.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Volver al principio
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Riverlabs Ltd
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/ICHydro" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.sections", "navigation.indexes", "navigation.expand", "navigation.top", "search.suggest", "search.highlight", "content.code.copy", "content.action.edit", "content.action.view"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+        <script src="../../assets/javascripts/extra.js"></script>
+      
+    
+  </body>
+</html>

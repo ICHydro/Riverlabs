@@ -1,0 +1,2782 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation for the Riverlabs suite of environmental sensors">
+      
+      
+        <meta name="author" content="Riverlabs Ltd">
+      
+      
+        <link rel="canonical" href="https://ichydro.github.io/Riverlabs/telemetry/thingsboard-configuration/">
+      
+      
+      
+      
+        
+          <link rel="alternate" href="/Riverlabs/en/" hreflang="en">
+        
+          <link rel="alternate" href="/Riverlabs/es/" hreflang="es">
+        
+      
+      
+      <link rel="icon" href="../../assets/images/riverlabs_icon.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+    
+    
+      
+        <title>Configuración de ThingsBoard - Riverlabs Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="light-blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#configuracion-de-thingsboard" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="../.." title="Riverlabs Documentation" class="md-header__button md-logo" aria-label="Riverlabs Documentation" data-md-component="logo">
+      
+  <img src="../../assets/images/riverlabs_white_mono.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Riverlabs Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Configuración de ThingsBoard
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="light-blue"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="light-blue"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Seleccionar idioma">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="/Riverlabs/en/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="/Riverlabs/es/" hreflang="es" class="md-select__link">
+              Español
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/ICHydro/Riverlabs" title="Ir al repositorio" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ichydro/Riverlabs
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Pestañas" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../operation/quick-start/quick-start/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Operación
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../installation/sensor-positioning/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Instalación
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../programming/intro/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Programación
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Riverlabs Documentation" class="md-nav__button md-logo" aria-label="Riverlabs Documentation" data-md-component="logo">
+      
+  <img src="../../assets/images/riverlabs_white_mono.svg" alt="logo">
+
+    </a>
+    Riverlabs Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ICHydro/Riverlabs" title="Ir al repositorio" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ichydro/Riverlabs
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operación
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Operación
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_1" id="__nav_1_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio Rápido
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Inicio Rápido
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../operation/quick-start/quick-start/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guía de Inicio Rápido
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../operation/quick-start/data-download/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Descarga de Datos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../operation/quick-start/arduino-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuración de Arduino
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../operation/quick-start/first-deployment-checklist/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lista de Verificación para la Primera Implementación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_2" id="__nav_1_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hardware
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Hardware
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../operation/hardware/technical-specifications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Especificaciones Técnicas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../operation/hardware/battery-power-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guía de Baterías y Alimentación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../operation/hardware/maintenance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mantenimiento
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../operation/hardware/data-handling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gestión de Datos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_3" id="__nav_1_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Solución de Problemas
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Solución de Problemas
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../operation/troubleshooting/diagnostic-flowcharts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Diagramas de Flujo de Diagnóstico
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Instalación
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Instalación
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/sensor-positioning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Posicionamiento del Sensor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/mounting-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guía de Montaje
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/environmental-considerations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Consideraciones Ambientales
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Programación
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Programación
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introducción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/arduino-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuración de Arduino
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/uploading-code/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cargando Código
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#que-es-thingsboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Qué es ThingsBoard?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#opciones-de-despliegue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Opciones de despliegue
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Opciones de despliegue">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#opcion-1-servidor-de-demostracion-de-thingsboard-recomendado-para-pruebas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Opción 1: Servidor de demostración de ThingsBoard (recomendado para pruebas)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#opcion-2-thingsboard-cloud" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Opción 2: ThingsBoard Cloud
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#opcion-3-alojamiento-propio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Opción 3: Alojamiento propio
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creacion-de-una-cuenta-de-thingsboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Creación de una cuenta de ThingsBoard
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Creación de una cuenta de ThingsBoard">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#registro-en-el-servidor-de-demostracion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Registro en el servidor de demostración
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#registro-en-thingsboard-cloud" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Registro en ThingsBoard Cloud
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#anadir-el-registrador-como-dispositivo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Añadir el registrador como dispositivo
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Añadir el registrador como dispositivo">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#paso-1-crear-el-dispositivo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 1: Crear el dispositivo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paso-2-obtener-el-token-de-acceso" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 2: Obtener el token de acceso
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paso-3-configurar-el-codigo-arduino" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 3: Configurar el código Arduino
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paso-4-probar-la-conexion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 4: Probar la conexión
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#estructura-de-los-datos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Estructura de los datos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Estructura de los datos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#formato-json" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Formato JSON
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#claves-de-telemetria" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Claves de telemetría
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creacion-de-su-primer-panel-de-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Creación de su primer panel de control
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Creación de su primer panel de control">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#paso-1-crear-el-panel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 1: Crear el panel
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paso-2-anadir-widgets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 2: Añadir widgets
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paso-3-otros-widgets-utiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 3: Otros widgets útiles
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paso-4-guardar-el-panel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 4: Guardar el panel
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuracion-avanzada-de-widgets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuración avanzada de widgets
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuración avanzada de widgets">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#personalizacion-de-las-ventanas-temporales" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Personalización de las ventanas temporales
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#anadir-umbrales" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Añadir umbrales
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#agregacion-de-datos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Agregación de datos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#campos-calculados" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Campos calculados
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#alarmas-y-notificaciones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Alarmas y notificaciones
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Alarmas y notificaciones">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creacion-de-reglas-de-alarma" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Creación de reglas de alarma
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuracion-de-notificaciones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuración de notificaciones
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exportacion-de-datos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exportación de datos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exportación de datos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exportar-datos-historicos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exportar datos históricos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#acceso-a-los-datos-mediante-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Acceso a los datos mediante API
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gestion-de-varios-dispositivos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gestión de varios dispositivos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Gestión de varios dispositivos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#anadir-varios-registradores" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Añadir varios registradores
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#grupos-de-dispositivos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Grupos de dispositivos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#panel-del-conjunto-de-dispositivos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Panel del conjunto de dispositivos
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gestion-de-usuarios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gestión de usuarios
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Gestión de usuarios">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#anadir-usuarios-solo-cloud-o-alojamiento-propio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Añadir usuarios (solo Cloud o alojamiento propio)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compartir-paneles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Compartir paneles
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aplicacion-movil-thingsboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Aplicación móvil ThingsBoard
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Aplicación móvil ThingsBoard">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#instalacion-de-la-aplicacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Instalación de la aplicación
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuracion-de-la-aplicacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuración de la aplicación
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solucion-de-problemas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Solución de problemas
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Solución de problemas">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#no-aparecen-datos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        No aparecen datos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aparecen-datos-pero-el-panel-esta-vacio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Aparecen datos, pero el panel está vacío
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#las-alarmas-no-se-activan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Las alarmas no se activan
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#los-datos-llegan-con-retraso" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Los datos llegan con retraso
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#buenas-practicas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Buenas prácticas
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Buenas prácticas">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diseno-del-panel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diseño del panel
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gestion-de-datos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gestión de datos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#seguridad" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Seguridad
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#costes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Costes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Costes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#servidor-de-demostracion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Servidor de demostración
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#thingsboard-cloud" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ThingsBoard Cloud
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alojamiento-propio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Alojamiento propio
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#alternativas-a-thingsboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Alternativas a ThingsBoard
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#siguientes-pasos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Siguientes pasos
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/ICHydro/Riverlabs/edit/main/telemetry/thingsboard-configuration.md" title="Editar esta página" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+    
+      
+    
+    <a href="https://github.com/ICHydro/Riverlabs/raw/main/telemetry/thingsboard-configuration.md" title="Ver código fuente de esta página" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
+    </a>
+  
+
+
+<h1 id="configuracion-de-thingsboard">Configuración de ThingsBoard<a class="headerlink" href="#configuracion-de-thingsboard" title="Permanent link">&para;</a></h1>
+<div class="admonition abstract">
+<p class="admonition-title">Descripción general</p>
+<p>Esta página explica cómo configurar la plataforma IoT ThingsBoard para visualizar y supervisar los datos de Riverlabs, desde la creación de la cuenta hasta los paneles avanzados.</p>
+</div>
+<h2 id="que-es-thingsboard">¿Qué es ThingsBoard?<a class="headerlink" href="#que-es-thingsboard" title="Permanent link">&para;</a></h2>
+<p><a href="https://thingsboard.io/">ThingsBoard</a> es una plataforma IoT de código abierto para gestionar dispositivos y recopilar y visualizar datos. Es adecuada para los registradores Riverlabs porque ofrece:</p>
+<ul>
+<li><strong>Versión gratuita</strong> (servidor de demostración)</li>
+<li><strong>Integración sencilla mediante API HTTP</strong></li>
+<li><strong>Potentes paneles de control</strong> con widgets</li>
+<li><strong>Alertas y notificaciones</strong></li>
+<li><strong>Compatibilidad con varios usuarios</strong></li>
+<li><strong>Interfaz apta para móviles</strong></li>
+<li><strong>Opción de alojamiento propio</strong> para usuarios avanzados</li>
+</ul>
+<hr />
+<h2 id="opciones-de-despliegue">Opciones de despliegue<a class="headerlink" href="#opciones-de-despliegue" title="Permanent link">&para;</a></h2>
+<h3 id="opcion-1-servidor-de-demostracion-de-thingsboard-recomendado-para-pruebas">Opción 1: Servidor de demostración de ThingsBoard (recomendado para pruebas)<a class="headerlink" href="#opcion-1-servidor-de-demostracion-de-thingsboard-recomendado-para-pruebas" title="Permanent link">&para;</a></h3>
+<p><strong>Ventajas:</strong></p>
+<ul>
+<li>Gratuito</li>
+<li>No requiere configuración previa</li>
+<li>Adecuado para evaluar y aprender</li>
+<li>Incluye todas las funciones</li>
+</ul>
+<p><strong>Inconvenientes:</strong></p>
+<ul>
+<li>Los datos se eliminan tras un periodo de inactividad</li>
+<li>Infraestructura compartida</li>
+<li>No se garantiza la disponibilidad</li>
+<li>No es adecuado para despliegues de producción</li>
+</ul>
+<p><strong>URL:</strong> https://demo.thingsboard.io</p>
+<p><strong>Uso:</strong> pruebas, aprendizaje y despliegues a corto plazo</p>
+<h3 id="opcion-2-thingsboard-cloud">Opción 2: ThingsBoard Cloud<a class="headerlink" href="#opcion-2-thingsboard-cloud" title="Permanent link">&para;</a></h3>
+<p><strong>Ventajas:</strong></p>
+<ul>
+<li>Alojamiento gestionado</li>
+<li>Disponibilidad garantizada</li>
+<li>Asistencia técnica</li>
+<li>Actualizaciones automáticas</li>
+<li>Preparado para producción</li>
+</ul>
+<p><strong>Inconvenientes:</strong></p>
+<ul>
+<li>Cuotas mensuales (~$10–50+)</li>
+<li>Requiere suscripción</li>
+</ul>
+<p><strong>URL:</strong> https://thingsboard.cloud</p>
+<p><strong>Uso:</strong> seguimiento a largo plazo, despliegues críticos y varios registradores</p>
+<h3 id="opcion-3-alojamiento-propio">Opción 3: Alojamiento propio<a class="headerlink" href="#opcion-3-alojamiento-propio" title="Permanent link">&para;</a></h3>
+<p><strong>Ventajas:</strong></p>
+<ul>
+<li>Control total</li>
+<li>Sin cuotas mensuales tras la instalación</li>
+<li>Privacidad de los datos</li>
+<li>Configuración personalizada</li>
+</ul>
+<p><strong>Inconvenientes:</strong></p>
+<ul>
+<li>Requiere conocimientos de administración de servidores</li>
+<li>Costes de infraestructura (AWS/DigitalOcean)</li>
+<li>Responsabilidad del mantenimiento</li>
+<li>Gestión de la seguridad</li>
+</ul>
+<p><strong>Uso:</strong> organizaciones con personal informático, numerosos registradores y necesidades específicas</p>
+<div class="admonition tip">
+<p class="admonition-title">Empiece por el servidor de demostración</p>
+<p>Utilice el servidor de demostración para aprender ThingsBoard y probar su registrador. Migre a Cloud o a un servidor propio cuando domine la configuración.</p>
+</div>
+<hr />
+<h2 id="creacion-de-una-cuenta-de-thingsboard">Creación de una cuenta de ThingsBoard<a class="headerlink" href="#creacion-de-una-cuenta-de-thingsboard" title="Permanent link">&para;</a></h2>
+<h3 id="registro-en-el-servidor-de-demostracion">Registro en el servidor de demostración<a class="headerlink" href="#registro-en-el-servidor-de-demostracion" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Vaya a</strong> https://demo.thingsboard.io.</li>
+<li><strong>Haga clic en "Sign Up"</strong> (arriba a la derecha).</li>
+<li><strong>Rellene el formulario:</strong><ul>
+<li>Dirección de correo electrónico</li>
+<li>Nombre y apellidos</li>
+<li>Contraseña (elija una robusta y guárdela en un gestor de contraseñas)</li>
+</ul>
+</li>
+<li><strong>Revise su correo</strong> para encontrar el enlace de activación.</li>
+<li><strong>Haga clic en el enlace de activación.</strong></li>
+<li><strong>Inicie sesión</strong> en ThingsBoard.</li>
+</ol>
+<div class="admonition warning">
+<p class="admonition-title">Conservación de datos en el servidor de demostración</p>
+<p>El servidor de demostración elimina periódicamente las cuentas inactivas. No lo utilice para despliegues a largo plazo sin acceder con regularidad.</p>
+</div>
+<h3 id="registro-en-thingsboard-cloud">Registro en ThingsBoard Cloud<a class="headerlink" href="#registro-en-thingsboard-cloud" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Vaya a</strong> https://thingsboard.cloud.</li>
+<li><strong>Haga clic en "Try It Free"</strong> o una opción equivalente.</li>
+<li><strong>Complete el registro.</strong></li>
+<li><strong>Elija un plan</strong> (normalmente el gratuito para empezar).</li>
+<li><strong>Confirme su correo electrónico.</strong></li>
+<li><strong>Inicie sesión.</strong></li>
+</ol>
+<hr />
+<h2 id="anadir-el-registrador-como-dispositivo">Añadir el registrador como dispositivo<a class="headerlink" href="#anadir-el-registrador-como-dispositivo" title="Permanent link">&para;</a></h2>
+<h3 id="paso-1-crear-el-dispositivo">Paso 1: Crear el dispositivo<a class="headerlink" href="#paso-1-crear-el-dispositivo" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Inicie sesión en ThingsBoard.</strong></li>
+<li><strong>Abra "Devices"</strong> en la barra lateral izquierda.</li>
+<li><strong>Haga clic en "+ Add Device"</strong> (arriba a la derecha).</li>
+<li><strong>Rellene el formulario:</strong><ul>
+<li><strong>Name:</strong> <code>Wari-001</code> (o el ID de su registrador)</li>
+<li><strong>Label:</strong> <code>Creek Monitoring - Site A</code> (ubicación descriptiva)</li>
+<li><strong>Device Profile:</strong> <code>Default</code> (o un perfil personalizado)</li>
+<li><strong>Gateway:</strong> déjelo desmarcado</li>
+</ul>
+</li>
+<li><strong>Haga clic en "Add".</strong></li>
+<li><strong>El dispositivo quedará creado.</strong></li>
+</ol>
+<h3 id="paso-2-obtener-el-token-de-acceso">Paso 2: Obtener el token de acceso<a class="headerlink" href="#paso-2-obtener-el-token-de-acceso" title="Permanent link">&para;</a></h3>
+<p><strong>Después de crear el dispositivo:</strong></p>
+<ol>
+<li><strong>El dispositivo aparecerá en la lista.</strong></li>
+<li><strong>Haga clic en su nombre</strong> para abrir los detalles.</li>
+<li><strong>Abra la pestaña "Credentials".</strong></li>
+<li><strong>Copie el "Access Token"</strong> (una cadena larga, como <code>A1B2C3D4E5F6G7H8I9J0</code>).</li>
+<li><strong>Guarde el token</strong> de forma segura: lo necesitará en el código Arduino.</li>
+</ol>
+<p><strong>Ejemplo de token:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>A1B2C3D4E5F6G7H8I9J0K1L2M3N4O5P6
+</code></pre></div></p>
+<div class="admonition danger">
+<p class="admonition-title">Proteja el token</p>
+<p>Este token autentica el registrador. Cualquiera que lo conozca podrá enviar datos como si fuera su dispositivo. No lo publique.</p>
+</div>
+<h3 id="paso-3-configurar-el-codigo-arduino">Paso 3: Configurar el código Arduino<a class="headerlink" href="#paso-3-configurar-el-codigo-arduino" title="Permanent link">&para;</a></h3>
+<p><strong>Actualice el sketch Arduino</strong> (p. ej., <code>wari_3G.ino</code>):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1">// Antes:</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="cp">#define SERVER_URL "http:</span><span class="c1">//demo.thingsboard.io/api/v1/PASTE_TOKEN_HERE/telemetry"</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="c1">// Después (con su token):</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="cp">#define SERVER_URL "http:</span><span class="c1">//demo.thingsboard.io/api/v1/A1B2C3D4E5F6G7H8I9J0K1L2M3N4O5P6/telemetry"</span>
+</code></pre></div>
+<p><strong>Para ThingsBoard Cloud:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="cp">#define SERVER_URL "https:</span><span class="c1">//thingsboard.cloud/api/v1/YOUR_TOKEN/telemetry"</span>
+</code></pre></div></p>
+<p><strong>Para un servidor propio:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="cp">#define SERVER_URL "http:</span><span class="c1">//your-server.com/api/v1/YOUR_TOKEN/telemetry"</span>
+</code></pre></div></p>
+<h3 id="paso-4-probar-la-conexion">Paso 4: Probar la conexión<a class="headerlink" href="#paso-4-probar-la-conexion" title="Permanent link">&para;</a></h3>
+<p><strong>Prueba manual con curl</strong> (opcional):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span>http://demo.thingsboard.io/api/v1/YOUR_TOKEN/telemetry<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">  </span>-H<span class="w"> </span><span class="s1">'Content-Type: application/json'</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">  </span>-d<span class="w"> </span><span class="s1">'{"temperature":22.5, "distance_mm":1234}'</span>
+</code></pre></div>
+<p><strong>Respuesta esperada:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="p">{}</span>
+</code></pre></div></p>
+<p>Una respuesta JSON vacía indica que la petición se realizó correctamente.</p>
+<p><strong>En ThingsBoard:</strong></p>
+<ol>
+<li>Abra el dispositivo.</li>
+<li>Haga clic en la pestaña "Latest Telemetry".</li>
+<li>Deberían aparecer los valores.</li>
+</ol>
+<p><strong>Si no aparecen datos:</strong> compruebe el token, la URL y la conexión de red.</p>
+<hr />
+<h2 id="estructura-de-los-datos">Estructura de los datos<a class="headerlink" href="#estructura-de-los-datos" title="Permanent link">&para;</a></h2>
+<h3 id="formato-json">Formato JSON<a class="headerlink" href="#formato-json" title="Permanent link">&para;</a></h3>
+<p>Los registradores Riverlabs envían datos en formato JSON:</p>
+<p><strong>Ejemplo de Wari (ultrasonidos):</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="p">{</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">  </span><span class="nt">"distance_mm"</span><span class="p">:</span><span class="w"> </span><span class="mi">1234</span><span class="p">,</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">  </span><span class="nt">"temperature_C"</span><span class="p">:</span><span class="w"> </span><span class="mf">22.5</span><span class="p">,</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">  </span><span class="nt">"battery_V"</span><span class="p">:</span><span class="w"> </span><span class="mf">3.85</span><span class="p">,</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">  </span><span class="nt">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="mi">1703688000</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="p">}</span>
+</code></pre></div></p>
+<p><strong>Ejemplo de lidar:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="p">{</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">  </span><span class="nt">"distance_mm"</span><span class="p">:</span><span class="w"> </span><span class="mi">2456</span><span class="p">,</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">  </span><span class="nt">"battery_V"</span><span class="p">:</span><span class="w"> </span><span class="mf">3.78</span><span class="p">,</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">  </span><span class="nt">"signal_strength"</span><span class="p">:</span><span class="w"> </span><span class="mi">85</span><span class="p">,</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">  </span><span class="nt">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="mi">1703688000</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="p">}</span>
+</code></pre></div></p>
+<h3 id="claves-de-telemetria">Claves de telemetría<a class="headerlink" href="#claves-de-telemetria" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Clave</th>
+<th>Tipo</th>
+<th>Descripción</th>
+<th>Unidades</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>distance_mm</code></td>
+<td>Entero</td>
+<td>Distancia entre el sensor y el agua</td>
+<td>Milímetros</td>
+</tr>
+<tr>
+<td><code>temperature_C</code></td>
+<td>Decimal</td>
+<td>Temperatura del aire (solo Wari)</td>
+<td>Grados Celsius</td>
+</tr>
+<tr>
+<td><code>battery_V</code></td>
+<td>Decimal</td>
+<td>Tensión de la batería</td>
+<td>Voltios</td>
+</tr>
+<tr>
+<td><code>signal_strength</code></td>
+<td>Entero</td>
+<td>Calidad de la señal lidar</td>
+<td>Escala arbitraria (0–100)</td>
+</tr>
+<tr>
+<td><code>timestamp</code></td>
+<td>Entero</td>
+<td>Marca de tiempo Unix</td>
+<td>Segundos desde la época Unix</td>
+</tr>
+</tbody>
+</table>
+<p><strong>ThingsBoard almacena:</strong></p>
+<ul>
+<li><strong>Telemetría:</strong> series temporales (distancia, temperatura, etc.).</li>
+<li><strong>Atributos:</strong> datos estáticos (modelo, ubicación y fecha de instalación).</li>
+</ul>
+<hr />
+<h2 id="creacion-de-su-primer-panel-de-control">Creación de su primer panel de control<a class="headerlink" href="#creacion-de-su-primer-panel-de-control" title="Permanent link">&para;</a></h2>
+<h3 id="paso-1-crear-el-panel">Paso 1: Crear el panel<a class="headerlink" href="#paso-1-crear-el-panel" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Abra "Dashboards"</strong> en la barra lateral.</li>
+<li><strong>Haga clic en "+ Add Dashboard"</strong> (arriba a la derecha).</li>
+<li><strong>Introduzca el título:</strong> <code>Logger Monitoring - Site A</code>.</li>
+<li><strong>Haga clic en "Add".</strong></li>
+<li><strong>Se creará un panel vacío.</strong></li>
+</ol>
+<h3 id="paso-2-anadir-widgets">Paso 2: Añadir widgets<a class="headerlink" href="#paso-2-anadir-widgets" title="Permanent link">&para;</a></h3>
+<p><strong>Abra el panel en modo de edición:</strong></p>
+<ol>
+<li>Haga clic en el nombre del panel.</li>
+<li>Haga clic en el <strong>icono del lápiz</strong> (arriba a la derecha).</li>
+</ol>
+<p><strong>Añada el primer widget:</strong></p>
+<ol>
+<li><strong>Haga clic en "+ Add Widget"</strong> (centro o abajo a la derecha).</li>
+<li><strong>Elija el grupo:</strong> <code>Charts</code> (o <code>Gauges</code>, <code>Cards</code>, etc.).</li>
+<li><strong>Elija el tipo:</strong> <code>Timeseries Line Chart</code>.</li>
+<li><strong>Configure la fuente de datos:</strong><ul>
+<li><strong>Type:</strong> <code>Entity</code></li>
+<li><strong>Entity:</strong> seleccione su dispositivo</li>
+<li><strong>Data keys:</strong> marque <code>distance_mm</code> y <code>battery_V</code></li>
+</ul>
+</li>
+<li><strong>Configure el aspecto:</strong><ul>
+<li><strong>Title:</strong> <code>Water Level &amp; Battery</code></li>
+<li><strong>Time window:</strong> últimos 7 días</li>
+<li><strong>Line colors:</strong> azul (distancia) y rojo (batería)</li>
+</ul>
+</li>
+<li><strong>Haga clic en "Add".</strong></li>
+<li><strong>El widget aparecerá en el panel.</strong></li>
+</ol>
+<p><strong>Cambiar tamaño y posición:</strong></p>
+<ul>
+<li>Arrastre el widget para moverlo.</li>
+<li>Arrastre los bordes o las esquinas para redimensionarlo.</li>
+<li>Añada más widgets.</li>
+</ul>
+<h3 id="paso-3-otros-widgets-utiles">Paso 3: Otros widgets útiles<a class="headerlink" href="#paso-3-otros-widgets-utiles" title="Permanent link">&para;</a></h3>
+<p><strong>1. Tarjeta de distancia actual</strong></p>
+<ul>
+<li><strong>Grupo:</strong> <code>Cards</code></li>
+<li><strong>Tipo:</strong> <code>Simple Card</code></li>
+<li><strong>Clave de datos:</strong> <code>distance_mm</code></li>
+<li><strong>Título:</strong> <code>Current Distance</code></li>
+<li><strong>Muestra:</strong> el último valor de forma destacada</li>
+</ul>
+<p><strong>2. Indicador de batería</strong></p>
+<ul>
+<li><strong>Grupo:</strong> <code>Gauges</code></li>
+<li><strong>Tipo:</strong> <code>Radial Gauge</code></li>
+<li><strong>Clave de datos:</strong> <code>battery_V</code></li>
+<li><strong>Valor mínimo:</strong> 3.0</li>
+<li><strong>Valor máximo:</strong> 4.2</li>
+<li><strong>Intervalos de color:</strong><ul>
+<li>3.0–3.3: rojo (crítico)</li>
+<li>3.3–3.6: naranja (bajo)</li>
+<li>3.6–4.2: verde (bien)</li>
+</ul>
+</li>
+</ul>
+<p><strong>3. Gráfico de temperatura</strong> (solo Wari)</p>
+<ul>
+<li><strong>Grupo:</strong> <code>Charts</code></li>
+<li><strong>Tipo:</strong> <code>Timeseries Line Chart</code></li>
+<li><strong>Clave de datos:</strong> <code>temperature_C</code></li>
+<li><strong>Ventana temporal:</strong> últimas 24 horas</li>
+</ul>
+<p><strong>4. Tarjeta de estado del dispositivo</strong></p>
+<ul>
+<li><strong>Grupo:</strong> <code>Cards</code></li>
+<li><strong>Tipo:</strong> <code>Entity Table</code></li>
+<li><strong>Muestra:</strong> última actividad, atributos y estado</li>
+</ul>
+<h3 id="paso-4-guardar-el-panel">Paso 4: Guardar el panel<a class="headerlink" href="#paso-4-guardar-el-panel" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Haga clic en la marca de verificación</strong> (arriba a la derecha) para salir del modo de edición.</li>
+<li><strong>El panel se guarda</strong> automáticamente.</li>
+<li><strong>Comparta o guarde en favoritos</strong> su URL para acceder rápidamente.</li>
+</ol>
+<hr />
+<h2 id="configuracion-avanzada-de-widgets">Configuración avanzada de widgets<a class="headerlink" href="#configuracion-avanzada-de-widgets" title="Permanent link">&para;</a></h2>
+<h3 id="personalizacion-de-las-ventanas-temporales">Personalización de las ventanas temporales<a class="headerlink" href="#personalizacion-de-las-ventanas-temporales" title="Permanent link">&para;</a></h3>
+<p><strong>Ventana fija:</strong></p>
+<ul>
+<li>Última hora</li>
+<li>Últimas 24 horas</li>
+<li>Últimos 7 días</li>
+<li>Intervalo personalizado</li>
+</ul>
+<p><strong>Ejemplo:</strong> mostrar únicamente el horario laboral.</p>
+<ul>
+<li>Configuración: de 8:00 a. m. a 6:00 p. m.</li>
+<li>Útil para registradores solares.</li>
+</ul>
+<h3 id="anadir-umbrales">Añadir umbrales<a class="headerlink" href="#anadir-umbrales" title="Permanent link">&para;</a></h3>
+<p><strong>Líneas de alarma en los gráficos:</strong></p>
+<ol>
+<li>Edite el widget (icono del lápiz).</li>
+<li>Abra la pestaña "Advanced".</li>
+<li>Añada <strong>líneas de umbral:</strong><ul>
+<li><strong>Aviso de nivel alto de agua:</strong> 500 mm (línea roja)</li>
+<li><strong>Aviso de nivel bajo de agua:</strong> 2000 mm (línea naranja)</li>
+<li><strong>Batería crítica:</strong> 3.3 V (línea roja)</li>
+</ul>
+</li>
+</ol>
+<h3 id="agregacion-de-datos">Agregación de datos<a class="headerlink" href="#agregacion-de-datos" title="Permanent link">&para;</a></h3>
+<p><strong>Para intervalos largos</strong> (meses), agregue los datos:</p>
+<ul>
+<li><strong>None:</strong> mostrar todos los puntos (lento si hay muchos datos).</li>
+<li><strong>Average:</strong> promedios diarios u horarios.</li>
+<li><strong>Min/Max:</strong> mostrar extremos.</li>
+<li><strong>Sum:</strong> total del periodo.</li>
+</ul>
+<p><strong>Ejemplo:</strong> nivel máximo diario del agua.</p>
+<ul>
+<li>Agregación: <code>Max</code></li>
+<li>Intervalo: <code>1 day</code></li>
+</ul>
+<h3 id="campos-calculados">Campos calculados<a class="headerlink" href="#campos-calculados" title="Permanent link">&para;</a></h3>
+<p><strong>Obtener valores nuevos de la telemetría:</strong></p>
+<p><strong>Profundidad del agua</strong> (altura de instalación menos distancia):</p>
+<ol>
+<li>Añada el atributo del dispositivo: <code>install_height_mm = 3000</code>.</li>
+<li>Utilice un widget con el cálculo:
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>${install_height_mm} - ${distance_mm}
+</code></pre></div></li>
+</ol>
+<p><strong>Porcentaje de batería:</strong></p>
+<p>Estime el porcentaje a partir de la tensión:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>(${battery_V} - 3.0) / (4.2 - 3.0) * 100
+</code></pre></div></p>
+<hr />
+<h2 id="alarmas-y-notificaciones">Alarmas y notificaciones<a class="headerlink" href="#alarmas-y-notificaciones" title="Permanent link">&para;</a></h2>
+<h3 id="creacion-de-reglas-de-alarma">Creación de reglas de alarma<a class="headerlink" href="#creacion-de-reglas-de-alarma" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Abra el dispositivo.</strong></li>
+<li><strong>Haga clic en la pestaña "Alarms".</strong></li>
+<li><strong>Haga clic en "+ Add Alarm Rule".</strong></li>
+<li><strong>Configure la regla:</strong></li>
+</ol>
+<p><strong>Ejemplo: alerta de batería baja</strong></p>
+<ul>
+<li><strong>Name:</strong> <code>Low Battery Warning</code></li>
+<li><strong>Type:</strong> <code>battery_low</code></li>
+<li><strong>Severity:</strong> <code>Warning</code></li>
+<li><strong>Condition:</strong>
+  <div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>$[battery_V] &lt; 3.4
+</code></pre></div></li>
+<li><strong>Schedule:</strong> siempre activa</li>
+<li><strong>Action:</strong> crear alarma</li>
+</ul>
+<p><strong>Ejemplo: alerta de nivel alto de agua</strong></p>
+<ul>
+<li><strong>Name:</strong> <code>Flood Warning</code></li>
+<li><strong>Type:</strong> <code>high_water</code></li>
+<li><strong>Severity:</strong> <code>Critical</code></li>
+<li><strong>Condition:</strong>
+  <div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>$[distance_mm] &lt; 500
+</code></pre></div>
+  (Suponiendo que 500 mm sea el umbral de nivel alto.)</li>
+</ul>
+<h3 id="configuracion-de-notificaciones">Configuración de notificaciones<a class="headerlink" href="#configuracion-de-notificaciones" title="Permanent link">&para;</a></h3>
+<p><strong>Notificaciones por correo electrónico:</strong></p>
+<ol>
+<li><strong>Abra "Rule Chains"</strong> en la barra lateral.</li>
+<li><strong>Abra "Root Rule Chain".</strong></li>
+<li><strong>Añada un nodo "Send Email".</strong></li>
+<li><strong>Configure SMTP:</strong><ul>
+<li>Servidor (Gmail, SendGrid, etc.)</li>
+<li>Credenciales</li>
+<li>Direcciones de los destinatarios</li>
+</ul>
+</li>
+<li><strong>Conecte los nodos de alarma</strong> al nodo de correo.</li>
+</ol>
+<p><strong>Notificaciones SMS</strong> (mediante terceros):</p>
+<ul>
+<li>Integre Twilio o AWS SNS.</li>
+<li>Requiere ThingsBoard Cloud o alojamiento propio.</li>
+<li>Configúrelo en la cadena de reglas.</li>
+</ul>
+<p><strong>Alarmas en el panel:</strong></p>
+<ul>
+<li>Añada el widget "Alarms" al panel.</li>
+<li>Muestra alarmas activas con colores según la gravedad.</li>
+<li>Haga clic para reconocerlas o cerrarlas.</li>
+</ul>
+<hr />
+<h2 id="exportacion-de-datos">Exportación de datos<a class="headerlink" href="#exportacion-de-datos" title="Permanent link">&para;</a></h2>
+<h3 id="exportar-datos-historicos">Exportar datos históricos<a class="headerlink" href="#exportar-datos-historicos" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Abra el dispositivo.</strong></li>
+<li><strong>Haga clic en la pestaña "Latest Telemetry".</strong></li>
+<li><strong>Seleccione el intervalo de fechas.</strong></li>
+<li><strong>Haga clic en el icono de exportación</strong> (arriba a la derecha).</li>
+<li><strong>Elija el formato:</strong><ul>
+<li>CSV (compatible con Excel)</li>
+<li>JSON (para procesamiento)</li>
+</ul>
+</li>
+<li><strong>Descargue el archivo.</strong></li>
+</ol>
+<p><strong>Formato CSV:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>Timestamp,distance_mm,battery_V,temperature_C
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>2025-12-27 10:00:00,1234,3.85,22.5
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>2025-12-27 10:15:00,1256,3.84,23.1
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>...
+</code></pre></div></p>
+<h3 id="acceso-a-los-datos-mediante-api">Acceso a los datos mediante API<a class="headerlink" href="#acceso-a-los-datos-mediante-api" title="Permanent link">&para;</a></h3>
+<p><strong>Para acceso programático:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>curl<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">  </span><span class="s1">'http://demo.thingsboard.io/api/plugins/telemetry/DEVICE/YOUR_DEVICE_ID/values/timeseries?keys=distance_mm,battery_V&amp;startTs=1703520000000&amp;endTs=1703606400000'</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="w">  </span>-H<span class="w"> </span><span class="s1">'X-Authorization: Bearer YOUR_JWT_TOKEN'</span>
+</code></pre></div>
+<p><strong>Token JWT:</strong> obténgalo en el perfil de usuario &gt; ajustes de seguridad.</p>
+<hr />
+<h2 id="gestion-de-varios-dispositivos">Gestión de varios dispositivos<a class="headerlink" href="#gestion-de-varios-dispositivos" title="Permanent link">&para;</a></h2>
+<h3 id="anadir-varios-registradores">Añadir varios registradores<a class="headerlink" href="#anadir-varios-registradores" title="Permanent link">&para;</a></h3>
+<p><strong>Repita para cada registrador:</strong></p>
+<ol>
+<li>Añada el dispositivo (nombre único: <code>Wari-001</code>, <code>Wari-002</code>, etc.).</li>
+<li>Obtenga el token de acceso.</li>
+<li>Configure Arduino con el token correspondiente.</li>
+<li>Despliéguelo.</li>
+</ol>
+<h3 id="grupos-de-dispositivos">Grupos de dispositivos<a class="headerlink" href="#grupos-de-dispositivos" title="Permanent link">&para;</a></h3>
+<p><strong>Organice por ubicación o tipo:</strong></p>
+<ol>
+<li><strong>Abra "Entity Groups".</strong></li>
+<li><strong>Cree el grupo:</strong> <code>Creek Monitoring Sites</code>.</li>
+<li><strong>Añada dispositivos</strong> al grupo.</li>
+<li><strong>Filtre los paneles</strong> por grupo.</li>
+</ol>
+<h3 id="panel-del-conjunto-de-dispositivos">Panel del conjunto de dispositivos<a class="headerlink" href="#panel-del-conjunto-de-dispositivos" title="Permanent link">&para;</a></h3>
+<p><strong>Cree un panel general:</strong></p>
+<ol>
+<li><strong>Añada el widget "Devices".</strong></li>
+<li><strong>Entity type:</strong> grupo de dispositivos.</li>
+<li><strong>Seleccione el grupo:</strong> <code>Creek Monitoring Sites</code>.</li>
+<li><strong>Columnas:</strong> nombre, última actividad, batería y última distancia.</li>
+<li><strong>Reglas de color:</strong> destaque dispositivos con batería baja o desconectados.</li>
+</ol>
+<p><strong>Ejemplo de disposición:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Dispositivo</th>
+<th>Ubicación</th>
+<th>Última actividad</th>
+<th>Batería</th>
+<th>Distancia</th>
+<th>Estado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Wari-001</td>
+<td>Sitio A</td>
+<td>Hace 2 min</td>
+<td>3.85 V</td>
+<td>1234 mm</td>
+<td>🟢 Bien</td>
+</tr>
+<tr>
+<td>Wari-002</td>
+<td>Sitio B</td>
+<td>Hace 17 min</td>
+<td>3.45 V</td>
+<td>2456 mm</td>
+<td>🟡 Batería baja</td>
+</tr>
+<tr>
+<td>Lidar-001</td>
+<td>Sitio C</td>
+<td>Hace 3 horas</td>
+<td>3.12 V</td>
+<td>--</td>
+<td>🔴 Desconectado</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="gestion-de-usuarios">Gestión de usuarios<a class="headerlink" href="#gestion-de-usuarios" title="Permanent link">&para;</a></h2>
+<h3 id="anadir-usuarios-solo-cloud-o-alojamiento-propio">Añadir usuarios (solo Cloud o alojamiento propio)<a class="headerlink" href="#anadir-usuarios-solo-cloud-o-alojamiento-propio" title="Permanent link">&para;</a></h3>
+<p>El servidor de demostración no admite varios usuarios.</p>
+<p><strong>En Cloud o en una instalación propia:</strong></p>
+<ol>
+<li><strong>Abra "Users"</strong> en la barra lateral.</li>
+<li><strong>Haga clic en "+ Add User".</strong></li>
+<li><strong>Rellene el formulario:</strong><ul>
+<li>Correo electrónico y nombre</li>
+<li>Rol (Customer, Tenant, etc.)</li>
+</ul>
+</li>
+<li><strong>Asigne permisos:</strong><ul>
+<li>Solo lectura (para otras partes interesadas)</li>
+<li>Acceso completo (para personal técnico)</li>
+</ul>
+</li>
+<li><strong>Envíe el correo</strong> de activación.</li>
+</ol>
+<h3 id="compartir-paneles">Compartir paneles<a class="headerlink" href="#compartir-paneles" title="Permanent link">&para;</a></h3>
+<p><strong>Enlace público</strong> (solo lectura):</p>
+<ol>
+<li>Abra el panel.</li>
+<li>Haga clic en el icono <strong>"Share"</strong> (arriba a la derecha).</li>
+<li>Active <strong>"Public"</strong>.</li>
+<li>Copie el enlace.</li>
+<li>Comparta la URL con las partes interesadas.</li>
+</ol>
+<p><strong>Ventaja:</strong> compartir es fácil; no requiere inicio de sesión.<br />
+<strong>Inconveniente:</strong> cualquier persona con el enlace puede verlo.</p>
+<hr />
+<h2 id="aplicacion-movil-thingsboard">Aplicación móvil ThingsBoard<a class="headerlink" href="#aplicacion-movil-thingsboard" title="Permanent link">&para;</a></h2>
+<h3 id="instalacion-de-la-aplicacion">Instalación de la aplicación<a class="headerlink" href="#instalacion-de-la-aplicacion" title="Permanent link">&para;</a></h3>
+<p><strong>iOS:</strong></p>
+<ul>
+<li>App Store: busque "ThingsBoard Live".</li>
+<li>O visite https://apps.apple.com/app/thingsboard-live.</li>
+</ul>
+<p><strong>Android:</strong></p>
+<ul>
+<li>Google Play: busque "ThingsBoard Live".</li>
+<li>O visite https://play.google.com/store/apps/details?id=org.thingsboard.demo.app.</li>
+</ul>
+<h3 id="configuracion-de-la-aplicacion">Configuración de la aplicación<a class="headerlink" href="#configuracion-de-la-aplicacion" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Abra la aplicación.</strong></li>
+<li><strong>Elija el servidor:</strong><ul>
+<li>Demostración: <code>demo.thingsboard.io</code></li>
+<li>Cloud: <code>thingsboard.cloud</code></li>
+<li>Personalizado: URL de su servidor</li>
+</ul>
+</li>
+<li><strong>Inicie sesión</strong> con sus credenciales.</li>
+<li><strong>Los paneles</strong> aparecerán en la pantalla de inicio.</li>
+<li><strong>Tóquelos</strong> para consultar los datos en tiempo real.</li>
+</ol>
+<p><strong>Funciones móviles:</strong></p>
+<ul>
+<li>Ver paneles</li>
+<li>Consultar alarmas</li>
+<li>Exportar datos</li>
+<li>Recibir notificaciones push (si están configuradas)</li>
+</ul>
+<hr />
+<h2 id="solucion-de-problemas">Solución de problemas<a class="headerlink" href="#solucion-de-problemas" title="Permanent link">&para;</a></h2>
+<h3 id="no-aparecen-datos">No aparecen datos<a class="headerlink" href="#no-aparecen-datos" title="Permanent link">&para;</a></h3>
+<p><strong>Lista de comprobación:</strong></p>
+<ol>
+<li><strong>Compruebe que el registrador envía datos:</strong><ul>
+<li>Busque "HTTP 200 OK" en el monitor serie.</li>
+<li>Compruebe que la tarjeta SD contiene datos recientes.</li>
+</ul>
+</li>
+<li><strong>Compruebe el token de acceso</strong> en el código Arduino.</li>
+<li><strong>Compruebe que la URL</strong> corresponde a la instancia de ThingsBoard.</li>
+<li><strong>Pruebe con curl</strong> (petición POST manual).</li>
+<li><strong>Compruebe la pestaña "Latest Telemetry"</strong> del dispositivo, no solo el panel.</li>
+<li><strong>Revise la conectividad</strong> (¿está registrado el XBee?).</li>
+</ol>
+<h3 id="aparecen-datos-pero-el-panel-esta-vacio">Aparecen datos, pero el panel está vacío<a class="headerlink" href="#aparecen-datos-pero-el-panel-esta-vacio" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Revise la configuración del widget:</strong><ul>
+<li>¿Se seleccionó el dispositivo correcto?</li>
+<li>¿Coinciden las claves con las de telemetría?</li>
+<li>¿Incluye la ventana temporal el periodo de los datos?</li>
+</ul>
+</li>
+<li><strong>Actualice el panel</strong> (F5).</li>
+<li><strong>Compruebe la consola del navegador</strong> para detectar errores.</li>
+</ol>
+<h3 id="las-alarmas-no-se-activan">Las alarmas no se activan<a class="headerlink" href="#las-alarmas-no-se-activan" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Revise la sintaxis</strong> de la condición de la regla.</li>
+<li><strong>Compruebe que los valores</strong> cumplen la condición.</li>
+<li><strong>Verifique que la alarma anterior se haya cerrado</strong> (una alarma ya activa no vuelve a dispararse).</li>
+<li><strong>Pruebe con datos manuales</strong> (POST con curl y valores que activen la alarma).</li>
+</ol>
+<h3 id="los-datos-llegan-con-retraso">Los datos llegan con retraso<a class="headerlink" href="#los-datos-llegan-con-retraso" title="Permanent link">&para;</a></h3>
+<ul>
+<li>ThingsBoard suele procesarlos rápidamente (normalmente en menos de un segundo).</li>
+<li>El retraso suele deberse a la transmisión (tiempo de conexión del XBee).</li>
+<li>Compruebe la frecuencia de actualización automática del widget.</li>
+</ul>
+<hr />
+<h2 id="buenas-practicas">Buenas prácticas<a class="headerlink" href="#buenas-practicas" title="Permanent link">&para;</a></h2>
+<h3 id="diseno-del-panel">Diseño del panel<a class="headerlink" href="#diseno-del-panel" title="Permanent link">&para;</a></h3>
+<p><strong>Haga lo siguiente:</strong></p>
+<ul>
+<li>Utilice títulos claros para los widgets.</li>
+<li>Destaque las métricas principales.</li>
+<li>Asigne colores según la gravedad (rojo = problema, verde = correcto).</li>
+<li>Indique cuándo se actualizaron los datos por última vez.</li>
+<li>Agrupe datos relacionados.</li>
+</ul>
+<p><strong>Evite:</strong></p>
+<ul>
+<li>Saturar el panel con demasiados widgets.</li>
+<li>Utilizar escalas engañosas.</li>
+<li>Olvidar a los usuarios móviles (pruebe en un teléfono).</li>
+</ul>
+<h3 id="gestion-de-datos">Gestión de datos<a class="headerlink" href="#gestion-de-datos" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Exporte datos periódicamente</strong> como copia de seguridad ante problemas con la cuenta.</li>
+<li><strong>Documente los atributos del dispositivo</strong> (ubicación, altura de instalación, etc.).</li>
+<li><strong>Use nombres coherentes</strong> (<code>Wari-001</code>, no "logger at creek").</li>
+<li><strong>Revise las alarmas semanalmente</strong> y ajuste los umbrales según la experiencia.</li>
+</ul>
+<h3 id="seguridad">Seguridad<a class="headerlink" href="#seguridad" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Utilice HTTPS</strong> en ThingsBoard Cloud o en una instalación propia.</li>
+<li><strong>Rote los tokens de acceso</strong> si se ven comprometidos.</li>
+<li><strong>Limite los paneles públicos</strong> a datos no sensibles.</li>
+<li><strong>Utilice contraseñas robustas.</strong></li>
+<li><strong>Active 2FA</strong> si está disponible (Cloud o alojamiento propio).</li>
+</ul>
+<hr />
+<h2 id="costes">Costes<a class="headerlink" href="#costes" title="Permanent link">&para;</a></h2>
+<h3 id="servidor-de-demostracion">Servidor de demostración<a class="headerlink" href="#servidor-de-demostracion" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Coste:</strong> gratuito.</li>
+<li><strong>Límites:</strong> conservación de datos, ausencia de SLA y eliminación periódica.</li>
+<li><strong>Adecuado para:</strong> pruebas y formación.</li>
+</ul>
+<h3 id="thingsboard-cloud">ThingsBoard Cloud<a class="headerlink" href="#thingsboard-cloud" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Plan gratuito:</strong><ul>
+<li>1 dispositivo</li>
+<li>Número limitado de paneles</li>
+<li>Soporte comunitario</li>
+</ul>
+</li>
+<li><strong>Planes de pago:</strong> ~$10–50+ al mes.<ul>
+<li>Más dispositivos</li>
+<li>Funciones avanzadas</li>
+<li>Asistencia técnica</li>
+<li>SLA</li>
+</ul>
+</li>
+</ul>
+<h3 id="alojamiento-propio">Alojamiento propio<a class="headerlink" href="#alojamiento-propio" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Infraestructura:</strong> $5–20+ al mes (DigitalOcean, AWS).</li>
+<li><strong>Tiempo de instalación:</strong> 4–8 horas (primera vez).</li>
+<li><strong>Mantenimiento:</strong> continuo.</li>
+<li><strong>Adecuado para:</strong> organizaciones con recursos informáticos.</li>
+</ul>
+<hr />
+<h2 id="alternativas-a-thingsboard">Alternativas a ThingsBoard<a class="headerlink" href="#alternativas-a-thingsboard" title="Permanent link">&para;</a></h2>
+<p>Si ThingsBoard no responde a sus necesidades:</p>
+<p><strong>Código abierto:</strong></p>
+<ul>
+<li><strong>Grafana + InfluxDB:</strong> popular y potente, pero difícil de aprender.</li>
+<li><strong>Node-RED:</strong> programación visual de flujos, flexible.</li>
+<li><strong>Emoncms:</strong> centrado en la supervisión energética.</li>
+</ul>
+<p><strong>Comerciales:</strong></p>
+<ul>
+<li><strong>Losant:</strong> plataforma IoT empresarial.</li>
+<li><strong>Ubidots:</strong> fácil de usar; precio moderado.</li>
+<li><strong>TagoIO:</strong> adecuada para prototipos.</li>
+</ul>
+<p><strong>Desarrollo propio:</strong></p>
+<ul>
+<li>Servidor personalizado con PHP/Python + MySQL.</li>
+<li>Google Sheets (mediante IFTTT o un script personalizado).</li>
+</ul>
+<hr />
+<h2 id="siguientes-pasos">Siguientes pasos<a class="headerlink" href="#siguientes-pasos" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../xbee-setup-walkthrough/">Guía paso a paso de XBee</a>: configuración detallada del XBee</li>
+<li><a href="../troubleshooting-connections/">Solución de problemas de conexión</a>: resolver problemas de telemetría</li>
+<li><a href="https://thingsboard.io/docs/">Documentación de ThingsBoard</a>: documentación oficial sobre funciones avanzadas</li>
+<li><a href="../../operation/hardware/battery-power-guide/">Guía de baterías y alimentación</a>: supervisar el estado de la batería</li>
+</ul>
+<hr />
+<div class="admonition success">
+<p class="admonition-title">¡Panel listo!</p>
+<p>El panel de ThingsBoard ya está configurado y muestra datos en tiempo real. Compruébelo cada día durante la primera semana para asegurarse de que funciona de forma estable.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Volver al principio
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Riverlabs Ltd
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/ICHydro" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.sections", "navigation.indexes", "navigation.expand", "navigation.top", "search.suggest", "search.highlight", "content.code.copy", "content.action.edit", "content.action.view"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+        <script src="../../assets/javascripts/extra.js"></script>
+      
+    
+  </body>
+</html>
