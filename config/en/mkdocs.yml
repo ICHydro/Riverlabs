@@ -41,6 +41,7 @@ theme:
     - navigation.indexes
     - navigation.expand
     - navigation.top
+    - toc.integrate
     - search.suggest
     - search.highlight
     - content.code.copy
@@ -55,7 +56,7 @@ plugins:
   - tags
   - redirects:
       redirect_maps:
-        index.md: operation/quick-start/quick-start.md
+        index.md: operation/quick-start/setup-guide.md
 
 markdown_extensions:
   - admonition
@@ -80,6 +81,7 @@ markdown_extensions:
   - footnotes
   - toc:
       permalink: true
+      toc_depth: 2
 
 extra_css:
   - assets/stylesheets/extra.css
@@ -105,10 +107,12 @@ copyright: Copyright &copy; 2026 Riverlabs Ltd
 nav:
   - Operation:
       - Quick Start:
-          - Quick Start Guide: operation/quick-start/quick-start.md
-          - Data Download: operation/quick-start/data-download.md
-          - Arduino Settings: operation/quick-start/arduino-setup.md
-          - First Deployment Checklist: operation/quick-start/first-deployment-checklist.md
+          - "1. Setup Guide (start here)": operation/quick-start/setup-guide.md
+          - "2. Settings Explained & FAQ": operation/quick-start/settings-explained.md
+          - "3. First Deployment Checklist": operation/quick-start/first-deployment-checklist.md
+          - "4. Data Download": operation/quick-start/data-download.md
+          - Logger Models Overview: operation/quick-start/quick-start.md
+          - Arduino Settings (short version): operation/quick-start/arduino-setup.md
       - Hardware:
           - Technical Specifications: operation/hardware/technical-specifications.md
           - Battery & Power Guide: operation/hardware/battery-power-guide.md
