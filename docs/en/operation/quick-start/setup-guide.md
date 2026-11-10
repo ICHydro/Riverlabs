@@ -132,6 +132,8 @@ The serial number starts with `RL` and is printed on the logger.
 !!! warning "`wari_4G` is set up for NB-IoT only"
     The sketch tells the modem to use **NB-IoT only**, on frequency bands 8 and 20 (common in Europe). If your SIM or network only offers LTE-M, or uses other bands, it will not connect as it is. Ask Riverlabs before you upload. Many countries, including the UK, have switched off their 3G networks, so a 3G modem may no longer connect at all.
 
+    The sketch also **saves** this setting in the XBee's own memory. It stays even after you upload a different sketch, such as `wari_3G_v2`. So do not try `wari_4G` "just to see" on a logger that works with another sketch.
+
 !!! warning "Fitting a 4G modem to a `wari_3G_v2` board?"
     The `wari_4G` sketch switches the sensor on in a different way. On our `wari_3G_v2` test board, `wari_4G` read the distance as **-1** every time. If you see this, ask Riverlabs before you go further.
 

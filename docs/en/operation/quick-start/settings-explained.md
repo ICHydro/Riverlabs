@@ -194,10 +194,11 @@ Everything is the same, with `HOST` set to your server's address. Two things to 
     3. **Check the sketch matches the modem.** If the label on the XBee says 3G, use `wari_3G` or `wari_3G_v2`. If it says LTE-M or NB-IoT, use `wari_4G`.
     4. **3G modem?** Many countries, including the UK, have switched off 3G. A 3G modem stays on `22` where there is no 3G network.
     5. **`wari_4G`?** The sketch makes the modem use **NB-IoT only, on bands 8 and 20**. If your SIM or the local network only offers LTE-M, or NB-IoT on other bands, the modem stays on `22`. Ask your SIM company which network types and bands it supports where you are.
-    6. **Check the signal.** Try near a window or outside. Indoors, NB-IoT and LTE-M signals can be weak.
-    7. **Check that the modem answers.** If an error line appears before the "AI status" lines, the logger could not talk to the modem at all, and `FF` is just the starting value. Switch OFF and push the XBee firmly into its socket.
+    6. **Ever uploaded `wari_4G` to this logger?** It saves the NB-IoT setting in the XBee's own memory, so it stays after you upload another sketch. `wari_3G_v2` only writes the APN and does not undo it. To undo it, open the XBee in Digi's XCTU program, set **CP** (carrier profile) to `0` and **N#** (network technology) to `0`, and click **Write**. We have not tested this reset on a logger yet.
+    7. **Check the signal.** Try near a window or outside. Indoors, NB-IoT and LTE-M signals can be weak.
+    8. **Check that the modem answers.** If an error line appears before the "AI status" lines, the logger could not talk to the modem at all, and `FF` is just the starting value. Switch OFF and push the XBee firmly into its socket.
 
-    If the "This is Riverlabs..." start-up message keeps coming back, the logger is restarting. Check the power first (point 1) and that the modem is fitted (point 7).
+    If the "This is Riverlabs..." start-up message keeps coming back, the logger is restarting. Check the power first (point 1) and that the modem is fitted (point 8).
 
 ??? question "What do the 'AI status' numbers mean?"
     The modem reports its progress while connecting. The logger prints this as "AI status". These are the most common values for Digi XBee cellular modems:
