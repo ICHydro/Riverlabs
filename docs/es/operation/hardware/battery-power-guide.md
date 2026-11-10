@@ -1,19 +1,20 @@
 # Guía de baterías y alimentación
 
 !!! abstract "Descripción general"
-    El manejo energético es uno e los desafíos mas grandes del monitoreo automatizada en campo. Esta guía trata la elección de baterías y la interpretación de su voltaje y comportamiento.
+    El manejo energético es uno de los desafíos más grandes del monitoreo automatizado en campo. Esta guía trata la elección de baterías y la interpretación de su voltaje y comportamiento.
 
 ## Descripción general del sistema de baterías
 
-Los registradores Riverlabs utilizan un sistema de dos baterías. La bateria principal sirve para la alimentación del sistema. Una peque$ntilde;a bateria tipo reloj garantiza  conservación de la hora cuando la bateria principal no esta instalada.
+Los registradores Riverlabs utilizan un sistema de dos baterías. La batería principal sirve para la alimentación del sistema. Una peque&ntilde;;a batería tipo reloj garantiza la conservación de la hora cuando la batería principal no está instalada.
 
 ![Comparación de tipos de baterías](../../assets/images/Battery_Types.png)
 *Tamaños de batería 18650 y 14500, con opciones de composición LiPo y LiFePO4*
 
 
+
 ### Alimentación principal: batería 18650 o 14500
 
-Dependiendo del modelo, los registradores Riverlabs usan uno de dos tamaños de batería. Dientro de cada tama&ntilde;o, existen diferentes tipos de composición quimica que se puede elejir dependiendo de sus necesidades y la disponibilidad local. 
+Dependiendo del modelo, los registradores Riverlabs usan uno de dos tamaños de batería. Dentro de cada tama&ntilde;o, existen diferentes tipos de composición química que se pueden elegir dependiendo de sus necesidades y de la disponibilidad local. 
 
 | Tipo de batería | Composición                              | Tensión nominal | Capacidad      | Dimensiones   | Notas                                           |
 |-----------------|------------------------------------------|-----------------|----------------|---------------|-------------------------------------------------|
@@ -26,7 +27,7 @@ Dependiendo del modelo, los registradores Riverlabs usan uno de dos tamaños de 
 
 | Característica              | Li-ion (3.7 V)                       | LiFePO4 (3.2 V)                        |
 |-----------------------------|--------------------------------------|----------------------------------------|
-| **Intervalo de tensión**    | 4.2 V (cargada)–3.0 V (agotada)       | 3.65 V (cargada)–2.5 V (agotada).       |
+| **Intervalo de tensión**    | 4.2 V (cargada)–3.0 V (agotada)       | 3.65 V (cargada)–2.5 V (agotada)       |
 | **Densidad energética**     | Mayor                                | Menor                                  |
 | **Seguridad**               | Buena (con protección)               | Excelente (muy estable)                |
 | **Vida útil en ciclos**     | 300–500 ciclos                       | Más de 2000 ciclos                     |
@@ -52,14 +53,14 @@ Dependiendo del modelo, los registradores Riverlabs usan uno de dos tamaños de 
 - **Tensión nominal:** 3.0 V
 - **Capacidad:** ~40 mAh
 - **Finalidad:** respaldo exclusivo del reloj de tiempo real
-- **Vida útil:** normalmente de 5 a 10 años. Nota: cuando la bateria principal esta insertada, el reloj recibe poder de la batería principal y la batería de respalda no se descarga.
+- **Vida útil:** normalmente de 5 a 10 años. Nota: cuando la batería principal está insertada, el reloj recibe energía de la batería principal y la batería de respaldo no se descarga.
 
 **Función:**
 
 - Mantiene la hora del reloj cuando se retira la batería principal
 - NO alimenta el registrador ni el sensor
 - El registrador funciona sin ella (pero pierde la hora)
-- Aplicaciones de telemetría obtienen la hora de in servidor del internet, y el uso de la bateria de respaldo no es necesario
+- Las aplicaciones de telemetría obtienen la hora de un servidor de internet, y el uso de la batería de respaldo no es necesario
 
 ---
 
@@ -277,8 +278,8 @@ La tensión de la batería indica la capacidad restante, pero los intervalos de 
 
 ### Especificaciones del panel solar
 
-!!! danger "Quimica de la bateria"
-    El circuio de carga por panel solar solo es compaitble con baterías Li-Ion de 3.7 V
+!!! danger "Química de la batería"
+    El circuito de carga por panel solar solo es compatible con baterías Li-Ion de 3.7 V
 
 **Configuración solar habitual:**
 
@@ -287,7 +288,7 @@ La tensión de la batería indica la capacidad restante, pero los intervalos de 
 - Montaje: ajustable según el ángulo del sol
 
 !!! warning "Limitaciones de la carga solar"
-    - Solo carga por encima de 0°C (desactivación automatica debajo de 0°C
+    - Solo carga por encima de 0°C (desactivación automática por debajo de 0°C)
     - Requiere buena exposición al sol; no es adecuada para lugares con mucha sombra
     - Puede no ser suficiente para compensar el consumo de la telemetría
 
@@ -325,7 +326,7 @@ La tensión de la batería indica la capacidad restante, pero los intervalos de 
 !!! warning "Revise las baterías almacenadas"
     Las baterías almacenadas deben revisarse cada 3–6 meses.
     
-    - **Li-Ion:** recargue hasta 3.7–3.8. V si la tensión es inferior a 3.4 V
+    - **Li-Ion:** recargue hasta 3.7–3.8 V si la tensión es inferior a 3.4 V
     - **LiFePO4:** recargue hasta 3.2–3.3 V si la tensión es inferior a 2.9 V
 
 ### Eliminación
@@ -334,7 +335,7 @@ La tensión de la batería indica la capacidad restante, pero los intervalos de 
 
 **Eliminación adecuada:**
 
-1. Descárguelas hasta <3,0 V (utilícelas en el registrador hasta agotarlas)
+1. Descárguelas hasta <3.0 V (utilícelas en el registrador hasta agotarlas)
 2. Cubra los terminales con cinta aislante
 3. Llévelas a un punto de reciclaje de baterías
 4. Muchos comercios aceptan baterías 18650 para su reciclaje
