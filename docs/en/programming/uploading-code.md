@@ -1,211 +1,235 @@
 # Programming the Riverlabs loggers
 
 !!! Abstract "Overview"
-    The previous section of this chapter explains how to install the Arduino IDE, the board definitions, and the required libraries. Once you have installed everything, you are ready to connect the logger to a PC and compile and upload the code. This is covered in this section.
+    The previous section explains how to install the Arduino IDE, choose the board and install the libraries. This section covers connecting the logger, uploading the code and checking that it works.
 
-## Connect the Logger to Your Computer
+The whole process at a glance:
 
-!!! warning "Disconnect Maxbotix Sensor First"
-    Disconnect the Maxbotix ultrasonic sensor from the logger before programming. The sensor and FTDI cable use the same serial port, which will cause interference and prevent successful code upload. Unplug the white connector.
+[![Uploading code, one step at a time](../assets/images/setup/07-upload-steps.svg)](../assets/images/setup/07-upload-steps.svg){ title="Click to open full size" }
 
-As explained in the previous section the wari loggers do not have an USB port, and will require an FTDI cable or board to connect to the 6-pin header on the side of the PCB. The PCB has markings to indicate the correct orientation: the pin labeled with "GRN" should align with the green wire of the cable, while the pin labeled "BLK" should align with the black wire of the cable.
+## Connect the logger to your computer
 
-<!-- insert picture -->
+### 1. Switch off and unplug the sensor
 
-!!! danger "Check Orientation"
-    Incorrect FTDI orientation can prevent programming or potentially damage components. Always verify the GRN/BLK markings before connecting.
+Set the power switch to **OFF**, then pull out the white Maxbotix plug.
 
-Now connect the cable to an USB port on your computer. If your device recognizes the FTDI chip correctly, it should show up in the Arduino IDE under the menu **Tools → Port**. The port names vary by operating system:
+[![Why the Maxbotix must be unplugged](../assets/images/setup/06-why-unplug-sensor.svg)](../assets/images/setup/06-why-unplug-sensor.svg){ title="Click to open full size" }
+
+The sensor and the FTDI cable share the chip's only hardware serial input (the RX pin). While the sensor is plugged in, it keeps sending distance readings down that wire, so the bootloader hears a mix of your code and the sensor's readings. The upload then fails with `stk500_getsync(): not in sync`. This is the most common upload problem.
+
+!!! warning "Only plug or unplug parts when the power is off"
+    The same goes for the XBee modem and the SD card. Switch OFF and unplug the FTDI cable before you take them out or put them in.
+
+### 2. Plug in the FTDI cable the right way round
+
+The Riverlabs loggers do not have a USB port. Instead, an FTDI cable connects to the 6-pin header on the side of the board.
+
+<!-- TODO: add a photo of the FTDI cable plugged into a real board -->
+[![Plug in the FTDI cable](../assets/images/setup/05-ftdi-wiring.svg)](../assets/images/setup/05-ftdi-wiring.svg){ title="Click to open full size" }
+
+Line up the **green wire** with **GRN** and the **black wire** with **BLK**, then push the plug straight onto the pins.
+
+| Wire | Signal | What it does |
+|---|---|---|
+| Black | GND | 0 V, the shared ground |
+| Brown | CTS | Not used |
+| Red | VCC | Power from USB (5 V). The board only uses it when the switch is OFF. |
+| Orange | TX | The computer talks to the board |
+| Yellow | RX | The board talks to the computer |
+| Green | RTS or DTR (the name depends on the cable) | Resets the board, so the bootloader starts at the right moment |
+
+!!! danger "Check the direction before you plug in the USB end"
+    The plug fits both ways round, and the wrong way puts the wires on the wrong pins. If the board does not respond, unplug the USB end, check that green meets GRN, and try again.
+
+### 3. Power the board
+
+[![The power switch](../assets/images/setup/04-power-switch.svg)](../assets/images/setup/04-power-switch.svg){ title="Click to open full size" }
+
+- **OFF (ftdi):** the USB port powers the board through the cable. This works with or without a battery fitted, because the switch disconnects the battery.
+- **ON (batt):** the battery powers the board and the cable only carries data. Use this only if the battery is charged.
+
+The switch never connects the battery and the USB power together, so the battery cannot be damaged by the USB port.
+
+### 4. Select the port
+
+Plug the USB end into the computer. The port names vary by operating system:
 
 - **macOS:** `/dev/cu.usbserial-XXXXXXXX`
-- **Linux:** `/dev/ttyUSB0` or `/dev/ttyACM0`
+- **Linux:** `/dev/ttyUSB0`
 - **Windows:** `COM3`, `COM4`, etc.
 
-If no port appears, then there are a couple of things you can check:
+Choose it in **Tools → Port**. If several ports show up, unplug the FTDI cable and check the list, then plug it in and check again. The port that disappears and comes back is the logger. On a Mac you can also run `ls /dev/cu.usbserial*` in Terminal.
 
-- Verify FTDI drivers are installed (only for Windows)
-- Try a different USB port on your computer
+!!! tip "Close anything that is using the port"
+    Only one program can use the serial port at a time. Close the Serial Monitor, and any other terminal program, before you upload.
 
-For detailed troubleshooting, the [Sparkfun FTDI Guide](https://learn.sparkfun.com/tutorials/how-to-install-ftdi-drivers) provides an in-depth overview of the use of an FTDI cable.
+## Upload the logger code
 
-## Select the port and set the board in the Arduino IDE
+### 1. Open the right sketch
 
-Make sure the correct port is selected in the menu **Tools → Port**. If other devices are connected to your PC, then several ports may show up, for example 'COM3' and 'COM4'. To identify the correct port, you can unplug the FTDI cable, check the list of ports in the menu, and then plug it in and check again. The COM port to which the FTDI cable is assigned, should disappear and reappear.
+Each logger model has its own sketch. Use the serial number (starting with `RL`) printed on the logger to choose:
 
-Next, the correct board definitions need to be selected in the **Tools** menu:
+[![Which sketch do I upload?](../assets/images/setup/02-which-sketch.svg)](../assets/images/setup/02-which-sketch.svg){ title="Click to open full size" }
 
+!!! warning "The distance reads -1? Check the sketch first"
+    Different board versions switch the sensor on in different ways. On a `wari_3G_v2` logger, the matching sketch read the distance fine, but the `wari_4G` sketch read **-1** every time because it switched the sensor power the other way. If you only ever see -1, make sure the sketch matches your board before you suspect the sensor.
 
-1. **Board:** MiniCore → ATmega328
-2. **Clock:** External 8 MHz
-3. **BOD:** BOD 2.7V
-4. **Variant:** 328P / 328PA
-5. **Bootloader:** Yes (UART0)
+### 2. Change the settings
 
-If these settings do not appear in your menu, then you may need to install the Minicore board definitions via the boards manager.
+The settings are at the top of each sketch, in lines that start with `#define`. Only change the value, never the name.
 
-!!! warning "Board Settings are Critical"
-    The board MUST be set to **MiniCore → ATmega328** with **Clock: External 8 MHz**. Using the wrong settings can cause upload failures or runtime issues.
+**SD loggers** (for example `wari_v2.1`):
 
-## Uploading the Riverlabs code
+```cpp
+#define INTERVAL 5        // minutes between readings
+#define NREADINGS 10      // readings taken each time
+#define FLUSHAFTER 288    // readings kept before writing to SD (288 x 5 min = 24 h)
+#define LOGGERID "RL000XXX"
+#define OPTIBOOT          // leave this on: it turns on the watchdog
+```
 
-### Set the clock
+**Cellular loggers** (for example `wari_3G_v2` and `wari_4G`):
 
-This step is only needed if you start with a brand-new board, or when a new CR1220 coin battery is placed or the battery has been removed. The clock will retain the time as long as the coin battery is in place, even if new code is uploaded.
+```cpp
+#define READ_INTERVAL 5            // minutes between readings
+#define SEND_INTERVAL 1            // hours between sends
+#define HOST "your.server.address" // the ThingsBoard server
+#define ACCESSTOKEN "your-token"   // this logger's ThingsBoard token (keep it secret)
+#define LOGGERID "RL000XXX"
+#define APN ""                     // your SIM card's APN, if it needs one
+#define NTP                        // set the clock from the internet at start-up
+//#define LTE                      // leave off: for LTE-M / NB-IoT modems use wari_4G
+                                   // (switching LTE on in wari_3G_v2 currently fails to compile)
+#define OPTIBOOT                   // leave this on
+```
 
-The clock can be set using the "set_clock.ino" sketch in the Riverlabs repository. Open the serial monitor **before* uploading the sketch to verify that the clock is set correctly. If nothing shows up in the serial monitor, then verify that the baud rate has been set to **115200 baud**. A nice tutorial of how to use the Serial Monitor in Arduino can be found on [Instructables](https://www.instructables.com/id/HOW-TO-use-the-ARDUINO-SERIAL-MONITOR/).
+For the Riverlabs data platform, `HOST` is `riverflow.io`. Every setting is explained on [Settings Explained and Common Questions](../operation/quick-start/settings-explained.md).
 
-!!! info "Dealing with different time zones"
-     If you set the clock using this sketch then it will be set to your computer's time zone. You can change this by altering the "TZ' variable in the sketch. Set `TZ` with the time offset from UTC in hours (e.g., `-5` for EST, `+1` for CET). In our research, we have adopted the procedure of always setting the clock in UCT (GMT). We operate loggers in different time zones and this minimizes the risk of confusion. If you have a preprogrammed Riverlabs logger, then it is very likely that the clock will be set in UTC time.
+!!! warning "Keep your access token private"
+    Never share or commit a sketch with your real `ACCESSTOKEN` in it.
 
-!!! tip "Compensation for Upload Delay"
-    The sketch hardcode you PC's into the code during compilation, and this time is then set to the clock when the code is subsequently run on the logger. There is approximately a **10-second delay** between these steps. This time delay is accounted for in the sketch. As the delay depends on the specific PC, you can finetune the value if you like:
+### 3. Upload
 
-Adjusting the time delay compensation can be done in this line of the sketch:
-    
+1. Click the **→ Upload** button.
+2. Wait. First the code compiles, then "Uploading..." appears, and finally **"Done uploading"**.
+3. The board restarts by itself.
+
+### Check the start-up messages
+
+Keep the FTDI cable plugged in and open the Serial Monitor at **115200 baud**. Opening it restarts the board through the green wire, so you see the messages from the very beginning. This is normal.
+
+A healthy cellular logger prints something like this:
+
+```text
+This is Riverlabs Wari_3G_v2 (optiboot), compiled on Nov  6 2026
+Logger ID: RL000726
+Current time is 2026/11/06 19:57:23 UTC
+Measuring the following variables:
+- Distance (Maxbotix ultrasound sensor)
+Measurement interval (minutes): 5
+Buffer starts at position: 6
+Cellular XBee detected. Setting APN
+AI status = FF
+AI status = FF
+AI status = FF
+AI status = FF
+AI status = 22
+AI status = 22
+AI status = 23
+Callback - Modem Status Response: 2
+AI status = 0
+Callback - IP Address: AC E8 9D 1B
+NTP received. Clock is set to: 11/06/2026 19:57:51
+```
+
+Check that:
+
+- The **sketch name** and **logger ID** are right.
+- The **time** is correct in UTC.
+- **Cellular:** the "AI status" codes change from `FF` to `22` (sometimes `23`) and then `0`, and an IP address appears. On our test logger this took 20 to 35 seconds. Then "NTP received" appears.
+- **At every reading:** the battery voltage in mV (`VBatt = 3815`), the temperature in hundredths of a degree (`T = 2400` means 24.00 °C) and the distance in mm (`Distance (ultrasound) = 1076`).
+- **Cellular, at the top of the hour:** `CONNACK received: accepted`, then one `PUBACK received` for each page of readings sent. That means the server received the data.
+
+The Maxbotix MB7389 reads from 300 to 5000 mm. **5000** means nothing was detected within range. **-1** means fewer than half the readings came back from the sensor, usually because it is unplugged, not powered, or the sketch does not match the board. While the sensor is unplugged for the upload, -1 is expected. To see real readings, switch OFF, plug the sensor in, switch ON and watch again. Do not upload while the sensor is plugged in.
+
+### 4. Finish
+
+1. Unplug the FTDI cable.
+2. With the switch still **OFF**, plug the sensor back in.
+3. Switch to **ON (batt)** and watch for the start-up flash. See the [LED guide](../operation/quick-start/setup-guide.md#4-read-the-led).
+
+## Set the clock
+
+This step is needed for SD loggers when the board is new, or after the CR1220 coin cell was taken out. The clock keeps the time as long as the coin cell is in place, even when new code is uploaded. Cellular loggers set their own clock from the internet (NTP) at every start-up, so they do not need this.
+
+The clock is set with the `set_clock.ino` sketch in the repository. It takes the time from your computer when the sketch is compiled, and writes it to the clock **every time the sketch starts**. That is why the order of the steps matters:
+
+1. Open `set_clock/set_clock.ino`.
+2. Set `TZ` to your **computer's** offset from UTC, in hours. For example, use `0` if your computer is on UK winter time, and `1` on UK summer time, Central European winter time or West Africa Time. The logger then keeps time in UTC, which we recommend for every logger.
+3. **Open the Serial Monitor at 115200 baud before uploading.** Opening the Serial Monitor restarts the board, and every restart sets the clock again to the time of compiling. If you open it after the upload, the clock is set to a time that is already out of date.
+4. Upload, and check the time that is printed.
+5. **Straight away**, upload the logger sketch, so that a later restart cannot set the clock back.
+
+!!! tip "Compensation for the upload delay"
+    There are a few seconds between compiling and the sketch running on the logger. The sketch adds 12 seconds to make up for this. If your computer is faster or slower, you can change the number in this line:
+
     ```cpp
-    RtcDateTime compiled = RtcDateTime(__DATE__, __TIME__) - TZ * 3600 + 10;
+    RtcDateTime compiled = RtcDateTime(__DATE__, __TIME__) - TZ * 3600 + 12;
     ```
 
-### Uploading the Logger Code
-
-1. **Download the appropriate sketch** for your logger model. We are in the process of unifying our logger code, but at this moment, each logger model has its own code. Please refer to the README in the repository to identify the correct code for your model.
-
-2. **Open the sketch** in Arduino IDE
-
-3. **Configure settings** in the code (if needed):
-    - Measurement interval
-    - Sensor calibration
-    - Telemetry settings
-
-4. **Click the Upload button** (→ arrow icon)
-
-5. **Wait for upload to complete**
-    - Progress bar will show compilation
-    - Then "Uploading..." will appear
-    - Success message: "Done uploading"
-
-6. **Verify the upload:**
-    - LED should light up for about 1 second
-    - Logger is now programmed and ready
-
-7. **Reconnect the sensor** (if you disconnected it earlier)
-
-!!! success "Upload Complete"
-    If the LED flashed, your logger is successfully programmed! You can now disconnect the FTDI cable and deploy your logger.
-
 ---
 
-## Troubleshooting with the Hardware Serial
+## Troubleshooting
 
-When operating, the logger sends messages to the serial port during operation. This is useful to check its operation and address any issues. To view these messages, leave the FTDI cable connected to the logger, and open the serial monitoring. Set the baud rate to 115200 baud. When you open the serial monitor, the Arduino IDE will reset the logger, and you will see the debugging output from the start. This is normal behaviour. You will see information including:
+### `avrdude: stk500_getsync(): not in sync` or "programmer is not responding"
 
-- Boot messages
-- Sensor readings
-- RTC timestamps
-- SD card status
-- Telemetry transmission logs
-- Error messages
+The computer cannot talk to the bootloader. Check, in this order:
 
----
+1. **The sensor is unplugged.** This is the most common cause.
+2. **The FTDI plug is the right way round:** green wire on GRN, black wire on BLK.
+3. **The board has power:** switch OFF with the cable plugged in, or ON with a charged battery.
+4. **The board setting:** Arduino Pro or Pro Mini, ATmega328P (3.3V, 8 MHz), and the right port.
+5. **No other program has the port open.**
+6. **Another USB port or cable.**
 
-## Troubleshooting Common Upload Issues
+If none of this helps, the bootloader may be damaged. See [PlatformIO, Backup and Restore](advanced.md#if-the-bootloader-is-damaged).
 
-### Error: "This LowPower library only works on AVR processors"
+### Error from `LowPower.h`, such as "Processor architecture is not supported"
 
-**Cause:** Wrong board type selected in Arduino IDE.
-
-**Solution:**
-
-- Go to **Tools → Board → MiniCore**
-- Select **ATmega328**
-- Verify **Clock** is set to **External 8 MHz**
-
----
-
-### Error: "programmer is not responding" or "avrdude: stk500_getsync()"
-
-**Cause:** Communication issue between computer and logger.
-
-**Solutions to try:**
-
-1. **Check sensor is disconnected**
-    - ⚠️ **Most common issue!** The Maxbotix sensor MUST be unplugged during upload
-    - Unplug the white connector from the board
-
-2. **Verify FTDI cable orientation**
-    - Green wire → "GRN" marking
-    - Black wire → "BLK" marking or SD card side
-    - Re-seat the FTDI cable firmly
-
-3. **Check board settings**
-    - Board: Arduino Pro or Pro Mini
-    - Processor: ATmega328P (3.3 V, 8 MHz)
-    - Correct port selected
-
-4. **Try different USB port** on your computer
-
-5. **Check power**
-    - Power switch in OFF position (powered by FTDI)
-    - OR battery installed and switch ON
-    - LED should show power when connected
-
----
+The wrong board is selected. Choose **Arduino Pro or Pro Mini** with **ATmega328P (3.3V, 8 MHz)**.
 
 ### Error: "SdFat.h: No such file or directory"
 
-**Cause:** Required library not installed.
+A library is missing. Install it through **Tools → Manage Libraries**. The same goes for:
 
-**Solution:**
+- `LowPower.h` → Low-Power by Rocket Scream
+- `RtcDS3231.h` → RTC by Makuna
+- `AltSoftSerial.h` → AltSoftSerial by Paul Stoffregen
 
-- Install missing library via **Sketch → Include Library → Manage Libraries**
-- Search for the library name (e.g., "SdFat", "RTC by Makuna")
-- Click **Install**
-- Restart Arduino IDE
+### No port in the Tools menu
 
-This error can occur for any missing library:
+1. Unplug and replug the cable, and try another USB port.
+2. On Windows, install the [FTDI VCP driver](https://ftdichip.com/drivers/vcp-drivers/).
+3. Try another FTDI cable.
+4. Restart the Arduino IDE.
 
-- `LowPower.h` → Install Rocketscream LowPower (manual installation required)
-- `RtcDS3231.h` → Install RTC by Makuna
-- `AltSoftSerial.h` → Install AltSoftSerial (cellular models only)
+### "Resource busy" or "port is open"
 
----
+Another program is using the port. Close the Serial Monitor or the other terminal program.
 
-### Port Not Showing Up in the tools menu
+### The Serial Monitor shows strange characters or nothing
 
-**Cause:** FTDI drivers not installed or cable not detected.
+- **Strange characters:** set the baud rate to 115200.
+- **Nothing:** check the plug direction and the power, then press RESET.
 
-**Solutions:**
+### The code uploads but the logger does not work
 
-1. **Install FTDI drivers**
-    - [Download from FTDI website](https://ftdichip.com/drivers/vcp-drivers/)
-    - Or follow [Sparkfun's guide](https://learn.sparkfun.com/tutorials/how-to-install-ftdi-drivers)
+1. **The battery is low.** It should be above 3.5 V.
+2. **The sensor was not plugged back in.**
+3. **The sketch does not match the board.** See the chart above.
+4. **The error pattern keeps repeating and the start-up messages come back every 8 seconds or so.** The board is restarting over and over. On the `wari_4G` and `wari_lidar_cellular` sketches this happens when the XBee is missing or not answering. Switch OFF and fit the modem.
 
-2. **Try a different FTDI cable** (cable may be faulty)
-
-3. **Check cable is fully inserted** into USB port
-
-4. **Restart Arduino IDE** after connecting cable
-
----
-
-### Code Compiles But Doesn't Run
-
-**Possible causes:**
-
-1. **Wrong processor speed/voltage**
-    - Must be **3.3 V, 8 MHz** not 5 V, 16 MHz
-    - Re-select correct processor and re-upload
-
-2. **Battery voltage too low**
-    - Check battery voltage with multimeter
-    - Should be >3.5 V for reliable operation
-
-3. **Forgot to reconnect sensor**
-    - Plug sensor white connector back into board
-
----
-
-### Need More Help?
+### Need more help?
 
 - Check the [Common Issues](../operation/troubleshooting/common-issues.md) guide
 - Review the [Diagnostic Flowcharts](../operation/troubleshooting/diagnostic-flowcharts.md)
