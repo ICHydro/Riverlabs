@@ -8,9 +8,9 @@ If you are using telemetry and not using the Riverlabs data plaform, then you ma
 
 You may also need to reprogram the logger if the clock has lost the time because the backup coin battery has been removed or has run out. Note that loggers with cellular connection set the time automatically by querying an internet time server and no manual setting is needed. However, for SD-card based loggers it is crucial that the correct time is set using an Arduino sketch.
 
-Although programming a data logger may sound daunting, the [Programming manual](../../programming/arduino-setup.md) guides you through the entire process. We have also written the code in such a way that the most common settings are available at the top of the main sketch and can be set without altering the rest of the code. If you are familiar with Arduino, then the [short guide](arduino-setup.md) will set you on your way.
+Although programming a data logger may sound daunting, the [Programming manual](../../programming/arduino-setup.md) guides you through the entire process. We have also written the code in such a way that the most common settings are available at the top of the main sketch and can be set without altering the rest of the code. If you are familiar with Arduino, then the [short guide](arduino-setup.md) will set you on your way. If you are new to all this, the [Setup Guide](setup-guide.md) walks you through every step.
 
-This quick-start guide assumes that the logger is correctly programmed.
+This page gives an overview of the logger models, batteries, SD card and telemetry. It assumes the logger is already programmed. For a full step-by-step walkthrough, start with the [Setup Guide](setup-guide.md).
 
 ## 1. Identify Your Logger
 
@@ -85,7 +85,7 @@ For more details on battery options and operation, see the [Battery & Power Guid
 
 If the logger is programmed to write data to the SD card, then a microSD card needs to be inserted in the slot. Depending on the model, the contacts of the card should face either outward or inward. Refer to the photos for specific guidance.
 
-When the logger starts up or is reset, the code will look for an SD card. If the card is not found, then the red LED will flash 3 x 3 times. If this happens, double check that it is properly inserted. If the LED lights up a single time, then the card is found and ready to use.
+When the logger starts up or is reset, the code will look for an SD card. If the card is not found, then the red LED will flash 3 times in a row, repeated 5 times. If this happens, double check that it is properly inserted. If the LED lights up a single time, then the card is found and ready to use.
 
 !!! Important "Buffering SD card writes"
     To preserve energy and minimize wear on the SD card, new data are not written to the card immediately. Instead, they are stored in an internal EEPROM memory chip, and only written at regular intervals (typically once day). This means that if you take out the SD card and read it out, up to 24h of data may be missing. To avoid this, press the reset button *before* taking out the SD card. When the logger starts up or is reset, it will look for unflushed data in the memory chip and flush them to the SD card. During the writing process, the LED will light up. This can take up to 20 seconds.

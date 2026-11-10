@@ -12,49 +12,29 @@ Note that Riverlabs loggers don't have a USB port, but use a serial interface in
 
 ## Required Libraries
 
-The Riverlabs logger requires the following external libraries:
+Install these through **Tools → Manage Libraries**. They are the same libraries listed in the repository's `platformio.ini`.
 
-- **RTC by Makuna** by Michael C. Miller: Real-time clock control
-- **SdFat** by Bill Greiman: SD card file system
-- **AltSoftSerial** by Paul Stoffregen: Software serial (for cellular models)
-- **LowPower_LowPowerLab** by LowPowerLab: sleep functions
-- **LIDAR-Lite** by Garmin: Lidar sensor functions
-- **SPIMemory** by Prajwal Bhattaram: FLASH memory functions
+- **Rtc** by Makuna (Michael C. Miller): real-time clock
+- **SdFat** by Bill Greiman: SD card file system (make sure it is Bill Greiman's original version)
+- **Low-Power** by Rocket Scream: sleep functions
+- **AltSoftSerial** by Paul Stoffregen: an extra serial port (cellular sketches, `wari_v2.1` and `wari_lidar`)
+- **LIDAR-Lite** by Garmin: lidar sensor
+- **SPIMemory** by Prajwal Bhattaram: flash memory
+- **RadioHead** by Mike McCauley: LoRa radio (only `wari_lidar_lora`)
 
-All of them can installed through the Library Manager in the Arduino IDE.
+Not every sketch needs every library, but installing them all does no harm.
 
-!!! note "SdFat Version"
-    Make sure to install the original **SdFat** library authored by **Bill Greiman**.
+## Board settings
 
-## Required board definitions
+The loggers use an ATmega328P at 8 MHz and 3.3 V, with a bootloader that uploads at 57600 baud. Choose:
 
-Riverlabs loggers use the **MiniCore** board definitions, which provides optimized support for ATmega328 microcontrollers:
+1. **Tools → Board → Arduino AVR Boards → Arduino Pro or Pro Mini**
+2. **Tools → Processor → ATmega328P (3.3V, 8 MHz)**
 
-1. In the "Additional Boards Manager URLs" field, add:
-   ```
-   https://mcudude.github.io/MiniCore/package_MCUdude_MiniCore_index.json
-   ```
-2. Search and install **MiniCore by MCUdude** in the Bard Manager of the Arduino IDE.
+This board comes with the Arduino IDE and matches the repository's PlatformIO setting (`pro8MHzatmega328`). MiniCore (ATmega328, External 8 MHz) also works if its bootloader and upload speed settings match your logger. See [Arduino Setup](../../programming/arduino-setup.md) for details.
 
-For more information, visit the [MiniCore GitHub repository](https://github.com/MCUdude/MiniCore).
-
-## Arduino IDE configuration
-
-Before uploading code, you must configure the Arduino IDE with the correct board settings:
-
-### Board Settings
-
-1. Go to **Tools → Board → MiniCore** and select **ATmega328**
-2. Configure the following settings in the **Tools** menu:
-    - **Clock:** External 8 MHz
-    - **BOD:** BOD 2.7 V
-    - **EEPROM:** EEPROM retained
-    - **Compiler LTO:** LTO Disabled
-    - **Variant:** 328P / 328PA
-    - **Bootloader:** Yes (UART0)
-
-!!! warning "Critical Settings"
-    The board MUST be set to **MiniCore → ATmega328** with **Clock: External 8 MHz**. Using the wrong settings will cause upload failures or runtime issues.
+!!! warning "Before every upload"
+    Unplug the Maxbotix sensor, and plug the FTDI cable in with the green wire on **GRN** and the black wire on **BLK**. See [Uploading Code](../../programming/uploading-code.md).
 
 ## Resources
 

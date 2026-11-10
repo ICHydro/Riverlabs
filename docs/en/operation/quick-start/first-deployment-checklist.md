@@ -10,10 +10,10 @@ To check proper functioning of the logger, press the reset button. There is no r
 
 When the logger (re)starts, it will perform some internal checks such as checking access to the SD card and/or telemetry modem. A successful check will result in a single flash of the red LED. This is typically a short flash (< 1s) but can be longer if the logger finds data in the internal memory and flushes them to the SD card (see the [data handling](../hardware/data-handling.md) section). When this is finished, pressing reset again will result in a short flash (as all data have already been flushed).
 
-A series of 3x3 flashes indicates an issue.
+A pattern of 3 quick flashes, repeated 5 times, indicates an issue (see the [LED guide](setup-guide.md#4-read-the-led)).
 
 No red flash means that the logger does not start up, most likely because of a power issue.
-x
+
 ### Battery and power
 
 - Logger powers on (LED activity observed)
@@ -25,7 +25,7 @@ x
 ### SD Card (if applicable)
 
 - MicroSD card properly seated in slot
-- No error LED patterns (3 x 3 flashes)
+- No error LED patterns (3 quick flashes, repeated 5 times)
 
 ### Logger enclosure
 
