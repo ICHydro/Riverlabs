@@ -385,10 +385,10 @@ NT = 0
 
 **Funcionamiento:**
 
-- Arduino controla mediante un pin cuándo duerme el XBee.
+- Arduino controla mediante un pin cuándo entra en suspensión el XBee.
 - Pin 9 (Sleep_RQ/DTR):
-    - **Alto** = XBee dormido (bajo consumo).
-    - **Bajo** = XBee despierto (activo).
+    - **Alto** = XBee en suspensión (bajo consumo).
+    - **Bajo** = XBee activo (consumo normal).
 - Reduce considerablemente el consumo entre transmisiones.
 - Es fundamental para una buena autonomía.
 

@@ -1,7 +1,7 @@
 # Guía de configuración de LoRa / LoRaWAN
 
 !!! abstract "Descripción general"
-    Esta pagina explica cómo configurar su dispositivo LoRaWAN con la biblioteca MCCI LMIC y conectarlo a The Things Network (TTN). Incluye el formato de los EUI, la optimización de las cargas útiles, las políticas de uso de TTN y las buenas prácticas.
+    Esta página explica cómo configurar su dispositivo LoRaWAN con la biblioteca MCCI LMIC y conectarlo a The Things Network (TTN). Incluye el formato de los EUI, la optimización de las cargas útiles, las políticas de uso de TTN y las buenas prácticas.
 
 ## ¿Qué es LoRaWAN?
 
@@ -10,7 +10,7 @@
 **Características principales:**
 
 - **Alcance:** hasta 10–15 km con línea de visión; 2–5 km en zonas urbanas
-- **Consumo:** extremadamente bajo (años con batería)
+- **Consumo:** extremadamente bajo (años de autonomía con una sola batería)
 - **Velocidad de datos:** baja (0.3–50 kbps según el factor de dispersión)
 - **Frecuencia:** bandas ISM sin licencia (868 MHz en la UE, 915 MHz en EE. UU.)
 - **Infraestructura:** requiere una pasarela conectada al servidor de red
@@ -40,7 +40,7 @@
 ### Flujo de datos
 
 ```
-Registrador (LoRa) → Gateway → Servidor de red TTN → Servidor de aplicaciones
+Registrador (LoRa) → Pasarela → Servidor de red TTN → Servidor de aplicaciones
 ```
 
 **Funcionamiento:**
@@ -215,7 +215,7 @@ El **factor de dispersión (SF)** determina el equilibrio entre alcance, velocid
 
 | Nivel SF | Alcance | Velocidad de datos | Tiempo de transmisión | Adecuado para |
 |----------|---------|--------------------|-----------------------|---------------|
-| **SF7** | Corto | Rápida (5,5 kbps) | Muy bajo | Cerca de la pasarela; actualizaciones frecuentes |
+| **SF7** | Corto | Rápida (5.5 kbps) | Muy bajo | Cerca de la pasarela; actualizaciones frecuentes |
 | **SF8** | Medio | Media | Bajo | Uso equilibrado |
 | **SF9** | Bueno | Moderada | Moderado | Buen equilibrio entre alcance y tiempo de transmisión |
 | **SF10** | Largo | Lenta | Alto | Ubicaciones difíciles |
@@ -345,7 +345,7 @@ function Decoder(bytes, port) {
 
 ### Se ha superado el límite de uso justo
 
-**Síntomas:** los mensajes dejan de llegar después de funcionar inicialmente.
+**Síntomas:** los mensajes dejan de llegar tras haber funcionado correctamente al principio.
 
 **Soluciones:**
 

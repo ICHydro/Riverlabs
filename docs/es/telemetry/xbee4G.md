@@ -1,16 +1,16 @@
 ---
-title: Configuración y solución de problemas del módem Xbee 4G LTE
+title: Configuración y solución de problemas del módem XBee 4G LTE
 tags:
 keywords: 
 last_updated: 1 de febrero de 2026
-summary: "Guía de configuración y solución de problemas de los módems DIGI XBee 4G LTE con integración en ThingsBoard"
+summary: "Guía de configuración y solución de problemas de los módems Digi XBee 4G LTE con integración en ThingsBoard"
 sidebar: home_sidebar
 permalink: xbee4G.html
 ---
 
 ## Descripción general
 
-Los módems DIGI XBee 4G LTE proporcionan conectividad celular mediante redes LTE Cat 1. Esta guía explica cómo configurarlos para utilizarlos con registradores Riverlabs e integrarlos con ThingsBoard Cloud.
+Los módems Digi XBee 4G LTE proporcionan conectividad celular mediante redes LTE Cat 1. Esta guía explica cómo configurarlos para utilizarlos con registradores Riverlabs e integrarlos con ThingsBoard Cloud.
 
 ## Ajustes principales
 
@@ -218,7 +218,7 @@ CoAP utiliza el mismo formato JSON, pero encapsulado en la estructura de mensaje
 
 ## Referencias
 
-- [Página del producto DIGI XBee 4G LTE](https://www.digi.com/products/embedded-systems/digi-xbee/cellular-modems/xbee-cellular-lte-cat-1)
+- [Página del producto Digi XBee 4G LTE](https://www.digi.com/products/embedded-systems/digi-xbee/cellular-modems/xbee-cellular-lte-cat-1)
 - [API HTTP para dispositivos de ThingsBoard](https://thingsboard.io/docs/reference/http-api/)
 - [API CoAP para dispositivos de ThingsBoard](https://thingsboard.io/docs/reference/coap-api/)
 - [Referencia de comandos de la API de XBee](https://www.digi.com/resources/documentation/digidocs/90001477/references)

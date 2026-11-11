@@ -10,7 +10,7 @@
 Un **registrador Riverlabs** es un dispositivo de código abierto y bajo coste para medir el nivel del agua, diseñado para la investigación hidrológica. Utiliza sensores ultrasónicos o lidar para medir la distancia hasta la superficie del agua, guarda los datos en una tarjeta SD y, opcionalmente, los transmite mediante telemetría celular.
 
 **Características principales:**
-- Basado en dise&ntilde;os electronicos abiertos
+- Basado en dise&ntilde;os electrónicos abiertos
 - Alimentación por batería (Li-ion recargable)
 - Almacenamiento de datos en tarjeta SD
 - Telemetría celular opcional (LTE / LoRaWAN)
@@ -18,7 +18,7 @@ Un **registrador Riverlabs** es un dispositivo de código abierto y bajo coste p
 
 ---
 
-### Medición de distancia ultrasonica o lidar: ¿cuál debo elegir?
+### Medición de distancia ultrasónica o lidar: ¿cuál debo elegir?
 
 **Respuesta rápida:**
 
@@ -32,19 +32,19 @@ Un **registrador Riverlabs** es un dispositivo de código abierto y bajo coste p
 | **Funciona con nieve/espuma** | No (absorben la señal) | Sí |
 | **Más adecuado para** | Ríos, estanques (superficies estables) | Amplio rango, nieve, largas distancias |
 
-**Elige ultrasónico si:**
-- El rango de nivel del agua es <5m
-- Tienes un presupuesto limitado
-- Necesitas mayor autonomía
+**Elija ultrasónico si:**
+- El rango de nivel del agua es <5 m
+- Tiene un presupuesto limitado
+- Necesita mayor autonomía
 - La superficie del agua es estable
 
-**Elige lidar si:**
-- Necesitas un alcance >5m
-- Mides sobre nieve o espuma
+**Elija lidar si:**
+- Necesita un alcance >5 m
+- Mide sobre nieve o espuma
 - Hay temperaturas extremas (el lidar no se ve afectado)
 - La precisión es menos crítica (±25mm es aceptable)
 
-Consulta la [guía de identificación del registrador](../quick-start/logger-identification.md) para una comparación detallada.
+Consulte la [guía de identificación del registrador](../quick-start/logger-identification.md) para una comparación detallada.
 
 ---
 
@@ -56,17 +56,17 @@ Consulta la [guía de identificación del registrador](../quick-start/logger-ide
 
 **Carcasa:**
 - Carcasas de plástico estándar: adecuadas temporalmente (días o semanas)
-- A largo plazo (meses): utiliza una carcasa de grado marino
+- A largo plazo (meses): utilice una carcasa de grado marino
 - Riesgo: corrosión de la electrónica y los conectores por salpicaduras salinas
 
 **Montaje:**
 - Elementos de fijación de acero inoxidable (grado marino 316)
-- Evita el aluminio (se corroe en agua salada)
+- Evite el aluminio (se corroe en agua salada)
 
 **Mantenimiento:**
-- Enjuaga el registrador con agua dulce después de recuperarlo
-- Comprueba mensualmente si hay corrosión
-- Aplica grasa dieléctrica a los conectores
+- Enjuague el registrador con agua dulce después de recuperarlo
+- Compruebe mensualmente si hay corrosión
+- Aplique grasa dieléctrica a los conectores
 
 ---
 
@@ -94,13 +94,13 @@ Consulta la [guía de identificación del registrador](../quick-start/logger-ide
 - Antigüedad de la batería (se degrada con el tiempo)
 - Intensidad de la señal de telemetría (una señal débil consume más)
 
-Consulta la [guía de baterías y alimentación](../hardware/battery-power-guide.md) para cálculos detallados y consejos de optimización.
+Consulte la [guía de baterías y alimentación](../hardware/battery-power-guide.md) para cálculos detallados y consejos de optimización.
 
 ---
 
 ### ¿Puedo añadir alimentación solar?
 
-El modelo wari cuenta con circuito electronico para carga solar, y esta activado o desactivado durante el ensamblaje. No se recomienda la activació por el usuario. Si la alimentación del panel solar original no es suficiente, se puede cambiar por otro panel mas grande, mientras que el voltaje del panel es de **6V**.
+El modelo Wari cuenta con circuito electrónico para carga solar, y está activado o desactivado durante el ensamblaje. No se recomienda la activación por el usuario. Si la alimentación del panel solar original no es suficiente, se puede cambiar por otro panel más grande, mientras que el voltaje del panel es de **6 V**.
 
 ---
 
@@ -112,13 +112,13 @@ El modelo wari cuenta con circuito electronico para carga solar, y esta activado
 
 **Código fuente:** https://github.com/ICHydro/Riverlabs
 
-**Puedes:**
+**Puede:**
 - ✅ Utilizarlo para cualquier fin (comercial o no comercial)
-- ✅ Modificar el código según tus necesidades
+- ✅ Modificar el código según sus necesidades
 - ✅ Compartir las modificaciones
 - ✅ Contribuir mejoras al proyecto
 
-**Deberías:**
+**Debería:**
 - Incluir la licencia original en las obras derivadas
 - Reconocer a los autores originales
 - Compartir las mejoras (ayuda a la comunidad)
@@ -155,7 +155,7 @@ El modelo wari cuenta con circuito electronico para carga solar, y esta activado
 - Transductores de presión (para uso sumergido)
 - Interruptores de flotador (solo niveles de encendido/apagado)
 
-**Recomendación:** Utiliza los sensores predeterminados salvo que tengas necesidades específicas. Están bien probados y el código está listo para usar.
+**Recomendación:** Utilice los sensores predeterminados salvo que tenga necesidades específicas. Están bien probados y el código está listo para usar.
 
 ---
 
@@ -165,7 +165,7 @@ El modelo wari cuenta con circuito electronico para carga solar, y esta activado
 
 **Capacidad:** 8-32GB (las tarjetas mayores suponen un gasto innecesario; el registrador no las llenará)
 
-**Marca:** SanDisk, Samsung, Kingston (evita marcas desconocidas, con mayor tasa de fallos)
+**Marca:** SanDisk, Samsung, Kingston (evite marcas desconocidas, con mayor tasa de fallos)
 
 **Tipo:** SD estándar o microSD con adaptador (NO SDXC)
 
@@ -179,9 +179,9 @@ El modelo wari cuenta con circuito electronico para carga solar, y esta activado
 - Tarjeta de 16GB: ~1000 años de datos (!!)
 - En la práctica: 8GB es más que suficiente
 
-**Evita:**
+**Evite:**
 - Tarjetas >32GB (pueden utilizar exFAT en vez de FAT32)
-- Tarjetas de velocidad ultralta (UHS-II): gasto innecesario para el registro
+- Tarjetas de velocidad ultraalta (UHS-II): gasto innecesario para el registro
 - MicroSD sin adaptador (difícil de manipular)
 
 ---
@@ -203,22 +203,22 @@ El modelo wari cuenta con circuito electronico para carga solar, y esta activado
 - Coste: 5 USD
 
 **Entradas de cables:**
-- Utiliza prensaestopas (lo mejor)
-- O bien: perfora un orificio, pasa el cable y séllalo con silicona
-- Alivio de tensión: haz un nudo dentro de la carcasa (evita tirones)
+- Utilice prensaestopas (lo mejor)
+- O bien: perfore un orificio, pase el cable y séllelo con silicona
+- Alivio de tensión: haga un nudo dentro de la carcasa (evite tirones)
 
 **Prueba:**
-- Sumerge la carcasa en un cubo (¡sin componentes electrónicos dentro!)
-- Espera una hora
-- Ábrela y comprueba si ha entrado agua
-- Repara las filtraciones antes del despliegue
+- Sumerja la carcasa en un cubo (¡sin componentes electrónicos dentro!)
+- Espere una hora
+- Ábrala y compruebe si ha entrado agua
+- Repare las filtraciones antes del despliegue
 
 **Desecante:**
-- Añade una bolsita de gel de sílice dentro de la carcasa
+- Añada una bolsita de gel de sílice dentro de la carcasa
 - Absorbe la humedad (evita la condensación)
-- Sustitúyela si está saturada (se vuelve rosa)
+- Sustitúyala si está saturada (se vuelve rosa)
 
-Consulta la [guía de instalación](../../installation/mounting-guide.md) para instrucciones detalladas de impermeabilización.
+Consulte la [guía de instalación](../../installation/mounting-guide.md) para instrucciones detalladas de impermeabilización.
 
 ---
 
@@ -228,16 +228,16 @@ Consulta la [guía de instalación](../../installation/mounting-guide.md) para i
 
 **Depende del uso previsto:**
 
-**NECESITAS telemetría si:**
+**NECESITA telemetría si:**
 - El lugar es difícil o peligroso de acceder
 - Se requiere vigilancia en tiempo real (alerta de inundaciones)
 - Hay muchos registradores y no resulta práctico comprobar cada uno
-- Quieres detectar rápidamente fallos del registrador
+- Quiere detectar rápidamente fallos del registrador
 
-**NO necesitas telemetría si:**
+**NO necesita telemetría si:**
 - El lugar es accesible (se puede visitar mensualmente)
-- Vas a analizar los datos después del evento (no en tiempo real)
-- Tienes un presupuesto limitado (100 frente a 200 USD)
+- Va a analizar los datos después del evento (no en tiempo real)
+- Tiene un presupuesto limitado (100 frente a 200 USD)
 - No hay cobertura celular en el lugar
 
 **Solución intermedia:** tarjeta SD + telemetría ocasional
@@ -275,27 +275,27 @@ Consulta la [guía de instalación](../../installation/mounting-guide.md) para i
 
 **Principios generales:**
 
-**1. Apunta a la superficie del agua:**
+**1. Apunte a la superficie del agua:**
 - El haz debe llegar al agua (en todo el rango previsto de niveles)
-- Evita orillas, rocas y vegetación
+- Evite orillas, rocas y vegetación
 
 **2. La orientación vertical es ideal:**
 - Apuntar hacia abajo elimina los errores de ángulo
-- Si lo instalas en ángulo, utiliza trigonometría para corregirlo (consulta [posicionamiento del sensor](../../installation/sensor-positioning.md))
+- Si lo instala en ángulo, utilice trigonometría para corregirlo (consulte [posicionamiento del sensor](../../installation/sensor-positioning.md))
 
-**3. Ten en cuenta los cambios de nivel:**
-- Caudal bajo: ¿dónde estará el agua? (no apuntes demasiado alto)
-- Caudal alto: evita que el sensor quede sumergido (instálalo suficientemente alto)
+**3. Tenga en cuenta los cambios de nivel:**
+- Caudal bajo: ¿dónde estará el agua? (no apunte demasiado alto)
+- Caudal alto: evite que el sensor quede sumergido (instálelo suficientemente alto)
 
-**4. Considera la anchura del haz:**
+**4. Considere la anchura del haz:**
 - Ultrasónico: cono de ~15-20°
 - Lidar: haz de ~2°
-- Evita que el haz alcance el puente o la estructura
+- Evite que el haz alcance el puente o la estructura
 
 **Prueba:**
-- Toma mediciones en el lugar antes de la instalación definitiva
-- Comprueba todo el rango previsto de niveles del agua
-- Verifica que las lecturas sean razonables
+- Tome mediciones en el lugar antes de la instalación definitiva
+- Compruebe todo el rango previsto de niveles del agua
+- Verifique que las lecturas sean razonables
 
 ---
 
@@ -304,25 +304,25 @@ Consulta la [guía de instalación](../../installation/mounting-guide.md) para i
 **Dos situaciones:**
 
 **1. Agua demasiado cerca (por debajo de la distancia mínima):**
-- Mínimo del ultrasónico: ~0.3m
-- Mínimo del lidar: ~0.05m
-- **Solución:** Instala el sensor más alto
+- Mínimo del ultrasónico: ~0.3 m
+- Mínimo del lidar: ~0.05 m
+- **Solución:** Instale el sensor más alto
 
 **2. Agua demasiado lejos (más allá del alcance máximo):**
-- Máximo del ultrasónico: ~5m
-- Máximo del lidar: ~40m
+- Máximo del ultrasónico: ~5 m
+- Máximo del lidar: ~40 m
 - **Síntomas:** El registrador muestra el alcance máximo (5000mm o 40000mm)
-- **Solución:** Instala el sensor más bajo o utiliza uno de mayor alcance
+- **Solución:** Instale el sensor más bajo o utilice uno de mayor alcance
 
 **Cómo elegir el alcance:**
-- Determina el rango de niveles del agua: caudal bajo y alto
+- Determine el rango de niveles del agua: caudal bajo y alto
 - El alcance del sensor debe cubrir desde el nivel bajo hasta el alto, con margen
 - Ejemplo:
-  - Caudal bajo: 2m por debajo del sensor
-  - Caudal alto: 0.5m por debajo del sensor
-  - Alcance necesario: 0.5-2m → utiliza un ultrasónico (rango 0.3-5m)
+  - Caudal bajo: 2 m por debajo del sensor
+  - Caudal alto: 0.5 m por debajo del sensor
+  - Alcance necesario: 0.5-2m → utilice un ultrasónico (rango 0.3-5 m)
 
-**Margen de seguridad:** Reserva ±0.5m en cada extremo (no trabajes en los límites absolutos)
+**Margen de seguridad:** Reserve ±0.5 m en cada extremo (no trabaje en los límites absolutos)
 
 ---
 
@@ -332,7 +332,7 @@ Consulta la [guía de instalación](../../installation/mounting-guide.md) para i
 
 **Puntos de referencia habituales:**
 1. **Fondo del cauce** (lecho)
-   - Mide desde el sensor hasta el lecho (punto más bajo previsto)
+   - Mida desde el sensor hasta el lecho (punto más bajo previsto)
    - Profundidad del agua = altura de instalación - lectura del sensor
 
 2. **Referencia topográfica fija** (hito)
@@ -346,15 +346,15 @@ Consulta la [guía de instalación](../../installation/mounting-guide.md) para i
    - Es coherente, pero no se puede trasladar a otras ubicaciones
 
 **Medición:**
-- Utiliza una cinta métrica, un telémetro láser o equipo topográfico
-- Mide cuando el agua esté estable y sea posible medirla
-- Registra la altura de instalación y la fecha
-- Ten en cuenta que el lecho puede cambiar (erosión o sedimentación)
+- Utilice una cinta métrica, un telémetro láser o equipo topográfico
+- Mida cuando el agua esté estable y sea posible medirla
+- Registre la altura de instalación y la fecha
+- Tenga en cuenta que el lecho puede cambiar (erosión o sedimentación)
 
 **Documentación:**
-- Dibuja un esquema con el registrador, el sensor, el agua y la referencia
-- Fotografía la instalación con la cinta métrica visible
-- Registra las coordenadas GPS
+- Dibuje un esquema con el registrador, el sensor, el agua y la referencia
+- Fotografíe la instalación con la cinta métrica visible
+- Registre las coordenadas GPS
 
 ---
 
@@ -372,7 +372,7 @@ Consulta la [guía de instalación](../../installation/mounting-guide.md) para i
 **2. Riesgo por congelación de la LiPo:**
 - La LiPo se congela a ~-40°C
 - Cargarla a bajas temperaturas es peligroso
-- **Solución:** No la cargues por debajo de 0°C
+- **Solución:** No la cargue por debajo de 0°C
 
 **3. Hielo en el sensor:**
 - El hielo bloquea los ultrasonidos
@@ -386,19 +386,19 @@ Consulta la [guía de instalación](../../installation/mounting-guide.md) para i
 **5. Nieve:**
 - La nieve reciente absorbe los ultrasonidos (el registrador muestra el alcance máximo)
 - El lidar funciona mejor, pero también se ve afectado
-- **Solución:** Para medir bajo el hielo, utiliza un transductor de presión sumergido
+- **Solución:** Para medir bajo el hielo, utilice un transductor de presión sumergido
 
 **Recomendación para inviernos duros:**
-- Instálalo a finales de otoño (antes de las heladas)
-- Recupéralo a principios de primavera (tras el deshielo)
-- O utiliza una carcasa calefactada y alimentación de red (ya no será una solución de bajo coste)
+- Instálelo a finales de otoño (antes de las heladas)
+- Recupérelo a principios de primavera (tras el deshielo)
+- O utilice una carcasa calefactada y alimentación de red (ya no será una solución de bajo coste)
 
 ---
 
 ### ¿Con qué frecuencia debo visitar el lugar?
 
 **Depende de:**
-1. Autonomía de la batería (consulta la guía de baterías)
+1. Autonomía de la batería (consulte la guía de baterías)
 2. Capacidad de la tarjeta SD (normalmente no es un problema)
 3. Riesgo de pérdida o daños (vandalismo, inundaciones)
 4. Importancia de los datos
@@ -408,7 +408,7 @@ Consulta la [guía de instalación](../../installation/mounting-guide.md) para i
 **Con telemetría:**
 - Primera visita (tras una semana): verificar que funciona
 - Visitas mensuales: comprobar el estado físico
-- Cambio de batería: cuando la tensión sea <3.5V (supervisión remota)
+- Cambio de batería: cuando la tensión sea <3.5 V (supervisión remota)
 
 **Sin telemetría:**
 - Primera visita (tras una semana): verificar que funciona
@@ -417,11 +417,11 @@ Consulta la [guía de instalación](../../installation/mounting-guide.md) para i
 
 **Lugares de alto riesgo:**
 - Visitas semanales al principio
-- Considera un montaje más robusto o medidas de protección
+- Considere un montaje más robusto o medidas de protección
 
 **Lugares remotos:**
-- Planifica según el acceso estacional (puede ser imposible en invierno)
-- Instala en primavera y retira en otoño
+- Planifique según el acceso estacional (puede ser imposible en invierno)
+- Instale en primavera y retire en otoño
 
 ---
 
@@ -429,14 +429,14 @@ Consulta la [guía de instalación](../../installation/mounting-guide.md) para i
 
 **Prevención:**
 
-**1. Disimúlalo:**
-- Pinta el registrador para integrarlo en el entorno (marrón o verde)
-- Escóndelo tras la vegetación
-- Evita colores llamativos o etiquetas visibles
+**1. Disimúlelo:**
+- Pinte el registrador para integrarlo en el entorno (marrón o verde)
+- Escóndalo tras la vegetación
+- Evite colores llamativos o etiquetas visibles
 
 **2. Montaje seguro:**
 - Cable de seguridad (como un candado de bicicleta)
-- Fíjalo a la estructura con tornillos antimanipulación
+- Fíjelo a la estructura con tornillos antimanipulación
 
 **3. Señalización:**
 - Pequeña etiqueta: «Equipo de investigación; por favor, no manipular»
@@ -445,17 +445,17 @@ Consulta la [guía de instalación](../../installation/mounting-guide.md) para i
 
 **4. Elección del lugar:**
 - Una propiedad privada (con permiso) es más segura que un espacio público
-- Elige ubicaciones menos visibles
+- Elija ubicaciones menos visibles
 
 **Recuperación:**
 
 **1. Números de serie:**
-- Anota el ICCID de la SIM, el número de serie del XBee y el ID del registrador
+- Anote el ICCID de la SIM, el número de serie del XBee y el ID del registrador
 - Puede ayudar con el seguro o el seguimiento por el operador
 
 **2. Seguro:**
-- Comprueba si el equipo de investigación está cubierto
-- Documenta su valor con facturas
+- Compruebe si el equipo de investigación está cubierto
+- Documente su valor con facturas
 
 **3. Copias de seguridad:**
 - Con telemetría: los datos están a salvo en ThingsBoard
@@ -463,7 +463,7 @@ Consulta la [guía de instalación](../../installation/mounting-guide.md) para i
 
 **Asumir el riesgo:**
 - El menor coste de los registradores hace que la pérdida sea más asumible
-- Presupuesta una tasa de pérdida del 10 % en proyectos con varios registradores
+- Presupueste una tasa de pérdida del 10 % en proyectos con varios registradores
 
 ---
 
@@ -523,8 +523,8 @@ df['water_depth_mm'] = installation_height - df['Distance_mm']
 ```
 
 **Unidades:**
-- Mantén unidades coherentes (todo en mm)
-- Para convertir a metros: divide por 1000
+- Mantenga unidades coherentes (todo en mm)
+- Para convertir a metros: divida por 1000
 
 ---
 
@@ -549,11 +549,11 @@ df['water_depth_mm'] = installation_height - df['Distance_mm']
 6. **Entorno:** Lluvia, nieve, niebla
 
 **Para mejorar la precisión:**
-- Usa Wari cuando se necesite precisión absoluta (<10mm)
-- Monta el sensor verticalmente (elimina el error angular)
-- Fíjalo de forma estable (reduce el movimiento)
-- Busca una superficie tranquila (usa un pozo tranquilizador en aguas turbulentas)
-- Compensa la temperatura (Wari la mide automáticamente)
+- Use Wari cuando se necesite precisión absoluta (<10mm)
+- Monte el sensor verticalmente (elimina el error angular)
+- Fíjelo de forma estable (reduce el movimiento)
+- Busque una superficie tranquila (use un pozo tranquilizador en aguas turbulentas)
+- Compense la temperatura (Wari la mide automáticamente)
 
 **Precisión suficiente para:**
 - Vigilancia de inundaciones (cambios de 0.5m)
@@ -562,7 +562,7 @@ df['water_depth_mm'] = installation_height - df['Distance_mm']
 
 **No adecuado para:**
 - Topografía de precisión (<1mm)
-- Derechos legales sobre el agua (utiliza equipos certificados)
+- Derechos legales sobre el agua (utilice equipos certificados)
 
 ---
 
@@ -597,7 +597,7 @@ df['water_depth_mm'] = installation_height - df['Distance_mm']
 
 ### El registrador no se enciende
 
-→ Consulta [problema 1: el registrador no se enciende](common-issues.md#problema-1-el-registrador-no-se-enciende)
+→ Consulte [problema 1: el registrador no se enciende](common-issues.md#problema-1-el-registrador-no-se-enciende)
 
 **Comprobación rápida:** ¿Batería >3.3V? ¿Conectada correctamente? ¿Interruptor en ON?
 
@@ -605,15 +605,15 @@ df['water_depth_mm'] = installation_height - df['Distance_mm']
 
 ### La tarjeta SD indica «corrupta»
 
-→ Consulta [problema 7: tarjeta SD corrupta](common-issues.md#problema-7-la-tarjeta-sd-aparece-corrupta-o-necesita-formateo)
+→ Consulte [problema 7: tarjeta SD corrupta](common-issues.md#problema-7-la-tarjeta-sd-aparece-corrupta-o-necesita-formateo)
 
-**Solución rápida:** Prueba un programa de recuperación y después formatéala como FAT32.
+**Solución rápida:** Pruebe un programa de recuperación y después formatéala como FAT32.
 
 ---
 
 ### El sensor siempre indica su alcance máximo
 
-→ Consulta [problema 4: el sensor siempre indica su alcance máximo](common-issues.md#problema-4-el-sensor-ultrasonico-siempre-indica-el-alcance-maximo)
+→ Consulte [problema 4: el sensor siempre indica su alcance máximo](common-issues.md#problema-4-el-sensor-ultrasonico-siempre-indica-el-alcance-maximo)
 
 **Comprobación rápida:** ¿Emite clics el sensor? ¿Apunta al objetivo? ¿Está dentro del alcance?
 
@@ -621,7 +621,7 @@ df['water_depth_mm'] = installation_height - df['Distance_mm']
 
 ### No llegan datos de telemetría
 
-→ Consulta [resolución de problemas de conexión de telemetría](../../telemetry/troubleshooting-connections.md)
+→ Consulte [resolución de problemas de conexión de telemetría](../../telemetry/troubleshooting-connections.md)
 
 **Comprobación rápida:** ¿SIM activa? ¿Buena señal? ¿API Mode = 2? ¿Token correcto?
 
@@ -629,7 +629,7 @@ df['water_depth_mm'] = installation_height - df['Distance_mm']
 
 ### La batería se agota demasiado rápido
 
-→ Consulta [problema 2: la batería se agota durante la noche](common-issues.md#problema-2-la-bateria-se-agota-durante-la-noche)
+→ Consulte [problema 2: la batería se agota durante la noche](common-issues.md#problema-2-la-bateria-se-agota-durante-la-noche)
 
 **Comprobación rápida:** ¿Entra en reposo el registrador? ¿Intervalo de telemetría razonable? ¿Batería antigua?
 
@@ -664,13 +664,13 @@ df['water_depth_mm'] = installation_height - df['Distance_mm']
 
 **5. Apoyo a la comunidad:**
 - Responder preguntas en GitHub Issues
-- Compartir tu experiencia
+- Compartir su experiencia
 
 **Para empezar:**
-- Crea una bifurcación del repositorio
-- Haz tus cambios
-- Envía una solicitud de incorporación
-- Coméntalo en el sistema de incidencias
+- Cree una bifurcación (“fork”) del repositorio
+- Haga sus cambios
+- Envíe una solicitud de incorporación
+- Coméntelo en el sistema de incidencias
 
 ---
 
@@ -684,38 +684,38 @@ df['water_depth_mm'] = installation_height - df['Distance_mm']
 
 **2. GitHub Issues:**
 - https://github.com/ICHydro/Riverlabs/issues
-- Busca incidencias existentes (quizá ya haya una respuesta)
-- Crea una incidencia con estos datos:
+- Busque incidencias existentes (quizá ya haya una respuesta)
+- Cree una incidencia con estos datos:
   - Configuración del registrador
   - Descripción del problema
-  - Qué has intentado
+  - Qué ha intentado
   - Salida del monitor serie
   - Fotos
 
 **3. Grupo de investigación:**
-- Contacto: grupo ICHydro (si estás vinculado)
+- Contacto: grupo ICHydro (si está vinculado)
 - Colaboraciones académicas
 
 **4. Comunidad:**
 - (En el futuro: foro o chat cuando crezca la comunidad)
 
 **Antes de preguntar:**
-- Lee detenidamente la documentación
-- Sigue los diagramas de diagnóstico
-- Consulta los problemas habituales
-- Reúne información de diagnóstico (registros serie, fotos)
+- Lea detenidamente la documentación
+- Siga los diagramas de diagnóstico
+- Consulte los problemas habituales
+- Reúna información de diagnóstico (registros serie, fotos)
 
 ---
 
 ## Próximos pasos
 
-- 🚀 [Guía de inicio rápido](../quick-start/quick-start.md) - Empieza ahora
+- 🚀 [Guía de inicio rápido](../quick-start/quick-start.md) - Empiece ahora
 - 📊 [Diagramas de diagnóstico](diagnostic-flowcharts.md) - Solución visual de problemas
 - 📋 [Problemas habituales](common-issues.md) - Soluciones detalladas
-- 🛠️ [Mantenimiento del hardware](../hardware/maintenance.md) - Mantén el registrador en buen estado
-- 📡 [Configuración de telemetría](../../telemetry/setup-guide.md) - Añade supervisión remota
+- 🛠️ [Mantenimiento del hardware](../hardware/maintenance.md) - Mantenga el registrador en buen estado
+- 📡 [Configuración de telemetría](../../telemetry/setup-guide.md) - Añada supervisión remota
 
 ---
 
-!!! question "¿Todavía tienes preguntas?"
-    Si no encuentras la respuesta aquí, consulta [GitHub Issues](https://github.com/ICHydro/Riverlabs/issues) o crea una nueva incidencia con tu pregunta. ¡La comunidad puede ayudarte!
+!!! question "¿Todavía tiene preguntas?"
+    Si no encuentra la respuesta aquí, consulte [GitHub Issues](https://github.com/ICHydro/Riverlabs/issues) o cree una nueva incidencia con su pregunta. ¡La comunidad puede ayudarle!
