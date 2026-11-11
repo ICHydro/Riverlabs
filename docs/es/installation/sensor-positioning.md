@@ -8,16 +8,16 @@
 
 ### Instalación
 
-El sensor ultrasónico emite un haz cónico que se ensancha a medida que aumenta la distancia. Su patrón específico se describe en la [ficha técnica de Maxbotix](https://maxbotix.com/pages/hrxl-maxsonar-wr-datasheet) y alcanza una anchura de hasta 60 cm. Por ello, recomendamos mantener una distancia mínima de 50 cm entre el centro de la trayectoria del haz y cualquier objeto:
+El sensor ultrasónico emite un haz cónico que se ensancha a medida que aumenta la distancia. Su patrón específico se describe en la [ficha técnica de Maxbotix](https://maxbotix.com/pages/hrxl-maxsonar-wr-datasheet) y puede alcanzar una anchura de hasta 60 cm. Por ello, recomendamos mantener una distancia mínima de 50 cm entre el centro de la trayectoria del haz y cualquier objeto que pueda interferir en la medición.
 
 ![Patrón del haz ultrasónico](../assets/images/installation_US.png)
 
 ### Consideraciones sobre la reflectividad
 
-Las mediciones ultrasónicas de distancia se basan en el tiempo de vuelo de un pulso sónico emitido por el sensor y reflejado por el objeto de destino. Como los materiales y las formas de los objetos pueden afectar a su reflectividad, también pueden influir en la calidad de la medición. Por lo general, el agua refleja bien el sonido, pero los siguientes factores pueden afectar a las lecturas:
+Las mediciones ultrasónicas de distancia se basan en el tiempo de vuelo de un pulso sónico emitido por el sensor y reflejado por el objeto de destino. Dado que los materiales y las formas de los objetos pueden afectar a su reflectividad, también pueden influir en la calidad de la medición. Por lo general, el agua refleja bien el sonido, pero los siguientes factores pueden afectar a las lecturas:
 
 - Oleaje y turbulencia: no afectan a la reflexión en sí, pero las variaciones resultantes del nivel del agua sí afectan a la lectura. Tomar varias mediciones y calcular su promedio puede aumentar la precisión.
-- Residuos flotantes: algunos, como los materiales blandos, pueden reducir la reflectividad del objetivo. Los fragmentos de mayor tamaño también pueden modificar la superficie reflectante y provocar errores de medición.
+- Residuos flotantes: algunos residuos, como los materiales blandos, pueden reducir la reflectividad del objetivo. Los fragmentos de mayor tamaño también pueden modificar la superficie reflectante y provocar errores de medición.
 - Viento: puede generar olas en la superficie del agua; si es fuerte, también puede hacer que se pierdan pulsos.
 
 ## Garmin Lidarlite v3HP
@@ -30,13 +30,13 @@ El sensor lidar emite un haz láser infrarrojo muy concentrado, con una divergen
 
 | Distancia | Diámetro de la zona iluminada | Área cubierta |
 |-----------|-------------------------------|---------------|
-| 1 m       | ~0,8 cm                       | 0,0005 m²     |
+| 1 m       | ~0,8 cm                       | 0,00005 m²     |
 | 5 m       | ~4 cm                         | 0,0013 m²     |
 | 10 m      | ~8 cm                         | 0,005 m²      |
 | 20 m      | ~16 cm                        | 0,020 m²      |
 | 35 m      | ~28 cm                        | 0,062 m²      |
 
-Gracias a lo estrecho del haz, el sensor lidar también puede instalarse en ángulo. Esto reduce algo la precisión (véase más abajo), pero puede ser una ventaja práctica, por ejemplo, cuando el montaje vertical es imposible o presenta problemas de acceso o seguridad. Nuestras pruebas indican que pueden utilizarse ángulos de hasta 40° con respecto a la vertical.
+Gracias a lo estrecho del haz, el sensor lidar también puede instalarse en ángulo. Aunque esto puede reducir ligeramente la precisión (véase más adelante), también ofrece ventajas prácticas, por ejemplo, cuando el montaje vertical no es posible o presenta problemas de acceso o seguridad. Nuestras pruebas indican que pueden utilizarse ángulos de hasta 40° con respecto a la vertical.
 
 ![Patrón del haz lidar](../assets/images/installation_lidar.png)
 
@@ -45,12 +45,12 @@ Gracias a lo estrecho del haz, el sensor lidar también puede instalarse en áng
 | Ángulo respecto a la vertical | Efecto en la precisión | Notas |
 |-------------------------------|------------------------|-------|
 | 0°–10°                        | Error <0,5 %           | Corrección insignificante |
-| 10°–20°                       | Error <1 %             | Máximo recomendado |
+| 10°–20°                       | Error <1 %             | Intervalo recomendado |
 | 20°–30°                       | Error <1,5 %           | Aceptable con corrección |
-| 30°–40°                       | Error <2,5 %           | Máximo recomendado |
+| 30°–40°                       | Error <2,5 %           | Límite máximo recomendado |
 | >40°                          | Error >3 %             | No recomendado |
 
-Cuando el sensor se monta en ángulo, la distancia medida difiere de la distancia vertical necesaria para convertir la medición bruta en profundidad del agua. La distancia vertical puede calcularse con la siguiente fórmula, donde «ángulo» es el ángulo entre la trayectoria del haz y la vertical.
+Cuando el sensor se monta en ángulo, la distancia medida difiere de la distancia vertical necesaria para convertir la medición bruta en profundidad del agua. La distancia vertical puede calcularse con la siguiente fórmula, donde «ángulo» es el ángulo formado entre la trayectoria del haz y la vertical.
    ```
    Distancia vertical = Distancia medida × cos(ángulo)
    ```
@@ -66,7 +66,7 @@ Distancia vertical = 9,51 m
 
 ### Consideraciones sobre la reflectividad
 
-Las propiedades de reflectividad del lidar son muy diferentes de las de un sensor ultrasónico. En condiciones de calma absoluta, el agua pura es muy transparente a la luz infrarroja y refleja muy poco. Esto cambia cuando la superficie está agitada o el agua contiene partículas de sedimento u otros materiales que reducen su transparencia. Una superficie agitada también dispersa el haz lidar, lo que aumenta la probabilidad de que parte de la señal regrese al sensor. Esto es especialmente importante en instalaciones en ángulo, donde una superficie perfectamente lisa puede reflejar la señal lejos del sensor, como lo haría un espejo.
+Las propiedades de reflectividad del lidar son muy diferentes de las de un sensor ultrasónico. En condiciones de calma absoluta, el agua pura, con superficie lisa, deja pasar gran parte de la luz infrarroja y refleja muy poca hacia el sensor. Esto cambia cuando la superficie está agitada o el agua contiene partículas de sedimento u otros materiales que reducen su transparencia. Una superficie agitada también dispersa el haz lidar, lo que aumenta la probabilidad de que parte de la señal regrese al sensor. Este efecto es especialmente importante en instalaciones en ángulo, donde una superficie perfectamente lisa puede reflejar la señal lejos del sensor, como lo haría un espejo.
 
 Por tanto, un sensor lidar funcionará mejor al aire libre cuando el viento o la corriente agiten la superficie, o cuando el agua contenga sedimentos u otros materiales que aumenten su turbidez. La siguiente tabla ofrece un resumen:
 
@@ -81,6 +81,6 @@ Por tanto, un sensor lidar funcionará mejor al aire libre cuando el viento o la
 ## Próximos pasos
 
 - 📐 [Guía de montaje](mounting-guide.md): Instalar el sensor en la posición elegida
-- 🌡️ [Consideraciones ambientales](environmental-considerations.md): Factores específicos del emplazamiento
+- 🌡️ [Consideraciones ambientales](environmental-considerations.md): Factores específicos del entorno
 - 🔋 [Guía de baterías y alimentación](../operation/hardware/battery-power-guide.md): Planificación de la alimentación
 - 🔧 [Mantenimiento](../operation/hardware/maintenance.md): Mantener el sensor en la posición correcta

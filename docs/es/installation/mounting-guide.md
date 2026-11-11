@@ -5,7 +5,7 @@
 
 ## Métodos de montaje
 
-Los registradores Riverlabs están diseñados para ser pequeños y ofrecer flexibilidad al montarlos en una estructura de soporte. Según el tipo de instalación y los requisitos (por ejemplo, su duración), pueden emplearse distintos métodos. Esta sección presenta algunos métodos habituales, con sus ventajas y desventajas. Son solo ejemplos y pueden adaptarse a cada caso de uso.
+Los registradores Riverlabs están diseñados para ser pequeños y ofrecer flexibilidad al montarlos en una estructura de soporte. Según el tipo de instalación y los requisitos (por ejemplo, su duración), pueden emplearse distintos métodos. Esta sección presenta algunos de los más habituales, con sus ventajas y desventajas. Estos métodos son orientativos y pueden adaptarse a las necesidades de cada instalación.
 
 ### Comparación de los métodos de montaje
 
@@ -40,7 +40,7 @@ Las bridas ofrecen una solución de montaje rápida y no invasiva, ideal para tu
 1. **Elegir el lugar de montaje**
     - Elegir una estructura estable y rígida (por ejemplo, una tubería, un poste o una barandilla)
     - Comprobar los requisitos de espacio libre (véase la sección sobre posicionamiento más adelante)
-    - Asegurar que el agua escurra lejos del registrador
+    - Asegurarse de que el agua escurra lejos del registrador
 
 2. **Preparar la superficie**
     - Limpiar la superficie de montaje
@@ -57,7 +57,7 @@ Las bridas ofrecen una solución de montaje rápida y no invasiva, ideal para tu
     - Usar **un mínimo de 4 bridas** distribuidas alrededor de la carcasa
     - Colocar las bridas en:
         - La parte superior de la carcasa
-        - La parte inferior de la carcasa  
+        - La parte inferior de la carcasa
         - La parte central (2 bridas)
     - Pasar las bridas por los orificios de montaje de la carcasa, si los hay
     - Si no se quiere abrir la tapa para acceder a los orificios de montaje, rodear el cuerpo de la carcasa con las bridas
@@ -247,7 +247,7 @@ Los soportes mecánicos ofrecen la fijación más segura y son ideales para puen
 
 ## Permisos y otras consideraciones legales
 
-Las instalaciones en campo plantean desafíos técnicos, pero también pueden tener implicaciones normativas y legales. Hay que obtener siempre el permiso de los propietarios de los terrenos y las autorizaciones aplicables. Esto incluye cumplir las normas locales sobre el uso de telemetría o determinadas frecuencias de radio. Por ejemplo, las frecuencias permitidas para LoRaWAN varían según la región: en Europa se utilizan 868 MHz y en Estados Unidos y Sudamerica, 915 MHz.
+Las instalaciones en campo plantean desafíos técnicos, pero también pueden tener implicaciones normativas y legales. Hay que obtener siempre el permiso de los propietarios de los terrenos y las autorizaciones aplicables. Esto incluye cumplir las normas locales sobre el uso de telemetría o determinadas frecuencias de radio. Por ejemplo, las frecuencias permitidas para LoRaWAN varían según la región: en Europa se utilizan 868 MHz y en Estados Unidos y Sudamérica, 915 MHz.
 
 La salud y la seguridad también son fundamentales. Trabajar cerca del agua suele conllevar riesgos para la salud, por lo que conviene realizar una evaluación de riesgos completa. Por ello, recomendamos encarecidamente:
 
@@ -263,7 +263,7 @@ Los autores de esta guía no asumen responsabilidad alguna por posibles daños, 
 
 ## Próximos pasos
 
-Despues de la instalación:
+Después de la instalación:
 
 - ✅ Completar la [lista de verificación para el primer despliegue](../operation/quick-start/first-deployment-checklist.md)
 - 📊 Configurar el panel de monitorización

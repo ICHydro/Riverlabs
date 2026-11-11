@@ -5,7 +5,7 @@
 
 ## ¿Qué es ThingsBoard?
 
-[ThingsBoard](https://thingsboard.io/) es una plataforma IoT de código abierto para gestionar dispositivos y recopilar y visualizar datos. Es adecuada para los registradores Riverlabs porque ofrece:
+[ThingsBoard](https://thingsboard.io/) es una plataforma IoT de código abierto para gestionar dispositivos y para recopilar y visualizar datos. Es adecuada para los registradores Riverlabs porque ofrece:
 
 - **Versión gratuita** (servidor de demostración)
 - **Integración sencilla mediante API HTTP**
@@ -30,7 +30,7 @@
 
 **Inconvenientes:**
 
-- Los datos se eliminan tras un periodo de inactividad
+- Los datos se eliminan tras un período de inactividad
 - Infraestructura compartida
 - No se garantiza la disponibilidad
 - No es adecuado para despliegues de producción
@@ -96,7 +96,7 @@
 6. **Inicie sesión** en ThingsBoard.
 
 !!! warning "Conservación de datos en el servidor de demostración"
-    El servidor de demostración elimina periódicamente las cuentas inactivas. No lo utilice para despliegues a largo plazo sin acceder con regularidad.
+    El servidor de demostración elimina periódicamente las cuentas inactivas. Si lo utiliza para despliegues de larga duración, acceda con regularidad para no perder la cuenta ni los datos.
 
 ### Registro en ThingsBoard Cloud
 
@@ -360,7 +360,7 @@ Los registradores Riverlabs envían datos en formato JSON:
 
 ### Campos calculados
 
-**Obtener valores nuevos de la telemetría:**
+**Obtener valores nuevos a partir de la telemetría:**
 
 **Profundidad del agua** (altura de instalación menos distancia):
 

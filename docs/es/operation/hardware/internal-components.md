@@ -1,7 +1,7 @@
 # Referencia de componentes internos
 
 !!! abstract "Descripción general"
-    Esta pagina ofrece información detallada sobre los componentes internos de los registradores Riverlabs, su ubicación, función y necesidades de mantenimiento. No es conocimiento necesario para la operación de los equipos, pero puede ser util en el caso de reparaciones o alteraciones.
+    Esta página ofrece información detallada sobre los componentes internos de los registradores Riverlabs, su ubicación, función y necesidades de mantenimiento. No es conocimiento necesario para la operación de los equipos, pero puede ser útil en el caso de reparaciones o alteraciones.
 
 ## Distribución de los componentes
 
@@ -145,7 +145,7 @@ Lado GRN         Lado BLK
 - **Orientación del cable FTDI:** FUNDAMENTAL
     - El cable verde se alinea con la marca "GRN"
     - El cable negro se alinea con la marca "BLK"
-- **Tensión:** admite cables FTDI de 5 V o 3,3 V (se recomiendan 3,3 V)
+- **Tensión:** admite cables FTDI de 5 V o 3.3 V (se recomiendan 3.3 V)
 - **Reinicio automático:** el pin DTR activa el reinicio automático para programar
 - **Alimentación:** puede alimentar el registrador cuando está conectado (consulte la sección del interruptor de alimentación)
 

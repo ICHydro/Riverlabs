@@ -39,7 +39,7 @@ Cuando falla la telemetría, el problema puede estar en distintas capas:
 
 **Empiece aquí:**
 
-- **Alimentación:** ¿batería >3,3 V?
+- **Alimentación:** ¿batería >3.3 V?
 - **Hardware:** ¿XBee bien encajado?
 - **SIM:** ¿activa e insertada correctamente?
 - **Señal:** ¿RSSI superior a -105 dBm?
@@ -275,7 +275,7 @@ El XBee consume ~200 mA al transmitir. Si la batería está débil:
 
 **Solución:**
 
-1. Sustituya antes la batería (no espere a 3,3 V).
+1. Sustituya antes la batería (no espere a 3.3 V).
 2. Use una batería de más capacidad.
 3. Reduzca las transmisiones.
 
@@ -406,9 +406,9 @@ long timestamp = rtc.now().unixtime() * 1000L; // Convertir a milisegundos
 
 **Calcule el consumo esperado:**
 
-- Tamaño de una transmisión: ~500 bytes (0,5 KB).
+- Tamaño de una transmisión: ~500 bytes (0.5 KB).
 - Transmisiones al día: 24 (cada hora).
-- Consumo diario: 24 × 0,5 = 12 KB.
+- Consumo diario: 24 × 0.5 = 12 KB.
 - Mensual: 12 KB × 30 = 360 KB.
 
 **Si el consumo real es mucho mayor:**
@@ -458,7 +458,7 @@ Tamaño: ~150 bytes.
 ```
 Tamaño: ~30 bytes.
 
-**¡Ahorro de datos de 5 veces!**
+**¡Cinco veces menos datos!**
 
 **Equilibrio:** claves compactas frente a legibilidad.
 
@@ -666,7 +666,7 @@ MY      // Dirección IP
 5. **Supervisión:**
     - Configure alertas en ThingsBoard.
     - Correo si no llegan datos durante el doble del intervalo esperado.
-    - Correo si la batería baja de 3,5 V.
+    - Correo si la batería baja de 3.5 V.
 
 ---
 
@@ -710,7 +710,7 @@ MY      // Dirección IP
 **Riverlabs/ICHydro:**
 
 - Incidencias GitHub: https://github.com/ICHydro/Riverlabs/issues
-- Correo: si el proyecto lo facilita.
+- Correo electrónico: si el proyecto lo facilita.
 
 **Soporte Digi (XBee):**
 
@@ -800,7 +800,7 @@ MY      // Dirección IP
 
 ```
 ¿El registrador no transmite?
-├─ ¿Alimentación >3,3 V? ──No──> Sustituir batería
+├─ ¿Alimentación >3.3 V? ──No──> Sustituir batería
 │   └─Sí
 ├─ ¿XBee bien encajado? ──No──> Volver a insertarlo
 │   └─Sí

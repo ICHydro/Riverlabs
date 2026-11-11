@@ -1,17 +1,17 @@
 # Problemas habituales y soluciones
 
 !!! abstract "Descripción general"
-    Esta pagina provee una referencia de los problemas más frecuentes de los registradores Riverlabs. Organizada por síntoma → causa → solución para facilitar el diagnóstico.
+    Esta página provee una referencia de los problemas más frecuentes de los registradores Riverlabs. Organizada por síntoma → causa → solución para facilitar el diagnóstico.
 
 ## Cómo utilizar esta guía
 
-1. **Busca entre los síntomas** el que corresponda a su problema
-2. **Lee las causas probables** para comprenderlo
-3. **Sigue los pasos de la solución** para resolverlo
-4. **Consulta «Verificado por»** para confirmar su validez en situaciones reales
+1. **Busque entre los síntomas** el que corresponda a su problema
+2. **Lea las causas probables** para comprenderlo
+3. **Siga los pasos de la solución** para resolverlo
+4. **Consulte «Verificado por»** para confirmar su validez en situaciones reales
 
 Cada problema incluye:
-- 🔴 **Síntoma** - Lo que observas
+- 🔴 **Síntoma** - Lo que se observa
 - 🔍 **Causa probable** - Por qué ocurre
 - ✅ **Solución** - Cómo resolverlo
 - ⚙️ **Prevención** - Cómo evitarlo en el futuro
@@ -28,7 +28,7 @@ Cada problema incluye:
 - No hay salida serie
 
 **🔍 Causas probables:**
-1. **Batería completamente descargada** (<2.5V)
+1. **Batería completamente descargada** (<2.5 V)
 2. **Batería desconectada** o mal contacto
 3. **Polaridad invertida** (batería colocada al revés)
 4. **Interruptor averiado** (fallo mecánico)
@@ -36,30 +36,30 @@ Cada problema incluye:
 
 **✅ Solución:**
 
-**Paso 1: Comprueba la tensión de la batería**
+**Paso 1: Compruebe la tensión de la batería**
 
-- Desconecta la batería del registrador
-- Mide con un multímetro: punta roja al cable rojo, negra al negro
+- Desconecte la batería del registrador
+- Mida con un multímetro: punta roja al cable rojo, negra al negro
 - Lectura:
-    - 3.7-4.2V: batería correcta → el problema está en el registrador (ve al paso 3)
-    - 2.5-3.5V: batería descargada → cárgala o sustitúyela y repite la prueba
-    - <2.5V: batería agotada → sustitúyela (probablemente no admita carga)
-    - 0V: no hay batería o está totalmente averiada → sustitúyela
+    - 3.7-4.2 V: batería correcta → el problema está en el registrador (vaya al paso 3)
+    - 2.5-3.5 V: batería descargada → cárguela o sustitúyala y repita la prueba
+    - <2.5 V: batería agotada → sustitúyala (probablemente no admita carga)
+    - 0 V: no hay batería o está totalmente averiada → sustitúyala
 
-**Paso 2: Inspecciona el conector de la batería**
+**Paso 2: Inspeccione el conector de la batería**
 
 - ¿Está bien insertado el conector JST?
-- ¿Hacen contacto los pines? (muévelo con cuidado: ¿se enciende de forma intermitente?)
+- ¿Hacen contacto los pines? (muévalo con cuidado: ¿se enciende de forma intermitente?)
 - ¿Es correcta la polaridad? (cable rojo a + en la PCB; negro a -)
-- Si está al revés: ¡DESCONÉCTALA INMEDIATAMENTE! Busca daños (componentes quemados, olor)
+- Si está al revés: ¡DESCONÉCTELA INMEDIATAMENTE! Busque daños (componentes quemados, olor)
 
-**Paso 3: Prueba el interruptor**
+**Paso 3: Pruebe el interruptor**
 
-- Acciónalo varias veces (los contactos pueden estar sucios)
-- Si puedes, puentea temporalmente los terminales para probarlo
-- Si está roto, desuél­dalo y sustitúyelo o déjalo puenteado permanentemente
+- Acciónelo varias veces (los contactos pueden estar sucios)
+- Si puede, puentee temporalmente los terminales para probarlo
+- Si está roto, desuél­delo y sustitúyalo o déjelo puenteado permanentemente
 
-**Paso 4: Comprueba si la PCB está dañada**
+**Paso 4: Compruebe si la PCB está dañada**
 
 - Inspección visual: ¿componentes quemados? ¿pistas rotas?
 - Olor: ¿huele a componentes quemados?
@@ -67,10 +67,10 @@ Cada problema incluye:
 - Si hay daños: reparación profesional o sustitución del registrador
 
 **⚙️ Prevención:**
-- Supervisa el voltaje y sustituye la batería antes de que baje de 3.3V
-- Utiliza conectores JST (polarizados, evitan invertir la conexión)
-- Protege el registrador de los golpes (buena carcasa)
-- Evita cortocircuitar la batería (causa daños permanentes)
+- Supervise el voltaje y sustituya la batería antes de que baje de 3.3 V
+- Utilice conectores JST (polarizados, evitan invertir la conexión)
+- Proteja el registrador de los golpes (buena carcasa)
+- Evite cortocircuitar la batería (causa daños permanentes)
 
 ---
 
@@ -89,7 +89,7 @@ Cada problema incluye:
 
 **✅ Solución:**
 
-**Paso 1: Comprueba el modo reposo en el código**
+**Paso 1: Compruebe el modo reposo en el código**
 ```cpp
 // In main loop, should have:
 LowPower.powerDown(SLEEP_8S, ADC_OFF, BOD_OFF);
@@ -100,39 +100,39 @@ pinMode(XBEE_SLEEP_PIN, OUTPUT);
 digitalWrite(XBEE_SLEEP_PIN, HIGH); // Sleep XBee when not transmitting
 ```
 
-**Paso 2: Mide el consumo de corriente**
+**Paso 2: Mida el consumo de corriente**
 
-- Necesita el uso de un multímetro con medición de corriente (modo mA)
-- Desconecta la batería y conecta el amperímetro en serie
-- Enciende el registrador
-- Observa la corriente:
+- Necesita un multímetro con medición de corriente (modo mA)
+- Desconecte la batería y conecte el amperímetro en serie
+- Encienda el registrador
+- Observe la corriente:
     - Reposo: <1 mA (bien)
     - Activo/midiendo: 50-100 mA (normal, brevemente)
     - >50 mA continuos: ¡no entra en reposo!
 
-**Paso 3: Comprueba la salida serie de depuración**
+**Paso 3: Compruebe la salida serie de depuración**
 
-- Conecta el cable FTDI
-- Abre el monitor serie
-- Comprueba si hay:
+- Conecte el cable FTDI
+- Abra el monitor serie
+- Compruebe si hay:
     - Mensajes «Entering sleep»; si no aparecen, no se activa el reposo
     - «XBee timeout» o similar; puede estar esperando al XBee
     - Salida continua; debería ser periódica
 
-**Paso 4: Aísla la telemetría**
+**Paso 4: Aísle la telemetría**
 
 Si tiene XBee:
 
-- Retira el módulo XBee
-- Prueba durante una noche registrando solo en SD
+- Retire el módulo XBee
+- Pruebe durante una noche registrando solo en SD
 - Si la batería dura: problema de configuración del XBee (SM no configurado para reposo por pin)
 - Si sigue agotándose: problema en el código o hardware del registrador
 
 **⚙️ Prevención:**
-- Prueba la autonomía en banco durante una noche antes de instalarlo
-- Activa la depuración para comprobar el reposo
-- Configura el reposo por pin del XBee (SM=1)
-- Mide el consumo con un amperímetro durante el desarrollo
+- Pruebe la autonomía en banco durante una noche antes de instalarlo
+- Active la depuración para comprobar el reposo
+- Configure el reposo por pin del XBee (SM=1)
+- Mida el consumo con un amperímetro durante el desarrollo
 
 ---
 
@@ -151,61 +151,61 @@ Si tiene XBee:
 
 **✅ Solución:**
 
-**Comprende la descarga de Li-ion:**
+**Comprenda la descarga de Li-ion:**
 ```
 Li-ion batteries hold voltage until near end of life:
 
 Voltaje   Carga remanente %
-4.2V      100%
-4.0V      80%
-3.9V      60%
-3.8V      40%
-3.7V      30%
-3.6V      20%
-3.5V      10%
-3.4V      5%
-3.3V      1%
-<3.3V     Riesgo de da&ntilde;o
+4.2 V      100%
+4.0 V      80%
+3.9 V      60%
+3.8 V      40%
+3.7 V      30%
+3.6 V      20%
+3.5 V      10%
+3.4 V      5%
+3.3 V      1%
+<3.3 V     Riesgo de da&ntilde;o
 ```
 
 **Nota:** El porcentaje no es lineal y depende de la temperatura y la carga.
 
-**Paso 1: Utiliza umbrales de tensión, no porcentajes**
+**Paso 1: Utilice umbrales de tensión, no porcentajes**
 
 En lugar de: «Batería al 50 %»
-Utiliza: «Tensión de la batería: 3.7V» (más preciso)
+Utilice: «Tensión de la batería: 3.7 V» (más preciso)
 
 Umbrales de alerta:
 
-- 3.5V: planifica la retirada durante la semana siguiente
-- 3.4V: recógelo en un plazo de dos días
-- 3.3V: recógelo inmediatamente (puede dejar de transmitir)
+- 3.5 V: planifique la retirada durante la semana siguiente
+- 3.4 V: recójalo en un plazo de dos días
+- 3.3 V: recójalo inmediatamente (puede dejar de transmitir)
 
-**Paso 2: Considera la temperatura**
+**Paso 2: Considere la temperatura**
 
 El frío causa una caída temporal de tensión:
 
-- Puede medirse 3.5V a 0°C
+- Puede medirse 3.5 V a 0°C
 - La capacidad real podría ser mayor (al calentarse recupera tensión)
-- No te alarmes por una única lectura baja con frío
-- Retira el registrador si varias lecturas consecutivas son <3.4V
+- No se alarme por una única lectura baja con frío
+- Retire el registrador si varias lecturas consecutivas son <3.4 V
 
 **Paso 3: Envejecimiento de la batería**
 
 Las Li-ion se degradan con el tiempo:
 
 - Nueva: capacidad total de 2600 mAh
-- 1 año: ~90 % (2340 mAh)
-- 2 años: ~80 % (2080 mAh)
-- 3 años o más: <70 %; sustitúyela
+- 1 año: ~90% (2340 mAh)
+- 2 años: ~80% (2080 mAh)
+- 3 años o más: <70%; sustitúyala
 
-Solución: sustituye las baterías anualmente en aplicaciones críticas
+Solución: sustituya las baterías anualmente en aplicaciones críticas
 
 **⚙️ Prevención:**
-- Configura alertas por tensión, no por porcentaje
-- Sustituye las baterías cada año
-- Recoge los registradores antes de llegar a una tensión crítica
-- Almacena correctamente las baterías de repuesto (40-60 % de carga, lugar fresco)
+- Configure alertas por tensión, no por porcentaje
+- Sustituya las baterías cada año
+- Recoja los registradores antes de llegar a una tensión crítica
+- Almacene correctamente las baterías de repuesto (40-60 % de carga, lugar fresco)
 
 ---
 
@@ -214,7 +214,7 @@ Solución: sustituye las baterías anualmente en aplicaciones críticas
 ### Problema 4: El sensor ultrasónico siempre indica el alcance máximo
 
 **🔴 Síntoma:**
-- Sensor siempre mide 5000mm (o el alcance máximo)
+- Sensor siempre mide 5000 mm (o el alcance máximo)
 - El valor no cambia ni al mover el sensor
 
 **🔍 Causas probables:**
@@ -225,67 +225,67 @@ Solución: sustituye las baterías anualmente en aplicaciones críticas
 
 **✅ Solución:**
 
-**Paso 1: Escucha si el sensor emite clics**
+**Paso 1: Escuche si el sensor emite clics**
 
-- Enciende el registrador
-- Acerca con cuidado el sensor al oído, sin tocar su cara frontal
-- Deberías oír un «tic» o «clic» en cada medición (cada 15 segundos o según tu intervalo)
-- Si hace clics: recibe alimentación y transmite → ve al paso 2
-- Si no: no recibe alimentación → ve al paso 3
+- Encienda el registrador
+- Acerque con cuidado el sensor al oído, sin tocar su cara frontal
+- Debería oír un «tic» o «clic» en cada medición (cada 15 segundos o según su intervalo)
+- Si hace clics: recibe alimentación y transmite → vaya al paso 2
+- Si no: no recibe alimentación → vaya al paso 3
 
 **Paso 2: Recibe alimentación, pero no hay eco**
 
 Posibles causas:
 
 1. No hay objetivo en la trayectoria del haz
-    - Demasiado lejos: acércalo o usa lidar
-    - Apunta al cielo: oriéntalo hacia el objetivo
+    - Demasiado lejos: acérquelo o use lidar
+    - Apunta al cielo: oriéntelo hacia el objetivo
 
 2. El objetivo absorbe demasiado
     - Nieve reciente: muy absorbente
     - Espuma: absorbe los ultrasonidos
-    - Solución: espera a que se derrita la nieve o utiliza lidar
+    - Solución: espere a que se derrita la nieve o utilice lidar
 
 3. El haz no alcanza un objetivo pequeño
     - Haz ultrasónico: cono de ~15-20°
     - Objetivo pequeño (p. ej., arroyo estrecho): puede no alcanzarlo
-    - Solución: apunta con más cuidado o utiliza un sensor de haz más ancho
+    - Solución: apunte con más cuidado o utilice un sensor de haz más ancho
 
 **Paso 3: Sensor sin alimentación**
 
-- Desconecta el cable del sensor
-- Comprueba la continuidad:
+- Desconecte el cable del sensor
+- Compruebe la continuidad:
     - Entre los pines del cable y el conector: resistencia <1Ω
-    - ¿Cable aplastado, cortado o corroído? Sustitúyelo
-- Comprueba el conector de la PCB:
+    - ¿Cable aplastado, cortado o corroído? Sustitúyalo
+- Compruebe el conector de la PCB:
     - ¿Soldaduras intactas? (inspección visual)
-    - ¿Hacen contacto los pines? Vuelve a insertar el cable
-- Comprueba con el multímetro:
-    - Mide la tensión en el conector del sensor mientras el registrador está activo
-    - Debería haber 5V o 12V (según el modelo de sensor)
+    - ¿Hacen contacto los pines? Vuelva a insertar el cable
+- Compruebe con el multímetro:
+    - Mida la tensión en el conector del sensor mientras el registrador está activo
+    - Debería haber 5 V o 12 V (según el modelo de sensor)
     - Si no hay tensión: fallo del circuito de alimentación de la PCB
 
-**Paso 4: Sustituye el sensor**
+**Paso 4: Sustituya el sensor**
 
 Si nada funciona:
 
 - Podría haber fallado internamente (raro, pero posible)
-- Prueba con un sensor que funcione
+- Pruebe con un sensor que funcione
 - Si el nuevo funciona: el original está averiado
 - Si ambos indican el máximo: el problema es de orientación, objetivo o entorno
 
 **⚙️ Prevención:**
-- Orienta cuidadosamente el sensor al instalarlo (prueba antes de irte)
-- Protege el cable (fíjalo y evita puntos de aplastamiento)
-- Elige un sensor adecuado al objetivo (lidar para nieve o espuma)
-- Mantén limpia la cara del sensor
+- Oriente cuidadosamente el sensor al instalarlo (pruebe antes de irse)
+- Proteja el cable (fíjelo y evite puntos de aplastamiento)
+- Elija un sensor adecuado al objetivo (lidar para nieve o espuma)
+- Mantenga limpia la cara del sensor
 
 ---
 
 ### Problema 5: Las lecturas de distancia derivan con el tiempo
 
 **🔴 Síntoma:**
-- Las distancias cambian 50-200mm a lo largo de varios días
+- Las distancias cambian 50-200 mm a lo largo de varios días
 - El nivel real del agua está estable (verificado visualmente)
 - Hay una deriva lenta, no saltos bruscos
 
@@ -297,56 +297,56 @@ Si nada funciona:
 
 **✅ Solución:**
 
-**Paso 1: Comprueba la correlación con la temperatura**
+**Paso 1: Compruebe la correlación con la temperatura**
 
-- Representa distancia frente a temperatura a lo largo del tiempo
+- Represente distancia frente a temperatura a lo largo del tiempo
 - Si hay una fuerte correlación (la distancia aumenta con la temperatura):
     - Causa: la estructura de montaje se dilata con el calor
-    - Ejemplo: un soporte metálico se calienta al sol, se dilata y el sensor desciende 5mm
+    - Ejemplo: un soporte metálico se calienta al sol, se dilata y el sensor desciende 5 mm
     - Solución:
-        - a) Aceptar la variación natural (±50mm suele ser aceptable)
+        - a) Aceptar la variación natural (±50 mm suele ser aceptable)
         - b) Utilizar un montaje térmicamente estable (menos metal)
         - c) Compensar la temperatura al procesar los datos
 
-**Paso 2: Inspecciona el montaje**
+**Paso 2: Inspeccione el montaje**
 
-- Revisa visualmente la instalación
-- Comprueba:
+- Revise visualmente la instalación
+- Compruebe:
     - ¿Bridas tensas? (pueden aflojarse)
     - ¿Tornillos y pernos apretados?
     - ¿Soporte doblado o desplazado?
-- Solución: vuelve a apretar y refuerza el montaje
+- Solución: vuelva a apretar y refuerce el montaje
 
-**Paso 3: Busca vegetación**
+**Paso 3: Busque vegetación**
 
-- Inspecciona la trayectoria del haz
+- Inspeccione la trayectoria del haz
 - ¿Ha crecido vegetación (hierba, maleza, ramas)?
     - ¿Hojas nuevas en primavera?
     - ¿Algas en la superficie objetivo?
-- Solución: poda la vegetación y limpia el objetivo
-- Prevención: deja despejada la trayectoria y prevé el crecimiento estacional
+- Solución: pode la vegetación y limpie el objetivo
+- Prevención: deje despejada la trayectoria y prevea el crecimiento estacional
 
-**Paso 4: Comprueba la calibración**
+**Paso 4: Compruebe la calibración**
 
-No suele hacer falta, pero puedes verificarla:
+No suele hacer falta, pero puede verificarla:
 
-- Mide una distancia conocida con una cinta (p. ej., 2000mm)
-- Sitúa un objetivo a esa distancia
-- La lectura debería coincidir con ±50mm
-- Si difiere >100mm: quizá debas sustituir el sensor
+- Mida una distancia conocida con una cinta (p. ej., 2000 mm)
+- Sitúe un objetivo a esa distancia
+- La lectura debería coincidir con ±50 mm
+- Si difiere >100 mm: quizá deba sustituir el sensor
 
 **⚙️ Prevención:**
-- Utiliza materiales de montaje térmicamente estables
-- Mantén despejado el haz (poda trimestral)
-- Asegura el montaje con fijaciones redundantes
-- Ten en cuenta la dilatación estacional al analizar los datos
+- Utilice materiales de montaje térmicamente estables
+- Mantenga despejado el haz (poda trimestral)
+- Asegure el montaje con fijaciones redundantes
+- Tenga en cuenta la dilatación estacional al analizar los datos
 
 ---
 
 ### Problema 6: El lidar devuelve valores negativos
 
 **🔴 Síntoma:**
-- A veces registra distancias negativas (p. ej., -150mm)
+- A veces registra distancias negativas (p. ej., -150 mm)
 - La mayoría de las lecturas son positivas y correctas
 
 **🔍 Causas probables:**
@@ -356,7 +356,7 @@ No suele hacer falta, pero puedes verificarla:
 
 **✅ Solución:**
 
-**Paso 1: Busca un patrón**
+**Paso 1: Busque un patrón**
 
 - ¿Cuándo aparecen los negativos?
     - Al azar: error I2C (paso 2)
@@ -367,16 +367,16 @@ No suele hacer falta, pero puedes verificarla:
 
 I2C es sensible a:
 
-- Longitud de cables (mantén <30cm)
+- Longitud de cables (mantenga <30 cm)
 - Interferencias electromagnéticas cercanas
 - Conexiones flojas
 
 Soluciones:
 
-- a) Añade resistencias de pull-up (2.2kΩ o 4.7kΩ en SDA y SCL)
-- b) Acorta los cables I2C
-- c) Añade una ferrita al cable
-- d) Apantalla el cable cerca de fuentes intensas de radiofrecuencia
+- a) Añada resistencias de pull-up (2.2kΩ o 4.7kΩ en SDA y SCL)
+- b) Acorte los cables I2C
+- c) Añada una ferrita al cable
+- d) Apantalle el cable cerca de fuentes intensas de radiofrecuencia
 
 <!--- WB: this needs review in the code. I think that the lidar values are returned in cm, not mm. It may also have implications for other parts of the code.
 
@@ -407,17 +407,17 @@ Si los negativos coinciden con la telemetría:
 
 -->
 
-**Paso 3: Filtra durante el posprocesamiento**
+**Paso 3: Filtre durante el posprocesamiento**
 
 Como último recurso (si no es práctico corregir el hardware):
 
-- Elimina los valores negativos al analizar los datos
-- Interpola: sustituye los negativos por el promedio de valores vecinos
+- Elimine los valores negativos al analizar los datos
+- Interpole: sustituya los negativos por el promedio de valores vecinos
 
 **⚙️ Prevención:**
-- Utiliza codigo adecuado
-- Añade resistencias de pull-up I2C al diseño
-- Prueba I2C antes de instalarlo (lee el sensor 1000 veces en un bucle y comprueba errores)
+- Utilice código adecuado
+- Añada resistencias de pull-up I2C al diseño
+- Pruebe I2C antes de instalarlo (lea el sensor 1000 veces en un bucle y compruebe errores)
 
 ---
 
@@ -426,7 +426,7 @@ Como último recurso (si no es práctico corregir el hardware):
 ### Problema 7: La tarjeta SD aparece "corrupta" o "necesita formateo"
 
 **🔴 Síntoma:**
-- Retiras la tarjeta SD y la conectas al ordenador
+- Retira la tarjeta SD y la conecta al ordenador
 - Windows indica «El disco necesita formatearse» o «Corrupto»
 - Los archivos no se pueden leer
 
@@ -438,7 +438,7 @@ Como último recurso (si no es práctico corregir el hardware):
 
 **✅ Solución:**
 
-**Paso 1: Intenta recuperar los datos**
+**Paso 1: Intente recuperar los datos**
 ```
 Before formatting, try recovery:
 
@@ -458,7 +458,7 @@ Recovery software (if above fails):
 - DiskDigger (free/paid)
 ```
 
-**Paso 2: Formatea correctamente**
+**Paso 2: Formatee correctamente**
 ```
 If recovery fails or you don't need data:
 
@@ -477,7 +477,7 @@ Linux:
 sudo mkfs.vfat -F 32 -S 512 -s 64 /dev/sdX1
 ```
 
-**Paso 3: Prueba la tarjeta**
+**Paso 3: Pruebe la tarjeta**
 ```
 After formatting:
 - Copy test file to card
@@ -511,18 +511,18 @@ Code improvements:
 -->
 
 **⚙️ Prevención:**
-- No extraigas la tarjeta SD mientras el registrador escribe datos
-- Comprueba que la batería tiene carga suficiente antes de instalarlo
-- Utiliza tarjetas de calidad (SanDisk, Samsung, Kingston)
-- Ejecuta flush() o close() regularmente en el código
-- Retira los registradores antes de que la batería alcance un nivel crítico
+- No extraiga la tarjeta SD mientras el registrador escribe datos
+- Compruebe que la batería tiene carga suficiente antes de instalarlo
+- Utilice tarjetas de calidad (SanDisk, Samsung, Kingston)
+- Ejecute flush() o close() regularmente en el código
+- Retire los registradores antes de que la batería alcance un nivel crítico
 
 ---
 
 ### Problema 8: El CSV contiene caracteres extraños o formato incorrecto
 
 **🔴 Síntoma:**
-- Abres el CSV en Excel o Numbers
+- Abre el CSV en Excel o Numbers
 - Aparecen símbolos como `Ã`, `Â`, `â€™`
 - Las columnas están desalineadas
 - Los datos parecen corruptos
@@ -535,7 +535,7 @@ Code improvements:
 
 **✅ Solución:**
 
-**Paso 1: Prueba otra codificación**
+**Paso 1: Pruebe otra codificación**
 ```
 Excel (Windows):
 - Open Excel (don't double-click CSV)
@@ -554,7 +554,7 @@ LibreOffice/OpenOffice:
 - Separated by: Comma
 ```
 
-**Paso 2: Inspecciona el archivo sin procesar**
+**Paso 2: Inspeccione el archivo sin procesar**
 ```
 Use text editor (Notepad++, Sublime, VS Code):
 - Open CSV as plain text
@@ -591,7 +591,7 @@ dataFile.print("\"");
 ```
 -->
 
-**Paso 4: Recupera los datos parciales**
+**Paso 4: Recupere los datos parciales**
 ```
 If file partially corrupted:
 - Identify good rows vs. bad
@@ -600,10 +600,10 @@ If file partially corrupted:
 ```
 
 **⚙️ Prevención:**
-- Escribe una fila de cabecera al iniciar por primera vez
-- Utiliza separadores coherentes (la coma es habitual)
-- Prueba la lectura de CSV con datos de ejemplo antes de instalarlo
-- Vacía regularmente el búfer del archivo para completar las escrituras
+- Escriba una fila de cabecera al iniciar por primera vez
+- Utilice separadores coherentes (la coma es habitual)
+- Pruebe la lectura de CSV con datos de ejemplo antes de instalarlo
+- Vacíe regularmente el búfer del archivo para completar las escrituras
 
 ---
 
@@ -624,7 +624,7 @@ If file partially corrupted:
 
 **✅ Solución:**
 
-**Paso 1: Comprueba los datos recientes en la SD**
+**Paso 1: Compruebe los datos recientes en la SD**
 ```
 - Retrieve logger (or analyze last data on ThingsBoard)
 - SD card shows recent measurements?
@@ -632,7 +632,7 @@ If file partially corrupted:
   - No: Logger stopped completely → See Flowchart 1 (Logger Won't Record)
 ```
 
-**Paso 2: Comprueba la tensión de la batería**
+**Paso 2: Compruebe la tensión de la batería**
 ```
 - Check voltage in latest SD card data
 - Voltage <3.5V?
@@ -642,7 +642,7 @@ If file partially corrupted:
   - Telemetry failure for other reason → Go to Step 3
 ```
 
-**Paso 3: Prueba la tarjeta SIM**
+**Paso 3: Pruebe la tarjeta SIM**
 ```
 - Remove SIM from XBee
 - Insert in phone (adapter if needed)
@@ -652,7 +652,7 @@ If file partially corrupted:
   - Has service: SIM works → Go to Step 4
 ```
 
-**Paso 4: Comprueba la señal en el lugar**
+**Paso 4: Compruebe la señal en el lugar**
 ```
 - Using phone (same carrier as SIM):
   - Test signal strength at logger location
@@ -662,7 +662,7 @@ If file partially corrupted:
     - Coverage OK: XBee issue → Go to Step 5
 ```
 
-**Paso 5: Revisa la configuración del XBee**
+**Paso 5: Revise la configuración del XBee**
 ```
 - Remove XBee, connect to XBee Studio
 - Read configuration
@@ -678,10 +678,10 @@ If file partially corrupted:
 ```
 
 **⚙️ Prevención:**
-- Configura avisos en ThingsBoard (sin datos durante >2 veces el intervalo esperado)
-- Supervisa la tensión de forma remota
-- Mantén la renovación automática del plan SIM
-- Comprueba la señal antes de instalarlo
+- Configure avisos en ThingsBoard (sin datos durante >2 veces el intervalo esperado)
+- Supervise la tensión de forma remota
+- Mantenga la renovación automática del plan SIM
+- Compruebe la señal antes de instalarlo
 
 ---
 
@@ -700,9 +700,9 @@ If file partially corrupted:
 
 **✅ Solución:**
 
-**Paso 1: Analiza las correlaciones**
+**Paso 1: Analice las correlaciones**
 
-Busca patrones en los fallos:
+Busque patrones en los fallos:
 
 ¿Por la hora del día?
 - Fallos nocturnos: congestión de red (todos en casa, usando red)
@@ -710,7 +710,7 @@ Busca patrones en los fallos:
 - Aleatorio: Problema de intensidad de señal
 
 ¿Por voltaje de batería?
-- Las fallas aumentan a medida que baja el voltaje: Problema de potencia
+- Los fallos aumentan a medida que baja el voltaje: Problema de potencia
 - Sin correlación: Problema de red
 
 ¿Por temperatura?
@@ -718,24 +718,24 @@ Busca patrones en los fallos:
 - Sin correlación: Otro problema
 
 
-**Paso 2: Comprueba la intensidad de señal**
+**Paso 2: Compruebe la intensidad de señal**
 
 Si es posible (depuración en XBee Studio o en serie):
 - Comprobar RSSI durante transmisiones exitosas o fallidas
 - RSSI menor a -100 dBm: Señal débil, alta tasa de fallo
 - Solución: antena externa, reubicar el registrador más arriba/ubicación más clara
-- RSSI > -95 dBm pero aún fallos: No fuerza de señal, pasar al Paso 3
+- RSSI > -95 dBm pero aún fallos: El problema no es la intensidad de señal; pase al Paso 3
 
 
-**Paso 3: Inspecciona la antena**
+**Paso 3: Inspeccione la antena**
 
 - Inspeccionar la conexión de la antena (si es externa)
 - ¿Conector U.FL bien colocado? (pequeño, frágil)
-- ¿Cable de antena dañado? (revisa si hay dobladuras, roturas)
+- ¿Cable de antena dañado? (revise si hay dobladuras, roturas)
 - Antena interna de la PCB: ¿Espacio libre? (Sin contacto con la carcasa/metal)
-- Solución: volver a colocar el conector, cambiar la antena si está dañado
+- Solución: volver a colocar el conector, cambiar la antena si está dañada
 
-**Paso 4: Añade reintentos en el codigo**
+**Paso 4: Añada reintentos en el código**
 ```cpp
 // In Arduino code:
 bool sendData() {
@@ -751,20 +751,20 @@ bool sendData() {
 }
 ```
 
-**Paso 5: Cambia el horario de transmisión**
+**Paso 5: Cambie el horario de transmisión**
 
 Si los fallos se correlacionan con las horas punta:
-- Tiempo de transmisión de marcha:
+- Escalone los tiempos de transmisión:
 - En lugar de cada hora en punto (09:00, 10:00, 11:00)
 - Desplazamiento: Minuto aleatorio (09:17, 10:42, 11:23)
 - Reduce la congestión de la red (no todos transmiten simultáneamente)
 
 
 **⚙️ Prevención:**
-- Instala el equipo donde haya buena señal (prueba primero con un teléfono)
-- Utiliza una antena externa si la cobertura es limitada
-- Implementa reintentos con espera exponencial
-- Supervisa la tasa de éxito en ThingsBoard (debería ser >90 %)
+- Instale el equipo donde haya buena señal (pruebe primero con un teléfono)
+- Utilice una antena externa si la cobertura es limitada
+- Implemente reintentos con espera exponencial
+- Supervise la tasa de éxito en ThingsBoard (debería ser >90 %)
 
 ---
 
@@ -773,7 +773,7 @@ Si los fallos se correlacionan con las horas punta:
 ### Problema 11: Fallo de carga «programmer is not responding» o «avrdude: stk500_getsync()»
 
 **🔴 Síntoma:**
-- Intentas cargar un sketch
+- Usted intenta cargar un sketch
 - Arduino IDE muestra «programmer is not responding» u otro error avrdude
 - La carga falla al 0 % o durante la comunicación
 
@@ -787,20 +787,20 @@ Si los fallos se correlacionan con las horas punta:
 
 **✅ Solución:**
 
-**Paso 1: Desconecta el sensor (CRÍTICO para Wari ultrasónico)**
+**Paso 1: Desconecte el sensor (CRÍTICO para Wari ultrasónico)**
 
-⚠️ CAUSA MAS PROBABLE ⚠️
+⚠️ CAUSA MÁS PROBABLE ⚠️
 
 Para registradores ultrasónicos Wari con sensor Maxbotix:
 - Desconectar el CONECTOR BLANCO del registrador
 - El sensor y FTDI utilizan el mismo puerto serie
 - El sensor causa interferencias que impiden la subida
-- Una vez completada la subida, reconecta el sensor
+- Una vez completada la subida, reconecte el sensor
 
 Esto NO se aplica a los modelos Lidar.
 
 
-**Paso 2: Comprueba la orientación del FTDI**
+**Paso 2: Compruebe la orientación del FTDI**
 
 Check board markings:
 - Green wire → "GRN" marking
@@ -813,7 +813,7 @@ If reversed:
 - Reconnect firmly
 
 
-**Paso 3: Comprueba la configuración de Arduino IDE**
+**Paso 3: Compruebe la configuración de Arduino IDE**
 
 Tools → Board → MiniCore: "ATmega328"
 Tools → Clock: "External 8 MHz"
@@ -821,14 +821,14 @@ Tools → Clock: "External 8 MHz"
 NOT: "Arduino Pro or Pro Mini"  ← Old/Wrong!
 
 
-**Paso 4: Comprueba la alimentación**
+**Paso 4: Compruebe la alimentación**
 
 - Power switch to OFF (powered by FTDI)
 - Or battery installed and switch ON
 - LED should briefly light when reset button pressed
 
 
-**Paso 5: Vuelve a insertar el cable FTDI**
+**Paso 5: Vuelva a insertar el cable FTDI**
 
 - Disconnect FTDI from logger
 - Check all pins aligned
@@ -836,7 +836,7 @@ NOT: "Arduino Pro or Pro Mini"  ← Old/Wrong!
 - Should sit flush
 
 
-**Paso 6: Prueba otro puerto USB**
+**Paso 6: Pruebe otro puerto USB**
 
 - Some USB ports provide insufficient current
 - Try USB 2.0 port (more reliable than USB 3.0)
@@ -844,17 +844,17 @@ NOT: "Arduino Pro or Pro Mini"  ← Old/Wrong!
 
 
 **⚙️ Prevención:**
-- **Desconecta siempre el sensor antes de programar** (Wari ultrasónico)
-- Marca la orientación en el cable FTDI
-- Revisa los ajustes de la placa antes de cada carga
-- Ten a mano la lista de conexiones FTDI
+- **Desconecte siempre el sensor antes de programar** (Wari ultrasónico)
+- Marque la orientación en el cable FTDI
+- Revise los ajustes de la placa antes de cada carga
+- Tenga a mano la lista de conexiones FTDI
 
 ---
 
 ### Problema 12: Fallo de carga «Serial Port Already in Use»
 
 **🔴 Síntoma:**
-- Intentas cargar un sketch
+- Usted intenta cargar un sketch
 - Arduino IDE indica «Serial port busy» o «Access denied»
 
 **🔍 Causas probables:**
@@ -865,14 +865,14 @@ NOT: "Arduino Pro or Pro Mini"  ← Old/Wrong!
 
 **✅ Solución:**
 
-**Paso 1: Cierra el monitor serie**
+**Paso 1: Cierre el monitor serie**
 
 - In Arduino IDE: Close Serial Monitor window
 - Wait 2 seconds
 - Retry upload
 
 
-**Paso 2: Busca otros programas**
+**Paso 2: Busque otros programas**
 
 Windows:
 - Ctrl+Shift+Esc (Task Manager)
@@ -889,7 +889,7 @@ Linux:
 - kill [PID]
 
 
-**Paso 3: Desconecta y vuelve a conectar**
+**Paso 3: Desconecte y vuelva a conectar**
 
 - Unplug FTDI cable
 - Wait 5 seconds
@@ -897,19 +897,19 @@ Linux:
 - Retry upload
 
 
-**Paso 4: Reinicia Arduino IDE**
+**Paso 4: Reinicie Arduino IDE**
 
 - Close Arduino IDE completely
 - Reopen
 - Retry upload
 
 
-**Paso 5: Reinicia el ordenador** (si nada más funciona)
+**Paso 5: Reinicie el ordenador** (si nada más funciona)
 
 **⚙️ Prevención:**
-- Cierra el monitor serie antes de subir código
-- No uses varios programas serie a la vez
-- Desconecta el FTDI cuando termines
+- Cierre el monitor serie antes de subir código
+- No use varios programas serie a la vez
+- Desconecte el FTDI cuando termine
 
 ---
 
@@ -928,7 +928,7 @@ Linux:
 
 **✅ Solución:**
 
-**Paso 1: Comprueba la selección de placa**
+**Paso 1: Compruebe la selección de placa**
 ```
 Arduino IDE:
 - Tools → Board → MiniCore: Should be "ATmega328"
@@ -936,7 +936,7 @@ Arduino IDE:
 - If wrong: Select correct, re-upload
 ```
 
-**Paso 2: Prueba un programa sencillo de parpadeo**
+**Paso 2: Pruebe un programa sencillo de parpadeo**
 ```cpp
 // Upload simplest possible code to verify functionality:
 void setup() {
@@ -955,7 +955,7 @@ void loop() {
 // If blinks: Logger is OK, issue is in main code
 ```
 
-**Paso 3: Activa la salida serie de depuración**
+**Paso 3: Active la salida serie de depuración**
 ```cpp
 void setup() {
   Serial.begin(115200);
@@ -969,7 +969,7 @@ void setup() {
 // Has output: Follow debug messages to find where code fails
 ```
 
-**Paso 4: Busca bucles infinitos**
+**Paso 4: Busque bucles infinitos**
 ```cpp
 // Common mistake:
 void setup() {
@@ -993,7 +993,7 @@ void setup() {
 }
 ```
 
-**Paso 5: Graba el bootloader** (si el hardware funciona, pero el código no)
+**Paso 5: Grabe el bootloader** (si el hardware funciona, pero el código no)
 ```
 Requires:
 - Another Arduino as ISP programmer
@@ -1010,10 +1010,10 @@ Process:
 ```
 
 **⚙️ Prevención:**
-- Comprueba la selección de placa antes de subir el código
-- Prueba primero con un sketch sencillo y conocido
-- Añade salida serie de depuración durante el desarrollo
-- Evita los bucles infinitos (usa tiempos de espera)
+- Compruebe la selección de placa antes de subir el código
+- Pruebe primero con un sketch sencillo y conocido
+- Añada salida serie de depuración durante el desarrollo
+- Evite los bucles infinitos (use tiempos de espera)
 
 ---
 
@@ -1036,7 +1036,7 @@ Process:
 
 **✅ Solución:**
 
-**Paso 1: Instala mediante el gestor de bibliotecas**
+**Paso 1: Instale mediante el gestor de bibliotecas**
 ```
 Arduino IDE:
 1. Sketch → Include Library → Manage Libraries
@@ -1067,7 +1067,7 @@ The LowPower library requires manual installation:
 7. Verify: Sketch → Include Library → Low-Power should appear
 ```
 
-**Paso 3: Comprueba la estructura de carpetas**
+**Paso 3: Compruebe la estructura de carpetas**
 ```
 Correct structure:
 Arduino/libraries/Low-Power/
@@ -1082,7 +1082,7 @@ Arduino/libraries/Low-Power-master/Low-Power/
 Fix: Move inner folder up one level
 ```
 
-**Paso 4: Comprueba la compatibilidad**
+**Paso 4: Compruebe la compatibilidad**
 ```
 Error: "This LowPower library only works on AVR processors"
 
@@ -1103,10 +1103,10 @@ Solution:
 | AltSoftSerial | Paul Stoffregen | Gestor de bibliotecas | Modelos celulares |
 
 **⚙️ Prevención:**
-- Instala todas las bibliotecas antes de la primera compilación
-- Manténlas actualizadas, pero prueba el código tras actualizarlas
-- Documenta las versiones que funcionan
-- Conserva copias de seguridad de esas versiones
+- Instale todas las bibliotecas antes de la primera compilación
+- Manténgalas actualizadas, pero pruebe el código tras actualizarlas
+- Documente las versiones que funcionan
+- Conserve copias de seguridad de esas versiones
 
 ---
 
@@ -1114,30 +1114,30 @@ Solution:
 
 | Síntoma | Causa más probable | Solución rápida | Referencia |
 |---------|-------------------|-----------|----------|
-| No se enciende | Batería agotada | Sustituye la batería | Problema 1 |
-| Batería agotada en una noche | No entra en reposo | Revisa el código de reposo | Problema 2 |
-| Alcance máximo | No hay objetivo o está mal orientado | Reorienta el sensor | Problema 4 |
-| Deriva de distancia | Dilatación térmica | Acéptala o compénsala | Problema 5 |
-| Lidar con valores negativos | Error I2C | Añade resistencias de pull-up | Problema 6 |
-| SD corrupta | Apagado incorrecto | Recupera datos y formatea | Problema 7 |
-| Caracteres extraños en CSV | Codificación incompatible | Importa como UTF-8 | Problema 8 |
-| Datos antiguos en ThingsBoard | Problema de red o SIM | Revisa señal y SIM | Problema 9 |
+| No se enciende | Batería agotada | Sustituya la batería | Problema 1 |
+| Batería agotada en una noche | No entra en reposo | Revise el código de reposo | Problema 2 |
+| Alcance máximo | No hay objetivo o está mal orientado | Reoriente el sensor | Problema 4 |
+| Deriva de distancia | Dilatación térmica | Acéptela o compénsela | Problema 5 |
+| Lidar con valores negativos | Error I2C | Añada resistencias de pull-up | Problema 6 |
+| SD corrupta | Apagado incorrecto | Recupere datos y formatee | Problema 7 |
+| Caracteres extraños en CSV | Codificación incompatible | Importe como UTF-8 | Problema 8 |
+| Datos antiguos en ThingsBoard | Problema de red o SIM | Revise señal y SIM | Problema 9 |
 | Telemetría intermitente | Señal débil | Antena externa | Problema 10 |
-| Fallo de carga «not responding» | Sensor conectado | Desconecta el sensor | Problema 11 |
-| Puerto serie ocupado | Monitor serie abierto | Cierra el monitor | Problema 12 |
-| Carga correcta, sin funcionamiento | Placa equivocada | Revisa la configuración | Problema 13 |
-| Falta una biblioteca | No está instalada | Instálala | Problema 14 |
+| Fallo de carga «not responding» | Sensor conectado | Desconecte el sensor | Problema 11 |
+| Puerto serie ocupado | Monitor serie abierto | Cierre el monitor | Problema 12 |
+| Carga correcta, sin funcionamiento | Placa equivocada | Revise la configuración | Problema 13 |
+| Falta una biblioteca | No está instalada | Instálela | Problema 14 |
 
 ---
 
-## ¿Sigues sin resolverlo?
+## ¿Sigue sin resolverlo?
 
-Si tu problema no aparece aquí:
+Si su problema no aparece aquí:
 
-1. **Consulta los [diagramas de diagnóstico](diagnostic-flowcharts.md)** - Rutas visuales de diagnóstico
-2. **Revisa las [preguntas frecuentes](faq.md)** - Casos poco comunes
-3. **Busca en GitHub Issues** - Puede que alguien haya tenido el mismo problema
-4. **Contacta con soporte** - Incluye síntomas, pruebas realizadas y registros serie
+1. **Consulte los [diagramas de diagnóstico](diagnostic-flowcharts.md)** - Rutas visuales de diagnóstico
+2. **Revise las [preguntas frecuentes](faq.md)** - Casos poco comunes
+3. **Busque en GitHub Issues** - Puede que alguien haya tenido el mismo problema
+4. **Contacte con soporte** - Incluya síntomas, pruebas realizadas y registros serie
 
 ---
 
@@ -1151,4 +1151,4 @@ Si tu problema no aparece aquí:
 ---
 
 !!! success "La mayoría de los problemas son sencillos"
-    El 80 % se debe a batería baja, tarjeta SD sin formatear o XBee mal configurado. ¡Comprueba primero lo básico!
+    El 80 % se debe a batería baja, tarjeta SD sin formatear o XBee mal configurado. ¡Compruebe primero lo básico!

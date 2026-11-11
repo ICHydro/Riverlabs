@@ -1,7 +1,7 @@
 # Consideraciones ambientales
 
 !!! abstract "Descripción general"
-    Los factores ambientales influyen considerablemente en el rendimiento y la vida útil del registrador. Esta guía aborda el tiempo, el clima, la fauna y las características del emplazamiento para favorecer instalaciones duraderas.
+    Los factores ambientales influyen considerablemente en el rendimiento y la vida útil del registrador. Esta guía aborda las condiciones meteorológicas, el clima, la fauna y las características del entorno para favorecer instalaciones duraderas.
 
 ## Clima y condiciones meteorológicas
 
@@ -16,7 +16,7 @@
 | **Batería (carga)** | 0°C | +45°C | +10°C a +35°C |
 | **Tarjeta SD** | -25°C | +85°C | -10°C a +60°C |
 
-Las versiones del Wari con panel solar tienen un circuito interno que desactiva la carga debajo de 0°C.
+Las versiones del Wari con panel solar tienen un circuito interno que desactiva la carga de la batería por debajo de 0°C.
 
 #### Consideraciones para climas fríos
 
@@ -36,9 +36,9 @@ Las versiones del Wari con panel solar tienen un circuito interno que desactiva 
 
 **Adaptaciones para climas cálidos:**
 
-✅ **Hacer:**
+✅ **Recomendaciones:**
 
-- Instalar protección contra la radiación solar.
+- Instalar protección contra la radiación solar
 - Comprobar el estado de la batería con mayor frecuencia
 - Facilitar ventilación
 
@@ -46,25 +46,25 @@ Las versiones del Wari con panel solar tienen un circuito interno que desactiva 
 
 - Montar el registrador bajo el sol directo de la tarde
 - Usar cajas de color oscuro
-- Sellar por completo la caja sin prever ventilación
+- Sellar por completo la caja sin prever una ventilación adecuada
 
 **Métodos de protección solar:**
 
 ![Diseño de protector solar](../assets/images/sun-shield-diagram.png)<br>
-*Un protector solar sencillo reduce la temperatura interna entre 15 y 20°C*
+*Un protector solar sencillo reduce la temperatura interna entre 15°C y 20°C*
 
 1. **Protectores solares:**
-    - Lámina de aluminio o plástico blanco
-    - Montarla a 5–10 cm por encima del registrador
+    - Utilizar una lámina de aluminio o plástico blanco
+    - Instalarla entre 5 y 10 cm por encima del registrador
     - Permitir la circulación de aire por debajo
     - Inclinarla para bloquear el sol de la tarde
 2. **Revestimiento reflectante:**
-    - Pintar la carcasa de blanco
+    - Pintar la caja de blanco
     - Usar cinta reflectante
     - Envolver el exterior con papel de aluminio
 3. **Estructuras de sombra:**
-    - Sombra natural de árboles o estructuras
-    - Cubierta construida para este fin
+    - Aprovechar la sombra natural de árboles o estructuras
+    - Instalar una cubierta dise&ntilde;ada para este fin
     - Colocar el registrador en el lado sombreado de la estructura
 
 ### Precipitaciones y humedad
@@ -73,20 +73,20 @@ Las versiones del Wari con panel solar tienen un circuito interno que desactiva 
 
 1. **Entradas de cables**
     - Comprobar que los prensaestopas impermeables estén bien apretados
-    - Aplicar sellador de silicona si se montan orientados hacia arriba, para evitar acumulaciones de agua
+    - Aplicar sellador de silicona si las entradas de los cables están orientadas hacia arriba, para evitar acumulaciones de agua
     - Guiar los cables hacia abajo (bucle de goteo)
-2. **Juntas de la carcasa**
+2. **Juntas de la caja**
     - Comprobar que la junta esté en buen estado
-    - Limpiar las superficies de sellado antes de cerrar
+    - Limpiar las superficies de sellado antes de cerrar la caja
     - Aplicar una presión uniforme en todos los elementos de fijación
 3. **Carcasa del sensor**
     - Evitar que se acumule agua sobre el sensor
 
-**Prevención de acumulacion de agua:**
+**Prevención de acumulación de agua:**
 
 ![Diseño del drenaje](../assets/images/drainage-design.png)
 
-- Inclinar la caja entre 5 y 10° para favorecer la escorrentía
+- Inclinar la caja entre 5° y 10° para favorecer la escorrentía
 - Hacer que los cables salgan por la parte inferior
 - Evitar superficies horizontales donde pueda acumularse agua
 
@@ -95,15 +95,15 @@ Las versiones del Wari con panel solar tienen un circuito interno que desactiva 
 **Causas de la condensación:**
 
 - Variaciones de temperatura (día/noche)
-- Diferencia de humedad entre el interior y el exterior
+- Diferencias de humedad entre el interior y el exterior
 - Humedad atrapada en una caja sellada
 - Intercambio de aire de la caja debido a cambios de presión
 
 **Medidas contra la condensación:**
 
 - **Bolsas desecantes**
-    - Usar bolsas de gel de sílice del interior de la caja
-    - Renovarlas regularmente. Las bolsas con indicador muestran cuándo están saturadas (típicamente amarillo si están nuevas y verde si se han usado)
+    - Usar bolsas de gel de sílice en el interior de la caja
+    - Renovarlas regularmente. Las bolsas con indicador permiten identificar cuándo están saturadas (típicamente amarillo si están nuevas y verde si se han usado)
     - Usar desecante de calidad alimentaria (reutilizable)
 
 ## Factores biológicos
@@ -128,7 +128,7 @@ Las versiones del Wari con panel solar tienen un circuito interno que desactiva 
 ✅ **Repelentes químicos:**
 
 - Pulverizar repelente de insectos alrededor del sensor (no sobre él)
-- Colocar bolas de algodón con aceite de menta en la carcasa
+- Colocar bolas de algodón con aceite de menta en la caja
 - Usar un repelente comercial para arañas
 - Volver a aplicarlo cada mes
 
@@ -151,7 +151,7 @@ Las versiones del Wari con panel solar tienen un circuito interno que desactiva 
 **Protección frente a inundaciones:**
 
 1. **Altura de montaje**
-    - Por encima del nivel de la crecida de período de retorno de 100 años, si es posible
+    - Instalar el registrador por encima del nivel de la crecida de período de retorno de 100 años, si es posible
     - Documentar el historial de inundaciones de la zona
     - Añadir un margen de seguridad de 1 m
     - Marcar en la estructura de montaje el nivel máximo de inundación conocido

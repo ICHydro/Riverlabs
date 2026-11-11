@@ -1,7 +1,7 @@
 # Guía de configuración de la telemetría
 
 !!! abstract "Descripción general"
-    Esta pagina explica de principio a fin cómo configurar la telemetría celular con módulos XBee para transmitir datos a distancia, desde la instalación del hardware hasta la primera transmisión correcta.
+    Esta página explica de principio a fin cómo configurar la telemetría celular con módulos XBee para transmitir datos a distancia, desde la instalación del hardware hasta la primera transmisión correcta.
 
 ## Descripción general
 
@@ -74,7 +74,7 @@ Los registradores Riverlabs pueden incorporar telemetría celular para transmiti
 |----------------|----------------|
 | **Tecnología** | LTE-M (Cat-M1) y NB-IoT |
 | **Frecuencias** | Dependen de la región (compruebe el modelo) |
-| **Alimentación** | Funcionamiento entre 3,3 y 4,3 V |
+| **Alimentación** | Funcionamiento entre 3.3 y 4.3 V |
 | **Consumo de corriente** | ~200 mA durante la transmisión |
 | **Formato** | Montaje pasante o superficial |
 | **Protocolos** | HTTP, HTTPS, CoAP, MQTT |
@@ -601,4 +601,4 @@ Compárelo con:
 ---
 
 !!! success "¡Telemetría configurada!"
-    Con la telemetría celular en funcionamiento, ya puede supervisar el registrador a distancia y en tiempo real. No tendrá que desplazarse solo para comprobar si funciona.
+    Con la telemetría celular en funcionamiento, ya puede supervisar el registrador a distancia y en tiempo real. No tendrá que desplazarse únicamente para comprobar si funciona.

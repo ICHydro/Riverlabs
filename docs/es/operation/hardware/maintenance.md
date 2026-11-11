@@ -44,14 +44,14 @@ El siguiente plan de mantenimiento es orientativo. Puede ajustarse según la imp
 
 
 !!! danger "Señales de que puede ser necesaria una visita al lugar"
-    - ⚠️ No se reciben datos durante más de 48 horas: posible pérdida de alimentación o desplazamiento del registrador.
+    - ⚠️ No se reciben datos durante más de 48 horas: posible pérdida de alimentación o desplazamiento del registrador
     - ⚠️ Tensión de la batería <3.4 V: descarga de la batería
     - ⚠️ Lecturas del sensor bloqueadas o erráticas
     - ⚠️ Pérdida de la señal de telemetría
 
 ### Sin telemetría
 
-Si no hay telemetría, se sugiere visitas presenciales más frecuentes (ej. mensuales).
+Si no hay telemetría, se sugiere realizar visitas presenciales más frecuentes (p. ej., mensuales).
 
 ---
 

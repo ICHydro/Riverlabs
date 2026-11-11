@@ -2,13 +2,13 @@
 
 ## Objetivo
 
-Esta lista te ayuda a comprobar que el registrador está listo para instalarse.
+Esta lista le ayuda a comprobar que el registrador está listo para instalarse.
 
 ### Por dónde empezar
 
-Para comprobar el funcionamiento del registrador, pulsa el botón de reinicio. No hay riesgo de perder datos ni de cambiar ningún ajuste: reiniciar el registrador simplemente vuelve a iniciar su software interno.
+Para comprobar el funcionamiento del registrador, pulse el botón de reinicio. No hay riesgo de perder datos ni de cambiar ningún ajuste: reiniciar el registrador simplemente vuelve a iniciar su software interno.
 
-Cuando el registrador se inicia o reinicia, realiza algunas comprobaciones internas, como verificar el acceso a la tarjeta SD o al módem de telemetría. Si las comprobaciones se completan correctamente, el LED rojo parpadeará una vez. Normalmente se trata de un destello breve (< 1s), pero puede durar más si el registrador encuentra datos en la memoria interna y los vuelca en la tarjeta SD (consulta la sección de [gestión de datos](../hardware/data-handling.md)). Cuando termina, pulsar de nuevo el botón de reinicio produce un destello breve, porque todos los datos ya se han volcado.
+Cuando el registrador se inicia o reinicia, realiza algunas comprobaciones internas, como verificar el acceso a la tarjeta SD o al módem de telemetría. Si las comprobaciones se completan correctamente, el LED rojo parpadeará una vez. Normalmente se trata de un destello breve (< 1s), pero puede durar más si el registrador encuentra datos en la memoria interna y los vuelca en la tarjeta SD (consulte la sección de [gestión de datos](../hardware/data-handling.md)). Cuando termina, pulsar de nuevo el botón de reinicio produce un destello breve, porque todos los datos ya se han volcado.
 
 Una secuencia de 3x3 destellos indica que hay un problema.
 
@@ -16,16 +16,16 @@ Si no se produce ningún destello rojo, el registrador no arranca, probablemente
 
 ### Batería y alimentación
 
-- El registrador se prende (se observa actividad en el LED)
-- La batería está completamente cargada y se ha comprobado la polaridad. (Consulta la [guía de baterías y alimentación](../hardware/battery-power-guide.md) para interpretar la tensión).
+- El registrador se enciende (se observa actividad en el LED)
+- La batería está completamente cargada y se ha comprobado la polaridad. (Consulte la [guía de baterías y alimentación](../hardware/battery-power-guide.md) para interpretar la tensión)
 - La pila de respaldo CR1220 está instalada
 - No hay conexiones sueltas ni piezas que se muevan dentro de la carcasa
-- Si se utiliza un panel solar, comprueba que esté correctamente conectado y que el LED de carga se encienda con la luz solar.
+- Si se utiliza un panel solar, compruebe que esté correctamente conectado y que el LED de carga se encienda con la luz solar
 
 ### Tarjeta SD (si corresponde)
 
 - La tarjeta microSD está bien colocada en la ranura
-- No se observan patrones de error en el LED (3 x 3 destellos)
+- No se observan patrones de error en el LED (3x3 destellos)
 
 ### Carcasa del registrador
 
@@ -47,11 +47,11 @@ Si no se produce ningún destello rojo, el registrador no arranca, probablemente
 - Hay una tarjeta SIM instalada con un plan de datos activo
 - La transmisión de prueba se ha realizado correctamente
 
-Consulta la [guía de configuración de telemetría](../../telemetry/setup-guide.md) para obtener instrucciones detalladas.
+Consulte la [guía de configuración de telemetría](../../telemetry/setup-guide.md) para obtener instrucciones detalladas.
 
 ### Salida del registrador
 
-Puedes comprobar la salida del registrador leyendo la tarjeta SD, verificando los datos recibidos por telemetría o conectando un cable serie y observando los mensajes de depuración. Se recomienda dejarlo funcionar durante 30 minutos y recoger varias lecturas antes de llevarlo al lugar de instalación.
+Puede comprobar la salida del registrador leyendo la tarjeta SD, verificando los datos recibidos por telemetría o conectando un cable serie y observando los mensajes de depuración. Se recomienda dejarlo funcionar durante 30 minutos y recoger varias lecturas antes de llevarlo al lugar de instalación.
 
 - El reloj indica la hora correcta
 - Las mediciones del sensor devuelven lecturas válidas
@@ -78,7 +78,7 @@ Puedes comprobar la salida del registrador leyendo la tarjeta SD, verificando lo
 
 ## Referencia rápida para solucionar problemas
 
-Si surgen problemas, consulta:
+Si surgen problemas, consulte:
 
 - [Problemas comunes](../troubleshooting/common-issues.md): soluciones rápidas
 - [Diagramas de diagnóstico](../troubleshooting/diagnostic-flowcharts.md): diagnóstico sistemático
@@ -88,7 +88,7 @@ Si surgen problemas, consulta:
 
 | Síntoma                 | Causa probable                  | Solución rápida                                         |
 |------------------------|---------------------------------|---------------------------------------------------------|
-| El LED no se prende  | Batería agotada o invertida     | Comprobar la tensión y la polaridad                      |
+| El LED no se enciende  | Batería agotada o invertida     | Comprobar la tensión y la polaridad                      |
 | Lecturas erráticas     | Sensor obstruido                | Limpiar el sensor y comprobar la trayectoria del haz     |
 | No se escribe en la SD | Fallo de la tarjeta SD          | Comprobar la tarjeta; considerar respaldo en memoria flash |
 | El reloj se reinicia  | Falta la pila de respaldo       | Instalar una CR1220                                      |
@@ -96,6 +96,6 @@ Si surgen problemas, consulta:
 
 ## Siguientes pasos
 
-- Continúa con la [guía de montaje](../../installation/mounting-guide.md)
-- Configura la supervisión en [ThingsBoard](../../telemetry/thingsboard-configuration.md)
-- Revisa el [programa de mantenimiento](../hardware/maintenance.md)
+- Continúe con la [guía de montaje](../../installation/mounting-guide.md)
+- Configure la supervisión en [ThingsBoard](../../telemetry/thingsboard-configuration.md)
+- Revise el [programa de mantenimiento](../hardware/maintenance.md)
