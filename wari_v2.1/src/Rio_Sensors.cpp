@@ -142,5 +142,5 @@ uint8_t readLidarLite(int16_t *readings, uint8_t nreadings, uint8_t debug, Strea
     }
     Serial.println();
   }
-  return 1; // success.
+  return j;
 }
