@@ -699,6 +699,7 @@ bool setclock_ntp() {
       sendDNSLookupCommand((char *)host, sizeof(host) - 1);
       timeInMillis = millis();
       while ((!MyXBeeStatus.hostIPResolved) && ((millis() - timeInMillis) < 10000)) {
+        wdt_reset();
         xbc.loop();
       }
     }
