@@ -322,7 +322,7 @@ void loop ()
 
         SecondsSince2000 = now.TotalSeconds();
 
-        // prepare EEPromPage. Note that we use a 16 byte page here
+        // prepare EEPromPage. Note that we use a 32 byte page here
 
         i = 0;
 

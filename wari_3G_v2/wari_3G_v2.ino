@@ -23,10 +23,10 @@
 #define READ_INTERVAL 5                           // Interval for sensor readings, in minutes
 #define SEND_INTERVAL 1                           // telemetry interval, in hours
 #define NREADINGS 9                               // number of readings taken per measurement (excluding 0 values)
-#define HOST "demo.thingsboard.io"                // internet address of the IoT server to report to
-#define ACCESSTOKEN "A1_TEST_TOKEN"               // Thingsboard access token
-#define LOGGERID ""                               // Logger ID. Set to whatever you like
-#define APN ""                                    // APN of the cellular network
+#define HOST "riverflow.io"                // internet address of the IoT server to report to
+#define ACCESSTOKEN "kpm9bktt5jixgyadivtn"               // Thingsboard access token
+#define LOGGERID "RL000728"                               // Logger ID. Set to whatever you like
+#define APN "hologram"                                    // APN of the cellular network
 #define TIMEOUT 180                               // cellular timeout in seconds, per attempt
 #define DONOTUSEEEPROMSENDBUFFER
 #define NTP                                       // set the clock at startup by querying an ntc server
@@ -233,6 +233,7 @@ void setup ()
     } else {
         #ifdef DEBUG > 0
             Serial.println(F("Cellular XBee detected. Setting APN"));
+            Serial.println(APN);
         #endif
         uint8_t anCmd[] = {'A','N'};
         uint8_t wrCmd[] = {'W','R'};
@@ -460,7 +461,7 @@ void loop ()
 
         SecondsSince2000 = now.TotalSeconds();
 
-        // prepare EEPromPage. Note that we use a 16 byte page here
+        // prepare EEPromPage. Note that we use a 32 byte page here
 
         i = 0;
 

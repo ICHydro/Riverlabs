@@ -31,7 +31,7 @@
   0x51 // EEPROM I2C address: 0x57 for AT24c32 on clock; 0x51 or 81 for chip on PCB (Node_3G, SD
        // boards)
 #define EEPromPageSize                                                                             \
-  16 // max 32 bytes for the AT24c32, up to 128 bytes for M24512. Can be smaller (e.g., 8, 16)
+  32 // max 32 bytes for the AT24c32, up to 128 bytes for M24512. Can be smaller (e.g., 8, 16)
 #ifdef M24512
 #define maxpagenumber                                                                              \
   (65536 / EEPromPageSize) // maximum number of pages: 128 for AT24c32, 2048 for M24512 if page
