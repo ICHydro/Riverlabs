@@ -8,6 +8,14 @@ Please check [existing issues](https://github.com/ICHydro/Riverlabs/issues) and 
 
 If no related issue exists, open one first to discuss the approach before starting work on a pull request.
 
+## Creating issues
+
+When creating an issue:
+
+- Provide a clear description of the problem or feature request
+- Include steps to reproduce the problem (for bugs) or use cases (for features)
+- Mention your environment if relevant (e.g., hardware, OS and software versions)
+
 ## Making changes
 
 ### For collaborators
@@ -38,14 +46,6 @@ If no related issue exists, open one first to discuss the approach before starti
 ## Code review
 
 All pull requests require approval from two reviewers before merging. Reviewers will provide feedback, and authors are expected to address comments or discuss concerns.
-
-## Creating issues
-
-Before creating an issue, check if a similar one already exists. When reporting:
-
-- Provide a clear description of the problem or feature request
-- Include steps to reproduce the problem (for bugs) or use cases (for features)
-- Mention your environment if relevant (e.g., hardware, OS and software versions)
 
 ## Becoming a collaborator
 
