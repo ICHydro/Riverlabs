@@ -4,7 +4,7 @@ Thank you for your interest in contributing to the Riverlabs repository. Please 
 
 ## Before you start
 
-Please check [existing issues](../../issues) and [pull requests](../../pulls) to avoid duplicating work. Do not work on an issue if it is already assigned. Collaborators are welcome to assign themselves to existing issues.
+Please check [existing issues](https://github.com/ICHydro/Riverlabs/issues) and [pull requests](https://github.com/ICHydro/Riverlabs/pulls) to avoid duplicating work. Do not work on an issue if it is already assigned. Collaborators are welcome to assign themselves to existing issues.
 
 If no related issue exists, open one first to discuss the approach before starting work on a pull request.
 
@@ -33,7 +33,7 @@ If no related issue exists, open one first to discuss the approach before starti
   - Provide a brief description of your changes
   - Include the issue the pull request is addressing
   - If the pull request is in **Draft**, mark it as **Ready for review** when ready for feedback
-  - Request review from [@ICHydro](../../) and [@stephwills](../../)
+  - Request review from @ICHydro and @stephwills
 
 ## Code review
 
@@ -49,4 +49,4 @@ Before creating an issue, check if a similar one already exists. When reporting:
 
 ## Becoming a collaborator
 
-If you are a member of the ICHydro research group and believe you should have collaborator access, please request access from [@ICHydro](../../).
+If you are a member of the ICHydro research group and believe you should have collaborator access, please request access from @ICHydro.
